@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
   
 language:  _language-et.yml
 
@@ -41,4 +42,3 @@ execute:
   freeze: auto
   
 editor: visual
-
