@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Regressiooni katkemise meetod – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04-difdif.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-rdd.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eessõna</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-sissejuhatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#mudeli-seade" id="toc-mudeli-seade" class="nav-link active" data-scroll-target="#mudeli-seade"><span class="header-section-number">6.1</span> Mudeli seade</a>
+  <ul class="collapse">
+  <li><a href="#tähistused" id="toc-tähistused" class="nav-link" data-scroll-target="#tähistused">Tähistused</a></li>
+  <li><a href="#järsk-sharp-disain" id="toc-järsk-sharp-disain" class="nav-link" data-scroll-target="#järsk-sharp-disain">Järsk (sharp) disain</a></li>
+  <li><a href="#mõju-hindamise-valem-sharp-rdd" id="toc-mõju-hindamise-valem-sharp-rdd" class="nav-link" data-scroll-target="#mõju-hindamise-valem-sharp-rdd">Mõju hindamise valem (sharp RDD)</a></li>
+  <li><a href="#hägus-fuzzy-disain" id="toc-hägus-fuzzy-disain" class="nav-link" data-scroll-target="#hägus-fuzzy-disain">Hägus (fuzzy) disain</a></li>
+  </ul></li>
+  <li><a href="#mõju-hindamise-valem-fuzzy-rdd-wald" id="toc-mõju-hindamise-valem-fuzzy-rdd-wald" class="nav-link" data-scroll-target="#mõju-hindamise-valem-fuzzy-rdd-wald"><span class="header-section-number">6.2</span> Mõju hindamise valem (fuzzy RDD, Wald)</a>
+  <ul class="collapse">
+  <li><a href="#pidevuse-eeldus" id="toc-pidevuse-eeldus" class="nav-link" data-scroll-target="#pidevuse-eeldus">Pidevuse eeldus</a></li>
+  <li><a href="#mccrary-test-x-jaotuse-pidevus" id="toc-mccrary-test-x-jaotuse-pidevus" class="nav-link" data-scroll-target="#mccrary-test-x-jaotuse-pidevus">McCrary test: x-jaotuse pidevus</a></li>
+  </ul></li>
+  <li><a href="#näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010." id="toc-näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010." class="nav-link" data-scroll-target="#näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010."><span class="header-section-number">6.3</span> Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.</a>
+  <ul class="collapse">
+  <li><a href="#laadige-andmed" id="toc-laadige-andmed" class="nav-link" data-scroll-target="#laadige-andmed">Laadige andmed</a></li>
+  <li><a href="#alati-alusta-joonistest" id="toc-alati-alusta-joonistest" class="nav-link" data-scroll-target="#alati-alusta-joonistest">Alati alusta joonistest</a></li>
+  <li><a href="#keskmine-vanusrühmade-järgi" id="toc-keskmine-vanusrühmade-järgi" class="nav-link" data-scroll-target="#keskmine-vanusrühmade-järgi">Keskmine vanusrühmade järgi</a></li>
+  <li><a href="#vanus-ja-töötunnid" id="toc-vanus-ja-töötunnid" class="nav-link" data-scroll-target="#vanus-ja-töötunnid">Vanus ja töötunnid</a></li>
+  <li><a href="#tee-lõikepunkt-ja-leia-vanus-selle-suhtes" id="toc-tee-lõikepunkt-ja-leia-vanus-selle-suhtes" class="nav-link" data-scroll-target="#tee-lõikepunkt-ja-leia-vanus-selle-suhtes">Tee lõikepunkt ja leia vanus selle suhtes</a></li>
+  <li><a href="#järsk-terav-disain-pensioniea-mõju-tõenäosusele-saada-pensioni" id="toc-järsk-terav-disain-pensioniea-mõju-tõenäosusele-saada-pensioni" class="nav-link" data-scroll-target="#järsk-terav-disain-pensioniea-mõju-tõenäosusele-saada-pensioni">Järsk (terav) disain – pensioniea mõju tõenäosusele saada pensioni</a></li>
+  <li><a href="#mõju-hindamine-regressioonimudeliga" id="toc-mõju-hindamine-regressioonimudeliga" class="nav-link" data-scroll-target="#mõju-hindamine-regressioonimudeliga">Mõju hindamine regressioonimudeliga</a></li>
+  <li><a href="#mitteparameetriline-hindamine" id="toc-mitteparameetriline-hindamine" class="nav-link" data-scroll-target="#mitteparameetriline-hindamine">Mitteparameetriline hindamine</a></li>
+  <li><a href="#pensioniea-mõju-töötundidele" id="toc-pensioniea-mõju-töötundidele" class="nav-link" data-scroll-target="#pensioniea-mõju-töötundidele">Pensioniea mõju töötundidele</a></li>
+  <li><a href="#regressioonimudel-kui-oleks-järsk-disain" id="toc-regressioonimudel-kui-oleks-järsk-disain" class="nav-link" data-scroll-target="#regressioonimudel-kui-oleks-järsk-disain">Regressioonimudel – kui oleks järsk disain</a></li>
+  <li><a href="#silumise-kasutamine" id="toc-silumise-kasutamine" class="nav-link" data-scroll-target="#silumise-kasutamine">Silumise kasutamine</a></li>
+  <li><a href="#platseebo-test" id="toc-platseebo-test" class="nav-link" data-scroll-target="#platseebo-test">Platseebo-test</a></li>
+  <li><a href="#platseebo-test-ka-töötundidele" id="toc-platseebo-test-ka-töötundidele" class="nav-link" data-scroll-target="#platseebo-test-ka-töötundidele">Platseebo test ka töötundidele</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Poolik - arenev</p>
+<section id="mudeli-seade" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="mudeli-seade"><span class="header-section-number">6.1</span> Mudeli seade</h2>
+<p>Regressiooni katkemise disain (Regression Discontinuity Design, RDD) on kvaasieksperimentaalne meetod põhjusliku mõju hindamiseks, kui osalemine programmis või meetmes sõltub mõnest pidevast tunnusest (nt vanus, sissetulek, hinne) ja selgelt määratletud lõikepunktist.:contentReference<span data-index="0">oaicite:0</span></p>
+<p>Tüüpilised näited:</p>
+<ul>
+<li>pensioniõigus alates vanusest 63 või 65<br>
+</li>
+<li>tasuta hambaravi kuni 19. eluaastani<br>
+</li>
+<li>toetus, kui käive langeb rohkem kui 30%<br>
+</li>
+<li>stipendium, kui hinne ületab 4,5</li>
+</ul>
+<p>Oluline mõte: me ei saa leida täpselt samasugust osalus- ja võrdlusrühma (puudub ühine tugi, <em>common support</em>), kuid saame võrrelda <strong>väga lähedal lõikepunktile</strong> olevaid isikuid: nt 64 vs 65 aastat, hinne 4,4 vs 4,6.</p>
+<section id="tähistused" class="level3">
+<h3 class="anchored" data-anchor-id="tähistused">Tähistused</h3>
+<p>Olgu:</p>
+<ul>
+<li><span class="math inline">\((Y_i(1)\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus, kui ta osaleb programmis (D=1)<br>
+</li>
+<li><span class="math inline">\((Y_i(0)\)</span> – potentsiaalne tulemus, kui ta ei osale (D=0)<br>
+</li>
+<li><span class="math inline">\(D_i \in \{0,1\}\)</span> – tegelik osalemine meetmes<br>
+</li>
+<li><span class="math inline">\(X_i\)</span> – määramismuuttuja (vanus, hinne, sissetulek), mis määrab abikõlblikkuse<br>
+</li>
+<li><span class="math inline">\(c\)</span> – lõikepunkt, lävend (cutoff)</li>
+</ul>
+<p>Vaatleme tinglikke keskmisi:</p>
+<p><span class="math display">\[
+m_1(x) = \mathbb{E}[Y_i(1)\mid X_i = x], \quad
+m_0(x) = \mathbb{E}[Y_i(0)\mid X_i = x].
+\]</span></p>
+<p>RD meetod põhineb ideel, et vahetult lõikepunkti ümbruses on isikud “peaaegu juhuslikult” jaotatud.</p>
+</section>
+<section id="järsk-sharp-disain" class="level3">
+<h3 class="anchored" data-anchor-id="järsk-sharp-disain">Järsk (sharp) disain</h3>
+<p>Määramistingimus</p>
+<p><strong>Järsk disain</strong> (<em>sharp design</em>) tähendab, et määramismuutuja <span class="math inline">\(X_i\)</span> ja lõikepunkt <span class="math inline">\(c\)</span> määravad osalemise deterministlikult:</p>
+<p><span class="math display">\[
+D_i = \mathbf{1}(X_i \ge c),
+\]</span></p>
+<p>kus <span class="math inline">\(\mathbf{1}(\cdot)\)</span> on indikaatorfunktsioon.</p>
+<ul>
+<li>Kui <span class="math inline">\(X_i \ge c\)</span>, siis kõik osalevad: <span class="math inline">\(D_i = 1\)</span><br>
+</li>
+<li>Kui <span class="math inline">\(X_i &lt; c\)</span>, siis keegi ei osale: <span class="math inline">\(D_i = 0\)</span></li>
+</ul>
+<p>Te gelikult vaatleme täheldatud tulemust</p>
+<p><span class="math display">\[
+Y_i = D_i Y_i(1) + (1-D_i)Y_i(0).
+\]</span></p>
+</section>
+<section id="mõju-hindamise-valem-sharp-rdd" class="level3">
+<h3 class="anchored" data-anchor-id="mõju-hindamise-valem-sharp-rdd">Mõju hindamise valem (sharp RDD)</h3>
+<p>RDD põhiobjekt on <strong>lokaalne keskmine mõju</strong> lõikepunktis:</p>
+<p><span class="math display">\[
+\tau^{SRD} = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x]
+            - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x].
+\]</span></p>
+<p>Sõnades:<br>
+– võtame tingliku keskmise väljundi vahetult lõikepunktist <strong>paremal</strong> (abikõlblikud)<br>
+– lahutame sellest tingliku keskmise väljundi vahetult lõikepunktist <strong>vasakul</strong> (mitteabikõlblikud).</p>
+<p>Kui pidevuse eeldus (vt allpool) kehtib, siis see vahe identifitseerib:</p>
+<p><span class="math display">\[
+\tau^{SRD} = \mathbb{E}\big[Y_i(1) - Y_i(0) \,\big|\, X_i = c\big],
+\]</span></p>
+<p>ehk <strong>lokaalse ATE</strong> – <em>Local Average Treatment Effect</em> lõikepunkti juures (LATE).</p>
+</section>
+<section id="hägus-fuzzy-disain" class="level3">
+<h3 class="anchored" data-anchor-id="hägus-fuzzy-disain">Hägus (fuzzy) disain</h3>
+<p>Määramistingimus</p>
+<p><strong>Hägus disain</strong> (<em>fuzzy design</em>) tähendab, et lõikepunkt ei määra osalemist deterministlikult:</p>
+<ul>
+<li>osalemise tõenäosus hüppab lõikepunktis, kuid<br>
+</li>
+<li>enne lõikepunkti on osa isikuid, kes ikkagi osalevad<br>
+</li>
+<li>pärast lõikepunkti on osa, kes ei osale.</li>
+</ul>
+<p>Formaalne:</p>
+<p><span class="math display">\[
+p(x) = \Pr(D_i = 1 \mid X_i = x)
+\]</span></p>
+<p>on <strong>katkev</strong> punktis (c), st</p>
+<p><span class="math display">\[
+\lim_{x \downarrow c} p(x) \neq \lim_{x \uparrow c} p(x),
+\]</span></p>
+<p>aga kumbki pole 0 ega 1.</p>
+<p>Mida see tähendab sisuliselt?<br>
+– reegel on olemas (nt pensioniiga 63)<br>
+– aga osa inimestest läheb pensionile varem või hiljem → reeglit ei järgita täielikult<br>
+– lõikepunkti lähedal on <span class="math inline">\(X_i\)</span> käitumas nagu <strong>instrumentmuutuja</strong>: mõjutab tugevalt osalemise tõenäosust, mitte otseselt tulemust.</p>
+</section>
+</section>
+<section id="mõju-hindamise-valem-fuzzy-rdd-wald" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="mõju-hindamise-valem-fuzzy-rdd-wald"><span class="header-section-number">6.2</span> Mõju hindamise valem (fuzzy RDD, Wald)</h2>
+<p>Hägusa disaini korral võrdleme lisaks <span class="math inline">\(Y\)</span> hüppele ka meetmes osalemise hüpet:</p>
+<p><span class="math display">\[
+\Delta Y = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x]
+         - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x],
+\]</span></p>
+<p><span class="math display">\[
+\Delta D = \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x]
+         - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x].
+\]</span></p>
+<p><strong>Lokaalne Waldi hinnang</strong>:</p>
+<p><span class="math display">\[
+\tau^{FRD} = \frac{\Delta Y}{\Delta D}.
+\]</span></p>
+<p>See on analoogne IV-Waldi hinnanguga: kui lõikepunkti juures oleks tõenäosus muutunud 0-lt 1-le, siis <span class="math inline">\(\Delta Y\)</span> olekski mõju; kuna muutus on väiksem, skaleerime selle üles jagades <span class="math inline">\(\Delta D\)</span>-ga.</p>
+<section id="pidevuse-eeldus" class="level3">
+<h3 class="anchored" data-anchor-id="pidevuse-eeldus">Pidevuse eeldus</h3>
+<p>RDD tuum on <strong>pidevuse eeldus</strong> (<em>continuity assumption</em>). Informaalne mõte:</p>
+<p>Kõik muud tegurid peale programmi mõju muutuvad lõikepunkti ümbruses “sujuvalt” (pidevalt). Ainus diskreetne hüpe <span class="math inline">\(Y\)</span>-s lõikepunktis tuleb programmist.</p>
+<p>Formaalne kuju:</p>
+<p><span class="math display">\[
+\lim_{x \downarrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+=
+\lim_{x \uparrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+\]</span></p>
+<p>ja terava disaini korral samamoodi <span class="math inline">\(Y_i(1)\)</span> jaoks, või üldisemalt, et potentsiaalsete tulemuste tinglikud keskmised on pidevad <span class="math inline">\(x=c\)</span> juures.</p>
+<p>Lisaks saame kontrollida, kas ka $X£-i tihedusfunktsioon on pidev lõikepunkti juures (vt McCrary test).</p>
+<p>Pidevuse rikkumised:</p>
+<ul>
+<li>inimesed manipuleerivad oma $X£-i (hinne, sissetulek) üle/alla piiri, et reegliga mängida<br>
+</li>
+<li>samal lõikepunktil juhtub mõni <strong>muu</strong> poliitikamuutus (teine reform, teine programm)<br>
+</li>
+<li>lõikepunkt ise on endogeenne (nt “nutikad” ettevõtted planeerivad töötajate arvu täpselt alla piiri, et toetust saada)</li>
+</ul>
+</section>
+<section id="mccrary-test-x-jaotuse-pidevus" class="level3">
+<h3 class="anchored" data-anchor-id="mccrary-test-x-jaotuse-pidevus">McCrary test: x-jaotuse pidevus</h3>
+<p>Kui inimesed saavad määramismuutujat <span class="math inline">\(X\)</span> ise mõjutada (nt taotlusvormi täitmise kuupäeva, sissetuleku deklareerimist), võivad nad “koonduda” lõikepunkti alla või üles. Selle tuvastamiseks kasutatakse <strong>McCrary tihedustesti</strong>.</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(X\)</span> tihedus on lõikepunkti juures <strong>pidev</strong> (ei ole manipulatsiooni)<br>
+</li>
+<li><span class="math inline">\(H_1\)</span>: tiheduses on <strong>hüpe</strong> lõikepunkti juures (viitab manipulatsioonile)</li>
+</ul>
+<p>Idee:</p>
+<ol type="1">
+<li>hinnatakse <span class="math inline">\(X\)</span> tihedust lõikepunkti vasakul ja paremal (nt lokaalse polünoomi abil),<br>
+</li>
+<li>testitakse, kas hinnatud tihedused erinevad statistiliselt olulisel määral.</li>
+</ol>
+</section>
+</section>
+<section id="näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010." class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010."><span class="header-section-number">6.3</span> Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.</h2>
+<ol start="2010" type="1">
+<li>aastal oli meeste seadusjärgne pensioniiga 63 aastat. Selles vanuses võiksid nad saada täispensioni. Nad võivad minna pensionile varem (ja kaotada pensioni suuruses) või hiljem pensionile jääda (ja neil on suurem pension). Neil võib olla ka eripension, mida mõnikord maksti varem, või ka töövõimetuspension.<br>
+Pensioniiga annab õiguse vanaduspensionile, väikesele, kuid kindlale lisasissetulekule, mis võib võimaldada vanematel inimestel oma tööaega lühendada.</li>
+</ol>
+<p>Meie uurimisküsimus: - kuidas mõjutab pensioni saamist nominaalpensioniikka (63) jõudmine? (Me peame seda järsuks disainiks– sest õigus tekib igal mehel) - kuidas mõjutab pensioni saamine nominaalpensioniea (63) lähedal töötunde. Seda võiks pidada hägusaks disainiks, sest nominaalpensioniikka jõudmine mõjutab pensioni saama hakkamist vaid osadel inimestel.</p>
+<p>Probleem on selles, et vanus ise mõjutab tervist, mis loomulikult vähendab tööaega. Kuidas neid mõjusid eristada – üks tervise ja teine lisatulu kaudu? Meil ei ole tervise jaoks selget mõõdikut, seega kasutame vanust lihtsalt lähendina.</p>
+<p>Teeme oletuse: vanuse mõju tööajale tervise kaudu on pidev, kuid vanuse mõju pensioni saamise õigusele on diskreetne (või hüppeline).</p>
+<p>Laadige paketid.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co">#Stata failide jaoks</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rdrobust)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rdrobust)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ivreg)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="laadige-andmed" class="level3">
+<h3 class="anchored" data-anchor-id="laadige-andmed">Laadige andmed</h3>
+<p>Meil on järgmised tunnused</p>
+<ul>
+<li>age</li>
+<li>ppension - 1-0 tunnus, kui inimene saab pensioni (meie meede)</li>
+<li>oldage – inimene saab vanaduspensioni</li>
+<li>disben – inimene saab töövõimetuspensioni</li>
+<li>hours – nädala töötunnid (meie väljund)</li>
+<li>employed - 1-0 kui inimesel on täisajaga töökoht</li>
+<li>taustatunnused: estlang (räägib Eesti keelt), haridus (haridustase: 1,2,3)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"https://kodu.ut.ee/~avork/files/oppetoo/micro/pensioners.dta"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="alati-alusta-joonistest" class="level3">
+<h3 class="anchored" data-anchor-id="alati-alusta-joonistest">Alati alusta joonistest</h3>
+<p>Tee joonis vanuse ja pensioni saamise vahel</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y =</span> pension)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>lisa sammhaaval a) silumine b) värvi vanuse järgi age &gt; 62 c) tee punctid väiksemaks (size = 0.5) ja läbipaistvaks (alpha = 0.5) d) lisa juhuslikku müra punktidele “position = position_jitter(width = 0.2,height = 0.05, seed = 1234)” e) lisa vertikaalne joon 62.5</p>
+<p>Vaata, kuidas joonis muutub</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y =</span> pension, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> age<span class="sc">&gt;</span><span class="dv">62</span>)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,<span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">seed =</span> <span class="dv">1234</span>)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">62.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="keskmine-vanusrühmade-järgi" class="level3">
+<h3 class="anchored" data-anchor-id="keskmine-vanusrühmade-järgi">Keskmine vanusrühmade järgi</h3>
+<p>Arvutage pensioni saavate meeste keskmine osakaal (muutuja pension), keskmine tööaeg (muutuja hours) vanuse järgi ja näitaja (over62), kui vanus on üle 62,5</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dfmeanprop <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pension =</span> <span class="fu">mean</span>(pension)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">hours =</span> <span class="fu">mean</span>(hours),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">over62=</span> <span class="fu">as.factor</span>(<span class="fu">mean</span>(age<span class="sc">&gt;</span><span class="fl">62.5</span>)))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Joonistage igas vanuses pensioni saavate meeste keskmine osakaal, värvige see üle62 võrra. Lisa silutud joon.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dfmeanprop <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y =</span> pension, <span class="at">color =</span> over62)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">5</span>)))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Kas 63-aastaselt on hüpe?</p>
+<p>Kas pensioniea mõju pensioni saamisele on järsk või hägune?</p>
+</section>
+<section id="vanus-ja-töötunnid" class="level3">
+<h3 class="anchored" data-anchor-id="vanus-ja-töötunnid">Vanus ja töötunnid</h3>
+<p>Joonistage lähteandmet põhjal seos iganädalaste töötundide ja vanuse järgi. Kasutage sama koodi, mida kasutasite pensioni jaoks, kuid asendage pension töötundidega. Vajadusel muutke position_jitter</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y =</span> hours, <span class="at">color =</span> age<span class="sc">&gt;</span><span class="dv">62</span>)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,<span class="at">height =</span> <span class="dv">1</span>, <span class="at">seed =</span> <span class="dv">1234</span>)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">62.5</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Joonista samuti grupeeritud andmete järgi</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dfmeanprop <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y =</span> hours, <span class="at">color =</span> over62)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">62.5</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tee-lõikepunkt-ja-leia-vanus-selle-suhtes" class="level3">
+<h3 class="anchored" data-anchor-id="tee-lõikepunkt-ja-leia-vanus-selle-suhtes">Tee lõikepunkt ja leia vanus selle suhtes</h3>
+<p>Teeme muutuja ‘penage’ = 62.5</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>penage <span class="ot">=</span> <span class="fl">62.5</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Looge uus muutuja “agec”, mis on erinevus vanusest 62,5. (Me ei tea täpselt, millal inimene sai 63-aastaseks, seetõttu kasutame 62,5). Looge tsentraliseeritud vanuse ruut ja kuupliige. Genereerige ka näitaja (1-0) muutuja, kui vanus on vanem kui pensioniiga: “overpenage”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span>  </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agec =</span> age<span class="sc">-</span>penage,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">agec2 =</span> agec<span class="sc">*</span>agec,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">agec3 =</span> agec<span class="sc">*</span>agec<span class="sc">*</span>agec,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">overpenage =</span> (age<span class="sc">&gt;</span>penage)<span class="sc">*</span><span class="dv">1</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="järsk-terav-disain-pensioniea-mõju-tõenäosusele-saada-pensioni" class="level3">
+<h3 class="anchored" data-anchor-id="järsk-terav-disain-pensioniea-mõju-tõenäosusele-saada-pensioni">Järsk (terav) disain – pensioniea mõju tõenäosusele saada pensioni</h3>
+<p>Vanaduspensioni ea kättejõudmise mõttes on tegu järsu disainiga (inimestel tekib õigus täispensionile, küll aga mõned valivad või saavad minna varem ja mõned hiljem). Võrdleme pensioni saamist enne ja pärast pensioniiga Võtame u = 2. Võrdleme pensioni saamist vanuses 61-62 ja 63-64.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>u <span class="ot">=</span> <span class="dv">2</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Leia käsitsi osakaalud enne ja pärast pensioniiga</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>meanpensbelow <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(age<span class="sc">&gt;</span>penage<span class="sc">-</span>u, age <span class="sc">&lt;</span>penage) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanpensbelow =</span> <span class="fu">mean</span>(pension)) <span class="sc">%&gt;%</span>  <span class="fu">as.numeric</span>()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>meanpensabove <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(age<span class="sc">&gt;</span>penage, age <span class="sc">&lt;</span>penage<span class="sc">+</span>u) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanpensabove =</span> <span class="fu">mean</span>(pension)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Kui suur on erinevus pensioni saamises enne ja pärast pensioniiga?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>meanpensabove <span class="sc">-</span> meanpensbelow</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3123874</code></pre>
+</div>
+</div>
+<p>Võtke u = 1. Kui palju tulemus muutub?</p>
+</section>
+<section id="mõju-hindamine-regressioonimudeliga" class="level3">
+<h3 class="anchored" data-anchor-id="mõju-hindamine-regressioonimudeliga">Mõju hindamine regressioonimudeliga</h3>
+<p>Hinnake lineaarne tõenäosusmudel (mudel1), kus pensioni näitaja sõltub näitajast, kui inimene on pensionieas ja vanus. Lisage seejärel vanuse ruutliige (mudel2) ja kuupliige (mudel3)</p>
+<p>Muutuja “overpenage” koefitsient näitab pensioniea mõju pensioni saamise tõenäosusele. Vanus iseloomustab teiste kanalite mõju, nt terviseseisundi ja töövõimetuspensioni saamise.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pension <span class="sc">~</span> overpenage <span class="sc">+</span> agec, <span class="at">data =</span> df)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pension <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2 , <span class="at">data =</span> df)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pension <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2 <span class="sc">+</span> agec3, <span class="at">data =</span> df)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Võrrelge tulemusi tabelis</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model1, model2, model3, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===================================================================================================
+                                                  Dependent variable:                              
+                    -------------------------------------------------------------------------------
+                                                        pension                                    
+                                (1)                        (2)                       (3)           
+---------------------------------------------------------------------------------------------------
+overpenage                   0.316***                   0.361***                  0.221***         
+                              (0.028)                    (0.029)                   (0.037)         
+agec                         0.029***                   0.025***                  0.050***         
+                              (0.002)                    (0.002)                   (0.005)         
+agec2                                                   -0.001***                 -0.001***        
+                                                        (0.0002)                  (0.0002)         
+agec3                                                                            -0.0002***        
+                                                                                  (0.00003)        
+Constant                     0.472***                   0.497***                  0.578***         
+                              (0.016)                    (0.016)                   (0.021)         
+---------------------------------------------------------------------------------------------------
+Observations                   2,607                      2,607                     2,607          
+R2                             0.496                      0.503                     0.509          
+Adjusted R2                    0.495                      0.502                     0.509          
+Residual Std. Error      0.354 (df = 2604)          0.352 (df = 2603)         0.350 (df = 2602)    
+F Statistic         1,279.302*** (df = 2; 2604) 877.175*** (df = 3; 2603) 675.659*** (df = 4; 2602)
+===================================================================================================
+Note:                                                                   *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Pensioniea vanuspiiri ületamise efekt tõenäosusele, et mehed saavad pensioni on 31.6 protsendipunkti kui lubame lineaarse liikme mudelisse, 36.1 protsendipunkti ruutliikega mudelis ja 22.1 protsendipunkti kuuliikmega mudelis. Seega see, millist mittelineaarsust me lubame vanuspiiri lähedal, mõjutab meie tulemusi üsna palju.</p>
+<p>Saame lubada ka erinevaid parameetreid lõikepunkti mõlemale poolele. overpenage koefitsient näitab nüüd pensioniea kättejõudmise mõju pensioni saamise tõenäosusele lõikepunktis.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model1a <span class="ot">&lt;-</span> <span class="fu">lm</span>(pension <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                agec<span class="sc">*</span>overpenage, <span class="at">data =</span> df)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>model2a <span class="ot">&lt;-</span> <span class="fu">lm</span>(pension <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2 <span class="sc">+</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>               agec<span class="sc">*</span>overpenage <span class="sc">+</span>  agec2<span class="sc">*</span>overpenage , <span class="at">data =</span> df)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>model3a <span class="ot">&lt;-</span> <span class="fu">lm</span>(pension <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2 <span class="sc">+</span> agec3 <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>               agec<span class="sc">*</span>overpenage <span class="sc">+</span>  agec2<span class="sc">*</span>overpenage <span class="sc">+</span> agec3<span class="sc">*</span>overpenage, <span class="at">data =</span> df)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model1a, model2a, model3a, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=================================================================================================
+                                                 Dependent variable:                             
+                    -----------------------------------------------------------------------------
+                                                       pension                                   
+                               (1)                       (2)                       (3)           
+-------------------------------------------------------------------------------------------------
+overpenage                  0.363***                  0.200***                  0.176***         
+                             (0.028)                   (0.042)                   (0.058)         
+agec                        0.039***                  0.086***                  0.073***         
+                             (0.002)                   (0.010)                   (0.025)         
+agec2                                                 0.004***                    0.001          
+                                                       (0.001)                   (0.004)         
+agec3                                                                            -0.0001         
+                                                                                (0.0002)         
+overpenage:agec             -0.028***                 -0.045***                   0.009          
+                             (0.004)                   (0.016)                   (0.042)         
+overpenage:agec2                                      -0.006***                  -0.012          
+                                                       (0.001)                   (0.008)         
+overpenage:agec3                                                                  0.001          
+                                                                                (0.0004)         
+Constant                    0.535***                  0.640***                  0.625***         
+                             (0.018)                   (0.027)                   (0.038)         
+-------------------------------------------------------------------------------------------------
+Observations                  2,607                     2,607                     2,607          
+R2                            0.505                     0.511                     0.511          
+Adjusted R2                   0.505                     0.510                     0.510          
+Residual Std. Error     0.351 (df = 2603)         0.349 (df = 2601)         0.349 (df = 2599)    
+F Statistic         885.732*** (df = 3; 2603) 543.685*** (df = 5; 2601) 388.675*** (df = 7; 2599)
+=================================================================================================
+Note:                                                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Näeme, et mida suurt mittelineaarsust lubada, seda väiksem mõjuhinnang on. Kuupliikmetega mudelis on pensioniea kättejõudmise mõju 17.6 protsendipunkti.</p>
+<p>Edasijõudnutele: kasutame robustseid standardvigu, mis lubavad heteroskedastiivsust</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model1a, model2a, model3a, </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">se=</span><span class="fu">list</span>(<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(model1a, <span class="st">"HC1"</span>))),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(model2a, <span class="st">"HC1"</span>))),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(model3a, <span class="st">"HC1"</span>)))),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=================================================================================================
+                                                 Dependent variable:                             
+                    -----------------------------------------------------------------------------
+                                                       pension                                   
+                               (1)                       (2)                       (3)           
+-------------------------------------------------------------------------------------------------
+overpenage                  0.363***                  0.200***                  0.176***         
+                             (0.030)                   (0.048)                   (0.068)         
+agec                        0.039***                  0.086***                   0.073**         
+                             (0.003)                   (0.012)                   (0.033)         
+agec2                                                 0.004***                    0.001          
+                                                       (0.001)                   (0.006)         
+agec3                                                                            -0.0001         
+                                                                                (0.0003)         
+overpenage:agec             -0.028***                 -0.045***                   0.009          
+                             (0.004)                   (0.015)                   (0.042)         
+overpenage:agec2                                      -0.006***                  -0.012*         
+                                                       (0.001)                   (0.007)         
+overpenage:agec3                                                                 0.001*          
+                                                                                (0.0003)         
+Constant                    0.535***                  0.640***                  0.625***         
+                             (0.024)                   (0.037)                   (0.053)         
+-------------------------------------------------------------------------------------------------
+Observations                  2,607                     2,607                     2,607          
+R2                            0.505                     0.511                     0.511          
+Adjusted R2                   0.505                     0.510                     0.510          
+Residual Std. Error     0.351 (df = 2603)         0.349 (df = 2601)         0.349 (df = 2599)    
+F Statistic         885.732*** (df = 3; 2603) 543.685*** (df = 5; 2601) 388.675*** (df = 7; 2599)
+=================================================================================================
+Note:                                                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+</section>
+<section id="mitteparameetriline-hindamine" class="level3">
+<h3 class="anchored" data-anchor-id="mitteparameetriline-hindamine">Mitteparameetriline hindamine</h3>
+<p>Kasutame silumist paketist <code>rdrobust</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rdrobust</span>(<span class="at">y =</span> df<span class="sc">$</span>pension, <span class="at">x =</span> df<span class="sc">$</span>age, <span class="at">c =</span> <span class="fl">62.5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rdrobust(y = df$pension, x = df$age, c = 62.5): Mass points detected
+in the running variable.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sharp RD estimates using local polynomial regression.
+
+Number of Obs.                 2607
+BW type                       mserd
+Kernel                   Triangular
+VCE method                       NN
+
+Number of Obs.                 1608          999
+Eff. Number of Obs.             472          332
+Order est. (p)                    1            1
+Order bias  (q)                   2            2
+BW est. (h)                   3.778        3.778
+BW bias (b)                   5.943        5.943
+rho (h/b)                     0.636        0.636
+Unique Obs.                      13           12
+
+=====================================================================
+                   Point    Robust Inference
+                Estimate         z     P&gt;|z|      [ 95% C.I. ]       
+---------------------------------------------------------------------
+     RD Effect     0.185     1.921     0.055    [-0.003 , 0.333]     
+=====================================================================</code></pre>
+</div>
+</div>
+<p>Tulemuste tõlgendamisest.</p>
+<ol type="1">
+<li>Võib tulla hoiatus: masspunktid (mass points)</li>
+</ol>
+<p>See tähendab, et vanusemuutujal on palju korduvaid väärtusi (meil täisaastad). See on vanusepõhiste RDD-de puhul tavaline – see ei riku disaini, kuid näitab, et jaotus ei ole täiesti sile.</p>
+<ol start="2" type="1">
+<li>Valimi suurus Kokku on vaatlusi 2607 vaatluse. Hinnang tehakse aga lokaalsete lineaarsete regressioonidega, kolmnurkse kerneliga lõikepunkti ümber. Optimaalne ribalaius (mserd) on umbes 3,778 aastat mõlemal pool lävendit, seega kasutatakse enim vanuseid umbes 58–67.</li>
+</ol>
+<p>“BW type mserd” – ribalaius või aken (bandwidth) on valitud nn mean squared error optimal for RD (ehk mserd) reegli alusel. See on automaatne optimaalne akna valik, mis püüab tasakaalustada täpsust ja nihet.</p>
+<p>“Kernel Triangular” – kasutatakse kolmnurkset kernelit (tuuma), mis tähendab, et lõikepunktile kõige lähemad vaatlused saavad suurima kaalu ja kaugemad väiksema. See on RDD puhul standardne valik, sest rõhutab just lõikepunkti ümbrust.</p>
+<p>VCE method NN – dispersioonide ja standardvigade arvutamisel on kasutatud nearest-neighbor (NN) meetodit, mis põhineb lähimate punktide võrdlemisel. See on üks võimalikest robustsete standardvigade arvutusviisidest.</p>
+<ol start="3" type="1">
+<li>Efektiivne vaatlustearv Kuigi kokku on 2607 vaatluse, panustavad tegelikult kõige enam 472 vaatlust enne ja 332 pärast lõikepunkti, sest kaalumine annab rohkem kaalu neile, kes on lõikepunktile lähedal.</li>
+</ol>
+<p>Order est. (p) - lõikepunkti ümbruses on kasutatud esimese astme polünoomi, ehk lokaalset lineaarset regressiooni. See on RDD standardne valik.</p>
+<p>Order bias (q) = 2 - võimaliku nihke hindamiseks kasutatakse teise astme polünoomi (ruutfunktsiooni). Teisisõnu, nihke parandust hinnatakse natuke paindlikuma mudeliga kui põhihinnangut.</p>
+<p>BW est. (h) = 3.778 - Optimaalne aken hinnangu tegemiseks on 3,78 aastat mõlemal pool lõikepunkti.</p>
+<p>W bias (b) = 5.943 - Nihke hindamiseks kasutatakse laiemat akent, 5,94 aastat mõlemal pool lõikepunkti. See on tavapärane, sest nihke hindamiseks on vaja rohkem andmeid.</p>
+<p>rho (h/b) = 0.636 - See on suhe hinnangu akna ja nihke akna vahel: 3.78 / 5.94 ≈ 0.64. Väärtus alla 1 näitab, et nike hindamiseks kasutatakse suuremat akent kui põhihinnangu jaoks (mis on just õige).</p>
+<p>Unique Obs. = 13 (vasakul), 12 (paremal) - lõikepunkti ümbruses on ainult 13 erinevat vanuseväärtust vasakul ja 12 erinevat vanuseväärtust paremal. Kuna vanus on diskreetne (tavaliselt täisaastad), ei ole lõikepunkti ümber väga palju erinevaid väärtusi, mis võib täpsust piirata.</p>
+<ol start="4" type="1">
+<li>Koefitsient (mõju)</li>
+</ol>
+<p>Tavaline hinnang lõikepunkti mõjule on 0,185. See tähendab, et pensioniea ületamine suurendab pensioni saamise tõenäosust 18,5 protsendipunkti võrra. Standardviga: 0,070 z-statistik: 2,64 p-väärtus: 0,008 → statistiliselt oluline 1% tasemel</p>
+<ol start="5" type="1">
+<li>Robustne (bias-corrected) hinnang on konservatiivsem: z = 1,921, p = 0,055. See on vaid napilt oluline 10% tasemel, sest 95% usaldusvahemik on [−0,003; 0,333] ja hõlmab nulli.</li>
+</ol>
+<p>Tulemuste usaldusväärsus sõltub seega ka sellest, kas kasutame tavalist või robustset hinnangut: tavalise järgi on efekt kindlalt oluline, robustse järgi piiri peal.</p>
+<p>Kommentaar robustsete standardvigade kohta</p>
+<p>Tavaline (“Conventional”) punkthinnang on lihtsalt vahe lõikepunkti vasakul ja paremal poolel lokaalse polünoomi ekstrapoleeritud väärtustes, antud akna korral.</p>
+<p>Standardvead põhinevad asümptootilisel teoorial, kuid kipuvat liiga vähe arvestama nihet (bias), eriti väikeste valimite puhul.</p>
+<p>“Robust bias-corrected (RBC) hinnang” - Calonico, Cattaneo ja Titiunik (2014) järgi püüab korrigeerida lõikepunkti lähedal tekkivat hinnangute nihet.</p>
+<p>Alguses hinnatakse nihe kõrgema astme polünoomi abil.</p>
+<p>Seejärel lahutatakse nihe tavalise hinnangu väärtusest ning arvutatakse uued standardvead, mis arvestavad nii valimi juhuslikkust kui ka nihke korrigeerimist.</p>
+<p>Punktihinnang ise tavaliselt palju ei muutu, kuid usaldusvahemikud muutuvad laiemaks, sest standardvead suurenevad.</p>
+<p>Seega on RBC hinnang konservatiivsem ja usaldusväärsem, vähendades riski vale-positiivsete tulemuste jaoks.</p>
+<p>Ja ka graafik</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rdplot</span>(<span class="at">y =</span> df<span class="sc">$</span>pension, <span class="at">x =</span> df<span class="sc">$</span>age, <span class="at">c =</span> <span class="fl">62.5</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mass points detected in the running variable."</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pensioniea-mõju-töötundidele" class="level3">
+<h3 class="anchored" data-anchor-id="pensioniea-mõju-töötundidele">Pensioniea mõju töötundidele</h3>
+<p>Käsitleme pensioniea mõju töötundidele nüüd hägusa disainina, sest pensioniiga ei määra täpselt pensioni saamist.</p>
+<section id="käsitsi-late-hägusa-disaini-jaoks" class="level4">
+<h4 class="anchored" data-anchor-id="käsitsi-late-hägusa-disaini-jaoks">Käsitsi LATE hägusa disaini jaoks</h4>
+<p>Arvutame käsitsi Waldi kohaliku statistiku (LATE) häguse disaini jaoks. Võtke +/- 2 aastat.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>u <span class="ot">=</span> <span class="dv">5</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Oleme juba arvutanud keskmise pensionäride osa, mis jääb alla ja üle piirpunkti intervalli u piiresse. ‘meanpensbelow’ ja ‘meanpensabove’</p>
+<p>Samamoodi arvutame keskmised töötunnid allpool ja kõrgemal: ” meanhoursbelow “meanhoursabove”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>meanhoursbelow <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(age<span class="sc">&gt;</span>penage<span class="sc">-</span>u, age <span class="sc">&lt;</span>penage) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanhourbelow =</span> <span class="fu">mean</span>(hours)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>meanhoursabove <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(age<span class="sc">&gt;</span>penage, age <span class="sc">&lt;</span>penage<span class="sc">+</span>u) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanhourabove =</span> <span class="fu">mean</span>(hours)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Leidke muutused</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#muutus pensionäride osakaalus</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>meanpensabove<span class="sc">-</span>meanpensbelow</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3123874</code></pre>
+</div>
+</div>
+<p>Eerinevus pensioni saajate osakaalus on seega 0.312</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#muutus töötundides </span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>meanhoursabove <span class="sc">-</span> meanhoursbelow</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -9.098265</code></pre>
+</div>
+</div>
+<p>Töötundide vähenemine on samal ajal -9.1 tundi nädalas.</p>
+<p>LATE on suhtarv, mis skaleerib muutuse.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>late <span class="ot">=</span> (meanhoursabove <span class="sc">-</span> meanhoursbelow) <span class="sc">/</span> (meanpensabove<span class="sc">-</span>meanpensbelow)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>late</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -29.12494</code></pre>
+</div>
+</div>
+<p>Õigus saada vanaduspensioni vähendaks töötunde ligi -29.1249376 tunni võrra nädalas.</p>
+<p>Aga, et paljud on juba varem läinud pensionile ja paljud lükkavad edasi, siis andmetest me näeme pensioniea ligidal vaid vähenemist -9.1 töötundi.</p>
+</section>
+</section>
+<section id="regressioonimudel-kui-oleks-järsk-disain" class="level3">
+<h3 class="anchored" data-anchor-id="regressioonimudel-kui-oleks-järsk-disain">Regressioonimudel – kui oleks järsk disain</h3>
+<p>Hindame sarnased regressioonimudelid nagu üleval</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(hours <span class="sc">~</span> overpenage <span class="sc">+</span> agec, <span class="at">data =</span> df)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(hours <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2 , <span class="at">data =</span> df)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(hours <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2 <span class="sc">+</span> agec3, <span class="at">data =</span> df)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model1, model2, model3, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=================================================================================================
+                                                 Dependent variable:                             
+                    -----------------------------------------------------------------------------
+                                                        hours                                    
+                               (1)                       (2)                       (3)           
+-------------------------------------------------------------------------------------------------
+overpenage                  -3.984***                 -4.002***                  -1.638          
+                             (1.444)                   (1.496)                   (1.934)         
+agec                        -1.101***                 -1.099***                 -1.527***        
+                             (0.098)                   (0.106)                   (0.246)         
+agec2                                                  0.0004                     0.006          
+                                                       (0.008)                   (0.008)         
+agec3                                                                            0.003*          
+                                                                                 (0.002)         
+Constant                    18.005***                 17.995***                 16.636***        
+                             (0.804)                   (0.833)                   (1.091)         
+-------------------------------------------------------------------------------------------------
+Observations                  2,607                     2,607                     2,607          
+R2                            0.215                     0.215                     0.216          
+Adjusted R2                   0.214                     0.214                     0.215          
+Residual Std. Error    18.326 (df = 2604)        18.330 (df = 2603)        18.320 (df = 2602)    
+F Statistic         355.784*** (df = 2; 2604) 237.099*** (df = 3; 2603) 178.938*** (df = 4; 2602)
+=================================================================================================
+Note:                                                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Näeme, et mõju hinnang on palju väiksem ja sõltub kui paindlikku mudelit kasutame. Lineaarse ja ruutliikmetega mudels on mõju vaid 4 tundi. Kui lubame vanuse kuupfunktsiooni, siis ei ole mõju enam statistiliselt oluline.</p>
+<p>Taas, kasutame praktikas robustseid standardvigu.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model1, model2, model3, </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">se=</span><span class="fu">list</span>(<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(model1, <span class="st">"HC1"</span>))),</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(model2, <span class="st">"HC1"</span>))),</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(model3, <span class="st">"HC1"</span>)))),</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=================================================================================================
+                                                 Dependent variable:                             
+                    -----------------------------------------------------------------------------
+                                                        hours                                    
+                               (1)                       (2)                       (3)           
+-------------------------------------------------------------------------------------------------
+overpenage                  -3.984***                 -4.002***                  -1.638          
+                             (1.528)                   (1.511)                   (2.066)         
+agec                        -1.101***                 -1.099***                 -1.527***        
+                             (0.101)                   (0.097)                   (0.256)         
+agec2                                                  0.0004                     0.006          
+                                                       (0.007)                   (0.007)         
+agec3                                                                            0.003*          
+                                                                                 (0.002)         
+Constant                    18.005***                 17.995***                 16.636***        
+                             (0.861)                   (0.927)                   (1.181)         
+-------------------------------------------------------------------------------------------------
+Observations                  2,607                     2,607                     2,607          
+R2                            0.215                     0.215                     0.216          
+Adjusted R2                   0.214                     0.214                     0.215          
+Residual Std. Error    18.326 (df = 2604)        18.330 (df = 2603)        18.320 (df = 2602)    
+F Statistic         355.784*** (df = 2; 2604) 237.099*** (df = 3; 2603) 178.938*** (df = 4; 2602)
+=================================================================================================
+Note:                                                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Kui olete vanem kui 63, väheneb tööaeg kõige paindlikumates mudelites vaid 1.64 tundi nädalas.</p>
+</section>
+<section id="silumise-kasutamine" class="level3">
+<h3 class="anchored" data-anchor-id="silumise-kasutamine">Silumise kasutamine</h3>
+<p>Jällegi kasutage kohalikku polünoomi silumist käsuga rdrobust, vaata ülalt käsku ja asenda pensioni saamine töötundidega</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rdrobust</span>(<span class="at">y =</span> df<span class="sc">$</span>hours, <span class="at">x =</span> df<span class="sc">$</span>age, <span class="at">c =</span> <span class="fl">62.5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rdrobust(y = df$hours, x = df$age, c = 62.5): Mass points detected
+in the running variable.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sharp RD estimates using local polynomial regression.
+
+Number of Obs.                 2607
+BW type                       mserd
+Kernel                   Triangular
+VCE method                       NN
+
+Number of Obs.                 1608          999
+Eff. Number of Obs.             472          332
+Order est. (p)                    1            1
+Order bias  (q)                   2            2
+BW est. (h)                   3.710        3.710
+BW bias (b)                   5.647        5.647
+rho (h/b)                     0.657        0.657
+Unique Obs.                      13           12
+
+=====================================================================
+                   Point    Robust Inference
+                Estimate         z     P&gt;|z|      [ 95% C.I. ]       
+---------------------------------------------------------------------
+     RD Effect    -0.134    -0.137     0.891    [-8.467 , 7.364]     
+=====================================================================</code></pre>
+</div>
+</div>
+<p>Seekord näeme, et väga paindlikult hinnates, seos puudub. Saame vaadata seda ka joonisel.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rdplot</span>(<span class="at">y =</span> df<span class="sc">$</span>hours, <span class="at">x =</span> df<span class="sc">$</span>age, <span class="at">c =</span> <span class="fl">62.5</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mass points detected in the running variable."</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Iseloomustamaks funktsionaalse kuju ja lõikepunkti valiku mõju, siis kui oleksime nõudnud lineaarset seost vanuse ja töötundide vahel ja paneks piiri 63.5 (sest tööturukäitumise kohandamine võtab aega), oleks mõju ca 4 tundi vähem töötunde nädalas, küll pole see statistiliselt oluline:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rdplot</span>(<span class="at">y =</span> df<span class="sc">$</span>hours, <span class="at">x =</span> df<span class="sc">$</span>age, <span class="at">c =</span> <span class="fl">63.5</span>, <span class="at">p =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mass points detected in the running variable."</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rdrobust</span>(<span class="at">y =</span> df<span class="sc">$</span>hours, <span class="at">x =</span> df<span class="sc">$</span>age, <span class="at">c =</span> <span class="fl">63.5</span>, <span class="at">p =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rdrobust(y = df$hours, x = df$age, c = 63.5, p = 1): Mass points
+detected in the running variable.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sharp RD estimates using local polynomial regression.
+
+Number of Obs.                 2607
+BW type                       mserd
+Kernel                   Triangular
+VCE method                       NN
+
+Number of Obs.                 1708          899
+Eff. Number of Obs.             472          292
+Order est. (p)                    1            1
+Order bias  (q)                   2            2
+BW est. (h)                   3.701        3.701
+BW bias (b)                   5.826        5.826
+rho (h/b)                     0.635        0.635
+Unique Obs.                      14           11
+
+=====================================================================
+                   Point    Robust Inference
+                Estimate         z     P&gt;|z|      [ 95% C.I. ]       
+---------------------------------------------------------------------
+     RD Effect    -3.917    -1.207     0.228   [-12.433 , 2.958]     
+=====================================================================</code></pre>
+</div>
+</div>
+<section id="edasijõudnutele-instrumentmuutuja-kasutamine" class="level4">
+<h4 class="anchored" data-anchor-id="edasijõudnutele-instrumentmuutuja-kasutamine">Edasijõudnutele: instrumentmuutuja kasutamine</h4>
+<p>Esimene samm on hinnata pensioni saamise tõenäosus. Kasutage lineaarset tõenäosusmudelit koos overpenage ja lineaarse ja ruudukujul vanusega. Seejärel prognoosige pensioni saamise tõenäosus. Pange nimeks “pensionhat”. Hinnake tundide võrrand, kus pensioni saamise asemel on selgitavaks teguriks prognoositav pensioni saamine “pensionhat”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>pensmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pension <span class="sc">~</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2, <span class="at">data =</span> df)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pensmodel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = pension ~ overpenage + agec + agec2, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.01937 -0.21779 -0.01524  0.08558  0.96070 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.4970274  0.0159821  31.099  &lt; 2e-16 ***
+overpenage   0.3611695  0.0287180  12.576  &lt; 2e-16 ***
+agec         0.0248456  0.0020332  12.220  &lt; 2e-16 ***
+agec2       -0.0009418  0.0001543  -6.105 1.18e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.3519 on 2603 degrees of freedom
+Multiple R-squared:  0.5027,    Adjusted R-squared:  0.5022 
+F-statistic: 877.2 on 3 and 2603 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Meeldetuletus: kui palju pensioniikka jõudmine suurendas tõenäosust pensioni saada? Vaata “overpenage” kordajat.</p>
+<p>Prognoosime pensioni saamise, nimetame muutuja ‘pensionhat’.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>pensionhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(pensmodel)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>pensionhat)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0393  0.2178  0.4290  0.5370  0.9509  1.0194 </code></pre>
+</div>
+</div>
+<p>Hindame töötundide võrrandi, kus sees on prognoositud tõenäosus pension saada.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>modelf <span class="ot">&lt;-</span> <span class="fu">lm</span>(hours <span class="sc">~</span> pensionhat <span class="sc">+</span> agec <span class="sc">+</span>  agec2, <span class="at">data =</span> df)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = hours ~ pensionhat + agec + agec2, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-31.788 -13.444  -2.498  13.743  63.256 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  23.503075   2.745330   8.561  &lt; 2e-16 ***
+pensionhat  -11.081325   4.141871  -2.675  0.00751 ** 
+agec         -0.823388   0.201762  -4.081 4.62e-05 ***
+agec2        -0.010058   0.007967  -1.263  0.20687    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 18.33 on 2603 degrees of freedom
+Multiple R-squared:  0.2146,    Adjusted R-squared:  0.2137 
+F-statistic: 237.1 on 3 and 2603 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi. See on sarnane käsitsi hinnatud LATEga (vt üles).</p>
+<p>Käsk <code>ivreg</code> teeb selle kahesammulise hindamise automaatselt.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>fuzzyreg <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  hours <span class="sc">~</span> pension <span class="sc">+</span> agec <span class="sc">+</span>  agec2 <span class="sc">|</span> overpenage <span class="sc">+</span> agec <span class="sc">+</span>  agec2,</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fuzzyreg)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ivreg(formula = hours ~ pension + agec + agec2 | overpenage + 
+    agec + agec2, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-32.224 -12.008  -2.667  11.570  67.354 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  23.503075   2.490179   9.438  &lt; 2e-16 ***
+pension     -11.081325   3.756926  -2.950  0.00321 ** 
+agec         -0.823388   0.183010  -4.499 7.12e-06 ***
+agec2        -0.010058   0.007226  -1.392  0.16408    
+
+Diagnostic tests:
+                  df1  df2 statistic  p-value    
+Weak instruments    1 2603    158.17  &lt; 2e-16 ***
+Wu-Hausman          1 2602     19.74 9.23e-06 ***
+Sargan              0   NA        NA       NA    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 16.63 on 2603 degrees of freedom
+Multiple R-Squared: 0.3538, Adjusted R-squared: 0.3531 
+Wald test: 288.2 on 3 and 2603 DF,  p-value: &lt; 2.2e-16 </code></pre>
+</div>
+</div>
+<p>vaadake kordajat <code>pension</code> Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi.</p>
+</section>
+<section id="paindlikum-mudel" class="level4">
+<h4 class="anchored" data-anchor-id="paindlikum-mudel">Paindlikum mudel</h4>
+<p>Võime kasutada veelgi paindlikumat mudelit, lokaalset lineaarset regressioonimudelit, taas paketist rdrobust.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rdrobust</span>(<span class="at">y =</span> df<span class="sc">$</span>hours, <span class="at">x =</span> df<span class="sc">$</span>age, <span class="at">c =</span> <span class="fl">62.5</span>, <span class="at">fuzzy =</span> df<span class="sc">$</span>pension) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rdrobust(y = df$hours, x = df$age, c = 62.5, fuzzy = df$pension):
+Mass points detected in the running variable.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fuzzy RD estimates using local polynomial regression.
+
+Number of Obs.                 2607
+BW type                       mserd
+Kernel                   Triangular
+VCE method                       NN
+
+Number of Obs.                 1608          999
+Eff. Number of Obs.             472          332
+Order est. (p)                    1            1
+Order bias  (q)                   2            2
+BW est. (h)                   4.500        4.500
+BW bias (b)                   7.303        7.303
+rho (h/b)                     0.616        0.616
+Unique Obs.                      13           12
+
+First-stage estimates.
+
+=====================================================================
+                   Point    Robust Inference
+                Estimate         z     P&gt;|z|      [ 95% C.I. ]       
+=====================================================================
+     Rd Effect     0.193     2.134     0.033     [0.014 , 0.319]     
+=====================================================================
+
+Treatment effect estimates.
+
+=====================================================================
+                   Point    Robust Inference
+                Estimate         z     P&gt;|z|      [ 95% C.I. ]       
+---------------------------------------------------------------------
+     RD Effect     0.930     0.190     0.849   [-33.306 , 40.450]    
+=====================================================================</code></pre>
+</div>
+</div>
+<p>Selle paindliku mudeli järgi ei ole seost pensioniea ja töötundide vahel. Seost ei ole, sest muutus töötundides võib olla mittelineaarse seose tulemus vanuse ja töötundide vahel.</p>
+</section>
+</section>
+<section id="platseebo-test" class="level3">
+<h3 class="anchored" data-anchor-id="platseebo-test">Platseebo-test</h3>
+<p>Vaatame, kas vanuses 63 on hüpe erinev võrreldes teiste lõikepunktidega. Me sooviksime näha, et 63 on hüpe kõrge ja mujal ei ole erinevused statistiliselt olulised.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meie väljund</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>pension)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="co">#jooksev muutuja</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>age)</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Võimalikud lõikepunktid</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>cuts <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Funktsioon võtmaks välja meie hinnangud </span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>extract_rd <span class="ot">&lt;-</span> <span class="cf">function</span>(cu) {</span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">rdrobust</span>(<span class="at">y =</span> y, <span class="at">x =</span> x, <span class="at">c =</span> cu)</span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>  est <span class="ot">&lt;-</span> out<span class="sc">$</span>Estimate</span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Meie hinnangud</span></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>  tau_us <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"tau.us"</span>]</span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>  se_us  <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"se.us"</span>]</span>
+<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>  tau_rb <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"tau.bc"</span>]</span>
+<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  se_rb  <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"se.rb"</span>]</span>
+<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Teeme tabeli</span></span>
+<span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">cutoff =</span> cu, <span class="at">tau_us =</span> tau_us, <span class="at">se_us =</span> se_us, <span class="at">tau_rb =</span> tau_rb, <span class="at">se_rb =</span> se_rb)</span>
+<span id="cb65-20"><a href="#cb65-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ja nüüd rakendame tabelit. Kasutame Ri käsku mapdfr, mis annab tulemustest andmetabeli. Ja funktsiooniks on meie enda tehtud funktsioon <code>extract_rd</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(cuts, extract_rd) <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Ligilähedased 95% usalduspiirid robustsete hinnangutega </span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwr_rb =</span> tau_rb <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rb,</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">upr_rb =</span> tau_rb <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rb,</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Ja tavapärased</span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwr_us =</span> tau_us <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_us,</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">upr_us =</span> tau_us <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_us</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.
+Warning in rdrobust(y = y, x = x, c = cu): Mass points detected in the running
+variable.</code></pre>
+</div>
+</div>
+<p>Ja paneme tulemused joonisele. Kasutan praegu tavalisi standardvigu (mitte nihkega- korrigeeritud.)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res, <span class="fu">aes</span>(<span class="at">x =</span> cutoff, <span class="at">y =</span> tau_us)) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lwr_us, <span class="at">ymax =</span> upr_us), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">62.5</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Platseebo hinnangud koos ligilähedase 95% usalduspiiridega"</span>,</span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Lõikepunkt"</span>,</span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Hinnang (nihkega korrigeerimata)"</span></span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ja ka robustsed usalduspiirid.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res, <span class="fu">aes</span>(<span class="at">x =</span> cutoff, <span class="at">y =</span> tau_rb)) <span class="sc">+</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lwr_rb, <span class="at">ymax =</span> upr_rb), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">62.5</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Platseebo hinnangud koos ligilähedase 95% usalduspiiridega"</span>,</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Lõikepunkt"</span>,</span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Hinnang (nihkega korrigeerimata)"</span></span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Joonistelt näeme, et tõepoolest kas vanus 62.5 või 63 on see, kus on statistiliselt oluline hüpe pensioni saamise tõenäosuses. Samas on mingi kummaline tõenäosuse vähenemine hoopis vanuses 65, mis muidugi ei saa olla tõene, aga viitab metoodika nõrkusele.</p>
+</section>
+<section id="platseebo-test-ka-töötundidele" class="level3">
+<h3 class="anchored" data-anchor-id="platseebo-test-ka-töötundidele">Platseebo test ka töötundidele</h3>
+<p>Nüüd peame muutma funktsiooni keerukamaks, et ta võtaks arvesse meie hägusat disaini</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meie väljund muutub</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>hours)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="co">#meede</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>pension)</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="co">#jooksev muutuja</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>age)</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Funktsioon võtmaks välja meie hinnangud </span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>extract_rd <span class="ot">&lt;-</span> <span class="cf">function</span>(cu) {</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#See rida muutub</span></span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">rdrobust</span>(<span class="at">y =</span> y, <span class="at">x =</span> x, <span class="at">c =</span> cu, <span class="at">fuzzy =</span> z)</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  est <span class="ot">&lt;-</span> out<span class="sc">$</span>Estimate</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Meie hinnangud</span></span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>  tau_us <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"tau.us"</span>]</span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>  se_us  <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"se.us"</span>]</span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>  tau_rb <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"tau.bc"</span>]</span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>  se_rb  <span class="ot">&lt;-</span> est[<span class="dv">1</span>, <span class="st">"se.rb"</span>]</span>
+<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Teeme tabeli</span></span>
+<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">cutoff =</span> cu, <span class="at">tau_us =</span> tau_us, <span class="at">se_us =</span> se_us, <span class="at">tau_rb =</span> tau_rb, <span class="at">se_rb =</span> se_rb)</span>
+<span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ja taas rakendame</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(cuts, extract_rd) <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Ligilähedased 95% usalduspiirid robustsete hinnangutega </span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwr_rb =</span> tau_rb <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rb,</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">upr_rb =</span> tau_rb <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rb,</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Ja tavapärased</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwr_us =</span> tau_us <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_us,</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">upr_us =</span> tau_us <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_us</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.
+Warning in rdrobust(y = y, x = x, c = cu, fuzzy = z): Mass points detected in
+the running variable.</code></pre>
+</div>
+</div>
+<p>Ning tulemused</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res, <span class="fu">aes</span>(<span class="at">x =</span> cutoff, <span class="at">y =</span> tau_us)) <span class="sc">+</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lwr_us, <span class="at">ymax =</span> upr_us), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">62.5</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Platseebo hinnangud - pensioniea mõju töötundidele"</span>,</span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Lõikepunkt"</span>,</span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Hinnang (nihkega korrigeerimata)"</span></span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-rdd_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Näeme, et mõjud kõiguvad väga palju. Mingeid erilist hüpet või muutust me ei näe pensioniea juures. Pigem on mingid anomaaliad vanuses 64.</p>
+<p>Kokkuvõtteks, me tõesti näeme hüpet pensioniea lähedases vanuses pensioni saajate seas. Kuid me ei saa ümber lükata nüll hüpoteesi, et töötundidele otsest pensionieani jõudmine avaldaks mõju. Töötundide vähenemine toimub sujuvalt.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04-difdif.html" class="pagination-link" aria-label="Juurdekasvude erinevus (Dif-Dif)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

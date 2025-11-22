@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Juurdekasvude erinevus (Dif-Dif) – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-rdd.html" rel="next">
+<link href="./03-regressioon.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-difdif.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eessõna</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-sissejuhatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#mudeli-seade" id="toc-mudeli-seade" class="nav-link active" data-scroll-target="#mudeli-seade"><span class="header-section-number">5.1</span> Mudeli seade</a>
+  <ul class="collapse">
+  <li><a href="#klassikaline-2x2-did-disain" id="toc-klassikaline-2x2-did-disain" class="nav-link" data-scroll-target="#klassikaline-2x2-did-disain">Klassikaline 2x2 DiD disain</a></li>
+  <li><a href="#did-hinnang-valemina" id="toc-did-hinnang-valemina" class="nav-link" data-scroll-target="#did-hinnang-valemina">DiD hinnang Valemina</a></li>
+  <li><a href="#did-regressioonimudelina" id="toc-did-regressioonimudelina" class="nav-link" data-scroll-target="#did-regressioonimudelina">DiD Regressioonimudelina</a></li>
+  <li><a href="#paralleelse-trendi-eeldus-ja-att" id="toc-paralleelse-trendi-eeldus-ja-att" class="nav-link" data-scroll-target="#paralleelse-trendi-eeldus-ja-att">Paralleelse trendi eeldus ja ATT</a></li>
+  <li><a href="#kahesuunaline-fikseeritud-effektide-mudel-twfe" id="toc-kahesuunaline-fikseeritud-effektide-mudel-twfe" class="nav-link" data-scroll-target="#kahesuunaline-fikseeritud-effektide-mudel-twfe">Kahesuunaline fikseeritud effektide mudel (TWFE)</a></li>
+  <li><a href="#sündmuste-uuring-event-study" id="toc-sündmuste-uuring-event-study" class="nav-link" data-scroll-target="#sündmuste-uuring-event-study">Sündmuste uuring (Event study)</a></li>
+  <li><a href="#muutujate-selgitus" id="toc-muutujate-selgitus" class="nav-link" data-scroll-target="#muutujate-selgitus">Muutujate selgitus</a></li>
+  </ul></li>
+  <li><a href="#näide-tööpoliitikast" id="toc-näide-tööpoliitikast" class="nav-link" data-scroll-target="#näide-tööpoliitikast"><span class="header-section-number">5.2</span> Näide tööpoliitikast</a></li>
+  <li><a href="#kirjeldav-statistiline-analüüs" id="toc-kirjeldav-statistiline-analüüs" class="nav-link" data-scroll-target="#kirjeldav-statistiline-analüüs"><span class="header-section-number">5.3</span> Kirjeldav statistiline analüüs</a></li>
+  <li><a href="#joonis" id="toc-joonis" class="nav-link" data-scroll-target="#joonis"><span class="header-section-number">5.4</span> Joonis</a></li>
+  <li><a href="#regressioonanalüüs" id="toc-regressioonanalüüs" class="nav-link" data-scroll-target="#regressioonanalüüs"><span class="header-section-number">5.5</span> Regressioonanalüüs</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Poolik - arenev</p>
+<section id="mudeli-seade" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="mudeli-seade"><span class="header-section-number">5.1</span> Mudeli seade</h2>
+<p>Juurdekasvude erinevuse (DiD) meetod on üks populaarsemaid kvaasi-eksperimentaalseid meetodeid põhjusliku mõju hindamiseks. See eemaldab ajas muutumatud erinevused gruppide vahel ja ajas muutuvad tegurid, mis mõjutavad mõlemaid gruppe ühtemoodi.</p>
+<section id="klassikaline-2x2-did-disain" class="level3">
+<h3 class="anchored" data-anchor-id="klassikaline-2x2-did-disain">Klassikaline 2x2 DiD disain</h3>
+<p>Kõige lihtsamal kujul on meil kaks rühma ja kaks ajahetke:</p>
+<ul>
+<li><strong>Grupid (<span class="math inline">\(D\)</span>):</strong>
+<ul>
+<li><span class="math inline">\(D=1\)</span>: Osalusrühm (<em>Treatment</em>), kes saab mingil hetkel sekkumise.</li>
+<li><span class="math inline">\(D=0\)</span>: Võrdlusrühm (<em>Control</em>), kes sekkumist ei saa.</li>
+</ul></li>
+<li><strong>Aeg (<span class="math inline">\(T\)</span>):</strong>
+<ul>
+<li><span class="math inline">\(T=1\)</span>: Pärast sekkumist (<em>Post</em>).</li>
+<li><span class="math inline">\(T=0\)</span>: Enne sekkumist (<em>Pre</em>).</li>
+</ul></li>
+</ul>
+</section>
+<section id="did-hinnang-valemina" class="level3">
+<h3 class="anchored" data-anchor-id="did-hinnang-valemina">DiD hinnang Valemina</h3>
+<p>DiD hinnang (<span class="math inline">\(\hat{\delta}_{DiD}\)</span>) leitakse kui erinevus osalejate ajas toimunud muutuse ja võrdlusrühma ajas toimunud muutuse vahel:</p>
+<p><span class="math display">\[
+\hat{\delta}_{DiD} = \underbrace{(\bar{Y}_{T=1}^{D=1} - \bar{Y}_{T=0}^{D=1})}_{\text{Muutus osalejatel}} - \underbrace{(\bar{Y}_{T=1}^{D=0} - \bar{Y}_{T=0}^{D=0})}_{\text{Muutus võrdlusrühmal}}
+\]</span> Kus <span class="math inline">\(\bar{Y}_{T}^{D}\)</span> on tulemuse keskmine vastavas grupis ja ajahetkel.</p>
+</section>
+<section id="did-regressioonimudelina" class="level3">
+<h3 class="anchored" data-anchor-id="did-regressioonimudelina">DiD Regressioonimudelina</h3>
+<p>Seda sama hinnangut saab leida lineaarse regressioonimudeli abil, kasutades interaktsiooniliiget:</p>
+<p><span class="math display">\[Y_{it} = \alpha + \beta_1 \text{D}_i + \beta_2 \text{Post}_t + \delta*(\text{D}_i \times \text{Post}_t) + \epsilon_{it}
+\]</span></p>
+<p>Kus:</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span>: Kontrollgrupi keskmine enne sekkumist (Constant).</li>
+<li><span class="math inline">\(\beta_1\)</span>: Gruppidevaheline püsiv erinevus (<em>Treatment Group Effect</em>).</li>
+<li><span class="math inline">\(\beta_2\)</span>: Ajaline trend, mis on ühine mõlemale grupile (<em>Time Trend</em>).</li>
+<li>** <span class="math inline">\(\delta_{DiD}\)</span> **: Põhjuslik mõju ehk huvipakkuv parameeter (ATT). See näitab lisandumist tulemuses, mis tekib ainult osalejatel pärast sekkumist.</li>
+</ul>
+</section>
+<section id="paralleelse-trendi-eeldus-ja-att" class="level3">
+<h3 class="anchored" data-anchor-id="paralleelse-trendi-eeldus-ja-att">Paralleelse trendi eeldus ja ATT</h3>
+<p>DiD meetodi kehtivus sõltub <strong>paralleelse trendi eeldusest</strong> (<em>Parallel trends assumption</em>).</p>
+<p>Eeldus väidab, et sekkumise puudumisel oleks osalusrühma keskmine tulemus muutunud ajas samamoodi nagu võrdlusrühmal.</p>
+<p>Matemaatiliselt (kasutades potentsiaalseid tulemusi <span class="math inline">\(Y^0\)</span>):</p>
+<p><span class="math display">\[
+E[Y^0_{t=1} - Y^0_{t=0} | D=1] = E[Y^0_{t=1} - Y^0_{t=0} | D=0]
+\]</span></p>
+<p>Kuidas see annab ATT?</p>
+<p>Meie eesmärk on leida keskmine mõju osalejatele (<strong>ATT</strong> - <em>Average Treatment Effect on the Treated</em>):</p>
+<p><span class="math display">\[ATT = E[Y^1_{t=1} - Y^0_{t=1} | D=1] \]</span> Kuna <span class="math inline">\(Y^0_{t=1}\)</span> (osalejate tulemus ilma sekkumiseta) ei ole vaadeldav, kasutame paralleelse trendi eeldust selle asendamiseks:</p>
+<ol type="1">
+<li><strong>Tegelik muutus osalejatel:</strong> <span class="math inline">\(E[Y^1_{t=1} | D=1] - E[Y^0_{t=0} | D=1]\)</span></li>
+<li><strong>Muutus kui sekkumist poleks:</strong> Eelduse kohaselt võrdne kontrollgrupi muutusega <span class="math inline">\(E[Y^0_{t=1} | D=0] - E[Y^0_{t=0} | D=0]\)</span>.</li>
+</ol>
+<p>Seega:</p>
+<p><span class="math display">\[
+ATT = (\text{Osalusrühma muutus}) - (\text{Võrdlusrühma muutus})
+\]</span></p>
+</section>
+<section id="kahesuunaline-fikseeritud-effektide-mudel-twfe" class="level3">
+<h3 class="anchored" data-anchor-id="kahesuunaline-fikseeritud-effektide-mudel-twfe">Kahesuunaline fikseeritud effektide mudel (TWFE)</h3>
+<p><em>Two-way Fixed Effects model</em></p>
+<p>Kui andmed on paneelkujul (sama objekti jälgitakse mitmel ajahetkel) või meil on palju objekte ja ajahetki, kasutatakse TWFE mudelit. See on 2x2 disaini üldistus.</p>
+<p><span class="math display">\[
+Y_{it} = \alpha_i + \gamma_t + \delta D_{it} + \mathbf{X}_{it}\beta + \epsilon_{it}
+\]</span></p>
+<p>Kus:</p>
+<ul>
+<li><span class="math inline">\(\alpha_i\)</span> <strong>(Unit Fixed Effects):</strong> Ühiku-spetsiifiline fikseeritud efekt. See kontrollib kõiki tegureid, mis on ühikule <span class="math inline">\(i\)</span> omased ja ajas ei muutu (nt asukoht, kultuur, geneetika). Asendab <span class="math inline">\(\text{Treat}_i\)</span> muutujat.</li>
+<li><span class="math inline">\(\gamma_t\)</span> <strong>(Time Fixed Effects):</strong> Aja-spetsiifiline fikseeritud efekt. See kontrollib šokke, mis mõjutavad kõiki ühikuid antud aastal <span class="math inline">\(t\)</span> ühtemoodi (nt majanduskriis, seadusemuudatused). Asendab <span class="math inline">\(\text{Post}_t\)</span> muutujat.</li>
+<li><span class="math inline">\(D_{it}\)</span> <strong>(Treatment Indicator):</strong> Binaarne muutuja, mis on 1, kui ühik <span class="math inline">\(i\)</span> on ajal <span class="math inline">\(t\)</span> sekkumise all.</li>
+<li><span class="math inline">\(\delta\)</span>: Hinnanguline ATT (eeldusel, et mõju on homogeenne).</li>
+</ul>
+</section>
+<section id="sündmuste-uuring-event-study" class="level3">
+<h3 class="anchored" data-anchor-id="sündmuste-uuring-event-study">Sündmuste uuring (Event study)</h3>
+<p>Sündmuste uuring (<em>Event Study</em>) on dünaamiline regressioonimudel, mis võimaldab hinnata meetme mõju muutumist ajas ning testida visuaalselt ja statistiliselt paralleelse trendi eeldust.</p>
+<section id="regressioonivalem" class="level4">
+<h4 class="anchored" data-anchor-id="regressioonivalem">Regressioonivalem</h4>
+<p>Üldkuju Kahesuunalise Fikseeritud Efektide (TWFE) mudelina:</p>
+<p><span class="math display">\[
+Y_{it} = \alpha_i + \gamma_t + \sum_{k=-K, k \neq 0}^{L} \beta_k \cdot D_{it}^k + \epsilon_{it}
+\]</span></p>
+</section>
+</section>
+<section id="muutujate-selgitus" class="level3">
+<h3 class="anchored" data-anchor-id="muutujate-selgitus">Muutujate selgitus</h3>
+<ul>
+<li><span class="math inline">\(Y_{it}\)</span>: Tulemusmuutuja ühikule <span class="math inline">\(i\)</span> ajahetkel <span class="math inline">\(t\)</span>.</li>
+<li><span class="math inline">\(\alpha_i\)</span>: <strong>Ühiku fikseeritud efekt</strong> (<em>Unit Fixed Effects</em>). Kontrollib ajas muutumatuid eripärasid (nt asukoht, kultuur).</li>
+<li><span class="math inline">\(\gamma_t\)</span>: <strong>Aja fikseeritud efekt</strong> (<em>Time Fixed Effects</em>). Kontrollib šokke, mis mõjutavad kõiki ühikuid samal ajal (nt majanduskriis, inflatsioon).</li>
+<li><span class="math inline">\(k\)</span>: Suhteline aeg sündmuseni (<span class="math inline">\(t - E_i\)</span>, kus <span class="math inline">\(E_i\)</span> on sündmuse toimumise aeg).
+<ul>
+<li><span class="math inline">\(k &lt; 0\)</span>: Perioodid <strong>enne</strong> meedet (<em>Leads</em>).</li>
+<li><span class="math inline">\(k \ge 0\)</span>: Perioodid <strong>pärast</strong> meedet (<em>Lags</em>).</li>
+</ul></li>
+<li><span class="math inline">\(D_{it}^k\)</span>: <strong>Sündmuse indikaatorid</strong> (<em>Event Time Dummies</em>).
+<ul>
+<li>Muutuja on <strong>1</strong>, kui ühik <span class="math inline">\(i\)</span> on ajahetkel <span class="math inline">\(t\)</span> täpselt <span class="math inline">\(k\)</span> perioodi kaugusel sündmusest.</li>
+<li>Muutuja on <strong>0</strong> muudel juhtudel.</li>
+</ul></li>
+<li><span class="math inline">\(\beta_k\)</span>: <strong>Huvipakkuvad koefitsiendid</strong>:
+<ul>
+<li>Kui <span class="math inline">\(k &lt; 0\)</span> (Eel-periood): <span class="math inline">\(\beta_k\)</span> näitab erinevust töötlus- ja kontrollgrupi vahel enne meedet. <strong>See testib paralleelseid trende.</strong> Kui eeldus kehtib, peaksid need <span class="math inline">\(\beta\)</span>-d olema statistiliselt nullist eristamatud (nulljoone lähedal).</li>
+<li>Kui <span class="math inline">\(k \ge 0\)</span> (Järel-periood): <span class="math inline">\(\beta_k\)</span> näitab meetme dünaamilist mõju <span class="math inline">\(k\)</span> perioodi pärast sündmust.</li>
+</ul></li>
+<li><span class="math inline">\(k \neq 0\)</span>: Väljajäetud kategooria.
+<ul>
+<li>Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust (<span class="math inline">\(k = 0\)</span>), et vältida multikollineaarsust. Kõiki teisi koefitsiente (<span class="math inline">\(\beta_k\)</span>) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 1 tekib esimest korda avatus meetmele.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="näide-tööpoliitikast" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="näide-tööpoliitikast"><span class="header-section-number">5.2</span> Näide tööpoliitikast</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coefplot)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Muutke ära andmete kataloog</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>datapath <span class="ot">=</span> <span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Lugege sisse andmefail</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(datapath, <span class="st">"adulttraining.csv"</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>dfl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="fu">paste0</span>(datapath, <span class="st">"adulttraininglong.csv"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="kirjeldav-statistiline-analüüs" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="kirjeldav-statistiline-analüüs"><span class="header-section-number">5.3</span> Kirjeldav statistiline analüüs</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(df, <span class="at">type =</span> <span class="st">"text"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=========================================================
+Statistic       N     Mean    St. Dev.    Min      Max   
+---------------------------------------------------------
+id            4,586 2,293.500 1,324.008    1      4,586  
+koolituses    4,586   0.500     0.500      0        1    
+palk2008      4,586   6.063     5.537    0.000   24.959  
+palk2009      4,586   4.971     5.003    0.000   22.860  
+palk2010      4,586   4.509     4.872    0.000   21.768  
+palk2011      4,586   5.014     5.181    0.000   22.508  
+palk2012      4,586   5.737     5.764    0.000   25.584  
+palk2013      4,586   6.208     6.217    0.000   27.530  
+haridus       4,586   4.154     1.287      2        6    
+mees          4,586   0.573     0.495      0        1    
+eestlane      4,586   0.657     0.475      0        1    
+vanus         4,586  39.831    11.892     16       73    
+kulu          2,293 3,334.167 1,461.837 331.320 6,624.000
+koolitusaasta 4,586 1,005.240 1,005.350    0      2,011  
+seisund       4,586   1.463     0.749      1        3    
+---------------------------------------------------------</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(koolituses <span class="sc">==</span><span class="dv">1</span>), <span class="at">type =</span> <span class="st">"text"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=========================================================
+Statistic       N     Mean    St. Dev.    Min      Max   
+---------------------------------------------------------
+id            2,293 1,147.000  662.076     1      2,293  
+koolituses    2,293   1.000     0.000      1        1    
+palk2008      2,293   6.399     5.412    0.000   24.959  
+palk2009      2,293   5.298     4.971    0.000   22.860  
+palk2010      2,293   4.736     4.817    0.000   21.768  
+palk2011      2,293   5.492     5.174    0.000   22.508  
+palk2012      2,293   6.339     5.758    0.000   25.584  
+palk2013      2,293   6.776     6.293    0.000   27.530  
+haridus       2,293   4.215     1.288      2        6    
+mees          2,293   0.604     0.489      0        1    
+eestlane      2,293   0.652     0.476      0        1    
+vanus         2,293  39.310    11.719     17       73    
+kulu          2,293 3,334.167 1,461.837 331.320 6,624.000
+koolitusaasta 2,293 2,010.481   0.500    2,010    2,011  
+seisund       2,293   1.578     0.846      1        3    
+---------------------------------------------------------</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(koolituses <span class="sc">==</span><span class="dv">0</span>), <span class="at">type =</span> <span class="st">"text"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===================================================
+Statistic       N     Mean    St. Dev.  Min   Max  
+---------------------------------------------------
+id            2,293 3,440.000 662.076  2,294 4,586 
+koolituses    2,293   0.000    0.000     0     0   
+palk2008      2,293   5.726    5.640   0.000 24.959
+palk2009      2,293   4.644    5.014   0.000 22.860
+palk2010      2,293   4.282    4.918   0.000 21.768
+palk2011      2,293   4.536    5.146   0.000 22.508
+palk2012      2,293   5.135    5.708   0.000 25.584
+palk2013      2,293   5.640    6.088   0.000 27.530
+haridus       2,293   4.092    1.283     2     6   
+mees          2,293   0.543    0.498     0     1   
+eestlane      2,293   0.662    0.473     0     1   
+vanus         2,293  40.353    12.042   16     64  
+koolitusaasta 2,293   0.000    0.000     0     0   
+seisund       2,293   1.348    0.616     1     3   
+---------------------------------------------------</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gruppide võrdlus</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(<span class="st">"Koolituses"</span> <span class="ot">=</span> df<span class="sc">$</span>koolituses, <span class="st">"Mees"</span> <span class="ot">=</span> df<span class="sc">$</span>mees),<span class="dv">1</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Mees
+Koolituses         0         1
+         0 0.4570432 0.5429568
+         1 0.3964239 0.6035761</code></pre>
+</div>
+</div>
+<p>Keskmine vanus</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(koolituses) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">keskminevanus =</span> <span class="fu">mean</span>(vanus))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  koolituses keskminevanus
+       &lt;int&gt;         &lt;dbl&gt;
+1          0          40.4
+2          1          39.3</code></pre>
+</div>
+</div>
+<p>Palk on tuhandetes eurodes</p>
+<p>Mis on palga muutus osalusgrupis ja võrdlusgrupis? (Enne-pärast hinnang)</p>
+<p>Vaatame 2008 vs 2013. Arvutame erinevuse.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(koolituses) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">palk2008 =</span> <span class="fu">mean</span>(palk2008),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">palk2013 =</span> <span class="fu">mean</span>(palk2013))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  koolituses palk2008 palk2013
+       &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1          0     5.73     5.64
+2          1     6.40     6.78</code></pre>
+</div>
+</div>
+<p>Palga muutus osalusgrupis</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(koolituses) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">palk2008 =</span> <span class="fu">mean</span>(palk2008),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">palk2013 =</span> <span class="fu">mean</span>(palk2013)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">palgamuut =</span> palk2013<span class="sc">-</span>palk2008)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Enne-pärast hinnang</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  koolituses palk2008 palk2013 palgamuut
+       &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1          0     5.73     5.64   -0.0865
+2          1     6.40     6.78    0.377 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Osalusgrupis</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>temp<span class="sc">$</span>palgamuut[<span class="dv">2</span>]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3773767</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>difdif <span class="ot">=</span> temp<span class="sc">$</span>palgamuut[<span class="dv">2</span>] <span class="sc">-</span> temp<span class="sc">$</span>palgamuut[<span class="dv">1</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>difdif</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.463845</code></pre>
+</div>
+</div>
+</section>
+<section id="joonis" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="joonis"><span class="header-section-number">5.4</span> Joonis</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Keskmised palgad osalus ja võrdlusrühmas</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(koolituses, aasta) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">palk =</span> <span class="fu">mean</span>(palk))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'koolituses'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 3
+# Groups:   koolituses [2]
+   koolituses aasta  palk
+        &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+ 1          0  2008  5.73
+ 2          0  2009  4.64
+ 3          0  2010  4.28
+ 4          0  2011  4.54
+ 5          0  2012  5.14
+ 6          0  2013  5.64
+ 7          1  2008  6.40
+ 8          1  2009  5.30
+ 9          1  2010  4.74
+10          1  2011  5.49
+11          1  2012  6.34
+12          1  2013  6.78</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Praksis tee rida haaval</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> aasta, <span class="at">y =</span> palk, <span class="at">color =</span> <span class="fu">factor</span>(koolituses))) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="fl">2009.5</span>, <span class="at">xmax =</span> <span class="fl">2011.5</span>, <span class="at">ymin =</span> <span class="fu">min</span>(temp<span class="sc">$</span>palk)<span class="sc">-</span><span class="fl">0.5</span>, <span class="at">ymax =</span> <span class="fu">max</span>(temp<span class="sc">$</span>palk), <span class="at">fill =</span> <span class="st">"grey100"</span>, </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(palk,<span class="dv">1</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"tuh.eur"</span>) <span class="sc">+</span> </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-difdif_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="regressioonanalüüs" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="regressioonanalüüs"><span class="header-section-number">5.5</span> Regressioonanalüüs</h2>
+<p>2x2 disain</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Jätame alles aastad</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>dfls <span class="ot">&lt;-</span> dfl   <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(aasta <span class="sc">==</span> <span class="dv">2008</span> <span class="sc">|</span> aasta <span class="sc">==</span><span class="dv">2013</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">aasta =</span> <span class="fu">as.factor</span>(aasta))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>mudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> dfls, <span class="at">formula =</span> palk <span class="sc">~</span> koolituses <span class="sc">+</span> aasta <span class="sc">+</span> koolituses<span class="sc">*</span>aasta)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk ~ koolituses + aasta + koolituses * aasta, 
+    data = dfls)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.776 -5.279 -1.159  3.224 21.890 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           5.72637    0.12256  46.724  &lt; 2e-16 ***
+koolituses            0.67266    0.17332   3.881 0.000105 ***
+aasta2013            -0.08647    0.17332  -0.499 0.617872    
+koolituses:aasta2013  0.46385    0.24512   1.892 0.058476 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.869 on 9168 degrees of freedom
+Multiple R-squared:  0.006445,  Adjusted R-squared:  0.006119 
+F-statistic: 19.82 on 3 and 9168 DF,  p-value: 8.386e-13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Võrrelge nüüd 2009 ja 2012 andmetega</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dfls <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(aasta <span class="sc">==</span><span class="dv">2009</span> <span class="sc">|</span> aasta <span class="sc">==</span><span class="dv">2012</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">aasta =</span> <span class="fu">as.factor</span>(aasta))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>mudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> dfls, <span class="at">formula =</span> palk <span class="sc">~</span> koolituses <span class="sc">+</span> aasta <span class="sc">+</span> koolituses<span class="sc">*</span>aasta)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk ~ koolituses + aasta + koolituses * aasta, 
+    data = dfls)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.339 -4.644 -1.134  2.971 20.449 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            4.6441     0.1123  41.369  &lt; 2e-16 ***
+koolituses             0.6534     0.1588   4.116 3.89e-05 ***
+aasta2012              0.4910     0.1588   3.092  0.00199 ** 
+koolituses:aasta2012   0.5504     0.2245   2.451  0.01425 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.376 on 9168 degrees of freedom
+Multiple R-squared:  0.01303,   Adjusted R-squared:  0.01271 
+F-statistic: 40.34 on 3 and 9168 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Lisame mudelisse muud tegurid</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Andmestik uuesti</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>difdif1 <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(aasta <span class="sc">==</span> <span class="dv">2008</span> <span class="sc">|</span> aasta <span class="sc">==</span><span class="dv">2013</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">aasta =</span> <span class="fu">as.factor</span>(aasta)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Ja mudel</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>mudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> difdif1, <span class="at">formula =</span> palk <span class="sc">~</span> koolituses <span class="sc">+</span> aasta <span class="sc">+</span> </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>              koolituses<span class="sc">*</span>aasta <span class="sc">+</span> mees <span class="sc">+</span> eestlane <span class="sc">+</span> <span class="fu">factor</span>(haridus) <span class="sc">+</span> vanusgr <span class="sc">+</span> <span class="fu">factor</span>(seisund))</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk ~ koolituses + aasta + koolituses * aasta + 
+    mees + eestlane + factor(haridus) + vanusgr + factor(seisund), 
+    data = difdif1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.4026  -3.6984  -0.5935   2.8292  20.9597 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           2.63883    0.26268  10.046  &lt; 2e-16 ***
+koolituses            0.49975    0.16041   3.115 0.001842 ** 
+aasta2013            -0.08647    0.15749  -0.549 0.582981    
+mees                  2.39451    0.11512  20.799  &lt; 2e-16 ***
+eestlane              0.30816    0.11864   2.597 0.009408 ** 
+factor(haridus)3      0.58185    0.20738   2.806 0.005032 ** 
+factor(haridus)4      0.68067    0.19926   3.416 0.000638 ***
+factor(haridus)5      1.52820    0.21882   6.984 3.07e-12 ***
+factor(haridus)6      2.92520    0.21333  13.712  &lt; 2e-16 ***
+vanusgr(25,35]        1.84815    0.18750   9.857  &lt; 2e-16 ***
+vanusgr(35,45]        2.25874    0.18872  11.969  &lt; 2e-16 ***
+vanusgr(45,55]        1.32949    0.19052   6.978 3.20e-12 ***
+vanusgr(55,100]       0.88350    0.22516   3.924 8.78e-05 ***
+factor(seisund)2     -4.03936    0.16201 -24.933  &lt; 2e-16 ***
+factor(seisund)3     -2.85658    0.16182 -17.652  &lt; 2e-16 ***
+koolituses:aasta2013  0.46385    0.22272   2.083 0.037310 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.332 on 9156 degrees of freedom
+Multiple R-squared:  0.1808,    Adjusted R-squared:  0.1795 
+F-statistic: 134.7 on 15 and 9156 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> difdif1, <span class="at">formula =</span> palk <span class="sc">~</span> koolituses <span class="sc">+</span> aasta <span class="sc">+</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>              koolituses<span class="sc">*</span>aasta <span class="sc">+</span> mees <span class="sc">+</span> eestlane <span class="sc">+</span> <span class="fu">factor</span>(haridus) <span class="sc">+</span> vanusgr)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk ~ koolituses + aasta + koolituses * aasta + 
+    mees + eestlane + factor(haridus) + vanusgr, data = difdif1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.0784  -4.2239  -0.5918   3.1125  22.1705 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           0.62852    0.26374   2.383 0.017185 *  
+koolituses            0.35621    0.16480   2.162 0.030678 *  
+aasta2013            -0.08647    0.16424  -0.526 0.598564    
+mees                  2.61807    0.11978  21.858  &lt; 2e-16 ***
+eestlane              0.57926    0.12310   4.705 2.57e-06 ***
+factor(haridus)3      0.80047    0.21600   3.706 0.000212 ***
+factor(haridus)4      1.07191    0.20718   5.174 2.34e-07 ***
+factor(haridus)5      1.94470    0.22746   8.550  &lt; 2e-16 ***
+factor(haridus)6      3.63372    0.22061  16.471  &lt; 2e-16 ***
+vanusgr(25,35]        2.29960    0.19483  11.803  &lt; 2e-16 ***
+vanusgr(35,45]        2.88528    0.19538  14.768  &lt; 2e-16 ***
+vanusgr(45,55]        1.65069    0.19804   8.335  &lt; 2e-16 ***
+vanusgr(55,100]       0.80390    0.23462   3.426 0.000614 ***
+koolituses:aasta2013  0.46385    0.23227   1.997 0.045850 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.561 on 9158 degrees of freedom
+Multiple R-squared:  0.1089,    Adjusted R-squared:  0.1076 
+F-statistic: 86.05 on 13 and 9158 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(mudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.
+`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-difdif_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Leiame erinevuse koolituse aastast. </span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Kõigile koolituses mitteosalejatele paneme selle nulliks</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>dfl <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span>  </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">aegkoolitusest =</span> <span class="fu">ifelse</span>(koolituses <span class="sc">==</span><span class="dv">1</span>, </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>                                 aasta <span class="sc">-</span> koolitusaasta,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">0</span>))</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Joonise jaoks teeme selle faktoriks, et võrdlusrühm oleks null</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>dfl <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span> </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">aegkoolitusest =</span> <span class="fu">factor</span>(aegkoolitusest, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">3</span><span class="sc">:-</span><span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)))</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dfl<span class="sc">$</span>aegkoolitusest)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    0    -3    -2    -1     1     2     3 
+16051  1102  2293  2293  2293  2293  1191 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Time event model</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>mudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> dfl, <span class="at">formula =</span> palk <span class="sc">~</span> aegkoolitusest <span class="sc">+</span> mees <span class="sc">+</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>              eestlane <span class="sc">+</span> <span class="fu">factor</span>(haridus) <span class="sc">+</span> vanusgr <span class="sc">+</span> <span class="fu">factor</span>(aasta) <span class="sc">+</span> <span class="fu">factor</span>(seisund))</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta) + factor(seisund), data = dfl)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.1467  -3.1984  -0.5901   2.4896  21.2495 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        3.33072    0.15536  21.439  &lt; 2e-16 ***
+aegkoolitusest-3   0.61845    0.17385   3.557 0.000375 ***
+aegkoolitusest-2   0.67030    0.12333   5.435 5.53e-08 ***
+aegkoolitusest-1   0.51922    0.11952   4.344 1.40e-05 ***
+aegkoolitusest1    0.86321    0.11950   7.224 5.19e-13 ***
+aegkoolitusest2    1.10103    0.12305   8.948  &lt; 2e-16 ***
+aegkoolitusest3    1.22460    0.16875   7.257 4.07e-13 ***
+mees               1.99551    0.06044  33.015  &lt; 2e-16 ***
+eestlane           0.31287    0.06232   5.020 5.20e-07 ***
+factor(haridus)3   0.64890    0.10894   5.957 2.61e-09 ***
+factor(haridus)4   0.74425    0.10466   7.111 1.18e-12 ***
+factor(haridus)5   1.54188    0.11492  13.417  &lt; 2e-16 ***
+factor(haridus)6   2.65592    0.11204  23.704  &lt; 2e-16 ***
+vanusgr(25,35]     1.37220    0.09848  13.933  &lt; 2e-16 ***
+vanusgr(35,45]     1.74154    0.09913  17.567  &lt; 2e-16 ***
+vanusgr(45,55]     0.96528    0.10008   9.645  &lt; 2e-16 ***
+vanusgr(55,100]    0.63932    0.11826   5.406 6.50e-08 ***
+factor(aasta)2009 -1.06512    0.11343  -9.390  &lt; 2e-16 ***
+factor(aasta)2010 -1.35564    0.11863 -11.427  &lt; 2e-16 ***
+factor(aasta)2011 -0.95030    0.12090  -7.860 3.98e-15 ***
+factor(aasta)2012 -0.49641    0.12559  -3.953 7.75e-05 ***
+factor(aasta)2013 -0.11446    0.13047  -0.877 0.380319    
+factor(seisund)2  -4.37419    0.08505 -51.433  &lt; 2e-16 ***
+factor(seisund)3  -3.51146    0.08458 -41.518  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.852 on 27492 degrees of freedom
+Multiple R-squared:  0.2179,    Adjusted R-squared:  0.2173 
+F-statistic: 333.1 on 23 and 27492 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(mudel, <span class="at">intercept =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.
+`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-difdif_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Lisame mineviku palga enne koolitust sisse ja vaatame muutust võrreldes 2008 aasta palgaga</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>dfl <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">palk2008 =</span> palk[aasta<span class="sc">==</span><span class="dv">2008</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dpalk2008 =</span> palk <span class="sc">-</span> palk2008) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>mudel2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> dfl, <span class="at">formula =</span> dpalk2008 <span class="sc">~</span> aegkoolitusest <span class="sc">+</span> mees <span class="sc">+</span> </span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>              eestlane <span class="sc">+</span> <span class="fu">factor</span>(haridus) <span class="sc">+</span> vanusgr <span class="sc">+</span> <span class="fu">factor</span>(aasta) <span class="sc">+</span> <span class="fu">factor</span>(seisund))</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel2)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = dpalk2008 ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta) + factor(seisund), data = dfl)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-24.5388  -1.2891   0.2704   1.6983  25.3013 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        2.34683    0.12829  18.293  &lt; 2e-16 ***
+aegkoolitusest-3   0.25237    0.14356   1.758 0.078759 .  
+aegkoolitusest-2   0.24246    0.10184   2.381 0.017289 *  
+aegkoolitusest-1   0.14363    0.09869   1.455 0.145587    
+aegkoolitusest1    0.48287    0.09867   4.894 9.96e-07 ***
+aegkoolitusest2    0.64464    0.10161   6.345 2.27e-10 ***
+aegkoolitusest3    0.69184    0.13935   4.965 6.92e-07 ***
+mees              -0.51370    0.04991 -10.292  &lt; 2e-16 ***
+eestlane          -0.18885    0.05146  -3.669 0.000244 ***
+factor(haridus)3  -0.01539    0.08996  -0.171 0.864121    
+factor(haridus)4  -0.06219    0.08642  -0.720 0.471801    
+factor(haridus)5   0.03194    0.09490   0.337 0.736445    
+factor(haridus)6  -0.36442    0.09252  -3.939 8.21e-05 ***
+vanusgr(25,35]    -1.48122    0.08132 -18.214  &lt; 2e-16 ***
+vanusgr(35,45]    -1.85345    0.08186 -22.641  &lt; 2e-16 ***
+vanusgr(45,55]    -1.93637    0.08264 -23.430  &lt; 2e-16 ***
+vanusgr(55,100]   -2.42367    0.09765 -24.819  &lt; 2e-16 ***
+factor(aasta)2009 -1.06384    0.09367 -11.358  &lt; 2e-16 ***
+factor(aasta)2010 -1.46447    0.09796 -14.950  &lt; 2e-16 ***
+factor(aasta)2011 -1.05061    0.09984 -10.523  &lt; 2e-16 ***
+factor(aasta)2012 -0.48558    0.10371  -4.682 2.85e-06 ***
+factor(aasta)2013 -0.06551    0.10773  -0.608 0.543116    
+factor(seisund)2  -0.91739    0.07023 -13.063  &lt; 2e-16 ***
+factor(seisund)3  -1.53353    0.06984 -21.958  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.006 on 27492 degrees of freedom
+Multiple R-squared:  0.07153,   Adjusted R-squared:  0.07075 
+F-statistic: 92.08 on 23 and 27492 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(mudel2, <span class="at">intercept =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.
+`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-difdif_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Teeme mudeli eraldi töötavate, töötute ja mitteaktiivsete jaoks.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(seisund) <span class="sc">%&gt;%</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_modify</span>(<span class="sc">~</span> broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(dpalk2008 <span class="sc">~</span> aegkoolitusest <span class="sc">+</span> mees <span class="sc">+</span> eestlane <span class="sc">+</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">factor</span>(haridus) <span class="sc">+</span> vanusgr <span class="sc">+</span> <span class="fu">factor</span>(aasta),</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> .x)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 66 × 6
+# Groups:   seisund [3]
+   seisund term             estimate std.error statistic  p.value
+     &lt;int&gt; &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1       1 (Intercept)        2.03      0.162     12.6   5.05e-36
+ 2       1 aegkoolitusest-3   0.0686    0.181      0.379 7.04e- 1
+ 3       1 aegkoolitusest-2   0.251     0.125      2.00  4.54e- 2
+ 4       1 aegkoolitusest-1   0.267     0.122      2.19  2.88e- 2
+ 5       1 aegkoolitusest1    0.558     0.122      4.56  5.05e- 6
+ 6       1 aegkoolitusest2    0.544     0.125      4.35  1.35e- 5
+ 7       1 aegkoolitusest3    0.258     0.170      1.52  1.28e- 1
+ 8       1 mees              -0.418     0.0615    -6.80  1.05e-11
+ 9       1 eestlane          -0.281     0.0640    -4.40  1.10e- 5
+10       1 factor(haridus)3   0.220     0.118      1.86  6.26e- 2
+# ℹ 56 more rows</code></pre>
+</div>
+</div>
+<p>Või</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>dfl <span class="ot">&lt;-</span> dfl <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seisundtext =</span> <span class="fu">case_when</span>(</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    seisund <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Töötab"</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    seisund <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Mitteaktiivne"</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    seisund <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Töötu"</span>))</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dfl<span class="sc">$</span>seisund, dfl<span class="sc">$</span>seisundtext)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+    Mitteaktiivne Töötab Töötu
+  1             0  19068     0
+  2          4152      0     0
+  3             0      0  4296</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">split</span>(dfl, dfl<span class="sc">$</span>seisundtext), <span class="cf">function</span>(df) {</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(dpalk2008 <span class="sc">~</span> aegkoolitusest <span class="sc">+</span> mees <span class="sc">+</span> eestlane <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">factor</span>(haridus) <span class="sc">+</span> vanusgr <span class="sc">+</span> <span class="fu">factor</span>(aasta),</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> df)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">1</span>]])  <span class="co"># results for seisund = 1</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = dpalk2008 ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta), data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-22.8540  -0.9882   0.4606   1.6002  21.8434 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        1.45382    0.24216   6.004 2.10e-09 ***
+aegkoolitusest-3  -0.06414    0.35509  -0.181  0.85667    
+aegkoolitusest-2  -0.41936    0.24689  -1.699  0.08948 .  
+aegkoolitusest-1  -0.58676    0.24370  -2.408  0.01610 *  
+aegkoolitusest1    0.60835    0.24370   2.496  0.01259 *  
+aegkoolitusest2    1.39161    0.24663   5.643 1.79e-08 ***
+aegkoolitusest3    1.67315    0.33804   4.949 7.74e-07 ***
+mees              -0.53755    0.11044  -4.867 1.17e-06 ***
+eestlane           0.22079    0.11093   1.990  0.04661 *  
+factor(haridus)3  -0.46576    0.17386  -2.679  0.00741 ** 
+factor(haridus)4  -0.08594    0.17345  -0.495  0.62028    
+factor(haridus)5  -0.28684    0.19251  -1.490  0.13630    
+factor(haridus)6  -0.48029    0.19660  -2.443  0.01461 *  
+vanusgr(25,35]    -1.06025    0.16224  -6.535 7.14e-11 ***
+vanusgr(35,45]    -1.09392    0.17827  -6.136 9.23e-10 ***
+vanusgr(45,55]    -0.87006    0.16862  -5.160 2.59e-07 ***
+vanusgr(55,100]   -1.82290    0.16634 -10.959  &lt; 2e-16 ***
+factor(aasta)2009 -0.96318    0.19760  -4.874 1.13e-06 ***
+factor(aasta)2010 -1.86286    0.20271  -9.190  &lt; 2e-16 ***
+factor(aasta)2011 -2.07730    0.20495 -10.136  &lt; 2e-16 ***
+factor(aasta)2012 -1.69572    0.20979  -8.083 8.24e-16 ***
+factor(aasta)2013 -1.24303    0.21512  -5.778 8.10e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.41 on 4130 degrees of freedom
+Multiple R-squared:  0.08617,   Adjusted R-squared:  0.08152 
+F-statistic: 18.55 on 21 and 4130 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">2</span>]])  <span class="co"># results for seisund = 2</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = dpalk2008 ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta), data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-24.6139  -1.3406   0.2502   1.5351  25.2833 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        2.03160    0.16179  12.557  &lt; 2e-16 ***
+aegkoolitusest-3   0.06861    0.18086   0.379 0.704415    
+aegkoolitusest-2   0.25106    0.12547   2.001 0.045407 *  
+aegkoolitusest-1   0.26715    0.12220   2.186 0.028815 *  
+aegkoolitusest1    0.55766    0.12219   4.564 5.05e-06 ***
+aegkoolitusest2    0.54447    0.12510   4.352 1.35e-05 ***
+aegkoolitusest3    0.25842    0.16963   1.523 0.127666    
+mees              -0.41810    0.06146  -6.803 1.05e-11 ***
+eestlane          -0.28148    0.06399  -4.399 1.10e-05 ***
+factor(haridus)3   0.21979    0.11802   1.862 0.062574 .  
+factor(haridus)4   0.03033    0.11240   0.270 0.787312    
+factor(haridus)5   0.14695    0.12205   1.204 0.228631    
+factor(haridus)6  -0.10041    0.11735  -0.856 0.392179    
+vanusgr(25,35]    -1.67483    0.10387 -16.124  &lt; 2e-16 ***
+vanusgr(35,45]    -1.94220    0.10325 -18.810  &lt; 2e-16 ***
+vanusgr(45,55]    -2.13732    0.10668 -20.034  &lt; 2e-16 ***
+vanusgr(55,100]   -2.39087    0.12881 -18.561  &lt; 2e-16 ***
+factor(aasta)2009 -1.07584    0.11400  -9.437  &lt; 2e-16 ***
+factor(aasta)2010 -1.12759    0.11833  -9.529  &lt; 2e-16 ***
+factor(aasta)2011 -0.52076    0.12103  -4.303 1.70e-05 ***
+factor(aasta)2012 -0.01717    0.12514  -0.137 0.890873    
+factor(aasta)2013  0.43029    0.12966   3.319 0.000906 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.083 on 19046 degrees of freedom
+Multiple R-squared:  0.05172,   Adjusted R-squared:  0.05067 
+F-statistic: 49.47 on 21 and 19046 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">3</span>]])</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = dpalk2008 ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta), data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-23.3129  -1.6260   0.3084   2.1003  23.6084 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         2.5419     0.3245   7.833 5.99e-15 ***
+aegkoolitusest-3    0.2090     0.3399   0.615  0.53859    
+aegkoolitusest-2    0.2158     0.2577   0.837  0.40240    
+aegkoolitusest-1    0.3005     0.2340   1.284  0.19913    
+aegkoolitusest1     0.3839     0.2344   1.638  0.10157    
+aegkoolitusest2     0.7346     0.2610   2.815  0.00491 ** 
+aegkoolitusest3     1.7024     0.3605   4.722 2.40e-06 ***
+mees               -0.9696     0.1268  -7.645 2.56e-14 ***
+eestlane           -0.2064     0.1268  -1.627  0.10374    
+factor(haridus)3   -0.1022     0.2069  -0.494  0.62130    
+factor(haridus)4   -0.1554     0.1970  -0.789  0.43029    
+factor(haridus)5    0.2983     0.2251   1.325  0.18516    
+factor(haridus)6   -1.1627     0.2323  -5.006 5.78e-07 ***
+vanusgr(25,35]     -1.2890     0.2022  -6.373 2.04e-10 ***
+vanusgr(35,45]     -2.4755     0.2046 -12.099  &lt; 2e-16 ***
+vanusgr(45,55]     -2.3052     0.1961 -11.756  &lt; 2e-16 ***
+vanusgr(55,100]    -3.5651     0.2628 -13.565  &lt; 2e-16 ***
+factor(aasta)2009  -1.4256     0.2598  -5.487 4.33e-08 ***
+factor(aasta)2010  -3.0061     0.2897 -10.375  &lt; 2e-16 ***
+factor(aasta)2011  -2.8486     0.3003  -9.485  &lt; 2e-16 ***
+factor(aasta)2012  -1.8581     0.3274  -5.676 1.47e-08 ***
+factor(aasta)2013  -1.5700     0.3506  -4.478 7.71e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.029 on 4274 degrees of freedom
+Multiple R-squared:  0.1415,    Adjusted R-squared:  0.1373 
+F-statistic: 33.55 on 21 and 4274 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">multiplot</span>(models) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Rühm"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.
+`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-difdif_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">split</span>(dfl, dfl<span class="sc">$</span>seisundtext), <span class="cf">function</span>(df) {</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(palk2008 <span class="sc">~</span> aegkoolitusest <span class="sc">+</span> mees <span class="sc">+</span> eestlane <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">factor</span>(haridus) <span class="sc">+</span> vanusgr <span class="sc">+</span> <span class="fu">factor</span>(aasta),</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> df)</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">1</span>]])  <span class="co"># results for seisund = 1</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk2008 ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta), data = df)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-5.622 -2.564 -1.081  1.558 20.586 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        0.08828    0.26678   0.331  0.74073    
+aegkoolitusest-3   1.05772    0.39120   2.704  0.00688 ** 
+aegkoolitusest-2   0.71123    0.27199   2.615  0.00896 ** 
+aegkoolitusest-1   0.60972    0.26848   2.271  0.02320 *  
+aegkoolitusest1    0.60144    0.26848   2.240  0.02514 *  
+aegkoolitusest2    0.63325    0.27171   2.331  0.01982 *  
+aegkoolitusest3    0.33148    0.37242   0.890  0.37348    
+mees               0.88861    0.12167   7.303 3.35e-13 ***
+eestlane          -0.14686    0.12221  -1.202  0.22952    
+factor(haridus)3   0.91963    0.19153   4.801 1.63e-06 ***
+factor(haridus)4   0.51133    0.19109   2.676  0.00748 ** 
+factor(haridus)5   0.82674    0.21208   3.898 9.84e-05 ***
+factor(haridus)6   1.96305    0.21660   9.063  &lt; 2e-16 ***
+vanusgr(25,35]     2.06524    0.17874  11.554  &lt; 2e-16 ***
+vanusgr(35,45]     1.49076    0.19640   7.591 3.91e-14 ***
+vanusgr(45,55]     0.81097    0.18577   4.365 1.30e-05 ***
+vanusgr(55,100]    1.88562    0.18325  10.290  &lt; 2e-16 ***
+factor(aasta)2009  0.07600    0.21769   0.349  0.72700    
+factor(aasta)2010  0.20639    0.22332   0.924  0.35545    
+factor(aasta)2011  0.19472    0.22579   0.862  0.38853    
+factor(aasta)2012  0.08971    0.23113   0.388  0.69795    
+factor(aasta)2013  0.14072    0.23699   0.594  0.55270    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.757 on 4130 degrees of freedom
+Multiple R-squared:  0.0829,    Adjusted R-squared:  0.07824 
+F-statistic: 17.78 on 21 and 4130 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">2</span>]])  <span class="co"># results for seisund = 2</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk2008 ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta), data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.4843  -3.6930  -0.3336   2.7044  17.8494 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        0.087931   0.207368   0.424 0.671547    
+aegkoolitusest-3   0.222973   0.231812   0.962 0.336128    
+aegkoolitusest-2   0.300380   0.160813   1.868 0.061794 .  
+aegkoolitusest-1   0.270490   0.156622   1.727 0.084179 .  
+aegkoolitusest1    0.275049   0.156615   1.756 0.079068 .  
+aegkoolitusest2    0.329830   0.160344   2.057 0.039698 *  
+aegkoolitusest3    0.408656   0.217418   1.880 0.060180 .  
+mees               3.015865   0.078770  38.287  &lt; 2e-16 ***
+eestlane           0.534474   0.082020   6.516 7.38e-11 ***
+factor(haridus)3   0.498829   0.151267   3.298 0.000977 ***
+factor(haridus)4   0.862890   0.144061   5.990 2.14e-09 ***
+factor(haridus)5   1.675925   0.156439  10.713  &lt; 2e-16 ***
+factor(haridus)6   3.103365   0.150405  20.633  &lt; 2e-16 ***
+vanusgr(25,35]     3.434511   0.133134  25.797  &lt; 2e-16 ***
+vanusgr(35,45]     4.404769   0.132337  33.284  &lt; 2e-16 ***
+vanusgr(45,55]     3.637899   0.136737  26.605  &lt; 2e-16 ***
+vanusgr(55,100]    3.610856   0.165102  21.871  &lt; 2e-16 ***
+factor(aasta)2009 -0.009002   0.146118  -0.062 0.950874    
+factor(aasta)2010  0.067422   0.151660   0.445 0.656641    
+factor(aasta)2011  0.054753   0.155122   0.353 0.724119    
+factor(aasta)2012 -0.018875   0.160395  -0.118 0.906324    
+factor(aasta)2013 -0.051106   0.166187  -0.308 0.758452    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.233 on 19046 degrees of freedom
+Multiple R-squared:  0.1409,    Adjusted R-squared:  0.1399 
+F-statistic: 148.7 on 21 and 19046 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">3</span>]])</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = palk2008 ~ aegkoolitusest + mees + eestlane + factor(haridus) + 
+    vanusgr + factor(aasta), data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.3960 -3.0622 -0.5514  2.1596 20.4849 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       -0.93264    0.36192  -2.577 0.010001 *  
+aegkoolitusest-3   0.64064    0.37908   1.690 0.091102 .  
+aegkoolitusest-2   0.80822    0.28736   2.813 0.004938 ** 
+aegkoolitusest-1   0.65959    0.26098   2.527 0.011528 *  
+aegkoolitusest1    0.72961    0.26143   2.791 0.005280 ** 
+aegkoolitusest2    1.04000    0.29109   3.573 0.000357 ***
+aegkoolitusest3    1.33796    0.40203   3.328 0.000882 ***
+mees               2.06985    0.14143  14.635  &lt; 2e-16 ***
+eestlane           0.84338    0.14143   5.963 2.67e-09 ***
+factor(haridus)3   0.88077    0.23071   3.818 0.000137 ***
+factor(haridus)4   0.73807    0.21967   3.360 0.000786 ***
+factor(haridus)5   1.09255    0.25105   4.352 1.38e-05 ***
+factor(haridus)6   3.31594    0.25903  12.801  &lt; 2e-16 ***
+vanusgr(25,35]     2.12557    0.22555   9.424  &lt; 2e-16 ***
+vanusgr(35,45]     2.81844    0.22818  12.352  &lt; 2e-16 ***
+vanusgr(45,55]     2.92538    0.21868  13.377  &lt; 2e-16 ***
+vanusgr(55,100]    3.68956    0.29309  12.588  &lt; 2e-16 ***
+factor(aasta)2009 -0.02063    0.28976  -0.071 0.943247    
+factor(aasta)2010  0.26294    0.32312   0.814 0.415823    
+factor(aasta)2011  0.29567    0.33493   0.883 0.377403    
+factor(aasta)2012 -0.11509    0.36508  -0.315 0.752582    
+factor(aasta)2013 -0.34545    0.39095  -0.884 0.376948    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.493 on 4274 degrees of freedom
+Multiple R-squared:  0.1462,    Adjusted R-squared:  0.142 
+F-statistic: 34.86 on 21 and 4274 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">multiplot</span>(models) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Rühm"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.
+`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-difdif_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-regressioon.html" class="pagination-link" aria-label="Regressioonimudeli kasutamine">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05-rdd.html" class="pagination-link" aria-label="Regressiooni katkemise meetod">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
