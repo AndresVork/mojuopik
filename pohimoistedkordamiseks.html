@@ -156,19 +156,21 @@ window.Quarto = {
 </li>
     </ul>
     </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Sisukord</h2>
    
   <ul>
   <li><a href="#potentsiaalse-tulemuse-mudel-pom" id="toc-potentsiaalse-tulemuse-mudel-pom" class="nav-link active" data-scroll-target="#potentsiaalse-tulemuse-mudel-pom"><span class="header-section-number">2.1</span> Potentsiaalse tulemuse mudel (POM)</a></li>
   <li><a href="#graafiline-mõju-modelleerimine-dag" id="toc-graafiline-mõju-modelleerimine-dag" class="nav-link" data-scroll-target="#graafiline-mõju-modelleerimine-dag"><span class="header-section-number">2.2</span> Graafiline mõju modelleerimine (DAG)</a></li>
   <li><a href="#mõju-hindamise-meetodid" id="toc-mõju-hindamise-meetodid" class="nav-link" data-scroll-target="#mõju-hindamise-meetodid"><span class="header-section-number">2.3</span> Mõju hindamise meetodid</a></li>
+  <li><a href="#juurdekasvude-erinevus-did" id="toc-juurdekasvude-erinevus-did" class="nav-link" data-scroll-target="#juurdekasvude-erinevus-did"><span class="header-section-number">2.4</span> Juurdekasvude erinevus (DiD)</a></li>
+  <li><a href="#regressiooni-katkemise-disain" id="toc-regressiooni-katkemise-disain" class="nav-link" data-scroll-target="#regressiooni-katkemise-disain"><span class="header-section-number">2.5</span> Regressiooni katkemise disain</a></li>
   </ul>
 </nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -222,19 +224,33 @@ window.Quarto = {
 <td>Programmi keskmine mõju nendele, kes tegelikult osalesid. Tavaliselt erineb ATE-st, kuna mõju (<span class="math inline">\(\delta_i\)</span>) on inimeste jaoks erinev.</td>
 </tr>
 <tr class="even">
+<td><strong>Keskmine mõju osalejatele (ATT)</strong> (Average Treatment Effect for the Treated)</td>
+<td><p>Programmi keskmine mõju nendele, kes tegelikult ei osalenud.</p>
+<p>(See on hüpoteetiline mõju. Me leiame selle nende põhjal, kes tegelikult osalesid)</p></td>
+</tr>
+<tr class="odd">
+<td><strong>Osalusrühm / Osalusgrupp</strong> (Treatment Group)</td>
+<td>Objektid (isikud, ettevõtted, piirkonnad), mis saavad meetme või mida mõjutab poliitikamuutus.</td>
+</tr>
+<tr class="even">
+<td><strong>Võrdlusrühm/<br>
+Kontrollgrupp</strong> (Control Group)</td>
+<td>Ühikud (isikud, ettevõtted, piirkonnad), mis ei saa meedet või mida ei mõjuta poliitikamuutus. Selle rühma püüame enamasti teha võimalikult sarnaseks osalusrühmaga.</td>
+</tr>
+<tr class="odd">
 <td><strong>Lihtne keskmiste erinevus (SDO)</strong> (Simple Difference of Outcomes)</td>
 <td>Vaadeldud osalusgrupi ja võrdlusgrupi keskmiste tulemuste lihtne erinevus. See annab üldjuhul <strong>nihkega</strong> tulemuse: <span class="math inline">\(\text{SDO} = \text{ATE} + \text{Valikunihe} + \text{Nihe heterogeense mõju tõttu}\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>Valikunihe</strong> (Selection Bias)</td>
 <td>Viga hinnangus, mis tekib, kuna osalenud (<span class="math inline">\(D=1\)</span>) ja mitteosalenud (<span class="math inline">\(D=0\)</span>) inimesed või ettevõtted erinevad üksteisest (nt võimekuse või motivatsiooni poolest). Valikunihke elimineerimine või selle vähendamine on mõju hindamisel üks peamine ülesanne.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>SUTVA eeldus</strong> (Stable Unit Treatment Value Assumption)</td>
 <td><p>Eeldus, mis koosneb järgmistest tingimusest: meetmes osalemine on selgelt defineeritud (osaled või ei osale), üksikisiku osalemine ja tulemus sõltuvad ainult tema enda osalemise otsusest, mitte teiste omast (puuduvad välismõjud, <em>general equilibrium effects</em>).</p>
 <p>Seega on vaatlused sõltumatud ja meetmed peaks olema väikesed.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>Tingimuslik sõltumatuse eeldus (CIA)</strong> (Conditional Independence Assumption)</td>
 <td>Tuntud ka kui <em>Unconfoundedness</em> või <em>Selection on Observables</em>. Eeldus, et potentsiaalne tulemus (<span class="math inline">\(Y\)</span>) ja meetmes osalemine (<span class="math inline">\(D\)</span>) on sõltumatud <strong>pärast seda, kui oleme arvesse võtnud kõik olulised jälgitavad tunnused (X)</strong>.</td>
 </tr>
@@ -246,7 +262,7 @@ window.Quarto = {
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
-<col style="width: 80%">
+<col style="width: 79%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -315,6 +331,91 @@ window.Quarto = {
 <tr class="even">
 <td><strong>Ühine tugi</strong> (Common Support)</td>
 <td>Tingimus, mis peab olema täidetud CIA eelduse ja sobitamismeetodite korral. See tähendab, et antud <span class="math inline">\(X\)</span> väärtuste juures peavad olema esindatud nii osalejad (<span class="math inline">\(D=1\)</span>) kui ka mitteosalejad (<span class="math inline">\(D=0\)</span>).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="juurdekasvude-erinevus-did" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="juurdekasvude-erinevus-did"><span class="header-section-number">2.4</span> Juurdekasvude erinevus (DiD)</h2>
+<p><em>Difference-in-differences method</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Juurdekasvude erinevus (DiD)</strong></td>
+<td>Meetod <strong>paneelandmete</strong> (või korduvate ristandmete) abil põhjusliku mõju hindamiseks. Eeldab, et meil on <strong>osalusgrupp</strong> (saab meetme) ja <strong>võrdlusgrupp</strong> (ei saa) ning andmed nii enne kui ka pärast meetme rakendamist.</td>
+</tr>
+<tr class="odd">
+<td><strong>Paralleelsete trendide eeldus</strong> (Parallel Trends Assumption)</td>
+<td><strong>Kõige olulisem eeldus</strong> DiD-meetodis. See nõuab, et kui osalusgrupp ei oleks meedet saanud, oleks nende tulemuse trend ajas olnud sama kui võrdlusgrupil.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Loomulik eksperiment</strong> (Natural Experiment)</td>
+<td>Olukord, kus DiD-meetodit sageli kasutatakse. Tekib, kui väline (eksogeenne) muutus, näiteks uus seadus, mõjutab ühte rühma, aga mitte teist.</td>
+</tr>
+<tr class="odd">
+<td><strong>Kolmekordne erinevus (Triple Difference)</strong></td>
+<td>DiD-meetodi edasiarendus. Võrdleb DiD hinnangut (nt mõjutatud rühma ja kontrollrühma vahel) teise DiD hinnanguga (nt sarnase, kuid vähem mõjutatud rühma vahel). Kasutatakse potentsiaalsete väliste segajate eemaldamiseks.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="regressiooni-katkemise-disain" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="regressiooni-katkemise-disain"><span class="header-section-number">2.5</span> Regressiooni katkemise disain</h2>
+<p><em>(Regression Discontinuity Design, RDD)</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Regressiooni katkemise disain (RDD)</strong></td>
+<td>Mõju hindamise meetod, mida kasutatakse, kui meetmes osalemine on määratud täpse lävendi (<em>cut-off</em>) alusel pideva muutuja (<em>running variable</em>) väärtusel. Näiteks vanus (lävend: 65 eluaastat pensionile jäämiseks).</td>
+</tr>
+<tr class="odd">
+<td><strong>Lõikepunkt / Lävend</strong> (Cut-off / Threshold)</td>
+<td>Täpne väärtus määravas muutujas (X), mis määrab, kas isik saab meetme (D=1) või mitte (D=0).</td>
+</tr>
+<tr class="even">
+<td><strong>Määrav muutuja</strong> (Running Variable / Assignment Variable)</td>
+<td>Pidev muutuja (nt vanus, sissetulek, eksami tulemus), mille lävend määrab meetmes osalemise.</td>
+</tr>
+<tr class="odd">
+<td><strong>Lokaalne keskmine mõju</strong> (Local Average Treatment Effect, LATE)</td>
+<td>RDD-ga saadud hinnang näitab meetme põhjuslikku mõju ainult lävendi piiril olevatele isikutele, mitte kogu elanikkonnale.</td>
+</tr>
+<tr class="even">
+<td><strong>Täpne RDD (Sharp RDD)</strong></td>
+<td>RDD vorm, kus lävendi ületamine <strong>määrab täielikult</strong> meetmes osalemise (st <span class="math inline">\(P(D=1 \vert X) = 1\)</span> lävendist paremal, ja <span class="math inline">\(P(D=1 \vert X) = 0\)</span> lävendist vasakul).</td>
+</tr>
+<tr class="odd">
+<td><strong>Hägune RDD (Fuzzy RDD)</strong></td>
+<td>RDD vorm, kus lävendi ületamine muudab järsult tõenäosust meetmes osaleda, kuid ei määra seda täielikult (st <span class="math inline">\(0 &lt; P(D=1 \vert X) &lt; 1\)</span>).<br>
+(Sarnane instrument-muutuja meetodile).</td>
+</tr>
+<tr class="even">
+<td><strong>Pidevuse eeldus</strong> (Continuity Assumption)</td>
+<td>Oluline eeldus RDD puhul. Nõuab, et potentsiaalsed tulemused (<span class="math inline">\(Y_0, Y_1\)</span>) oleks pidevad lävendi juures. Tähendab, et lävendi lähedal ei tohi olla muid järske muutusi (nt manipuleerimist) peale meetme (<span class="math inline">\(D\)</span>) osalemise muutuse.</td>
 </tr>
 </tbody>
 </table>
