@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./02-pohimoisted.html" rel="next">
 <link href="./01-sissejuhatus.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -154,6 +155,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -174,6 +187,7 @@ window.Quarto = {
   <li><a href="#sünteetilise-võrdlusobjekti-meetod" id="toc-sünteetilise-võrdlusobjekti-meetod" class="nav-link" data-scroll-target="#sünteetilise-võrdlusobjekti-meetod"><span class="header-section-number">2.8</span> Sünteetilise võrdlusobjekti meetod</a></li>
   <li><a href="#masinõppemeetodid---puud-ja-mets" id="toc-masinõppemeetodid---puud-ja-mets" class="nav-link" data-scroll-target="#masinõppemeetodid---puud-ja-mets"><span class="header-section-number">2.9</span> Masinõppemeetodid - puud ja mets</a></li>
   <li><a href="#lasso-mõju-hindamisel" id="toc-lasso-mõju-hindamisel" class="nav-link" data-scroll-target="#lasso-mõju-hindamisel"><span class="header-section-number">2.10</span> LASSO mõju hindamisel</a></li>
+  <li><a href="#muud" id="toc-muud" class="nav-link" data-scroll-target="#muud"><span class="header-section-number">2.11</span> Muud</a></li>
   </ul>
 </nav>
     </div>
@@ -583,7 +597,9 @@ Kontrollgrupp</strong> (Control Group)</td>
 </tr>
 <tr class="even">
 <td><strong>Otsustuspuu</strong> (Decision Tree), <strong>Regressioonipuu</strong> (Regression Tree)</td>
-<td>Masinõppe algoritm, mis jaotab andmestiku rekursiivselt alamhulkadeks, et leida ennustusreegleid tulemuse (<span class="math inline">\(Y\)</span>) või meetmes osalemise (<span class="math inline">\(D\)</span>) kohta. Moodustab aluse juhumetsale.</td>
+<td><p>Masinõppe algoritm, mis jaotab andmestiku samm-sammuliselt alamhulkadeks, et leida prognoosimise reeglid tulemuse (<span class="math inline">\(Y\)</span>) või meetmes osalemise (<span class="math inline">\(D\)</span>) kohta. Moodustab aluse juhumetsale.</p>
+<p>Otsustuspuu - väljund on diskreetne (nt kas töötab või osaleb meetmes)<br>
+Regressioonipuu - väljund on pidev (nt palk)</p></td>
 </tr>
 <tr class="odd">
 <td><strong>Juhumets</strong> (Random Forest)</td>
@@ -611,6 +627,10 @@ Kui tavaline puu maksimeerib prognooside erinevust igas lehes, siis kausaalpuu m
 <td><strong>IPW (Inverse Probability Weighting)</strong></td>
 <td>Meetod, kus mõju arvutamisel vaatlusi kaalutakse pöördvõrdeliselt nende <strong>tõenäosuse skooriga</strong> (<span class="math inline">\(P(D=1 \mid X)\)</span>). See annab osalejatele, kelle <span class="math inline">\(P(X)\)</span> on väike, suurema kaalu, ja mitte-osalejatele, kelle <span class="math inline">\(P(X)\)</span> on suur, suurema kaalu.</td>
 </tr>
+<tr class="odd">
+<td><strong>AIPW</strong> (augmented inverse probability weighting)</td>
+<td>Meetod kus mõjuhinnangut korrigeeritakse tõenäosuskooridega korrigeeritud</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -623,40 +643,71 @@ Kui tavaline puu maksimeerib prognooside erinevust igas lehes, siis kausaalpuu m
 </colgroup>
 <tbody>
 <tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
 <td><strong>Regulariseerimine</strong> (Regularized Regression)</td>
 <td>Üldnimetus meetoditele (nagu LASSO ja Ridge), mis lisavad regressioonimudeli eesmärgile (RSS minimeerimine) karistusliikme koefitsientide suuruse eest. See aitab vähendada üle-sobitamist (<em>overfitting</em>) ja teeb mudelid lihtsamaks.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>LASSO</strong> (Least Absolute Shrinkage and Selection Operator)</td>
 <td>Regulariseeriv regressioonimeetod, mis karistab suurte koefitsientide eest, lisades jääkliikmete ruutude summale (RSS) koefitsientide absoluutväärtuste summa (L1-norm). See sunnib paljusid väheolulisi tunnuseid <span class="math inline">\(X\)</span> olema täpselt null – teeb automaatse tunnuste valiku.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>Tunnuste valik</strong> (Feature Selection)</td>
 <td>LASSO peamine kasulik omadus ökonomeetrias. See suudab automaatselt tuhandete võimalike tunnuste (<span class="math inline">\(X\)</span>) hulgast leida need, mis on põhjusliku mõju nihketa hindamiseks kõige olulisemad.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Regulatsiooniparameeter (</strong><span class="math inline">\(\lambda\)</span>) (Regularization Parameter, <span class="math inline">\(\lambda\)</span>)</td>
 <td>Parameeter LASSO ja Ridge mudelites, mis määrab karistuse tugevuse. Mida suurem <span class="math inline">\(\lambda\)</span>, seda rohkem koefitsiente sunnitakse nulliks (LASSO puhul) ja seda suurem on koefitsientide kokkutõmbumine (mõlema puhul). <span class="math inline">\(\lambda\)</span> valitakse tavaliselt ristvalideerimise abil.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>Ristvalideerimine</strong> (Cross-Validation)</td>
 <td>Statistiline tehnika <span class="math inline">\(\lambda\)</span> (regulatsiooniparameetri) optimaalse väärtuse leidmiseks. Andmestik jagatakse alamhulkadeks. <span class="math inline">\(\lambda\)</span> valitakse nii, et see minimeeriks prognoosivea (nt <em>mean squared error</em>) valimi-välisel andmestiku osal. See sobib hästi, kui eesmärk on prognoosimine</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Teoreetiline</strong> <span class="math inline">\(\lambda\)</span> <strong>valik</strong> (`rlasso` meetod)</td>
 <td>Pakett `rlasso` (Belloni jt.) kasutab teoorial põhinevat, andmepõhist regulatsiooniparameetri <span class="math inline">\(\lambda\)</span> valikut</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>Post-LASSO</strong></td>
 <td>Meetod, kus kõigepealt kasutatakse LASSO-t, et valida välja olulised tunnused (koefitsiendiga <span class="math inline">\(\neq 0\)</span>). Seejärel hintakse seos tavalise OLSiga (vähimruutude) regressiooni, kasutades ainult valitud tunnuseid.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Double Selection LASSO (DS-LASSO)</strong></td>
 <td>Meetod, mille eesmärk on leida kõik olulised segajad (<span class="math inline">\(X\)</span>), mis võivad mõjutada nihet (<span class="math inline">\(D \leftrightarrow Y\)</span> seose puhul). Viib läbi kaks LASSO-valikut: 1) <span class="math inline">\(Y\)</span> seos <span class="math inline">\(X\)</span>-idega 2) <span class="math inline">\(D\)</span> seos <span class="math inline">\(X\)</span>-idega. Mudelisse jäetakse kõik tunnused, mis valiti kas 1. või 2. etapis. Saadud mudel hinnatakse post-LASSO meetodiga.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>Residualisation (Jääkliikmete meetod)</strong></td>
 <td>Alternatiivne lähenemine, mida kasutatakse LASSO-ga. See toimub kahes etapis: 1) <span class="math inline">\(Y \sim X\)</span> abil ja leitakse jääkliikmed <span class="math inline">\(r_Y\)</span>. 2) Modelleeritakse <span class="math inline">\(D \sim X\)</span> abil ja leitakse jääkliikmed <span class="math inline">\(r_D\)</span>. Lõpuks hinnatakse mõju regressiooniga: <span class="math inline">\(r_Y \sim r_D\)</span>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="muud" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="muud"><span class="header-section-number">2.11</span> Muud</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 87%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
+<td><strong>ROC-kõver, AUC (Area under curve)</strong></td>
+<td>Receiver operating characteristic (ROC) kõver kujutab sensitiivsuse (õigesti prognoositud sündmuste osakaal) and 1- spetsiifilisus (valepositiivsete osakaalu sündmust mitte omanud juhtudest) erinevates lõikepunktides. Selle joonie alune pindala on AUC – area under curve</td>
+</tr>
+<tr class="odd">
+<td><strong>Sensitiivsus</strong></td>
+<td>Prognoositud toimumiste osakaal kokku tegelikest toimumistest</td>
+</tr>
+<tr class="even">
+<td><strong>Spetsiifilisus</strong></td>
+<td>Prognoositud mitte-toimumiste osakaal kokku tegelikest mitte-toimumistest</td>
 </tr>
 </tbody>
 </table>
@@ -1072,6 +1123,9 @@ Kui tavaline puu maksimeerib prognooside erinevust igas lehes, siis kausaalpuu m
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./02-pohimoisted.html" class="pagination-link" aria-label="Potentsiaalse tulemuse mudel">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Andres Võrk">
-<meta name="dcterms.date" content="2025-11-22">
 
-<title>Põhjuslike seoste hindamine majanduses</title>
+<title>3&nbsp; Potentsiaalse tulemuse mudel – Põhjuslike seoste hindamine majanduses</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-sissejuhatus.html" rel="next">
+<link href="./03-regressioon.html" rel="next">
+<link href="./pohimoistedkordamiseks.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -84,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Eessõna</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-pohimoisted.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
@@ -111,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Eessõna</span></a>
   </div>
 </li>
@@ -129,7 +128,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
+  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
   </div>
 </li>
@@ -144,40 +143,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Sisukord</h2>
-   
-  <ul>
-  <li><a href="#eessõna" id="toc-eessõna" class="nav-link active" data-scroll-target="#eessõna">Eessõna</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Põhjuslike seoste hindamine majanduses</h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Autor</div>
-    <div class="quarto-title-meta-contents">
-             <p>Andres Võrk </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Avaldatud</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">November 22, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -187,19 +168,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="eessõna" class="level1 unnumbered">
-<h1 class="unnumbered">Eessõna</h1>
-<p>Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid majandustudengitele. Konspektis kasutatakse tarkvara R.</p>
-<p>Konspekt on jooksvalt täienev. Siia hakkan panema aines “Põhuse ja tagajärje seosed” kasutatud õppematerjale.</p>
-<p>Me kasutame näidisandmetena järgmisi andmefaile:</p>
-<ul>
-<li><p>Poliitikauuringute Keskuse Praxis 2002. aastal läbiviidud uuringu anonüümset andmefaili aktiivse tööpoliitika mõju hindamise kohta. (Vt Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis. Tallinn: Praxis, 2003, 108 lk.)</p></li>
-<li><p>PIAAC uuringu avalikud andmefailid</p></li>
-<li><p>Eesti Töötukassa anonümiseeritud näitefailid</p></li>
-</ul>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -604,10 +574,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./pohimoistedkordamiseks.html" class="pagination-link" aria-label="Põhimõisted eksamiks kordamiseks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-sissejuhatus.html" class="pagination-link" aria-label="Sissejuhatus">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03-regressioon.html" class="pagination-link" aria-label="Regressioonimudeli kasutamine">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
