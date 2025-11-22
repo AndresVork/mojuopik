@@ -165,6 +165,11 @@ window.Quarto = {
   <li><a href="#mõju-hindamise-meetodid" id="toc-mõju-hindamise-meetodid" class="nav-link" data-scroll-target="#mõju-hindamise-meetodid"><span class="header-section-number">2.3</span> Mõju hindamise meetodid</a></li>
   <li><a href="#juurdekasvude-erinevus-did" id="toc-juurdekasvude-erinevus-did" class="nav-link" data-scroll-target="#juurdekasvude-erinevus-did"><span class="header-section-number">2.4</span> Juurdekasvude erinevus (DiD)</a></li>
   <li><a href="#regressiooni-katkemise-disain" id="toc-regressiooni-katkemise-disain" class="nav-link" data-scroll-target="#regressiooni-katkemise-disain"><span class="header-section-number">2.5</span> Regressiooni katkemise disain</a></li>
+  <li><a href="#sobitamine" id="toc-sobitamine" class="nav-link" data-scroll-target="#sobitamine"><span class="header-section-number">2.6</span> Sobitamine</a></li>
+  <li><a href="#instrumentmuutuja-meetod-iv" id="toc-instrumentmuutuja-meetod-iv" class="nav-link" data-scroll-target="#instrumentmuutuja-meetod-iv"><span class="header-section-number">2.7</span> Instrumentmuutuja meetod (IV)</a></li>
+  <li><a href="#sünteetilise-võrdlusobjekti-meetod" id="toc-sünteetilise-võrdlusobjekti-meetod" class="nav-link" data-scroll-target="#sünteetilise-võrdlusobjekti-meetod"><span class="header-section-number">2.8</span> Sünteetilise võrdlusobjekti meetod</a></li>
+  <li><a href="#masinõppemeetodid---puud-ja-mets" id="toc-masinõppemeetodid---puud-ja-mets" class="nav-link" data-scroll-target="#masinõppemeetodid---puud-ja-mets"><span class="header-section-number">2.9</span> Masinõppemeetodid - puud ja mets</a></li>
+  <li><a href="#lasso-mõju-hindamisel" id="toc-lasso-mõju-hindamisel" class="nav-link" data-scroll-target="#lasso-mõju-hindamisel"><span class="header-section-number">2.10</span> LASSO mõju hindamisel</a></li>
   </ul>
 </nav>
 </nav>
@@ -252,7 +257,7 @@ Kontrollgrupp</strong> (Control Group)</td>
 </tr>
 <tr class="even">
 <td><strong>Tingimuslik sõltumatuse eeldus (CIA)</strong> (Conditional Independence Assumption)</td>
-<td>Tuntud ka kui <em>Unconfoundedness</em> või <em>Selection on Observables</em>. Eeldus, et potentsiaalne tulemus (<span class="math inline">\(Y\)</span>) ja meetmes osalemine (<span class="math inline">\(D\)</span>) on sõltumatud <strong>pärast seda, kui oleme arvesse võtnud kõik olulised jälgitavad tunnused (X)</strong>.</td>
+<td>Tuntud ka kui <em>Unconfoundedness</em> või <em>Selection on Observables</em>. Eeldus, et potentsiaalne tulemus (<span class="math inline">\(Y\)</span>) ja meetmes osalemine (<span class="math inline">\(D\)</span>) on sõltumatud pärast seda, kui oleme arvesse võtnud kõik olulised jälgitavad tunnused (X).</td>
 </tr>
 </tbody>
 </table>
@@ -261,8 +266,8 @@ Kontrollgrupp</strong> (Control Group)</td>
 <h2 data-number="2.2" class="anchored" data-anchor-id="graafiline-mõju-modelleerimine-dag"><span class="header-section-number">2.2</span> Graafiline mõju modelleerimine (DAG)</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 79%">
+<col style="width: 21%">
+<col style="width: 78%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -287,7 +292,7 @@ Kontrollgrupp</strong> (Control Group)</td>
 </tr>
 <tr class="even">
 <td><strong>Kollaider / Põrguti</strong> (Collider)</td>
-<td>Muutuja (nt <span class="math inline">\(X\)</span>), mis on põhjustatud meetme (<span class="math inline">\(D\)</span>) ja tulemuse (<span class="math inline">\(Y\)</span>) poolt (<span class="math inline">\(D \rightarrow X \leftarrow Y\)</span>). Kui <strong>kollaider</strong> pannakse mudelisse, luuakse uus (nihkega) seos (avatakse tagauks) <sup>28</sup>, mistõttu neid ei tohi reeglina mudelitesse lisada<sup>29</sup>.</td>
+<td>Muutuja (nt <span class="math inline">\(X\)</span>), mis on põhjustatud meetme (<span class="math inline">\(D\)</span>) ja tulemuse (<span class="math inline">\(Y\)</span>) poolt (<span class="math inline">\(D \rightarrow X \leftarrow Y\)</span>). Kui <strong>kollaider</strong> pannakse mudelisse, luuakse uus (nihkega) seos (avatakse tagauks), mistõttu neid ei tohi mudelitesse lisada.</td>
 </tr>
 </tbody>
 </table>
@@ -350,11 +355,11 @@ Kontrollgrupp</strong> (Control Group)</td>
 </tr>
 <tr class="even">
 <td><strong>Juurdekasvude erinevus (DiD)</strong></td>
-<td>Meetod <strong>paneelandmete</strong> (või korduvate ristandmete) abil põhjusliku mõju hindamiseks. Eeldab, et meil on <strong>osalusgrupp</strong> (saab meetme) ja <strong>võrdlusgrupp</strong> (ei saa) ning andmed nii enne kui ka pärast meetme rakendamist.</td>
+<td>Meetod paneelandmete (või korduvate ristandmete) abil põhjusliku mõju hindamiseks. Eeldab, et meil on osalusgrupp (saab meetme) ja võrdlusgrupp (ei saa) ning andmed nii enne kui ka pärast meetme rakendamist.</td>
 </tr>
 <tr class="odd">
 <td><strong>Paralleelsete trendide eeldus</strong> (Parallel Trends Assumption)</td>
-<td><strong>Kõige olulisem eeldus</strong> DiD-meetodis. See nõuab, et kui osalusgrupp ei oleks meedet saanud, oleks nende tulemuse trend ajas olnud sama kui võrdlusgrupil.</td>
+<td>Kõige olulisem eeldus DiD-meetodis. See nõuab, et kui osalusgrupp ei oleks meedet saanud, oleks nende tulemuse trend ajas olnud sama kui võrdlusgrupil.</td>
 </tr>
 <tr class="even">
 <td></td>
@@ -416,6 +421,254 @@ Kontrollgrupp</strong> (Control Group)</td>
 <tr class="even">
 <td><strong>Pidevuse eeldus</strong> (Continuity Assumption)</td>
 <td>Oluline eeldus RDD puhul. Nõuab, et potentsiaalsed tulemused (<span class="math inline">\(Y_0, Y_1\)</span>) oleks pidevad lävendi juures. Tähendab, et lävendi lähedal ei tohi olla muid järske muutusi (nt manipuleerimist) peale meetme (<span class="math inline">\(D\)</span>) osalemise muutuse.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sobitamine" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sobitamine"><span class="header-section-number">2.6</span> Sobitamine</h2>
+<p>(<em>Matching</em>)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Sobitamine</strong> (Matching)</td>
+<td>Mõju hindamise meetod, mille eesmärk on leida igale osalusrühmas olevale isikule (kes sai meetme) võimalikult sarnane isik võrdlusrühmast (kes meedet ei saanud).</td>
+</tr>
+<tr class="odd">
+<td><strong>Tingimuslik sõltumatuse eeldus (CIA)</strong> (Conditional Independence Assumption)</td>
+<td>Sobitamise põhi-eeldus: <span class="math inline">\(Y_0\)</span> ja <span class="math inline">\(Y_1\)</span> on sõltumatud <span class="math inline">\(D\)</span>-st tingimusel, et on arvesse võetud kõik jälgitavad segajad <span class="math inline">\(X\)</span>. See tähendab, et sobitamine tegeleb vaid valikunihkega, mis tuleb jälgitavatest tunnustest.</td>
+</tr>
+<tr class="even">
+<td><strong>Ühine tugi</strong> (Common Support)</td>
+<td>Eeldus, mis peab kehtima: Iga osalusrühmas oleva isiku jälgitavate tunnuste <span class="math inline">\(X\)</span> väärtuste (või tõenäosusskoori) läheduses peab olema piisavalt vaatlusi ka võrdlusrühmas.</td>
+</tr>
+<tr class="odd">
+<td><strong>Tõenäosuse skoor (PS)</strong> (Propensity Score, <span class="math inline">\(P(X)\)</span>)</td>
+<td>Tõenäosus, et isik kuulub osalusrühma, arvestades tema jälgitavaid tunnuseid <span class="math inline">\(X\)</span>. See on tavaliselt logit- või probit regressioonimudeli abil hinnatud väärtus: <span class="math inline">\(P(D_i = 1 \mid X_i)\)</span>.</td>
+</tr>
+<tr class="even">
+<td><strong>Sobitamine tõenäosuse skoori alusel (PSM)</strong> (Propensity Score Matching)</td>
+<td>Sagedasti kasutatud sobitamismeetod, mis kasutab mitme muutuja <span class="math inline">\(X\)</span> asemel ühte mõõdikut: tõenäosuse skoori meetmes osaleda. Osalusrühma isikutele sobitatakse võrdlusrühma isikud, kelle <span class="math inline">\(P(X)\)</span> väärtused on väga lähedal.</td>
+</tr>
+<tr class="odd">
+<td><strong>Lähima naabri sobitamine</strong> (Nearest Neighbor Matching)</td>
+<td>Meetod, kus igale osalusrühma vaatlusele leitakse kõige lähima kaugusega (nt <span class="math inline">\(P(X)\)</span> alusel või Mahalanobise kauguse alusel) vaste võrdlusrühmast. Kasutada saab tagasipanekuga (või ilma).</td>
+</tr>
+<tr class="even">
+<td><strong>Kaliiber</strong> (Caliper)</td>
+<td>Määratud maksimaalne lubatud kaugus (<span class="math inline">\(P(X)\)</span> erinevus) paari sobitamisel. Aitab tagada kvaliteetsemad vasted, isegi kui see vähendab sobitatud isikute arvu.</td>
+</tr>
+<tr class="odd">
+<td><strong>Tasakaalu test</strong> (Balance Test)</td>
+<td>Oluline samm sobitamise järel. Kontrollitakse, kas jälgitavate tunnuste <span class="math inline">\(X\)</span> keskmised väärtused on sobitatud osalus- ja võrdlusrühmas piisavalt sarnased (statistiliselt oluliselt ei erine).</td>
+</tr>
+<tr class="even">
+<td><strong>Otste lõikamine</strong> (Trimming)</td>
+<td>Sobitamise-eelne või -järgne tegevus, millega eemaldatakse analüüsist vaatlused, millel puudub ühine tugi (nt liiga väike või liiga suur <span class="math inline">\(P(X)\)</span> väärtus).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="instrumentmuutuja-meetod-iv" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="instrumentmuutuja-meetod-iv"><span class="header-section-number">2.7</span> Instrumentmuutuja meetod (IV)</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Instrumentmuutuja (Z)</strong> (Instrumental Variable, IV)</td>
+<td>Muutuja, mida kasutatakse regressioonimudelis, et saada nihketa hinnang meetme (<span class="math inline">\(D\)</span>) mõjule tulemusele (<span class="math inline">\(Y\)</span>). Peab vastama kahele tingimusele (vt allpool).</td>
+</tr>
+<tr class="odd">
+<td><strong>Endogeensus / Nihe</strong> (Endogeneity / Bias)</td>
+<td>Probleem, kus meetme muutuja (<span class="math inline">\(D\)</span>) on korreleeritud regressioonimudeli vealiikmega (<span class="math inline">\(u\)</span>). See tekib valikunihke või kahesuunalise põhjuslikkuse tõttu ning viib OLS-i puhul nihkega hinnanguni.</td>
+</tr>
+<tr class="even">
+<td><strong>IV Tingimus 1: Relevantsus</strong> (Relevance)</td>
+<td>Esimene ja testitav eeldus: instrumentmuutuja (<span class="math inline">\(Z\)</span>) peab olema tugevalt korreleeritud meetme muutujaga (<span class="math inline">\(D\)</span>). St, <span class="math inline">\(Z\)</span> peab mõjutama <span class="math inline">\(D\)</span>-d.</td>
+</tr>
+<tr class="odd">
+<td><strong>IV Tingimus 2: Väline kehtivus / Eksogeensus</strong> (Exclusion Restriction / Exogeneity)</td>
+<td>Teine ja mittetestitav eeldus: Instrumentmuutuja (<span class="math inline">\(Z\)</span>) tohib mõjutada tulemust (<span class="math inline">\(Y\)</span>) ainult meetme muutuja <strong>(</strong><span class="math inline">\(D\)</span>) kaudu. St, <span class="math inline">\(Z\)</span> ei tohi olla korreleeritud vealiikmega (<span class="math inline">\(u\)</span>).</td>
+</tr>
+<tr class="even">
+<td><strong>Kaheetapiline vähimruutude meetod (2SLS)</strong> (Two-Stage Least Squares)</td>
+<td>IV-meetodi rakendamise viis. 1. etapp: regresseeritakse <span class="math inline">\(D\)</span> <span class="math inline">\(Z\)</span>-i ja <span class="math inline">\(X\)</span>-ide suhtes. 2. etapp: regresseeritakse <span class="math inline">\(Y\)</span> <span class="math inline">\(D\)</span> <em>ennustatud väärtuse</em> ja <span class="math inline">\(X\)</span>-ide suhtes.</td>
+</tr>
+<tr class="odd">
+<td><strong>Lokaalne keskmine mõju (LATE)</strong> (Local Average Treatment Effect)</td>
+<td><p>IV-meetodi puhul saadud põhjuslik mõju hinnang. See mõju kehtib vaid allujatele (<em>compliers</em>) – neile, kelle osalemisotsus (<span class="math inline">\(D\)</span>) oli mõjutatud instrumentmuutujast (<span class="math inline">\(Z\)</span>).</p>
+<p>Kui eeldame, et mõju on kõigi jaoks ühesugune (homogeenne), siis rühmade eristus ei ole vajalik.</p></td>
+</tr>
+<tr class="even">
+<td><strong>Nõrk instrument</strong> (Weak Instrument)</td>
+<td>Olukord, kus instrumentmuutuja (<span class="math inline">\(Z\)</span>) ei ole piisavalt tugevalt seotud meetme muutujaga (<span class="math inline">\(D\)</span>). Viib nihkega (OLS-i poole kaldu) ja ebatäpsete IV-hinnanguteni.</td>
+</tr>
+<tr class="odd">
+<td><strong>Hausman-Wu test</strong> (Hausman-Wu Test)</td>
+<td>Test, millega kontrollitakse endogeensuse olemasolu meetme muutuja (<span class="math inline">\(D\)</span>) ja vealiikme (<span class="math inline">\(u\)</span>) vahel. Kui test on oluline, näitab see, et <span class="math inline">\(D\)</span> on endogeenne ja IV-meetodi kasutamine on vajalik.</td>
+</tr>
+<tr class="even">
+<td><strong>Sargani test</strong> (Sargan Test)</td>
+<td>Test, millega kontrollitakse eksogeensuse eelduse paikapidavust (Exclusion Restriction), kui meil on rohkem instrumente kui endogeenseid muutujaid (üleidentifitseeritud juht).</td>
+</tr>
+<tr class="odd">
+<td>Waldi hinnang binaarse meetme ja binaarse instrumendi korral</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sünteetilise-võrdlusobjekti-meetod" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="sünteetilise-võrdlusobjekti-meetod"><span class="header-section-number">2.8</span> Sünteetilise võrdlusobjekti meetod</h2>
+<p>(Synthetic Control Method)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 74%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Sünteetiline Võrdlusobjekt (SCM)</strong> (Synthetic Control Method), sünteetilise kontrollgrupi meetod</td>
+<td>Meetod, mida kasutatakse <strong>ühe meetmes osaleja puhul</strong> (nt ühe riigi) mõju hindamiseks, luues teistest, mitteosalevatest objektidest (doonorrühmast) kaalutud kombinatsioon.</td>
+</tr>
+<tr class="odd">
+<td><strong>Sihtobjekt</strong> (Treated Unit)</td>
+<td>Ainus uuritav ühik (nt linn, riik), mis on saanud sekkumise (meetme). SCM eesmärk on leida sellele veenev võrdlusobjekt.</td>
+</tr>
+<tr class="even">
+<td><strong>Doonorrühm, võrdlusobjektid</strong> (Donor Pool / Control Units)</td>
+<td>Meetmest mitte mõjutatud ühikute kogum, mille kaalutud keskmisest tehakse sünteetiline võrdlusobjekt. Nende kaalude summa peab olema 1 ja kaalud ei tohi olla negatiivsed.</td>
+</tr>
+<tr class="odd">
+<td><strong>Kaalud (</strong><span class="math inline">\(\mathbf{W}\)</span>) (Weights)</td>
+<td>Positiivsed väärtused, mis määratakse võrdlusrobjektidele. Need kaalud minimeerivad sihtobjekti ja sünteetilise võrdlusobjekti erinevust meetmele eelneval perioodil.</td>
+</tr>
+<tr class="even">
+<td><strong>Sobitamisperiood / Eelperiood</strong> (Pre-intervention Period)</td>
+<td>Ajavahemik enne meedet, mida kasutatakse kaalude <span class="math inline">\(\mathbf{W}\)</span> leidmiseks. Kaalud valitakse nii, et sihtobjekti ja sünteetilise võrdlusobjekti tulemused <span class="math inline">\(\mathbf{Y_t}\)</span> ja ka selgitavad tunnused <span class="math inline">\(\mathbf{X_{mt}}\)</span> oleksid selles perioodis võimalikult lähedased.</td>
+</tr>
+<tr class="odd">
+<td><strong>Mõju hinnang</strong> (Treatment Effect Estimate)</td>
+<td>SCM-iga saadud põhjuslik mõju, mis leitakse sihtobjekti ja sünteetilise võrdlusobjekti tulemuste vahe alusel pärast meetme rakendamist.</td>
+</tr>
+<tr class="even">
+<td><strong>Platseebotest / Permutatsioonitest</strong> (Placebo Test / Permutation Test)</td>
+<td>Eelduste ja järelduste statistiline testimismeetod SCM-is. Leitakse sama arvutuse tulemus ka teistele võrdlusrühma liikmetele ja hinnatakse, kas meid huvitava objekti tulemus on ebatavaliselt suur võrreldes teistega. Kui meie tulemus on eriline, siis see viitab, et tegemist on tegeliku mõjuga.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="masinõppemeetodid---puud-ja-mets" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="masinõppemeetodid---puud-ja-mets"><span class="header-section-number">2.9</span> Masinõppemeetodid - puud ja mets</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mõiste</strong></td>
+<td><strong>Selgitus</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Otsustuspuu</strong> (Decision Tree), <strong>Regressioonipuu</strong> (Regression Tree)</td>
+<td>Masinõppe algoritm, mis jaotab andmestiku rekursiivselt alamhulkadeks, et leida ennustusreegleid tulemuse (<span class="math inline">\(Y\)</span>) või meetmes osalemise (<span class="math inline">\(D\)</span>) kohta. Moodustab aluse juhumetsale.</td>
+</tr>
+<tr class="odd">
+<td><strong>Juhumets</strong> (Random Forest)</td>
+<td>Ansambelmeetod, mis kombineerib mitu puud. Iga puu on ehitatud juhusliku valimiga (<em>bootstrapping</em>) ja kasutades juhuslikku alamhulka tunnustest igas harus. Kasutatakse peamiselt täpseks prognoosimiseks (<span class="math inline">\(E[Y\vert X]\)</span> või <span class="math inline">\(P[D\vert X]\)</span>).</td>
+</tr>
+<tr class="even">
+<td><strong>Põhjuslik mets / Kausaalmets<br>
+(Causal Forest)</strong></td>
+<td>Juhumetsa edasiarendus, mis on loodud spetsiaalselt heterogeense põhjusliku mõju (CATE<strong>)</strong> hindamiseks. Eraldab andmed kaheks: üks osa puude ehitamiseks ja teine osa mõju hindamiseks, et vältida <em>üle-sobitamist</em> (overfitting).<br>
+Kui tavaline puu maksimeerib prognooside erinevust igas lehes, siis kausaalpuu maksimeerib mõju erinevust igas lehes.</td>
+</tr>
+<tr class="odd">
+<td><strong>Heterogeenne mõju</strong> (Heterogeneous Effect)</td>
+<td>Eeldus või tulemus, et põhjuslik mõju (<span class="math inline">\(\delta\)</span>) on erinevatel inimestel (alamrühmadel) erinev (st sõltub <span class="math inline">\(X\)</span> väärtustest). Masinõppemeetodid on selle tuvastamisel eriti võimsad.</td>
+</tr>
+<tr class="even">
+<td><strong>Kõrge-dimensiooniline andmestik</strong> (High-Dimensional Data)</td>
+<td>Andmestik, kus on väga palju jälgitavaid tunnuseid (<span class="math inline">\(X\)</span>), mida peab arvesse võtma valikunihke korrigeerimiseks. Masinõpe aitab neist olulised leida.</td>
+</tr>
+<tr class="odd">
+<td><strong>Double Machine Learning (DML)</strong></td>
+<td>Üks juhtivaid lähenemisi põhjusliku mõju hindamiseks masinõppe abil. Kasutab kaheetapilist meetodit (nagu 2SLS või AIPW), kus mõlemad etapid viiakse läbi (regressiooni vealiikmed leitakse) paindlike masinõppe meetodite (nt juhumets) abil.</td>
+</tr>
+<tr class="even">
+<td><strong>IPW (Inverse Probability Weighting)</strong></td>
+<td>Meetod, kus mõju arvutamisel vaatlusi kaalutakse pöördvõrdeliselt nende <strong>tõenäosuse skooriga</strong> (<span class="math inline">\(P(D=1 \mid X)\)</span>). See annab osalejatele, kelle <span class="math inline">\(P(X)\)</span> on väike, suurema kaalu, ja mitte-osalejatele, kelle <span class="math inline">\(P(X)\)</span> on suur, suurema kaalu.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lasso-mõju-hindamisel" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="lasso-mõju-hindamisel"><span class="header-section-number">2.10</span> LASSO mõju hindamisel</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Regulariseerimine</strong> (Regularized Regression)</td>
+<td>Üldnimetus meetoditele (nagu LASSO ja Ridge), mis lisavad regressioonimudeli eesmärgile (RSS minimeerimine) karistusliikme koefitsientide suuruse eest. See aitab vähendada üle-sobitamist (<em>overfitting</em>) ja teeb mudelid lihtsamaks.</td>
+</tr>
+<tr class="even">
+<td><strong>LASSO</strong> (Least Absolute Shrinkage and Selection Operator)</td>
+<td>Regulariseeriv regressioonimeetod, mis karistab suurte koefitsientide eest, lisades jääkliikmete ruutude summale (RSS) koefitsientide absoluutväärtuste summa (L1-norm). See sunnib paljusid väheolulisi tunnuseid <span class="math inline">\(X\)</span> olema täpselt null – teeb automaatse tunnuste valiku.</td>
+</tr>
+<tr class="odd">
+<td><strong>Tunnuste valik</strong> (Feature Selection)</td>
+<td>LASSO peamine kasulik omadus ökonomeetrias. See suudab automaatselt tuhandete võimalike tunnuste (<span class="math inline">\(X\)</span>) hulgast leida need, mis on põhjusliku mõju nihketa hindamiseks kõige olulisemad.</td>
+</tr>
+<tr class="even">
+<td><strong>Regulatsiooniparameeter (</strong><span class="math inline">\(\lambda\)</span>) (Regularization Parameter, <span class="math inline">\(\lambda\)</span>)</td>
+<td>Parameeter LASSO ja Ridge mudelites, mis määrab karistuse tugevuse. Mida suurem <span class="math inline">\(\lambda\)</span>, seda rohkem koefitsiente sunnitakse nulliks (LASSO puhul) ja seda suurem on koefitsientide kokkutõmbumine (mõlema puhul). <span class="math inline">\(\lambda\)</span> valitakse tavaliselt ristvalideerimise abil.</td>
+</tr>
+<tr class="odd">
+<td><strong>Ristvalideerimine</strong> (Cross-Validation)</td>
+<td>Statistiline tehnika <span class="math inline">\(\lambda\)</span> (regulatsiooniparameetri) optimaalse väärtuse leidmiseks. Andmestik jagatakse alamhulkadeks. <span class="math inline">\(\lambda\)</span> valitakse nii, et see minimeeriks prognoosivea (nt <em>mean squared error</em>) valimi-välisel andmestiku osal. See sobib hästi, kui eesmärk on prognoosimine</td>
+</tr>
+<tr class="even">
+<td><strong>Teoreetiline</strong> <span class="math inline">\(\lambda\)</span> <strong>valik</strong> (`rlasso` meetod)</td>
+<td>Pakett `rlasso` (Belloni jt.) kasutab teoorial põhinevat, andmepõhist regulatsiooniparameetri <span class="math inline">\(\lambda\)</span> valikut</td>
+</tr>
+<tr class="odd">
+<td><strong>Post-LASSO</strong></td>
+<td>Meetod, kus kõigepealt kasutatakse LASSO-t, et valida välja olulised tunnused (koefitsiendiga <span class="math inline">\(\neq 0\)</span>). Seejärel hintakse seos tavalise OLSiga (vähimruutude) regressiooni, kasutades ainult valitud tunnuseid.</td>
+</tr>
+<tr class="even">
+<td><strong>Double Selection LASSO (DS-LASSO)</strong></td>
+<td>Meetod, mille eesmärk on leida kõik olulised segajad (<span class="math inline">\(X\)</span>), mis võivad mõjutada nihet (<span class="math inline">\(D \leftrightarrow Y\)</span> seose puhul). Viib läbi kaks LASSO-valikut: 1) <span class="math inline">\(Y\)</span> seos <span class="math inline">\(X\)</span>-idega 2) <span class="math inline">\(D\)</span> seos <span class="math inline">\(X\)</span>-idega. Mudelisse jäetakse kõik tunnused, mis valiti kas 1. või 2. etapis. Saadud mudel hinnatakse post-LASSO meetodiga.</td>
+</tr>
+<tr class="odd">
+<td><strong>Residualisation (Jääkliikmete meetod)</strong></td>
+<td>Alternatiivne lähenemine, mida kasutatakse LASSO-ga. See toimub kahes etapis: 1) <span class="math inline">\(Y \sim X\)</span> abil ja leitakse jääkliikmed <span class="math inline">\(r_Y\)</span>. 2) Modelleeritakse <span class="math inline">\(D \sim X\)</span> abil ja leitakse jääkliikmed <span class="math inline">\(r_D\)</span>. Lõpuks hinnatakse mõju regressiooniga: <span class="math inline">\(r_Y \sim r_D\)</span>.</td>
 </tr>
 </tbody>
 </table>
