@@ -1,0 +1,816 @@
+# Regressiooni katkemise meetod
+
+Poolik - arenev
+
+## Mudeli seade
+
+
+Regressiooni katkemise disain (Regression Discontinuity Design, RDD) on kvaasieksperimentaalne meetod põhjusliku mõju hindamiseks, kui osalemine programmis või meetmes sõltub mõnest pidevast tunnusest (nt vanus, sissetulek, hinne) ja selgelt määratletud lõikepunktist.:contentReference[oaicite:0]{index=0}
+
+Tüüpilised näited:
+
+- pensioniõigus alates vanusest 63 või 65  
+- tasuta hambaravi kuni 19. eluaastani  
+- toetus, kui käive langeb rohkem kui 30%  
+- stipendium, kui hinne ületab 4,5  
+
+Oluline mõte: me ei saa leida täpselt samasugust osalus- ja võrdlusrühma (puudub ühine tugi, *common support*), kuid saame võrrelda **väga lähedal lõikepunktile** olevaid isikuid: nt 64 vs 65 aastat, hinne 4,4 vs 4,6.
+
+### Tähistused
+
+Olgu:
+
+- $(Y_i(1)$ – isiku $i$ potentsiaalne tulemus, kui ta osaleb programmis (D=1)  
+- $(Y_i(0)$ – potentsiaalne tulemus, kui ta ei osale (D=0)  
+- $D_i \in \{0,1\}$ – tegelik osalemine meetmes  
+- $X_i$ – määramismuuttuja (vanus, hinne, sissetulek), mis määrab abikõlblikkuse  
+- $c$ – lõikepunkt, lävend (cutoff)
+
+Vaatleme tinglikke keskmisi:
+
+$$
+m_1(x) = \mathbb{E}[Y_i(1)\mid X_i = x], \quad
+m_0(x) = \mathbb{E}[Y_i(0)\mid X_i = x].
+$$
+
+RD meetod põhineb ideel, et vahetult lõikepunkti ümbruses on isikud “peaaegu juhuslikult” jaotatud.
+
+### Järsk (sharp) disain
+
+Määramistingimus
+
+**Järsk disain** (*sharp design*) tähendab, et määramismuutuja $X_i$ ja lõikepunkt $c$ määravad osalemise deterministlikult:
+
+$$
+D_i = \mathbf{1}(X_i \ge c),
+$$
+
+kus $\mathbf{1}(\cdot)$ on indikaatorfunktsioon.
+
+- Kui $X_i \ge c$, siis kõik osalevad: $D_i = 1$  
+- Kui $X_i < c$, siis keegi ei osale: $D_i = 0$
+
+Te gelikult vaatleme täheldatud tulemust
+
+$$
+Y_i = D_i Y_i(1) + (1-D_i)Y_i(0).
+$$
+
+### Mõju hindamise valem (sharp RDD)
+
+RDD põhiobjekt on **lokaalne keskmine mõju** lõikepunktis:
+
+$$
+\tau^{SRD} = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x]
+            - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x].
+$$
+
+Sõnades:  
+– võtame tingliku keskmise väljundi vahetult lõikepunktist **paremal** (abikõlblikud)  
+– lahutame sellest tingliku keskmise väljundi vahetult lõikepunktist **vasakul** (mitteabikõlblikud).
+
+Kui pidevuse eeldus (vt allpool) kehtib, siis see vahe identifitseerib:
+
+$$
+\tau^{SRD} = \mathbb{E}\big[Y_i(1) - Y_i(0) \,\big|\, X_i = c\big],
+$$
+
+ehk **lokaalse ATE** – *Local Average Treatment Effect* lõikepunkti juures (LATE).
+
+### Hägus (fuzzy) disain
+
+ Määramistingimus
+
+**Hägus disain** (*fuzzy design*) tähendab, et lõikepunkt ei määra osalemist deterministlikult:
+
+- osalemise tõenäosus hüppab lõikepunktis, kuid  
+- enne lõikepunkti on osa isikuid, kes ikkagi osalevad  
+- pärast lõikepunkti on osa, kes ei osale.
+
+Formaalne:
+
+$$
+p(x) = \Pr(D_i = 1 \mid X_i = x)
+$$
+
+on **katkev** punktis \(c\), st
+
+$$
+\lim_{x \downarrow c} p(x) \neq \lim_{x \uparrow c} p(x),
+$$
+
+aga kumbki pole 0 ega 1.
+
+Mida see tähendab sisuliselt?  
+– reegel on olemas (nt pensioniiga 63)  
+– aga osa inimestest läheb pensionile varem või hiljem → reeglit ei järgita täielikult  
+– lõikepunkti lähedal on $X_i$ käitumas nagu **instrumentmuutuja**: mõjutab tugevalt osalemise tõenäosust, mitte otseselt tulemust.
+
+## Mõju hindamise valem (fuzzy RDD, Wald)
+
+Hägusa disaini korral võrdleme lisaks $Y$ hüppele ka meetmes osalemise hüpet:
+
+$$
+\Delta Y = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x]
+         - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x],
+$$
+
+$$
+\Delta D = \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x]
+         - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x].
+$$
+
+**Lokaalne Waldi hinnang**:
+
+$$
+\tau^{FRD} = \frac{\Delta Y}{\Delta D}.
+$$
+
+See on analoogne IV-Waldi hinnanguga: kui lõikepunkti juures oleks tõenäosus muutunud 0-lt 1-le, siis $\Delta Y$ olekski mõju; kuna muutus on väiksem, skaleerime selle üles jagades $\Delta D$-ga.
+
+### Pidevuse eeldus
+
+RDD tuum on **pidevuse eeldus** (*continuity assumption*). Informaalne mõte:
+
+Kõik muud tegurid peale programmi mõju muutuvad lõikepunkti ümbruses “sujuvalt” (pidevalt). Ainus diskreetne hüpe $Y$-s lõikepunktis tuleb programmist.
+
+Formaalne kuju:
+
+$$
+\lim_{x \downarrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+=
+\lim_{x \uparrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+$$
+
+ja terava disaini korral samamoodi $Y_i(1)$ jaoks, või üldisemalt, et potentsiaalsete tulemuste tinglikud keskmised on pidevad $x=c$ juures.
+
+Lisaks saame kontrollida, kas ka $X£-i tihedusfunktsioon on pidev lõikepunkti juures (vt McCrary test).
+
+Pidevuse rikkumised:
+
+- inimesed manipuleerivad oma $X£-i (hinne, sissetulek) üle/alla piiri, et reegliga mängida  
+- samal lõikepunktil juhtub mõni **muu** poliitikamuutus (teine reform, teine programm)  
+- lõikepunkt ise on endogeenne (nt “nutikad” ettevõtted planeerivad töötajate arvu täpselt alla piiri, et toetust saada)
+
+### McCrary test: x-jaotuse pidevus
+
+Kui inimesed saavad määramismuutujat $X$ ise mõjutada (nt taotlusvormi täitmise kuupäeva, sissetuleku deklareerimist), võivad nad “koonduda” lõikepunkti alla või üles. Selle tuvastamiseks kasutatakse **McCrary tihedustesti**.
+
+- $H_0$: $X$ tihedus on lõikepunkti juures **pidev** (ei ole manipulatsiooni)  
+- $H_1$: tiheduses on **hüpe** lõikepunkti juures (viitab manipulatsioonile)
+
+Idee:
+
+1. hinnatakse $X$ tihedust lõikepunkti vasakul ja paremal (nt lokaalse polünoomi abil),  
+2. testitakse, kas hinnatud tihedused erinevad statistiliselt olulisel määral.
+
+
+
+
+## Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.
+
+2010. aastal oli meeste seadusjärgne pensioniiga 63 aastat. Selles vanuses võiksid nad saada täispensioni. Nad võivad minna pensionile varem (ja kaotada pensioni suuruses) või hiljem pensionile jääda (ja neil on suurem pension). Neil võib olla ka eripension, mida mõnikord maksti varem, või ka töövõimetuspension.	
+Pensioniiga annab õiguse vanaduspensionile, väikesele, kuid kindlale lisasissetulekule, mis võib võimaldada vanematel inimestel oma tööaega lühendada.
+
+Meie uurimisküsimus: 
+- kuidas mõjutab pensioni saamist nominaalpensioniikka (63) jõudmine? (Me peame seda järsuks disainiks– sest õigus tekib igal mehel)
+- kuidas mõjutab pensioni saamine nominaalpensioniea (63) lähedal töötunde. Seda võiks pidada hägusaks disainiks, sest nominaalpensioniikka jõudmine mõjutab pensioni saama hakkamist vaid osadel inimestel. 
+
+Probleem on selles, et vanus ise mõjutab tervist, mis loomulikult vähendab tööaega. Kuidas neid mõjusid eristada – üks tervise ja teine lisatulu kaudu? Meil ei ole tervise jaoks selget mõõdikut, seega kasutame vanust lihtsalt lähendina.
+
+Teeme oletuse: vanuse mõju tööajale tervise kaudu on pidev, kuid vanuse mõju pensioni saamise õigusele on diskreetne (või hüppeline).
+
+Laadige paketid.
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(haven) #Stata failide jaoks
+library(rdrobust)
+library(lmtest) 
+library(sandwich)
+library(stargazer)
+library(rdrobust)
+library(ivreg)
+
+```
+
+
+
+### Laadige andmed
+
+Meil on järgmised tunnused
+
+  - age
+  - ppension - 1-0 tunnus, kui inimene saab pensioni (meie meede)
+  -	oldage – inimene saab vanaduspensioni
+  -	disben – inimene saab töövõimetuspensioni
+  - hours – nädala töötunnid (meie väljund)
+  -	employed - 1-0 kui inimesel on täisajaga töökoht
+  - taustatunnused: estlang (räägib Eesti keelt), haridus (haridustase: 1,2,3)
+
+```{r}
+df <- read_dta("https://kodu.ut.ee/~avork/files/oppetoo/micro/pensioners.dta")
+
+```
+
+### Alati alusta joonistest
+
+
+Tee joonis vanuse ja pensioni saamise vahel
+
+```{r}
+df %>% ggplot(aes(x=age, y = pension)) +
+  geom_point()
+
+```
+
+lisa sammhaaval
+a)	silumine
+b)	värvi vanuse järgi age > 62
+c)	tee punctid väiksemaks  (size = 0.5) ja läbipaistvaks (alpha = 0.5)
+d)	lisa juhuslikku müra punktidele “position = position_jitter(width = 0.2,height = 0.05, seed = 1234)”
+e)	lisa vertikaalne joon 62.5
+
+Vaata, kuidas joonis muutub
+
+
+```{r}
+df %>% ggplot(aes(x=age, y = pension, 
+                  color = age>62)) +
+  geom_point(size = 0.5, alpha = 0.5, 
+             position = position_jitter(width = 0.2,height = 0.05, seed = 1234)) +
+  geom_smooth() +
+  geom_vline(xintercept = 62.5) + theme_bw()
+
+```
+
+### Keskmine vanusrühmade järgi
+
+Arvutage pensioni saavate meeste keskmine osakaal (muutuja pension), keskmine tööaeg (muutuja hours) vanuse järgi ja näitaja (over62), kui vanus on üle 62,5
+
+
+```{r}
+dfmeanprop <- df %>% group_by(age) %>% 
+  summarise(pension = mean(pension)*100,
+            hours = mean(hours),
+            over62= as.factor(mean(age>62.5)))
+
+```
+
+Joonistage igas vanuses pensioni saavate meeste keskmine osakaal, värvige see üle62 võrra. Lisa silutud joon. 
+
+```{r}
+
+dfmeanprop %>% ggplot(aes(x=age, y = pension, color = over62)) +
+  geom_point() +
+  geom_smooth(se= FALSE) +
+  scale_x_continuous(breaks = c(seq(50, 75, 5)))
+
+```
+Kas 63-aastaselt on hüpe?
+
+Kas pensioniea mõju pensioni saamisele on järsk või hägune?
+
+
+
+### Vanus ja töötunnid
+
+Joonistage lähteandmet põhjal seos iganädalaste töötundide ja vanuse järgi. Kasutage sama koodi, mida kasutasite pensioni jaoks, kuid asendage pension töötundidega. Vajadusel muutke position_jitter 
+
+```{r}
+df %>% ggplot(aes(x=age, y = hours, color = age>62)) +
+  geom_point(size = 0.5, alpha = 0.5, 
+             position = position_jitter(width = 0.2,height = 1, seed = 1234)) +
+  geom_smooth() +
+  geom_vline(xintercept = 62.5)
+
+```
+
+Joonista samuti grupeeritud andmete järgi
+
+```{r}
+dfmeanprop %>% ggplot(aes(x=age, y = hours, color = over62)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_vline(xintercept = 62.5)
+
+```
+
+
+
+### Tee lõikepunkt ja leia vanus selle suhtes
+
+Teeme muutuja ‘penage’ = 62.5
+
+```{r}
+penage = 62.5
+
+```
+
+Looge uus muutuja "agec", mis on erinevus vanusest 62,5. (Me ei tea täpselt, millal inimene sai 63-aastaseks, seetõttu kasutame 62,5). Looge tsentraliseeritud vanuse ruut ja kuupliige. Genereerige ka näitaja (1-0) muutuja, kui vanus on vanem kui pensioniiga: "overpenage".
+
+
+```{r}
+df <- df %>%  
+  mutate(agec = age-penage,
+         agec2 = agec*agec,
+         agec3 = agec*agec*agec,
+         overpenage = (age>penage)*1)
+
+```
+
+
+
+### Järsk (terav) disain – pensioniea mõju tõenäosusele saada pensioni
+
+Vanaduspensioni ea kättejõudmise mõttes on tegu järsu disainiga (inimestel tekib õigus täispensionile, küll aga mõned valivad või saavad minna varem ja mõned hiljem). 
+Võrdleme pensioni saamist enne ja pärast pensioniiga Võtame u = 2. Võrdleme pensioni saamist vanuses 61-62 ja 63-64.
+
+
+```{r}
+u = 2
+```
+
+Leia käsitsi osakaalud enne ja pärast pensioniiga
+
+
+```{r}
+meanpensbelow <- df %>%  filter(age>penage-u, age <penage) %>% 
+  summarise(meanpensbelow = mean(pension)) %>%  as.numeric()
+
+meanpensabove <- df %>%  filter(age>penage, age <penage+u) %>% 
+  summarise(meanpensabove = mean(pension)) %>% as.numeric()
+
+```
+
+Kui suur on erinevus pensioni saamises enne ja pärast pensioniiga?
+
+```{r}
+meanpensabove - meanpensbelow
+
+```
+
+Võtke u = 1. Kui palju tulemus muutub?
+
+
+### Mõju hindamine regressioonimudeliga
+
+Hinnake lineaarne tõenäosusmudel (mudel1), kus pensioni näitaja sõltub näitajast, kui inimene on pensionieas ja vanus. Lisage seejärel vanuse ruutliige (mudel2) ja kuupliige (mudel3)
+
+Muutuja “overpenage” koefitsient näitab pensioniea mõju pensioni saamise tõenäosusele. Vanus iseloomustab teiste kanalite mõju, nt terviseseisundi ja töövõimetuspensioni saamise.
+
+
+```{r}
+model1 <- lm(pension ~ overpenage + agec, data = df)
+model2 <- lm(pension ~ overpenage + agec +  agec2 , data = df)
+model3 <- lm(pension ~ overpenage + agec +  agec2 + agec3, data = df)
+```
+
+Võrrelge tulemusi tabelis
+
+```{r}
+stargazer(model1, model2, model3, type = "text", no.space = TRUE)
+
+```
+
+Pensioniea vanuspiiri ületamise efekt tõenäosusele, et mehed saavad pensioni on 31.6 protsendipunkti kui lubame lineaarse liikme mudelisse, 36.1 protsendipunkti ruutliikega mudelis ja 22.1 protsendipunkti kuuliikmega mudelis. Seega see, millist mittelineaarsust me lubame vanuspiiri lähedal, mõjutab meie tulemusi üsna palju. 
+
+Saame lubada ka erinevaid parameetreid lõikepunkti mõlemale poolele. overpenage koefitsient näitab nüüd  pensioniea kättejõudmise mõju pensioni saamise tõenäosusele lõikepunktis.
+
+```{r}
+model1a <- lm(pension ~ overpenage + agec +  
+                agec*overpenage, data = df)
+model2a <- lm(pension ~ overpenage + agec +  agec2 + 
+               agec*overpenage +  agec2*overpenage , data = df)
+model3a <- lm(pension ~ overpenage + agec +  agec2 + agec3 +
+               agec*overpenage +  agec2*overpenage + agec3*overpenage, data = df)
+```
+
+
+```{r}
+stargazer(model1a, model2a, model3a, type = "text", no.space = TRUE)
+
+```
+
+Näeme, et mida suurt mittelineaarsust lubada, seda väiksem mõjuhinnang on. Kuupliikmetega mudelis on pensioniea kättejõudmise mõju 17.6 protsendipunkti.
+
+Edasijõudnutele: kasutame robustseid standardvigu, mis lubavad heteroskedastiivsust
+
+```{r}
+
+stargazer(model1a, model2a, model3a, 
+          se=list(sqrt(diag(vcovHC(model1a, "HC1"))),
+                  sqrt(diag(vcovHC(model2a, "HC1"))),
+                  sqrt(diag(vcovHC(model3a, "HC1")))),
+          type = "text", no.space = TRUE)
+
+```
+
+### Mitteparameetriline hindamine
+
+Kasutame silumist paketist `rdrobust`.
+
+```{r}
+rdrobust(y = df$pension, x = df$age, c = 62.5) %>% 
+  summary()
+
+```
+
+Tulemuste tõlgendamisest. 
+
+1) Võib tulla hoiatus: masspunktid (mass points)
+
+See tähendab, et vanusemuutujal on palju korduvaid väärtusi (meil täisaastad). See on vanusepõhiste RDD-de puhul tavaline – see ei riku disaini, kuid näitab, et jaotus ei ole täiesti sile.
+
+2) Valimi suurus 
+Kokku on vaatlusi 2607 vaatluse. 
+Hinnang tehakse aga lokaalsete lineaarsete regressioonidega, kolmnurkse kerneliga lõikepunkti ümber. Optimaalne ribalaius (mserd) on umbes 3,778 aastat mõlemal pool lävendit, seega kasutatakse enim vanuseid umbes 58–67.
+
+"BW type mserd" – ribalaius või aken (bandwidth) on valitud nn mean squared error optimal for RD (ehk mserd) reegli alusel. See on automaatne optimaalne akna valik, mis püüab tasakaalustada täpsust ja nihet.
+
+"Kernel Triangular" – kasutatakse kolmnurkset kernelit (tuuma), mis tähendab, et lõikepunktile kõige lähemad vaatlused saavad suurima kaalu ja kaugemad väiksema. See on RDD puhul standardne valik, sest rõhutab just lõikepunkti ümbrust.
+
+VCE method NN – dispersioonide ja standardvigade arvutamisel on kasutatud nearest-neighbor (NN) meetodit, mis põhineb lähimate punktide võrdlemisel. See on üks võimalikest robustsete standardvigade arvutusviisidest.
+
+3) Efektiivne vaatlustearv
+Kuigi kokku on 2607 vaatluse, panustavad tegelikult kõige enam 472 vaatlust enne ja 332 pärast lõikepunkti, sest kaalumine annab rohkem kaalu neile, kes on lõikepunktile lähedal.
+
+Order est. (p)  - lõikepunkti ümbruses on kasutatud esimese astme polünoomi, ehk lokaalset lineaarset regressiooni. See on RDD standardne valik.
+
+Order bias (q) = 2 - võimaliku nihke hindamiseks kasutatakse teise astme polünoomi (ruutfunktsiooni).
+Teisisõnu, nihke parandust hinnatakse natuke paindlikuma mudeliga kui põhihinnangut.
+
+BW est. (h) = 3.778 -  Optimaalne aken hinnangu tegemiseks on 3,78 aastat mõlemal pool lõikepunkti.
+
+W bias (b) = 5.943 - Nihke hindamiseks kasutatakse laiemat akent, 5,94 aastat mõlemal pool lõikepunkti. See on tavapärane, sest nihke hindamiseks on vaja rohkem andmeid.
+
+
+rho (h/b) = 0.636 - See on suhe hinnangu akna ja nihke akna vahel: 3.78 / 5.94 ≈ 0.64.
+Väärtus alla 1 näitab, et nike hindamiseks kasutatakse suuremat akent kui põhihinnangu jaoks (mis on just õige).
+
+Unique Obs. = 13 (vasakul), 12 (paremal) - lõikepunkti ümbruses on ainult 13 erinevat vanuseväärtust vasakul ja 12 erinevat vanuseväärtust paremal. Kuna vanus on diskreetne (tavaliselt täisaastad), ei ole lõikepunkti ümber väga palju erinevaid väärtusi, mis võib täpsust piirata.
+
+
+4) Koefitsient (mõju)
+
+Tavaline hinnang lõikepunkti mõjule on 0,185. See tähendab, et pensioniea ületamine suurendab pensioni saamise tõenäosust 18,5 protsendipunkti võrra.
+Standardviga: 0,070
+z-statistik: 2,64
+p-väärtus: 0,008 → statistiliselt oluline 1% tasemel
+
+5) Robustne (bias-corrected) hinnang on konservatiivsem: z = 1,921, p = 0,055. See on vaid napilt oluline 10% tasemel, sest 95% usaldusvahemik on [−0,003; 0,333] ja hõlmab nulli.
+
+Tulemuste usaldusväärsus sõltub seega ka sellest, kas kasutame tavalist või robustset hinnangut: tavalise järgi on efekt kindlalt oluline, robustse järgi piiri peal.
+
+Kommentaar robustsete standardvigade kohta
+
+Tavaline ("Conventional") punkthinnang on lihtsalt vahe lõikepunkti vasakul ja paremal poolel lokaalse polünoomi ekstrapoleeritud väärtustes, antud akna korral. 
+
+Standardvead põhinevad asümptootilisel teoorial, kuid kipuvat liiga vähe arvestama nihet (bias), eriti väikeste valimite puhul. 
+
+"Robust bias-corrected (RBC) hinnang" - Calonico, Cattaneo ja Titiunik (2014) järgi püüab korrigeerida lõikepunkti lähedal tekkivat hinnangute nihet.
+
+Alguses hinnatakse nihe kõrgema astme polünoomi abil.
+
+Seejärel lahutatakse nihe tavalise hinnangu väärtusest ning arvutatakse uued standardvead, mis arvestavad nii valimi juhuslikkust kui ka nihke korrigeerimist.
+
+Punktihinnang ise tavaliselt palju ei muutu, kuid usaldusvahemikud muutuvad laiemaks, sest standardvead suurenevad.
+
+Seega on RBC hinnang konservatiivsem ja usaldusväärsem, vähendades riski vale-positiivsete tulemuste jaoks.
+
+
+Ja ka graafik
+
+```{r}
+rdplot(y = df$pension, x = df$age, c = 62.5)
+
+```
+
+
+### Pensioniea mõju töötundidele
+
+Käsitleme pensioniea mõju töötundidele nüüd hägusa disainina, sest pensioniiga ei määra täpselt pensioni saamist.
+
+#### Käsitsi LATE hägusa disaini jaoks
+
+Arvutame käsitsi Waldi kohaliku statistiku (LATE) häguse disaini jaoks. Võtke +/- 2 aastat.
+
+```{r}
+u = 5
+```
+
+Oleme juba arvutanud keskmise pensionäride osa, mis jääb alla ja üle piirpunkti intervalli u piiresse. 'meanpensbelow' ja 'meanpensabove'
+
+Samamoodi arvutame keskmised töötunnid allpool ja kõrgemal: " meanhoursbelow "meanhoursabove".
+
+```{r}
+meanhoursbelow <- df %>%  filter(age>penage-u, age <penage) %>% 
+  summarise(meanhourbelow = mean(hours)) %>% as.numeric()
+
+meanhoursabove <- df %>%  filter(age>penage, age <penage+u) %>% 
+  summarise(meanhourabove = mean(hours)) %>% as.numeric()
+
+```
+
+Leidke muutused
+
+```{r}
+#muutus pensionäride osakaalus
+meanpensabove-meanpensbelow
+```
+
+Eerinevus pensioni saajate osakaalus on seega `r round(meanpensabove-meanpensbelow, 3)`
+
+```{r}
+#muutus töötundides 
+meanhoursabove - meanhoursbelow
+
+```
+
+Töötundide vähenemine on samal ajal  `r round(meanhoursabove - meanhoursbelow, 1)` tundi nädalas.
+
+LATE on suhtarv, mis skaleerib muutuse.
+
+```{r}
+late = (meanhoursabove - meanhoursbelow) / (meanpensabove-meanpensbelow)
+late
+```
+
+
+Õigus saada vanaduspensioni vähendaks töötunde ligi `r late` tunni võrra nädalas.
+
+Aga, et paljud on juba varem läinud pensionile ja paljud lükkavad edasi, 
+siis andmetest me näeme pensioniea ligidal vaid vähenemist `r round(meanhoursabove - meanhoursbelow, 1)` töötundi.
+
+
+### Regressioonimudel – kui oleks järsk disain
+
+Hindame sarnased regressioonimudelid nagu üleval
+
+```{r}
+model1 <- lm(hours ~ overpenage + agec, data = df)
+model2 <- lm(hours ~ overpenage + agec +  agec2 , data = df)
+model3 <- lm(hours ~ overpenage + agec +  agec2 + agec3, data = df)
+
+stargazer(model1, model2, model3, type = "text", no.space = TRUE)
+
+```
+
+Näeme, et mõju hinnang on palju väiksem ja sõltub kui paindlikku mudelit kasutame. Lineaarse ja ruutliikmetega mudels on mõju vaid 4 tundi. Kui lubame vanuse kuupfunktsiooni, siis ei ole mõju enam statistiliselt oluline.
+
+Taas, kasutame praktikas robustseid standardvigu.
+
+```{r}
+stargazer(model1, model2, model3, 
+          se=list(sqrt(diag(vcovHC(model1, "HC1"))),
+                  sqrt(diag(vcovHC(model2, "HC1"))),
+                  sqrt(diag(vcovHC(model3, "HC1")))),
+          type = "text", no.space = TRUE)
+
+
+```
+
+Kui olete vanem kui 63, väheneb tööaeg kõige paindlikumates mudelites vaid 1.64 tundi nädalas.
+
+### Silumise kasutamine
+
+Jällegi kasutage kohalikku polünoomi silumist käsuga rdrobust, vaata ülalt käsku ja asenda pensioni saamine töötundidega
+
+```{r}
+rdrobust(y = df$hours, x = df$age, c = 62.5) %>% 
+  summary()
+
+```
+
+Seekord näeme, et väga paindlikult hinnates, seos puudub. Saame vaadata seda ka joonisel.
+
+```{r}
+rdplot(y = df$hours, x = df$age, c = 62.5)
+
+```
+
+
+Iseloomustamaks funktsionaalse kuju ja lõikepunkti valiku mõju, siis kui oleksime nõudnud lineaarset seost vanuse ja töötundide vahel ja paneks piiri 63.5 (sest tööturukäitumise kohandamine võtab aega), oleks mõju ca 4 tundi vähem töötunde nädalas, küll pole see statistiliselt oluline:
+
+```{r}
+rdplot(y = df$hours, x = df$age, c = 63.5, p = 1)
+rdrobust(y = df$hours, x = df$age, c = 63.5, p = 1) %>% 
+    summary()
+
+
+```
+
+
+#### Edasijõudnutele: instrumentmuutuja kasutamine
+
+
+Esimene samm on hinnata pensioni saamise tõenäosus. Kasutage lineaarset tõenäosusmudelit koos overpenage ja lineaarse ja ruudukujul vanusega. Seejärel prognoosige pensioni saamise tõenäosus. Pange nimeks "pensionhat". Hinnake tundide võrrand, kus pensioni saamise asemel on selgitavaks teguriks prognoositav pensioni saamine "pensionhat".
+
+
+```{r}
+pensmodel <- lm(pension ~ overpenage + agec +  agec2, data = df)
+summary(pensmodel)
+```
+
+Meeldetuletus: kui palju pensioniikka jõudmine suurendas tõenäosust pensioni saada?
+Vaata "overpenage" kordajat.
+
+Prognoosime pensioni saamise, nimetame muutuja 'pensionhat'.
+
+```{r}
+df$pensionhat <- predict(pensmodel)
+summary(df$pensionhat)
+
+```
+
+Hindame töötundide võrrandi, kus sees on prognoositud tõenäosus pension saada.
+
+```{r}
+modelf <- lm(hours ~ pensionhat + agec +  agec2, data = df)
+summary(modelf)
+
+```
+
+Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi. See on sarnane käsitsi hinnatud LATEga (vt üles).
+
+Käsk `ivreg` teeb selle kahesammulise hindamise automaatselt. 
+
+```{r}
+fuzzyreg <- ivreg(
+  hours ~ pension + agec +  agec2 | overpenage + agec +  agec2,
+  data = df
+)
+
+summary(fuzzyreg)
+
+```
+
+vaadake kordajat `pension` Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi.
+
+
+#### Paindlikum mudel
+
+
+Võime kasutada veelgi paindlikumat mudelit, lokaalset lineaarset regressioonimudelit, taas paketist rdrobust.
+
+```{r}
+
+rdrobust(y = df$hours, x = df$age, c = 62.5, fuzzy = df$pension) %>% 
+  summary()
+
+```
+
+Selle paindliku mudeli järgi ei ole seost pensioniea ja töötundide vahel.
+Seost ei ole, sest muutus töötundides võib olla mittelineaarse seose tulemus vanuse ja töötundide vahel.
+
+
+### Platseebo-test
+
+Vaatame, kas vanuses 63 on hüpe erinev võrreldes teiste lõikepunktidega.
+Me sooviksime näha, et 63 on hüpe kõrge ja mujal ei ole erinevused statistiliselt olulised.
+
+```{r}
+#Meie väljund
+y <- as.numeric(df$pension)
+#jooksev muutuja
+x <- as.numeric(df$age)
+
+# Võimalikud lõikepunktid
+cuts <- seq(60, 65, by = 0.5)
+
+#Funktsioon võtmaks välja meie hinnangud 
+extract_rd <- function(cu) {
+  out <- rdrobust(y = y, x = x, c = cu)
+  est <- out$Estimate
+  # Meie hinnangud
+  tau_us <- est[1, "tau.us"]
+  se_us  <- est[1, "se.us"]
+  tau_rb <- est[1, "tau.bc"]
+  se_rb  <- est[1, "se.rb"]
+  #Teeme tabeli
+  data.frame(cutoff = cu, tau_us = tau_us, se_us = se_us, tau_rb = tau_rb, se_rb = se_rb)
+}
+```
+
+Ja nüüd rakendame tabelit.
+Kasutame Ri käsku mapdfr, mis annab tulemustest andmetabeli. Ja funktsiooniks on meie enda tehtud funktsioon `extract_rd`
+
+```{r}
+res <- map_dfr(cuts, extract_rd) %>%
+  mutate(
+    #Ligilähedased 95% usalduspiirid robustsete hinnangutega 
+    lwr_rb = tau_rb - 1.96 * se_rb,
+    upr_rb = tau_rb + 1.96 * se_rb,
+    #Ja tavapärased
+    lwr_us = tau_us - 1.96 * se_us,
+    upr_us = tau_us + 1.96 * se_us
+  )
+```
+
+Ja paneme tulemused joonisele. Kasutan praegu tavalisi standardvigu (mitte nihkega- korrigeeritud.)
+
+```{r}
+# 
+ggplot(res, aes(x = cutoff, y = tau_us)) +
+  geom_ribbon(aes(ymin = lwr_us, ymax = upr_us), alpha = 0.2) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 62.5, linetype = "dotted") +
+  labs(
+    title = "Platseebo hinnangud koos ligilähedase 95% usalduspiiridega",
+    x = "Lõikepunkt",
+    y = "Hinnang (nihkega korrigeerimata)"
+  ) +
+  theme_minimal()
+```
+
+Ja ka robustsed usalduspiirid.
+
+```{r}
+ggplot(res, aes(x = cutoff, y = tau_rb)) +
+  geom_ribbon(aes(ymin = lwr_rb, ymax = upr_rb), alpha = 0.2) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 62.5, linetype = "dotted") +
+  labs(
+    title = "Platseebo hinnangud koos ligilähedase 95% usalduspiiridega",
+    x = "Lõikepunkt",
+    y = "Hinnang (nihkega korrigeerimata)"
+  ) +
+  theme_minimal()
+```
+
+
+Joonistelt näeme, et tõepoolest kas vanus 62.5 või 63 on see, kus on statistiliselt oluline hüpe pensioni saamise tõenäosuses. Samas on mingi kummaline tõenäosuse vähenemine hoopis vanuses 65, mis muidugi ei saa olla tõene, aga viitab metoodika nõrkusele.
+
+
+### Platseebo test ka töötundidele
+
+Nüüd peame muutma funktsiooni keerukamaks, et ta võtaks arvesse meie hägusat disaini
+
+
+```{r}
+#Meie väljund muutub
+y <- as.numeric(df$hours)
+#meede
+z <- as.numeric(df$pension)
+#jooksev muutuja
+x <- as.numeric(df$age)
+
+#Funktsioon võtmaks välja meie hinnangud 
+extract_rd <- function(cu) {
+  #See rida muutub
+  out <- rdrobust(y = y, x = x, c = cu, fuzzy = z)
+  est <- out$Estimate
+  # Meie hinnangud
+  tau_us <- est[1, "tau.us"]
+  se_us  <- est[1, "se.us"]
+  tau_rb <- est[1, "tau.bc"]
+  se_rb  <- est[1, "se.rb"]
+  #Teeme tabeli
+  data.frame(cutoff = cu, tau_us = tau_us, se_us = se_us, tau_rb = tau_rb, se_rb = se_rb)
+}
+
+```
+
+Ja taas rakendame
+
+```{r}
+res <- map_dfr(cuts, extract_rd) %>%
+  mutate(
+    #Ligilähedased 95% usalduspiirid robustsete hinnangutega 
+    lwr_rb = tau_rb - 1.96 * se_rb,
+    upr_rb = tau_rb + 1.96 * se_rb,
+    #Ja tavapärased
+    lwr_us = tau_us - 1.96 * se_us,
+    upr_us = tau_us + 1.96 * se_us
+  )
+```
+
+Ning tulemused
+
+```{r}
+# 
+ggplot(res, aes(x = cutoff, y = tau_us)) +
+  geom_ribbon(aes(ymin = lwr_us, ymax = upr_us), alpha = 0.2) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 62.5, linetype = "dotted") +
+  labs(
+    title = "Platseebo hinnangud - pensioniea mõju töötundidele",
+    x = "Lõikepunkt",
+    y = "Hinnang (nihkega korrigeerimata)"
+  ) +
+  theme_minimal()
+```
+
+Näeme, et mõjud kõiguvad väga palju. Mingeid erilist hüpet või muutust me ei näe pensioniea juures. Pigem on mingid anomaaliad vanuses 64.
+
+Kokkuvõtteks, me tõesti näeme hüpet pensioniea lähedases vanuses pensioni saajate seas. Kuid me ei saa ümber lükata nüll hüpoteesi, et töötundidele otsest pensionieani jõudmine avaldaks mõju. Töötundide vähenemine toimub sujuvalt.
+

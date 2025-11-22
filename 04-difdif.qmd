@@ -1,0 +1,394 @@
+# Juurdekasvude erinevus (Dif-Dif)
+
+Poolik - arenev
+
+## Mudeli seade
+
+
+Juurdekasvude erinevuse (DiD) meetod on üks populaarsemaid kvaasi-eksperimentaalseid meetodeid põhjusliku mõju hindamiseks. See eemaldab ajas muutumatud erinevused gruppide vahel ja ajas muutuvad tegurid, mis mõjutavad mõlemaid gruppe ühtemoodi.
+
+
+### Klassikaline 2x2 DiD disain
+
+Kõige lihtsamal kujul on meil kaks rühma ja kaks ajahetke:
+
+  * **Grupid ($D$):**
+      * $D=1$: Osalusrühm (*Treatment*), kes saab mingil hetkel sekkumise.
+      * $D=0$: Võrdlusrühm (*Control*), kes sekkumist ei saa.
+  
+  * **Aeg ($T$):**
+      * $T=1$: Pärast sekkumist (*Post*).
+      * $T=0$: Enne sekkumist (*Pre*).
+
+### DiD hinnang Valemina
+
+DiD hinnang ($\hat{\delta}_{DiD}$) leitakse kui erinevus osalejate ajas toimunud muutuse ja võrdlusrühma ajas toimunud muutuse vahel:
+
+$$
+\hat{\delta}_{DiD} = \underbrace{(\bar{Y}_{T=1}^{D=1} - \bar{Y}_{T=0}^{D=1})}_{\text{Muutus osalejatel}} - \underbrace{(\bar{Y}_{T=1}^{D=0} - \bar{Y}_{T=0}^{D=0})}_{\text{Muutus võrdlusrühmal}}
+$$
+Kus $\bar{Y}_{T}^{D}$ on tulemuse keskmine vastavas grupis ja ajahetkel.
+
+### DiD Regressioonimudelina
+
+Seda sama hinnangut saab leida lineaarse regressioonimudeli abil, kasutades interaktsiooniliiget:
+
+$$Y_{it} = \alpha + \beta_1 \text{D}_i + \beta_2 \text{Post}_t + \delta*(\text{D}_i \times \text{Post}_t) + \epsilon_{it}
+$$
+
+Kus:
+
+  * $\alpha$: Kontrollgrupi keskmine enne sekkumist (Constant).
+  * $\beta_1$: Gruppidevaheline püsiv erinevus (*Treatment Group Effect*).
+  * $\beta_2$: Ajaline trend, mis on ühine mõlemale grupile (*Time Trend*).
+  * ** $\delta_{DiD}$ **: Põhjuslik mõju ehk huvipakkuv parameeter (ATT). See näitab lisandumist tulemuses, mis tekib ainult osalejatel pärast sekkumist.
+
+
+### Paralleelse trendi eeldus ja ATT
+
+DiD meetodi kehtivus sõltub **paralleelse trendi eeldusest** (*Parallel trends assumption*).
+
+Eeldus väidab, et sekkumise puudumisel oleks osalusrühma keskmine tulemus muutunud ajas samamoodi nagu võrdlusrühmal.
+
+Matemaatiliselt (kasutades potentsiaalseid tulemusi $Y^0$):
+
+$$
+E[Y^0_{t=1} - Y^0_{t=0} | D=1] = E[Y^0_{t=1} - Y^0_{t=0} | D=0]
+$$
+
+
+Kuidas see annab ATT?
+
+Meie eesmärk on leida keskmine mõju osalejatele (**ATT** - *Average Treatment Effect on the Treated*):
+
+$$ATT = E[Y^1_{t=1} - Y^0_{t=1} | D=1] $$
+Kuna $Y^0_{t=1}$ (osalejate tulemus ilma sekkumiseta) ei ole vaadeldav, kasutame paralleelse trendi eeldust selle asendamiseks:
+
+1.  **Tegelik muutus osalejatel:** $E[Y^1_{t=1} | D=1] - E[Y^0_{t=0} | D=1]$
+2.  **Muutus kui sekkumist poleks:** Eelduse kohaselt võrdne kontrollgrupi muutusega $E[Y^0_{t=1} | D=0] - E[Y^0_{t=0} | D=0]$.
+
+Seega:
+
+$$
+ATT = (\text{Osalusrühma muutus}) - (\text{Võrdlusrühma muutus})
+$$
+
+
+### Kahesuunaline fikseeritud effektide mudel (TWFE)
+
+_Two-way Fixed Effects model_
+
+Kui andmed on paneelkujul (sama objekti jälgitakse mitmel ajahetkel) või meil on palju objekte ja ajahetki, kasutatakse TWFE mudelit. See on 2x2 disaini üldistus.
+
+$$
+Y_{it} = \alpha_i + \gamma_t + \delta D_{it} + \mathbf{X}_{it}\beta + \epsilon_{it}
+$$
+
+
+Kus:
+
+* $\alpha_i$ **(Unit Fixed Effects):** Ühiku-spetsiifiline fikseeritud efekt. See kontrollib kõiki tegureid, mis on ühikule $i$ omased ja ajas ei muutu (nt asukoht, kultuur, geneetika). Asendab $\text{Treat}_i$ muutujat.
+* $\gamma_t$ **(Time Fixed Effects):** Aja-spetsiifiline fikseeritud efekt. See kontrollib šokke, mis mõjutavad kõiki ühikuid antud aastal $t$ ühtemoodi (nt majanduskriis, seadusemuudatused). Asendab $\text{Post}_t$ muutujat.
+* $D_{it}$ **(Treatment Indicator):** Binaarne muutuja, mis on 1, kui ühik $i$ on ajal $t$ sekkumise all.
+* $\delta$:  Hinnanguline ATT (eeldusel, et mõju on homogeenne).
+
+
+
+
+
+### Sündmuste uuring (Event study)
+
+Sündmuste uuring (*Event Study*) on dünaamiline regressioonimudel, mis võimaldab hinnata meetme mõju muutumist ajas ning testida visuaalselt ja statistiliselt paralleelse trendi eeldust.
+
+#### Regressioonivalem
+
+Üldkuju Kahesuunalise Fikseeritud Efektide (TWFE) mudelina:
+
+$$
+Y_{it} = \alpha_i + \gamma_t + \sum_{k=-K, k \neq 0}^{L} \beta_k \cdot D_{it}^k + \epsilon_{it}
+$$
+
+### Muutujate selgitus
+
+* $Y_{it}$: Tulemusmuutuja ühikule $i$ ajahetkel $t$.
+* $\alpha_i$: **Ühiku fikseeritud efekt** (*Unit Fixed Effects*). Kontrollib ajas muutumatuid eripärasid (nt asukoht, kultuur).
+* $\gamma_t$: **Aja fikseeritud efekt** (*Time Fixed Effects*). Kontrollib šokke, mis mõjutavad kõiki ühikuid samal ajal (nt majanduskriis, inflatsioon).
+* $k$: Suhteline aeg sündmuseni ($t - E_i$, kus $E_i$ on sündmuse toimumise aeg).
+    * $k < 0$: Perioodid **enne** meedet (*Leads*).
+    * $k \ge 0$: Perioodid **pärast** meedet (*Lags*).
+* $D_{it}^k$: **Sündmuse indikaatorid** (*Event Time Dummies*).
+    * Muutuja on **1**, kui ühik $i$ on ajahetkel $t$ täpselt $k$ perioodi kaugusel sündmusest.
+    * Muutuja on **0** muudel juhtudel.
+* $\beta_k$: **Huvipakkuvad koefitsiendid**:
+    * Kui $k < 0$ (Eel-periood): $\beta_k$ näitab erinevust töötlus- ja kontrollgrupi vahel enne meedet. **See testib paralleelseid trende.** Kui eeldus kehtib, peaksid need $\beta$-d olema statistiliselt nullist eristamatud (nulljoone lähedal).
+    * Kui $k \ge 0$ (Järel-periood): $\beta_k$ näitab meetme dünaamilist mõju $k$ perioodi pärast sündmust.
+* $k \neq 0$: Väljajäetud kategooria.
+    * Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust ($k = 0$), et vältida multikollineaarsust. Kõiki teisi koefitsiente ($\beta_k$) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 1 tekib esimest korda avatus meetmele.
+
+
+
+
+## Näide tööpoliitikast
+
+
+
+```{r}
+#| message: false
+#| warning: false
+
+library(dplyr)
+library(coefplot)
+library(stargazer)
+
+```
+
+
+```{r}
+#Muutke ära andmete kataloog
+datapath = "http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/"
+
+#Lugege sisse andmefail
+df <- read.csv(file = paste0(datapath, "adulttraining.csv"))
+dfl <- read.csv(file = paste0(datapath, "adulttraininglong.csv"))
+
+```
+
+
+
+## Kirjeldav statistiline analüüs
+
+
+```{r}
+stargazer(df, type = "text")
+stargazer(df %>% filter(koolituses ==1), type = "text")
+stargazer(df %>% filter(koolituses ==0), type = "text")
+
+```
+
+
+```{r}
+#Gruppide võrdlus
+prop.table(table("Koolituses" = df$koolituses, "Mees" = df$mees),1)
+```
+
+Keskmine vanus
+
+```{r}
+df %>% group_by(koolituses) %>% 
+  summarise(keskminevanus = mean(vanus))
+```
+
+Palk on tuhandetes eurodes
+
+Mis on palga muutus osalusgrupis ja võrdlusgrupis? (Enne-pärast hinnang)
+
+Vaatame 2008 vs 2013. Arvutame erinevuse.
+```{r}
+df %>% 
+  group_by(koolituses) %>% 
+  summarise(palk2008 = mean(palk2008),
+            palk2013 = mean(palk2013))
+
+```
+
+Palga muutus osalusgrupis
+
+```{r}
+
+temp <- df %>% 
+  group_by(koolituses) %>% 
+  summarise(palk2008 = mean(palk2008),
+            palk2013 = mean(palk2013)) %>% 
+  mutate(palgamuut = palk2013-palk2008)
+
+#Enne-pärast hinnang
+temp
+
+#Osalusgrupis
+temp$palgamuut[2]
+
+difdif = temp$palgamuut[2] - temp$palgamuut[1]
+difdif
+
+```
+
+
+## Joonis
+
+```{r}
+
+#Keskmised palgad osalus ja võrdlusrühmas
+
+temp <- dfl %>% group_by(koolituses, aasta) %>% 
+  summarise(palk = mean(palk))
+
+temp
+
+#Praksis tee rida haaval
+
+ggplot(temp, aes(x = aasta, y = palk, color = factor(koolituses))) +
+  geom_rect(xmin = 2009.5, xmax = 2011.5, ymin = min(temp$palk)-0.5, ymax = max(temp$palk), fill = "grey100", 
+            alpha = 0.1, color = "steelblue") +
+  geom_point() +
+  geom_line() +
+  geom_text(aes(label = round(palk,1)), vjust = -2, show.legend = FALSE) +
+  labs(color = "", x = "", y = "tuh.eur") + 
+  theme_light()
+
+```
+
+
+
+## Regressioonanalüüs
+
+2x2 disain
+
+```{r}
+#Jätame alles aastad
+dfls <- dfl   %>% 
+  filter(aasta == 2008 | aasta ==2013) %>% 
+  mutate(aasta = as.factor(aasta))
+
+mudel <- lm(data = dfls, formula = palk ~ koolituses + aasta + koolituses*aasta)
+summary(mudel)
+
+#Võrrelge nüüd 2009 ja 2012 andmetega
+dfls <- dfl %>% 
+  filter(aasta ==2009 | aasta ==2012) %>% 
+  mutate(aasta = as.factor(aasta))
+
+mudel <- lm(data = dfls, formula = palk ~ koolituses + aasta + koolituses*aasta)
+summary(mudel)
+
+#Lisame mudelisse muud tegurid
+
+#Andmestik uuesti
+difdif1 <- dfl %>% 
+  filter(aasta == 2008 | aasta ==2013) %>% 
+  mutate(aasta = as.factor(aasta)
+         )
+
+#Ja mudel
+mudel <- lm(data = difdif1, formula = palk ~ koolituses + aasta + 
+              koolituses*aasta + mees + eestlane + factor(haridus) + vanusgr + factor(seisund))
+summary(mudel)
+
+mudel <- lm(data = difdif1, formula = palk ~ koolituses + aasta + 
+              koolituses*aasta + mees + eestlane + factor(haridus) + vanusgr)
+
+summary(mudel)
+coefplot(mudel)
+
+
+#Leiame erinevuse koolituse aastast. 
+# Kõigile koolituses mitteosalejatele paneme selle nulliks
+
+dfl <- dfl %>%  
+  mutate(aegkoolitusest = ifelse(koolituses ==1, 
+                                 aasta - koolitusaasta,
+                                 0))
+
+#Joonise jaoks teeme selle faktoriks, et võrdlusrühm oleks null
+dfl <- dfl %>% 
+  mutate(aegkoolitusest = factor(aegkoolitusest, levels = c(0, -3:-1, 1:3)))
+
+table(dfl$aegkoolitusest)
+#Time event model
+
+mudel <- lm(data = dfl, formula = palk ~ aegkoolitusest + mees + 
+              eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund))
+
+summary(mudel)
+
+coefplot(mudel, intercept = FALSE)
+
+```
+
+
+Lisame mineviku palga enne koolitust sisse ja vaatame muutust võrreldes 2008 aasta palgaga
+
+
+```{r}
+dfl <- dfl %>% 
+  group_by(id) %>% 
+  mutate(palk2008 = palk[aasta==2008]) %>% 
+  mutate(dpalk2008 = palk - palk2008) %>% 
+  ungroup()
+
+mudel2 <- lm(data = dfl, formula = dpalk2008 ~ aegkoolitusest + mees + 
+              eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund))
+
+summary(mudel2)
+
+coefplot(mudel2, intercept = FALSE)
+
+
+```
+
+
+
+Teeme mudeli eraldi töötavate, töötute ja mitteaktiivsete jaoks.
+
+```{r}
+library(broom)
+
+results <- dfl %>%
+  group_by(seisund) %>%
+  group_modify(~ broom::tidy(
+    lm(dpalk2008 ~ aegkoolitusest + mees + eestlane +
+         factor(haridus) + vanusgr + factor(aasta),
+       data = .x)
+  ))
+results
+
+```
+
+Või
+
+```{r}
+
+dfl <- dfl %>% 
+  mutate(seisundtext = case_when(
+    seisund == 1 ~ "Töötab",
+    seisund == 2 ~ "Mitteaktiivne",
+    seisund == 3 ~ "Töötu"))
+    
+table(dfl$seisund, dfl$seisundtext)
+
+
+models <- lapply(split(dfl, dfl$seisundtext), function(df) {
+  
+  lm(dpalk2008 ~ aegkoolitusest + mees + eestlane +
+       factor(haridus) + vanusgr + factor(aasta),
+     data = df)
+  
+})
+
+summary(models[[1]])  # results for seisund = 1
+summary(models[[2]])  # results for seisund = 2
+summary(models[[3]])
+
+multiplot(models) + theme_light() + labs(color = "Rühm")
+
+```
+
+
+
+```{r}
+models <- lapply(split(dfl, dfl$seisundtext), function(df) {
+  
+  lm(palk2008 ~ aegkoolitusest + mees + eestlane +
+       factor(haridus) + vanusgr + factor(aasta),
+     data = df)
+  
+})
+
+summary(models[[1]])  # results for seisund = 1
+summary(models[[2]])  # results for seisund = 2
+summary(models[[3]])
+
+multiplot(models) + theme_light() + labs(color = "Rühm")
+
+```
+
+

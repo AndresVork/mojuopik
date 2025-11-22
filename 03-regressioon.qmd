@@ -1,0 +1,346 @@
+# Regressioonimudeli kasutamine
+
+Poolik - arenev
+
+
+## Mudeli seade
+
+Vaatame mõju (nt meetmes osalemise $D$ mõju tulemile $Y$) hindamise meetodeid, kasutades regressioonimudeleid ja eeldust tingimuslikust sõltumatusest (Conditional Independence Assumption, CIA).
+
+### Tingimusliku sõltumatuse eeldus (CIA)
+
+Põhjusliku mõju leidmiseks regressiooniga peab kehtima tingimusliku sõltumatuse eeldus (CIA - conditional independence assumption).
+
+$$E[Y_0 | D=1, \mathbf{X}] = E[Y_0 | D=0, \mathbf{X}]$$
+
+See tähendab, et pärast **kõigi oluliste segavate tegurite** $\mathbf{X}$ (eelkõige $X \rightarrow D$ ja $X \rightarrow Y$) arvesse võtmist ei ole potentsiaalsel tulemusel $Y_0$ ja meetmes osalemisel $D$ enam seost. Seega, tingimuslikult sarnased osalejad ja mitte-osalejad on võrreldavad.
+
+
+### Regressioonimudelid mõju hindamiseks
+
+Kui CIA kehtib ja eeldame aditiivset (lineaarset) mudelit, saame regressiooniga hinnata erinevaid keskmisi mõjusid.
+
+#### Tavaline regressioonimudel (ATE hinnang)
+
+Kõige lihtsam mudel eeldab, et mõju $\delta$ on **homogeenne** (sama kõigi $\mathbf{X}$ väärtuste korral) ja aditiivne.
+
+$$Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta + \epsilon_i$$
+
+Või üldjuhul, kui on selgitavaid tegureid rohkem:
+
+* **Valem:** $Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i$
+
+* **Mõju hinnang:** $\hat{\delta}$ on hinnang **ATE-le** (Average Treatment Effect), st keskmisele mõjule kõigile.
+
+#### Regressioonimudel interaktsiooniga (heterogeenne mõju)
+
+Kui on alust arvata, et meetme mõju $D$ sõltub mõnest tunnusest $X_k$ (st mõju on **heterogeenne**), lisatakse mudelisse interaktsiooniliige.
+
+$$Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \mathbf{X}_i \beta + \epsilon_i$$
+
+* **Valem:** $Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \beta_1 X_{1i} + \dots + \epsilon_i$
+
+
+* **Mõju $X_{ki}$ väärtusel:** $\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}$.
+
+* **Kasutamine:** Seda mudelit kasutades saab hinnata **CATE**-t (Conditional Average Treatment Effect), st keskmist mõju alamrühmas, ja leida seejärel kaalutud keskmist leides ATE või ATT.
+
+### Kaks eraldi eegressioonimudelit (G-Computation)
+
+See meetod hinnatakse regressioonimudeleid eraldi osalejate ($D=1$) ja mitte-osalejate ($D=0$) andmetel, mis võimaldab arvestada **heterogeenset funktsionaalset seost** $Y_0$ ja $Y_1$ vahel.
+
+1.  **Mudel osalejatel ($D=1$):**
+    $$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$
+    Prognoosime tulemuse $Y_{i1}$ **kõigile** vaatlustele: $\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1$.
+
+2.  **Mudel mitte-osalejatel ($D=0$):**
+
+$$Y_i = \alpha_0 + \mathbf{X}_i \beta_0 + \epsilon_{i0} \quad \text{kui } D_i=0$$
+
+Prognoosime tulemuse $Y_{i0}$ **kõigile** vaatlustele: $\hat{Y}_{i0} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0$.
+
+3.  **Mõju arvutamine (G-Computation):** Mõju on igal isikul prognooside vahe: $\hat{\Delta}_i = \hat{Y}_{i1} - \hat{Y}_{i0}$.
+    * **ATE** (kogu populatsioon): $\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i$
+    * **ATT** (meetmes osalejatele): $\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i$
+    * **ATU** (võrdlusrühmale): $\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i$
+
+See meetod on regressiooni mudeliga hindamise erijuht ja annab paindlikumad hinnangud, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitte-osalejatel.
+
+
+
+
+
+## Näide tööpoliitikast
+
+Me kasutame näidisandmetena Poliitikauuringute Keskuse Praxis 2002. aastal läbiviidud uuringut aktiivse tööpoliitika mõju hindamise kohta. (Vt Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) *Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis*. Tallinn: Praxis, 108 lk. Vt ka: [Praxis töö](https://www.praxis.ee/tood/aktiivse-toopoliitika-tulemuslikkuse-hindamine-eestis/) ja [Leetmaa & Võrk (2004)](https://www.researchgate.net/publication/268371718_Evaluation_of_Active_Labour_Market_Programmes_in_Estonia))
+
+Anonümiseeritud andmestik asub failis:\
+<http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv>
+
+### Muutujate selgitused
+
+| Muutuja | Selgitus |
+|--------------|----------------------------------------------------------|
+| `training` | Received labour market training in 2000 / Tunnus kas sai tööturukoolitust või ei 2000. aasta esimeses pooles |
+| `nwage` | Netopalk 2002. aasta septembris |
+| `employed` | Employed in September 2002 / Hõivatus 2002. aasta septembris (1 – hõivatud, 0 – töötu või mitteaktiivne) |
+| `status` | Tööturustaatus 2002. aasta septembris (1 – hõivatud, 2 – töötu, 3 – mitteaktiivne) |
+| `kaal` | Sample weight / Vaatluse statistiline kaal |
+| `male` | male / Meessoost |
+| `est` | Estonian / Eestlane |
+| `age` | Vanus aastates 2002. aastal |
+| `langest` | Kas oskab eesti keelt |
+| `emplbefore` | Kas oli töökogemus enne töötuks registreerimist 2000. aastal |
+| `educ` | Haridustase: 1 – ISCED 0,1,2 (põhiharidus); 2 – ISCED 3 (keskharidus); 3 – ISCED 3,4 (kutsekeskharidus); 4 – ISCED 5,6 (kõrgharidus) |
+| `county` | Maakond: Tallinn, Viljandimaa, Tartumaa, Ida-Virumaa |
+| `town` | Elab linnas vs maal |
+| `children` | Laste arv töötuks registreerimise hetkel |
+| `marital` | Perekonna seis töötuks registreerimise hetkel: 0 – vallaline; 1 – abielus; 2 – vabaabielu; 3 – lahutatud; 4 – lesk |
+| `training1` | Osalusrühm tingimusel, et ei nõutud tõendit hilisema töö saamise kohta – kellelt nõuti, neil puuduv väärtus |
+| `training2` | Võrdlusgrupp, kes soovisid, kuid ei saanud/soovinud osaleda mingil põhjusel |
+| `training3` | Kombinatsioon training2 ja training3: need osalusgrupist, kellelt ei nõutud töökohta; need võrdlusgrupist, kes uurisid koolitust, kuid ei osalenud |
+| `training4` | Koolituse osalusrühmas ja võrdlusrühmas mõlemas ainult need, kes ise uurisid |
+| `training5` | Koolituse põhirühmas ja võrdlusrühmas mõlemas ainult need, kes ise uurisid ja kellelt ei nõutud tõendit |
+
+### Vajalikud paketid
+
+```{r}
+#| message: false
+#| warning: false
+library(dplyr)
+library(stargazer)
+library(lmtest)
+library(sandwich)
+library(boot)
+library(ggplot2)
+
+```
+
+### Andmestiku lugemine
+
+```{r}
+atp <- read.csv("http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv")
+```
+
+### Kirjeldav analüüs
+
+Leidke, mitu inimestest osales 2000. aastal koolituses ja mitu ei osalenud
+
+```{r}
+table(atp$training)
+```
+
+Kui suur osakaal koolituses osalejatest ja mitte-osalejatest töötas 2002. aasta septembris? Tabuleerige muutujad "training" ja "employed" ning leidke protsendid.
+
+```{r}
+tab <- table(atp$training, atp$employed)
+prop.table(tab, margin = 1)
+```
+
+Milline oli keskmine palk koolituses osalejatel ja mitte-osalejatel 2002. aasta septembris?
+
+```{r}
+atp %>% group_by(training) %>% summarise(mean_wage = mean(nwage, na.rm = TRUE))
+```
+
+### Regressioonimudel
+
+Hinnake regressioonimudel, kus väljundid *employed* ja *nwage* sõltuvad ainult koolituses osalemisest.
+
+```{r}
+m1 <- lm(employed ~ training, data = atp)
+m2 <- lm(nwage ~ training, data = atp)
+stargazer(m1, m2, type = "text")
+
+```
+
+Hinnake mudelid koos teiste selgitavate teguritega
+
+```{r}
+atp$age2 <- atp$age^2
+lin_employed <- lm(employed ~ training + male + est + age + age2 + educ + emplbefore, data = atp)
+coeftest(lin_employed, vcov = vcovHC(lin_employed, "HC1"))
+
+
+```
+
+Hinnake samasugune mudel ka palga kohta ja tõlgendage tulemusi.
+
+```{r}
+
+lin_nwage <- lm(nwage ~ training + male + est + age + age2 + educ + emplbefore, data = atp)
+coeftest(lin_nwage, vcov = vcovHC(lin_nwage, "HC1"))
+
+
+```
+
+Tõlgendage tulemusi!
+
+Lubage võimalikku heteroskedastiivsust.
+
+Leiame robustsed standarvead.
+
+```{r}
+robust_se1 <- sqrt(diag(vcovHC(lin_employed, type = "HC1")))
+robust_se2 <- sqrt(diag(vcovHC(lin_nwage, type = "HC1")))
+stargazer(lin_employed, lin_nwage, se = list(robust_se1, robust_se2), type = "text", no.space = TRUE)
+```
+
+Kas robustsete standardvigade kasutamine muudab statistilist parameetrite statistilist olulisust?
+
+
+### Eraldi mudelid osalejatele ja mitteosalejatele
+
+
+####  Näide - meetme mõju palgale vanuse lõikes
+
+
+```{r}
+atpj <- atp %>% filter(!is.na(nwage)) %>% 
+  filter(nwage<5000, nwage>0)
+
+ggplot(atpj,
+       aes(x = age, y = nwage, color = "Palk")) +
+  geom_point() +
+  geom_smooth(data = atpj %>% filter(training ==1), method = "lm", 
+              #              formula = y ~ poly(x, 2),
+              se = FALSE, 
+              aes(color = "Prognoos, D = 1")) +
+  geom_smooth(data = atpj %>% filter(training ==0), method = "lm", 
+              #              formula = y ~ poly(x, 2),
+              se = FALSE, 
+              aes(color = "Prognoos, D = 0")) +
+  scale_color_manual(name = "", values = c("Palk" = "grey",
+                                           "Prognoos, D = 1" = "blue",
+                                           "Prognoos, D = 0" = "green")) +
+  theme_minimal() +
+  labs(x = "Vanus", y = "Palk", color = "")
+
+atpj$ate <-
+  predict(lm(nwage ~ age, data=atpj[atpj$training==1,]), new=atpj) - 
+           predict(lm(nwage ~ age, data=atpj[atpj$training==0,]), new=atpj)
+```
+
+
+See joonis näitab, kuidas vanus mõjutab palka kahes erinevas grupis (osalejad vs mitte-osalejad). Kasutame valemi $Y \sim X$ seost vanuse osas.
+
+
+Mõju sõltub vanusest. Mida noorem, seda suurem efekt.
+
+
+```{r}
+ggplot(atpj,
+       aes(x = age, y = ate)) +
+  geom_line() +
+  #geom_rug(sides = "b") +
+  #geom_histogram(aes(y = ..count..), 
+  #               binwidth = 1, alpha = 0.9, fill = "grey", position = "identity") +
+  geom_histogram(aes(fill = as.factor(training), y = ..count..), 
+                 binwidth = 1, alpha = 0.5, position = "identity") +  # Colored histogram by gender
+  scale_fill_manual(values = c("green", "blue")) +
+  
+  theme_minimal() +
+  labs(x = "Vanus", y = "Meetme mõju", fill = "Meetmes")
+
+
+```
+
+
+Lisame täiendavad selgitavad tunnused
+
+Töötamise jaoks
+
+Hindame mudeli osalejate andmete põhjal ja prognoosime tulemused **kõigile.**
+
+```{r}
+lin_employed_ra1 <- lm(employed ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 1, ])
+atp$pemployed_1 <- predict(lin_employed_ra1, newdata = atp)
+
+
+```
+
+
+Hinnake samasugune mudel ka mitteosalejate põhjal  *training==0* ja prognoosige tulemused kõigile
+
+```{r}
+lin_employed_ra0 <- lm(employed ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 0, ])
+atp$pemployed_0 <- predict(lin_employed_ra0, newdata = atp)
+
+```
+
+Leiame individuaalsed erinevused prognoositud hinnangutes
+
+```{r}
+atp$demployed <- atp$pemployed_1 - atp$pemployed_0
+```
+
+
+Keskmised mõjuhinnangud (ATE) ja eraldi ka osalejatele ning mitteosalejatele
+
+```{r}
+ate_empl <- mean(atp$demployed)
+att_empl <- mean(atp$demployed[atp$training == 1])
+atu_empl <- mean(atp$demployed[atp$training == 0])
+
+ate_empl
+att_empl
+atu_empl
+
+```
+Kas tulemused muutusid võrreldes ühise regressioonimudeliga?
+
+
+Sama palgaga
+
+```{r}
+lin_nwage_ra1 <- lm(nwage ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 1, ])
+atp$nwage_1 <- predict(lin_nwage_ra1, newdata = atp)
+
+lin_nwage_ra0 <- lm(nwage ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 0, ])
+atp$nwage_0 <- predict(lin_nwage_ra0, newdata = atp)
+
+atp$dnwage <- atp$nwage_1 - atp$nwage_0
+ate_nwage <- mean(atp$dnwage)
+att_nwage <- mean(atp$dnwage[atp$training == 1])
+atu_nwage <- mean(atp$dnwage[atp$training == 0])
+
+ate_nwage
+att_nwage
+atu_nwage
+
+```
+
+
+Kas koolituse mõju on suurem osalejatele või oleks olnud suurem mitte-osalejatele? Kas mõju on statistiliselt oluline?
+
+
+
+### Bootstrapping hinnangute standardvea leidmiseks - fännidele
+
+Teeme funktsiooni
+
+```{r}
+
+f <- formula(employed ~ male + est + age + age2 + educ + emplbefore)
+
+mybs = function(data, indices, formula =f) {
+  dat = data[indices, ]
+  dify = predict(lm(formula, data = dat[dat$training == 1, ]), newdata = dat) -
+         predict(lm(formula, data = dat[dat$training == 0, ]), newdata = dat)
+  c(ate = mean(dify), att = mean(dify[dat$training == 1]))
+}
+
+```
+
+ja rakendame seda
+
+
+```{r}
+
+set.seed(1632)
+results <- boot(data = atp, statistic = mybs, R = 50, stype = "i")
+boot.ci(results)
+
+```
+
+

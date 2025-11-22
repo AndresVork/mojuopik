@@ -1,13 +1,7 @@
 # Eessõna {.unnumbered}
 
-Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid majandustudengitele. Konspektis kasutatakse tarkvara R.
+Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid majandustudengitele.
 
-Konspekt on jooksvalt täienev. Siia hakkan panema aines "Põhuse ja tagajärje seosed" kasutatud õppematerjale.
+Siia hakkan panema aines "Põhuse ja tagajärje seosed" kasutatud õppematerjale.
 
-Me kasutame näidisandmetena järgmisi andmefaile:
-
--   Poliitikauuringute Keskuse Praxis 2002. aastal läbiviidud uuringu anonüümset andmefaili aktiivse tööpoliitika mõju hindamise kohta. (Vt Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis. Tallinn: Praxis, 2003, 108 lk.)
-
--   PIAAC uuringu avalikud andmefailid
-
--   Eesti Töötukassa anonümiseeritud näitefailid
+Konspekt on jooksvalt täienev.
