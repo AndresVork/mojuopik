@@ -1,0 +1,44 @@
+project:
+  type: book
+  
+language:  _language-et.yml
+
+book:
+  title: "Põhjuslike seoste hindamine majanduses"
+  author: "Andres Võrk"
+  date: 2025-11-22
+  chapters:
+    - index.qmd
+#    - eessona.qmd
+    - 01-sissejuhatus.qmd
+    - pohimoistedkordamiseks.qmd
+#    - 02-pohimoisted.qmd
+#    - 03-randomiseeritud-katsed.qmd
+#    - 04-vahe-erinevused.qmd
+#    - 05-instrumentmuutujad.qmd
+#    - 06-regressioonikatkestus.qmd
+#    - 07-sünteetilised-kontrollid.qmd
+#    - 08-masinõpe-ja-heterogeensed-mõjud.qmd
+#    - viited.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
+
+website:
+  title: "Mõju hindamine majanduses"
+  site-url: https://andresvork.github.io/mojuopik
+  repo-url: https://github.com/andresvork/mojuopik
+  repo-actions: [source, issue]
+  
+execute:
+  freeze: auto
+  
+editor: visual
+
