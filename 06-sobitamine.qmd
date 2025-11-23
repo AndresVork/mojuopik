@@ -1,0 +1,937 @@
+# Sobitamine
+
+## Mõistetest
+
+Sobitamine (**matching**) on vaatlusandmetel põhinev meetod põhjusliku mõju hindamiseks olukorras, kus juhuslikku katset ei ole tehtud ning osalemine programmis (tööpoliitika meede, tervishoiu sekkumine jne) sõltub inimestest endast. 
+
+Idee on lihtne: püüame iga osalusrühma inimese jaoks leida võimalikult sarnase inimese võrdlusrühmast ning võrdleme seejärel nende tulemusi.
+
+Tuginedes potentsiaalsete tulemuste raamistikule tähistame:
+
+- $Y_i(1)$ – isiku $i$ tulemus, kui ta osaleb meetmes  
+- $Y_i(0)$ – sama isiku tulemus, kui ta ei osale  
+- $D_i \in \{0,1\}$ – indicator, kas isik osales (1) või mitte (0)  
+- $X_i4 – vektor taustatunnuseid (vanus, sugu, haridus, eelnev töökogemus jne)
+
+Meid huvitab näiteks keskmine mõju osalejatele (ATT):
+
+$$
+\tau_{ATT} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1].
+$$
+
+Probleem: iga inimese puhul näeme ainult ühte tulemust, kas $Y_i(1)$ või $Y_i(0)$. Sobitamisega püüame iga osaleja jaoks leida sobiva “doppelgängeri” võrdlusrühmast, kellel oleks võimalikult sarnased $X$-id, ning kasutame tema $Y_j(0)$ ligikaudse asendusena vaatlemata $Y_i(0)$-le.
+
+Sobitamise tuumeeldus on ligikaudne valikuvabadus tingituna taustatunnustest (Conditional Independence Assumption, CIA):
+
+$$
+(Y_i(0), Y_i(1)) \perp D_i \mid X_i,
+$$
+
+ehk pärast piisavalt rikkalike taustatunnuste $X$ arvesse võtmist ei sõltu osalemine enam täiendavatest jälgimata teguritest.
+
+## Täpne ja ligikaudne sobitamine
+
+### Täpne sobitamine
+
+Lihtsaim mõte on täpne sobitamine (exact matching):
+
+- jagame andmestiku rakkudeks tunnuste $X$ kombinatsioonide järgi (nt sugu, rahvus, haridustase);  
+- igale osalusrühma vaatlusel $i$ otsime võrdlusgrupist need vaatlused, millel on täpselt samad tunnused $X$;  
+- hindame mõju nende sobitatud paaride või gruppide sees.
+
+Kui leiame iga osaleja jaoks täpse vaste(d), saame ATT hinnata kujul
+
+$$
+\hat{\tau}_{ATT}
+= \frac{1}{N_1} \sum_{i: D_i = 1} \left( Y_i - \bar{Y}_{0}(i) \right),
+$$
+
+kus $\bar{Y}_{0}(i)$ on sarnaste võrdlusgrupi isikute keskmine tulemus.:contentReference[oaicite:1]{index=1}
+
+Praktiline probleem on, et kui:
+
+- tunnuseid on palju (suur mõõtmelisus) ja  
+- valim ei ole väga suur,
+
+siis jääb enamikul osalejatest täpset vastet leidmata. Seda nimetatakse tihti “mõõtmelisuse needuseks” – ruudustik, kuhu me andmed jaotame, muutub liiga hõredaks.
+
+## Ligikaudne sobitamine
+
+Ligikaudse sobitamise puhul lubame väikese erinevuse tunnustes $X$. Oluline on defineerida:
+
+- mingi kauguse mõõdik vaatluste vahel $d(X_i, X_j)$;  
+- algoritm, mis valib iga osalusrühma isiku $i$ jaoks “lähimad naabrid” võrdlusrühmast.
+
+Tüüpiline näide on lähima naabriga sobitamine (nearest neighbor matching):
+
+- iga osaleja $i$ jaoks leitakse üks või mitu võrdlusgrupi isikut $j$, kellel on minimaalne kaugus $d(X_i, X_j)$;  
+- mõju üksikule isikule hinnatakse kui erinevus $Y_i - \bar{Y}_j(i)$;  
+- ATT on nende erinevuste keskmine kõigi osalejate seas.
+
+Ligikaudse sobitamise kvaliteet sõltub otseselt sellest, kui hea on valitud kaugusmõõdik ja sobitamisalgoritm.
+
+### Mahalanobise kaugus
+
+Sobitamisel on meil mitmemõõtmeline tunnuste vektor $X_i$. Vajame üht numbrit, mis kirjeldaks, “kui kaugel” kaks inimest teineteisest on. Üks loogiline valik on Mahalanobise kaugus.
+
+Olgu $X_i$ ja $X_j$ kahe vaatluse tunnuste vektorid ning $\Sigma$ tunnuste kovariatsioonimaatriks (bediagonaalne, sümmeetriline, positiivselt määratud). Mahalanobise kaugus on:
+
+$$
+d_M(i, j)
+  = \sqrt{ (X_i - X_j)^{\top} \Sigma^{-1} (X_i - X_j) }.
+$$
+
+Intuitsioon:
+
+- eukleidiline kaugus käsitleb kõiki tunnuseid sama kaaluga ja eeldab, et tunnused on võrreldavad skaalas;  
+- Mahalanobise kaugus standardiseerib tunnused vastavalt nende dispersioonile ja arvestab ka korrelatsioone tunnuste vahel (kovariatsioonimaatriksi kaudu);  
+- kaks inimest on “lähedal”, kui nad on sarnased mitte ainult iga tunnuse osas eraldi, vaid ka nende kombinatsioonide osas, võttes arvesse tüüpilist variatsiooni.
+
+Ligikaudse sobitamise puhul sobitame osalejate ja võrdlusgrupi isikuid nii, et Mahalanobise kaugus nende vahel oleks minimaalne. Praktikas kasutatakse tihti pakette (nt MatchIt), kus saab valida `distance = "mahalanobis"`, ning funktsioon arvutab kaugused automaatselt.
+
+### Tõenäosusskoori alusel sobitamine (propensity score matching)
+
+Tõenäosusskoor (propensity score) on meetmes osalemise tõenäosus antud tunnuste $X$ korral:
+
+$$
+p(X_i) = \Pr(D_i = 1 \mid X_i).
+$$
+
+Rosenbaum ja Rubin näitasid, et kui CIA kehtib $X$ suhtes, siis piisab sellest, et CIA kehtiks ka tõenäosusskoori suhtes:
+
+$$
+(Y_i(0), Y_i(1)) \perp D_i \mid p(X_i).
+$$
+
+See tähendab, et kui sobitame inimesi ainult tõenäosusskoori $p(X)$ alusel, siis tasakaalustame ka kõik $X$-id, mida kasutati p-skoori hindamisel (eeldusel, et mudel on sobiv).
+
+Praktiline sammude jada on:
+
+1. Hinda meetmes osalemise tõenäosus $p(X)$ sobiva mudeliga (tihti logit või probit).:contentReference[oaicite:4]{index=4}  
+2. Kontrolli, kas osalus- ja võrdlusgrupi tõenäosusskoori jaotused kattuvad piisavalt (ühise toe eeldus).  
+3. Sobita osalejad ja võrdlusgrupi isikud p-skoori alusel (nt lähim naaber, kalibersobitamine jne).  
+4. Hinda mõju, kasutades sobitatud paare või alamtunde.
+
+## Sobitamine tõenäosusskoori alusel
+
+Tõenäosusskoori alusel sobitamisel ei mõõdeta enam kaugust otse $X$-i ruumis, vaid p-skoori vahemikus [0,1]. Näiteks:
+
+- iga osaleja $i$ jaoks valime võrdlusgrupi isiku(d) $j$, millel $|p(X_i) - p(X_j)|$ on minimaalne;  
+- tihti kasutatakse kalibrit (caliper), st lubatakse ainult neid vasteid, mille p-skoor jääb etteantud kaugusvahemikku (nt 0,01 või 0,05);  
+- võimalik on üks-ühele (1:1) või üks-mitmele (1:M) sobitamine.
+
+Sobitamine tõenäosusskoori alusel vähendab mõõtmelisuse probleemi: kõrged mõõtmed $X$-is asendame ühe mõõtmega $p(X)$. Samas muutub oluliseks, kui hästi on p-skoori mudel spetsifitseeritud; halb mudel tähendab halba tasakaalu.
+
+### Sobitamisel tehtavad valikud
+
+Sobitamine ei ole üks meetod, vaid terve perekond meetodeid. Praktikas tuleb teha rida olulisi valikuid.
+
+### 1. Mille alusel sobitada: X vs p(X)
+
+Mõõde, kus sobitatakse, võib olla:
+
+- otse tunnuste $X$ ruum (täpne sobitamine, Mahalanobise kaugus, standardiseeritud eukleidiline kaugus),  
+- tõenäosusskoor $p(X)$,  
+- mõnikord ka šansside suhe (odds): $\frac{p(X)}{1-p(X)}$.
+
+Valik sõltub sellest, kas meil on:
+
+- piisavalt suur võrdlusgrupp, et kasutada Mahalanobise kaugust mitmemõõtmelises ruumis;  
+- hästi spetsifitseeritud mudel, millega hinnata p-skoori.
+
+### 2. Sobitamisalgoritm: lähim naaber ja muud
+
+Levinumad algoritmid:
+
+- täpne sobitamine (exact matching);  
+- lähima naabriga sobitamine (nearest neighbor matching):
+  - 1:1 sobitamine,  
+  - 1:M sobitamine (nt 1:2, 1:4);  
+- optimaalne sobitamine (optimal matching), mis valib sobitused nii, et summaarne kaugus kõigi paaride peale oleks minimaalne;  
+- täielik sobitamine (full matching), kus iga osaleja ja võrdlusgrupi liige kuulub mõnda sobitamisrühma;  
+- sobitamine alamklassides (subclassification, nt jaotame p-skoori kvintiilidesse ja võrdleme nendes);  
+- geneetiline sobitamine (genetic matching), mis kohandab automaatselt tunnuste kaalud, et tasakaal oleks parem.
+
+### 3. Üks-ühele või üks-mitmele, tagasipanekuga või ilma
+
+Olulised disainivalikud:
+
+- 1:1 vs 1:M:
+  - 1:1 annab väga sarnased paarid, väiksem variatsioon, aga suurem dispersioon hinnangul;  
+  - 1:M kasutab rohkem infot võrdlusgrupist, vähendades dispersiooni, kuid suurendades võimalikku nihet (kaugemad naabrid).  
+- tagasipanekuga (with replacement) vs tagasipanekuta:
+  - tagasipanekuga sobitamisel võib sama võrdlusgrupi isik olla mitme osaleja vaste;  
+  - see lubab leida paremaid vasteid, eriti kui võrdlusgrupp on väike;  
+  - tagasipanekuta sobitamisel kasutatakse iga võrdlusgrupi isikut ainult üks kord, mis võib tasakaalu halvendada, kuid vähendab kaalu kontsentreerumist mõnele vähesele vaatlusel.
+
+Praktikalised soovitused:
+
+- kasuta pigem väikest M-i (nt 1 või 2),  
+- kasuta pigem tagasipanekuga sobitamist, kui võrdlusgrupp ei ole väga suur,  
+- veendu, et võrdlusgrupp oleks piisavalt suur, et sobitada iga osaleja jaoks mõistlik vaste.:contentReference[oaicite:7]{index=7}
+
+### 4. Ühine tugi, kaliiber ja trimming
+
+Sobitamisel on väga oluline ühise toe (common support) eeldus:
+
+- osalejate p-skoorid ei tohiks üldiselt olla palju suuremad kui võrdlusgrupil;  
+- kui osaleja p-skoor on 0,95, aga võrdlusgrupi suurim p-skoor 0,6, siis sellele osalejale head vastet ei leia.
+
+Selle tagamiseks kasutatakse:
+
+- kaliibersobitamist (caliper): lubame sobitada ainult siis, kui $|p_i - p_j|$ on väiksem kui etteantud piir (nt 0,01 või 0,05);  
+- trimming’ut: lõikame ära vaatlused, mille p-skoorid on äärmuslikud (nt eemaldame võrdlusgrupist väga väikese p-skooriga vaatlused või osalejad, kelle p-skoorid on suuremad kui võrdlusgrupi maksimum).
+
+Ühise toe tagamine vähendab kalduvust ekstrapoleerida väljapoole tegelikku kattuvat piirkonda.
+
+### 5. Tasakaalu kontroll ja edasine modelleerimine
+
+Pärast sobitamist tuleb alati kontrollida, kui hästi tasakaal on saavutatud:
+
+- võrrelda keskmisi ja jaotusi tunnuste $X$ osalus- ja võrdlusgrupis;  
+- jälgida standardiseeritud keskmiste erinevust (Std. Mean Diff.), variatsioonisuhet ja empiirilist jaotust (eCDF).
+
+Sageli kasutatakse ka:
+
+- täiendavat regressioonimudelit sobitatud valimil (double robust methods), et eemaldada allesjäänud väikseid erinevusi $X$-des;  
+- spetsiaalset standardvigade arvutust (Abadie–Imbens), sest klassikaline bootstrapping ei anna sobitamise korral alati korrektseid tulemusi.
+
+### Kokkuvõte
+
+Sobitamine on paindlik meetod, mis:
+
+- üritab imiteerida juhuslikku eksperimenti, luues iga osaleja jaoks sarnase võrdlusisiku;  
+- tugineb eeldustele CIA (tingimuslik sõltumatus) ja ühine tugi;  
+- võib toimuda otse tunnuste $X$ ruumis (Mahalanobise kaugus) või tõenäosusskoori $p(X)$ kaudu (propensity score matching);  
+- nõuab mitmeid valikuid: kaugusmõõdik, sobitamisalgoritm, 1:1 vs 1:M, tagasipanek, kaliiber, trimming.
+
+Hea praktika hõlmab:
+
+- hoolikat mudeli spetsifitseerimist p-skoori hindamiseks;  
+- tasakaalu põhjalikku kontrolli pärast sobitamist;  
+- vajadusel täiendavat regressiooniparandust sobitatud valimil.
+
+Sobitamine ei lahenda probleemi jälgimata teguritest (U), kuid korrektsete eelduste korral vähendab oluliselt valikunihet ja annab usutavama hinnangu põhjuslikule mõjule kui lihtne regressioon samade andmete peal.
+
+
+
+## Näide Eesti tööpoliitika põhjal
+
+
+### Vajaminevad paketid
+
+```{r}
+#| eval: false
+#| include: false
+#Vaja minevad paketid
+vajalikudpackages <- c("ggplot2", "dplyr","margins", "stargazer", "lmtest", "sandwich", "MatchIt")
+
+#Kui neid ei ole, siis installeerime
+if (length(setdiff(vajalikudpackages, rownames(installed.packages()))) > 0) {  
+  install.packages(setdiff(vajalikudpackages, rownames(installed.packages())))  
+}
+
+```
+  
+```{r}
+library(dplyr) #andmete teisendamine
+library(ggplot2) #joonised
+library(stargazer) #regressioonimudeli tabelite kenasti esitamiseks
+library(lmtest) #coeftest käsu jaoks
+library(sandwich) #robustsete standardvigade jaoks
+library(MatchIt) #sobitamise jaoks
+library(margins) #marginaalsed efektid
+
+```
+
+
+
+### Andmed
+
+Andmed on anonümiseeritud andmed uuringust Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis. Tallinn: Praxis, 2003, 108 lk
+
+Vt peatükki XXX andmete kirjelduse kohta eespool.
+
+
+```{r}
+atp <- read.csv("http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv")
+summary(atp)
+```
+
+
+Failis on toodud järgmised andmed:    
+
+|    Muutuja       |    Selgitus                                                                                                                                                    |
+|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|    id            |    Inimese id                                                                                                                                                  |
+|    training      |    Tunnus kas sai tööturukoolitust või ei 2000.   aasta esimeses pooles                                                                                        |
+|    training1     |    osalusrühm tingimisel, et ei   nõutud tõendit hilisema töö saamise kohta - kellelt nõuti, neil puuduv   väärtus                                             |
+|    training2     |    võrdlusgrupis, kes soovisid,   kuid ei saanud/soovinud osaleda mingil põhjusel                                                                              |
+|    training3     |    Kombinatsioon training 2 ja   training 3: need osalusgrupist, kellelt ei nõutud töökohta; need   võrdlusgrupist, kes uurisid koolitust, kuid ei osalenud    |
+|    training4     |    koolituse osalusrühmas ja   võrdlusrühmas mõlemas ainult need, kes ise uurisid                                                                              |
+|    training5     |    koolituse põhirühmas ja   võrdlusrühmas mõlemas ainult need, kes ise uurisid ja kellelt ei nõutud   tõendit                                                 |
+|    weight        |    Vaatluse statistiline kaal                                                                                                                                  |
+|    male          |    Meessoost                                                                                                                                                   |
+|    est           |    Eestlane                                                                                                                                                    |
+|    age           |    Vanus aastates 2002. aastal                                                                                                                                 |
+|    langest       |    Kas oskab eesti keelt                                                                                                                                       |
+|    emplbefore    |    Kas oli töökogemus enne töötuks registreerimist   2000. aastal                                                                                              |
+|    educ          |    Haridustase, 1 ISCED0,1,2 põhiharidus; 2 ISCED3   puhas keskharidus; 3 ISCED3,4 kutsekeskharidus; 4 ISCED5,6 kõrgharidus                                    |
+|    county        |    Maakond: Tallinn, Viljandimaa, Tartumaa,   Ida-Virumaa                                                                                                      |
+|    town          |    Elab linnas vs maal                                                                                                                                         |
+|    children      |    Laste arv töötuks registreerimise hetkel                                                                                                                    |
+|    marital       |    Perekonna seis töötuks registreerimise hetkel: 0   vallaline; 1 abielus; 2 vabaabielu; 3 lahutatud; 4 lesk                                                  |
+|    nwage         |    Netopalk 2002. aasta septembris                                                                                                                             |
+|    status        |    Tööturustaatus 2002. aasta septembris (1-   hõivatud, 2 – töötu, 3 – mitteaktiivne                                                                          |
+|    employed      |    Hõivatus 2002. aasta septembris   (1- hõivatud, 0 – töötu või mitteaktiivne)                                                                                |
+
+
+Tunnus meetmes osalemise kohta on _training_. Teised sama algusega tunnused kitsendavad valimit ja neid kasutati eemaldamaks võimalike mittejälgitavate tegurite mõju.
+
+Põhilised väljundtunnused on _employed_ ja _nwage_, mis näitavad hõivatust ja netopalka peale koolitust 2002. aasta septembris. 
+
+### Regressioonimudel
+
+Hindame meeldetuletuseks regressioonimudeli mõlema väljundi kohta.
+
+```{r}
+#töötamise tõenäosus
+lin_employed<-lm(employed ~ training + male + est+ age + age2  + educ + emplbefore, data=atp)
+summary(lin_employed)
+#robustsed standardvead
+coeftest(lin_employed, vcov = vcovHC(lin_employed, "HC1"))    # robust; HC1 (Stata default)
+
+#palk
+lin_nwage<-lm(nwage ~ training + male + est+ age + age2  + educ + emplbefore, data=atp)
+summary(lin_nwage)
+#robustsed standardvead
+coeftest(lin_nwage, vcov = vcovHC(lin_nwage, "HC1"))    # robust; HC1 (Stata default)
+
+#esitame ühes tabelis
+#Pane tähele, et "se = ..." võtab lihtsalt diagonaalelemendid kovariatsioonimaatriksist
+stargazer(lin_employed, lin_nwage, type="text", se=list(sqrt(diag(vcovHC(lin_employed, type = "HC1"))),sqrt(diag(vcovHC(lin_nwage, type = "HC1"))) ))
+
+```
+
+Ole valmis vastama:
+
+  - Kui palju koolituses osalemine suurendas tõenäosust töötada? 
+  - Kui palju suurendas palka?
+  - Kas mõju on statistiliselt olulised?
+  - Mõtle: kas mõju on majanduslikult oluline? Kuidas seda analüüsida?
+
+
+### Sobitamine 
+
+Sobitamiseks on palju erinevaid pakette Ris. Peamised neist on `Matching` ja `MatchIt`. 
+
+Kasutame alljärgnevalt  paketti `MatchIt`, vaata ka https://cran.r-project.org/web/packages/MatchIt/vignettes/MatchIt.html
+
+Analüüs toimub järgmiste sammudena:
+
+  1. Sobitamine, sihtrühma määramine: kas hindame mõju osalejatele - ATT - või mitteosalejatele - ATU)
+  2. Sobitamise kvaliteedi hindamine: kas osalus- ja võrdlusrühm on piisavalt sarnased peamiste tunnuste osas
+  3. Sobitatud andmete väljavõtmine: salvestame sobitatud andmed koos vajaliku lisainfoga (nt mitu korda üks inimene on võrdlusrühmas)
+  4. Mõju hindamine sobitatud andmetega: kas lihtne kaalutud keskmine või regressioonimudeli kordaja 
+  
+
+Sobitamisel on palju erinevai valikuid: täpne sobitamine (exact), lähim naaber, CEM (_coarsened exact matching_), optimaalne sobitamine, täielik sobitamine, sobitamine alamklassides (“subclass”) või geneetiline sobitamine. 
+
+Meie vaatame siin praktikumis kahte esimest lähenemist: täpne sobitamine ja lähim naaber.
+
+
+### Täpne sobitamine
+
+Sobitame esiteks vaid soo, rahvuse, hariduse lõikes.
+
+```{r}
+m.outexact <- matchit(training ~ male + est  + educ, method="exact", data=atp)
+#Informatsioon, mida tegime
+m.outexact
+```
+
+Vaatame väljundit `summary` käsuga.
+
+```{r}
+summary(m.outexact)
+
+```
+
+Vaadake jaotust "Sample Sizes".
+
+Kas kõik osalejad (Treated) leidsid endale samasuguse mitte-osaleja (Control)?
+
+Andmete sarnasust enne sobitamist näitab jaotus: "Summary of Balance for All Data"
+
+Sobitamise kvaliteeti aitab hinnata jaotus: "Summary of Balance for Matched Data"
+
+Veerud:
+
+  - Means Treated  - osalusrühma keskmised
+  - Means Control  - võrdlusrühma keskmised
+  - Std. Mean Diff. - keskmiste standardiseeritud erinevus
+  - Var. Ratio - dispersioonide suhe osalus- ja võrdlusrühmas
+  - eCDF Mean - keskmine erinevus empiirilisies kumulatiivses jaotusfunktsioonis (empirical Cumulative Distribution Function) 
+  - eCDF Max  - suurim erinevus empiirilisies kumulatiivses jaotusfunktsioonis (empirical Cumulative Distribution Function) 
+  - Std. Pair Dist. - standardiseeritud erinevus osalus- ja võrdlusrühma vahel
+
+  - Matched (ESS) - "effective sample size" - kui palju tegelikult vaatlusi kasutati.
+
+
+### Sobitatud andmete saamine ja vaatamine
+
+Kui oleme sobitamise kvaliteediga rahul, siis eraldame sobitatud andmed ja teeme edasi analüüsi. Käsuga `match.data` saame andmed objektist kätte. See sisaldab ka esialgseid tunnuseid.
+
+
+```{r}
+m.dataexact <- match.data(m.outexact)
+
+```
+
+Vaadake andmeid ja tekkinud lisamuutujad.
+
+```{r eval=FALSE, include=FALSE}
+head(m.dataexact) %>% View()
+tail(m.dataexact) %>% View()
+
+```
+
+
+Andmetesse tekkinud tunnus `subclass` näitab, mis gruppi vaatlus kuulus. Ühte gruppi kuuluvate vaatluste sobitatud tunnused on ühesuguse väärtusega. Tunnust `subclass` võime võtta arvesse hinnangute standardvigade arvutamisel.
+
+Muutuja  `weights` annab kaalu igale osalus- ja võrdlusrühma vaatlusele antud grupis.
+Osalusrühma kaal on 1 ja võrdlusrühma kaal täpse sobitamise korral võrdub osalus- ja võrdlusvaatluste suhtega antud kihis, mida pärast skaleeritakse vastavalt osalus- ja võrdlusrühma suurusele andmetes.
+
+Iga võrdlusvaatluse jaoks  $i$, mis kuulub kihti $s$, leitakse kaal, kui
+
+$$
+w_i^{(C)} = \frac{n_T^s}{n_C^s} \times \frac{N_C}{N_T},
+$$
+
+kus
+\begin{align*}
+n_T^s & = \text{osalusvaatlused kihis } s, \\
+n_C^s & = \text{võrdlusvaatlused kihis } s, \\
+N_T   & = \text{kokku osalusvaatlusi andmetes}, \\
+N_C   & = \text{kokku võrdlusvaatlusi andmetes.}
+\end{align*}
+
+Osalusvaatluste jaoks on kaal alati 1.
+
+$$
+w_i^{(T)} = 1
+$$
+
+Kasutame `summary` käsku, et vaadata kaalude jaotust.
+
+```{r}
+#osalusgrupi kaalude jaotus
+summary(m.dataexact$weights[m.dataexact$training==1])
+#võrdlusgrupi kaalude jaotus sobitatud andmestikus
+summary(m.dataexact$weights[m.dataexact$training==0])
+
+```
+
+Võrdlusrühma kaalud on skaleeritud selliselt, et nende summa annab kokku esialgse valimi suuruse. Vaadake, et kaalude summa on esialgne mitteosalejate arv.
+
+```{r}
+sum(m.dataexact$weights[m.dataexact$training==0])
+
+```
+
+```{r}
+table(m.dataexact$subclass, m.dataexact$training)
+
+```
+Vastake küsimustele
+
+  - Mitu sarnaste tunnustega gruppi meil andmetes tekib? 
+  - Kuhu gruppi kuulub kõige rohkem osalusvaatlusi?
+  - Kuidas leida, mis selgitava tunnuse väärtused selles grupis on?
+
+
+#### Mõju hindamine sobitatud andmetes
+
+Kui andmed on olemas, siis hindame mõju regressioonimudeliga kasutades sobitamisega saadud kaale vaatlustele.  
+
+Mõju palgale:
+
+```{r}
+
+mudel1 <- lm(nwage ~ training, data = m.dataexact, weights = weights)
+summary(mudel1)
+
+```
+
+Kui suur on koolituse mõju palgale?
+
+
+```{r eval=FALSE, include=FALSE}
+#Soovitatakse kasutada standardvigu, mis arvestavad, et vaatlused ei ole sõltumatud ühes #grupis "clustered standard errors".
+
+coeftest(mudel1, vcov. = vcovCL, cluster = ~subclass)
+#Standardvead lähevad väiksemaks.
+#TODO! Endale: põhjendada, miks nii juhtub.
+
+```
+
+
+Hnnake sobitatud andmetel ka lineaarne tõenäosusmudel, kus väljundiks on töötamine.
+
+```{r}
+mudel1b <- lm(employed ~ training, data = m.dataexact, weights = weights)
+summary(mudel1b)
+
+```
+Mis on mõju töötamise tõenäosusele?
+
+### Kui täpselt enam ei saa sobitada
+
+Lisame täpsete tunnuste hulka ka vanuse ja kordame protsessi.
+
+```{r}
+
+m.outexact2 <- matchit(training ~ male + est  + educ + age,method="exact", data=atp)
+m.outexact2
+summary(m.outexact2)
+```
+
+Kui palju vaatlusi jäi sobitamata?
+
+Seega täpne sobitamine ei ole võimalik, kui vaatluste arv on väike ja tunnuste arv on suur.
+
+### Lähima naabriga sobitamine
+
+Lähima naabriga sobitamine toimub, kui valida `method = "nearest"`. Valik `ratio` näitab mitu võrdlusrühma elementi võetakse ühe osalusrühma kohta; vaikimisi `ratio = 1`. Kui soovitakse üks mitmele sobitamist, nt 1:4, siis peab panema `ratio = 4`. Kui soovitakse tagasipanekuga sobitamist (vajalik, kui võrdlusgrupp ei ole väga suur), siis peab lisaks panema `replace= TRUE`.
+
+Kasutame Mahalanobise kaugust: distance="mahalanobis".
+Soovime leida sarnased vaatlused osalusrühma jaoks: estimand = "ATT".
+
+```{r}
+mnn <- matchit(training ~ male + age + est  + emplbefore + educ,  
+               method="nearest", 
+               distance="mahalanobis",  
+               data=atp, 
+               ratio = 1, 
+               replace = TRUE,
+               estimand = "ATT")
+
+mnn
+summary(mnn)
+
+```
+Kui palju võrdlusgrupi vaatlustest kasutati seekord lähima naabri leidmisel?
+Vaata "Sample Sizes:" => "Control": => "Matched".
+
+Kui sarnased on sobitatud andmed? 
+Millises tunnuses jäi suurim suhteline erinevus? (Std. Mean Diff)
+
+Sama asi ülevaatlikult joonisel.
+
+```{r}
+plot(summary(mnn))
+
+```
+
+
+Pidevate suuruste puhul võime lähemalt vaadata ka jaotuste võrdlust:
+
+```{r}
+#Tihedusfunktsioon
+plot(mnn, type = "density", which.xs = ~age + educ)
+
+#Jaotusfunktsioon
+plot(mnn, type = "ecdf",  which.xs = ~age + educ)
+
+#QQ-joonis
+plot(mnn, which.xs = ~age + educ)
+
+```
+
+Tulemuseks on erinevad joonised, kasutatakse sobitamise kontekstis, et hinnata muutujate tasakaalu enne ja pärast sobitamist. 
+
+Veerus "All" (Kõik vaatlused) - näitab muutujate (vanus ja haridus) jaotusele enne sobitamist nii osalus- kui võrdlusrühmas.
+Veerus  "Matched" (Sobitatud vaatlused) - Siin näidatakse muutujate jaotust pärast sobitamist, kus ideaalis peaksid osalus ja võrdlusrühm olema muutujate lõikes sarnasemad.
+
+Kui valida tüübiks "eQQ plot" ehk empiiriline kvantiil-kvantiil diagramm, siis ideaalne tasakaal on siis, kui punktid (vaatlused) on 45-kraadise joone lähedal.
+   - Enne sobitamist ("All" veerg) võivad punktid olla rohkem hajutatud, mis näitab tasakaalutust nende muutujate vahel osalus- ja võrdlusrühma vahel.
+   - Pärast sobitamist ("Matched" veerg) peaksid punktid ideaalis olema lähemal 45-kraadisele joonele, mis viitab sellele, et sobitusprotseduur on edukalt tasakaalustanud osalus- ja võrdlusrühma nende muutujate lõikes.
+
+Katkendjooned esindavad piire, mille sees loetakse tasakaalu vastuvõetavaks. Kui enamik punkte jääb nende joonte vahele, tähendab see, et muutujad on hästi tasakaalus pärast sobitamist.
+
+Meie tulemuste puhul näib sobitamine olevat tasakaalu parandanud, eriti vanuse osas, kuid hariduse osas võib veel olla mõningaid tasakaalustamatuse märke (mõned punktid on "Matched" veerus `educ` muutuja puhul diagonaalist kaugemal).
+
+
+### Mõju hindamine sobitatud andmetel
+
+Võtame andmed taas välja.
+
+```{r}
+mdatann <- match.data(mnn)
+```
+
+Ja hindame sobitatud andmetel mõju lineaarse mudeliga palgale ja töötamise tõenäosusele.
+
+```{r}
+mudel2 <- lm(nwage  ~  training, data = mdatann, weights = weights)
+summary(mudel2)
+coeftest(mudel2, vcov = vcovHC(mudel2, "HC3"))    # robustsed standarvead
+
+```
+
+Küsimus: mis on mõju palgale punkthinnang? Kas see on statistiliselt oluline?
+
+Leidke iseseisvalt, kui suur on koolituse mõju hilisemale töötamise tõenäosusele?
+
+```{r}
+###
+
+```
+
+
+### Sobitatud andmete vaatamine
+
+Võime ka soovi korral vaadata, milliseid vaatlusi sobitati.
+
+```{r}
+gm <- get_matches(mnn, id = "idmatched") %>% select(subclass, training, idmatched, id, weights, est, age, male, educ, emplbefore, nwage, employed)
+head(gm, 10)
+
+```
+
+Kontrollküsimus: kellega sobitati kokku inimene esialgse id-ga 44? Kas võrdlusgrupi inimene on identne?
+
+Sageli soovime vaadata, kas mõni võrdlusrühma inimene on korduvalt kasutuses. Kui jah, siis see on pigem halb, sest tulemuse võivad olla tundlikud mõne üksiku vaatluse väärtustele.
+
+```{r}
+#Kood, mis näitab, mitu korda olid võrdlusrühma vaatlused kasutatud
+gm %>%  filter(training ==0) %>% 
+  group_by(idmatched) %>% 
+  summarise(kordi = n()) %>% 
+  group_by(kordi) %>% 
+  summarise(ridu = n())
+
+#Teeb sama (!)
+#table(table(gm$idmatched[gm$training == 0]))
+
+```
+  
+  - Nt 164 vaatlust olid kasutuses 1 korra. 
+  - Nt kaks võrdlusrühma vaatlust olid kasutuses 2 korda(!).
+
+
+### Vahelepõige - logistiline mudel
+
+Hinda,e vaikimisi järgmise mudeli
+
+```{r}
+osalemismudellogit <- glm(training ~ male + age + est  + emplbefore + educ, 
+                  family=binomial(link="logit"), data=atp)
+```
+
+Kordajad - saame tõlgendada märki. Positiivne märk näitab, et see muutuja suurendab tõenäosust meetmes osaleda
+
+```{r}
+summary(osalemismudellogit)
+```
+
+Keskmised marginaalsed efektid - saame tõlgendada ka suurust. 
+Kui palju suureneb tõenäosus meetmes osaleda, kui selgitav tunnus suureneb ühe ühiku võrra.
+
+```{r}
+summary(margins(osalemismudellogit))
+
+```
+Näiteks: 
+
+  - vanuse suurenedes ühe aasta võrra, väheneb meetmes osalemise tõenäosus keskmiselt 0.27 protsendipunkti.
+  - eestlastel on 6.46 protsendipunkti suurem tõenäosus meetmes osaleda kui mitte-eestlastel.
+
+Teha: 
+
+  - tõlgendage muutujate "educ" ja "male" mõju. 
+  - Kas mõlemad on statistiliselt olulised?
+
+Siit mudelist leiamegi prognoositud tõenäosused kõigi inimeste jaoks ja nende alusel leitakse osalusrühmale sarnaseim võrdlusrühm.
+
+```{r}
+atp$trainingphat <- predict(osalemismudellogit, type = "response") #soovime tõenäosust
+
+```
+
+Vaatame ka joonisel tõenäosust jaotust:
+
+```{r}
+ggplot(data = atp, aes(x = trainingphat, color = factor(training))) + 
+  geom_density() +
+  theme_light()
+
+```
+
+
+Kõrvale ka probit-mudel
+
+
+```{r}
+osalemismudelprobit <- glm(training ~ male + age + est  + emplbefore + educ, 
+                  family=binomial(link="probit"), data=atp)
+
+atp$trainingphatprobit <- predict(osalemismudelprobit, type = "response") #soovime tõenäosust
+
+```
+
+Ja lineaarne mudel
+
+
+```{r}
+osalemismudellpm <- lm(training ~ male + age + est  + emplbefore + educ, data=atp)
+atp$trainingphatlpm <- predict(osalemismudellpm, type = "response") #soovime tõenäosust
+
+```
+
+Võrdlus tabelis
+
+
+```{r}
+stargazer(osalemismudellpm, osalemismudellogit, osalemismudelprobit, 
+          se=list(sqrt(diag(vcovHC(osalemismudellpm, type = "HC1"))), NULL, NULL),
+          type="text", no.space = TRUE)
+
+
+```
+
+
+Keskmiste marginaalsete efektide võrdlus - palju koodi
+
+
+```{r}
+#make a dataframe of probit coefficients
+meffs_table = as.data.frame(summary(margins(osalemismudelprobit)))
+#store coefficients
+pvec.coeffs <- meffs_table$AME
+#standard errors
+pvec.se <- meffs_table$SE
+#and names
+names(pvec.se) <- names(pvec.coeffs)
+#p-values
+pvec.p <- meffs_table$p
+#and names
+names(pvec.p) <- names(pvec.coeffs)
+#t-values
+pvec.t <- meffs_table$z
+#and names
+names(pvec.t) <- names(pvec.coeffs)
+
+#Similarly logit
+meffs_table = as.data.frame(summary(margins(osalemismudellogit)))
+lvec.coeffs <- meffs_table$AME
+lvec.se <- meffs_table$SE
+names(lvec.se) <- names(lvec.coeffs)
+lvec.p <- meffs_table$p
+names(lvec.p) <- names(lvec.coeffs)
+lvec.t <- meffs_table$z
+names(lvec.t) <- names(lvec.coeffs)
+
+#Lineaarse mudeli jaoks muutub vaid siis, kui meil on sees polünoomid, mida meil ei ole
+meffs_table = as.data.frame(summary(margins(osalemismudellpm)))
+lpmvec.coeffs <- meffs_table$AME
+lpmvec.se <- meffs_table$SE
+names(lpmvec.se) <- names(lpmvec.coeffs)
+lpmvec.p <- meffs_table$p
+names(lpmvec.p) <- names(lpmvec.coeffs)
+lpmvec.t <- meffs_table$z
+names(lpmvec.t) <- names(lpmvec.coeffs)
+
+#Nüüd kõik ühes tabelis
+stargazer(osalemismudellpm, osalemismudellogit, osalemismudelprobit, 
+          coef=list(lpmvec.coeffs, lvec.coeffs, pvec.coeffs), 
+          se=list(lpmvec.se, lvec.se, pvec.se), 
+          t=list(lpmvec.t, lvec.t, pvec.t), 
+          p=list(lpmvec.p, lvec.p, pvec.p), 
+          type = "text", 
+          omit = c("I(exper * exper)"),
+          #column.labels= c("OLS", "Logit mfx", "Probit mfx"),
+          dep.var.labels = "Marginal effects", no.space = TRUE)
+```
+
+### Šansside suhted
+
+```{r}
+#odds ratios
+(OR=exp(coef(osalemismudellogit)))
+
+#standard errors = OR*se(b)
+(seOR=OR*sqrt(diag(vcov(osalemismudellogit))))
+```
+
+Mida näitab šansside suhe?
+
+Tabel tunnusega est
+
+```{r}
+
+table("training" = atp$training, "est" = atp$est)
+
+```
+
+
+Lisame ka šansside suhted tabelisse
+
+```{r eval=FALSE, include=FALSE}
+#Liiga pikad nimed
+stargazer(osalemismudellpm, osalemismudellogit, osalemismudellogit, osalemismudelprobit, 
+          coef=list(lpmvec.coeffs, lvec.coeffs, OR, pvec.coeffs), 
+          se=list(lpmvec.se, lvec.se, seOR, pvec.se), 
+          t=list(lpmvec.t, lvec.t, NULL, pvec.t), 
+          p=list(lpmvec.p, lvec.p, NULL, pvec.p), 
+          type = "text", 
+          omit = c("I(exper * exper)"),
+          column.labels= c("OLS", "Logit mfx", "Logit OR", "Probit mfx"),
+          dep.var.labels = "Marginal effects", no.space = TRUE)
+```
+
+
+```{r}
+m1 <- osalemismudellpm 
+m2 <- osalemismudellogit 
+m3<- osalemismudelprobit 
+
+
+stargazer(m1, m2, m2, m3, 
+          coef=list(lpmvec.coeffs, lvec.coeffs, OR, pvec.coeffs), 
+          se=list(lpmvec.se, lvec.se, seOR, pvec.se), 
+          t=list(lpmvec.t, lvec.t, NULL, pvec.t), 
+          p=list(lpmvec.p, lvec.p, NULL, pvec.p), 
+          type = "text", 
+          omit = c("I(exper * exper)"),
+          column.labels= c("Beta", "Marg.effect", "OR", "Marg. effect"),
+          #dep.var.labels = "Marginal effects", 
+          no.space = TRUE)
+
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Alternatiivne võimalus
+require(marginaleffects)
+require(modelsummary)
+
+mudelid <- list(
+logit <- glm(training ~ male + age + est  + emplbefore + educ, family=binomial(link = "logit"), data=atp), 
+probit <- glm(training ~ male + age + est  + emplbefore + educ, family=binomial(link = "probit"), data=atp), 
+lpm <- lm(training ~ male + age + est  + emplbefore + educ,  data=atp) 
+)
+
+mfx <- lapply(mudelid, avg_slopes)
+
+modelsummary(mfx, output = "markdown", stars = TRUE)
+```
+
+
+### Võrdleme tõenäosuste jaotusi
+
+```{r}
+
+library(tidyr)
+atp %>%  
+  rename(logit = trainingphat,
+         probit = trainingphatprobit,
+         lpm =trainingphatlpm ) %>% 
+select(id, logit, probit, lpm) %>% 
+  pivot_longer(-id) %>% 
+  ggplot(aes(x = value, color = factor(name))) + 
+  geom_density() +
+  theme_light() +
+  labs(title ="Tõenäosuste võrdlus", color = "Mudel")
+
+
+```
+
+
+### Sobitamine tõenäosuse alusel (propensity score matching)
+
+Peame märkima meetodiks ikkagi lähim ("nearest"), kuid kauguse mõõduks on nüüd "glm", mis koos link funktsiooniga "logit" ütleb, et kasutatakse logistilist regressioonimudelit.
+Kasutame seekord kahte lähimat naabrit.
+
+```{r}
+mpsm <- matchit(training ~ male + age + est  + emplbefore + educ,  
+                method="nearest", 
+                distance="glm", 
+                link = "logit", 
+                data=atp, 
+                ratio = 2, 
+                replace = TRUE)
+```
+
+Kui hästi tasakaalustab? Mitte enam nii hästi.
+
+```{r}
+summary(mpsm)
+plot(summary(mpsm))
+```
+
+Mis tunnus on kõige rohkem tasakaalust väljas?
+(Kus on Std. Mean Diff. kõige erinevam nullist?)
+
+Tõenäosuste jaotus osalus- ja võrdlusrühmas.
+
+```{r}
+plot(mpsm, type = "jitter", interactive = FALSE)
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Kui on soovi näha, kuidas sobitamine toimub, siis võime käsitsi vaadata
+atp %>% select(id, training, trainingphat) %>% arrange(-trainingphat, training) %>% View()
+
+```
+
+### Andmete väljavõtt sobitatud objektist ja tulemuste hindamine
+
+Võtame andmed taas välja
+
+```{r}
+mdatapsm <- match.data(mpsm)
+  
+```
+
+Ja tulemused
+
+```{r}
+mudel3 <- lm(employed  ~  training, data = mdatapsm, weights = weights)
+summary(mudel3)
+
+```
+
+Tõlgendage. Kui palju suurendab koolituses osalemine meetmes hilisemat töötamise tõenäosust?
+
+Iseseisvalt: hinnake ka mõju palgale.
+
+
+Kui algses sobitamises jääb erinevusi tunnuste vahel, siis lisame need täiendavalt regressioonimudelisse.
+
+```{r}
+mudel3X <- lm(employed  ~  training + male + est+ age + age2  + educ + emplbefore, data = mdatapsm, weights = weights)
+summary(mudel3X)
+
+```
+
+Tõlgendamine on tavapärane. Meetmes osalemine suurendab hilisemat töötamise tõenäosust 7.2 protsendipunkti.
+
+
+### Soovitusi
+
+Sobitamise meetodile saadud hinnangutes jääb alati nihe, sest jäävad erinevused osalus- ja võrdlusgrupi vahel. Nihe on seda suurem, mida suurem on selgitavate tunnuste Xide hulk, mida kasutatakse. Isegi väga suure valimi kasutamine ei pruugi aidata. Selleks, et nihe oleks väiksem, soovitatakse järgmist:
+
+1) kasuta väikest arvu võrdlusgrupi elemente (nt M=1), sest mida rohkem kasutad võrdlusgrupi vaatlusi, seda suurem on oht, et nad on erinevad;
+2) kasuta tagasipanekuga sobitamist, sest nii on lootus leida sarnasemaid vaatlusi;
+3) võrdlusgrupp, kust võtta vaatlusi, peaks olema suur;
+4) kontrolli, et sobitamine on täpsem just nende tunnuste osas, millel on uuritavale tunnusele suur mõju; (nt kui töökogemusel on palgale suurem mõju kui haridusel, siis peaks just töökogemus olema täpsemini sobitatud kui haridus);
+5) kasuta täiendavaid kohandamismeetodeid peale sobitamist (double robust method), et elimineerida allesjäänud Xide erinevuste mõju väljundmuutujale.
+6) Abadie, Imbens (2006, 2012) pakuvad standardvead hinnangutele, mis sobitavad Xi alusel; 
+Abadie, Imbens (2016) pakuvad standardvead hinnangutele, mis sobitavad hinnatud tõenäosuse p(X) alusel; Abadie sõnul bootstrapping ei tööta üldjuhul.
+
+
+

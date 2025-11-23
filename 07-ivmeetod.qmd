@@ -1,0 +1,586 @@
+# Instrumentmuutuja
+
+## Seade
+
+
+Instrumentmuutuja meetod (instrumental variable method, IV) on üks olulisemaid tööriistu olukordades, kus regressioonimudeli selgitav tunnus on endogeenne – st korreleerub vealiikmega. Sellisel juhul on tavalise OLS-regressiooni hinnangud nihkega ja ei ole mõjusad isegi väga suurtes valimites. IV-meetod püüab eraldada selle osa varieeruvusest, mis on “puhas” ja ei ole saastunud jälgimata teguritest.:contentReference[oaicite:0]{index=0}
+
+### Motivatsioon: endogeensus ja väljajäetud muutuja nihe
+
+Olgu lihtne lineaarne mudel
+
+$$
+Y_i = \alpha + \beta D_i + \gamma^\top X_i + u_i,
+$$
+
+kus
+
+- $Y_i$ – tulemus (nt palk),
+- $D_i$ – meede või huvipakkuv selgitaja (nt haridus, tööturukoolitus),
+- $X_i$ – kontrollmuutujad (nt vanus, sugu, haridus jne),
+- $u_i$ – vealiige, mis sisaldab kõiki muid, mudelisse mitte kaasatud tegureid.
+
+OLS-meetodi põhieelduseks on, et selgitavad tunnused on eksogeensed:
+
+$$
+\mathbb{E}[u_i \mid D_i, X_i] = 0
+\quad\Longleftrightarrow\quad
+\operatorname{Cov}(D_i, u_i) = 0.
+$$
+
+Paljudes rakendustes see ei kehti:
+
+- hariduse ja palga puhul on $D_i$ (haridus) sageli korreleeritud võimekuse, motivatsiooni, perekondliku tausta jms-ga, mis on vealiikmes $u_i$;
+- tööturukoolituse ja palga puhul osalevad koolitusel suurema tõenäosusega need, kes on motiveeritumad või kellel on paremad kontaktid;
+- lojaalsusprogrammi mõju ostusummale: programmiga liituvad pigem need kliendid, kes nagunii poes käivad.
+
+Kui $\operatorname{Cov}(D_i, u_i) \neq 0$, tekib väljajäetud muutuja nihe (omitted variable bias) ning OLS-i hinnang $\hat\beta^{OLS}$ ei ole põhjuslik mõju.
+
+## Mis on instrumentmuutuja?
+
+IV-meetodi idee on kasutada lisaks instrumenti $Z_i$, mis mõjutab probleemset selgitajat $D_i$, kuid ei mõjuta tulemust $Y_i$ muul viisil kui $D_i$ kaudu.
+
+Informaalne graafik:
+
+- $Z_i$ → mõjutab $D_i$,
+- $D_i$ → mõjutab $Y_i$,
+- taustamuutuja $A_i$ (nt võimekus) mõjutab nii $D_i$ kui $Y_i$,
+- tahame sulgeda “tagaukse” $D_i \leftarrow A_i \rightarrow Y_i$.
+
+Instrumentmuutuja $Z_i$ on sobiv, kui ta täidab kolme põhi-eeldust:
+
+1. Relevantsus: $Z_i$ on piisavalt tugevasti seotud $D_i$-ga  
+   $$
+   \operatorname{Cov}(Z_i, D_i) \neq 0.
+   $$
+
+2. Eksogeensus: $Z_i$ ei korreleeru vealiikmega  
+   $$
+   \operatorname{Cov}(Z_i, u_i) = 0.
+   $$
+
+3. Väljajätmise eeldus (exclusion restriction): $Z_i$ ei mõjuta $Y_i$ otseselt, vaid ainult läbi $D_i$; st puudub otsene tee $Z_i \to Y_i$.
+
+Relevantsust saab andmetest testida (nõrgad instrumendid), eksogeensust ja väljajätmise eeldust tuleb enamasti põhjendada teoreetiliselt ja institutsionaalse konteksti abil.
+
+## Lihtne näide ja Waldi valem
+
+Vaatame kõige lihtsamat juhtu, kus:
+
+- $D_i$ on binaarne (osales/ei osalenud),
+- $Z_i$ on binaarne instrument (nt poliitikamuutus, juhuslik loosimine),
+- kontrollmuutujaid ei ole.
+
+Mudel:
+
+$$
+Y_i = \alpha + \beta D_i + u_i.
+$$
+
+IV loogika:
+
+- võrdleme keskmist tulemust nende vahel, kellel $Z_i=1$ ja $Z_i=0$;
+- võrdleme, kui palju erineb keskmine osalemine $D_i$ nende kahe grupi vahel.
+
+Wald-hinnang on:
+
+$$
+\hat\beta^{IV} =
+\frac{\mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0]}
+     {\mathbb{E}[D_i \mid Z_i = 1] - \mathbb{E}[D_i \mid Z_i = 0]}.
+$$
+
+Tähendused:
+
+- nimetaja kirjeldab instrumendi mõju osalus-tõenäosusele;
+- lugeja kirjeldab instrumendi mõju tulemusele;
+- suhe ütleb, kui palju $Y_i$ muutub instrumendi poolt esile kutsutud ühikulise muutuse kohta $D_i$-s.
+
+Kui instrument on binaarne ja kontrollmuutujaid ei ole, langeb see kokku klassikalise Waldi hinnanguga.
+
+## Kahesammuline vähimruutude meetod (2SLS)
+
+Üldisemal juhul on:
+
+$$
+Y_i = \alpha + \beta D_i + \gamma^\top X_i + u_i,
+$$
+$$
+D_i = \pi_0 + \pi_1 Z_i + \pi_2^\top X_i + v_i,
+$$
+
+kus $Z_i$ võib olla skalaarkomponent või vektor (mitu instrumenti).
+
+Kahesammuline vähimruutude meetod (Two-Stage Least Squares, 2SLS) toimib järgmiselt.
+
+Esimene samm (esimene etapp):
+
+$$
+D_i = \hat\pi_0 + \hat\pi_1 Z_i + \hat\pi_2^\top X_i + \hat v_i.
+$$
+
+- Hinnatakse regressioon $D_i$-le instrumendi ja kontrollmuutujate peale.
+- Saadakse prognoosid $\hat D_i = \hat\pi_0 + \hat\pi_1 Z_i + \hat\pi_2^\top X_i$.
+- Sisuliselt eraldame $D_i$ selles osas, mida selgitavad $Z_i$ ja $X_i$, ning eemaldame osa, mis on korreleeritud vealiikmega.
+
+Teine samm (teine etapp):
+
+$$
+Y_i = \alpha + \beta \hat D_i + \gamma^\top X_i + \varepsilon_i.
+$$
+
+- Asendame algses mudelis $D_i$ tema prognoosiga $\hat D_i$ ning kasutame OLS-i.
+- Saadud $\hat\beta^{2SLS}$ on IV-hinnang, mis kasutab ainult seda osa $D_i\ varieeruvusest, mida instrument $Z_i$ ja $X_i$ suudavad selgitada.
+
+R-is saab seda mugavalt teha näiteks paketiga AER:
+
+```{r}
+#| label: iv-example
+#| eval: false
+
+library(AER)
+
+# Näide: palk sõltub haridusest, kus haridus on endogeenne,
+# instrumentideks näiteks regionaalsed või perekondlikud tunnused
+
+iv_mod <- ivreg(wage ~ educ + exper + I(exper^2) |
+                      motheduc + fatheduc + exper + I(exper^2),
+                data = mydata)
+
+summary(iv_mod)
+```
+
+
+Parempoolsel poolel: vasak pool enne `|` on struktuurne mudel (`Y ~` endogeensed + eksogeensed tunnused), parem pool pärast `|` on instrumendid ja eksogeensed tunnused.
+
+## Sobivate instrumentide kriteeriumid
+
+Instrumentide jaoks kehtivad järgmised põhinõuded.
+
+### Relevantsus
+
+Instrument peab olema piisavalt tugevalt seotud selgitava tunnusega $D_i$:
+
+- $\operatorname{Cov}(Z_i, D_i) \neq 0$  
+- Esimeses etapis saab seda hinnata F-statistikuga. Lihtne rusikareegel:
+  - kui $F < 10$, võib instrument olla **nõrk**;
+  - nõrkade instrumentide korral on IV-hinnangud väga ebatäpsed (suured standardvead) ja võivad olla tugevalt nihkega.
+
+### Eksogeensus ja väljajätmise eeldus (exclusion restriction)
+
+- Instrument ei tohi korreleeruda vealiikmega $u_i$:
+  - $\operatorname{Cov}(Z_i, u_i) = 0$.
+- Instrument ei tohi mõjutada $Y_i$ otse, vaid üksnes läbi $D_i$:
+  - puudub otsene tee $Z_i \to Y_i$; mõju peab käima ainult $Z_i \to D_i \to Y_i$ kaudu.
+
+Kui instrumente on rohkem kui endogeenseid muutujaid (üleidentifitseeritud mudel), saab eksogeensust osaliselt testida **üleidentifitseerimiskatsetega** (Sargani või Hansen–J test), kontrollides, kas kõik instrumendid korraga sobituvad mudelisse ilma oluliste vastuoludeta.
+
+## Nõrgad ja valed instrumendid
+
+- Kui $Z_i$ ei korreleeru $D_i$-ga, on tegemist **ebaoluliste instrumentidega**; IV-meetod ei anna lisainfot ja hinnangud käituvad halvasti.
+- Kui seos on olemas, kuid väga nõrk, on tegemist **nõrkade instrumentidega**. Siis on IV-hinnangud asümptootiliselt küll mõjusad, kuid väikeses valimis väga ebatäpsed.
+- Kui instrument korreleerub vealiikmega (nt mõjutab tegelikult otseselt $Y_i$) või on seotud jälgimata teguritega $A_i$, siis on instrument **vigane**. Sellisel juhul annab IV-meetod valesuunalise hinnangu.
+
+Praktikas on tihti valik:
+
+- kas kasutada nihkega, kuid väiksema variatsiooniga OLS-hinnangut;
+- või kasutada IV-meetodit, mis põhineb tugevatele eeldustele ja millel võivad olla suured standardvead.
+
+## Heterogeensed mõjud ja LATE
+
+Kui mõju $\beta$ ei ole kõigi jaoks sama (heterogeensed mõjud), ei pruugi IV-hinnang kirjeldada keskmist mõju kõigile. Binaarse instrumendi ja binaarse meetme korral, täiendavate eelduste (näiteks monotoolsuse) all, identifitseerib Waldi/IV-hinnang nn **kohaliku keskmise mõju** (Local Average Treatment Effect, LATE):
+
+- LATE on keskmine mõju nende isikute seas, kelle meedme staatus muutub instrumendi väärtuse muutumise tõttu (*compliers* ehk “allujad”).
+
+Ülejäänud rühmad:
+
+- *never-takers* – ei osale kunagi;
+- *always-takers* – alati osalevad;
+- *defiers* – käituvad instrumendile vastupidiselt.
+
+Nende kohta IV otseselt infot ei anna.
+
+### Seos regressiooni katkemise disainiga (RDD)
+
+- RDD-s on instrument $Z_i$ tavaliselt “olla üle lõikepunkti” (näiteks $Z_i = 1$, kui $X_i \ge c$).
+- RDD **sharp design** vastab olukorrale, kus instrument määrab $D_i$ deterministlikult (kõik üle lõikepunkti osalevad, kõik allpool mitte).
+- RDD **fuzzy design** vastab klassikalisele LATE-olukorrale, kus instrument mõjutab ainult osalemise tõenäosust, mitte ei määra seda täpselt.
+
+## Kas IV-meetodit üldse vaja on? Hausmani test
+
+Kui kahtleme, kas endogeensus on tõsine probleem, on mitmeid võimalusi seda hinnata.
+
+Üks levinud lähenemine on **Hausmani tüüpi spetsifikatsioonitest**:
+
+- $H_0$: mudelis ei ole endogeensust; OLS on mõjus ja efektiivne; OLS ja IV annavad sarnased hinnangud.
+- $H_1$: esineb endogeensus; OLS on nihkega; IV on mõjus, kui instrumendid on sobivad.
+
+Praktiline mõte:
+
+1. hinnata OLS-mudel;
+2. hinnata IV/2SLS-mudel;
+3. võrrelda hinnanguid ja statistikat (nt spetsiaalsete testifunktsioonidega).
+
+Teine lähenemine on **kontrollfunktsiooni meetod**, kus:
+
+1. Esimeses etapis hinnatakse $D_i$ sõltuvust instrumentidest ja eksogeensetest tunnustest ning saadakse jääk $\hat v_i$.
+2. Teises etapis lisatakse $\hat v_i$ struktuursesse mudelisse lisatunnusena.  
+   - Kui $\hat v_i$ kordaja on statistiliselt oluline, on endogeensus probleem.  
+   - Kui mitte, siis võib OLS olla piisav.
+
+## Instrumentide leidmine
+
+Praktiliselt on suurim probleem leida **hea instrument**. Mõned tüüpilised allikad:
+
+- regionaalne varieeruvus teenuste kättesaadavuses, mis ei sõltu individuaalsetest omadustest  
+  (näiteks kaugus ülikoolist, haiglast, koolitusasutusest);
+- poliitikamuutused ja institutsionaalsed reeglid  
+  (näiteks muutus toetuse tingimustes, mis sõltub ainult sünniaastast, piirkonnast või mõnest teisest välistunnusest);
+- ajaline varieeruvus: meetmed, mis rakenduvad erineval ajal erinevates piirkondades;
+- minevikuväärtused paneelandmetes (lagged variables), kui need on usutavalt eksogeensed;
+- randomiseeritud eksperimendid: ideaalne, “täiuslik” instrument.
+
+Iga kord tuleb läbi mõelda:
+
+- kas instrument mõjutab selgitavat tunnust piisavalt tugevasti;
+- kas on usutav, et instrument ei mõjuta otseselt tulemust;
+- kas pole muid kanaleid (väljajätmise eeldus), mille kaudu instrument ja tulemus sõltuda võiksid.
+
+## Kokkuvõte
+
+Instrumentmuutuja meetod:
+
+- on mõeldud olukordadeks, kus selgitav tunnus on endogeenne ja tavaline regressioon annab nihkega hinnanguid;
+- kasutab ainult seda osa varieeruvusest, mis on “tekitatud” instrumendi poolt ja on seetõttu vealiikmest sõltumatu;
+- tugineb tugevatele eeldustele instrumendi eksogeensuse ja väljajätmise kohta, mida alati ei saa otseselt testida;
+- annab heterogeensete mõjude korral lokaalse keskmise mõjuhinnangu (LATE) just nendele, keda instrument tegelikult “liigutab”.
+
+Analüütiku ülesanne on leida veenev instrument, põhjendada selle sobivust ning kontrollida esimeses etapis instrumentide tugevust ja teises etapis mudeli kooskõlalisust. Nõrk või vigane instrument on sageli hullem kui lihtne, ausalt nihkega OLS.
+
+
+
+## Näide
+
+See näide püüab korrata lähenemist, mis kasutati Leenheer jt. artiklis.
+
+Vt
+Jorna Leenheer, Harald J. van Heerde, Tammo H.A. Bijmolt, Ale Smidts, "Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members,
+International Journal of Research in Marketing,", Volume 24, Issue 1, 2007, Pages 31-47, ISSN 0167-8116, https://doi.org/10.1016/j.ijresmar.2006.10.005.
+https://www.sciencedirect.com/science/article/abs/pii/S016781160600084X
+
+Artikkel uurib ettevõtete lojaalsusprogrammide mõju kliendilojaalsusele, arvestades valikunihet (selection bias). Lojaalsusprogrammi valivad need kliendid, kes juba nagunii kasutavad teenuseid enam. Seega ülehindaksime lojaalsusprogrammide mõju klientide lojaalsusele.
+
+Meetod hõlmab kahesammulist vähimruutude meetodit (2SLS) koos instrumentmuutujatega, et hinnata lojaalsusprogrammi liikmesuse mõju kulutuste osakaalule (share-of-wallet, SOW).
+
+### Andmed
+
+1. `household_id`: Unikaalne ID igale majapidamisele.
+2. `loyalty_program_member`: Binaarne muutuja, mis näitab liikmesust (1, kui on liige; 0, kui ei ole).
+3. `share_of_wallet`: Majapidamise kulutuste osakaal poes.
+4. `economic_benefit`: Lojaalsusprogrammide tajutud majanduslik kasu (instrumentmuutuja). - üleüldine
+5. `non_economic_benefit`: Tajutud mittemajanduslik kasu (instrumentmuutuja).  - üleüldine
+6. `privacy_concern`: Privaatsusega seotud mured lojaalsusprogrammide osas (instrumentmuutuja).  - üleüldine
+7. `discount_rate`: Lojaalsusprogrammi allahindluse määr.
+8. `saving_rate`: Lojaalsusprogrammi säästumäär.
+9. `hh_income`: leibkonna sissetulek
+
+
+```{r}
+library(AER) # 2SLS mudeli jaoks
+library(stargazer) # tulemuste esitamiseks
+library(dplyr)
+library(sandwich) #robustsed standardvead
+library(lmtest) #testid
+
+
+```
+
+
+```{r include=FALSE}
+#| eval: false
+
+# Juhusliku valimi taasesitatavus
+set.seed(123)
+
+# Genereeri näidisandmed
+n <- 1000
+
+data <- data.frame(
+  household_id = 1:n,
+  # Increase the mean differences and reduce standard deviations
+  hh_income  = runif(n, min = 1, max = 3),
+  economic_benefit = rnorm(n, mean = 0.7, sd = 0.5),    # Increased mean, reduced SD
+  non_economic_benefit = rnorm(n, mean = 0.5, sd = 0.5), # Increased mean, reduced SD
+  privacy_concern = rnorm(n, mean = 0.3, sd = 0.5),      # Adjusted distribution
+  discount_rate = pmax(0,rnorm(n, mean = 0.10, sd = 0.02)),       # Increased mean, reduced SD
+  saving_rate = pmax(0,rnorm(n, mean = 0.15, sd = 0.02))         # Increased mean, reduced SD
+)
+
+
+# Create an unobserved factor 'loyalty_tendency' that affects both membership and share of wallet
+data$loyalty_tendency <- rnorm(n, mean = 0, sd = 1)  # Adjusted distribution
+
+# 3. Strengthen the relationship in loyalty program membership
+logit_prob <- with(data, 
+  -1.0 + 
+  1.0 * economic_benefit +      # 
+  1.5 * non_economic_benefit +  # 
+  5 * discount_rate -       # 
+  1.2 * privacy_concern +       # 
+  2.0 * loyalty_tendency        # 
+)
+data$loyalty_program_member <- rbinom(n, 1, plogis(logit_prob))
+table(data$loyalty_program_member)
+
+# Simulate loyalty_program_member based on instruments and loyalty_tendency (selection bias here)
+
+#Genereeri share_of_wallet, kus lojaalsusprogrammi liikmelisusel on väike positiivne mõju
+
+# 4. Generate share_of_wallet, influenced by both loyalty_program_member and loyalty_tendency
+# Step 1: Calculate unbounded share_of_wallet
+unbounded_share_of_wallet <- 0.3 + 
+  0.4 * data$loyalty_program_member +  
+  0.3 * data$loyalty_tendency +        
+  0.4 * data$discount_rate +           
+  0.1 * data$saving_rate +
+  0.2 * data$hh_income +
+  rnorm(n, mean = 0, sd = 0.5)        
+
+# Step 2: Apply the sigmoid transformation to scale between 0.1 and 0.9
+data$share_of_wallet <- 0 + (0.6 * (1 / (1 + exp(-unbounded_share_of_wallet))))
+
+data <- data %>% select(-loyalty_tendency)
+summary(data)
+save(data, file = "kliendiprogramm.RData")
+
+```
+
+
+<!-- *Varjatud lojaalsuskalduvus*: loyalty_tendency on varjatud tegur, mis suurendab nii tõenäosust liituda lojaalsusprogrammiga kui ka share_of_wallet väärtust. See varjatud kalduvus võib tähistada loomupäraseid eelistusi lojaalsuse suhtes või tugevamat kiindumust jaemüüja vastu, mida ei kajasta otseselt vaadeldavad instrumendid. -->
+
+<!-- loyalty_program_member simuleerimine loyalty_tendency abil: Kaasates loyalty_tendency logistilisse funktsiooni loyalty_program_member jaoks, simuleerime valikukallutatust. Majapidamised, kellel on kõrgemad loyalty_tendency väärtused, on tõenäolisemalt liikmed, ja see korreleerub ka suuremate kulutustega, luues seeläbi endogeensuse. -->
+
+<!-- share_of_wallet simuleerimine loyalty_tendency abil: Kaasates loyalty_tendency share_of_wallet mudelisse, tagame, et share_of_wallet on mõjutatud sellest varjatud tegurist. See tähendab, et iga OLS hinnang loyalty_program_member mõju kohta share_of_wallet-ile on tõenäoliselt kallutatud, kuna see hõlmab osaliselt ka loyalty_tendency mõju. -->
+
+<!-- Tekkiv valikunihe -->
+
+<!-- Kui hindame loyalty_program_member mõju share_of_wallet-ile tavalise OLS-i abil, saame kallutatud hinnangu. Selle põhjuseks on asjaolu, et OLS omistab ekslikult osa loyalty_tendency (varjatud lojaalsuseelistuse) mõjust lojaalsusprogrammile endale. Kahesammuline väikseimate ruutude meetod (2SLS) koos kehtivate instrumentidega (nt economic_benefit, non_economic_benefit, privacy_concern) aitaks seda kallutatust vähendada, eraldades loyalty_program_member eksogeense varieeruvuse. -->
+
+
+```{r}
+#| eval: false
+#| include: false
+# # 5. First stage regression with standardized variables
+# data_scaled <- data
+# data_scaled[c("economic_benefit", "non_economic_benefit", "privacy_concern", 
+#               "discount_rate", "saving_rate")] <- scale(
+#   data[c("economic_benefit", "non_economic_benefit", "privacy_concern", 
+#          "discount_rate", "saving_rate")])
+
+```
+
+
+
+## Avame andmed
+
+
+```{r}
+#load(file = "kliendiprogramm.RData")
+load(url("http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/kliendiprogramm.RData"))
+
+```
+
+Uurige andmed. 
+
+1) Kui palju kliente on lojaalsusprogrammis?
+2) Kui suur on keskmine uuritavate toodete osakaal kogu kulutustes?
+3) Kas see on suurem lojaalsusprogrammis osalejatel?
+4) Uurige seoseid muutujate vahel korrelatsioonikordaja abil
+
+```{r}
+#1. 
+table(data$loyalty_program_member)
+
+#2. 
+summary(data$share_of_wallet)
+hist(data$share_of_wallet)
+
+#3. 
+data %>% group_by(loyalty_program_member) %>% summarise(mean_sow = mean(share_of_wallet))
+
+#4. 
+pairwise_correlations <- cor(data, use = "pairwise.complete.obs")
+round(pairwise_correlations, 3)
+
+```
+
+
+### OLS
+
+Hindame seose, kuidas SOW sõltub programmi kuulumisest, leibkonna sissetulekust ja kas programm annab allahindust või kogub raha.
+
+```{r}
+#Eirame valikunihet 
+
+olsmudel <- lm(share_of_wallet ~ loyalty_program_member + hh_income + discount_rate + saving_rate, data = data)
+summary(olsmudel)
+
+#robustsed standardvead
+coeftest(olsmudel, vcov. = sandwich)
+
+#Meil ei ole heteroskedastiivsust
+
+```
+
+## Kahesammulise vähimruutude meetodi (2SLS) hinnang
+
+### Esimene samm: Lojaalsusprogrammi liikmesuse prognoosimine
+
+Esimeses etapis prognoosime loyalty_program_member instrumentaalmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (discount_rate ja saving_rate) abil.
+
+Esimene samm: lojaalsusprogrammi liikmesuse prognoosimine
+
+```{r}
+stage1 <- lm(loyalty_program_member ~ economic_benefit + non_economic_benefit +
+             privacy_concern + discount_rate + saving_rate, data = data)
+
+summary(stage1)
+
+```
+
+Mis mõjutab lojaalsusprogrammi astumist?
+
+
+Lojaalsusprogrammi liikmesuse prognoositud väärtused
+
+```{r}
+data$predicted_loyalty <- predict(stage1)
+```
+
+Teine samm: Prognoositud lojaalsuse kasutamine kulutuste osakaalu mudelis
+Teises etapis kasutame esimeses etapis saadud prognoositud väärtusi mudelis share_of_wallet jaoks.
+
+ Teine samm: 2SLS hinnang, kasutades lojaalsusprogrammi liikmesuse prognoositud väärtusi
+
+```{r}
+stage2iv <- lm(share_of_wallet ~ predicted_loyalty + hh_income +  discount_rate + saving_rate, data = data)
+
+```
+
+# Teise etapi kokkuvõte
+
+```{r}
+summary(stage2iv)
+```
+Võrdleme
+
+```{r}
+stargazer(olsmudel, stage2iv, stage1, type = "text", no.space = TRUE)
+
+```
+
+
+Kontrollfunktsiooniga (control function)
+
+```{r}
+#Käsitsi
+
+data$vhat <- residuals(stage1)
+
+stage2ivcf <- lm(share_of_wallet ~ loyalty_program_member + hh_income +  discount_rate + saving_rate + vhat, data = data)
+summary(stage2ivcf)
+
+stargazer(olsmudel, stage2iv, stage2ivcf, stage1, type = "text", no.space = TRUE)
+
+```
+
+Kontrollige, et tulemus on sama
+
+
+
+Alternatiiv: 2SLS-i kasutamine ivreg funktsiooniga
+2SLS-i saab teostada ka ivreg funktsiooni abil paketist AER, mis viib läbi mõlemad sammud korraga.
+
+Kahesammuline väikseimate ruutude meetod (2SLS) ivreg funktsiooniga
+
+```{r}
+iv_model <- ivreg(share_of_wallet ~ loyalty_program_member + hh_income + discount_rate + saving_rate |
+                    economic_benefit + non_economic_benefit + privacy_concern + hh_income + discount_rate + saving_rate, data = data)
+```
+
+
+```{r}
+# 2SLS mudeli kokkuvõte
+summary(iv_model)
+```
+
+Võrdlus
+```{r}
+stargazer(olsmudel, iv_model, stage2iv, stage2ivcf, stage1, type = "text", no.space = TRUE)
+
+```
+
+
+Selgitus
+
+ivreg funktsioon: See funktsioon hindab 2SLS mudelit. Esimene osa (share_of_wallet ~ loyalty_program_member + hh_income + discount_rate + saving_rate) määrab tulemuse ja endogeense muutuja, samas kui teine osa (|economic_benefit + non_economic_benefit + privacy_concern + hh_income + discount_rate + saving_rate) määrab instrumendid ja eksogeensed muutujad.
+
+
+```{r}
+summary(iv_model, diagnostics = TRUE)
+
+```
+
+summary(iv_model): Kuvab 2SLS hinnangu tulemused, näidates lojaalsusprogrammi liikmesuse mõju kulutuste osakaalule, arvestades endogeensuse probleemiga.
+
+## Testid
+
+Wu-Hausmani test
+
+```{r}
+#Kas meil on instrumenti vaja?
+#T-test
+summary(stage2ivcf)$coefficients["vhat",]
+
+#F-test
+anova(olsmudel, stage2ivcf)
+
+#Waldi test
+waldtest(olsmudel, stage2ivcf, test = "Chisq")
+
+#See test on esitatud ivreg tulemustest
+
+```
+
+```{r}
+summary(iv_model, diagnostics = TRUE)
+```
+
+
+## Kas instrumendid on tugevad?
+
+```{r}
+summary(stage1)
+
+#F-test - võrdleme meie mudelit ja ilma instrumentideta mudelit
+stage1abi <- lm(loyalty_program_member ~ discount_rate + saving_rate, data = data)
+
+anova(stage1abi, stage1)
+
+#F-test on oluline ja suurem ka kui 10
+
+#Sama oli siin
+summary(iv_model, diagnostics = TRUE)
+```
+
+## Kas instrumendid on sobivad?
+
+Sargani test on võimalik, siis kui instrumente rohkem kui vaja. Meil on 3, vaja on 1.
+
+H0 - instrumendid ei korreleeru vealiikmega
+H1 - vähemalt üks instrument korreleerub vealiikmega
+
+Me ei saa ümber lükata H0. Seega selle koha pealt formaalselt korras
+
+
+

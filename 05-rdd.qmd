@@ -165,6 +165,28 @@ Idee:
 2. testitakse, kas hinnatud tihedused erinevad statistiliselt olulisel määral.
 
 
+Kui testi tulemus ei lükka $H_0$ hüpoteesi ümber (puudub oluline hüpe tiheduses), on pidevuse eeldus ja “manipuleerimatuse” eeldus usutavam.
+
+### Platseebo test
+
+Platseebo test (või “fake cutoff test”) kontrollib, kas meie hinnatud mõju sõltub spetsiifiliselt just tegelikust lõikepunktist.
+
+Idee:
+
+  1. valime valed (platseebo) lõikepunktid, mis ei tohiks sekkumisega seotud olla;
+  2. jooksutame RDD-analüüsi nende uute lõikepunktide juures;
+  3. eeldus: me ei tohiks leida süsteemselt suuri ja statistiliselt olulisi mõjusid.
+
+Kui leiame tugevaid “mõjusid” ka mujal, võib see viidata:
+
+  * mudeli ülesobitamisele (liiga paindlik polünoom)
+
+  * andmetes olevale muule mittelineaarsusele, mida tõlgendatakse ekslikult “mõjuna”
+
+  * valesti määratud bandwidth’ile või kernelile.
+
+
+Kui ainult tõelise lõikepunkti juures on selge ja stabiilne mõju, suurendab see usaldust RDD tulemuste suhtes.
 
 
 ## Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.
