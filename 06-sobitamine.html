@@ -1,0 +1,2312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Sobitamine – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-ivmeetod.html" rel="next">
+<link href="./05-rdd.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-sobitamine.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eessõna</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-sissejuhatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LASSO</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusrühma meetod</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#mõistetest" id="toc-mõistetest" class="nav-link active" data-scroll-target="#mõistetest"><span class="header-section-number">7.1</span> Mõistetest</a></li>
+  <li><a href="#täpne-ja-ligikaudne-sobitamine" id="toc-täpne-ja-ligikaudne-sobitamine" class="nav-link" data-scroll-target="#täpne-ja-ligikaudne-sobitamine"><span class="header-section-number">7.2</span> Täpne ja ligikaudne sobitamine</a>
+  <ul class="collapse">
+  <li><a href="#täpne-sobitamine" id="toc-täpne-sobitamine" class="nav-link" data-scroll-target="#täpne-sobitamine">Täpne sobitamine</a></li>
+  </ul></li>
+  <li><a href="#ligikaudne-sobitamine" id="toc-ligikaudne-sobitamine" class="nav-link" data-scroll-target="#ligikaudne-sobitamine"><span class="header-section-number">7.3</span> Ligikaudne sobitamine</a>
+  <ul class="collapse">
+  <li><a href="#mahalanobise-kaugus" id="toc-mahalanobise-kaugus" class="nav-link" data-scroll-target="#mahalanobise-kaugus">Mahalanobise kaugus</a></li>
+  <li><a href="#tõenäosusskoori-alusel-sobitamine-propensity-score-matching" id="toc-tõenäosusskoori-alusel-sobitamine-propensity-score-matching" class="nav-link" data-scroll-target="#tõenäosusskoori-alusel-sobitamine-propensity-score-matching">Tõenäosusskoori alusel sobitamine (propensity score matching)</a></li>
+  </ul></li>
+  <li><a href="#sobitamine-tõenäosusskoori-alusel" id="toc-sobitamine-tõenäosusskoori-alusel" class="nav-link" data-scroll-target="#sobitamine-tõenäosusskoori-alusel"><span class="header-section-number">7.4</span> Sobitamine tõenäosusskoori alusel</a>
+  <ul class="collapse">
+  <li><a href="#sobitamisel-tehtavad-valikud" id="toc-sobitamisel-tehtavad-valikud" class="nav-link" data-scroll-target="#sobitamisel-tehtavad-valikud">Sobitamisel tehtavad valikud</a></li>
+  <li><a href="#mille-alusel-sobitada-x-vs-px" id="toc-mille-alusel-sobitada-x-vs-px" class="nav-link" data-scroll-target="#mille-alusel-sobitada-x-vs-px">1. Mille alusel sobitada: X vs p(X)</a></li>
+  <li><a href="#sobitamisalgoritm-lähim-naaber-ja-muud" id="toc-sobitamisalgoritm-lähim-naaber-ja-muud" class="nav-link" data-scroll-target="#sobitamisalgoritm-lähim-naaber-ja-muud">2. Sobitamisalgoritm: lähim naaber ja muud</a></li>
+  <li><a href="#üks-ühele-või-üks-mitmele-tagasipanekuga-või-ilma" id="toc-üks-ühele-või-üks-mitmele-tagasipanekuga-või-ilma" class="nav-link" data-scroll-target="#üks-ühele-või-üks-mitmele-tagasipanekuga-või-ilma">3. Üks-ühele või üks-mitmele, tagasipanekuga või ilma</a></li>
+  <li><a href="#ühine-tugi-kaliiber-ja-trimming" id="toc-ühine-tugi-kaliiber-ja-trimming" class="nav-link" data-scroll-target="#ühine-tugi-kaliiber-ja-trimming">4. Ühine tugi, kaliiber ja trimming</a></li>
+  <li><a href="#tasakaalu-kontroll-ja-edasine-modelleerimine" id="toc-tasakaalu-kontroll-ja-edasine-modelleerimine" class="nav-link" data-scroll-target="#tasakaalu-kontroll-ja-edasine-modelleerimine">5. Tasakaalu kontroll ja edasine modelleerimine</a></li>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte">Kokkuvõte</a></li>
+  </ul></li>
+  <li><a href="#näide-eesti-tööpoliitika-põhjal" id="toc-näide-eesti-tööpoliitika-põhjal" class="nav-link" data-scroll-target="#näide-eesti-tööpoliitika-põhjal"><span class="header-section-number">7.5</span> Näide Eesti tööpoliitika põhjal</a>
+  <ul class="collapse">
+  <li><a href="#vajaminevad-paketid" id="toc-vajaminevad-paketid" class="nav-link" data-scroll-target="#vajaminevad-paketid">Vajaminevad paketid</a></li>
+  <li><a href="#andmed" id="toc-andmed" class="nav-link" data-scroll-target="#andmed">Andmed</a></li>
+  <li><a href="#regressioonimudel" id="toc-regressioonimudel" class="nav-link" data-scroll-target="#regressioonimudel">Regressioonimudel</a></li>
+  <li><a href="#sobitamine" id="toc-sobitamine" class="nav-link" data-scroll-target="#sobitamine">Sobitamine</a></li>
+  <li><a href="#täpne-sobitamine-1" id="toc-täpne-sobitamine-1" class="nav-link" data-scroll-target="#täpne-sobitamine-1">Täpne sobitamine</a></li>
+  <li><a href="#sobitatud-andmete-saamine-ja-vaatamine" id="toc-sobitatud-andmete-saamine-ja-vaatamine" class="nav-link" data-scroll-target="#sobitatud-andmete-saamine-ja-vaatamine">Sobitatud andmete saamine ja vaatamine</a></li>
+  <li><a href="#kui-täpselt-enam-ei-saa-sobitada" id="toc-kui-täpselt-enam-ei-saa-sobitada" class="nav-link" data-scroll-target="#kui-täpselt-enam-ei-saa-sobitada">Kui täpselt enam ei saa sobitada</a></li>
+  <li><a href="#lähima-naabriga-sobitamine" id="toc-lähima-naabriga-sobitamine" class="nav-link" data-scroll-target="#lähima-naabriga-sobitamine">Lähima naabriga sobitamine</a></li>
+  <li><a href="#mõju-hindamine-sobitatud-andmetel" id="toc-mõju-hindamine-sobitatud-andmetel" class="nav-link" data-scroll-target="#mõju-hindamine-sobitatud-andmetel">Mõju hindamine sobitatud andmetel</a></li>
+  <li><a href="#sobitatud-andmete-vaatamine" id="toc-sobitatud-andmete-vaatamine" class="nav-link" data-scroll-target="#sobitatud-andmete-vaatamine">Sobitatud andmete vaatamine</a></li>
+  <li><a href="#vahelepõige---logistiline-mudel" id="toc-vahelepõige---logistiline-mudel" class="nav-link" data-scroll-target="#vahelepõige---logistiline-mudel">Vahelepõige - logistiline mudel</a></li>
+  <li><a href="#šansside-suhted" id="toc-šansside-suhted" class="nav-link" data-scroll-target="#šansside-suhted">Šansside suhted</a></li>
+  <li><a href="#võrdleme-tõenäosuste-jaotusi" id="toc-võrdleme-tõenäosuste-jaotusi" class="nav-link" data-scroll-target="#võrdleme-tõenäosuste-jaotusi">Võrdleme tõenäosuste jaotusi</a></li>
+  <li><a href="#sobitamine-tõenäosuse-alusel-propensity-score-matching" id="toc-sobitamine-tõenäosuse-alusel-propensity-score-matching" class="nav-link" data-scroll-target="#sobitamine-tõenäosuse-alusel-propensity-score-matching">Sobitamine tõenäosuse alusel (propensity score matching)</a></li>
+  <li><a href="#andmete-väljavõtt-sobitatud-objektist-ja-tulemuste-hindamine" id="toc-andmete-väljavõtt-sobitatud-objektist-ja-tulemuste-hindamine" class="nav-link" data-scroll-target="#andmete-väljavõtt-sobitatud-objektist-ja-tulemuste-hindamine">Andmete väljavõtt sobitatud objektist ja tulemuste hindamine</a></li>
+  <li><a href="#soovitusi" id="toc-soovitusi" class="nav-link" data-scroll-target="#soovitusi">Soovitusi</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="mõistetest" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="mõistetest"><span class="header-section-number">7.1</span> Mõistetest</h2>
+<p>Sobitamine (<strong>matching</strong>) on vaatlusandmetel põhinev meetod põhjusliku mõju hindamiseks olukorras, kus juhuslikku katset ei ole tehtud ning osalemine programmis (tööpoliitika meede, tervishoiu sekkumine jne) sõltub inimestest endast.</p>
+<p>Idee on lihtne: püüame iga osalusrühma inimese jaoks leida võimalikult sarnase inimese võrdlusrühmast ning võrdleme seejärel nende tulemusi.</p>
+<p>Tuginedes potentsiaalsete tulemuste raamistikule tähistame:</p>
+<ul>
+<li><span class="math inline">\(Y_i(1)\)</span> – isiku <span class="math inline">\(i\)</span> tulemus, kui ta osaleb meetmes<br>
+</li>
+<li><span class="math inline">\(Y_i(0)\)</span> – sama isiku tulemus, kui ta ei osale<br>
+</li>
+<li><span class="math inline">\(D_i \in \{0,1\}\)</span> – indicator, kas isik osales (1) või mitte (0)<br>
+</li>
+<li>$X_i4 – vektor taustatunnuseid (vanus, sugu, haridus, eelnev töökogemus jne)</li>
+</ul>
+<p>Meid huvitab näiteks keskmine mõju osalejatele (ATT):</p>
+<p><span class="math display">\[
+\tau_{ATT} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1].
+\]</span></p>
+<p>Probleem: iga inimese puhul näeme ainult ühte tulemust, kas <span class="math inline">\(Y_i(1)\)</span> või <span class="math inline">\(Y_i(0)\)</span>. Sobitamisega püüame iga osaleja jaoks leida sobiva “doppelgängeri” võrdlusrühmast, kellel oleks võimalikult sarnased <span class="math inline">\(X\)</span>-id, ning kasutame tema <span class="math inline">\(Y_j(0)\)</span> ligikaudse asendusena vaatlemata <span class="math inline">\(Y_i(0)\)</span>-le.</p>
+<p>Sobitamise tuumeeldus on ligikaudne valikuvabadus tingituna taustatunnustest (Conditional Independence Assumption, CIA):</p>
+<p><span class="math display">\[
+(Y_i(0), Y_i(1)) \perp D_i \mid X_i,
+\]</span></p>
+<p>ehk pärast piisavalt rikkalike taustatunnuste <span class="math inline">\(X\)</span> arvesse võtmist ei sõltu osalemine enam täiendavatest jälgimata teguritest.</p>
+</section>
+<section id="täpne-ja-ligikaudne-sobitamine" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="täpne-ja-ligikaudne-sobitamine"><span class="header-section-number">7.2</span> Täpne ja ligikaudne sobitamine</h2>
+<section id="täpne-sobitamine" class="level3">
+<h3 class="anchored" data-anchor-id="täpne-sobitamine">Täpne sobitamine</h3>
+<p>Lihtsaim mõte on täpne sobitamine (exact matching):</p>
+<ul>
+<li>jagame andmestiku rakkudeks tunnuste <span class="math inline">\(X\)</span> kombinatsioonide järgi (nt sugu, rahvus, haridustase);<br>
+</li>
+<li>igale osalusrühma vaatlusel <span class="math inline">\(i\)</span> otsime võrdlusgrupist need vaatlused, millel on täpselt samad tunnused <span class="math inline">\(X\)</span>;<br>
+</li>
+<li>hindame mõju nende sobitatud paaride või gruppide sees.</li>
+</ul>
+<p>Kui leiame iga osaleja jaoks täpse vaste(d), saame ATT hinnata kujul</p>
+<p><span class="math display">\[
+\hat{\tau}_{ATT}
+= \frac{1}{N_1} \sum_{i: D_i = 1} \left( Y_i - \bar{Y}_{0}(i) \right),
+\]</span></p>
+<p>kus <span class="math inline">\(\bar{Y}_{0}(i)\)</span> on sarnaste võrdlusgrupi isikute keskmine tulemus.:contentReference<span data-index="1">oaicite:1</span></p>
+<p>Praktiline probleem on, et kui:</p>
+<ul>
+<li>tunnuseid on palju (suur mõõtmelisus) ja<br>
+</li>
+<li>valim ei ole väga suur,</li>
+</ul>
+<p>siis jääb enamikul osalejatest täpset vastet leidmata. Seda nimetatakse tihti “mõõtmelisuse needuseks” – ruudustik, kuhu me andmed jaotame, muutub liiga hõredaks.</p>
+</section>
+</section>
+<section id="ligikaudne-sobitamine" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="ligikaudne-sobitamine"><span class="header-section-number">7.3</span> Ligikaudne sobitamine</h2>
+<p>Ligikaudse sobitamise puhul lubame väikese erinevuse tunnustes <span class="math inline">\(X\)</span>. Oluline on defineerida:</p>
+<ul>
+<li>mingi kauguse mõõdik vaatluste vahel <span class="math inline">\(d(X_i, X_j)\)</span>;<br>
+</li>
+<li>algoritm, mis valib iga osalusrühma isiku <span class="math inline">\(i\)</span> jaoks “lähimad naabrid” võrdlusrühmast.</li>
+</ul>
+<p>Tüüpiline näide on lähima naabriga sobitamine (nearest neighbor matching):</p>
+<ul>
+<li>iga osaleja <span class="math inline">\(i\)</span> jaoks leitakse üks või mitu võrdlusgrupi isikut <span class="math inline">\(j\)</span>, kellel on minimaalne kaugus <span class="math inline">\(d(X_i, X_j)\)</span>;<br>
+</li>
+<li>mõju üksikule isikule hinnatakse kui erinevus <span class="math inline">\(Y_i - \bar{Y}_j(i)\)</span>;<br>
+</li>
+<li>ATT on nende erinevuste keskmine kõigi osalejate seas.</li>
+</ul>
+<p>Ligikaudse sobitamise kvaliteet sõltub otseselt sellest, kui hea on valitud kaugusmõõdik ja sobitamisalgoritm.</p>
+<section id="mahalanobise-kaugus" class="level3">
+<h3 class="anchored" data-anchor-id="mahalanobise-kaugus">Mahalanobise kaugus</h3>
+<p>Sobitamisel on meil mitmemõõtmeline tunnuste vektor <span class="math inline">\(X_i\)</span>. Vajame üht numbrit, mis kirjeldaks, “kui kaugel” kaks inimest teineteisest on. Üks loogiline valik on Mahalanobise kaugus.</p>
+<p>Olgu <span class="math inline">\(X_i\)</span> ja <span class="math inline">\(X_j\)</span> kahe vaatluse tunnuste vektorid ning <span class="math inline">\(\Sigma\)</span> tunnuste kovariatsioonimaatriks (bediagonaalne, sümmeetriline, positiivselt määratud). Mahalanobise kaugus on:</p>
+<p><span class="math display">\[
+d_M(i, j)
+  = \sqrt{ (X_i - X_j)^{\top} \Sigma^{-1} (X_i - X_j) }.
+\]</span></p>
+<p>Intuitsioon:</p>
+<ul>
+<li>eukleidiline kaugus käsitleb kõiki tunnuseid sama kaaluga ja eeldab, et tunnused on võrreldavad skaalas;<br>
+</li>
+<li>Mahalanobise kaugus standardiseerib tunnused vastavalt nende dispersioonile ja arvestab ka korrelatsioone tunnuste vahel (kovariatsioonimaatriksi kaudu);<br>
+</li>
+<li>kaks inimest on “lähedal”, kui nad on sarnased mitte ainult iga tunnuse osas eraldi, vaid ka nende kombinatsioonide osas, võttes arvesse tüüpilist variatsiooni.</li>
+</ul>
+<p>Ligikaudse sobitamise puhul sobitame osalejate ja võrdlusgrupi isikuid nii, et Mahalanobise kaugus nende vahel oleks minimaalne. Praktikas kasutatakse tihti pakette (nt MatchIt), kus saab valida <code>distance = "mahalanobis"</code>, ning funktsioon arvutab kaugused automaatselt.</p>
+</section>
+<section id="tõenäosusskoori-alusel-sobitamine-propensity-score-matching" class="level3">
+<h3 class="anchored" data-anchor-id="tõenäosusskoori-alusel-sobitamine-propensity-score-matching">Tõenäosusskoori alusel sobitamine (propensity score matching)</h3>
+<p>Tõenäosusskoor (propensity score) on meetmes osalemise tõenäosus antud tunnuste <span class="math inline">\(X\)</span> korral:</p>
+<p><span class="math display">\[
+p(X_i) = \Pr(D_i = 1 \mid X_i).
+\]</span></p>
+<p>Rosenbaum ja Rubin näitasid, et kui CIA kehtib <span class="math inline">\(X\)</span> suhtes, siis piisab sellest, et CIA kehtiks ka tõenäosusskoori suhtes:</p>
+<p><span class="math display">\[
+(Y_i(0), Y_i(1)) \perp D_i \mid p(X_i).
+\]</span></p>
+<p>See tähendab, et kui sobitame inimesi ainult tõenäosusskoori <span class="math inline">\(p(X)\)</span> alusel, siis tasakaalustame ka kõik <span class="math inline">\(X\)</span>-id, mida kasutati p-skoori hindamisel (eeldusel, et mudel on sobiv).</p>
+<p>Praktiline sammude jada on:</p>
+<ol type="1">
+<li>Hinda meetmes osalemise tõenäosus <span class="math inline">\(p(X)\)</span> sobiva mudeliga (tihti logit või probit).:contentReference<span data-index="4">oaicite:4</span><br>
+</li>
+<li>Kontrolli, kas osalus- ja võrdlusgrupi tõenäosusskoori jaotused kattuvad piisavalt (ühise toe eeldus).<br>
+</li>
+<li>Sobita osalejad ja võrdlusgrupi isikud p-skoori alusel (nt lähim naaber, kalibersobitamine jne).<br>
+</li>
+<li>Hinda mõju, kasutades sobitatud paare või alamtunde.</li>
+</ol>
+</section>
+</section>
+<section id="sobitamine-tõenäosusskoori-alusel" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sobitamine-tõenäosusskoori-alusel"><span class="header-section-number">7.4</span> Sobitamine tõenäosusskoori alusel</h2>
+<p>Tõenäosusskoori alusel sobitamisel ei mõõdeta enam kaugust otse <span class="math inline">\(X\)</span>-i ruumis, vaid p-skoori vahemikus [0,1]. Näiteks:</p>
+<ul>
+<li>iga osaleja <span class="math inline">\(i\)</span> jaoks valime võrdlusgrupi isiku(d) <span class="math inline">\(j\)</span>, millel <span class="math inline">\(|p(X_i) - p(X_j)|\)</span> on minimaalne;<br>
+</li>
+<li>tihti kasutatakse kalibrit (caliper), st lubatakse ainult neid vasteid, mille p-skoor jääb etteantud kaugusvahemikku (nt 0,01 või 0,05);<br>
+</li>
+<li>võimalik on üks-ühele (1:1) või üks-mitmele (1:M) sobitamine.</li>
+</ul>
+<p>Sobitamine tõenäosusskoori alusel vähendab mõõtmelisuse probleemi: kõrged mõõtmed <span class="math inline">\(X\)</span>-is asendame ühe mõõtmega <span class="math inline">\(p(X)\)</span>. Samas muutub oluliseks, kui hästi on p-skoori mudel spetsifitseeritud; halb mudel tähendab halba tasakaalu.</p>
+<section id="sobitamisel-tehtavad-valikud" class="level3">
+<h3 class="anchored" data-anchor-id="sobitamisel-tehtavad-valikud">Sobitamisel tehtavad valikud</h3>
+<p>Sobitamine ei ole üks meetod, vaid terve perekond meetodeid. Praktikas tuleb teha rida olulisi valikuid.</p>
+</section>
+<section id="mille-alusel-sobitada-x-vs-px" class="level3">
+<h3 class="anchored" data-anchor-id="mille-alusel-sobitada-x-vs-px">1. Mille alusel sobitada: X vs p(X)</h3>
+<p>Mõõde, kus sobitatakse, võib olla:</p>
+<ul>
+<li>otse tunnuste <span class="math inline">\(X\)</span> ruum (täpne sobitamine, Mahalanobise kaugus, standardiseeritud eukleidiline kaugus),<br>
+</li>
+<li>tõenäosusskoor <span class="math inline">\(p(X)\)</span>,<br>
+</li>
+<li>mõnikord ka šansside suhe (odds): <span class="math inline">\(\frac{p(X)}{1-p(X)}\)</span>.</li>
+</ul>
+<p>Valik sõltub sellest, kas meil on:</p>
+<ul>
+<li>piisavalt suur võrdlusgrupp, et kasutada Mahalanobise kaugust mitmemõõtmelises ruumis;<br>
+</li>
+<li>hästi spetsifitseeritud mudel, millega hinnata p-skoori.</li>
+</ul>
+</section>
+<section id="sobitamisalgoritm-lähim-naaber-ja-muud" class="level3">
+<h3 class="anchored" data-anchor-id="sobitamisalgoritm-lähim-naaber-ja-muud">2. Sobitamisalgoritm: lähim naaber ja muud</h3>
+<p>Levinumad algoritmid:</p>
+<ul>
+<li>täpne sobitamine (exact matching);<br>
+</li>
+<li>lähima naabriga sobitamine (nearest neighbor matching):
+<ul>
+<li>1:1 sobitamine,<br>
+</li>
+<li>1:M sobitamine (nt 1:2, 1:4);<br>
+</li>
+</ul></li>
+<li>optimaalne sobitamine (optimal matching), mis valib sobitused nii, et summaarne kaugus kõigi paaride peale oleks minimaalne;<br>
+</li>
+<li>täielik sobitamine (full matching), kus iga osaleja ja võrdlusgrupi liige kuulub mõnda sobitamisrühma;<br>
+</li>
+<li>sobitamine alamklassides (subclassification, nt jaotame p-skoori kvintiilidesse ja võrdleme nendes);<br>
+</li>
+<li>geneetiline sobitamine (genetic matching), mis kohandab automaatselt tunnuste kaalud, et tasakaal oleks parem.</li>
+</ul>
+</section>
+<section id="üks-ühele-või-üks-mitmele-tagasipanekuga-või-ilma" class="level3">
+<h3 class="anchored" data-anchor-id="üks-ühele-või-üks-mitmele-tagasipanekuga-või-ilma">3. Üks-ühele või üks-mitmele, tagasipanekuga või ilma</h3>
+<p>Olulised disainivalikud:</p>
+<ul>
+<li>1:1 vs 1:M:
+<ul>
+<li>1:1 annab väga sarnased paarid, väiksem variatsioon, aga suurem dispersioon hinnangul;<br>
+</li>
+<li>1:M kasutab rohkem infot võrdlusgrupist, vähendades dispersiooni, kuid suurendades võimalikku nihet (kaugemad naabrid).<br>
+</li>
+</ul></li>
+<li>tagasipanekuga (with replacement) vs tagasipanekuta:
+<ul>
+<li>tagasipanekuga sobitamisel võib sama võrdlusgrupi isik olla mitme osaleja vaste;<br>
+</li>
+<li>see lubab leida paremaid vasteid, eriti kui võrdlusgrupp on väike;<br>
+</li>
+<li>tagasipanekuta sobitamisel kasutatakse iga võrdlusgrupi isikut ainult üks kord, mis võib tasakaalu halvendada, kuid vähendab kaalu kontsentreerumist mõnele vähesele vaatlusel.</li>
+</ul></li>
+</ul>
+<p>Praktikalised soovitused:</p>
+<ul>
+<li>kasuta pigem väikest M-i (nt 1 või 2),<br>
+</li>
+<li>kasuta pigem tagasipanekuga sobitamist, kui võrdlusgrupp ei ole väga suur,<br>
+</li>
+<li>veendu, et võrdlusgrupp oleks piisavalt suur, et sobitada iga osaleja jaoks mõistlik vaste.:contentReference<span data-index="7">oaicite:7</span></li>
+</ul>
+</section>
+<section id="ühine-tugi-kaliiber-ja-trimming" class="level3">
+<h3 class="anchored" data-anchor-id="ühine-tugi-kaliiber-ja-trimming">4. Ühine tugi, kaliiber ja trimming</h3>
+<p>Sobitamisel on väga oluline ühise toe (common support) eeldus:</p>
+<ul>
+<li>osalejate p-skoorid ei tohiks üldiselt olla palju suuremad kui võrdlusgrupil;<br>
+</li>
+<li>kui osaleja p-skoor on 0,95, aga võrdlusgrupi suurim p-skoor 0,6, siis sellele osalejale head vastet ei leia.</li>
+</ul>
+<p>Selle tagamiseks kasutatakse:</p>
+<ul>
+<li>kaliibersobitamist (caliper): lubame sobitada ainult siis, kui <span class="math inline">\(|p_i - p_j|\)</span> on väiksem kui etteantud piir (nt 0,01 või 0,05);<br>
+</li>
+<li>trimming’ut: lõikame ära vaatlused, mille p-skoorid on äärmuslikud (nt eemaldame võrdlusgrupist väga väikese p-skooriga vaatlused või osalejad, kelle p-skoorid on suuremad kui võrdlusgrupi maksimum).</li>
+</ul>
+<p>Ühise toe tagamine vähendab kalduvust ekstrapoleerida väljapoole tegelikku kattuvat piirkonda.</p>
+</section>
+<section id="tasakaalu-kontroll-ja-edasine-modelleerimine" class="level3">
+<h3 class="anchored" data-anchor-id="tasakaalu-kontroll-ja-edasine-modelleerimine">5. Tasakaalu kontroll ja edasine modelleerimine</h3>
+<p>Pärast sobitamist tuleb alati kontrollida, kui hästi tasakaal on saavutatud:</p>
+<ul>
+<li>võrrelda keskmisi ja jaotusi tunnuste <span class="math inline">\(X\)</span> osalus- ja võrdlusgrupis;<br>
+</li>
+<li>jälgida standardiseeritud keskmiste erinevust (Std. Mean Diff.), variatsioonisuhet ja empiirilist jaotust (eCDF).</li>
+</ul>
+<p>Sageli kasutatakse ka:</p>
+<ul>
+<li>täiendavat regressioonimudelit sobitatud valimil (double robust methods), et eemaldada allesjäänud väikseid erinevusi <span class="math inline">\(X\)</span>-des;<br>
+</li>
+<li>spetsiaalset standardvigade arvutust (Abadie–Imbens), sest klassikaline bootstrapping ei anna sobitamise korral alati korrektseid tulemusi.</li>
+</ul>
+</section>
+<section id="kokkuvõte" class="level3">
+<h3 class="anchored" data-anchor-id="kokkuvõte">Kokkuvõte</h3>
+<p>Sobitamine on paindlik meetod, mis:</p>
+<ul>
+<li>üritab imiteerida juhuslikku eksperimenti, luues iga osaleja jaoks sarnase võrdlusisiku;<br>
+</li>
+<li>tugineb eeldustele CIA (tingimuslik sõltumatus) ja ühine tugi;<br>
+</li>
+<li>võib toimuda otse tunnuste <span class="math inline">\(X\)</span> ruumis (Mahalanobise kaugus) või tõenäosusskoori <span class="math inline">\(p(X)\)</span> kaudu (propensity score matching);<br>
+</li>
+<li>nõuab mitmeid valikuid: kaugusmõõdik, sobitamisalgoritm, 1:1 vs 1:M, tagasipanek, kaliiber, trimming.</li>
+</ul>
+<p>Hea praktika hõlmab:</p>
+<ul>
+<li>hoolikat mudeli spetsifitseerimist p-skoori hindamiseks;<br>
+</li>
+<li>tasakaalu põhjalikku kontrolli pärast sobitamist;<br>
+</li>
+<li>vajadusel täiendavat regressiooniparandust sobitatud valimil.</li>
+</ul>
+<p>Sobitamine ei lahenda probleemi jälgimata teguritest (U), kuid korrektsete eelduste korral vähendab oluliselt valikunihet ja annab usutavama hinnangu põhjuslikule mõjule kui lihtne regressioon samade andmete peal.</p>
+</section>
+</section>
+<section id="näide-eesti-tööpoliitika-põhjal" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="näide-eesti-tööpoliitika-põhjal"><span class="header-section-number">7.5</span> Näide Eesti tööpoliitika põhjal</h2>
+<section id="vajaminevad-paketid" class="level3">
+<h3 class="anchored" data-anchor-id="vajaminevad-paketid">Vajaminevad paketid</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co">#andmete teisendamine</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co">#joonised</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer) <span class="co">#regressioonimudeli tabelite kenasti esitamiseks</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Please cite as: </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest) <span class="co">#coeftest käsu jaoks</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich) <span class="co">#robustsete standardvigade jaoks</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MatchIt) <span class="co">#sobitamise jaoks</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins) <span class="co">#marginaalsed efektid</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="andmed" class="level3">
+<h3 class="anchored" data-anchor-id="andmed">Andmed</h3>
+<p>Andmed on anonümiseeritud andmed uuringust Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis. Tallinn: Praxis, 2003, 108 lk</p>
+<p>Vt peatükki XXX andmete kirjelduse kohta eespool.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>atp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       id            training        training1        training2     
+ Min.   :   2.0   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.: 477.5   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median : 888.0   Median :0.0000   Median :0.0000   Median :1.0000  
+ Mean   : 901.7   Mean   :0.3282   Mean   :0.2797   Mean   :0.5735  
+ 3rd Qu.:1315.0   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :1834.0   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+                                   NA's   :88       NA's   :559     
+   training3        training4        training5           kaal       
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   : 1.577  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.: 3.644  
+ Median :1.0000   Median :0.0000   Median :0.0000   Median :13.667  
+ Mean   :0.5167   Mean   :0.3865   Mean   :0.3227   Mean   :13.102  
+ 3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:17.925  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :48.930  
+ NA's   :647      NA's   :787      NA's   :836                      
+      male             est              age           langest      
+ Min.   :0.0000   Min.   :0.0000   Min.   :16.00   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:25.00   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :34.00   Median :1.0000  
+ Mean   :0.3191   Mean   :0.3849   Mean   :34.91   Mean   :0.5004  
+ 3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:43.00   3rd Qu.:1.0000  
+ Max.   :1.0000   Max.   :1.0000   Max.   :62.00   Max.   :1.0000  
+                                                                   
+   emplbefore          educ           county           town       
+ Min.   :0.0000   Min.   :1.000   Min.   : 1.00   Min.   :0.0000  
+ 1st Qu.:1.0000   1st Qu.:2.000   1st Qu.: 1.00   1st Qu.:1.0000  
+ Median :1.0000   Median :3.000   Median :44.00   Median :1.0000  
+ Mean   :0.8776   Mean   :2.847   Mean   :32.46   Mean   :0.8921  
+ 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:44.00   3rd Qu.:1.0000  
+ Max.   :1.0000   Max.   :4.000   Max.   :84.00   Max.   :1.0000  
+                                                                  
+    children         marital          nwage           status     
+ Min.   :0.0000   Min.   :0.000   Min.   :    0   Min.   :1.000  
+ 1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:    0   1st Qu.:1.000  
+ Median :0.0000   Median :1.000   Median : 1700   Median :1.000  
+ Mean   :0.5976   Mean   :1.008   Mean   : 1796   Mean   :1.516  
+ 3rd Qu.:1.0000   3rd Qu.:1.000   3rd Qu.: 3000   3rd Qu.:2.000  
+ Max.   :8.0000   Max.   :4.000   Max.   :20000   Max.   :3.000  
+                                  NA's   :51                     
+      age2          employed     
+ Min.   : 2.56   Min.   :0.0000  
+ 1st Qu.: 6.25   1st Qu.:0.0000  
+ Median :11.56   Median :1.0000  
+ Mean   :13.38   Mean   :0.6289  
+ 3rd Qu.:18.49   3rd Qu.:1.0000  
+ Max.   :38.44   Max.   :1.0000  
+                                 </code></pre>
+</div>
+</div>
+<p>Failis on toodud järgmised andmed:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 89%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Muutuja</th>
+<th>Selgitus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>id</td>
+<td>Inimese id</td>
+</tr>
+<tr class="even">
+<td>training</td>
+<td>Tunnus kas sai tööturukoolitust või ei 2000. aasta esimeses pooles</td>
+</tr>
+<tr class="odd">
+<td>training1</td>
+<td>osalusrühm tingimisel, et ei nõutud tõendit hilisema töö saamise kohta - kellelt nõuti, neil puuduv väärtus</td>
+</tr>
+<tr class="even">
+<td>training2</td>
+<td>võrdlusgrupis, kes soovisid, kuid ei saanud/soovinud osaleda mingil põhjusel</td>
+</tr>
+<tr class="odd">
+<td>training3</td>
+<td>Kombinatsioon training 2 ja training 3: need osalusgrupist, kellelt ei nõutud töökohta; need võrdlusgrupist, kes uurisid koolitust, kuid ei osalenud</td>
+</tr>
+<tr class="even">
+<td>training4</td>
+<td>koolituse osalusrühmas ja võrdlusrühmas mõlemas ainult need, kes ise uurisid</td>
+</tr>
+<tr class="odd">
+<td>training5</td>
+<td>koolituse põhirühmas ja võrdlusrühmas mõlemas ainult need, kes ise uurisid ja kellelt ei nõutud tõendit</td>
+</tr>
+<tr class="even">
+<td>weight</td>
+<td>Vaatluse statistiline kaal</td>
+</tr>
+<tr class="odd">
+<td>male</td>
+<td>Meessoost</td>
+</tr>
+<tr class="even">
+<td>est</td>
+<td>Eestlane</td>
+</tr>
+<tr class="odd">
+<td>age</td>
+<td>Vanus aastates 2002. aastal</td>
+</tr>
+<tr class="even">
+<td>langest</td>
+<td>Kas oskab eesti keelt</td>
+</tr>
+<tr class="odd">
+<td>emplbefore</td>
+<td>Kas oli töökogemus enne töötuks registreerimist 2000. aastal</td>
+</tr>
+<tr class="even">
+<td>educ</td>
+<td>Haridustase, 1 ISCED0,1,2 põhiharidus; 2 ISCED3 puhas keskharidus; 3 ISCED3,4 kutsekeskharidus; 4 ISCED5,6 kõrgharidus</td>
+</tr>
+<tr class="odd">
+<td>county</td>
+<td>Maakond: Tallinn, Viljandimaa, Tartumaa, Ida-Virumaa</td>
+</tr>
+<tr class="even">
+<td>town</td>
+<td>Elab linnas vs maal</td>
+</tr>
+<tr class="odd">
+<td>children</td>
+<td>Laste arv töötuks registreerimise hetkel</td>
+</tr>
+<tr class="even">
+<td>marital</td>
+<td>Perekonna seis töötuks registreerimise hetkel: 0 vallaline; 1 abielus; 2 vabaabielu; 3 lahutatud; 4 lesk</td>
+</tr>
+<tr class="odd">
+<td>nwage</td>
+<td>Netopalk 2002. aasta septembris</td>
+</tr>
+<tr class="even">
+<td>status</td>
+<td>Tööturustaatus 2002. aasta septembris (1- hõivatud, 2 – töötu, 3 – mitteaktiivne</td>
+</tr>
+<tr class="odd">
+<td>employed</td>
+<td>Hõivatus 2002. aasta septembris (1- hõivatud, 0 – töötu või mitteaktiivne)</td>
+</tr>
+</tbody>
+</table>
+<p>Tunnus meetmes osalemise kohta on <em>training</em>. Teised sama algusega tunnused kitsendavad valimit ja neid kasutati eemaldamaks võimalike mittejälgitavate tegurite mõju.</p>
+<p>Põhilised väljundtunnused on <em>employed</em> ja <em>nwage</em>, mis näitavad hõivatust ja netopalka peale koolitust 2002. aasta septembris.</p>
+</section>
+<section id="regressioonimudel" class="level3">
+<h3 class="anchored" data-anchor-id="regressioonimudel">Regressioonimudel</h3>
+<p>Hindame meeldetuletuseks regressioonimudeli mõlema väljundi kohta.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#töötamise tõenäosus</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>lin_employed<span class="ot">&lt;-</span><span class="fu">lm</span>(employed <span class="sc">~</span> training <span class="sc">+</span> male <span class="sc">+</span> est<span class="sc">+</span> age <span class="sc">+</span> age2  <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data=</span>atp)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lin_employed)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = employed ~ training + male + est + age + age2 + 
+    educ + emplbefore, data = atp)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9244 -0.5401  0.2653  0.3765  0.6479 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.150702   0.151243  -0.996 0.319230    
+training     0.098164   0.028163   3.486 0.000507 ***
+male         0.079865   0.028660   2.787 0.005404 ** 
+est          0.097111   0.027131   3.579 0.000357 ***
+age          0.029458   0.009727   3.029 0.002506 ** 
+age2        -0.040217   0.012640  -3.182 0.001499 ** 
+educ         0.052652   0.014820   3.553 0.000395 ***
+emplbefore   0.050641   0.051680   0.980 0.327316    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4721 on 1299 degrees of freedom
+Multiple R-squared:  0.05091,   Adjusted R-squared:  0.0458 
+F-statistic: 9.954 on 7 and 1299 DF,  p-value: 3.735e-12</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#robustsed standardvead</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lin_employed, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(lin_employed, <span class="st">"HC1"</span>))    <span class="co"># robust; HC1 (Stata default)</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+              Estimate Std. Error t value  Pr(&gt;|t|)    
+(Intercept) -0.1507018  0.1515159 -0.9946 0.3201030    
+training     0.0981644  0.0276483  3.5505 0.0003983 ***
+male         0.0798648  0.0287212  2.7807 0.0055027 ** 
+est          0.0971112  0.0269472  3.6038 0.0003255 ***
+age          0.0294581  0.0097875  3.0098 0.0026649 ** 
+age2        -0.0402165  0.0127430 -3.1560 0.0016364 ** 
+educ         0.0526515  0.0149605  3.5194 0.0004475 ***
+emplbefore   0.0506414  0.0521807  0.9705 0.3319782    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#palk</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>lin_nwage<span class="ot">&lt;-</span><span class="fu">lm</span>(nwage <span class="sc">~</span> training <span class="sc">+</span> male <span class="sc">+</span> est<span class="sc">+</span> age <span class="sc">+</span> age2  <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data=</span>atp)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lin_nwage)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = nwage ~ training + male + est + age + age2 + educ + 
+    emplbefore, data = atp)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3601.6 -1376.4   -65.4  1029.0 17667.7 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -1284.89     616.09  -2.086  0.03722 *  
+training      254.85     115.55   2.206  0.02760 *  
+male          871.32     117.29   7.429 2.02e-13 ***
+est           821.64     111.41   7.375 2.99e-13 ***
+age            82.58      39.67   2.082  0.03758 *  
+age2         -133.72      51.46  -2.598  0.00948 ** 
+educ          297.94      60.90   4.892 1.13e-06 ***
+emplbefore    540.06     212.94   2.536  0.01133 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1888 on 1248 degrees of freedom
+  (51 observations deleted due to missingness)
+Multiple R-squared:  0.1093,    Adjusted R-squared:  0.1043 
+F-statistic: 21.88 on 7 and 1248 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#robustsed standardvead</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lin_nwage, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(lin_nwage, <span class="st">"HC1"</span>))    <span class="co"># robust; HC1 (Stata default)</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+             Estimate Std. Error t value  Pr(&gt;|t|)    
+(Intercept) -1284.892    687.883 -1.8679   0.06201 .  
+training      254.849    111.157  2.2927   0.02203 *  
+male          871.323    138.002  6.3139 3.775e-10 ***
+est           821.638    127.202  6.4593 1.504e-10 ***
+age            82.575     43.003  1.9202   0.05506 .  
+age2         -133.722     53.949 -2.4786   0.01332 *  
+educ          297.938     61.364  4.8553 1.354e-06 ***
+emplbefore    540.056    220.406  2.4503   0.01441 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#esitame ühes tabelis</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Pane tähele, et "se = ..." võtab lihtsalt diagonaalelemendid kovariatsioonimaatriksist</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lin_employed, lin_nwage, <span class="at">type=</span><span class="st">"text"</span>, <span class="at">se=</span><span class="fu">list</span>(<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(lin_employed, <span class="at">type =</span> <span class="st">"HC1"</span>))),<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(lin_nwage, <span class="at">type =</span> <span class="st">"HC1"</span>))) ))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+====================================================================
+                                  Dependent variable:               
+                    ------------------------------------------------
+                           employed                  nwage          
+                              (1)                     (2)           
+--------------------------------------------------------------------
+training                   0.098***                254.849**        
+                            (0.028)                (111.157)        
+                                                                    
+male                       0.080***                871.323***       
+                            (0.029)                (138.002)        
+                                                                    
+est                        0.097***                821.638***       
+                            (0.027)                (127.202)        
+                                                                    
+age                        0.029***                 82.575*         
+                            (0.010)                 (43.003)        
+                                                                    
+age2                       -0.040***               -133.722**       
+                            (0.013)                 (53.949)        
+                                                                    
+educ                       0.053***                297.938***       
+                            (0.015)                 (61.364)        
+                                                                    
+emplbefore                   0.051                 540.056**        
+                            (0.052)                (220.406)        
+                                                                    
+Constant                    -0.151                -1,284.892*       
+                            (0.152)                (687.883)        
+                                                                    
+--------------------------------------------------------------------
+Observations                 1,307                   1,256          
+R2                           0.051                   0.109          
+Adjusted R2                  0.046                   0.104          
+Residual Std. Error    0.472 (df = 1299)     1,888.387 (df = 1248)  
+F Statistic         9.954*** (df = 7; 1299) 21.885*** (df = 7; 1248)
+====================================================================
+Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Ole valmis vastama:</p>
+<ul>
+<li>Kui palju koolituses osalemine suurendas tõenäosust töötada?</li>
+<li>Kui palju suurendas palka?</li>
+<li>Kas mõju on statistiliselt olulised?</li>
+<li>Mõtle: kas mõju on majanduslikult oluline? Kuidas seda analüüsida?</li>
+</ul>
+</section>
+<section id="sobitamine" class="level3">
+<h3 class="anchored" data-anchor-id="sobitamine">Sobitamine</h3>
+<p>Sobitamiseks on palju erinevaid pakette Ris. Peamised neist on <code>Matching</code> ja <code>MatchIt</code>.</p>
+<p>Kasutame alljärgnevalt paketti <code>MatchIt</code>, vaata ka https://cran.r-project.org/web/packages/MatchIt/vignettes/MatchIt.html</p>
+<p>Analüüs toimub järgmiste sammudena:</p>
+<ol type="1">
+<li>Sobitamine, sihtrühma määramine: kas hindame mõju osalejatele - ATT - või mitteosalejatele - ATU)</li>
+<li>Sobitamise kvaliteedi hindamine: kas osalus- ja võrdlusrühm on piisavalt sarnased peamiste tunnuste osas</li>
+<li>Sobitatud andmete väljavõtmine: salvestame sobitatud andmed koos vajaliku lisainfoga (nt mitu korda üks inimene on võrdlusrühmas)</li>
+<li>Mõju hindamine sobitatud andmetega: kas lihtne kaalutud keskmine või regressioonimudeli kordaja</li>
+</ol>
+<p>Sobitamisel on palju erinevai valikuid: täpne sobitamine (exact), lähim naaber, CEM (<em>coarsened exact matching</em>), optimaalne sobitamine, täielik sobitamine, sobitamine alamklassides (“subclass”) või geneetiline sobitamine.</p>
+<p>Meie vaatame siin praktikumis kahte esimest lähenemist: täpne sobitamine ja lähim naaber.</p>
+</section>
+<section id="täpne-sobitamine-1" class="level3">
+<h3 class="anchored" data-anchor-id="täpne-sobitamine-1">Täpne sobitamine</h3>
+<p>Sobitame esiteks vaid soo, rahvuse, hariduse lõikes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m.outexact <span class="ot">&lt;-</span> <span class="fu">matchit</span>(training <span class="sc">~</span> male <span class="sc">+</span> est  <span class="sc">+</span> educ, <span class="at">method=</span><span class="st">"exact"</span>, <span class="at">data=</span>atp)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Informatsioon, mida tegime</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>m.outexact</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A `matchit` object
+ - method: Exact matching
+ - number of obs.: 1307 (original), 1307 (matched)
+ - target estimand: ATT
+ - covariates: male, est, educ</code></pre>
+</div>
+</div>
+<p>Vaatame väljundit <code>summary</code> käsuga.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.outexact)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+matchit(formula = training ~ male + est + educ, data = atp, method = "exact")
+
+Summary of Balance for All Data:
+     Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean eCDF Max
+male        0.2821        0.3371         -0.1224          .    0.0551   0.0551
+est         0.4289        0.3633          0.1325          .    0.0656   0.0656
+educ        2.9907        2.7768          0.2313     1.0103    0.0535   0.1233
+
+Summary of Balance for Matched Data:
+     Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean eCDF Max
+male        0.2821        0.2821              -0          .         0        0
+est         0.4289        0.4289               0          .         0        0
+educ        2.9907        2.9907               0      1.001         0        0
+     Std. Pair Dist.
+male               0
+est                0
+educ               0
+
+Sample Sizes:
+              Control Treated
+All            878.       429
+Matched (ESS)  752.91     429
+Matched        878.       429
+Unmatched        0.         0
+Discarded        0.         0</code></pre>
+</div>
+</div>
+<p>Vaadake jaotust “Sample Sizes”.</p>
+<p>Kas kõik osalejad (Treated) leidsid endale samasuguse mitte-osaleja (Control)?</p>
+<p>Andmete sarnasust enne sobitamist näitab jaotus: “Summary of Balance for All Data”</p>
+<p>Sobitamise kvaliteeti aitab hinnata jaotus: “Summary of Balance for Matched Data”</p>
+<p>Veerud:</p>
+<ul>
+<li><p>Means Treated - osalusrühma keskmised</p></li>
+<li><p>Means Control - võrdlusrühma keskmised</p></li>
+<li><p>Std. Mean Diff. - keskmiste standardiseeritud erinevus</p></li>
+<li><p>Var. Ratio - dispersioonide suhe osalus- ja võrdlusrühmas</p></li>
+<li><p>eCDF Mean - keskmine erinevus empiirilisies kumulatiivses jaotusfunktsioonis (empirical Cumulative Distribution Function)</p></li>
+<li><p>eCDF Max - suurim erinevus empiirilisies kumulatiivses jaotusfunktsioonis (empirical Cumulative Distribution Function)</p></li>
+<li><p>Std. Pair Dist. - standardiseeritud erinevus osalus- ja võrdlusrühma vahel</p></li>
+<li><p>Matched (ESS) - “effective sample size” - kui palju tegelikult vaatlusi kasutati.</p></li>
+</ul>
+</section>
+<section id="sobitatud-andmete-saamine-ja-vaatamine" class="level3">
+<h3 class="anchored" data-anchor-id="sobitatud-andmete-saamine-ja-vaatamine">Sobitatud andmete saamine ja vaatamine</h3>
+<p>Kui oleme sobitamise kvaliteediga rahul, siis eraldame sobitatud andmed ja teeme edasi analüüsi. Käsuga <code>match.data</code> saame andmed objektist kätte. See sisaldab ka esialgseid tunnuseid.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>m.dataexact <span class="ot">&lt;-</span> <span class="fu">match.data</span>(m.outexact)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Vaadake andmeid ja tekkinud lisamuutujad.</p>
+<p>Andmetesse tekkinud tunnus <code>subclass</code> näitab, mis gruppi vaatlus kuulus. Ühte gruppi kuuluvate vaatluste sobitatud tunnused on ühesuguse väärtusega. Tunnust <code>subclass</code> võime võtta arvesse hinnangute standardvigade arvutamisel.</p>
+<p>Muutuja <code>weights</code> annab kaalu igale osalus- ja võrdlusrühma vaatlusele antud grupis. Osalusrühma kaal on 1 ja võrdlusrühma kaal täpse sobitamise korral võrdub osalus- ja võrdlusvaatluste suhtega antud kihis, mida pärast skaleeritakse vastavalt osalus- ja võrdlusrühma suurusele andmetes.</p>
+<p>Iga võrdlusvaatluse jaoks <span class="math inline">\(i\)</span>, mis kuulub kihti <span class="math inline">\(s\)</span>, leitakse kaal, kui</p>
+<p><span class="math display">\[
+w_i^{(C)} = \frac{n_T^s}{n_C^s} \times \frac{N_C}{N_T},
+\]</span></p>
+<p>kus <span class="math display">\[\begin{align*}
+n_T^s &amp; = \text{osalusvaatlused kihis } s, \\
+n_C^s &amp; = \text{võrdlusvaatlused kihis } s, \\
+N_T   &amp; = \text{kokku osalusvaatlusi andmetes}, \\
+N_C   &amp; = \text{kokku võrdlusvaatlusi andmetes.}
+\end{align*}\]</span></p>
+<p>Osalusvaatluste jaoks on kaal alati 1.</p>
+<p><span class="math display">\[
+w_i^{(T)} = 1
+\]</span></p>
+<p>Kasutame <code>summary</code> käsku, et vaadata kaalude jaotust.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#osalusgrupi kaalude jaotus</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.dataexact<span class="sc">$</span>weights[m.dataexact<span class="sc">$</span>training<span class="sc">==</span><span class="dv">1</span>])</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#võrdlusgrupi kaalude jaotus sobitatud andmestikus</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.dataexact<span class="sc">$</span>weights[m.dataexact<span class="sc">$</span>training<span class="sc">==</span><span class="dv">0</span>])</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4309  0.7163  0.8269  1.0000  1.3705  1.8978 </code></pre>
+</div>
+</div>
+<p>Võrdlusrühma kaalud on skaleeritud selliselt, et nende summa annab kokku esialgse valimi suuruse. Vaadake, et kaalude summa on esialgne mitteosalejate arv.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(m.dataexact<span class="sc">$</span>weights[m.dataexact<span class="sc">$</span>training<span class="sc">==</span><span class="dv">0</span>])</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 878</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(m.dataexact<span class="sc">$</span>subclass, m.dataexact<span class="sc">$</span>training)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    
+       0   1
+  1  112  75
+  2   29   8
+  3   55  51
+  4   61  50
+  5  127  48
+  6  100  35
+  7   45  16
+  8   19   4
+  9   79  37
+  10  53  15
+  11  99  40
+  12  24  20
+  13  19   7
+  14  18   9
+  15  25   8
+  16  13   6</code></pre>
+</div>
+</div>
+<p>Vastake küsimustele</p>
+<ul>
+<li>Mitu sarnaste tunnustega gruppi meil andmetes tekib?</li>
+<li>Kuhu gruppi kuulub kõige rohkem osalusvaatlusi?</li>
+<li>Kuidas leida, mis selgitava tunnuse väärtused selles grupis on?</li>
+</ul>
+<section id="mõju-hindamine-sobitatud-andmetes" class="level4">
+<h4 class="anchored" data-anchor-id="mõju-hindamine-sobitatud-andmetes">Mõju hindamine sobitatud andmetes</h4>
+<p>Kui andmed on olemas, siis hindame mõju regressioonimudeliga kasutades sobitamisega saadud kaale vaatlustele.</p>
+<p>Mõju palgale:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mudel1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage <span class="sc">~</span> training, <span class="at">data =</span> m.dataexact, <span class="at">weights =</span> weights)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = nwage ~ training, data = m.dataexact, weights = weights)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-2425.6 -1548.6  -141.4   958.4 17726.8 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1760.74      68.94  25.542   &lt;2e-16 ***
+training      280.87     120.51   2.331   0.0199 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1999 on 1254 degrees of freedom
+  (51 observations deleted due to missingness)
+Multiple R-squared:  0.004314,  Adjusted R-squared:  0.00352 
+F-statistic: 5.433 on 1 and 1254 DF,  p-value: 0.01992</code></pre>
+</div>
+</div>
+<p>Kui suur on koolituse mõju palgale?</p>
+<p>Hnnake sobitatud andmetel ka lineaarne tõenäosusmudel, kus väljundiks on töötamine.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mudel1b <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> training, <span class="at">data =</span> m.dataexact, <span class="at">weights =</span> weights)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel1b)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = employed ~ training, data = m.dataexact, weights = weights)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8333 -0.5320  0.2914  0.3475  0.5443 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.60487    0.01614  37.480  &lt; 2e-16 ***
+training     0.10376    0.02817   3.683  0.00024 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4782 on 1305 degrees of freedom
+Multiple R-squared:  0.01029,   Adjusted R-squared:  0.009531 
+F-statistic: 13.57 on 1 and 1305 DF,  p-value: 0.0002396</code></pre>
+</div>
+</div>
+<p>Mis on mõju töötamise tõenäosusele?</p>
+</section>
+</section>
+<section id="kui-täpselt-enam-ei-saa-sobitada" class="level3">
+<h3 class="anchored" data-anchor-id="kui-täpselt-enam-ei-saa-sobitada">Kui täpselt enam ei saa sobitada</h3>
+<p>Lisame täpsete tunnuste hulka ka vanuse ja kordame protsessi.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>m.outexact2 <span class="ot">&lt;-</span> <span class="fu">matchit</span>(training <span class="sc">~</span> male <span class="sc">+</span> est  <span class="sc">+</span> educ <span class="sc">+</span> age,<span class="at">method=</span><span class="st">"exact"</span>, <span class="at">data=</span>atp)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>m.outexact2</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A `matchit` object
+ - method: Exact matching
+ - number of obs.: 1307 (original), 878 (matched)
+ - target estimand: ATT
+ - covariates: male, est, educ, age</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.outexact2)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+matchit(formula = training ~ male + est + educ + age, data = atp, 
+    method = "exact")
+
+Summary of Balance for All Data:
+     Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean eCDF Max
+male        0.2821        0.3371         -0.1224          .    0.0551   0.0551
+est         0.4289        0.3633          0.1325          .    0.0656   0.0656
+educ        2.9907        2.7768          0.2313     1.0103    0.0535   0.1233
+age        34.3636       35.1788         -0.0797     0.8261    0.0253   0.0620
+
+Summary of Balance for Matched Data:
+     Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean eCDF Max
+male        0.2421        0.2421               0          .         0        0
+est         0.3977        0.3977              -0          .         0        0
+educ        3.0231        3.0231               0     0.9998         0        0
+age        33.8329       33.8329               0     0.9998         0        0
+     Std. Pair Dist.
+male               0
+est                0
+educ               0
+age                0
+
+Sample Sizes:
+              Control Treated
+All            878.       429
+Matched (ESS)  326.18     347
+Matched        531.       347
+Unmatched      347.        82
+Discarded        0.         0</code></pre>
+</div>
+</div>
+<p>Kui palju vaatlusi jäi sobitamata?</p>
+<p>Seega täpne sobitamine ei ole võimalik, kui vaatluste arv on väike ja tunnuste arv on suur.</p>
+</section>
+<section id="lähima-naabriga-sobitamine" class="level3">
+<h3 class="anchored" data-anchor-id="lähima-naabriga-sobitamine">Lähima naabriga sobitamine</h3>
+<p>Lähima naabriga sobitamine toimub, kui valida <code>method = "nearest"</code>. Valik <code>ratio</code> näitab mitu võrdlusrühma elementi võetakse ühe osalusrühma kohta; vaikimisi <code>ratio = 1</code>. Kui soovitakse üks mitmele sobitamist, nt 1:4, siis peab panema <code>ratio = 4</code>. Kui soovitakse tagasipanekuga sobitamist (vajalik, kui võrdlusgrupp ei ole väga suur), siis peab lisaks panema <code>replace= TRUE</code>.</p>
+<p>Kasutame Mahalanobise kaugust: distance=“mahalanobis”. Soovime leida sarnased vaatlused osalusrühma jaoks: estimand = “ATT”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mnn <span class="ot">&lt;-</span> <span class="fu">matchit</span>(training <span class="sc">~</span> male <span class="sc">+</span> age <span class="sc">+</span> est  <span class="sc">+</span> emplbefore <span class="sc">+</span> educ,  </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">method=</span><span class="st">"nearest"</span>, </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">distance=</span><span class="st">"mahalanobis"</span>,  </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>atp, </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">ratio =</span> <span class="dv">1</span>, </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">estimand =</span> <span class="st">"ATT"</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>mnn</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A `matchit` object
+ - method: 1:1 nearest neighbor matching with replacement
+ - distance: Mahalanobis - number of obs.: 1307 (original), 698 (matched)
+ - target estimand: ATT
+ - covariates: male, age, est, emplbefore, educ</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mnn)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+matchit(formula = training ~ male + age + est + emplbefore + 
+    educ, data = atp, method = "nearest", distance = "mahalanobis", 
+    estimand = "ATT", replace = TRUE, ratio = 1)
+
+Summary of Balance for All Data:
+           Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+male              0.2821        0.3371         -0.1224          .    0.0551
+age              34.3636       35.1788         -0.0797     0.8261    0.0253
+est               0.4289        0.3633          0.1325          .    0.0656
+emplbefore        0.8718        0.8804         -0.0258          .    0.0086
+educ              2.9907        2.7768          0.2313     1.0103    0.0535
+           eCDF Max
+male         0.0551
+age          0.0620
+est          0.0656
+emplbefore   0.0086
+educ         0.1233
+
+Summary of Balance for Matched Data:
+           Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+male              0.2821        0.2821           0.000          .    0.0000
+age              34.3636       34.2611           0.010     1.0002    0.0042
+est               0.4289        0.4289           0.000          .    0.0000
+emplbefore        0.8718        0.8718           0.000          .    0.0000
+educ              2.9907        2.9860           0.005     1.0030    0.0012
+           eCDF Max Std. Pair Dist.
+male         0.0000          0.0000
+age          0.0186          0.0333
+est          0.0000          0.0000
+emplbefore   0.0000          0.0000
+educ         0.0047          0.0050
+
+Sample Sizes:
+              Control Treated
+All            878.       429
+Matched (ESS)  201.14     429
+Matched        269.       429
+Unmatched      609.         0
+Discarded        0.         0</code></pre>
+</div>
+</div>
+<p>Kui palju võrdlusgrupi vaatlustest kasutati seekord lähima naabri leidmisel? Vaata “Sample Sizes:” =&gt; “Control”: =&gt; “Matched”.</p>
+<p>Kui sarnased on sobitatud andmed? Millises tunnuses jäi suurim suhteline erinevus? (Std. Mean Diff)</p>
+<p>Sama asi ülevaatlikult joonisel.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">summary</span>(mnn))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pidevate suuruste puhul võime lähemalt vaadata ka jaotuste võrdlust:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Tihedusfunktsioon</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mnn, <span class="at">type =</span> <span class="st">"density"</span>, <span class="at">which.xs =</span> <span class="sc">~</span>age <span class="sc">+</span> educ)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Jaotusfunktsioon</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mnn, <span class="at">type =</span> <span class="st">"ecdf"</span>,  <span class="at">which.xs =</span> <span class="sc">~</span>age <span class="sc">+</span> educ)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#QQ-joonis</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mnn, <span class="at">which.xs =</span> <span class="sc">~</span>age <span class="sc">+</span> educ)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-18-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Tulemuseks on erinevad joonised, kasutatakse sobitamise kontekstis, et hinnata muutujate tasakaalu enne ja pärast sobitamist.</p>
+<p>Veerus “All” (Kõik vaatlused) - näitab muutujate (vanus ja haridus) jaotusele enne sobitamist nii osalus- kui võrdlusrühmas. Veerus “Matched” (Sobitatud vaatlused) - Siin näidatakse muutujate jaotust pärast sobitamist, kus ideaalis peaksid osalus ja võrdlusrühm olema muutujate lõikes sarnasemad.</p>
+<p>Kui valida tüübiks “eQQ plot” ehk empiiriline kvantiil-kvantiil diagramm, siis ideaalne tasakaal on siis, kui punktid (vaatlused) on 45-kraadise joone lähedal. - Enne sobitamist (“All” veerg) võivad punktid olla rohkem hajutatud, mis näitab tasakaalutust nende muutujate vahel osalus- ja võrdlusrühma vahel. - Pärast sobitamist (“Matched” veerg) peaksid punktid ideaalis olema lähemal 45-kraadisele joonele, mis viitab sellele, et sobitusprotseduur on edukalt tasakaalustanud osalus- ja võrdlusrühma nende muutujate lõikes.</p>
+<p>Katkendjooned esindavad piire, mille sees loetakse tasakaalu vastuvõetavaks. Kui enamik punkte jääb nende joonte vahele, tähendab see, et muutujad on hästi tasakaalus pärast sobitamist.</p>
+<p>Meie tulemuste puhul näib sobitamine olevat tasakaalu parandanud, eriti vanuse osas, kuid hariduse osas võib veel olla mõningaid tasakaalustamatuse märke (mõned punktid on “Matched” veerus <code>educ</code> muutuja puhul diagonaalist kaugemal).</p>
+</section>
+<section id="mõju-hindamine-sobitatud-andmetel" class="level3">
+<h3 class="anchored" data-anchor-id="mõju-hindamine-sobitatud-andmetel">Mõju hindamine sobitatud andmetel</h3>
+<p>Võtame andmed taas välja.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mdatann <span class="ot">&lt;-</span> <span class="fu">match.data</span>(mnn)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ja hindame sobitatud andmetel mõju lineaarse mudeliga palgale ja töötamise tõenäosusele.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>mudel2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage  <span class="sc">~</span>  training, <span class="at">data =</span> mdatann, <span class="at">weights =</span> weights)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel2)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = nwage ~ training, data = mdatann, weights = weights)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-3454.5 -1551.6   -64.2   965.3 15923.2 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   1781.0      117.9  15.106   &lt;2e-16 ***
+training       260.6      151.3   1.722   0.0855 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1918 on 671 degrees of freedom
+  (25 observations deleted due to missingness)
+Multiple R-squared:  0.004402,  Adjusted R-squared:  0.002918 
+F-statistic: 2.967 on 1 and 671 DF,  p-value: 0.08546</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(mudel2, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(mudel2, <span class="st">"HC3"</span>))    <span class="co"># robustsed standarvead</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1781.01     152.22 11.6999   &lt;2e-16 ***
+training      260.60     176.69  1.4749   0.1407    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Küsimus: mis on mõju palgale punkthinnang? Kas see on statistiliselt oluline?</p>
+<p>Leidke iseseisvalt, kui suur on koolituse mõju hilisemale töötamise tõenäosusele?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">###</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="sobitatud-andmete-vaatamine" class="level3">
+<h3 class="anchored" data-anchor-id="sobitatud-andmete-vaatamine">Sobitatud andmete vaatamine</h3>
+<p>Võime ka soovi korral vaadata, milliseid vaatlusi sobitati.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>gm <span class="ot">&lt;-</span> <span class="fu">get_matches</span>(mnn, <span class="at">id =</span> <span class="st">"idmatched"</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(subclass, training, idmatched, id, weights, est, age, male, educ, emplbefore, nwage, employed)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gm, <span class="dv">10</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   subclass training idmatched   id weights est age male educ emplbefore nwage
+1         1        1         4    9       1   0  31    0    4          1  1650
+2         1        0      1136 1576       1   0  31    0    4          1  1615
+3         2        1        10   17       1   1  31    0    4          1  2500
+4         2        0       810 1085       1   1  31    0    4          1  4000
+5         3        1        12   21       1   1  27    0    1          1     0
+6         3        0      1268 1783       1   1  28    0    1          1     0
+7         4        1        14   25       1   1  51    1    3          1  2500
+8         4        0       831 1108       1   1  51    1    3          1    NA
+9         5        1        22   44       1   0  35    1    1          1  3000
+10        5        0       473  660       1   0  31    1    1          1     0
+   employed
+1         1
+2         1
+3         1
+4         1
+5         0
+6         0
+7         1
+8         1
+9         1
+10        0</code></pre>
+</div>
+</div>
+<p>Kontrollküsimus: kellega sobitati kokku inimene esialgse id-ga 44? Kas võrdlusgrupi inimene on identne?</p>
+<p>Sageli soovime vaadata, kas mõni võrdlusrühma inimene on korduvalt kasutuses. Kui jah, siis see on pigem halb, sest tulemuse võivad olla tundlikud mõne üksiku vaatluse väärtustele.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kood, mis näitab, mitu korda olid võrdlusrühma vaatlused kasutatud</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>gm <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(training <span class="sc">==</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(idmatched) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">kordi =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(kordi) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ridu =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  kordi  ridu
+  &lt;int&gt; &lt;int&gt;
+1     1   164
+2     2    70
+3     3    21
+4     4    10
+5     5     2
+6     6     2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Teeb sama (!)</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co">#table(table(gm$idmatched[gm$training == 0]))</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Nt 164 vaatlust olid kasutuses 1 korra.</li>
+<li>Nt kaks võrdlusrühma vaatlust olid kasutuses 2 korda(!).</li>
+</ul>
+</section>
+<section id="vahelepõige---logistiline-mudel" class="level3">
+<h3 class="anchored" data-anchor-id="vahelepõige---logistiline-mudel">Vahelepõige - logistiline mudel</h3>
+<p>Hinda,e vaikimisi järgmise mudeli</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>osalemismudellogit <span class="ot">&lt;-</span> <span class="fu">glm</span>(training <span class="sc">~</span> male <span class="sc">+</span> age <span class="sc">+</span> est  <span class="sc">+</span> emplbefore <span class="sc">+</span> educ, </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>), <span class="at">data=</span>atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Kordajad - saame tõlgendada märki. Positiivne märk näitab, et see muutuja suurendab tõenäosust meetmes osaleda</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(osalemismudellogit)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = training ~ male + age + est + emplbefore + educ, 
+    family = binomial(link = "logit"), data = atp)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -1.156763   0.282347  -4.097 4.19e-05 ***
+male        -0.204959   0.131942  -1.553   0.1203    
+age         -0.012714   0.006431  -1.977   0.0480 *  
+est          0.299359   0.122216   2.449   0.0143 *  
+emplbefore   0.013852   0.205657   0.067   0.9463    
+educ         0.282598   0.067465   4.189 2.80e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1654.5  on 1306  degrees of freedom
+Residual deviance: 1625.6  on 1301  degrees of freedom
+AIC: 1637.6
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Keskmised marginaalsed efektid - saame tõlgendada ka suurust. Kui palju suureneb tõenäosus meetmes osaleda, kui selgitav tunnus suureneb ühe ühiku võrra.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(osalemismudellogit))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     factor     AME     SE       z      p   lower   upper
+        age -0.0027 0.0014 -1.9872 0.0469 -0.0054 -0.0000
+       educ  0.0609 0.0142  4.2883 0.0000  0.0331  0.0888
+ emplbefore  0.0030 0.0444  0.0674 0.9463 -0.0839  0.0899
+        est  0.0646 0.0261  2.4694 0.0135  0.0133  0.1158
+       male -0.0442 0.0284 -1.5583 0.1192 -0.0998  0.0114</code></pre>
+</div>
+</div>
+<p>Näiteks:</p>
+<ul>
+<li>vanuse suurenedes ühe aasta võrra, väheneb meetmes osalemise tõenäosus keskmiselt 0.27 protsendipunkti.</li>
+<li>eestlastel on 6.46 protsendipunkti suurem tõenäosus meetmes osaleda kui mitte-eestlastel.</li>
+</ul>
+<p>Teha:</p>
+<ul>
+<li>tõlgendage muutujate “educ” ja “male” mõju.</li>
+<li>Kas mõlemad on statistiliselt olulised?</li>
+</ul>
+<p>Siit mudelist leiamegi prognoositud tõenäosused kõigi inimeste jaoks ja nende alusel leitakse osalusrühmale sarnaseim võrdlusrühm.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>trainingphat <span class="ot">&lt;-</span> <span class="fu">predict</span>(osalemismudellogit, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co">#soovime tõenäosust</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Vaatame ka joonisel tõenäosust jaotust:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atp, <span class="fu">aes</span>(<span class="at">x =</span> trainingphat, <span class="at">color =</span> <span class="fu">factor</span>(training))) <span class="sc">+</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Kõrvale ka probit-mudel</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>osalemismudelprobit <span class="ot">&lt;-</span> <span class="fu">glm</span>(training <span class="sc">~</span> male <span class="sc">+</span> age <span class="sc">+</span> est  <span class="sc">+</span> emplbefore <span class="sc">+</span> educ, </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"probit"</span>), <span class="at">data=</span>atp)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>trainingphatprobit <span class="ot">&lt;-</span> <span class="fu">predict</span>(osalemismudelprobit, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co">#soovime tõenäosust</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ja lineaarne mudel</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>osalemismudellpm <span class="ot">&lt;-</span> <span class="fu">lm</span>(training <span class="sc">~</span> male <span class="sc">+</span> age <span class="sc">+</span> est  <span class="sc">+</span> emplbefore <span class="sc">+</span> educ, <span class="at">data=</span>atp)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>trainingphatlpm <span class="ot">&lt;-</span> <span class="fu">predict</span>(osalemismudellpm, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co">#soovime tõenäosust</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Võrdlus tabelis</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(osalemismudellpm, osalemismudellogit, osalemismudelprobit, </span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">se=</span><span class="fu">list</span>(<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(osalemismudellpm, <span class="at">type =</span> <span class="st">"HC1"</span>))), <span class="cn">NULL</span>, <span class="cn">NULL</span>),</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">type=</span><span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===============================================================
+                                Dependent variable:            
+                    -------------------------------------------
+                                     training                  
+                              OLS           logistic   probit  
+                              (1)              (2)       (3)   
+---------------------------------------------------------------
+male                        -0.043           -0.205    -0.125  
+                            (0.027)          (0.132)   (0.080) 
+age                        -0.003**         -0.013**  -0.008** 
+                            (0.001)          (0.006)   (0.004) 
+est                         0.065**          0.299**   0.185** 
+                            (0.027)          (0.122)   (0.075) 
+emplbefore                   0.002            0.014     0.003  
+                            (0.046)          (0.206)   (0.125) 
+educ                       0.060***         0.283***  0.173*** 
+                            (0.014)          (0.067)   (0.041) 
+Constant                   0.237***         -1.157*** -0.701***
+                            (0.061)          (0.282)   (0.171) 
+---------------------------------------------------------------
+Observations                 1,307            1,307     1,307  
+R2                           0.022                             
+Adjusted R2                  0.018                             
+Log Likelihood                              -812.786  -812.595 
+Akaike Inf. Crit.                           1,637.571 1,637.190
+Residual Std. Error    0.466 (df = 1301)                       
+F Statistic         5.779*** (df = 5; 1301)                    
+===============================================================
+Note:                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Keskmiste marginaalsete efektide võrdlus - palju koodi</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a dataframe of probit coefficients</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>meffs_table <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(<span class="fu">margins</span>(osalemismudelprobit)))</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co">#store coefficients</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>pvec.coeffs <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>AME</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="co">#standard errors</span></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>pvec.se <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>SE</span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="co">#and names</span></span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pvec.se) <span class="ot">&lt;-</span> <span class="fu">names</span>(pvec.coeffs)</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="co">#p-values</span></span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>pvec.p <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>p</span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="co">#and names</span></span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pvec.p) <span class="ot">&lt;-</span> <span class="fu">names</span>(pvec.coeffs)</span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="co">#t-values</span></span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a>pvec.t <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>z</span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a><span class="co">#and names</span></span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pvec.t) <span class="ot">&lt;-</span> <span class="fu">names</span>(pvec.coeffs)</span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Similarly logit</span></span>
+<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a>meffs_table <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(<span class="fu">margins</span>(osalemismudellogit)))</span>
+<span id="cb77-20"><a href="#cb77-20" aria-hidden="true" tabindex="-1"></a>lvec.coeffs <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>AME</span>
+<span id="cb77-21"><a href="#cb77-21" aria-hidden="true" tabindex="-1"></a>lvec.se <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>SE</span>
+<span id="cb77-22"><a href="#cb77-22" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lvec.se) <span class="ot">&lt;-</span> <span class="fu">names</span>(lvec.coeffs)</span>
+<span id="cb77-23"><a href="#cb77-23" aria-hidden="true" tabindex="-1"></a>lvec.p <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>p</span>
+<span id="cb77-24"><a href="#cb77-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lvec.p) <span class="ot">&lt;-</span> <span class="fu">names</span>(lvec.coeffs)</span>
+<span id="cb77-25"><a href="#cb77-25" aria-hidden="true" tabindex="-1"></a>lvec.t <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>z</span>
+<span id="cb77-26"><a href="#cb77-26" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lvec.t) <span class="ot">&lt;-</span> <span class="fu">names</span>(lvec.coeffs)</span>
+<span id="cb77-27"><a href="#cb77-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-28"><a href="#cb77-28" aria-hidden="true" tabindex="-1"></a><span class="co">#Lineaarse mudeli jaoks muutub vaid siis, kui meil on sees polünoomid, mida meil ei ole</span></span>
+<span id="cb77-29"><a href="#cb77-29" aria-hidden="true" tabindex="-1"></a>meffs_table <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(<span class="fu">margins</span>(osalemismudellpm)))</span>
+<span id="cb77-30"><a href="#cb77-30" aria-hidden="true" tabindex="-1"></a>lpmvec.coeffs <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>AME</span>
+<span id="cb77-31"><a href="#cb77-31" aria-hidden="true" tabindex="-1"></a>lpmvec.se <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>SE</span>
+<span id="cb77-32"><a href="#cb77-32" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lpmvec.se) <span class="ot">&lt;-</span> <span class="fu">names</span>(lpmvec.coeffs)</span>
+<span id="cb77-33"><a href="#cb77-33" aria-hidden="true" tabindex="-1"></a>lpmvec.p <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>p</span>
+<span id="cb77-34"><a href="#cb77-34" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lpmvec.p) <span class="ot">&lt;-</span> <span class="fu">names</span>(lpmvec.coeffs)</span>
+<span id="cb77-35"><a href="#cb77-35" aria-hidden="true" tabindex="-1"></a>lpmvec.t <span class="ot">&lt;-</span> meffs_table<span class="sc">$</span>z</span>
+<span id="cb77-36"><a href="#cb77-36" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lpmvec.t) <span class="ot">&lt;-</span> <span class="fu">names</span>(lpmvec.coeffs)</span>
+<span id="cb77-37"><a href="#cb77-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-38"><a href="#cb77-38" aria-hidden="true" tabindex="-1"></a><span class="co">#Nüüd kõik ühes tabelis</span></span>
+<span id="cb77-39"><a href="#cb77-39" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(osalemismudellpm, osalemismudellogit, osalemismudelprobit, </span>
+<span id="cb77-40"><a href="#cb77-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">coef=</span><span class="fu">list</span>(lpmvec.coeffs, lvec.coeffs, pvec.coeffs), </span>
+<span id="cb77-41"><a href="#cb77-41" aria-hidden="true" tabindex="-1"></a>          <span class="at">se=</span><span class="fu">list</span>(lpmvec.se, lvec.se, pvec.se), </span>
+<span id="cb77-42"><a href="#cb77-42" aria-hidden="true" tabindex="-1"></a>          <span class="at">t=</span><span class="fu">list</span>(lpmvec.t, lvec.t, pvec.t), </span>
+<span id="cb77-43"><a href="#cb77-43" aria-hidden="true" tabindex="-1"></a>          <span class="at">p=</span><span class="fu">list</span>(lpmvec.p, lvec.p, pvec.p), </span>
+<span id="cb77-44"><a href="#cb77-44" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"text"</span>, </span>
+<span id="cb77-45"><a href="#cb77-45" aria-hidden="true" tabindex="-1"></a>          <span class="at">omit =</span> <span class="fu">c</span>(<span class="st">"I(exper * exper)"</span>),</span>
+<span id="cb77-46"><a href="#cb77-46" aria-hidden="true" tabindex="-1"></a>          <span class="co">#column.labels= c("OLS", "Logit mfx", "Probit mfx"),</span></span>
+<span id="cb77-47"><a href="#cb77-47" aria-hidden="true" tabindex="-1"></a>          <span class="at">dep.var.labels =</span> <span class="st">"Marginal effects"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===============================================================
+                                Dependent variable:            
+                    -------------------------------------------
+                                 Marginal effects              
+                              OLS           logistic   probit  
+                              (1)              (2)       (3)   
+---------------------------------------------------------------
+male                        -0.043           -0.044    -0.044  
+                            (0.028)          (0.028)   (0.028) 
+age                        -0.003**         -0.003**  -0.003** 
+                            (0.001)          (0.001)   (0.001) 
+est                         0.065**          0.065**   0.066** 
+                            (0.027)          (0.026)   (0.026) 
+emplbefore                   0.002            0.003     0.001  
+                            (0.045)          (0.044)   (0.044) 
+educ                       0.060***         0.061***  0.061*** 
+                            (0.014)          (0.014)   (0.014) 
+Constant                                                       
+                                                               
+---------------------------------------------------------------
+Observations                 1,307            1,307     1,307  
+R2                           0.022                             
+Adjusted R2                  0.018                             
+Log Likelihood                              -812.786  -812.595 
+Akaike Inf. Crit.                           1,637.571 1,637.190
+Residual Std. Error    0.466 (df = 1301)                       
+F Statistic         5.779*** (df = 5; 1301)                    
+===============================================================
+Note:                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+</section>
+<section id="šansside-suhted" class="level3">
+<h3 class="anchored" data-anchor-id="šansside-suhted">Šansside suhted</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#odds ratios</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">OR=</span><span class="fu">exp</span>(<span class="fu">coef</span>(osalemismudellogit)))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)        male         age         est  emplbefore        educ 
+  0.3145027   0.8146811   0.9873661   1.3489940   1.0139484   1.3265720 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#standard errors = OR*se(b)</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">seOR=</span>OR<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(osalemismudellogit))))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)        male         age         est  emplbefore        educ 
+0.088798839 0.107490319 0.006349653 0.164868226 0.208525794 0.089496857 </code></pre>
+</div>
+</div>
+<p>Mida näitab šansside suhe?</p>
+<p>Tabel tunnusega est</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="st">"training"</span> <span class="ot">=</span> atp<span class="sc">$</span>training, <span class="st">"est"</span> <span class="ot">=</span> atp<span class="sc">$</span>est)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        est
+training   0   1
+       0 559 319
+       1 245 184</code></pre>
+</div>
+</div>
+<p>Lisame ka šansside suhted tabelisse</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> osalemismudellpm </span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> osalemismudellogit </span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>m3<span class="ot">&lt;-</span> osalemismudelprobit </span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m1, m2, m2, m3, </span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">coef=</span><span class="fu">list</span>(lpmvec.coeffs, lvec.coeffs, OR, pvec.coeffs), </span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">se=</span><span class="fu">list</span>(lpmvec.se, lvec.se, seOR, pvec.se), </span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">t=</span><span class="fu">list</span>(lpmvec.t, lvec.t, <span class="cn">NULL</span>, pvec.t), </span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">p=</span><span class="fu">list</span>(lpmvec.p, lvec.p, <span class="cn">NULL</span>, pvec.p), </span>
+<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"text"</span>, </span>
+<span id="cb85-12"><a href="#cb85-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">omit =</span> <span class="fu">c</span>(<span class="st">"I(exper * exper)"</span>),</span>
+<span id="cb85-13"><a href="#cb85-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">column.labels=</span> <span class="fu">c</span>(<span class="st">"Beta"</span>, <span class="st">"Marg.effect"</span>, <span class="st">"OR"</span>, <span class="st">"Marg. effect"</span>),</span>
+<span id="cb85-14"><a href="#cb85-14" aria-hidden="true" tabindex="-1"></a>          <span class="co">#dep.var.labels = "Marginal effects", </span></span>
+<span id="cb85-15"><a href="#cb85-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+==============================================================================
+                                       Dependent variable:                    
+                    ----------------------------------------------------------
+                                             training                         
+                              OLS                 logistic           probit   
+                             Beta           Marg.effect    OR     Marg. effect
+                              (1)               (2)        (3)        (4)     
+------------------------------------------------------------------------------
+male                        -0.043            -0.044    0.815***     -0.044   
+                            (0.028)           (0.028)    (0.107)    (0.028)   
+age                        -0.003**          -0.003**   0.987***    -0.003**  
+                            (0.001)           (0.001)    (0.006)    (0.001)   
+est                         0.065**           0.065**   1.349***    0.066**   
+                            (0.027)           (0.026)    (0.165)    (0.026)   
+emplbefore                   0.002             0.003    1.014***     0.001    
+                            (0.045)           (0.044)    (0.209)    (0.044)   
+educ                       0.060***          0.061***   1.327***    0.061***  
+                            (0.014)           (0.014)    (0.089)    (0.014)   
+Constant                                                0.315***              
+                                                         (0.089)              
+------------------------------------------------------------------------------
+Observations                 1,307             1,307      1,307      1,307    
+R2                           0.022                                            
+Adjusted R2                  0.018                                            
+Log Likelihood                               -812.786   -812.786    -812.595  
+Akaike Inf. Crit.                            1,637.571  1,637.571  1,637.190  
+Residual Std. Error    0.466 (df = 1301)                                      
+F Statistic         5.779*** (df = 5; 1301)                                   
+==============================================================================
+Note:                                              *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+</section>
+<section id="võrdleme-tõenäosuste-jaotusi" class="level3">
+<h3 class="anchored" data-anchor-id="võrdleme-tõenäosuste-jaotusi">Võrdleme tõenäosuste jaotusi</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>atp <span class="sc">%&gt;%</span>  </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">logit =</span> trainingphat,</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">probit =</span> trainingphatprobit,</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">lpm =</span>trainingphatlpm ) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(id, logit, probit, lpm) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>id) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">color =</span> <span class="fu">factor</span>(name))) <span class="sc">+</span> </span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span><span class="st">"Tõenäosuste võrdlus"</span>, <span class="at">color =</span> <span class="st">"Mudel"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sobitamine-tõenäosuse-alusel-propensity-score-matching" class="level3">
+<h3 class="anchored" data-anchor-id="sobitamine-tõenäosuse-alusel-propensity-score-matching">Sobitamine tõenäosuse alusel (propensity score matching)</h3>
+<p>Peame märkima meetodiks ikkagi lähim (“nearest”), kuid kauguse mõõduks on nüüd “glm”, mis koos link funktsiooniga “logit” ütleb, et kasutatakse logistilist regressioonimudelit. Kasutame seekord kahte lähimat naabrit.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>mpsm <span class="ot">&lt;-</span> <span class="fu">matchit</span>(training <span class="sc">~</span> male <span class="sc">+</span> age <span class="sc">+</span> est  <span class="sc">+</span> emplbefore <span class="sc">+</span> educ,  </span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">method=</span><span class="st">"nearest"</span>, </span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">distance=</span><span class="st">"glm"</span>, </span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">link =</span> <span class="st">"logit"</span>, </span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>atp, </span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">ratio =</span> <span class="dv">2</span>, </span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Kui hästi tasakaalustab? Mitte enam nii hästi.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpsm)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+matchit(formula = training ~ male + age + est + emplbefore + 
+    educ, data = atp, method = "nearest", distance = "glm", link = "logit", 
+    replace = TRUE, ratio = 2)
+
+Summary of Balance for All Data:
+           Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+distance          0.3425        0.3213          0.3260     0.8541    0.0845
+male              0.2821        0.3371         -0.1224          .    0.0551
+age              34.3636       35.1788         -0.0797     0.8261    0.0253
+est               0.4289        0.3633          0.1325          .    0.0656
+emplbefore        0.8718        0.8804         -0.0258          .    0.0086
+educ              2.9907        2.7768          0.2313     1.0103    0.0535
+           eCDF Max
+distance     0.1529
+male         0.0551
+age          0.0620
+est          0.0656
+emplbefore   0.0086
+educ         0.1233
+
+Summary of Balance for Matched Data:
+           Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+distance          0.3425        0.3424          0.0009     1.0022    0.0007
+male              0.2821        0.2576          0.0544          .    0.0245
+age              34.3636       34.4604         -0.0095     1.0394    0.0073
+est               0.4289        0.4009          0.0565          .    0.0280
+emplbefore        0.8718        0.8998         -0.0837          .    0.0280
+educ              2.9907        3.0047         -0.0151     1.1325    0.0192
+           eCDF Max Std. Pair Dist.
+distance     0.0117          0.0026
+male         0.0245          0.3652
+age          0.0268          0.3204
+est          0.0280          0.1884
+emplbefore   0.0280          0.2719
+educ         0.0338          0.2849
+
+Sample Sizes:
+              Control Treated
+All            878.       429
+Matched (ESS)  358.06     429
+Matched        486.       429
+Unmatched      392.         0
+Discarded        0.         0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">summary</span>(mpsm))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mis tunnus on kõige rohkem tasakaalust väljas? (Kus on Std. Mean Diff. kõige erinevam nullist?)</p>
+<p>Tõenäosuste jaotus osalus- ja võrdlusrühmas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpsm, <span class="at">type =</span> <span class="st">"jitter"</span>, <span class="at">interactive =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-sobitamine_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="andmete-väljavõtt-sobitatud-objektist-ja-tulemuste-hindamine" class="level3">
+<h3 class="anchored" data-anchor-id="andmete-väljavõtt-sobitatud-objektist-ja-tulemuste-hindamine">Andmete väljavõtt sobitatud objektist ja tulemuste hindamine</h3>
+<p>Võtame andmed taas välja</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>mdatapsm <span class="ot">&lt;-</span> <span class="fu">match.data</span>(mpsm)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ja tulemused</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>mudel3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed  <span class="sc">~</span>  training, <span class="at">data =</span> mdatapsm, <span class="at">weights =</span> weights)</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel3)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = employed ~ training, data = mdatapsm, weights = weights)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0709 -0.4789  0.2737  0.2914  0.6120 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.63636    0.02129  29.896   &lt;2e-16 ***
+training     0.07226    0.03109   2.325   0.0203 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4693 on 913 degrees of freedom
+Multiple R-squared:  0.005883,  Adjusted R-squared:  0.004795 
+F-statistic: 5.403 on 1 and 913 DF,  p-value: 0.02032</code></pre>
+</div>
+</div>
+<p>Tõlgendage. Kui palju suurendab koolituses osalemine meetmes hilisemat töötamise tõenäosust?</p>
+<p>Iseseisvalt: hinnake ka mõju palgale.</p>
+<p>Kui algses sobitamises jääb erinevusi tunnuste vahel, siis lisame need täiendavalt regressioonimudelisse.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>mudel3X <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed  <span class="sc">~</span>  training <span class="sc">+</span> male <span class="sc">+</span> est<span class="sc">+</span> age <span class="sc">+</span> age2  <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> mdatapsm, <span class="at">weights =</span> weights)</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudel3X)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = employed ~ training + male + est + age + age2 + 
+    educ + emplbefore, data = mdatapsm, weights = weights)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1710 -0.4833  0.2497  0.3211  0.8171 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.144047   0.190201   0.757 0.449042    
+training     0.072248   0.030651   2.357 0.018630 *  
+male         0.075788   0.035598   2.129 0.033523 *  
+est          0.104313   0.031557   3.306 0.000985 ***
+age          0.008126   0.012224   0.665 0.506365    
+age2        -0.010485   0.016190  -0.648 0.517385    
+educ         0.058407   0.018361   3.181 0.001518 ** 
+emplbefore   0.122798   0.062237   1.973 0.048791 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4617 on 907 degrees of freedom
+Multiple R-squared:  0.04378,   Adjusted R-squared:  0.0364 
+F-statistic: 5.933 on 7 and 907 DF,  p-value: 9.172e-07</code></pre>
+</div>
+</div>
+<p>Tõlgendamine on tavapärane. Meetmes osalemine suurendab hilisemat töötamise tõenäosust 7.2 protsendipunkti.</p>
+</section>
+<section id="soovitusi" class="level3">
+<h3 class="anchored" data-anchor-id="soovitusi">Soovitusi</h3>
+<p>Sobitamise meetodile saadud hinnangutes jääb alati nihe, sest jäävad erinevused osalus- ja võrdlusgrupi vahel. Nihe on seda suurem, mida suurem on selgitavate tunnuste Xide hulk, mida kasutatakse. Isegi väga suure valimi kasutamine ei pruugi aidata. Selleks, et nihe oleks väiksem, soovitatakse järgmist:</p>
+<ol type="1">
+<li>kasuta väikest arvu võrdlusgrupi elemente (nt M=1), sest mida rohkem kasutad võrdlusgrupi vaatlusi, seda suurem on oht, et nad on erinevad;</li>
+<li>kasuta tagasipanekuga sobitamist, sest nii on lootus leida sarnasemaid vaatlusi;</li>
+<li>võrdlusgrupp, kust võtta vaatlusi, peaks olema suur;</li>
+<li>kontrolli, et sobitamine on täpsem just nende tunnuste osas, millel on uuritavale tunnusele suur mõju; (nt kui töökogemusel on palgale suurem mõju kui haridusel, siis peaks just töökogemus olema täpsemini sobitatud kui haridus);</li>
+<li>kasuta täiendavaid kohandamismeetodeid peale sobitamist (double robust method), et elimineerida allesjäänud Xide erinevuste mõju väljundmuutujale.</li>
+<li>Abadie, Imbens (2006, 2012) pakuvad standardvead hinnangutele, mis sobitavad Xi alusel; Abadie, Imbens (2016) pakuvad standardvead hinnangutele, mis sobitavad hinnatud tõenäosuse p(X) alusel; Abadie sõnul bootstrapping ei tööta üldjuhul.</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-rdd.html" class="pagination-link" aria-label="Regressiooni katkemise meetod">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-ivmeetod.html" class="pagination-link" aria-label="Instrumentmuutuja">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

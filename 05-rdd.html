@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./06-sobitamine.html" rel="next">
 <link href="./04-difdif.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -214,6 +215,36 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LASSO</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusrühma meetod</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -235,6 +266,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#pidevuse-eeldus" id="toc-pidevuse-eeldus" class="nav-link" data-scroll-target="#pidevuse-eeldus">Pidevuse eeldus</a></li>
   <li><a href="#mccrary-test-x-jaotuse-pidevus" id="toc-mccrary-test-x-jaotuse-pidevus" class="nav-link" data-scroll-target="#mccrary-test-x-jaotuse-pidevus">McCrary test: x-jaotuse pidevus</a></li>
+  <li><a href="#platseebo-test" id="toc-platseebo-test" class="nav-link" data-scroll-target="#platseebo-test">Platseebo test</a></li>
   </ul></li>
   <li><a href="#näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010." id="toc-näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010." class="nav-link" data-scroll-target="#näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010."><span class="header-section-number">6.3</span> Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.</a>
   <ul class="collapse">
@@ -249,7 +281,7 @@ window.Quarto = {
   <li><a href="#pensioniea-mõju-töötundidele" id="toc-pensioniea-mõju-töötundidele" class="nav-link" data-scroll-target="#pensioniea-mõju-töötundidele">Pensioniea mõju töötundidele</a></li>
   <li><a href="#regressioonimudel-kui-oleks-järsk-disain" id="toc-regressioonimudel-kui-oleks-järsk-disain" class="nav-link" data-scroll-target="#regressioonimudel-kui-oleks-järsk-disain">Regressioonimudel – kui oleks järsk disain</a></li>
   <li><a href="#silumise-kasutamine" id="toc-silumise-kasutamine" class="nav-link" data-scroll-target="#silumise-kasutamine">Silumise kasutamine</a></li>
-  <li><a href="#platseebo-test" id="toc-platseebo-test" class="nav-link" data-scroll-target="#platseebo-test">Platseebo-test</a></li>
+  <li><a href="#platseebo-test-1" id="toc-platseebo-test-1" class="nav-link" data-scroll-target="#platseebo-test-1">Platseebo-test</a></li>
   <li><a href="#platseebo-test-ka-töötundidele" id="toc-platseebo-test-ka-töötundidele" class="nav-link" data-scroll-target="#platseebo-test-ka-töötundidele">Platseebo test ka töötundidele</a></li>
   </ul></li>
   </ul>
@@ -424,6 +456,24 @@ p(x) = \Pr(D_i = 1 \mid X_i = x)
 </li>
 <li>testitakse, kas hinnatud tihedused erinevad statistiliselt olulisel määral.</li>
 </ol>
+<p>Kui testi tulemus ei lükka <span class="math inline">\(H_0\)</span> hüpoteesi ümber (puudub oluline hüpe tiheduses), on pidevuse eeldus ja “manipuleerimatuse” eeldus usutavam.</p>
+</section>
+<section id="platseebo-test" class="level3">
+<h3 class="anchored" data-anchor-id="platseebo-test">Platseebo test</h3>
+<p>Platseebo test (või “fake cutoff test”) kontrollib, kas meie hinnatud mõju sõltub spetsiifiliselt just tegelikust lõikepunktist.</p>
+<p>Idee:</p>
+<ol type="1">
+<li>valime valed (platseebo) lõikepunktid, mis ei tohiks sekkumisega seotud olla;</li>
+<li>jooksutame RDD-analüüsi nende uute lõikepunktide juures;</li>
+<li>eeldus: me ei tohiks leida süsteemselt suuri ja statistiliselt olulisi mõjusid.</li>
+</ol>
+<p>Kui leiame tugevaid “mõjusid” ka mujal, võib see viidata:</p>
+<ul>
+<li><p>mudeli ülesobitamisele (liiga paindlik polünoom)</p></li>
+<li><p>andmetes olevale muule mittelineaarsusele, mida tõlgendatakse ekslikult “mõjuna”</p></li>
+<li><p>valesti määratud bandwidth’ile või kernelile.</p></li>
+</ul>
+<p>Kui ainult tõelise lõikepunkti juures on selge ja stabiilne mõju, suurendab see usaldust RDD tulemuste suhtes.</p>
 </section>
 </section>
 <section id="näide-vanaduspensioniiga-pensionide-saamine-ja-tööaeg-eestis-2010." class="level2" data-number="6.3">
@@ -1188,8 +1238,8 @@ Treatment effect estimates.
 <p>Selle paindliku mudeli järgi ei ole seost pensioniea ja töötundide vahel. Seost ei ole, sest muutus töötundides võib olla mittelineaarse seose tulemus vanuse ja töötundide vahel.</p>
 </section>
 </section>
-<section id="platseebo-test" class="level3">
-<h3 class="anchored" data-anchor-id="platseebo-test">Platseebo-test</h3>
+<section id="platseebo-test-1" class="level3">
+<h3 class="anchored" data-anchor-id="platseebo-test-1">Platseebo-test</h3>
 <p>Vaatame, kas vanuses 63 on hüpe erinev võrreldes teiste lõikepunktidega. Me sooviksime näha, et 63 on hüpe kõrge ja mujal ei ole erinevused statistiliselt olulised.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meie väljund</span></span>
@@ -1795,6 +1845,9 @@ the running variable.</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./06-sobitamine.html" class="pagination-link" aria-label="Sobitamine">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
