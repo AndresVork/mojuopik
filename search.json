@@ -142,171 +142,121 @@
   {
     "objectID": "02-pohimoisted.html",
     "href": "02-pohimoisted.html",
-    "title": "3  Sissejuhatus",
+    "title": "3  Põhimõisted",
     "section": "",
-    "text": "4 Notatsioon ja potentsiaalsed tulemused\nPotentsiaalse tulemuse mudel (potential outcomes model, POM) on põhjusliku mõju hindamise standardne raamistik statistikas ja majandusteaduses. Mudeli juured on Splawa-Neymani (1923), Roy (1951), Quandt’i (1958) ja Rubini (1974) töödes ning seda nimetatakse sageli Neyman–Rubin–Roy mudeliks.\nPõhiidee on lihtne: enne poliitikameedet või sekkumist on igal indiviidil mitu võimalikku tulemust, sõltuvalt sellest, kas ta osaleb meetmes või mitte. Reaalses elus näeme iga indiviidi kohta vaid üht realiseerunud tulemust. Sellest tekib põhjuslikkuse „põhiprobleem”: me ei näe kunagi sama indiviidi nii osalemas kui mitteosalejana samal ajal.\nPOM annab süsteemse raamistiku, kuidas notatsiooni abil defineerida huvipakkuvad suurused (ATE, ATT, ATU, CATE, LATE jne) ning milliste eelduste korral võime neid põhjuslikult tõlgendada.",
+    "text": "3.1 Tähistused\nPotentsiaalse tulemuse mudel (potential outcomes model, POM) on põhjusliku mõju hindamise standardne raamistik statistikas ja majandusteaduses. Mudeli juured on Splawa-Neymani (1923), Roy (1951), Quandt’i (1958) ja Rubini (1974) töödes ning seda nimetatakse sageli Neyman–Rubin–Roy mudeliks.\nPõhiidee on lihtne: enne poliitikameedet või sekkumist on igal indiviidil mitu võimalikku tulemust, sõltuvalt sellest, kas ta osaleb meetmes või mitte. Reaalses elus näeme iga indiviidi kohta vaid üht realiseerunud tulemust. Sellest tekib põhjuslikkuse „põhiprobleem”: me ei näe kunagi sama indiviidi nii osalemas kui mitteosalejana samal ajal.\nPOM annab süsteemse raamistiku, kuidas notatsiooni abil defineerida huvipakkuvad suurused (ATE, ATT, ATU, CATE, LATE jne) ning milliste eelduste korral võime neid põhjuslikult tõlgendada.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#töötlus-ja-tulemused",
-    "href": "02-pohimoisted.html#töötlus-ja-tulemused",
-    "title": "3  Sissejuhatus",
-    "section": "4.1 Töötlus ja tulemused",
-    "text": "4.1 Töötlus ja tulemused\nOlgu indiviid (i) jaoks\n\nmeetmes osalemise tunnus\n\\[\nD_i \\in \\{0,1\\},\n\\] kus (D_i = 1) tähendab osalemist meetmes ja (D_i = 0) mitteosalemist;\npotentsiaalsed tulemused\nMeetmes osalemise korral:\n\\[ Y_i(1) \\quad \\text{tulemus, kui } D_i = 1, \\]\n\nMeetmes mitteosalemise korral\n\\[ Y_i(0) \\quad \\text{tulemus, kui } D_i = 0. \\]\nReaalselt jälgitav tulemus on\n\\[ Y_i = D_i \\, Y_i(1) + (1 - D_i)\\, Y_i(0). \\]\nSageli on meil lisaks ka vektor individuaalseid tunnuseid\n\\[ X_i = (X_{i1}, X_{i2}, \\dots, X_{ik}), \\]\nnäiteks sugu, vanus, haridus, piirkond, varasem sissetulek jne.",
+    "objectID": "02-pohimoisted.html#tähistused",
+    "href": "02-pohimoisted.html#tähistused",
+    "title": "3  Põhimõisted",
+    "section": "",
+    "text": "Meede ja tulemused\nOlgu indiviid (i) jaoks\n\nmeetmes osalemise tunnus\n\\[\nD_i \\in \\{0,1\\},\n\\] kus (D_i = 1) tähendab osalemist meetmes ja (D_i = 0) mitteosalemist;\npotentsiaalsed tulemused\nMeetmes osalemise korral:\n\\[ Y_i(1) \\quad \\text{tulemus, kui } D_i = 1, \\]\n\nMeetmes mitteosalemise korral\n\\[ Y_i(0) \\quad \\text{tulemus, kui } D_i = 0. \\]\nReaalselt jälgitav tulemus on\n\\[ Y_i = D_i \\, Y_i(1) + (1 - D_i)\\, Y_i(0). \\]\nSageli on meil lisaks ka vektor individuaalseid tunnuseid\n\\[ X_i = (X_{i1}, X_{i2}, \\dots, X_{ik}), \\]\nnäiteks sugu, vanus, haridus, piirkond, varasem sissetulek jne.\n\n\nIndividuaalne mõju\nIndividuaalne põhjuslik mõju indiviidi (i) jaoks on\n\\[\n\\delta_i = Y_i(1) - Y_i(0).\n\\]\nSellist mõju ei saa kunagi otse mõõta, sest me ei näe sama indiviidi korraga kahes olekus. Seetõttu keskendume populatsiooni- või alampopulatsiooni keskmistele mõjudele.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#individuaalne-mõju",
-    "href": "02-pohimoisted.html#individuaalne-mõju",
-    "title": "3  Sissejuhatus",
-    "section": "4.2 Individuaalne mõju",
-    "text": "4.2 Individuaalne mõju\nIndividuaalne põhjuslik mõju indiviidi (i) jaoks on\n\\[\n\\delta_i = Y_i(1) - Y_i(0).\n\\]\nSellist mõju ei saa kunagi otse mõõta, sest me ei näe sama indiviidi korraga kahes olekus. Seetõttu keskendume populatsiooni- või alampopulatsiooni keskmistele mõjudele.",
+    "objectID": "02-pohimoisted.html#huvipakkuvad-keskmised-mõjud",
+    "href": "02-pohimoisted.html#huvipakkuvad-keskmised-mõjud",
+    "title": "3  Põhimõisted",
+    "section": "3.2 Huvipakkuvad keskmised mõjud",
+    "text": "3.2 Huvipakkuvad keskmised mõjud\n\nATE – keskmine mõju populatsioonis\nPoliitikameetme keskmine mõju (average treatment effect, ATE) on defineeritud kui\n\\[\n\\text{ATE} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\big]\n           = \\mathbb{E}\\big[ Y_i(1) \\big] - \\mathbb{E}\\big[ Y_i(0) \\big].\n\\]\nTõlgendus: milline oleks keskmine tulemus, kui kogu populatsioon osaleks meetmes, võrreldes olukorraga, kui keegi ei osaleks meetmes. Või, milline oleks meetme oodatav mõju, kui võtame juhuslikult ühe inimese üldkogumist.\n\n\nATT – keskmine mõju osalenutele\nKeskmine mõju osalejate jaoks (average treatment effect on the treated, ATT) on\n\\[\n\\text{ATT} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 1 \\big].\n\\]\nTõlgendus: kui palju paranesid tulemused nende jaoks, kes tegelikult osalesid, võrreldes hüpoteetilise olukorraga, kus just need samad inimesed ei oleks osalenud.\n\n\nATU – keskmine mõju mitteosalenutele\nMitteosalenute keskmine mõju (average treatment effect on the untreated, ATU) on\n\\[\n\\text{ATU} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 0 \\big].\n\\]\nTõlgendus: kui palju oleks muutunud mitteosalenute tulemused, kui just nemad oleksid meetmes osalenud.\n\n\nATE seos ATT ja ATU-ga\nOlgu\n\\[\np = \\Pr(D_i = 1)\n\\]\nosalenute osakaal populatsioonis. Siis kehtib seos\n\\[\n\\text{ATE} = p \\cdot \\text{ATT} + (1 - p) \\cdot \\text{ATU}.\n\\]\nSeega võivad ATT ja ATU olla erinevad, kui mõju on heterogeenne eri rühmades, ning ATE on nende kaalutud keskmine.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#ate-keskmine-mõju-populatsioonis",
-    "href": "02-pohimoisted.html#ate-keskmine-mõju-populatsioonis",
-    "title": "3  Sissejuhatus",
-    "section": "5.1 ATE – keskmine mõju populatsioonis",
-    "text": "5.1 ATE – keskmine mõju populatsioonis\nPoliitikameetme keskmine mõju (average treatment effect, ATE) on defineeritud kui\n\\[\n\\text{ATE} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\big]\n           = \\mathbb{E}\\big[ Y_i(1) \\big] - \\mathbb{E}\\big[ Y_i(0) \\big].\n\\]\nTõlgendus: milline oleks keskmine tulemus, kui kogu populatsioon saaks töötluse, võrreldes olukorraga, kui keegi ei saaks töötlust.",
+    "objectID": "02-pohimoisted.html#näited-ate-att-ja-atu-tõlgendamisest",
+    "href": "02-pohimoisted.html#näited-ate-att-ja-atu-tõlgendamisest",
+    "title": "3  Põhimõisted",
+    "section": "3.3 Näited ATE, ATT ja ATU tõlgendamisest",
+    "text": "3.3 Näited ATE, ATT ja ATU tõlgendamisest\nAlljärgnevalt mõned rakendusnäited majandusest.\n\nNäide 1: Töötajate koolitusprogramm\n\nMeede: ettevõte viib valitud töötajatele läbi edasijõudnute programmeerimiskoolituse.\nTulemus: tootlikkuse kasv (nt müük töötaja kohta, koodi kvaliteet).\nGrupid:\n\nkoolitatud: koolitusele valitud töötajad ((D=1));\nkoolitamata: töötajad, kes koolitust ei saanud ((D=0)).\n\n\nTõlgendused:\n\nATT:\nKui palju paranes tootlikkus koolitusel osalenud töötajatel võrreldes olukorraga, kus just need samad töötajad ei oleks koolitusel osalenud?\nATU:\nKui palju oleks muutunud tootlikkus töötajatel, kes ei osalenud, kui nemad oleksid koolituse saanud?\nATE:\nKui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv ettevõttes?\n\n\n\nNäide 2: Turunduskampaania\n\nMeede: ettevõte saadab valitud klientidele e-posti kampaania allahindlusega.\nTulemus: ostutõenäosuse või käibe muutus.\n\nTõlgendused:\n\nATT: milline oli müügi kasv kampaania saanud klientide seas (võrreldes olukorraga, kus need kliendid poleks pakkumist saanud)?\nATU: kui palju oleks muutunud kampaania saamata klientide ostutõenäosus, kui neile oleks pakkumine saadetud?\nATE: mis oleks tulemus, kui kampaania saadetaks kõigile klientidele?\n\nSarnasel viisil saab tõlgendada ka tehnoloogiauendusi (nt uue AI-laohaldussüsteemi kasutuselevõtt) või paindlikke töökorraldusi (kaugtöö võimalus).",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#att-keskmine-mõju-osalenutele",
-    "href": "02-pohimoisted.html#att-keskmine-mõju-osalenutele",
-    "title": "3  Sissejuhatus",
-    "section": "5.2 ATT – keskmine mõju osalenutele",
-    "text": "5.2 ATT – keskmine mõju osalenutele\nOsalenute keskmine mõju (average treatment effect on the treated, ATT) on\n\\[\n\\text{ATT} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 1 \\big].\n\\]\nTõlgendus: kui palju paranesid tulemused nende jaoks, kes tegelikult osalesid, võrreldes hüpoteetilise olukorraga, kus just need samad inimesed ei oleks osalenud.",
+    "objectID": "02-pohimoisted.html#lihtne-keskmiste-erinevus-ja-nihe",
+    "href": "02-pohimoisted.html#lihtne-keskmiste-erinevus-ja-nihe",
+    "title": "3  Põhimõisted",
+    "section": "3.4 Lihtne keskmiste erinevus ja nihe",
+    "text": "3.4 Lihtne keskmiste erinevus ja nihe\n\nLihtne erinevus tulemustes\nPraktikas alustatakse sageli lihtsa keskmiste erinevusega\n\\[\n\\text{SDO}\n= \\mathbb{E}[Y_i \\mid D_i = 1] - \\mathbb{E}[Y_i \\mid D_i = 0],\n\\]\ninglise keeles SDO - simple difference of outcomes.\nÜldjuhul ei võrdunud see ATE-ga, sest osalejad ja mitteosalejad erinevad süsteemselt (valikunihe) ning mõju võib olla heterogeenne.\n\n\nValikunihe ja heterogeense mõju nihe\nSDO saame kirjutada kujul\n\\[\n\\begin{aligned}\n\\text{SDO}\n&= \\mathbb{E}\\big[ Y_i(1) \\mid D_i = 1 \\big]\n   - \\mathbb{E}\\big[ Y_i(0) \\mid D_i = 0 \\big] \\\\\n&= \\underbrace{\\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 1 \\big]}_{\\text{ATT}}\n   + \\underbrace{\\Big(\\mathbb{E}\\big[ Y_i(0) \\mid D_i = 1 \\big]\n   - \\mathbb{E}\\big[ Y_i(0) \\mid D_i = 0 \\big]\\Big)}_{\\text{valikunihe}}.\n\\end{aligned}\n\\]\nLihtne erinevus sisaldab seega kahte komponenti:\n\ntõeline põhjuslik mõju osalenutele (ATT);\nvalikunihe (selection bias), mis tuleneb sellest, et osalenute ja mitteosalenute potentsiaalsed tulemused ilma meetmeta on erinevad.\n\nLisaks võib tekkida nihe heterogeense mõju tõttu, sest ATE, ATT ja ATU on erinevad ning lihtne erinevus ei kasuta „õigeid” kaale eri rühmade keskmiste kombineerimisel. Kokkuvõttes võib kirjutada skemaatiliselt\n\\[\n\\text{SDO} = \\text{ATE} + \\text{valikunihe} + \\text{heterogeense mõju nihe}.\n\\]\nAinult juhul, kui puudub valikunihe ja mõju ei ole heterogeenne (või kasutatakse sobivaid kaale), võime lihtsat erinevust tõlgendada keskmise põhjusliku mõjuna.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#atu-keskmine-mõju-mitteosalenutele",
-    "href": "02-pohimoisted.html#atu-keskmine-mõju-mitteosalenutele",
-    "title": "3  Sissejuhatus",
-    "section": "5.3 ATU – keskmine mõju mitteosalenutele",
-    "text": "5.3 ATU – keskmine mõju mitteosalenutele\nMitteosalenute keskmine mõju (average treatment effect on the untreated, ATU) on\n\\[\n\\text{ATU} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 0 \\big].\n\\]\nTõlgendus: kui palju oleks muutunud mitteosalenute tulemused, kui just nemad oleksid töötluse saanud.",
+    "objectID": "02-pohimoisted.html#sutva-stabiilse-ühikunäitaja-eeldus",
+    "href": "02-pohimoisted.html#sutva-stabiilse-ühikunäitaja-eeldus",
+    "title": "3  Põhimõisted",
+    "section": "3.5 SUTVA – stabiilse ühikunäitaja eeldus",
+    "text": "3.5 SUTVA – stabiilse ühikunäitaja eeldus\nStable unit treatment value assumption (SUTVA) koosneb kahest osast.\n\nPuuduvad interferentsid: ühe indiviidi tulemus ei sõltu sellest, kas teised indiviidid osalevad meetmes. Formaliseeritult\n\\[\nY_i(D) \\text{ ei sõltu } D_j, \\quad j \\neq i.\n\\]\nPuuduvad erinevad meetme versioonid: (D=1) tähendab kõigi jaoks sama tüüpi sekkumist.\n\nSUTVA rikkumise näited:\n\nkui üks töötutest osaleb koolitusel, võib see vähendada teiste töötute võimalust sama koolitust saada;\nkui üks töötutest leiab töö, võib see vähendada teiste töötute töö leidmise tõenäosust (konkurents töökohtade pärast);\nkui igal aastal koolitatakse suur hulk töötuid, võib see mõjutada palgataset kogu tööturul, muutes nii osalejate kui mitteosalejate palku.\n\nSUTVA on POM-i keskne eeldus: ilma selleta ei saa potentsiaalseid tulemusi selgelt defineerida.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#ate-seos-att-ja-atu-ga",
-    "href": "02-pohimoisted.html#ate-seos-att-ja-atu-ga",
-    "title": "3  Sissejuhatus",
-    "section": "5.4 ATE seos ATT ja ATU-ga",
-    "text": "5.4 ATE seos ATT ja ATU-ga\nOlgu\n\\[\np = \\Pr(D_i = 1)\n\\]\nosalenute osakaal populatsioonis. Siis kehtib seos\n\\[\n\\text{ATE} = p \\cdot \\text{ATT} + (1 - p) \\cdot \\text{ATU}.\n\\]\nSeega võivad ATT ja ATU olla erinevad, kui mõju on heterogeenne eri rühmades, ning ATE on nende kaalutud keskmine.",
+    "objectID": "02-pohimoisted.html#sõltumatuse-eeldus-ja-juhuslik-eksperiment",
+    "href": "02-pohimoisted.html#sõltumatuse-eeldus-ja-juhuslik-eksperiment",
+    "title": "3  Põhimõisted",
+    "section": "3.6 Sõltumatuse eeldus ja juhuslik eksperiment",
+    "text": "3.6 Sõltumatuse eeldus ja juhuslik eksperiment\n\nTugev sõltumatuse eeldus\nKõige lihtsam olukord on juhuslik eksperiment, kus töötlus määratakse loosiga. Sellisel juhul eeldame, et\n\\[\n\\big( Y_i(0), Y_i(1) \\big) \\;\\perp\\!\\!\\!\\perp\\; D_i,\n\\]\nst osalemine ei sõltu potentsiaalsetest tulemustest.\nSellisel juhul\n\\[\n\\mathbb{E}[Y_i(0) \\mid D_i = 1] = \\mathbb{E}[Y_i(0) \\mid D_i = 0],\n\\]\n\\[\n\\mathbb{E}[Y_i(1) \\mid D_i = 1] = \\mathbb{E}[Y_i(1) \\mid D_i = 0],\n\\]\nja lihtne keskmiste erinevus annab ATE:\n\\[\n\\text{SDO} = \\mathbb{E}[Y_i \\mid D_i=1] - \\mathbb{E}[Y_i \\mid D_i=0] = \\text{ATE}.\n\\]\nMajanduses on see eeldus sageli ebarealistlik: inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu (enesevalik), ning meedet pakkuvad töötajad võivad „koort riisuda”, valides osalejateks motiveeritumaid või võimekamaid indiviide.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#näide-1-töötajate-koolitusprogramm",
-    "href": "02-pohimoisted.html#näide-1-töötajate-koolitusprogramm",
-    "title": "3  Sissejuhatus",
-    "section": "6.1 Näide 1: Töötajate koolitusprogramm",
-    "text": "6.1 Näide 1: Töötajate koolitusprogramm\n\nMeede: ettevõte viib valitud töötajatele läbi edasijõudnute programmeerimiskoolituse.\nTulemus: tootlikkuse kasv (nt müük töötaja kohta, koodi kvaliteet).\nGrupid:\n\nkoolitatud: koolitusele valitud töötajad ((D=1));\nkoolitamata: töötajad, kes koolitust ei saanud ((D=0)).\n\n\nTõlgendused:\n\nATT:\nKui palju paranes tootlikkus koolitusel osalenud töötajatel võrreldes olukorraga, kus just need samad töötajad ei oleks koolitusel osalenud?\nATU:\nKui palju oleks muutunud tootlikkus töötajatel, kes ei osalenud, kui nemad oleksid koolituse saanud?\nATE:\nKui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv ettevõttes?",
+    "objectID": "02-pohimoisted.html#tingimuslik-sõltumatus-cia-ja-sellega-seotud-eeldused",
+    "href": "02-pohimoisted.html#tingimuslik-sõltumatus-cia-ja-sellega-seotud-eeldused",
+    "title": "3  Põhimõisted",
+    "section": "3.7 Tingimuslik sõltumatus (CIA) ja sellega seotud eeldused",
+    "text": "3.7 Tingimuslik sõltumatus (CIA) ja sellega seotud eeldused\n\nTingimuslik sõltumatuse eeldus (CIA)\nTingimusliku sõltumatuse eeldus (conditional independence assumption, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis potentsiaalsed tulemused ei sõltu enam osalemisotsusest:\n\\[\n\\big( Y_i(0), Y_i(1) \\big) \\;\\perp\\!\\!\\!\\perp\\; D_i \\mid X_i.\n\\]\nSarnased terminid kirjanduses:\n\nunconfoundedness (Rosenbaum ja Rubin, 1983),\nselection on observables (Barnow jt, 1980),\nexogeneity (Imbens, 2004),\nignorability (Rubin, 1978).\n\nIntuitsioon: kui võtame arvesse piisavalt rikkalikku (X)-vektorit (nt sugu, vanus, haridus, varasem palgatase, tööstusharu jne), siis osalemisotsus on „nagu juhuslik” tingimuslikult (X)-le.\n\n\nTingimuslik keskväärtuse sõltumatus\nNõrgem versioon on tingimusliku keskväärtuse sõltumatuse eeldus:\n\\[\n\\mathbb{E}[ Y_i(0) \\mid D_i=1, X_i = x]\n= \\mathbb{E}[ Y_i(0) \\mid D_i=0, X_i = x],\n\\]\n\\[\n\\mathbb{E}[ Y_i(1) \\mid D_i=1, X_i = x]\n= \\mathbb{E}[ Y_i(1) \\mid D_i=0, X_i = x].\n\\]\nSee eeldab, et erinevused keskmistes potentsiaalsetes tulemustes kaovad, kui vaatleme piisavalt kitsaid (X)-alamrühmi, ehkki jaotuste kujud võivad erineda.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#näide-2-turunduskampaania",
-    "href": "02-pohimoisted.html#näide-2-turunduskampaania",
-    "title": "3  Sissejuhatus",
-    "section": "6.2 Näide 2: Turunduskampaania",
-    "text": "6.2 Näide 2: Turunduskampaania\n\nMeede: ettevõte saadab valitud klientidele e-posti kampaania allahindlusega.\nTulemus: ostutõenäosuse või käibe muutus.\n\nTõlgendused:\n\nATT: milline oli müügi kasv kampaania saanud klientide seas (võrreldes olukorraga, kus need kliendid poleks pakkumist saanud)?\nATU: kui palju oleks muutunud kampaania saamata klientide ostutõenäosus, kui neile oleks pakkumine saadetud?\nATE: mis oleks tulemus, kui kampaania saadetaks kõigile klientidele?\n\nSarnasel viisil saab tõlgendada ka tehnoloogiauendusi (nt uue AI-laohaldussüsteemi kasutuselevõtt) või paindlikke töökorraldusi (kaugtöö võimalus).",
+    "objectID": "02-pohimoisted.html#ühine-tugi-common-support",
+    "href": "02-pohimoisted.html#ühine-tugi-common-support",
+    "title": "3  Põhimõisted",
+    "section": "3.8 Ühine tugi (common support)",
+    "text": "3.8 Ühine tugi (common support)\nCIA praktiline rakendamine nõuab ühist tuge:\n\\[\n0 &lt; \\Pr(D_i = 1 \\mid X_i = x) &lt; 1\n\\]\nkõigi huvipakkuvate (x) jaoks.\nIntuitsioon: iga (X)-väärtuse korral peavad olema nii osalejad kui mitteosalejad; ei tohi olla selliseid (X)-alasid, kus osalevad ainult ühte tüüpi indiviidid. Vastasel juhul ei saa nendes alamrühmades väärset võrdlust teha.\nPraktikas tähendab see, et ei tohi minna liiga detailsele tasemele väga paljude tunnuste ja kategooriatega, ning sageli kasutatakse pidevate tunnuste puhul intervalljaotust (nt sissetuleku kvantiilid).",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#lihtne-erinevus-tulemustes",
-    "href": "02-pohimoisted.html#lihtne-erinevus-tulemustes",
-    "title": "3  Sissejuhatus",
-    "section": "7.1 Lihtne erinevus tulemustes",
-    "text": "7.1 Lihtne erinevus tulemustes\nPraktikas alustatakse sageli lihtsa keskmiste erinevusega\n\\[\n\\text{SDO}\n= \\mathbb{E}[Y_i \\mid D_i = 1] - \\mathbb{E}[Y_i \\mid D_i = 0],\n\\]\nmida nimetatakse sageli simple difference of outcomes.\nÜldjuhul ei võrdunud see ATE-ga, sest osalejad ja mitteosalejad erinevad süsteemselt (valikunihe) ning mõju võib olla heterogeenne.",
+    "objectID": "02-pohimoisted.html#att-hindamine-cia-abil",
+    "href": "02-pohimoisted.html#att-hindamine-cia-abil",
+    "title": "3  Põhimõisted",
+    "section": "3.9 ATT hindamine CIA abil",
+    "text": "3.9 ATT hindamine CIA abil\nKui CIA ja ühine tugi kehtivad, saame ATT väljendada jälgitavate suuruste abil. Üks võimalus on kirjutada\n\\[\n\\text{ATT}\n= \\mathbb{E}_{X \\mid D=1}\n  \\Big[ \\mathbb{E}[Y_i \\mid D_i = 1, X_i]\n       - \\mathbb{E}[Y_i \\mid D_i = 0, X_i] \\Big].\n\\]\nIntuitsioon:\n\njagame andmed (K) rühma (X)-vektori alusel (nt mehed, vanuses 40–60, kõrgharidusega);\nigas rühmas võrdleme osalenute ja mitteosalenute keskmisi tulemusi;\nvõtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute osakaalud nendes rühmades.\n\nSee on mitteparametriline lähenemine; praktikas kasutatakse sagel ka:\n\nlogistilist regressiooni osalemise tõenäosuse hindamiseks ja propensity score matching’ut,\nregressioonimudeleid,\nkaalumismeetodeid (inverse probability weighting),\nvõi nende kombinatsioone.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#valikunihe-ja-heterogeense-mõju-nihe",
-    "href": "02-pohimoisted.html#valikunihe-ja-heterogeense-mõju-nihe",
-    "title": "3  Sissejuhatus",
-    "section": "7.2 Valikunihe ja heterogeense mõju nihe",
-    "text": "7.2 Valikunihe ja heterogeense mõju nihe\nSDO saame kirjutada kujul\n\\[\n\\begin{aligned}\n\\text{SDO}\n&= \\mathbb{E}\\big[ Y_i(1) \\mid D_i = 1 \\big]\n   - \\mathbb{E}\\big[ Y_i(0) \\mid D_i = 0 \\big] \\\\\n&= \\underbrace{\\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 1 \\big]}_{\\text{ATT}}\n   + \\underbrace{\\Big(\\mathbb{E}\\big[ Y_i(0) \\mid D_i = 1 \\big]\n   - \\mathbb{E}\\big[ Y_i(0) \\mid D_i = 0 \\big]\\Big)}_{\\text{valikunihe}}.\n\\end{aligned}\n\\]\nLihtne erinevus sisaldab seega kahte komponenti:\n\ntõeline põhjuslik mõju osalenutele (ATT);\nvalikunihe (selection bias), mis tuleneb sellest, et osalenute ja mitteosalenute potentsiaalsed tulemused ilma meetmeta on erinevad.\n\nLisaks võib tekkida nihe heterogeense mõju tõttu, sest ATE, ATT ja ATU on erinevad ning lihtne erinevus ei kasuta „õigeid” kaale eri rühmade keskmiste kombineerimisel. Kokkuvõttes võib kirjutada skemaatiliselt\n\\[\n\\text{SDO} = \\text{ATE} + \\text{valikunihe} + \\text{heterogeense mõju nihe}.\n\\]\nAinult juhul, kui puudub valikunihe ja mõju ei ole heterogeenne (või kasutatakse sobivaid kaale), võime lihtsat erinevust tõlgendada keskmise põhjusliku mõjuna.",
+    "objectID": "02-pohimoisted.html#täiendavad-statistikud-itt-late-ja-cate",
+    "href": "02-pohimoisted.html#täiendavad-statistikud-itt-late-ja-cate",
+    "title": "3  Põhimõisted",
+    "section": "3.10 Täiendavad statistikud: ITT, LATE ja CATE",
+    "text": "3.10 Täiendavad statistikud: ITT, LATE ja CATE\n\nIntention to treat effect (ITT)\nSageli ei saa me kontrollida, kas indiviid tegelikult meetmes osales; kontrollime ainult, kas talle pakuti meedet. Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist (nagu instrumentmuutuja).\nITT on\n\\[\n\\text{ITT} = \\mathbb{E}[Y_i \\mid Z_i = 1] - \\mathbb{E}[Y_i \\mid Z_i = 0].\n\\]\nSee mõõdab meetme pakkumise mõju, mitte tegeliku osalemise mõju ning võib olla oluline poliitika mõjude hindamisel, kus täitmine on ebatäielik.\n\n\nLokaalne keskmine mõju (LATE)\nInstrumentaalmuutujate raamistikus saame määratleda lokaalse keskmise mõju (local average treatment effect - LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentmuutuja muutumise tõttu (compliers):\n\\[\n\\text{LATE}\n= \\frac{\\mathbb{E}[Y_i \\mid Z_i = 1] - \\mathbb{E}[Y_i \\mid Z_i = 0]}\n       {\\mathbb{E}[D_i \\mid Z_i = 1] - \\mathbb{E}[D_i \\mid Z_i = 0]}.\n\\]\nLATE on keskmine mõju nende indiviidide jaoks, kes „on piiri peal” ning kelle osalemine sõltub instrumendist (näiteks seadusemuudatusest, kvoodist, loteriivõidust).\n\n\nTingimuslik keskmine mõju (CATE)\nKui mõju on heterogeenne, võib huvitada tingimuslik keskmine mõju teatud (X)-väärtuse korral:\n\\[\n\\text{CATE}(x)\n= \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid X_i = x \\big].\n\\]\nCATE võimaldab uurida näiteks:\n\nkuidas erineb tööturukoolituse mõju vanusegruppide lõikes;\nkuidas sõltub mõju varasemast palgatasemest;\nmillistele alarühmadele programm kõige rohkem kasu toob.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
-    "objectID": "02-pohimoisted.html#tugev-sõltumatuse-eeldus",
-    "href": "02-pohimoisted.html#tugev-sõltumatuse-eeldus",
-    "title": "3  Sissejuhatus",
-    "section": "9.1 Tugev sõltumatuse eeldus",
-    "text": "9.1 Tugev sõltumatuse eeldus\nKõige lihtsam olukord on juhuslik eksperiment, kus töötlus määratakse loosiga. Sellisel juhul eeldame, et\n\\[\n\\big( Y_i(0), Y_i(1) \\big) \\;\\perp\\!\\!\\!\\perp\\; D_i,\n\\]\nst osalemine ei sõltu potentsiaalsetest tulemustest.\nSellisel juhul\n\\[\n\\mathbb{E}[Y_i(0) \\mid D_i = 1] = \\mathbb{E}[Y_i(0) \\mid D_i = 0],\n\\]\n\\[\n\\mathbb{E}[Y_i(1) \\mid D_i = 1] = \\mathbb{E}[Y_i(1) \\mid D_i = 0],\n\\]\nja lihtne keskmiste erinevus annab ATE:\n\\[\n\\text{SDO} = \\mathbb{E}[Y_i \\mid D_i=1] - \\mathbb{E}[Y_i \\mid D_i=0] = \\text{ATE}.\n\\]\nMajanduses on see eeldus sageli ebarealistlik: inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu (enesevalik), ning programmitöötajad võivad „koort riisuda”, valides osalejateks motiveeritumaid või võimekamaid indiviide.",
+    "objectID": "02-pohimoisted.html#kokkuvõte",
+    "href": "02-pohimoisted.html#kokkuvõte",
+    "title": "3  Põhimõisted",
+    "section": "3.11 Kokkuvõte",
+    "text": "3.11 Kokkuvõte\nPotentsiaalse tulemuse mudel formaliseerib põhjusliku mõju mõiste, kirjeldades iga indiviidi jaoks kahte potentsiaalset tulemust (Y_i(0)) ja (Y_i(1)). Kuna reaalses elus näeme ainult üht neist, keskendume erinevatele keskmistele mõjudele (ATE, ATT, ATU, CATE, LATE, ITT) ja eeldustele, mille alusel neid saab hinnata.\nLihtne keskmiste erinevus osalenute ja mitteosalenute vahel on enamasti nihkes valikunihe ja heterogeense mõju tõttu. Selleks, et anda põhjuslik tõlgendus, on vaja tugevaid eeldusi (nt juhuslik eksperiment) või realistlikumaid tingimuslikke eeldusi (CIA, ühine tugi) koos sobivate meetoditega (sobitamine, regressioon, kaalud).\nPOM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud asüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
-    ]
-  },
-  {
-    "objectID": "02-pohimoisted.html#tingimuslik-sõltumatuse-eeldus-cia",
-    "href": "02-pohimoisted.html#tingimuslik-sõltumatuse-eeldus-cia",
-    "title": "3  Sissejuhatus",
-    "section": "10.1 Tingimuslik sõltumatuse eeldus (CIA)",
-    "text": "10.1 Tingimuslik sõltumatuse eeldus (CIA)\nTingimusliku sõltumatuse eeldus (conditional independence assumption, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis potentsiaalsed tulemused ei sõltu enam osalemisotsusest:\n\\[\n\\big( Y_i(0), Y_i(1) \\big) \\;\\perp\\!\\!\\!\\perp\\; D_i \\mid X_i.\n\\]\nSarnased terminid kirjanduses:\n\nunconfoundedness (Rosenbaum ja Rubin, 1983),\nselection on observables (Barnow jt, 1980),\nexogeneity (Imbens, 2004),\nignorability (Rubin, 1978).\n\nIntuitsioon: kui kontrollime piisavalt rikkalikku (X)-vektorit (nt sugu, vanus, haridus, varasem palgatase, tööstusharu jne), siis osalemisotsus on „nagu juhuslik” tingimuslikult (X)-le.",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
-    ]
-  },
-  {
-    "objectID": "02-pohimoisted.html#tingimuslik-keskväärtuse-sõltumatus",
-    "href": "02-pohimoisted.html#tingimuslik-keskväärtuse-sõltumatus",
-    "title": "3  Sissejuhatus",
-    "section": "10.2 Tingimuslik keskväärtuse sõltumatus",
-    "text": "10.2 Tingimuslik keskväärtuse sõltumatus\nNõrgem versioon on tingimusliku keskväärtuse sõltumatuse eeldus:\n\\[\n\\mathbb{E}[ Y_i(0) \\mid D_i=1, X_i = x]\n= \\mathbb{E}[ Y_i(0) \\mid D_i=0, X_i = x],\n\\]\n\\[\n\\mathbb{E}[ Y_i(1) \\mid D_i=1, X_i = x]\n= \\mathbb{E}[ Y_i(1) \\mid D_i=0, X_i = x].\n\\]\nSee eeldab, et erinevused keskmistes potentsiaalsetes tulemustes kaovad, kui vaatleme piisavalt kitsaid (X)-alamrühmi, ehkki jaotuste kujud võivad erineda.",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
-    ]
-  },
-  {
-    "objectID": "02-pohimoisted.html#intention-to-treat-effect-itt",
-    "href": "02-pohimoisted.html#intention-to-treat-effect-itt",
-    "title": "3  Sissejuhatus",
-    "section": "13.1 Intention to treat effect (ITT)",
-    "text": "13.1 Intention to treat effect (ITT)\nSageli ei saa me kontrollida, kas indiviid tegelikult meetmes osales; kontrollime ainult, kas talle pakuti töötlust. Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist (instrumentaalne muutuja).\nITT on\n\\[\n\\text{ITT} = \\mathbb{E}[Y_i \\mid Z_i = 1] - \\mathbb{E}[Y_i \\mid Z_i = 0].\n\\]\nSee mõõdab mõju „pakutud” töötlusele, mitte tegelikule osalemisele, ning võib olla oluline poliitika mõjude hindamisel, kus täitmine on ebatäielik.",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
-    ]
-  },
-  {
-    "objectID": "02-pohimoisted.html#lokaalne-keskmine-mõju-late",
-    "href": "02-pohimoisted.html#lokaalne-keskmine-mõju-late",
-    "title": "3  Sissejuhatus",
-    "section": "13.2 Lokaalne keskmine mõju (LATE)",
-    "text": "13.2 Lokaalne keskmine mõju (LATE)\nInstrumentaalmuutujate raamistikus saame määratleda lokaalse keskmise mõju (local average treatment effect, LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentaalse muutuja muutumise tõttu (compliers):\n\\[\n\\text{LATE}\n= \\frac{\\mathbb{E}[Y_i \\mid Z_i = 1] - \\mathbb{E}[Y_i \\mid Z_i = 0]}\n       {\\mathbb{E}[D_i \\mid Z_i = 1] - \\mathbb{E}[D_i \\mid Z_i = 0]}.\n\\]\nLATE on keskmine mõju nende indiviidide jaoks, kes „on piiri peal” ning kelle osalemine sõltub instrumendist (näiteks seadusemuudatusest, kvoodist, loteriivõidust).",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
-    ]
-  },
-  {
-    "objectID": "02-pohimoisted.html#tingimuslik-keskmine-mõju-cate",
-    "href": "02-pohimoisted.html#tingimuslik-keskmine-mõju-cate",
-    "title": "3  Sissejuhatus",
-    "section": "13.3 Tingimuslik keskmine mõju (CATE)",
-    "text": "13.3 Tingimuslik keskmine mõju (CATE)\nKui mõju on heterogeenne, võib huvitada tingimuslik keskmine mõju teatud (X)-väärtuse korral:\n\\[\n\\text{CATE}(x)\n= \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid X_i = x \\big].\n\\]\nCATE võimaldab uurida näiteks:\n\nkuidas erineb tööturukoolituse mõju vanusegruppide lõikes;\nkuidas sõltub mõju varasemast palgatasemest;\nmillistele alarühmadele programm kõige rohkem kasu toob.",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Põhimõisted</span>"
     ]
   },
   {
