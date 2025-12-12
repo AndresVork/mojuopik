@@ -284,20 +284,20 @@ window.Quarto = {
   <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide"><span class="header-section-number">8.11</span> Näide</a>
   <ul class="collapse">
   <li><a href="#andmed" id="toc-andmed" class="nav-link" data-scroll-target="#andmed">Andmed</a></li>
-  </ul></li>
-  <li><a href="#avame-andmed" id="toc-avame-andmed" class="nav-link" data-scroll-target="#avame-andmed"><span class="header-section-number">8.12</span> Avame andmed</a>
-  <ul class="collapse">
+  <li><a href="#avame-andmed" id="toc-avame-andmed" class="nav-link" data-scroll-target="#avame-andmed">Avame andmed</a></li>
   <li><a href="#ols" id="toc-ols" class="nav-link" data-scroll-target="#ols">OLS</a></li>
   </ul></li>
-  <li><a href="#kahesammulise-vähimruutude-meetodi-2sls-hinnang" id="toc-kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="nav-link" data-scroll-target="#kahesammulise-vähimruutude-meetodi-2sls-hinnang"><span class="header-section-number">8.13</span> Kahesammulise vähimruutude meetodi (2SLS) hinnang</a>
+  <li><a href="#kahesammulise-vähimruutude-meetodi-2sls-hinnang" id="toc-kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="nav-link" data-scroll-target="#kahesammulise-vähimruutude-meetodi-2sls-hinnang"><span class="header-section-number">8.12</span> Kahesammulise vähimruutude meetodi (2SLS) hinnang</a>
   <ul class="collapse">
   <li><a href="#esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine" id="toc-esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine" class="nav-link" data-scroll-target="#esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine">Esimene samm: Lojaalsusprogrammi liikmesuse prognoosimine</a></li>
+  <li><a href="#teine-samm" id="toc-teine-samm" class="nav-link" data-scroll-target="#teine-samm">Teine samm</a></li>
+  <li><a href="#kontrollfunktsiooniga-control-function" id="toc-kontrollfunktsiooniga-control-function" class="nav-link" data-scroll-target="#kontrollfunktsiooniga-control-function">Kontrollfunktsiooniga (control function)</a></li>
   </ul></li>
-  <li><a href="#teise-etapi-kokkuvõte" id="toc-teise-etapi-kokkuvõte" class="nav-link" data-scroll-target="#teise-etapi-kokkuvõte"><span class="header-section-number">9</span> Teise etapi kokkuvõte</a>
+  <li><a href="#testid" id="toc-testid" class="nav-link" data-scroll-target="#testid"><span class="header-section-number">8.13</span> Testid</a>
   <ul class="collapse">
-  <li><a href="#testid" id="toc-testid" class="nav-link" data-scroll-target="#testid"><span class="header-section-number">9.1</span> Testid</a></li>
-  <li><a href="#kas-instrumendid-on-tugevad" id="toc-kas-instrumendid-on-tugevad" class="nav-link" data-scroll-target="#kas-instrumendid-on-tugevad"><span class="header-section-number">9.2</span> Kas instrumendid on tugevad?</a></li>
-  <li><a href="#kas-instrumendid-on-sobivad" id="toc-kas-instrumendid-on-sobivad" class="nav-link" data-scroll-target="#kas-instrumendid-on-sobivad"><span class="header-section-number">9.3</span> Kas instrumendid on sobivad?</a></li>
+  <li><a href="#kas-instrumenti-on-vaja" id="toc-kas-instrumenti-on-vaja" class="nav-link" data-scroll-target="#kas-instrumenti-on-vaja">Kas instrumenti on vaja?</a></li>
+  <li><a href="#kas-instrumendid-on-tugevad" id="toc-kas-instrumendid-on-tugevad" class="nav-link" data-scroll-target="#kas-instrumendid-on-tugevad">Kas instrumendid on tugevad?</a></li>
+  <li><a href="#kas-instrumendid-on-sobivad" id="toc-kas-instrumendid-on-sobivad" class="nav-link" data-scroll-target="#kas-instrumendid-on-sobivad">Kas instrumendid on sobivad?</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -605,9 +605,8 @@ Y_i = \alpha + \beta \hat D_i + \gamma^\top X_i + \varepsilon_i.
 <!-- Tekkiv valikunihe -->
 <!-- Kui hindame loyalty_program_member mõju share_of_wallet-ile tavalise OLS-i abil, saame kallutatud hinnangu. Selle põhjuseks on asjaolu, et OLS omistab ekslikult osa loyalty_tendency (varjatud lojaalsuseelistuse) mõjust lojaalsusprogrammile endale. Kahesammuline väikseimate ruutude meetod (2SLS) koos kehtivate instrumentidega (nt economic_benefit, non_economic_benefit, privacy_concern) aitaks seda kallutatust vähendada, eraldades loyalty_program_member eksogeense varieeruvuse. -->
 </section>
-</section>
-<section id="avame-andmed" class="level2" data-number="8.12">
-<h2 data-number="8.12" class="anchored" data-anchor-id="avame-andmed"><span class="header-section-number">8.12</span> Avame andmed</h2>
+<section id="avame-andmed" class="level3">
+<h3 class="anchored" data-anchor-id="avame-andmed">Avame andmed</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load(file = "kliendiprogramm.RData")</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/kliendiprogramm.RData"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -686,6 +685,7 @@ loyalty_program_member      -0.006                  1.000           0.558
 share_of_wallet             -0.026                  0.558           1.000</code></pre>
 </div>
 </div>
+</section>
 <section id="ols" class="level3">
 <h3 class="anchored" data-anchor-id="ols">OLS</h3>
 <p>Hindame seose, kuidas SOW sõltub programmi kuulumisest, leibkonna sissetulekust ja kas programm annab allahindust või kogub raha.</p>
@@ -737,8 +737,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </section>
 </section>
-<section id="kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="level2" data-number="8.13">
-<h2 data-number="8.13" class="anchored" data-anchor-id="kahesammulise-vähimruutude-meetodi-2sls-hinnang"><span class="header-section-number">8.13</span> Kahesammulise vähimruutude meetodi (2SLS) hinnang</h2>
+<section id="kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="level2" data-number="8.12">
+<h2 data-number="8.12" class="anchored" data-anchor-id="kahesammulise-vähimruutude-meetodi-2sls-hinnang"><span class="header-section-number">8.12</span> Kahesammulise vähimruutude meetodi (2SLS) hinnang</h2>
 <section id="esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine" class="level3">
 <h3 class="anchored" data-anchor-id="esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine">Esimene samm: Lojaalsusprogrammi liikmesuse prognoosimine</h3>
 <p>Esimeses etapis prognoosime loyalty_program_member instrumentaalmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (discount_rate ja saving_rate) abil.</p>
@@ -785,9 +785,8 @@ F-statistic: 23.35 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>stage2iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> predicted_loyalty <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-</section>
-<section id="teise-etapi-kokkuvõte" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Teise etapi kokkuvõte</h1>
+<section id="teine-samm" class="level3">
+<h3 class="anchored" data-anchor-id="teine-samm">Teine samm</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2iv)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -854,7 +853,9 @@ F Statistic            129.313*** (df = 4; 995) 8.515*** (df = 4; 995) 23.349***
 Note:                                                              *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
-<p>Kontrollfunktsiooniga (control function)</p>
+</section>
+<section id="kontrollfunktsiooniga-control-function" class="level3">
+<h3 class="anchored" data-anchor-id="kontrollfunktsiooniga-control-function">Kontrollfunktsiooniga (control function)</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1044,8 +1045,12 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 </div>
 </div>
 <p>summary(iv_model): Kuvab 2SLS hinnangu tulemused, näidates lojaalsusprogrammi liikmesuse mõju kulutuste osakaalule, arvestades endogeensuse probleemiga.</p>
-<section id="testid" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="testid"><span class="header-section-number">9.1</span> Testid</h2>
+</section>
+</section>
+<section id="testid" class="level2" data-number="8.13">
+<h2 data-number="8.13" class="anchored" data-anchor-id="testid"><span class="header-section-number">8.13</span> Testid</h2>
+<section id="kas-instrumenti-on-vaja" class="level3">
+<h3 class="anchored" data-anchor-id="kas-instrumenti-on-vaja">Kas instrumenti on vaja?</h3>
 <p>Wu-Hausmani test</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kas meil on instrumenti vaja?</span></span>
@@ -1123,8 +1128,9 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 </div>
 </div>
 </section>
-<section id="kas-instrumendid-on-tugevad" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="kas-instrumendid-on-tugevad"><span class="header-section-number">9.2</span> Kas instrumendid on tugevad?</h2>
+<section id="kas-instrumendid-on-tugevad" class="level3">
+<h3 class="anchored" data-anchor-id="kas-instrumendid-on-tugevad">Kas instrumendid on tugevad?</h3>
+<p>F-test</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1206,8 +1212,8 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 </div>
 </div>
 </section>
-<section id="kas-instrumendid-on-sobivad" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="kas-instrumendid-on-sobivad"><span class="header-section-number">9.3</span> Kas instrumendid on sobivad?</h2>
+<section id="kas-instrumendid-on-sobivad" class="level3">
+<h3 class="anchored" data-anchor-id="kas-instrumendid-on-sobivad">Kas instrumendid on sobivad?</h3>
 <p>Sargani test on võimalik, siis kui instrumente rohkem kui vaja. Meil on 3, vaja on 1.</p>
 <p>H0 - instrumendid ei korreleeru vealiikmega H1 - vähemalt üks instrument korreleerub vealiikmega</p>
 <p>Me ei saa ümber lükata H0. Seega selle koha pealt formaalselt korras</p>
