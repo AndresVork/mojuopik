@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; Sünteetilise võrdlusobjekti meetod – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./09-mlpuumets.html" rel="next">
+<link href="./07-ivmeetod.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08-synthcontr.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eessõna</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-sissejuhatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#taust" id="toc-taust" class="nav-link active" data-scroll-target="#taust"><span class="header-section-number">9.1</span> Taust</a></li>
+  <li><a href="#taust-ja-rakenduste-näited" id="toc-taust-ja-rakenduste-näited" class="nav-link" data-scroll-target="#taust-ja-rakenduste-näited"><span class="header-section-number">9.2</span> Taust ja rakenduste näited</a>
+  <ul class="collapse">
+  <li><a href="#seade-ja-tähistused" id="toc-seade-ja-tähistused" class="nav-link" data-scroll-target="#seade-ja-tähistused">Seade ja tähistused</a></li>
+  <li><a href="#selgitavad-tunnused-ja-kaalud" id="toc-selgitavad-tunnused-ja-kaalud" class="nav-link" data-scroll-target="#selgitavad-tunnused-ja-kaalud">Selgitavad tunnused ja kaalud</a></li>
+  <li><a href="#california-tubakakontrolli-programmi-näide" id="toc-california-tubakakontrolli-programmi-näide" class="nav-link" data-scroll-target="#california-tubakakontrolli-programmi-näide">California tubakakontrolli programmi näide</a></li>
+  </ul></li>
+  <li><a href="#eeldused" id="toc-eeldused" class="nav-link" data-scroll-target="#eeldused"><span class="header-section-number">9.3</span> Eeldused</a>
+  <ul class="collapse">
+  <li><a href="#ei-ole-vastastikmõjusid-sutva-laadne-eeldus" id="toc-ei-ole-vastastikmõjusid-sutva-laadne-eeldus" class="nav-link" data-scroll-target="#ei-ole-vastastikmõjusid-sutva-laadne-eeldus">Ei ole vastastikmõjusid (SUTVA-laadne eeldus)</a></li>
+  <li><a href="#paralleelsete-trendide-analoog-ja-sekkumiseelsed-perioodid" id="toc-paralleelsete-trendide-analoog-ja-sekkumiseelsed-perioodid" class="nav-link" data-scroll-target="#paralleelsete-trendide-analoog-ja-sekkumiseelsed-perioodid">Paralleelsete trendide analoog ja sekkumiseelsed perioodid</a></li>
+  </ul></li>
+  <li><a href="#platseeboanalüüs-ja-tulemuste-robustsus" id="toc-platseeboanalüüs-ja-tulemuste-robustsus" class="nav-link" data-scroll-target="#platseeboanalüüs-ja-tulemuste-robustsus"><span class="header-section-number">9.4</span> Platseeboanalüüs ja tulemuste robustsus</a>
+  <ul class="collapse">
+  <li><a href="#platseebod-kontrollüksustele" id="toc-platseebod-kontrollüksustele" class="nav-link" data-scroll-target="#platseebod-kontrollüksustele">Platseebod kontrollüksustele</a></li>
+  <li><a href="#rmspe-suhted-ja-p-väärtus" id="toc-rmspe-suhted-ja-p-väärtus" class="nav-link" data-scroll-target="#rmspe-suhted-ja-p-väärtus">RMSPE suhted ja p-väärtus</a></li>
+  </ul></li>
+  <li><a href="#tasakaalu-kontroll" id="toc-tasakaalu-kontroll" class="nav-link" data-scroll-target="#tasakaalu-kontroll"><span class="header-section-number">9.5</span> Tasakaalu kontroll</a></li>
+  <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide"><span class="header-section-number">9.6</span> Näide</a></li>
+  <li><a href="#saksamaa-taasühinemine" id="toc-saksamaa-taasühinemine" class="nav-link" data-scroll-target="#saksamaa-taasühinemine"><span class="header-section-number">9.7</span> Saksamaa taasühinemine</a>
+  <ul class="collapse">
+  <li><a href="#käsud-paketis" id="toc-käsud-paketis" class="nav-link" data-scroll-target="#käsud-paketis">Käsud paketis</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Synthetic control method (SCM)</p>
+<section id="taust" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="taust"><span class="header-section-number">9.1</span> Taust</h2>
+<p>Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (synthetic control method), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.</p>
+<p>Motivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, sest subjektiivne valik võib kallutada tulemusi. Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.</p>
+</section>
+<section id="taust-ja-rakenduste-näited" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="taust-ja-rakenduste-näited"><span class="header-section-number">9.2</span> Taust ja rakenduste näited</h2>
+<p>Empiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Abadie, Diamond ja Hainmueller (2010) meetodit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.</p>
+<p>Eestis on meetodit kasutatud näiteks Centari analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Samuti kasutab Meriküll (2025) sünteetilise dif-dif lähenemist, et hinnata, kuidas kogumispensioni varasem vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud.</p>
+<p>Need näited illustreerivad, et sünteetilise kontrolli meetod on kasulik just siis, kui mõjutatud üksusi on vähe ja me soovime vältida ad hoc ühe võrdlusriigi või -piirkonna valikut.</p>
+<section id="seade-ja-tähistused" class="level3">
+<h3 class="anchored" data-anchor-id="seade-ja-tähistused">Seade ja tähistused</h3>
+<p>Olgu meil <span class="math inline">\(J + 1\)</span> agregeeritud objekti: üks käsitletav objekt (näiteks California või Baskimaa) ning <span class="math inline">\(J\)</span> potentsiaalset kontrollobjekti (doonorgrupp). Ajalist dimensiooni tähistame perioodidega <span class="math inline">\(t = 1, \dots, T\)</span>, kus sekkumine toimub alates ajast <span class="math inline">\(T_0 + 1\)</span>. Perioodid <span class="math inline">\(t \leq T_0\)</span> on sekkumiseelsed, perioodid <span class="math inline">\(t &gt; T_0\)</span> sekkumisjärgsed.</p>
+<p>Olgu <span class="math inline">\(Y_{it}\)</span> objekt <span class="math inline">\(i\)</span> tegelik tulemusmuutuja (näiteks sigarettide müük elaniku kohta) perioodil <span class="math inline">\(t\)</span>. Huvipakkuv on sekkumise mõju käsitletavale üksusele <span class="math inline">\(i = 1\)</span>, mida defineerime kui vahe tegeliku tulemuse ja kontrafaktuaalse tulemuse vahel:</p>
+<p><span class="math display">\[
+\alpha_{1t} = Y_{1t}^{I} - Y_{1t}^{N}, \quad t &gt; T_0,
+\]</span></p>
+<p>kus <span class="math inline">\(Y_{1t}^{I}\)</span> on tulemus sekkumisega (täheldatav) ning <span class="math inline">\(Y_{1t}^{N}\)</span> oleks tulemus ilma sekkumiseta (võrdlusseisund), mida otseselt ei näe.</p>
+<p>Sünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida <span class="math inline">\(Y_{1t}^{N}\)</span> konstrueeritakse kontrollobjektide kaalutud keskmisena:</p>
+<p><span class="math display">\[ Y\_{1t}\^{N} \approx \sum*{j=2}\^{J+1} w_j Y*{jt}, \quad t = 1, \dots, T, \]</span></p>
+<p>kus kaalud <span class="math inline">\(w_j \geq 0\)</span> ja <span class="math inline">\(\sum_{j=2}^{J+1} w_j = 1\)</span>. Need kaalud määravad „sünteetilise kontrolli”, ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada käsitletava objektiga võimalikult täpselt.</p>
+<p>Sellisel juhul on mõju hinnang ajapunktis <span class="math inline">\(t &gt; T_0\)</span>:</p>
+<p><span class="math display">\[ \hat{\alpha}*{1t} = Y*{1t} - \sum\_{j=2}\^{J+1} \hat{w}*j Y*{jt}. \]</span></p>
+<p>Graafiliselt saame võrrelda käsitletava objekti tegelikku rada ning sünteetilise kontrolli rada, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.</p>
+</section>
+<section id="selgitavad-tunnused-ja-kaalud" class="level3">
+<h3 class="anchored" data-anchor-id="selgitavad-tunnused-ja-kaalud">Selgitavad tunnused ja kaalud</h3>
+<p>Lisaks tulemusmuutujale kasutab meetod sobitamiseks selgitavaid tunnuseid ja sekkumiseelseid tulemusi. Olgu <span class="math inline">\(X_1\)</span> vektor käsitletava objekti tunnustest ja sekkumiseelsete tulemuste kokkuvõtlikest näitajatest (näiteks keskmised väärtused), ning <span class="math inline">\(X_0\)</span> maatriks samade tunnuste kohta kontrollobjektide jaoks:</p>
+<p>$$ X_1 = (x_{11}, , x_{1K})’, X_0 =</p>
+<span class="math display">\[\begin{pmatrix}
+x_{21} &amp; \dots &amp; x_{J+1,1} \\
+\vdots &amp; \ddots &amp; \vdots \\
+x_{2K} &amp; \dots &amp; x_{J+1,K}
+\end{pmatrix}\]</span>
+<p>$$</p>
+<p>Lisaks kaaludele objektidele <span class="math inline">\(w = (w_2, \dots, w_{J+1})'\)</span> kasutatakse ka kaalusid tunnustele <span class="math inline">\(V\)</span>, mis on diagonaalmaatriks suhtelise olulisusega tunnuste vahel. Intuitsioon on, et mõni tunnus – näiteks sekkumiseelsed tulemused – võib olla eriti informatiivne tulevase tulemuse kohta ning seetõttu saab suurema kaalu.</p>
+<p>Kaalud valitakse nii, et sobitada käsitletava objekti tunnused võimalikult hästi sünteetilisele kontrollile, minimeerides sobituskao:</p>
+<p><span class="math display">\[ \min\_{w} (X_1 - X_0 w)' V (X_1 - X_0 w) \]</span></p>
+<p>võttes arvesse tingimusi <span class="math inline">\(w_j \geq 0\)</span> ja <span class="math inline">\(\sum_j w_j = 1\)</span>. See miinimumväärtus ongi nn W-kaotus (W-loss), mis näitab, kui hästi suudame valitud <span class="math inline">\(V\)</span> korral sobitada selgitavad tunnused.</p>
+<p>Seejärel valitakse <span class="math inline">\(V\)</span> nii, et minimeerida sekkumiseelsel perioodil sünteetilise kontrolli prognoosivea ruutkeskmine, ehk sekkumiseelne ruutkeskmine prognoosiviga (MSPE, Root Mean Square Prediction Error). See on seotud nn V-kaotusega (V-loss), ehk sellega, kui hästi sekkumiseelse väljundi rada on käsitletava objekti ja sünteetilise kontrolli vahel ühtiv.</p>
+</section>
+<section id="california-tubakakontrolli-programmi-näide" class="level3">
+<h3 class="anchored" data-anchor-id="california-tubakakontrolli-programmi-näide">California tubakakontrolli programmi näide</h3>
+<p>Üks klassikaline sünteetilise kontrolli näide on California tubakakontrolli programmi – Proposition 99 – mõju analüüs. Tegemist oli 1988. aastal vastuvõetud seadusandliku paketiga, mis tõstis sigarettide aktsiisi 25 sendi võrra paki kohta ja suurendas makse ka teistele tubakatoodetele. Osa maksutulust suunati ulatusliku tubakakontrolli programmi rahastamiseks, mille eesmärk oli vähendada suitsetamist ning parandada rahvatervist.</p>
+<p>Paneelandmestik sisaldab 39 USA osariigi andmeid perioodil 1970–2000. California puhul võeti 1988. aastat kui sekkumishetke, seega sekkumiseelne periood hõlmab aastaid 1970–1988. Sünteetiline kontroll konstrueeriti kaalutud kombinatsioonina teistest osariikidest, kus sarnane tubakakontrolli programm puudus. Sobitamisel kasutati mitmeid selgitavaid tunnuseid, näiteks elaniku kohta arvutatavat sissetulekut, sigarettide hinda, vanuselist struktuuri ning varasemate erimaksudega seotud näitajaid.</p>
+<p>Kaalud selgitavad, kui suure panuse annab iga doonor-osariik sünteetilise California moodustamisse. Samuti määratakse tunnuste kaalud <span class="math inline">\(V\)</span>, mis peegeldavad, millised tunnused on prognoosivõime seisukohast kõige olulisemad.</p>
+<!-- ![Sigarettide müük elaniku kohta Californias ja sünteetilises kontrollis](figures/california-synthetic-cig-sales.png) -->
+<p>Joonis kujutab California sigarettide müüki elaniku kohta koos sünteetilise kontrolli müügiga. Sekkumiseelsel perioodil peaksid need kaks aegrida olema üksteisele väga lähedal, mis kinnitab sobituse headust. Pärast sekkumist ilmneb järkjärguline lahknemine, mis näitab tubakakontrolliprogrammi mõju.</p>
+</section>
+</section>
+<section id="eeldused" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="eeldused"><span class="header-section-number">9.3</span> Eeldused</h2>
+<p>Sünteetilise kontrolli meetodi korrektne tõlgendamine põhineb mitmel olulisel eeldusegrupil.</p>
+<section id="ei-ole-vastastikmõjusid-sutva-laadne-eeldus" class="level3">
+<h3 class="anchored" data-anchor-id="ei-ole-vastastikmõjusid-sutva-laadne-eeldus">Ei ole vastastikmõjusid (SUTVA-laadne eeldus)</h3>
+<p>Esimene eeldus puudutab vastastikmõjusid ehk üldise tasakaalumõju puudumist. Eeldame, et sekkumine käsitletaval objektil ei mõjuta otseselt kontrollobjektide tulemusi. Näiteks Baskimaa konflikti analüüsis eeldatakse, et konflikt ei mõjuta teiste Hispaania regioonide majanduskasvu. Teine näide oleks Eesti ettevõtte tulumaksumäära langetus, mille puhul eeldaksime, et see ei mõjuta naaberriikide ettevõtete majandusnäitajaid. See on sarnane SUTVA eeldusest tuntud nõudega, et ühe üksuse osalemine meetmes ei mõjuta teise üksuse tulemust.</p>
+<p>Kui see eeldus ei kehti ja sekkumine „lekib” kontrollüksustesse, siis sünteetiline kontroll ei esinda enam korralikult võrdlusseisundit ilma sekkumiseta.</p>
+</section>
+<section id="paralleelsete-trendide-analoog-ja-sekkumiseelsed-perioodid" class="level3">
+<h3 class="anchored" data-anchor-id="paralleelsete-trendide-analoog-ja-sekkumiseelsed-perioodid">Paralleelsete trendide analoog ja sekkumiseelsed perioodid</h3>
+<p>Teine oluliste eelduste rühm puudutab dünaamikat sekkumiseelsel perioodil. Nõuame, et kontrollgrupi tulemusi mõjutab sama struktuurne protsess, mis käsitletavat üksust, ning nii uuritav objekt kui ka kontrollüksused alluvad sarnastele šokkidele. See on analoog paralleelsete trendide eeldusele erinevuste vahe (dif-dif) meetodi puhul, kuid sünteetilise kontrolli korral kontrollime seda sobitamise abil.</p>
+<p>Mida rohkem on sekkumiseelseid perioode, seda paremini on võimalik kontrollida nii vaadeldavate kui ka mittevaadeldavate tegurite mõju. Kui suudame sekkumiseelsel perioodil väga täpselt sobitada nii selgitavad tunnused kui ka tulemuste dünaamika, siis on usutav, et sama suhe püsib ka sekkumisjärgsel perioodil.</p>
+</section>
+</section>
+<section id="platseeboanalüüs-ja-tulemuste-robustsus" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="platseeboanalüüs-ja-tulemuste-robustsus"><span class="header-section-number">9.4</span> Platseeboanalüüs ja tulemuste robustsus</h2>
+<p>Selleks, et veenda lugejat, et leitud tulemused ei ole juhuslikud, kasutatakse sünteetilise kontrolli kontekstis sageli platseeboanalüüse ja RMSPE-suhetega teste.</p>
+<section id="platseebod-kontrollüksustele" class="level3">
+<h3 class="anchored" data-anchor-id="platseebod-kontrollüksustele">Platseebod kontrollüksustele</h3>
+<p>Platseeboanalüüsi põhiidee seisneb selles, et rakendame sünteetilise kontrolli meetodit mitte ainult käsitletavale üksusele, vaid ka igale doonorgrupi üksusele. Iga kontrollüksuse jaoks konstrueerime sünteetilise versiooni, kasutades ülejäänud üksusi doonorina, ning „teeskleme”, et sekkumine toimus samal ajal ka selles kontrollüksuses.</p>
+<p>Iga kontrollüksuse puhul võrdleme sekkumisjärgsel perioodil tegelikku tulemust selle sünteetilise kontrolliga. Kui tegelikult mingit mõju ei olnud, peaks nende kahe aegrea vahe jääma väikeseks ning olema sekkumiseelse perioodiga võrreldav. See loob nulljaotuse, millega saame võrrelda käsitletava üksuse kõrvalekallet.</p>
+<p>Visuaalselt võime joonistada kõikide üksuste (käsitletava ja platseebode) trajektoorid ning nende erinevuse sünteetilisest kontrollist. Kui käsitletava üksuse kõrvalekalle on selgelt suurem kui enamikul platseebodel, viitab see tõsiseltvõetavale sekkumise efektile.</p>
+</section>
+<section id="rmspe-suhted-ja-p-väärtus" class="level3">
+<h3 class="anchored" data-anchor-id="rmspe-suhted-ja-p-väärtus">RMSPE suhted ja p-väärtus</h3>
+<p>Platseeboanalüüsi saab kvantifitseerida ruutkeskmise prognoosivea suhete kaudu. Olgu käsitletava või platseebos üksuse korral:</p>
+<p><span class="math display">\[ \text{RMSPE}\_{\text{pre}} = \sqrt{\frac{1}{T_0} \sum_{t=1}^{T_0} (Y_{it} - Y_{it}^{\text{SC}})^2}, \]</span></p>
+<p><span class="math display">\[ \text{RMSPE}\_{\text{post}} = \sqrt{\frac{1}{T - T_0} \sum_{t=T_0+1}^{T} (Y_{it} - Y_{it}^{\text{SC}})^2}, \]</span></p>
+<p>kus <span class="math inline">\(Y_{it}^{\text{SC}}\)</span> on sünteetilise kontrolli tulemus. Seejärel defineerime suhte:</p>
+<p><span class="math display">\[ R_i = \frac{\text{RMSPE}_{\text{post}}}{\text{RMSPE}_{\text{pre}}}\]</span></p>
+<p>Suhe <span class="math inline">\(R_i\)</span> suurem kui 1 viitab sellele, et sekkumisjärgne sobivus on halvem võrreldes sekkumiseelsega, ning suurem suhtarv tähendab suuremat eeldatavat sekkumise mõju. Arvutame selle suhte nii käsitletava üksuse kui ka kõikide platseebode jaoks ning järjestame need kahanevas järjekorras. Käsitletava üksuse positsioon selles jaotuses annabki täpse p-väärtuse:</p>
+<p><span class="math display">\[ p = \frac{\#\{i : R_i \geq R_{\text{treated}}\}}{\text{kõigi üksuste arv}}. \]</span></p>
+<p>California näites oli käsitletava üksuse (California) suhe kõige suurem kõigi osariikide seas, mis andis p-väärtuseks ligikaudu <span class="math inline">\(1/38 \approx 0{,}026\)</span>. See tähendab, et vaid ühel juhul 38-st võiksime oodata vähemalt sama suurt kõrvalekallet, kui mõju tegelikult ei oleks.</p>
+<!-- ![RMSPE suhete jaotus käsitletava ja platseeboüksuste vahel](figures/rmspe-ratios-placebos.png) -->
+<!-- Joonis peaks illustreerima, kuidas käsitletava üksuse RMSPE-suhe asub jaotuse ülemises otsas, samas kui enamikul platseeboüksustel on märksa väiksemad suhted. -->
+</section>
+</section>
+<section id="tasakaalu-kontroll" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="tasakaalu-kontroll"><span class="header-section-number">9.5</span> Tasakaalu kontroll</h2>
+<p>Kui kaalud <span class="math inline">\(w\)</span> ja <span class="math inline">\(V\)</span> on õigesti valitud, saavutatakse tasakaal nii selgitavate tunnuste kui ka sekkumiseelse dünaamika osas. See tähendab, et sünteetiline kontroll on iga üksiku selgitava tunnuse osas käsitletavale üksusele võimalikult sarnane ning et ka tulemismuutuja sekkumiseelne aegrida on käsitletava üksuse ja sünteetilise kontrolli vahel võimalikult ühtiv.</p>
+<p>Praktilises rakenduses kontrollitakse tasakaalu tavaliselt nii tabelite kui ka graafikute abil. Tunnuste puhul võrreldakse käsitletava üksuse ja sünteetilise kontrolli keskmisi väärtusi; tulemismuutuja puhul vaadeldakse sekkumiseelse perioodi trajektoore. Hea tasakaal on eelduseks usutavatele mõjuhinnangutele.</p>
+<!-- ![Tunnuste tasakaal käsitletava ja sünteetilise kontrolli vahel](figures/balance-table-plot.png) -->
+<!-- Joonis või tabel peaks näitama, et sünteetiline kontroll on mitmete oluliste tunnuste (näiteks SKP, hinnatase, struktuursed näitajad) osas käsitletava üksuse lähedal, samas kui suvalise üksiku kontrollriigiga võrreldes võiks erinevus olla oluliselt suurem. -->
+<!-- ### Edasised arendused -->
+<!-- Sünteetilise kontrolli meetodit on viimastel aastatel oluliselt edasi arendatud. Mõned olulisemad suunad on järgmised. -->
+<!-- Esiteks on arendatud Bayesi lähenemisi sünteetilisele kontrollile, kus kaalude ja ebakindluse hindamine toimub Bayesi raamistikus. Teiseks on välja töötatud generaliseeritud sünteetilise kontrolli meetod (Generalized Synthetic Control, näiteks Xu ja Liu), mis võimaldab mitut käsitletavat üksust ning kasutab paneel-mudelite raamistikku. -->
+<!-- Kolmandaks on ilmunud augmenteeritud lähenemised, mis ühendavad sünteetilise kontrolli ja erinevuste-vahe mõtlemise. Näiteks Arkhangelsky jt (2021) synthdid-paketis ja Ben-Michaeli jt (2021) Augmented Synthetic Control Method (ASCM) kombineerivad klassikalist sünteetilist kontrolli regressioonipõhiste parandustega (näiteks kantregressiooni või LASSO-regressioon) ning kõrgedimensiooniliste selgitavate tunnustega. Sellised lähenemised vähendavad sekkumiseelse sobituse väikeste jääkkõrvalekallete mõju ning võivad parandada efektiivsust. -->
+<!-- Lõpuks on sündinud ka kõrgedimensioonilised variandid, mis kasutavad regulaarsustehnikaid ja masinõppemeetodeid (nt LASSO, juhumetsad) suure tunnuste arvu korral, kus klassikaline sünteetiline kontroll muutuks ebastabiilseks. -->
+</section>
+<section id="näide" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="näide"><span class="header-section-number">9.6</span> Näide</h2>
+<p>R-keskkonnas on sünteetilise kontrolli rakendamiseks levinud paketid Synth ja SCtools, samuti uuemad paketid, mis realiseerivad üldistatud või augmenteeritud lähenemisi (nt synthdid, augsynth). Alljärgnev näide annab ülevaate klassikalise sünteetilise kontrolli rakendamisest ühe käsitletava ja mitme kontrollüksusega.</p>
+<p>Kõigepealt on vajalik, et meil on paneelandmestik, kus igal real on üksus, aasta ja tulemusmuutuja ning tunnused:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Synth) </span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>##
+## Synth Package: Implements Synthetic Control Methods.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>## See https://web.stanford.edu/~jhain/synthpage.html for additional information.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SCtools)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: future</code></pre>
+</div>
+</div>
+<p>Me kasutame pakette <code>Synth</code> ja <code>SCtools</code> . Vt <a href="https://cran.r-project.org/web/packages/Synth/index.html" class="uri">https://cran.r-project.org/web/packages/Synth/index.html</a> ja <a href="https://cran.r-project.org/web/packages/SCtools/index.html" class="uri">https://cran.r-project.org/web/packages/SCtools/index.html</a></p>
+<p>Põhiviide: Abadie A, Diamond A, Hainmueller J (2011). “Synth: An R Package for Synthetic Control Methods in Comparative Case Studies.” Journal of Statistical Software, 42(13), 1–17. <a href="https://www.jstatsoft.org/v42/i13/" class="uri">https://www.jstatsoft.org/v42/i13/</a></p>
+<p>Muud paketid: - kui mitu objekti <code>gsynth</code>, <a href="https://cran.r-project.org/web/packages/gsynth/index.htm" class="uri">https://cran.r-project.org/web/packages/gsynth/index.htm</a> - kui tahad kombineerida dif-dif analüüsiga</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Synth)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SCtools)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="saksamaa-taasühinemine" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="saksamaa-taasühinemine"><span class="header-section-number">9.7</span> Saksamaa taasühinemine</h2>
+<p>Andmed artiklist A. Abadie, A. Diamond, and J. Hainmueller. 2014. Comparative Politics and the Synthetic Control Method American Journal of Political Science. Viide https://economics.mit.edu/sites/default/files/publications/Comparative%20Politics%20and%20the%20Synthetic%20Control.pdf</p>
+<p>Selles rakendame sünteetilise võrdlusobjekti meetodit, et hinnata 1990. aasta Saksamaa taasühinemise mõju majandusele. Tegu oli ühe olulisema poliitilis sündmusega sõjajärgses Euroopas. Pärast Berliini müüri langemist 9. novembril 1989 ühinesid Saksa Demokraatlik Vabariik ja Saksamaa Liitvabariik ametlikult 3. oktoobril 1990. Sel ajal oli Lääne-Saksamaa SKP elaniku kohta ligikaudu kolm korda kõrgem kui Ida-Saksamaal (Lipschitz ja McDonald 1990).</p>
+<p>Meid huvitab, mis oli ühinemise mõju Lääne-Saksamaa SKP-le.</p>
+<p>Laeme andmed</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Muutke ära andmete kataloog</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datapath <span class="ot">=</span> <span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Lugege sisse andmefail</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="at">file =</span> <span class="fu">paste0</span>(datapath, <span class="st">"repgermany.dta"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Vaatame pisut andmetele sisse.</p>
+<p>Kasutame OECD riikide paneelandmeid perioodi 1960–2003 kohta. Saksamaa taasühinemine toimus 1990. aastal, mis annab 30-aastase sekkumiseelse perioodi. Valim lõpeb 2003. aastal, sest ligikaudu kümneaastast perioodi pärast taasühinemist võib pidada mõistlikuks piiriks usutavale prognoosiperioodile. Sünteetiline Lääne-Saksamaa konstrueeritakse doonorriikide hulgast valitud potentsiaalsete võrdlusriikide kaalutud keskmisena. Meie doonorriikide hulgas on valim 16 OECD liikmesriigist.</p>
+<p>Tulemusmuutuja on riigi SKP inimese kohta (PPP) järgi korrigeeritud ja mõõdetud 2002. aasta USA dollarites. Taasühinemiseelseid tunnused: SKP elaniku kohta, inflatsioonimäär, tööstuse osakaal loodud lisandväärtusest, investeeringute määr, haridustase ja kaubanduse avatuse mõõdik.</p>
+<p>Peamised tunnused: - index : riigi number - country : riigi nimi - year : aasta - gdp : SKP inimese kohta - infrate : inflatsioon - trade : kaubanduse avatus - schooling : haridustase - industry : tööstuse osakaal - invest60, 70, 80 - kodumaiste investeeringute suhe SKPsse, 5-aastased keskmised. Üks väärtus 1980 aasta kohal.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  index country year  gdp  infrate    trade schooling invest60 invest70
+1     1     USA 1960 2879       NA 9.693181      43.8       NA       NA
+2     1     USA 1961 2929 1.075182 9.444654        NA       NA       NA
+3     1     USA 1962 3103 1.116071 9.429324        NA       NA       NA
+4     1     USA 1963 3227 1.214128 9.470706        NA       NA       NA
+5     1     USA 1964 3420 1.308615 9.725879        NA       NA       NA
+6     1     USA 1965 3667 1.668461 9.730347      43.8       NA       NA
+  invest80 industry
+1       NA       NA
+2       NA       NA
+3       NA       NA
+4       NA       NA
+5       NA       NA
+6       NA       NA</code></pre>
+</div>
+</div>
+<p>Mõned joonised</p>
+<p>SKP inimese kohta</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> gdp, <span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>(index<span class="sc">!=</span><span class="dv">7</span>))) <span class="sc">+</span> <span class="co">#joone tüüp on erinev index = 7 (West Germany jaoks)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linetype =</span> <span class="st">"none"</span>) <span class="sc">+</span> <span class="co">#ei taha legendi joone tüübi kohta</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"GDP per capita"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vaadake ka teisi muutujaid. Asendage <code>gdp</code> teiste näitajatega. Vajadusel lisage geom_point() kui vaatlused on vaid mõne aasta kohta.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> schooling, <span class="at">group =</span> country, <span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>(index<span class="sc">!=</span><span class="dv">7</span>))) <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linetype =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 61 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 597 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="käsud-paketis" class="level3">
+<h3 class="anchored" data-anchor-id="käsud-paketis">Käsud paketis</h3>
+<p>Tavaline käskude järjekord</p>
+<ol type="1">
+<li>dataprep() - valmista ette andmed</li>
+<li>synth() - leia kaalud, tee sünteetiline võrdlusobjekt</li>
+<li>synth.tab(), gaps.plot(), and path.plot() - näita tulemusi</li>
+<li>paktist SCtools käsk generate.placebos - tee platseebo analüüs</li>
+<li>vaata tulemusi käskudega plot_placebos, mspe.plot, mspe.test</li>
+</ol>
+<p>Andmete ettevalmistamine</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dataprep.out <span class="ot">&lt;-</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataprep</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">foo =</span> d,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">predictors    =</span> <span class="fu">c</span>(<span class="st">"gdp"</span>,<span class="st">"trade"</span>,<span class="st">"infrate"</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">dependent     =</span> <span class="st">"gdp"</span>, <span class="co">#y variable</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">unit.variable =</span> <span class="dv">1</span>, <span class="co">#first variable is index variable</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">time.variable =</span> <span class="dv">3</span>, <span class="co">#third variable is time variable</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">special.predictors =</span> <span class="fu">list</span>(</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="st">"industry"</span> ,<span class="dv">1981</span><span class="sc">:</span><span class="dv">1990</span>, <span class="fu">c</span>(<span class="st">"mean"</span>)),</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="st">"schooling"</span>,<span class="fu">c</span>(<span class="dv">1980</span>,<span class="dv">1985</span>), <span class="fu">c</span>(<span class="st">"mean"</span>)),</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="st">"invest80"</span> ,<span class="dv">1980</span>, <span class="fu">c</span>(<span class="st">"mean"</span>))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">treatment.identifier =</span> <span class="dv">7</span>, <span class="co">#index = 7 is West Germany</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">controls.identifier =</span> <span class="fu">unique</span>(d<span class="sc">$</span>index)[<span class="sc">-</span><span class="dv">7</span>], <span class="co">#all the rest numbers</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">time.predictors.prior =</span> <span class="dv">1981</span><span class="sc">:</span><span class="dv">1990</span>, <span class="co">#time for normal predictors</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">time.optimize.ssr =</span> <span class="dv">1981</span><span class="sc">:</span><span class="dv">1990</span>, <span class="co">#time period to minimize difference between outcome of treated and synthetic control</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">unit.names.variable =</span> <span class="dv">2</span>, <span class="co">#names</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">time.plot =</span> <span class="dv">1960</span><span class="sc">:</span><span class="dv">2003</span> <span class="co">#whole time period</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Missing data: treated unit; special predictor: special.industry.1981.1990 ; for period: 1990 
+ We ignore (na.rm = TRUE) all missing values for predictors.op.</code></pre>
+</div>
+</div>
+<p>Vaata üle objekt dataprep.out, mille me salvestasime. See loob lihtsalt kõik vajalikud andmemaatriksid ja vektorid.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dataprep.out)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 8
+ $ X0               : num [1:6, 1:16] 18029.8 19.2 4.74 30.6 60.15 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:6] "gdp" "trade" "infrate" "special.industry.1981.1990" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+ $ X1               : num [1:6, 1] 15808.9 56.78 2.59 34.54 55.5 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:6] "gdp" "trade" "infrate" "special.industry.1981.1990" ...
+  .. ..$ : chr "7"
+ $ Z0               : int [1:10, 1:16] 13533 13940 15008 16549 17600 18439 19407 20711 22047 23064 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:10] "1981" "1982" "1983" "1984" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+ $ Z1               : int [1:10, 1] 12115 12761 13519 14481 15291 15998 16679 17786 18994 20465
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:10] "1981" "1982" "1983" "1984" ...
+  .. ..$ : chr "7"
+ $ Y0plot           : int [1:44, 1:16] 2879 2929 3103 3227 3420 3667 3974 4154 4494 4805 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:44] "1960" "1961" "1962" "1963" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+ $ Y1plot           : int [1:44, 1] 2284 2388 2527 2610 2806 3005 3168 3241 3571 3998 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:44] "1960" "1961" "1962" "1963" ...
+  .. ..$ : chr "7"
+ $ names.and.numbers:'data.frame':  17 obs. of  2 variables:
+  ..$ unit.names  : chr [1:17] "West Germany" "USA" "UK" "Austria" ...
+  ..$ unit.numbers: num [1:17] 7 1 2 3 4 5 6 8 9 10 ...
+ $ tag              :List of 13
+  ..$ foo                  : chr [1:11] "c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1"| __truncated__ "c(\"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"| __truncated__ "c(1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1"| __truncated__ "c(2879, 2929, 3103, 3227, 3420, 3667, 3974, 4154, 4494, 4805, 4999, 5362, 5838, 6464, 6951, 7519, 8300, 9146, 1"| __truncated__ ...
+  ..$ predictors           : int [1:3] 4 6 5
+  ..$ predictors.op        : chr "mean"
+  ..$ special.predictors   :List of 3
+  .. ..$ :List of 3
+  .. .. ..$ : chr "industry"
+  .. .. ..$ : int [1:10] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990
+  .. .. ..$ : chr "mean"
+  .. ..$ :List of 3
+  .. .. ..$ : chr "schooling"
+  .. .. ..$ : num [1:2] 1980 1985
+  .. .. ..$ : chr "mean"
+  .. ..$ :List of 3
+  .. .. ..$ : chr "invest80"
+  .. .. ..$ : num 1980
+  .. .. ..$ : chr "mean"
+  ..$ dependent            : int 4
+  ..$ unit.variable        : num 1
+  ..$ time.variable        : num 3
+  ..$ treatment.identifier : num 7
+  ..$ controls.identifier  : num [1:16] 1 2 3 4 5 6 8 9 10 12 ...
+  ..$ time.predictors.prior: int [1:10] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990
+  ..$ time.optimize.ssr    : int [1:10] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990
+  ..$ time.plot            : int [1:44] 1960 1961 1962 1963 1964 1965 1966 1967 1968 1969 ...
+  ..$ unit.names.variable  : num 2</code></pre>
+</div>
+</div>
+<p>X0 – kontrollüksuste ennustajate maatriks. Tavaliselt on need aastate keskmised, vastavalt määratletule. Iga veerg on üks piirkond.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dataprep.out<span class="sc">$</span>X0</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                       1            2            3           4
+gdp                         18029.800000 12664.000000 14817.000000 14347.30000
+trade                          19.199796    52.373944    74.630803   133.61179
+infrate                         4.740062     6.585358     3.529565     4.58030
+special.industry.1981.1990     30.595133    39.061470    35.485312    33.48119
+special.schooling.1980.1985    60.150002    34.300001    60.900000    32.10000
+special.invest80.1980          22.375999    17.587999    26.642000    21.87600
+                                       5            6            8            9
+gdp                         14857.100000 14293.200000 13869.700000 14462.300000
+trade                          69.557355    44.736920    42.683143   106.078918
+infrate                         5.945661     6.368286     9.721693     2.543722
+special.industry.1981.1990     27.205048    32.210452    35.912703    32.767722
+special.schooling.1980.1985    42.950001    35.400000    29.750000    44.400000
+special.invest80.1980          22.217999    27.236000    26.728001    21.840000
+                                      10          12           14         16
+gdp                         14370.200000 19282.90000 13714.800000 9438.40000
+trade                          74.635595    71.45849    23.042788   43.00722
+infrate                         7.664475     3.40692     2.058197   19.04085
+special.industry.1981.1990     38.716592    31.87100    39.561175   30.26204
+special.schooling.1980.1985    40.150000    53.95000    40.900002   21.70000
+special.invest80.1980          31.594000    30.96400    34.986000   24.00200
+                                    18          19           20          21
+gdp                         7761.60000 9935.500000 14368.100000 12498.20000
+trade                         69.97408   39.656889    33.776868    58.87568
+infrate                       17.30977    9.362696     8.127678    10.87994
+special.industry.1981.1990    32.52951   36.403378    32.880581    31.76784
+special.schooling.1980.1985   12.15000   15.450000    47.950001    46.35000
+special.invest80.1980         26.48800   24.568001    29.695999    25.52200</code></pre>
+</div>
+</div>
+<p>X1 – vaadeldava üksuse andmevektor. Sama ajaperiood.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dataprep.out<span class="sc">$</span>X1</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                       7
+gdp                         15808.900000
+trade                          56.777813
+infrate                         2.594799
+special.industry.1981.1990     34.538488
+special.schooling.1980.1985    55.500000
+special.invest80.1980          27.017998</code></pre>
+</div>
+</div>
+<p>Z0 – kontrollüksuste väljundmuutuja maatriks sekkumiseelses perioodis.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dataprep.out<span class="sc">$</span>Z0</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1     2     3     4     5     6     8     9    10    12    14    16
+1981 13533  9161 11242 11079 11106 10929 10593 11304 10548 15338  9986  7870
+1982 13940  9917 12148 11827 12115 11869 11275 11784 11205 15963 10813  8204
+1983 15008 10669 13048 12334 12822 12518 11812 12419 12022 16611 11346  8388
+1984 16549 11336 13533 13113 13777 13145 12543 13234 13220 17710 12064  8834
+1985 17600 12068 14296 13735 14698 13746 13285 13938 14354 18812 12978  9297
+1986 18439 12795 14921 14292 15608 14308 13896 14613 15184 19458 13590  9525
+1987 19407 13717 15549 15013 16024 14940 14688 15197 15823 20120 14425  9548
+1988 20711 14864 16595 16209 16766 16040 15784 16082 16299 21334 15862 10277
+1989 22047 15716 17768 17345 17418 17193 16875 17387 17043 22965 17269 11036
+1990 23064 16397 19070 18526 18237 18244 17946 18665 18004 24518 18815 11405
+        18    19    20    21
+1981  5812  7447 11513  9736
+1982  6263  7957 11537 10687
+1983  6479  8378 12300 11262
+1984  6570  8812 13120 12141
+1985  6959  9259 14019 12556
+1986  7414  9744 14537 13085
+1987  8126 10542 15554 13402
+1988  9057 11434 16524 13569
+1989 10042 12417 17255 14124
+1990 10894 13365 17322 14420</code></pre>
+</div>
+</div>
+<p>Ja vaadeldava üksuse puhul:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dataprep.out<span class="sc">$</span>Z1</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         7
+1981 12115
+1982 12761
+1983 13519
+1984 14481
+1985 15291
+1986 15998
+1987 16679
+1988 17786
+1989 18994
+1990 20465</code></pre>
+</div>
+</div>
+<p>Joonistamiseks vajalikud andmed on salvestatud objektidesse Y1plot ja Y0plot.</p>
+<p>Nüüd saame käivitada käsu synth, et leida optimaalsed kaalud, mis loovad uuritavale üksusele parima võimaliku sünteetilise kontrolli.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>synth.out <span class="ot">&lt;-</span> <span class="fu">synth</span>(dataprep.out)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 2780.803 
+
+solution.v:
+ 0.6382063 0.000793192 0.02569357 3.5794e-06 0.005660648 0.3296428 
+
+solution.w:
+ 0.140826 0.0008091836 0.3647215 0.001026341 0.001071105 0.000802521 0.0006526096 0.1809177 0.0006463323 0.171095 0.1346767 0.0004573153 0.0004194751 0.0005437716 0.0007120638 0.0006224255 </code></pre>
+</div>
+</div>
+<p>Tulemuste kokkuvõtteks on kolm mugavat funktsiooni.</p>
+<p>Kõigi tabelite (V- ja W-kaalud ning sobivus käsitletud ja sünteetilise kontrolli vahel) saamiseks kasutame käsku synth.tab()</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>synth.tables <span class="ot">&lt;-</span> <span class="fu">synth.tab</span>(<span class="at">dataprep.res =</span> dataprep.out,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">synth.res =</span> synth.out)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(synth.tables)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$tab.pred
+                              Treated Synthetic Sample Mean
+gdp                         15808.900 15807.581   13669.381
+trade                          56.778    64.942      59.831
+infrate                         2.595     3.342       7.617
+special.industry.1981.1990     34.538    34.220      33.794
+special.schooling.1980.1985    55.500    53.721      38.659
+special.invest80.1980          27.018    27.022      25.895
+
+$tab.v
+                            v.weights
+gdp                         0.638    
+trade                       0.001    
+infrate                     0.026    
+special.industry.1981.1990  0        
+special.schooling.1980.1985 0.006    
+special.invest80.1980       0.33     
+
+$tab.w
+   w.weights  unit.names unit.numbers
+1      0.141         USA            1
+2      0.001          UK            2
+3      0.365     Austria            3
+4      0.001     Belgium            4
+5      0.001     Denmark            5
+6      0.001      France            6
+8      0.001       Italy            8
+9      0.181 Netherlands            9
+10     0.001      Norway           10
+12     0.171 Switzerland           12
+14     0.135       Japan           14
+16     0.000      Greece           16
+18     0.000    Portugal           18
+19     0.001       Spain           19
+20     0.001   Australia           20
+21     0.001 New Zealand           21
+
+$tab.loss
+           Loss W   Loss V
+[1,] 0.0007521133 2780.803</code></pre>
+</div>
+</div>
+<ul>
+<li>tab.pred annab ennustajate väärtused käsitletud üksuse ja sünteetilise kontrolli jaoks, koos valimi keskmisega.</li>
+<li>tab.v annab selgitavate muutujate kaalud.</li>
+<li>tab.w annab piirkondade kaalud.</li>
+</ul>
+<p>Pane tähele, et tab.loss sisaldab kahte väärtust:</p>
+<p>W–kaotus, mis on seotud ennustajate (X) erinevustega. Mida rohkem X-e lisame, seda suurem see tavaliselt on, sest samad piirkonnakaalud ei pruugi sobida kõigi X-de jaoks. Mida väiksem väärtus, seda paremini on käsitletava X-id sobitatud sünteetilise kontrolli X-idega. See tuleneb w-kaalude optimeerimisest.</p>
+<p>V–kaotus, mis on seotud tulemismuutuja sobivusega. Mida väiksem see väärtus, seda paremini kirjeldame tulemismuutuja varasemaid väärtusi. See on käsitletud üksuse sünteetilise kontrolli sekkumiseelne keskmine ruutprognoosiviga (MSPE). See MSPE tuleneb nii v- kui w-kaalude optimeerimisest.</p>
+<p>Tulemismuutuja trajektooride kokkuvõttegraafikute loomiseks (käsitletud ja sünteetiline üksus) kasutame käske path.plot() ja gaps.plot()</p>
+<p>Tase:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to plot in levels (treated and synthetic)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">path.plot</span>(<span class="at">dataprep.res =</span> dataprep.out,<span class="at">synth.res =</span> synth.out)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plot the gaps (treated - synthetic)</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Erinevus:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gaps.plot</span>(<span class="at">dataprep.res =</span> dataprep.out,<span class="at">synth.res =</span> synth.out)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Platseebode genereerimiseks kasutame paketti SCtools. See kohtleb iga piirkonda kordamööda kui osalejat ja arvutab mõjud. See võtab mõnevõrra aega.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>placebos <span class="ot">&lt;-</span> <span class="fu">generate.placebos</span>(dataprep.out, synth.out, <span class="at">Sigf.ipop =</span> <span class="dv">3</span>, <span class="at">strategy =</span> <span class="st">"multicore"</span>) <span class="co">#multicore - quicker, parallel computing</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 276080.3 
+
+solution.v:
+ 0.3425308 0.03183171 0.2102354 0.1742354 0.2404496 0.0007171006 
+
+solution.w:
+ 6.55899e-05 0.01197019 0.0001114836 0.04900369 0.0002583561 6.08367e-05 0.0003888953 6.88759e-05 0.7404987 0.0001330694 4.2118e-06 3.04587e-05 3.5365e-05 0.1972425 0.000127783 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 32190.55 
+
+solution.v:
+ 0.8259937 0.01671772 0.07973004 0.06119424 0.01369206 0.002672199 
+
+solution.w:
+ 0.00285441 0.01132922 0.008744401 0.00268481 0.003022315 0.006265804 0.007058692 0.3404279 0.001946773 0.2649984 0.002042414 0.0006367799 0.3416422 0.002869065 0.003476834 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 19980.97 
+
+solution.v:
+ 0.4787951 0.3388293 0.007484978 0.0001112912 0.001652476 0.1731269 
+
+solution.w:
+ 0.02511805 0.03651043 0.2074622 0.03747018 0.03469146 0.03224069 0.08820579 2.90786e-05 0.2403434 0.1099949 0.03441481 0.04039343 0.03636224 0.03532518 0.04143808 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 8117.844 
+
+solution.v:
+ 0.916682 0 0.00348149 0.00806678 0.0717697 1.4e-09 
+
+solution.w:
+ 0.01640006 0.01781232 0.01560508 0.03468132 0.05145937 0.2111343 0.02535471 0.01970952 0.2679103 0.01961133 0.0176838 0.01009594 0.2540115 0.01998526 0.01854523 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 112715 
+
+solution.v:
+ 0.8262578 0.01547729 0.004385314 0.1143318 0.03652118 0.003026596 
+
+solution.w:
+ 0.4923876 2.59848e-05 0.0001332046 3.563e-06 0.0004786393 8.62806e-05 0.001857162 4.37331e-05 0.1162807 1.82499e-05 0.3875314 0.0003444362 5.33549e-05 0.0001491118 0.0006065782 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 16092.44 
+
+solution.v:
+ 0.3407636 5.5175e-06 2.8957e-06 0.5236969 0.007982415 0.1275486 
+
+solution.w:
+ 0.03129486 0.0110189 0.0246643 0.03424982 0.09319681 0.02989769 0.03467728 0.01946296 0.3316389 0.01826013 0.06607518 0.1977095 0.02824211 0.03617838 0.04343317 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 1756.905 
+
+solution.v:
+ 0.8862834 0.07382511 6.5338e-06 0.003065943 0.01429302 0.02252603 
+
+solution.w:
+ 0.1032388 0.07495536 0.01038281 0.005087013 0.01726933 0.048653 0.009855227 1.89334e-05 0.1917291 0.1527632 0.06770593 0.0515878 0.2024148 0.03804321 0.02629549 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 10482.58 
+
+solution.v:
+ 0.9173173 0.06084155 2.86454e-05 0.01783268 0.003979336 4.422e-07 
+
+solution.w:
+ 0.01264816 0.01856447 0.02796183 0.6125783 0.03597383 0.02029793 0.01751268 0.01976776 0.103337 0.01508858 0.02409641 0.02617124 0.01966455 0.0195419 0.02679536 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 195128.4 
+
+solution.v:
+ 0.2765538 0 0.7234462 0 0 0 
+
+solution.w:
+ 0.08630043 0.04834269 0.04707078 0.04816556 0.05366396 0.0525315 0.06465101 0.04451544 0.1911137 0.04290499 0.09486799 0.05829396 0.04827194 0.05969433 0.05961178 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 1782453 
+
+solution.v:
+ 0.8404504 2.14e-08 0.1595494 2.254e-07 2.2e-09 7.9e-09 
+
+solution.w:
+ 0.9980796 0.0001207329 0.00020498 0.0001763683 0.0001824006 0.0001608133 0.0001298709 0.0001991923 0.0001537346 0.0001742107 5.1868e-05 4.30463e-05 7.15177e-05 0.0001505152 0.0001011647 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 139219.8 
+
+solution.v:
+ 0.8057263 0.1604086 0.02487788 0.008692253 0.0002203832 7.46251e-05 
+
+solution.w:
+ 0.4549119 0.02411708 0.00276963 0.0007457149 0.0008276736 0.002419813 0.002383868 0.00123767 0.002303478 0.0005065878 6.10505e-05 0.0005605558 0.5046114 0.001628748 0.0009148221 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 288736.9 
+
+solution.v:
+ 0.855861 1.5425e-06 0.0401323 0.01552743 0.08847763 1.047e-07 
+
+solution.w:
+ 0.009829267 0.003956324 7.9252e-06 0.005603807 0.01602739 0.00783904 0.01448734 0.002618719 0.005273507 0.0007002579 0.002452507 0.6964841 0.006072436 0.007849924 0.2207974 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 3148050 
+
+solution.v:
+ 0.9750653 2.099e-07 1.209e-07 6.39e-08 0.02493344 8.392e-07 
+
+solution.w:
+ 2.5866e-06 2.34944e-05 1.12049e-05 1.40753e-05 1.15981e-05 1.41888e-05 1.64603e-05 1.31223e-05 1.36682e-05 2.361e-07 1.67191e-05 0.9996813 0.0001442919 1.33895e-05 2.3696e-05 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 1992.887 
+
+solution.v:
+ 0.9172637 0.0188953 2.9369e-06 0.01112606 0.0444585 0.008253505 
+
+solution.w:
+ 0.002483156 0.1491128 0.006233539 0.007763327 0.007569434 0.01373196 0.08393888 0.007195305 0.009595813 0.0002568884 0.05700656 0.05077503 0.5824265 0.01020823 0.01170239 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 95139.6 
+
+solution.v:
+ 0.8387851 0.00321895 0.1217191 0.0003357233 0.03587282 6.82912e-05 
+
+solution.w:
+ 0.3206254 0.02761799 0.0420507 0.0142251 0.01990836 0.02238627 0.02181875 0.01868822 0.0209883 0.01676862 0.0308802 0.04531528 0.03342573 0.02871633 0.3365847 
+
+
+X1, X0, Z1, Z0 all come directly from dataprep object.
+
+
+**************** 
+ searching for synthetic control unit  
+ 
+
+**************** 
+**************** 
+**************** 
+
+MSPE (LOSS V): 304524.5 
+
+solution.v:
+ 0.4853115 0.0327623 0.3046622 0.1348863 0.01765844 0.02471924 
+
+solution.w:
+ 0.01212527 0.00403598 0.3099178 0.005758418 0.1406064 0.009735317 0.006540916 0.006057046 0.006935646 0.01184047 0.005636344 0.4169481 0.008306444 0.006385719 0.04917005 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `w.weight` -&gt; `w.weight...1`
+• `w.weight` -&gt; `w.weight...2`
+• `w.weight` -&gt; `w.weight...3`
+• `w.weight` -&gt; `w.weight...4`
+• `w.weight` -&gt; `w.weight...5`
+• `w.weight` -&gt; `w.weight...6`
+• `w.weight` -&gt; `w.weight...7`
+• `w.weight` -&gt; `w.weight...8`
+• `w.weight` -&gt; `w.weight...9`
+• `w.weight` -&gt; `w.weight...10`
+• `w.weight` -&gt; `w.weight...11`
+• `w.weight` -&gt; `w.weight...12`
+• `w.weight` -&gt; `w.weight...13`
+• `w.weight` -&gt; `w.weight...14`
+• `w.weight` -&gt; `w.weight...15`
+• `w.weight` -&gt; `w.weight...16`</code></pre>
+</div>
+</div>
+<p>Pärast seda saame joonistada platseebomõjud.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_placebos</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Näeme, et mõned teisedki riigid kogesid langust alates 1990ndatest. Samuti saame arvutada sekkumisjärgse MSPE ja sekkumiseelse MSPE suhte. Mida suurem on see erinevus, seda keerulisem on tulevikku prognoosida võrreldes minevikuga. Kui paljud riigid saavad suure suhte, võib meie hinnatud mõju olla lihtsalt juhuslik variatsioon.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mspe.plot</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mitte ühelgi riigil ei ole suuremat kasvu MSPEs.</p>
+<p>P-väärtus käsuga</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#or with the command</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mspe.test</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$p.val
+[1] 0.05882353
+
+$test
+    MSPE.ratios         unit
+1    44.5063518          USA
+2    40.6205409           UK
+3    48.8761931      Austria
+4    60.3306156      Belgium
+5    11.2244736      Denmark
+6    43.2482383       France
+7   118.6159461        Italy
+8   203.7017913  Netherlands
+9   171.4798547       Norway
+10    4.5197407  Switzerland
+11   17.5588852        Japan
+12   13.3878627       Greece
+13    0.3159692     Portugal
+14  445.2381197        Spain
+15    7.4450742    Australia
+16   14.1206513  New Zealand
+17 1204.5679685 West Germany</code></pre>
+</div>
+</div>
+<p>Kontrolliks käsitsi kaotus sõltuvas tulemuses</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Y1plot <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y1plot</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>Y0plot <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y0plot</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>tag<span class="sc">$</span>time.plot</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>treat.time <span class="ot">&lt;-</span> <span class="dv">1991</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ajad kaalutud kaotuse joaks</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>pre_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(time<span class="sc">&gt;</span> <span class="dv">1980</span> <span class="sc">&amp;</span> time<span class="sc">&lt;</span> treat.time)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks, mis aastad</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>time[pre_idx]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kaalud</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> synth.tables<span class="sc">$</span>tab.w<span class="sc">$</span>w.weights </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Sünteetiline keskmine</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>Y_synth_pre <span class="ot">&lt;-</span> Y0plot[pre_idx, ] <span class="sc">%*%</span> w</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pre_idx, Y_synth_pre, <span class="at">type =</span> <span class="st">"l"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#erinevus</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>gaps_pre <span class="ot">&lt;-</span> Y1plot[pre_idx] <span class="sc">-</span> Y_synth_pre</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pre_idx, gaps_pre, <span class="at">type =</span> <span class="st">"l"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-synthcontr_files/figure-html/unnamed-chunk-21-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi kaotus Y-s</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>lossV_manual <span class="ot">&lt;-</span> <span class="fu">mean</span>(gaps_pre<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(lossV_manual)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3702.133</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meil</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>synth.tables<span class="sc">$</span>tab.loss</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Loss W   Loss V
+[1,] 0.0007521133 2780.803</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./07-ivmeetod.html" class="pagination-link" aria-label="Instrumentmuutuja">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./09-mlpuumets.html" class="pagination-link" aria-label="Masinõppemudelid">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

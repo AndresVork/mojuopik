@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./08-mlpuumets.html" rel="next">
+<link href="./08-synthcontr.html" rel="next">
 <link href="./06-sobitamine.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -194,7 +194,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -229,20 +229,26 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-mlpuumets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-mllasso.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LASSO</span></span></a>
+  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-synthcontr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusrühma meetod</span></span></a>
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
   </div>
 </li>
     </ul>
@@ -587,67 +593,11 @@ Y_i = \alpha + \beta \hat D_i + \gamma^\top X_i + \varepsilon_i.
 <li><code>hh_income</code>: leibkonna sissetulek</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># 2SLS mudeli jaoks</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: car</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: carData</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: lmtest</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: zoo</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'zoo'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: sandwich</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: survival</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer) <span class="co"># tulemuste esitamiseks</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Please cite as: </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code> Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code> R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:car':
-
-    recode</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich) <span class="co">#robustsed standardvead</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest) <span class="co">#testid</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># 2SLS mudeli jaoks</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer) <span class="co"># tulemuste esitamiseks</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich) <span class="co">#robustsed standardvead</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest) <span class="co">#testid</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!-- *Varjatud lojaalsuskalduvus*: loyalty_tendency on varjatud tegur, mis suurendab nii tõenäosust liituda lojaalsusprogrammiga kui ka share_of_wallet väärtust. See varjatud kalduvus võib tähistada loomupäraseid eelistusi lojaalsuse suhtes või tugevamat kiindumust jaemüüja vastu, mida ei kajasta otseselt vaadeldavad instrumendid. -->
 <!-- loyalty_program_member simuleerimine loyalty_tendency abil: Kaasates loyalty_tendency logistilisse funktsiooni loyalty_program_member jaoks, simuleerime valikukallutatust. Majapidamised, kellel on kõrgemad loyalty_tendency väärtused, on tõenäolisemalt liikmed, ja see korreleerub ka suuremate kulutustega, luues seeläbi endogeensuse. -->
@@ -659,8 +609,8 @@ Attaching package: 'dplyr'</code></pre>
 <section id="avame-andmed" class="level2" data-number="8.12">
 <h2 data-number="8.12" class="anchored" data-anchor-id="avame-andmed"><span class="header-section-number">8.12</span> Avame andmed</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load(file = "kliendiprogramm.RData")</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/kliendiprogramm.RData"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load(file = "kliendiprogramm.RData")</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/kliendiprogramm.RData"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Uurige andmed.</p>
 <ol type="1">
@@ -670,20 +620,20 @@ Attaching package: 'dplyr'</code></pre>
 <li>Uurige seoseid muutujate vahel korrelatsioonikordaja abil</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1. </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>loyalty_program_member)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1. </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>loyalty_program_member)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   0   1 
 415 585 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2. </span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>share_of_wallet)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2. </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>share_of_wallet)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.1815  0.3732  0.4420  0.4268  0.4868  0.5753 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>share_of_wallet)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>share_of_wallet)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -691,8 +641,8 @@ Attaching package: 'dplyr'</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#3. </span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(loyalty_program_member) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_sow =</span> <span class="fu">mean</span>(share_of_wallet))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#3. </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(loyalty_program_member) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_sow =</span> <span class="fu">mean</span>(share_of_wallet))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   loyalty_program_member mean_sow
@@ -700,9 +650,9 @@ Attaching package: 'dplyr'</code></pre>
 1                      0    0.374
 2                      1    0.464</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#4. </span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>pairwise_correlations <span class="ot">&lt;-</span> <span class="fu">cor</span>(data, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pairwise_correlations, <span class="dv">3</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#4. </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pairwise_correlations <span class="ot">&lt;-</span> <span class="fu">cor</span>(data, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pairwise_correlations, <span class="dv">3</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                       household_id hh_income economic_benefit
 household_id                  1.000    -0.009            0.020
@@ -740,10 +690,10 @@ share_of_wallet             -0.026                  0.558           1.000</code>
 <h3 class="anchored" data-anchor-id="ols">OLS</h3>
 <p>Hindame seose, kuidas SOW sõltub programmi kuulumisest, leibkonna sissetulekust ja kas programm annab allahindust või kogub raha.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Eirame valikunihet </span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>olsmudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(olsmudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Eirame valikunihet </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>olsmudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(olsmudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -768,8 +718,8 @@ Residual standard error: 0.06452 on 995 degrees of freedom
 Multiple R-squared:  0.342, Adjusted R-squared:  0.3394 
 F-statistic: 129.3 on 4 and 995 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#robustsed standardvead</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(olsmudel, <span class="at">vcov. =</span> sandwich)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#robustsed standardvead</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(olsmudel, <span class="at">vcov. =</span> sandwich)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -783,7 +733,7 @@ saving_rate            -0.0516023  0.1091160 -0.4729    0.6364
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meil ei ole heteroskedastiivsust</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meil ei ole heteroskedastiivsust</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -794,10 +744,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Esimeses etapis prognoosime loyalty_program_member instrumentaalmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (discount_rate ja saving_rate) abil.</p>
 <p>Esimene samm: lojaalsusprogrammi liikmesuse prognoosimine</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>stage1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>             privacy_concern <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stage1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>             privacy_concern <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -827,19 +777,19 @@ F-statistic: 23.35 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Mis mõjutab lojaalsusprogrammi astumist?</p>
 <p>Lojaalsusprogrammi liikmesuse prognoositud väärtused</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>predicted_loyalty <span class="ot">&lt;-</span> <span class="fu">predict</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>predicted_loyalty <span class="ot">&lt;-</span> <span class="fu">predict</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Teine samm: Prognoositud lojaalsuse kasutamine kulutuste osakaalu mudelis Teises etapis kasutame esimeses etapis saadud prognoositud väärtusi mudelis share_of_wallet jaoks.</p>
 <p>Teine samm: 2SLS hinnang, kasutades lojaalsusprogrammi liikmesuse prognoositud väärtusi</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>stage2iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> predicted_loyalty <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>stage2iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> predicted_loyalty <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
 <section id="teise-etapi-kokkuvõte" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> Teise etapi kokkuvõte</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2iv)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2iv)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -867,7 +817,7 @@ F-statistic: 8.515 on 4 and 995 DF,  p-value: 9.326e-07</code></pre>
 </div>
 <p>Võrdleme</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ==============================================================================================
@@ -906,12 +856,12 @@ Note:                                                              *p&lt;0.1; **
 </div>
 <p>Kontrollfunktsiooniga (control function)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>vhat <span class="ot">&lt;-</span> <span class="fu">residuals</span>(stage1)</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>stage2ivcf <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate <span class="sc">+</span> vhat, <span class="at">data =</span> data)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>vhat <span class="ot">&lt;-</span> <span class="fu">residuals</span>(stage1)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>stage2ivcf <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate <span class="sc">+</span> vhat, <span class="at">data =</span> data)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -937,7 +887,7 @@ Residual standard error: 0.06403 on 994 degrees of freedom
 Multiple R-squared:  0.3526,    Adjusted R-squared:  0.3494 
 F-statistic: 108.3 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 =======================================================================================================================
@@ -980,12 +930,12 @@ Note:                                                                           
 <p>Alternatiiv: 2SLS-i kasutamine ivreg funktsiooniga 2SLS-i saab teostada ka ivreg funktsiooni abil paketist AER, mis viib läbi mõlemad sammud korraga.</p>
 <p>Kahesammuline väikseimate ruutude meetod (2SLS) ivreg funktsiooniga</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>iv_model <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate <span class="sc">|</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                    economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span> privacy_concern <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>iv_model <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate <span class="sc">|</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                    economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span> privacy_concern <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2SLS mudeli kokkuvõte</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2SLS mudeli kokkuvõte</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1015,7 +965,7 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 </div>
 <p>Võrdlus</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, iv_model, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, iv_model, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ========================================================================================================================================
@@ -1059,7 +1009,7 @@ Note:                                                                           
 <p>Selgitus</p>
 <p>ivreg funktsioon: See funktsioon hindab 2SLS mudelit. Esimene osa (share_of_wallet ~ loyalty_program_member + hh_income + discount_rate + saving_rate) määrab tulemuse ja endogeense muutuja, samas kui teine osa (|economic_benefit + non_economic_benefit + privacy_concern + hh_income + discount_rate + saving_rate) määrab instrumendid ja eksogeensed muutujad.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1098,15 +1048,15 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 <h2 data-number="9.1" class="anchored" data-anchor-id="testid"><span class="header-section-number">9.1</span> Testid</h2>
 <p>Wu-Hausmani test</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kas meil on instrumenti vaja?</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)<span class="sc">$</span>coefficients[<span class="st">"vhat"</span>,]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kas meil on instrumenti vaja?</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)<span class="sc">$</span>coefficients[<span class="st">"vhat"</span>,]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Estimate   Std. Error      t value     Pr(&gt;|t|) 
 5.430503e-02 1.347645e-02 4.029623e+00 6.012936e-05 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(olsmudel, stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(olsmudel, stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1120,8 +1070,8 @@ Model 2: share_of_wallet ~ loyalty_program_member + hh_income + discount_rate +
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Waldi test</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">waldtest</span>(olsmudel, stage2ivcf, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Waldi test</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">waldtest</span>(olsmudel, stage2ivcf, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Wald test
 
@@ -1135,10 +1085,10 @@ Model 2: share_of_wallet ~ loyalty_program_member + hh_income + discount_rate +
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#See test on esitatud ivreg tulemustest</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#See test on esitatud ivreg tulemustest</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1176,7 +1126,7 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 <section id="kas-instrumendid-on-tugevad" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="kas-instrumendid-on-tugevad"><span class="header-section-number">9.2</span> Kas instrumendid on tugevad?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1202,10 +1152,10 @@ Residual standard error: 0.4675 on 994 degrees of freedom
 Multiple R-squared:  0.1051,    Adjusted R-squared:  0.1006 
 F-statistic: 23.35 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test - võrdleme meie mudelit ja ilma instrumentideta mudelit</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>stage1abi <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(stage1abi, stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test - võrdleme meie mudelit ja ilma instrumentideta mudelit</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>stage1abi <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(stage1abi, stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1218,10 +1168,10 @@ Model 2: loyalty_program_member ~ economic_benefit + non_economic_benefit +
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test on oluline ja suurem ka kui 10</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Sama oli siin</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test on oluline ja suurem ka kui 10</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Sama oli siin</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1674,8 +1624,8 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./08-mlpuumets.html" class="pagination-link" aria-label="Masinõppemudelid">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./08-synthcontr.html" class="pagination-link" aria-label="Sünteetilise võrdlusobjekti meetod">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

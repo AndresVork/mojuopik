@@ -14,7 +14,7 @@
     "href": "01-sissejuhatus.html",
     "title": "1  Sissejuhatus",
     "section": "",
-    "text": "Tuleb kunagi",
+    "text": "Tuleb kunagi\nLisada peatükid:",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sissejuhatus</span>"
     ]
@@ -142,11 +142,171 @@
   {
     "objectID": "02-pohimoisted.html",
     "href": "02-pohimoisted.html",
-    "title": "3  Potentsiaalse tulemuse mudel",
+    "title": "3  Sissejuhatus",
     "section": "",
-    "text": "Poolik - arenev",
+    "text": "4 Notatsioon ja potentsiaalsed tulemused\nPotentsiaalse tulemuse mudel (potential outcomes model, POM) on põhjusliku mõju hindamise standardne raamistik statistikas ja majandusteaduses. Mudeli juured on Splawa-Neymani (1923), Roy (1951), Quandt’i (1958) ja Rubini (1974) töödes ning seda nimetatakse sageli Neyman–Rubin–Roy mudeliks.\nPõhiidee on lihtne: enne poliitikameedet või sekkumist on igal indiviidil mitu võimalikku tulemust, sõltuvalt sellest, kas ta osaleb meetmes või mitte. Reaalses elus näeme iga indiviidi kohta vaid üht realiseerunud tulemust. Sellest tekib põhjuslikkuse „põhiprobleem”: me ei näe kunagi sama indiviidi nii osalemas kui mitteosalejana samal ajal.\nPOM annab süsteemse raamistiku, kuidas notatsiooni abil defineerida huvipakkuvad suurused (ATE, ATT, ATU, CATE, LATE jne) ning milliste eelduste korral võime neid põhjuslikult tõlgendada.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Potentsiaalse tulemuse mudel</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#töötlus-ja-tulemused",
+    "href": "02-pohimoisted.html#töötlus-ja-tulemused",
+    "title": "3  Sissejuhatus",
+    "section": "4.1 Töötlus ja tulemused",
+    "text": "4.1 Töötlus ja tulemused\nOlgu indiviid (i) jaoks\n\nmeetmes osalemise tunnus\n\\[\nD_i \\in \\{0,1\\},\n\\] kus (D_i = 1) tähendab osalemist meetmes ja (D_i = 0) mitteosalemist;\npotentsiaalsed tulemused\nMeetmes osalemise korral:\n\\[ Y_i(1) \\quad \\text{tulemus, kui } D_i = 1, \\]\n\nMeetmes mitteosalemise korral\n\\[ Y_i(0) \\quad \\text{tulemus, kui } D_i = 0. \\]\nReaalselt jälgitav tulemus on\n\\[ Y_i = D_i \\, Y_i(1) + (1 - D_i)\\, Y_i(0). \\]\nSageli on meil lisaks ka vektor individuaalseid tunnuseid\n\\[ X_i = (X_{i1}, X_{i2}, \\dots, X_{ik}), \\]\nnäiteks sugu, vanus, haridus, piirkond, varasem sissetulek jne.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#individuaalne-mõju",
+    "href": "02-pohimoisted.html#individuaalne-mõju",
+    "title": "3  Sissejuhatus",
+    "section": "4.2 Individuaalne mõju",
+    "text": "4.2 Individuaalne mõju\nIndividuaalne põhjuslik mõju indiviidi (i) jaoks on\n\\[\n\\delta_i = Y_i(1) - Y_i(0).\n\\]\nSellist mõju ei saa kunagi otse mõõta, sest me ei näe sama indiviidi korraga kahes olekus. Seetõttu keskendume populatsiooni- või alampopulatsiooni keskmistele mõjudele.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#ate-keskmine-mõju-populatsioonis",
+    "href": "02-pohimoisted.html#ate-keskmine-mõju-populatsioonis",
+    "title": "3  Sissejuhatus",
+    "section": "5.1 ATE – keskmine mõju populatsioonis",
+    "text": "5.1 ATE – keskmine mõju populatsioonis\nPoliitikameetme keskmine mõju (average treatment effect, ATE) on defineeritud kui\n\\[\n\\text{ATE} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\big]\n           = \\mathbb{E}\\big[ Y_i(1) \\big] - \\mathbb{E}\\big[ Y_i(0) \\big].\n\\]\nTõlgendus: milline oleks keskmine tulemus, kui kogu populatsioon saaks töötluse, võrreldes olukorraga, kui keegi ei saaks töötlust.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#att-keskmine-mõju-osalenutele",
+    "href": "02-pohimoisted.html#att-keskmine-mõju-osalenutele",
+    "title": "3  Sissejuhatus",
+    "section": "5.2 ATT – keskmine mõju osalenutele",
+    "text": "5.2 ATT – keskmine mõju osalenutele\nOsalenute keskmine mõju (average treatment effect on the treated, ATT) on\n\\[\n\\text{ATT} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 1 \\big].\n\\]\nTõlgendus: kui palju paranesid tulemused nende jaoks, kes tegelikult osalesid, võrreldes hüpoteetilise olukorraga, kus just need samad inimesed ei oleks osalenud.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#atu-keskmine-mõju-mitteosalenutele",
+    "href": "02-pohimoisted.html#atu-keskmine-mõju-mitteosalenutele",
+    "title": "3  Sissejuhatus",
+    "section": "5.3 ATU – keskmine mõju mitteosalenutele",
+    "text": "5.3 ATU – keskmine mõju mitteosalenutele\nMitteosalenute keskmine mõju (average treatment effect on the untreated, ATU) on\n\\[\n\\text{ATU} = \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 0 \\big].\n\\]\nTõlgendus: kui palju oleks muutunud mitteosalenute tulemused, kui just nemad oleksid töötluse saanud.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#ate-seos-att-ja-atu-ga",
+    "href": "02-pohimoisted.html#ate-seos-att-ja-atu-ga",
+    "title": "3  Sissejuhatus",
+    "section": "5.4 ATE seos ATT ja ATU-ga",
+    "text": "5.4 ATE seos ATT ja ATU-ga\nOlgu\n\\[\np = \\Pr(D_i = 1)\n\\]\nosalenute osakaal populatsioonis. Siis kehtib seos\n\\[\n\\text{ATE} = p \\cdot \\text{ATT} + (1 - p) \\cdot \\text{ATU}.\n\\]\nSeega võivad ATT ja ATU olla erinevad, kui mõju on heterogeenne eri rühmades, ning ATE on nende kaalutud keskmine.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#näide-1-töötajate-koolitusprogramm",
+    "href": "02-pohimoisted.html#näide-1-töötajate-koolitusprogramm",
+    "title": "3  Sissejuhatus",
+    "section": "6.1 Näide 1: Töötajate koolitusprogramm",
+    "text": "6.1 Näide 1: Töötajate koolitusprogramm\n\nMeede: ettevõte viib valitud töötajatele läbi edasijõudnute programmeerimiskoolituse.\nTulemus: tootlikkuse kasv (nt müük töötaja kohta, koodi kvaliteet).\nGrupid:\n\nkoolitatud: koolitusele valitud töötajad ((D=1));\nkoolitamata: töötajad, kes koolitust ei saanud ((D=0)).\n\n\nTõlgendused:\n\nATT:\nKui palju paranes tootlikkus koolitusel osalenud töötajatel võrreldes olukorraga, kus just need samad töötajad ei oleks koolitusel osalenud?\nATU:\nKui palju oleks muutunud tootlikkus töötajatel, kes ei osalenud, kui nemad oleksid koolituse saanud?\nATE:\nKui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv ettevõttes?",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#näide-2-turunduskampaania",
+    "href": "02-pohimoisted.html#näide-2-turunduskampaania",
+    "title": "3  Sissejuhatus",
+    "section": "6.2 Näide 2: Turunduskampaania",
+    "text": "6.2 Näide 2: Turunduskampaania\n\nMeede: ettevõte saadab valitud klientidele e-posti kampaania allahindlusega.\nTulemus: ostutõenäosuse või käibe muutus.\n\nTõlgendused:\n\nATT: milline oli müügi kasv kampaania saanud klientide seas (võrreldes olukorraga, kus need kliendid poleks pakkumist saanud)?\nATU: kui palju oleks muutunud kampaania saamata klientide ostutõenäosus, kui neile oleks pakkumine saadetud?\nATE: mis oleks tulemus, kui kampaania saadetaks kõigile klientidele?\n\nSarnasel viisil saab tõlgendada ka tehnoloogiauendusi (nt uue AI-laohaldussüsteemi kasutuselevõtt) või paindlikke töökorraldusi (kaugtöö võimalus).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#lihtne-erinevus-tulemustes",
+    "href": "02-pohimoisted.html#lihtne-erinevus-tulemustes",
+    "title": "3  Sissejuhatus",
+    "section": "7.1 Lihtne erinevus tulemustes",
+    "text": "7.1 Lihtne erinevus tulemustes\nPraktikas alustatakse sageli lihtsa keskmiste erinevusega\n\\[\n\\text{SDO}\n= \\mathbb{E}[Y_i \\mid D_i = 1] - \\mathbb{E}[Y_i \\mid D_i = 0],\n\\]\nmida nimetatakse sageli simple difference of outcomes.\nÜldjuhul ei võrdunud see ATE-ga, sest osalejad ja mitteosalejad erinevad süsteemselt (valikunihe) ning mõju võib olla heterogeenne.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#valikunihe-ja-heterogeense-mõju-nihe",
+    "href": "02-pohimoisted.html#valikunihe-ja-heterogeense-mõju-nihe",
+    "title": "3  Sissejuhatus",
+    "section": "7.2 Valikunihe ja heterogeense mõju nihe",
+    "text": "7.2 Valikunihe ja heterogeense mõju nihe\nSDO saame kirjutada kujul\n\\[\n\\begin{aligned}\n\\text{SDO}\n&= \\mathbb{E}\\big[ Y_i(1) \\mid D_i = 1 \\big]\n   - \\mathbb{E}\\big[ Y_i(0) \\mid D_i = 0 \\big] \\\\\n&= \\underbrace{\\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid D_i = 1 \\big]}_{\\text{ATT}}\n   + \\underbrace{\\Big(\\mathbb{E}\\big[ Y_i(0) \\mid D_i = 1 \\big]\n   - \\mathbb{E}\\big[ Y_i(0) \\mid D_i = 0 \\big]\\Big)}_{\\text{valikunihe}}.\n\\end{aligned}\n\\]\nLihtne erinevus sisaldab seega kahte komponenti:\n\ntõeline põhjuslik mõju osalenutele (ATT);\nvalikunihe (selection bias), mis tuleneb sellest, et osalenute ja mitteosalenute potentsiaalsed tulemused ilma meetmeta on erinevad.\n\nLisaks võib tekkida nihe heterogeense mõju tõttu, sest ATE, ATT ja ATU on erinevad ning lihtne erinevus ei kasuta „õigeid” kaale eri rühmade keskmiste kombineerimisel. Kokkuvõttes võib kirjutada skemaatiliselt\n\\[\n\\text{SDO} = \\text{ATE} + \\text{valikunihe} + \\text{heterogeense mõju nihe}.\n\\]\nAinult juhul, kui puudub valikunihe ja mõju ei ole heterogeenne (või kasutatakse sobivaid kaale), võime lihtsat erinevust tõlgendada keskmise põhjusliku mõjuna.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#tugev-sõltumatuse-eeldus",
+    "href": "02-pohimoisted.html#tugev-sõltumatuse-eeldus",
+    "title": "3  Sissejuhatus",
+    "section": "9.1 Tugev sõltumatuse eeldus",
+    "text": "9.1 Tugev sõltumatuse eeldus\nKõige lihtsam olukord on juhuslik eksperiment, kus töötlus määratakse loosiga. Sellisel juhul eeldame, et\n\\[\n\\big( Y_i(0), Y_i(1) \\big) \\;\\perp\\!\\!\\!\\perp\\; D_i,\n\\]\nst osalemine ei sõltu potentsiaalsetest tulemustest.\nSellisel juhul\n\\[\n\\mathbb{E}[Y_i(0) \\mid D_i = 1] = \\mathbb{E}[Y_i(0) \\mid D_i = 0],\n\\]\n\\[\n\\mathbb{E}[Y_i(1) \\mid D_i = 1] = \\mathbb{E}[Y_i(1) \\mid D_i = 0],\n\\]\nja lihtne keskmiste erinevus annab ATE:\n\\[\n\\text{SDO} = \\mathbb{E}[Y_i \\mid D_i=1] - \\mathbb{E}[Y_i \\mid D_i=0] = \\text{ATE}.\n\\]\nMajanduses on see eeldus sageli ebarealistlik: inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu (enesevalik), ning programmitöötajad võivad „koort riisuda”, valides osalejateks motiveeritumaid või võimekamaid indiviide.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#tingimuslik-sõltumatuse-eeldus-cia",
+    "href": "02-pohimoisted.html#tingimuslik-sõltumatuse-eeldus-cia",
+    "title": "3  Sissejuhatus",
+    "section": "10.1 Tingimuslik sõltumatuse eeldus (CIA)",
+    "text": "10.1 Tingimuslik sõltumatuse eeldus (CIA)\nTingimusliku sõltumatuse eeldus (conditional independence assumption, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis potentsiaalsed tulemused ei sõltu enam osalemisotsusest:\n\\[\n\\big( Y_i(0), Y_i(1) \\big) \\;\\perp\\!\\!\\!\\perp\\; D_i \\mid X_i.\n\\]\nSarnased terminid kirjanduses:\n\nunconfoundedness (Rosenbaum ja Rubin, 1983),\nselection on observables (Barnow jt, 1980),\nexogeneity (Imbens, 2004),\nignorability (Rubin, 1978).\n\nIntuitsioon: kui kontrollime piisavalt rikkalikku (X)-vektorit (nt sugu, vanus, haridus, varasem palgatase, tööstusharu jne), siis osalemisotsus on „nagu juhuslik” tingimuslikult (X)-le.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#tingimuslik-keskväärtuse-sõltumatus",
+    "href": "02-pohimoisted.html#tingimuslik-keskväärtuse-sõltumatus",
+    "title": "3  Sissejuhatus",
+    "section": "10.2 Tingimuslik keskväärtuse sõltumatus",
+    "text": "10.2 Tingimuslik keskväärtuse sõltumatus\nNõrgem versioon on tingimusliku keskväärtuse sõltumatuse eeldus:\n\\[\n\\mathbb{E}[ Y_i(0) \\mid D_i=1, X_i = x]\n= \\mathbb{E}[ Y_i(0) \\mid D_i=0, X_i = x],\n\\]\n\\[\n\\mathbb{E}[ Y_i(1) \\mid D_i=1, X_i = x]\n= \\mathbb{E}[ Y_i(1) \\mid D_i=0, X_i = x].\n\\]\nSee eeldab, et erinevused keskmistes potentsiaalsetes tulemustes kaovad, kui vaatleme piisavalt kitsaid (X)-alamrühmi, ehkki jaotuste kujud võivad erineda.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#intention-to-treat-effect-itt",
+    "href": "02-pohimoisted.html#intention-to-treat-effect-itt",
+    "title": "3  Sissejuhatus",
+    "section": "13.1 Intention to treat effect (ITT)",
+    "text": "13.1 Intention to treat effect (ITT)\nSageli ei saa me kontrollida, kas indiviid tegelikult meetmes osales; kontrollime ainult, kas talle pakuti töötlust. Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist (instrumentaalne muutuja).\nITT on\n\\[\n\\text{ITT} = \\mathbb{E}[Y_i \\mid Z_i = 1] - \\mathbb{E}[Y_i \\mid Z_i = 0].\n\\]\nSee mõõdab mõju „pakutud” töötlusele, mitte tegelikule osalemisele, ning võib olla oluline poliitika mõjude hindamisel, kus täitmine on ebatäielik.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#lokaalne-keskmine-mõju-late",
+    "href": "02-pohimoisted.html#lokaalne-keskmine-mõju-late",
+    "title": "3  Sissejuhatus",
+    "section": "13.2 Lokaalne keskmine mõju (LATE)",
+    "text": "13.2 Lokaalne keskmine mõju (LATE)\nInstrumentaalmuutujate raamistikus saame määratleda lokaalse keskmise mõju (local average treatment effect, LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentaalse muutuja muutumise tõttu (compliers):\n\\[\n\\text{LATE}\n= \\frac{\\mathbb{E}[Y_i \\mid Z_i = 1] - \\mathbb{E}[Y_i \\mid Z_i = 0]}\n       {\\mathbb{E}[D_i \\mid Z_i = 1] - \\mathbb{E}[D_i \\mid Z_i = 0]}.\n\\]\nLATE on keskmine mõju nende indiviidide jaoks, kes „on piiri peal” ning kelle osalemine sõltub instrumendist (näiteks seadusemuudatusest, kvoodist, loteriivõidust).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
+    ]
+  },
+  {
+    "objectID": "02-pohimoisted.html#tingimuslik-keskmine-mõju-cate",
+    "href": "02-pohimoisted.html#tingimuslik-keskmine-mõju-cate",
+    "title": "3  Sissejuhatus",
+    "section": "13.3 Tingimuslik keskmine mõju (CATE)",
+    "text": "13.3 Tingimuslik keskmine mõju (CATE)\nKui mõju on heterogeenne, võib huvitada tingimuslik keskmine mõju teatud (X)-väärtuse korral:\n\\[\n\\text{CATE}(x)\n= \\mathbb{E}\\big[ Y_i(1) - Y_i(0) \\mid X_i = x \\big].\n\\]\nCATE võimaldab uurida näiteks:\n\nkuidas erineb tööturukoolituse mõju vanusegruppide lõikes;\nkuidas sõltub mõju varasemast palgatasemest;\nmillistele alarühmadele programm kõige rohkem kasu toob.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sissejuhatus</span>"
     ]
   },
   {
@@ -294,7 +454,7 @@
     "href": "06-sobitamine.html#mõistetest",
     "title": "7  Sobitamine",
     "section": "",
-    "text": "\\(Y_i(1)\\) – isiku \\(i\\) tulemus, kui ta osaleb meetmes\n\n\\(Y_i(0)\\) – sama isiku tulemus, kui ta ei osale\n\n\\(D_i \\in \\{0,1\\}\\) – indicator, kas isik osales (1) või mitte (0)\n\n$X_i4 – vektor taustatunnuseid (vanus, sugu, haridus, eelnev töökogemus jne)",
+    "text": "\\(Y_i(1)\\) – isiku \\(i\\) tulemus, kui ta osaleb meetmes\n\n\\(Y_i(0)\\) – sama isiku tulemus, kui ta ei osale\n\n\\(D_i \\in \\{0,1\\}\\) – indicator, kas isik osales (1) või mitte (0)\n\n\\(X_i4\\) – vektor taustatunnuseid (vanus, sugu, haridus, eelnev töökogemus jne)",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Sobitamine</span>"
     ]
@@ -454,7 +614,7 @@
     "href": "07-ivmeetod.html#näide",
     "title": "8  Instrumentmuutuja",
     "section": "8.11 Näide",
-    "text": "8.11 Näide\nSee näide püüab korrata lähenemist, mis kasutati Leenheer jt. artiklis.\nVt Jorna Leenheer, Harald J. van Heerde, Tammo H.A. Bijmolt, Ale Smidts, “Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members, International Journal of Research in Marketing,”, Volume 24, Issue 1, 2007, Pages 31-47, ISSN 0167-8116, https://doi.org/10.1016/j.ijresmar.2006.10.005. https://www.sciencedirect.com/science/article/abs/pii/S016781160600084X\nArtikkel uurib ettevõtete lojaalsusprogrammide mõju kliendilojaalsusele, arvestades valikunihet (selection bias). Lojaalsusprogrammi valivad need kliendid, kes juba nagunii kasutavad teenuseid enam. Seega ülehindaksime lojaalsusprogrammide mõju klientide lojaalsusele.\nMeetod hõlmab kahesammulist vähimruutude meetodit (2SLS) koos instrumentmuutujatega, et hinnata lojaalsusprogrammi liikmesuse mõju kulutuste osakaalule (share-of-wallet, SOW).\n\nAndmed\n\nhousehold_id: Unikaalne ID igale majapidamisele.\nloyalty_program_member: Binaarne muutuja, mis näitab liikmesust (1, kui on liige; 0, kui ei ole).\nshare_of_wallet: Majapidamise kulutuste osakaal poes.\neconomic_benefit: Lojaalsusprogrammide tajutud majanduslik kasu (instrumentmuutuja). - üleüldine\nnon_economic_benefit: Tajutud mittemajanduslik kasu (instrumentmuutuja). - üleüldine\nprivacy_concern: Privaatsusega seotud mured lojaalsusprogrammide osas (instrumentmuutuja). - üleüldine\ndiscount_rate: Lojaalsusprogrammi allahindluse määr.\nsaving_rate: Lojaalsusprogrammi säästumäär.\nhh_income: leibkonna sissetulek\n\n\nlibrary(AER) # 2SLS mudeli jaoks\n\nLoading required package: car\n\n\nLoading required package: carData\n\n\nLoading required package: lmtest\n\n\nLoading required package: zoo\n\n\n\nAttaching package: 'zoo'\n\n\nThe following objects are masked from 'package:base':\n\n    as.Date, as.Date.numeric\n\n\nLoading required package: sandwich\n\n\nLoading required package: survival\n\nlibrary(stargazer) # tulemuste esitamiseks\n\n\nPlease cite as: \n\n\n Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.\n\n\n R package version 5.2.3. https://CRAN.R-project.org/package=stargazer \n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following object is masked from 'package:car':\n\n    recode\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(sandwich) #robustsed standardvead\nlibrary(lmtest) #testid",
+    "text": "8.11 Näide\nSee näide püüab korrata lähenemist, mis kasutati Leenheer jt. artiklis.\nVt Jorna Leenheer, Harald J. van Heerde, Tammo H.A. Bijmolt, Ale Smidts, “Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members, International Journal of Research in Marketing,”, Volume 24, Issue 1, 2007, Pages 31-47, ISSN 0167-8116, https://doi.org/10.1016/j.ijresmar.2006.10.005. https://www.sciencedirect.com/science/article/abs/pii/S016781160600084X\nArtikkel uurib ettevõtete lojaalsusprogrammide mõju kliendilojaalsusele, arvestades valikunihet (selection bias). Lojaalsusprogrammi valivad need kliendid, kes juba nagunii kasutavad teenuseid enam. Seega ülehindaksime lojaalsusprogrammide mõju klientide lojaalsusele.\nMeetod hõlmab kahesammulist vähimruutude meetodit (2SLS) koos instrumentmuutujatega, et hinnata lojaalsusprogrammi liikmesuse mõju kulutuste osakaalule (share-of-wallet, SOW).\n\nAndmed\n\nhousehold_id: Unikaalne ID igale majapidamisele.\nloyalty_program_member: Binaarne muutuja, mis näitab liikmesust (1, kui on liige; 0, kui ei ole).\nshare_of_wallet: Majapidamise kulutuste osakaal poes.\neconomic_benefit: Lojaalsusprogrammide tajutud majanduslik kasu (instrumentmuutuja). - üleüldine\nnon_economic_benefit: Tajutud mittemajanduslik kasu (instrumentmuutuja). - üleüldine\nprivacy_concern: Privaatsusega seotud mured lojaalsusprogrammide osas (instrumentmuutuja). - üleüldine\ndiscount_rate: Lojaalsusprogrammi allahindluse määr.\nsaving_rate: Lojaalsusprogrammi säästumäär.\nhh_income: leibkonna sissetulek\n\n\nlibrary(AER) # 2SLS mudeli jaoks\nlibrary(stargazer) # tulemuste esitamiseks\nlibrary(dplyr)\nlibrary(sandwich) #robustsed standardvead\nlibrary(lmtest) #testid",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Instrumentmuutuja</span>"
     ]
@@ -510,63 +670,363 @@
     ]
   },
   {
-    "objectID": "08-mlpuumets.html",
-    "href": "08-mlpuumets.html",
-    "title": "9  Masinõppemudelid",
+    "objectID": "08-synthcontr.html",
+    "href": "08-synthcontr.html",
+    "title": "9  Sünteetilise võrdlusobjekti meetod",
     "section": "",
-    "text": "9.1 Taust",
+    "text": "9.1 Taust\nSynthetic control method (SCM)\nSelles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (synthetic control method), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.\nMotivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, sest subjektiivne valik võib kallutada tulemusi. Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Masinõppemudelid</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Sünteetilise võrdlusobjekti meetod</span>"
     ]
   },
   {
-    "objectID": "08-mlpuumets.html#näide",
-    "href": "08-mlpuumets.html#näide",
-    "title": "9  Masinõppemudelid",
-    "section": "9.2 Näide",
-    "text": "9.2 Näide\nTuleb kunagi",
+    "objectID": "08-synthcontr.html#taust-ja-rakenduste-näited",
+    "href": "08-synthcontr.html#taust-ja-rakenduste-näited",
+    "title": "9  Sünteetilise võrdlusobjekti meetod",
+    "section": "9.2 Taust ja rakenduste näited",
+    "text": "9.2 Taust ja rakenduste näited\nEmpiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Abadie, Diamond ja Hainmueller (2010) meetodit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.\nEestis on meetodit kasutatud näiteks Centari analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Samuti kasutab Meriküll (2025) sünteetilise dif-dif lähenemist, et hinnata, kuidas kogumispensioni varasem vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud.\nNeed näited illustreerivad, et sünteetilise kontrolli meetod on kasulik just siis, kui mõjutatud üksusi on vähe ja me soovime vältida ad hoc ühe võrdlusriigi või -piirkonna valikut.\n\nSeade ja tähistused\nOlgu meil \\(J + 1\\) agregeeritud objekti: üks käsitletav objekt (näiteks California või Baskimaa) ning \\(J\\) potentsiaalset kontrollobjekti (doonorgrupp). Ajalist dimensiooni tähistame perioodidega \\(t = 1, \\dots, T\\), kus sekkumine toimub alates ajast \\(T_0 + 1\\). Perioodid \\(t \\leq T_0\\) on sekkumiseelsed, perioodid \\(t &gt; T_0\\) sekkumisjärgsed.\nOlgu \\(Y_{it}\\) objekt \\(i\\) tegelik tulemusmuutuja (näiteks sigarettide müük elaniku kohta) perioodil \\(t\\). Huvipakkuv on sekkumise mõju käsitletavale üksusele \\(i = 1\\), mida defineerime kui vahe tegeliku tulemuse ja kontrafaktuaalse tulemuse vahel:\n\\[\n\\alpha_{1t} = Y_{1t}^{I} - Y_{1t}^{N}, \\quad t &gt; T_0,\n\\]\nkus \\(Y_{1t}^{I}\\) on tulemus sekkumisega (täheldatav) ning \\(Y_{1t}^{N}\\) oleks tulemus ilma sekkumiseta (võrdlusseisund), mida otseselt ei näe.\nSünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida \\(Y_{1t}^{N}\\) konstrueeritakse kontrollobjektide kaalutud keskmisena:\n\\[ Y\\_{1t}\\^{N} \\approx \\sum*{j=2}\\^{J+1} w_j Y*{jt}, \\quad t = 1, \\dots, T, \\]\nkus kaalud \\(w_j \\geq 0\\) ja \\(\\sum_{j=2}^{J+1} w_j = 1\\). Need kaalud määravad „sünteetilise kontrolli”, ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada käsitletava objektiga võimalikult täpselt.\nSellisel juhul on mõju hinnang ajapunktis \\(t &gt; T_0\\):\n\\[ \\hat{\\alpha}*{1t} = Y*{1t} - \\sum\\_{j=2}\\^{J+1} \\hat{w}*j Y*{jt}. \\]\nGraafiliselt saame võrrelda käsitletava objekti tegelikku rada ning sünteetilise kontrolli rada, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.\n\n\nSelgitavad tunnused ja kaalud\nLisaks tulemusmuutujale kasutab meetod sobitamiseks selgitavaid tunnuseid ja sekkumiseelseid tulemusi. Olgu \\(X_1\\) vektor käsitletava objekti tunnustest ja sekkumiseelsete tulemuste kokkuvõtlikest näitajatest (näiteks keskmised väärtused), ning \\(X_0\\) maatriks samade tunnuste kohta kontrollobjektide jaoks:\n$$ X_1 = (x_{11}, , x_{1K})’, X_0 =\n\\[\\begin{pmatrix}\nx_{21} & \\dots & x_{J+1,1} \\\\\n\\vdots & \\ddots & \\vdots \\\\\nx_{2K} & \\dots & x_{J+1,K}\n\\end{pmatrix}\\]\n$$\nLisaks kaaludele objektidele \\(w = (w_2, \\dots, w_{J+1})'\\) kasutatakse ka kaalusid tunnustele \\(V\\), mis on diagonaalmaatriks suhtelise olulisusega tunnuste vahel. Intuitsioon on, et mõni tunnus – näiteks sekkumiseelsed tulemused – võib olla eriti informatiivne tulevase tulemuse kohta ning seetõttu saab suurema kaalu.\nKaalud valitakse nii, et sobitada käsitletava objekti tunnused võimalikult hästi sünteetilisele kontrollile, minimeerides sobituskao:\n\\[ \\min\\_{w} (X_1 - X_0 w)' V (X_1 - X_0 w) \\]\nvõttes arvesse tingimusi \\(w_j \\geq 0\\) ja \\(\\sum_j w_j = 1\\). See miinimumväärtus ongi nn W-kaotus (W-loss), mis näitab, kui hästi suudame valitud \\(V\\) korral sobitada selgitavad tunnused.\nSeejärel valitakse \\(V\\) nii, et minimeerida sekkumiseelsel perioodil sünteetilise kontrolli prognoosivea ruutkeskmine, ehk sekkumiseelne ruutkeskmine prognoosiviga (MSPE, Root Mean Square Prediction Error). See on seotud nn V-kaotusega (V-loss), ehk sellega, kui hästi sekkumiseelse väljundi rada on käsitletava objekti ja sünteetilise kontrolli vahel ühtiv.\n\n\nCalifornia tubakakontrolli programmi näide\nÜks klassikaline sünteetilise kontrolli näide on California tubakakontrolli programmi – Proposition 99 – mõju analüüs. Tegemist oli 1988. aastal vastuvõetud seadusandliku paketiga, mis tõstis sigarettide aktsiisi 25 sendi võrra paki kohta ja suurendas makse ka teistele tubakatoodetele. Osa maksutulust suunati ulatusliku tubakakontrolli programmi rahastamiseks, mille eesmärk oli vähendada suitsetamist ning parandada rahvatervist.\nPaneelandmestik sisaldab 39 USA osariigi andmeid perioodil 1970–2000. California puhul võeti 1988. aastat kui sekkumishetke, seega sekkumiseelne periood hõlmab aastaid 1970–1988. Sünteetiline kontroll konstrueeriti kaalutud kombinatsioonina teistest osariikidest, kus sarnane tubakakontrolli programm puudus. Sobitamisel kasutati mitmeid selgitavaid tunnuseid, näiteks elaniku kohta arvutatavat sissetulekut, sigarettide hinda, vanuselist struktuuri ning varasemate erimaksudega seotud näitajaid.\nKaalud selgitavad, kui suure panuse annab iga doonor-osariik sünteetilise California moodustamisse. Samuti määratakse tunnuste kaalud \\(V\\), mis peegeldavad, millised tunnused on prognoosivõime seisukohast kõige olulisemad.\n\nJoonis kujutab California sigarettide müüki elaniku kohta koos sünteetilise kontrolli müügiga. Sekkumiseelsel perioodil peaksid need kaks aegrida olema üksteisele väga lähedal, mis kinnitab sobituse headust. Pärast sekkumist ilmneb järkjärguline lahknemine, mis näitab tubakakontrolliprogrammi mõju.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Masinõppemudelid</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Sünteetilise võrdlusobjekti meetod</span>"
     ]
   },
   {
-    "objectID": "09-mllasso.html",
-    "href": "09-mllasso.html",
-    "title": "10  LASSO",
+    "objectID": "08-synthcontr.html#eeldused",
+    "href": "08-synthcontr.html#eeldused",
+    "title": "9  Sünteetilise võrdlusobjekti meetod",
+    "section": "9.3 Eeldused",
+    "text": "9.3 Eeldused\nSünteetilise kontrolli meetodi korrektne tõlgendamine põhineb mitmel olulisel eeldusegrupil.\n\nEi ole vastastikmõjusid (SUTVA-laadne eeldus)\nEsimene eeldus puudutab vastastikmõjusid ehk üldise tasakaalumõju puudumist. Eeldame, et sekkumine käsitletaval objektil ei mõjuta otseselt kontrollobjektide tulemusi. Näiteks Baskimaa konflikti analüüsis eeldatakse, et konflikt ei mõjuta teiste Hispaania regioonide majanduskasvu. Teine näide oleks Eesti ettevõtte tulumaksumäära langetus, mille puhul eeldaksime, et see ei mõjuta naaberriikide ettevõtete majandusnäitajaid. See on sarnane SUTVA eeldusest tuntud nõudega, et ühe üksuse osalemine meetmes ei mõjuta teise üksuse tulemust.\nKui see eeldus ei kehti ja sekkumine „lekib” kontrollüksustesse, siis sünteetiline kontroll ei esinda enam korralikult võrdlusseisundit ilma sekkumiseta.\n\n\nParalleelsete trendide analoog ja sekkumiseelsed perioodid\nTeine oluliste eelduste rühm puudutab dünaamikat sekkumiseelsel perioodil. Nõuame, et kontrollgrupi tulemusi mõjutab sama struktuurne protsess, mis käsitletavat üksust, ning nii uuritav objekt kui ka kontrollüksused alluvad sarnastele šokkidele. See on analoog paralleelsete trendide eeldusele erinevuste vahe (dif-dif) meetodi puhul, kuid sünteetilise kontrolli korral kontrollime seda sobitamise abil.\nMida rohkem on sekkumiseelseid perioode, seda paremini on võimalik kontrollida nii vaadeldavate kui ka mittevaadeldavate tegurite mõju. Kui suudame sekkumiseelsel perioodil väga täpselt sobitada nii selgitavad tunnused kui ka tulemuste dünaamika, siis on usutav, et sama suhe püsib ka sekkumisjärgsel perioodil.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Sünteetilise võrdlusobjekti meetod</span>"
+    ]
+  },
+  {
+    "objectID": "08-synthcontr.html#platseeboanalüüs-ja-tulemuste-robustsus",
+    "href": "08-synthcontr.html#platseeboanalüüs-ja-tulemuste-robustsus",
+    "title": "9  Sünteetilise võrdlusobjekti meetod",
+    "section": "9.4 Platseeboanalüüs ja tulemuste robustsus",
+    "text": "9.4 Platseeboanalüüs ja tulemuste robustsus\nSelleks, et veenda lugejat, et leitud tulemused ei ole juhuslikud, kasutatakse sünteetilise kontrolli kontekstis sageli platseeboanalüüse ja RMSPE-suhetega teste.\n\nPlatseebod kontrollüksustele\nPlatseeboanalüüsi põhiidee seisneb selles, et rakendame sünteetilise kontrolli meetodit mitte ainult käsitletavale üksusele, vaid ka igale doonorgrupi üksusele. Iga kontrollüksuse jaoks konstrueerime sünteetilise versiooni, kasutades ülejäänud üksusi doonorina, ning „teeskleme”, et sekkumine toimus samal ajal ka selles kontrollüksuses.\nIga kontrollüksuse puhul võrdleme sekkumisjärgsel perioodil tegelikku tulemust selle sünteetilise kontrolliga. Kui tegelikult mingit mõju ei olnud, peaks nende kahe aegrea vahe jääma väikeseks ning olema sekkumiseelse perioodiga võrreldav. See loob nulljaotuse, millega saame võrrelda käsitletava üksuse kõrvalekallet.\nVisuaalselt võime joonistada kõikide üksuste (käsitletava ja platseebode) trajektoorid ning nende erinevuse sünteetilisest kontrollist. Kui käsitletava üksuse kõrvalekalle on selgelt suurem kui enamikul platseebodel, viitab see tõsiseltvõetavale sekkumise efektile.\n\n\nRMSPE suhted ja p-väärtus\nPlatseeboanalüüsi saab kvantifitseerida ruutkeskmise prognoosivea suhete kaudu. Olgu käsitletava või platseebos üksuse korral:\n\\[ \\text{RMSPE}\\_{\\text{pre}} = \\sqrt{\\frac{1}{T_0} \\sum_{t=1}^{T_0} (Y_{it} - Y_{it}^{\\text{SC}})^2}, \\]\n\\[ \\text{RMSPE}\\_{\\text{post}} = \\sqrt{\\frac{1}{T - T_0} \\sum_{t=T_0+1}^{T} (Y_{it} - Y_{it}^{\\text{SC}})^2}, \\]\nkus \\(Y_{it}^{\\text{SC}}\\) on sünteetilise kontrolli tulemus. Seejärel defineerime suhte:\n\\[ R_i = \\frac{\\text{RMSPE}_{\\text{post}}}{\\text{RMSPE}_{\\text{pre}}}\\]\nSuhe \\(R_i\\) suurem kui 1 viitab sellele, et sekkumisjärgne sobivus on halvem võrreldes sekkumiseelsega, ning suurem suhtarv tähendab suuremat eeldatavat sekkumise mõju. Arvutame selle suhte nii käsitletava üksuse kui ka kõikide platseebode jaoks ning järjestame need kahanevas järjekorras. Käsitletava üksuse positsioon selles jaotuses annabki täpse p-väärtuse:\n\\[ p = \\frac{\\#\\{i : R_i \\geq R_{\\text{treated}}\\}}{\\text{kõigi üksuste arv}}. \\]\nCalifornia näites oli käsitletava üksuse (California) suhe kõige suurem kõigi osariikide seas, mis andis p-väärtuseks ligikaudu \\(1/38 \\approx 0{,}026\\). See tähendab, et vaid ühel juhul 38-st võiksime oodata vähemalt sama suurt kõrvalekallet, kui mõju tegelikult ei oleks.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Sünteetilise võrdlusobjekti meetod</span>"
+    ]
+  },
+  {
+    "objectID": "08-synthcontr.html#tasakaalu-kontroll",
+    "href": "08-synthcontr.html#tasakaalu-kontroll",
+    "title": "9  Sünteetilise võrdlusobjekti meetod",
+    "section": "9.5 Tasakaalu kontroll",
+    "text": "9.5 Tasakaalu kontroll\nKui kaalud \\(w\\) ja \\(V\\) on õigesti valitud, saavutatakse tasakaal nii selgitavate tunnuste kui ka sekkumiseelse dünaamika osas. See tähendab, et sünteetiline kontroll on iga üksiku selgitava tunnuse osas käsitletavale üksusele võimalikult sarnane ning et ka tulemismuutuja sekkumiseelne aegrida on käsitletava üksuse ja sünteetilise kontrolli vahel võimalikult ühtiv.\nPraktilises rakenduses kontrollitakse tasakaalu tavaliselt nii tabelite kui ka graafikute abil. Tunnuste puhul võrreldakse käsitletava üksuse ja sünteetilise kontrolli keskmisi väärtusi; tulemismuutuja puhul vaadeldakse sekkumiseelse perioodi trajektoore. Hea tasakaal on eelduseks usutavatele mõjuhinnangutele.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Sünteetilise võrdlusobjekti meetod</span>"
+    ]
+  },
+  {
+    "objectID": "08-synthcontr.html#näide",
+    "href": "08-synthcontr.html#näide",
+    "title": "9  Sünteetilise võrdlusobjekti meetod",
+    "section": "9.6 Näide",
+    "text": "9.6 Näide\nR-keskkonnas on sünteetilise kontrolli rakendamiseks levinud paketid Synth ja SCtools, samuti uuemad paketid, mis realiseerivad üldistatud või augmenteeritud lähenemisi (nt synthdid, augsynth). Alljärgnev näide annab ülevaate klassikalise sünteetilise kontrolli rakendamisest ühe käsitletava ja mitme kontrollüksusega.\nKõigepealt on vajalik, et meil on paneelandmestik, kus igal real on üksus, aasta ja tulemusmuutuja ning tunnused:\n\nlibrary(Synth) \n\n##\n## Synth Package: Implements Synthetic Control Methods.\n\n\n## See https://web.stanford.edu/~jhain/synthpage.html for additional information.\n\nlibrary(SCtools)\n\nLoading required package: future\n\n\nMe kasutame pakette Synth ja SCtools . Vt https://cran.r-project.org/web/packages/Synth/index.html ja https://cran.r-project.org/web/packages/SCtools/index.html\nPõhiviide: Abadie A, Diamond A, Hainmueller J (2011). “Synth: An R Package for Synthetic Control Methods in Comparative Case Studies.” Journal of Statistical Software, 42(13), 1–17. https://www.jstatsoft.org/v42/i13/\nMuud paketid: - kui mitu objekti gsynth, https://cran.r-project.org/web/packages/gsynth/index.htm - kui tahad kombineerida dif-dif analüüsiga\n\nlibrary(tidyverse)\nlibrary(Synth)\nlibrary(SCtools)\nlibrary(foreign)",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Sünteetilise võrdlusobjekti meetod</span>"
+    ]
+  },
+  {
+    "objectID": "08-synthcontr.html#saksamaa-taasühinemine",
+    "href": "08-synthcontr.html#saksamaa-taasühinemine",
+    "title": "9  Sünteetilise võrdlusobjekti meetod",
+    "section": "9.7 Saksamaa taasühinemine",
+    "text": "9.7 Saksamaa taasühinemine\nAndmed artiklist A. Abadie, A. Diamond, and J. Hainmueller. 2014. Comparative Politics and the Synthetic Control Method American Journal of Political Science. Viide https://economics.mit.edu/sites/default/files/publications/Comparative%20Politics%20and%20the%20Synthetic%20Control.pdf\nSelles rakendame sünteetilise võrdlusobjekti meetodit, et hinnata 1990. aasta Saksamaa taasühinemise mõju majandusele. Tegu oli ühe olulisema poliitilis sündmusega sõjajärgses Euroopas. Pärast Berliini müüri langemist 9. novembril 1989 ühinesid Saksa Demokraatlik Vabariik ja Saksamaa Liitvabariik ametlikult 3. oktoobril 1990. Sel ajal oli Lääne-Saksamaa SKP elaniku kohta ligikaudu kolm korda kõrgem kui Ida-Saksamaal (Lipschitz ja McDonald 1990).\nMeid huvitab, mis oli ühinemise mõju Lääne-Saksamaa SKP-le.\nLaeme andmed\n\n#Muutke ära andmete kataloog\ndatapath = \"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/\"\n\n#Lugege sisse andmefail\nd &lt;- read.dta(file = paste0(datapath, \"repgermany.dta\"))\n\nVaatame pisut andmetele sisse.\nKasutame OECD riikide paneelandmeid perioodi 1960–2003 kohta. Saksamaa taasühinemine toimus 1990. aastal, mis annab 30-aastase sekkumiseelse perioodi. Valim lõpeb 2003. aastal, sest ligikaudu kümneaastast perioodi pärast taasühinemist võib pidada mõistlikuks piiriks usutavale prognoosiperioodile. Sünteetiline Lääne-Saksamaa konstrueeritakse doonorriikide hulgast valitud potentsiaalsete võrdlusriikide kaalutud keskmisena. Meie doonorriikide hulgas on valim 16 OECD liikmesriigist.\nTulemusmuutuja on riigi SKP inimese kohta (PPP) järgi korrigeeritud ja mõõdetud 2002. aasta USA dollarites. Taasühinemiseelseid tunnused: SKP elaniku kohta, inflatsioonimäär, tööstuse osakaal loodud lisandväärtusest, investeeringute määr, haridustase ja kaubanduse avatuse mõõdik.\nPeamised tunnused: - index : riigi number - country : riigi nimi - year : aasta - gdp : SKP inimese kohta - infrate : inflatsioon - trade : kaubanduse avatus - schooling : haridustase - industry : tööstuse osakaal - invest60, 70, 80 - kodumaiste investeeringute suhe SKPsse, 5-aastased keskmised. Üks väärtus 1980 aasta kohal.\n\nhead(d)\n\n  index country year  gdp  infrate    trade schooling invest60 invest70\n1     1     USA 1960 2879       NA 9.693181      43.8       NA       NA\n2     1     USA 1961 2929 1.075182 9.444654        NA       NA       NA\n3     1     USA 1962 3103 1.116071 9.429324        NA       NA       NA\n4     1     USA 1963 3227 1.214128 9.470706        NA       NA       NA\n5     1     USA 1964 3420 1.308615 9.725879        NA       NA       NA\n6     1     USA 1965 3667 1.668461 9.730347      43.8       NA       NA\n  invest80 industry\n1       NA       NA\n2       NA       NA\n3       NA       NA\n4       NA       NA\n5       NA       NA\n6       NA       NA\n\n\nMõned joonised\nSKP inimese kohta\n\n#\nd %&gt;% \n  ggplot(aes(x = year, y = gdp, color = country)) +\n  geom_line(aes(linetype=(index!=7))) + #joone tüüp on erinev index = 7 (West Germany jaoks)\n  guides(linetype = \"none\") + #ei taha legendi joone tüübi kohta\n  theme_light() + labs(x = \"\", y = \"GDP per capita\")\n\n\n\n\n\n\n\n\nVaadake ka teisi muutujaid. Asendage gdp teiste näitajatega. Vajadusel lisage geom_point() kui vaatlused on vaid mõne aasta kohta.\n\nd %&gt;% \n  ggplot(aes(x = year, y = schooling, group = country, color = country)) +\n  geom_line(aes(linetype=(index!=7))) + \n  geom_point() +\n  guides(linetype = \"none\") + \n  theme_light()\n\nWarning: Removed 61 rows containing missing values or values outside the scale range\n(`geom_line()`).\n\n\nWarning: Removed 597 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\n\nKäsud paketis\nTavaline käskude järjekord\n\ndataprep() - valmista ette andmed\nsynth() - leia kaalud, tee sünteetiline võrdlusobjekt\nsynth.tab(), gaps.plot(), and path.plot() - näita tulemusi\npaktist SCtools käsk generate.placebos - tee platseebo analüüs\nvaata tulemusi käskudega plot_placebos, mspe.plot, mspe.test\n\nAndmete ettevalmistamine\n\ndataprep.out &lt;-\n  dataprep(\n           foo = d,\n           predictors    = c(\"gdp\",\"trade\",\"infrate\"),\n           dependent     = \"gdp\", #y variable\n           unit.variable = 1, #first variable is index variable\n           time.variable = 3, #third variable is time variable\n    special.predictors = list(\n      list(\"industry\" ,1981:1990, c(\"mean\")),\n      list(\"schooling\",c(1980,1985), c(\"mean\")),\n      list(\"invest80\" ,1980, c(\"mean\"))\n    ),\n           treatment.identifier = 7, #index = 7 is West Germany\n           controls.identifier = unique(d$index)[-7], #all the rest numbers\n           time.predictors.prior = 1981:1990, #time for normal predictors\n           time.optimize.ssr = 1981:1990, #time period to minimize difference between outcome of treated and synthetic control\n           unit.names.variable = 2, #names\n           time.plot = 1960:2003 #whole time period\n         )\n\n\n Missing data: treated unit; special predictor: special.industry.1981.1990 ; for period: 1990 \n We ignore (na.rm = TRUE) all missing values for predictors.op.\n\n\nVaata üle objekt dataprep.out, mille me salvestasime. See loob lihtsalt kõik vajalikud andmemaatriksid ja vektorid.\n\nstr(dataprep.out)\n\nList of 8\n $ X0               : num [1:6, 1:16] 18029.8 19.2 4.74 30.6 60.15 ...\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : chr [1:6] \"gdp\" \"trade\" \"infrate\" \"special.industry.1981.1990\" ...\n  .. ..$ : chr [1:16] \"1\" \"2\" \"3\" \"4\" ...\n $ X1               : num [1:6, 1] 15808.9 56.78 2.59 34.54 55.5 ...\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : chr [1:6] \"gdp\" \"trade\" \"infrate\" \"special.industry.1981.1990\" ...\n  .. ..$ : chr \"7\"\n $ Z0               : int [1:10, 1:16] 13533 13940 15008 16549 17600 18439 19407 20711 22047 23064 ...\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : chr [1:10] \"1981\" \"1982\" \"1983\" \"1984\" ...\n  .. ..$ : chr [1:16] \"1\" \"2\" \"3\" \"4\" ...\n $ Z1               : int [1:10, 1] 12115 12761 13519 14481 15291 15998 16679 17786 18994 20465\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : chr [1:10] \"1981\" \"1982\" \"1983\" \"1984\" ...\n  .. ..$ : chr \"7\"\n $ Y0plot           : int [1:44, 1:16] 2879 2929 3103 3227 3420 3667 3974 4154 4494 4805 ...\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : chr [1:44] \"1960\" \"1961\" \"1962\" \"1963\" ...\n  .. ..$ : chr [1:16] \"1\" \"2\" \"3\" \"4\" ...\n $ Y1plot           : int [1:44, 1] 2284 2388 2527 2610 2806 3005 3168 3241 3571 3998 ...\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : chr [1:44] \"1960\" \"1961\" \"1962\" \"1963\" ...\n  .. ..$ : chr \"7\"\n $ names.and.numbers:'data.frame':  17 obs. of  2 variables:\n  ..$ unit.names  : chr [1:17] \"West Germany\" \"USA\" \"UK\" \"Austria\" ...\n  ..$ unit.numbers: num [1:17] 7 1 2 3 4 5 6 8 9 10 ...\n $ tag              :List of 13\n  ..$ foo                  : chr [1:11] \"c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1\"| __truncated__ \"c(\\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"USA\\\", \\\"| __truncated__ \"c(1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1\"| __truncated__ \"c(2879, 2929, 3103, 3227, 3420, 3667, 3974, 4154, 4494, 4805, 4999, 5362, 5838, 6464, 6951, 7519, 8300, 9146, 1\"| __truncated__ ...\n  ..$ predictors           : int [1:3] 4 6 5\n  ..$ predictors.op        : chr \"mean\"\n  ..$ special.predictors   :List of 3\n  .. ..$ :List of 3\n  .. .. ..$ : chr \"industry\"\n  .. .. ..$ : int [1:10] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990\n  .. .. ..$ : chr \"mean\"\n  .. ..$ :List of 3\n  .. .. ..$ : chr \"schooling\"\n  .. .. ..$ : num [1:2] 1980 1985\n  .. .. ..$ : chr \"mean\"\n  .. ..$ :List of 3\n  .. .. ..$ : chr \"invest80\"\n  .. .. ..$ : num 1980\n  .. .. ..$ : chr \"mean\"\n  ..$ dependent            : int 4\n  ..$ unit.variable        : num 1\n  ..$ time.variable        : num 3\n  ..$ treatment.identifier : num 7\n  ..$ controls.identifier  : num [1:16] 1 2 3 4 5 6 8 9 10 12 ...\n  ..$ time.predictors.prior: int [1:10] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990\n  ..$ time.optimize.ssr    : int [1:10] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990\n  ..$ time.plot            : int [1:44] 1960 1961 1962 1963 1964 1965 1966 1967 1968 1969 ...\n  ..$ unit.names.variable  : num 2\n\n\nX0 – kontrollüksuste ennustajate maatriks. Tavaliselt on need aastate keskmised, vastavalt määratletule. Iga veerg on üks piirkond.\n\ndataprep.out$X0\n\n                                       1            2            3           4\ngdp                         18029.800000 12664.000000 14817.000000 14347.30000\ntrade                          19.199796    52.373944    74.630803   133.61179\ninfrate                         4.740062     6.585358     3.529565     4.58030\nspecial.industry.1981.1990     30.595133    39.061470    35.485312    33.48119\nspecial.schooling.1980.1985    60.150002    34.300001    60.900000    32.10000\nspecial.invest80.1980          22.375999    17.587999    26.642000    21.87600\n                                       5            6            8            9\ngdp                         14857.100000 14293.200000 13869.700000 14462.300000\ntrade                          69.557355    44.736920    42.683143   106.078918\ninfrate                         5.945661     6.368286     9.721693     2.543722\nspecial.industry.1981.1990     27.205048    32.210452    35.912703    32.767722\nspecial.schooling.1980.1985    42.950001    35.400000    29.750000    44.400000\nspecial.invest80.1980          22.217999    27.236000    26.728001    21.840000\n                                      10          12           14         16\ngdp                         14370.200000 19282.90000 13714.800000 9438.40000\ntrade                          74.635595    71.45849    23.042788   43.00722\ninfrate                         7.664475     3.40692     2.058197   19.04085\nspecial.industry.1981.1990     38.716592    31.87100    39.561175   30.26204\nspecial.schooling.1980.1985    40.150000    53.95000    40.900002   21.70000\nspecial.invest80.1980          31.594000    30.96400    34.986000   24.00200\n                                    18          19           20          21\ngdp                         7761.60000 9935.500000 14368.100000 12498.20000\ntrade                         69.97408   39.656889    33.776868    58.87568\ninfrate                       17.30977    9.362696     8.127678    10.87994\nspecial.industry.1981.1990    32.52951   36.403378    32.880581    31.76784\nspecial.schooling.1980.1985   12.15000   15.450000    47.950001    46.35000\nspecial.invest80.1980         26.48800   24.568001    29.695999    25.52200\n\n\nX1 – vaadeldava üksuse andmevektor. Sama ajaperiood.\n\ndataprep.out$X1\n\n                                       7\ngdp                         15808.900000\ntrade                          56.777813\ninfrate                         2.594799\nspecial.industry.1981.1990     34.538488\nspecial.schooling.1980.1985    55.500000\nspecial.invest80.1980          27.017998\n\n\nZ0 – kontrollüksuste väljundmuutuja maatriks sekkumiseelses perioodis.\n\ndataprep.out$Z0\n\n         1     2     3     4     5     6     8     9    10    12    14    16\n1981 13533  9161 11242 11079 11106 10929 10593 11304 10548 15338  9986  7870\n1982 13940  9917 12148 11827 12115 11869 11275 11784 11205 15963 10813  8204\n1983 15008 10669 13048 12334 12822 12518 11812 12419 12022 16611 11346  8388\n1984 16549 11336 13533 13113 13777 13145 12543 13234 13220 17710 12064  8834\n1985 17600 12068 14296 13735 14698 13746 13285 13938 14354 18812 12978  9297\n1986 18439 12795 14921 14292 15608 14308 13896 14613 15184 19458 13590  9525\n1987 19407 13717 15549 15013 16024 14940 14688 15197 15823 20120 14425  9548\n1988 20711 14864 16595 16209 16766 16040 15784 16082 16299 21334 15862 10277\n1989 22047 15716 17768 17345 17418 17193 16875 17387 17043 22965 17269 11036\n1990 23064 16397 19070 18526 18237 18244 17946 18665 18004 24518 18815 11405\n        18    19    20    21\n1981  5812  7447 11513  9736\n1982  6263  7957 11537 10687\n1983  6479  8378 12300 11262\n1984  6570  8812 13120 12141\n1985  6959  9259 14019 12556\n1986  7414  9744 14537 13085\n1987  8126 10542 15554 13402\n1988  9057 11434 16524 13569\n1989 10042 12417 17255 14124\n1990 10894 13365 17322 14420\n\n\nJa vaadeldava üksuse puhul:\n\ndataprep.out$Z1\n\n         7\n1981 12115\n1982 12761\n1983 13519\n1984 14481\n1985 15291\n1986 15998\n1987 16679\n1988 17786\n1989 18994\n1990 20465\n\n\nJoonistamiseks vajalikud andmed on salvestatud objektidesse Y1plot ja Y0plot.\nNüüd saame käivitada käsu synth, et leida optimaalsed kaalud, mis loovad uuritavale üksusele parima võimaliku sünteetilise kontrolli.\n\nsynth.out &lt;- synth(dataprep.out)\n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 2780.803 \n\nsolution.v:\n 0.6382063 0.000793192 0.02569357 3.5794e-06 0.005660648 0.3296428 \n\nsolution.w:\n 0.140826 0.0008091836 0.3647215 0.001026341 0.001071105 0.000802521 0.0006526096 0.1809177 0.0006463323 0.171095 0.1346767 0.0004573153 0.0004194751 0.0005437716 0.0007120638 0.0006224255 \n\n\nTulemuste kokkuvõtteks on kolm mugavat funktsiooni.\nKõigi tabelite (V- ja W-kaalud ning sobivus käsitletud ja sünteetilise kontrolli vahel) saamiseks kasutame käsku synth.tab()\n\nsynth.tables &lt;- synth.tab(dataprep.res = dataprep.out,\n                          synth.res = synth.out)\nprint(synth.tables)\n\n$tab.pred\n                              Treated Synthetic Sample Mean\ngdp                         15808.900 15807.581   13669.381\ntrade                          56.778    64.942      59.831\ninfrate                         2.595     3.342       7.617\nspecial.industry.1981.1990     34.538    34.220      33.794\nspecial.schooling.1980.1985    55.500    53.721      38.659\nspecial.invest80.1980          27.018    27.022      25.895\n\n$tab.v\n                            v.weights\ngdp                         0.638    \ntrade                       0.001    \ninfrate                     0.026    \nspecial.industry.1981.1990  0        \nspecial.schooling.1980.1985 0.006    \nspecial.invest80.1980       0.33     \n\n$tab.w\n   w.weights  unit.names unit.numbers\n1      0.141         USA            1\n2      0.001          UK            2\n3      0.365     Austria            3\n4      0.001     Belgium            4\n5      0.001     Denmark            5\n6      0.001      France            6\n8      0.001       Italy            8\n9      0.181 Netherlands            9\n10     0.001      Norway           10\n12     0.171 Switzerland           12\n14     0.135       Japan           14\n16     0.000      Greece           16\n18     0.000    Portugal           18\n19     0.001       Spain           19\n20     0.001   Australia           20\n21     0.001 New Zealand           21\n\n$tab.loss\n           Loss W   Loss V\n[1,] 0.0007521133 2780.803\n\n\n\ntab.pred annab ennustajate väärtused käsitletud üksuse ja sünteetilise kontrolli jaoks, koos valimi keskmisega.\ntab.v annab selgitavate muutujate kaalud.\ntab.w annab piirkondade kaalud.\n\nPane tähele, et tab.loss sisaldab kahte väärtust:\nW–kaotus, mis on seotud ennustajate (X) erinevustega. Mida rohkem X-e lisame, seda suurem see tavaliselt on, sest samad piirkonnakaalud ei pruugi sobida kõigi X-de jaoks. Mida väiksem väärtus, seda paremini on käsitletava X-id sobitatud sünteetilise kontrolli X-idega. See tuleneb w-kaalude optimeerimisest.\nV–kaotus, mis on seotud tulemismuutuja sobivusega. Mida väiksem see väärtus, seda paremini kirjeldame tulemismuutuja varasemaid väärtusi. See on käsitletud üksuse sünteetilise kontrolli sekkumiseelne keskmine ruutprognoosiviga (MSPE). See MSPE tuleneb nii v- kui w-kaalude optimeerimisest.\nTulemismuutuja trajektooride kokkuvõttegraafikute loomiseks (käsitletud ja sünteetiline üksus) kasutame käske path.plot() ja gaps.plot()\nTase:\n\n#to plot in levels (treated and synthetic)\npath.plot(dataprep.res = dataprep.out,synth.res = synth.out)\n\n\n\n\n\n\n\n## plot the gaps (treated - synthetic)\n\nErinevus:\n\ngaps.plot(dataprep.res = dataprep.out,synth.res = synth.out)\n\n\n\n\n\n\n\n\nPlatseebode genereerimiseks kasutame paketti SCtools. See kohtleb iga piirkonda kordamööda kui osalejat ja arvutab mõjud. See võtab mõnevõrra aega.\n\nplacebos &lt;- generate.placebos(dataprep.out, synth.out, Sigf.ipop = 3, strategy = \"multicore\") #multicore - quicker, parallel computing\n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 276080.3 \n\nsolution.v:\n 0.3425308 0.03183171 0.2102354 0.1742354 0.2404496 0.0007171006 \n\nsolution.w:\n 6.55899e-05 0.01197019 0.0001114836 0.04900369 0.0002583561 6.08367e-05 0.0003888953 6.88759e-05 0.7404987 0.0001330694 4.2118e-06 3.04587e-05 3.5365e-05 0.1972425 0.000127783 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 32190.55 \n\nsolution.v:\n 0.8259937 0.01671772 0.07973004 0.06119424 0.01369206 0.002672199 \n\nsolution.w:\n 0.00285441 0.01132922 0.008744401 0.00268481 0.003022315 0.006265804 0.007058692 0.3404279 0.001946773 0.2649984 0.002042414 0.0006367799 0.3416422 0.002869065 0.003476834 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 19980.97 \n\nsolution.v:\n 0.4787951 0.3388293 0.007484978 0.0001112912 0.001652476 0.1731269 \n\nsolution.w:\n 0.02511805 0.03651043 0.2074622 0.03747018 0.03469146 0.03224069 0.08820579 2.90786e-05 0.2403434 0.1099949 0.03441481 0.04039343 0.03636224 0.03532518 0.04143808 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 8117.844 \n\nsolution.v:\n 0.916682 0 0.00348149 0.00806678 0.0717697 1.4e-09 \n\nsolution.w:\n 0.01640006 0.01781232 0.01560508 0.03468132 0.05145937 0.2111343 0.02535471 0.01970952 0.2679103 0.01961133 0.0176838 0.01009594 0.2540115 0.01998526 0.01854523 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 112715 \n\nsolution.v:\n 0.8262578 0.01547729 0.004385314 0.1143318 0.03652118 0.003026596 \n\nsolution.w:\n 0.4923876 2.59848e-05 0.0001332046 3.563e-06 0.0004786393 8.62806e-05 0.001857162 4.37331e-05 0.1162807 1.82499e-05 0.3875314 0.0003444362 5.33549e-05 0.0001491118 0.0006065782 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 16092.44 \n\nsolution.v:\n 0.3407636 5.5175e-06 2.8957e-06 0.5236969 0.007982415 0.1275486 \n\nsolution.w:\n 0.03129486 0.0110189 0.0246643 0.03424982 0.09319681 0.02989769 0.03467728 0.01946296 0.3316389 0.01826013 0.06607518 0.1977095 0.02824211 0.03617838 0.04343317 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 1756.905 \n\nsolution.v:\n 0.8862834 0.07382511 6.5338e-06 0.003065943 0.01429302 0.02252603 \n\nsolution.w:\n 0.1032388 0.07495536 0.01038281 0.005087013 0.01726933 0.048653 0.009855227 1.89334e-05 0.1917291 0.1527632 0.06770593 0.0515878 0.2024148 0.03804321 0.02629549 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 10482.58 \n\nsolution.v:\n 0.9173173 0.06084155 2.86454e-05 0.01783268 0.003979336 4.422e-07 \n\nsolution.w:\n 0.01264816 0.01856447 0.02796183 0.6125783 0.03597383 0.02029793 0.01751268 0.01976776 0.103337 0.01508858 0.02409641 0.02617124 0.01966455 0.0195419 0.02679536 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 195128.4 \n\nsolution.v:\n 0.2765538 0 0.7234462 0 0 0 \n\nsolution.w:\n 0.08630043 0.04834269 0.04707078 0.04816556 0.05366396 0.0525315 0.06465101 0.04451544 0.1911137 0.04290499 0.09486799 0.05829396 0.04827194 0.05969433 0.05961178 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 1782453 \n\nsolution.v:\n 0.8404504 2.14e-08 0.1595494 2.254e-07 2.2e-09 7.9e-09 \n\nsolution.w:\n 0.9980796 0.0001207329 0.00020498 0.0001763683 0.0001824006 0.0001608133 0.0001298709 0.0001991923 0.0001537346 0.0001742107 5.1868e-05 4.30463e-05 7.15177e-05 0.0001505152 0.0001011647 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 139219.8 \n\nsolution.v:\n 0.8057263 0.1604086 0.02487788 0.008692253 0.0002203832 7.46251e-05 \n\nsolution.w:\n 0.4549119 0.02411708 0.00276963 0.0007457149 0.0008276736 0.002419813 0.002383868 0.00123767 0.002303478 0.0005065878 6.10505e-05 0.0005605558 0.5046114 0.001628748 0.0009148221 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 288736.9 \n\nsolution.v:\n 0.855861 1.5425e-06 0.0401323 0.01552743 0.08847763 1.047e-07 \n\nsolution.w:\n 0.009829267 0.003956324 7.9252e-06 0.005603807 0.01602739 0.00783904 0.01448734 0.002618719 0.005273507 0.0007002579 0.002452507 0.6964841 0.006072436 0.007849924 0.2207974 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 3148050 \n\nsolution.v:\n 0.9750653 2.099e-07 1.209e-07 6.39e-08 0.02493344 8.392e-07 \n\nsolution.w:\n 2.5866e-06 2.34944e-05 1.12049e-05 1.40753e-05 1.15981e-05 1.41888e-05 1.64603e-05 1.31223e-05 1.36682e-05 2.361e-07 1.67191e-05 0.9996813 0.0001442919 1.33895e-05 2.3696e-05 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 1992.887 \n\nsolution.v:\n 0.9172637 0.0188953 2.9369e-06 0.01112606 0.0444585 0.008253505 \n\nsolution.w:\n 0.002483156 0.1491128 0.006233539 0.007763327 0.007569434 0.01373196 0.08393888 0.007195305 0.009595813 0.0002568884 0.05700656 0.05077503 0.5824265 0.01020823 0.01170239 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 95139.6 \n\nsolution.v:\n 0.8387851 0.00321895 0.1217191 0.0003357233 0.03587282 6.82912e-05 \n\nsolution.w:\n 0.3206254 0.02761799 0.0420507 0.0142251 0.01990836 0.02238627 0.02181875 0.01868822 0.0209883 0.01676862 0.0308802 0.04531528 0.03342573 0.02871633 0.3365847 \n\n\nX1, X0, Z1, Z0 all come directly from dataprep object.\n\n\n**************** \n searching for synthetic control unit  \n \n\n**************** \n**************** \n**************** \n\nMSPE (LOSS V): 304524.5 \n\nsolution.v:\n 0.4853115 0.0327623 0.3046622 0.1348863 0.01765844 0.02471924 \n\nsolution.w:\n 0.01212527 0.00403598 0.3099178 0.005758418 0.1406064 0.009735317 0.006540916 0.006057046 0.006935646 0.01184047 0.005636344 0.4169481 0.008306444 0.006385719 0.04917005 \n\n\nNew names:\n• `w.weight` -&gt; `w.weight...1`\n• `w.weight` -&gt; `w.weight...2`\n• `w.weight` -&gt; `w.weight...3`\n• `w.weight` -&gt; `w.weight...4`\n• `w.weight` -&gt; `w.weight...5`\n• `w.weight` -&gt; `w.weight...6`\n• `w.weight` -&gt; `w.weight...7`\n• `w.weight` -&gt; `w.weight...8`\n• `w.weight` -&gt; `w.weight...9`\n• `w.weight` -&gt; `w.weight...10`\n• `w.weight` -&gt; `w.weight...11`\n• `w.weight` -&gt; `w.weight...12`\n• `w.weight` -&gt; `w.weight...13`\n• `w.weight` -&gt; `w.weight...14`\n• `w.weight` -&gt; `w.weight...15`\n• `w.weight` -&gt; `w.weight...16`\n\n\nPärast seda saame joonistada platseebomõjud.\n\nplot_placebos(placebos)\n\n\n\n\n\n\n\n\nNäeme, et mõned teisedki riigid kogesid langust alates 1990ndatest. Samuti saame arvutada sekkumisjärgse MSPE ja sekkumiseelse MSPE suhte. Mida suurem on see erinevus, seda keerulisem on tulevikku prognoosida võrreldes minevikuga. Kui paljud riigid saavad suure suhte, võib meie hinnatud mõju olla lihtsalt juhuslik variatsioon.\n\nmspe.plot(placebos)\n\n\n\n\n\n\n\n\nMitte ühelgi riigil ei ole suuremat kasvu MSPEs.\nP-väärtus käsuga\n\n#or with the command\nmspe.test(placebos)\n\n$p.val\n[1] 0.05882353\n\n$test\n    MSPE.ratios         unit\n1    44.5063518          USA\n2    40.6205409           UK\n3    48.8761931      Austria\n4    60.3306156      Belgium\n5    11.2244736      Denmark\n6    43.2482383       France\n7   118.6159461        Italy\n8   203.7017913  Netherlands\n9   171.4798547       Norway\n10    4.5197407  Switzerland\n11   17.5588852        Japan\n12   13.3878627       Greece\n13    0.3159692     Portugal\n14  445.2381197        Spain\n15    7.4450742    Australia\n16   14.1206513  New Zealand\n17 1204.5679685 West Germany\n\n\nKontrolliks käsitsi kaotus sõltuvas tulemuses\n\nY1plot &lt;- dataprep.out$Y1plot\nY0plot &lt;- dataprep.out$Y0plot\ntime &lt;- dataprep.out$tag$time.plot\ntreat.time &lt;- 1991\n#ajad kaalutud kaotuse joaks\npre_idx &lt;- which(time&gt; 1980 & time&lt; treat.time)\n\n#Kontrolliks, mis aastad\ntime[pre_idx]\n\n [1] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990\n\n#Kaalud\nw &lt;- synth.tables$tab.w$w.weights \n\n#Sünteetiline keskmine\nY_synth_pre &lt;- Y0plot[pre_idx, ] %*% w\n\n#Kontrolliks\nplot(pre_idx, Y_synth_pre, type = \"l\")\n\n\n\n\n\n\n\n#erinevus\ngaps_pre &lt;- Y1plot[pre_idx] - Y_synth_pre\n\n#Kontrolliks\nplot(pre_idx, gaps_pre, type = \"l\")\n\n\n\n\n\n\n\n#Käsitsi kaotus Y-s\nlossV_manual &lt;- mean(gaps_pre^2)\nas.numeric(lossV_manual)\n\n[1] 3702.133\n\n#Meil\nsynth.tables$tab.loss\n\n           Loss W   Loss V\n[1,] 0.0007521133 2780.803",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Sünteetilise võrdlusobjekti meetod</span>"
+    ]
+  },
+  {
+    "objectID": "09-mlpuumets.html",
+    "href": "09-mlpuumets.html",
+    "title": "10  Masinõppemudelid",
     "section": "",
     "text": "10.1 Taust",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>LASSO</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemudelid</span>"
     ]
   },
   {
-    "objectID": "09-mllasso.html#näide",
-    "href": "09-mllasso.html#näide",
-    "title": "10  LASSO",
+    "objectID": "09-mlpuumets.html#näide",
+    "href": "09-mlpuumets.html#näide",
+    "title": "10  Masinõppemudelid",
     "section": "10.2 Näide",
     "text": "10.2 Näide\nTuleb kunagi",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>LASSO</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemudelid</span>"
     ]
   },
   {
-    "objectID": "10-synthcontr.html",
-    "href": "10-synthcontr.html",
-    "title": "11  Sünteetilise võrdlusrühma meetod",
+    "objectID": "10-mllasso.html",
+    "href": "10-mllasso.html",
+    "title": "11  LASSO mõju hindamisel",
     "section": "",
-    "text": "11.1 Taust\nSynthetic control design",
+    "text": "11.1 Seade\nSelles peatükis käsitleme LASSO-regressioonimudelit ja kantregressiooni (ridge), mis kuuluvad regulariseeritud regressioonimeetodite hulka. Need meetodid on kasulikud olukordades, kus meil on palju selgitavaid tunnuseid, sh nende polünoomid ja interaktsioonid, selgitavate tunnuste vahel on tugev multikollineaarsus ning me soovime automatiseerida mudelisse kaasatavate tunnuste valikut. Sellistes tingimustes ei tööta klassikaline vähimruutude meetod (OLS) hästi, eriti kui parameetrite arv on lähedane vaatluste arvule koguni suurem.\nLisaks prognoosimisele pakuvad LASSO ja ridge vahendeid põhjuslike mõjude hindamiseks keerukates olukordades, kus:\nEraldi käsitleme kolme lähenemist:",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Sünteetilise võrdlusrühma meetod</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
     ]
   },
   {
-    "objectID": "10-synthcontr.html#näide",
-    "href": "10-synthcontr.html#näide",
-    "title": "11  Sünteetilise võrdlusrühma meetod",
-    "section": "11.2 Näide",
-    "text": "11.2 Näide\nTuleb kunagi",
+    "objectID": "10-mllasso.html#seade",
+    "href": "10-mllasso.html#seade",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "",
+    "text": "on palju potentsiaalseid kontrollmuutujaid,\neeldame tingimuslikku sõltumatust (CIA),\n\n\n\njääkliikmete meetodit (partialling out),\ntopeltvaliku meetodit (double selection),\ninstrumentmuutuja meetodit koos LASSO-põhise tunnuste valikuga.",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Sünteetilise võrdlusrühma meetod</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#regulaaritud-regressioon-üldine-raamistik",
+    "href": "10-mllasso.html#regulaaritud-regressioon-üldine-raamistik",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "11.2 Regulaaritud regressioon: üldine raamistik",
+    "text": "11.2 Regulaaritud regressioon: üldine raamistik\n\nLineaarne mudel ja OLS\nLähtume klassikalisest lineaarsest mudelist:\n\\[\nY_i = X_i'\\beta + \\varepsilon_i,\\quad i = 1,\\dots,n,\n\\]\nkus \\(Y_i\\) on sõltuv muutuja, \\(X_i\\) pikkusega \\(p\\) selgitavate tunnuste vektor, \\(\\beta\\) tundmatu parameetrite vektor ja \\(\\varepsilon_i\\) vealiige. Vektorkujul võime kirjutada:\n\\[\nY = X\\beta + \\varepsilon,\n\\]\nkus \\(Y \\in \\mathbb{R}^n\\), \\(X \\in \\mathbb{R}^{n \\times p}\\), \\(\\beta \\in \\mathbb{R}^p\\) ja \\(\\varepsilon \\in \\mathbb{R}^n\\).\nOLS-hinnang leitakse miinimumruutude põhimõttel:\n\\[\n\\hat{\\beta}^{\\text{OLS}} = \\arg\\min_{\\beta} \\frac{1}{n} \\sum_{i=1}^n (Y_i - X_i'\\beta)^2\n= \\arg\\min_{\\beta} \\frac{1}{n}\\|Y - X\\beta\\|_2^2.\n\\]\nKui \\(p\\) on suur (või koguni \\(p &gt; n\\)), muutub OLS ebastabiilseks:\n\nparameetrite variatsioon on suur,\nmultikollineaarsus tekitab ebakindlust,\nmudel kipub andmetesse üle-sobituma.\n\nRegulaaritud regressiooni idee on lisada optimeerimiskriteeriumile karistustermin, mis surub parameetreid nulli suunas ja vähendab mudeli keerukust.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#regulaaritud-regressiooni-üldkuju",
+    "href": "10-mllasso.html#regulaaritud-regressiooni-üldkuju",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "11.3 Regulaaritud regressiooni üldkuju",
+    "text": "11.3 Regulaaritud regressiooni üldkuju\nRegulaaritud regressiooni üldine eesmärk on leida:\n\\[\n\\hat{\\beta} = \\arg\\min_{\\beta}\n\\left\\{\n\\frac{1}{n}\\sum_{i=1}^n (Y_i - X_i'\\beta)^2\n+ \\lambda P(\\beta)\n\\right\\},\n\\]\nkus \\(P(\\beta)\\) on karistusfunktsioon ja \\(\\lambda \\ge 0\\) regulaarimisparameeter, mis kontrollib karistuse tugevust.\n\nKui \\(\\lambda = 0\\), langeb mudel kokku OLS-iga.\nKui \\(\\lambda\\) kasvab, suureneb parameetrite kahanemine nulli suunas ja mudeli keerukus väheneb.\n\nEduka regulaarimise eelduseks on tavaliselt, et tunnused \\(X\\) standardiseeritakse (nullkeskmine ja ühikvariatsioon), et karistus erinevate tunnuste vahel oleks võrreldav.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#mudeli-definitsioon",
+    "href": "10-mllasso.html#mudeli-definitsioon",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "12.1 Mudeli definitsioon",
+    "text": "12.1 Mudeli definitsioon\nKantregressioon (ridge-regressioon) kasutab L2-karistust:\n\\[\n\\hat{\\beta}^{\\text{ridge}}\n= \\arg\\min_{\\beta}\n\\left\\{\n\\frac{1}{n}\\sum_{i=1}^n (Y_i - X_i'\\beta)^2\n+ \\lambda \\sum_{j=1}^p \\beta_j^2\n\\right\\}\n= \\arg\\min_{\\beta}\n\\left\\{\n\\frac{1}{n}\\|Y - X\\beta\\|_2^2 + \\lambda \\|\\beta\\|_2^2\n\\right\\}.\n\\]\nSiin surutakse kõiki koefitsiente nulli suunas, kuid ükski neist ei muutu täpselt nulliks (välja arvatud erijuhtudel). Seetõttu:\n\nridge ei tee otsest tunnuste valikut,\nkuid vähendab multikollineaarsuse mõju ja stabiliseerib hinnanguid.\n\nMaatrikskujuline suletud lahend on\n\\[\n\\hat{\\beta}^{\\text{ridge}} = (X'X + n\\lambda I_p)^{-1} X'Y,\n\\]\nkus \\(I_p\\) on \\(p \\times p\\) ühikmaatriks.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#regulaarimisparameeter-ja-valik",
+    "href": "10-mllasso.html#regulaarimisparameeter-ja-valik",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "12.2 Regulaarimisparameeter ja valik",
+    "text": "12.2 Regulaarimisparameeter ja valik\nRegulaarimisparameeter \\(\\lambda\\) kontrollib nihe–dispersioon kompromissi:\n\nväikese \\(\\lambda\\) korral on nihe väike, kuid dispersioon suur,\nsuure \\(\\lambda\\) korral suureneb nihe, kuid dispersioon väheneb.\n\nPrognoosimisel valitakse \\(\\lambda\\) tavaliselt ristvalideerimisega (K-kordne CV):\n\njaga andmed \\(K\\) osaks;\niga kandidaadi \\(\\lambda\\) korral hinda mudel \\(K-1\\) osal andmetest;\narvuta keskmine ruutprognoosiviga järelejäänud osal;\nvali \\(\\lambda\\), mis minimeerib prognoosivea.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#millal-kasutada-ridgei",
+    "href": "10-mllasso.html#millal-kasutada-ridgei",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "12.3 Millal kasutada ridge’i",
+    "text": "12.3 Millal kasutada ridge’i\nKantregressiooni kasutatakse eelkõige siis, kui:\n\nselgitavaid tunnuseid on palju (sh polünoomid, interaktsioonid),\nesineb tugev multikollineaarsus,\neesmärk on hea prognoos, mitte üksikute koefitsientide selge interpreteerimine,\nparameetrite arv on lähedane vaatluste arvule.\n\nPõhjusliku mõju hindamise juures kasutatakse ridge’i tavaliselt osana laiendatud meetoditest (nt Augmented Synthetic Control, double machine learning) – harvem iseseisva „mõju hinnanguna“.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#mudeli-definitsioon-1",
+    "href": "10-mllasso.html#mudeli-definitsioon-1",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "13.1 Mudeli definitsioon",
+    "text": "13.1 Mudeli definitsioon\nLASSO (Least Absolute Shrinkage and Selection Operator) kasutab L1-karistust:\n\\[\n\\hat{\\beta}^{\\text{LASSO}}\n= \\arg\\min_{\\beta}\n\\left\\{\n\\frac{1}{n}\\sum_{i=1}^n (Y_i - X_i'\\beta)^2\n+ \\lambda \\sum_{j=1}^p |\\beta_j|\n\\right\\}\n= \\arg\\min_{\\beta}\n\\left\\{\n\\frac{1}{n}\\|Y - X\\beta\\|_2^2 + \\lambda \\|\\beta\\|_1\n\\right\\}.\n\\]\nOluline omadus: L1-karistus võib seada osa koefitsiente täpselt nulli:\n\nkui tunnus \\(X_j\\) on väheoluline, siis \\(\\hat{\\beta}_j = 0\\),\nkui tunnus on oluline, võib \\(\\hat{\\beta}_j \\neq 0\\).\n\nSeega LASSO kombineerib:\n\nregulaarimise (koefitsientide kahanemine),\ntunnuste valiku (paljud koefitsiendid muutuvad nulliks).\n\nIntuitsioonilt:\n\nkui \\(\\lambda\\) on väike, on tulemus sarnane OLS-iga, paljud koefitsiendid mitnullilised;\nkui \\(\\lambda\\) on suur, jääb mudelisse vähe tunnuseid.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#elastic-net",
+    "href": "10-mllasso.html#elastic-net",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "13.2 Elastic net",
+    "text": "13.2 Elastic net\nElastic net ühendab ridge’i ja LASSO karistused:\n\\[\n\\hat{\\beta}^{\\text{EN}}\n= \\arg\\min_{\\beta}\n\\left\\{\n\\frac{1}{n}\\|Y - X\\beta\\|_2^2\n+ \\lambda\n\\left(\n\\alpha \\|\\beta\\|_1 + (1-\\alpha)\\|\\beta\\|_2^2\n\\right)\n\\right\\},\n\\]\nkus \\(0 \\le \\alpha \\le 1\\).\n\n\\(\\alpha = 1\\) korral saame LASSO,\n\\(\\alpha = 0\\) korral ridge’i.\n\nElastic net on kasulik, kui tunnused on tugevalt korreleeritud: puhas LASSO kaldub valima ühe tunnuse grupist ja teised välja jätma, elastic net võimaldab „grupivalikut“.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#post-lasso",
+    "href": "10-mllasso.html#post-lasso",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "13.3 Post-LASSO",
+    "text": "13.3 Post-LASSO\nLASSO koefitsiendid on nihkega nulli suunas, kui \\(\\lambda &gt; 0\\). See on prognoosimisel aktsepteeritav, kuid mõju interpreteerimisel võib nihe häirida. Post-LASSO lähenemine:\n\nhinda LASSO mudel ja vali aktiivsete tunnuste hulk \\[\n\\hat{S} = \\{j: \\hat{\\beta}_j^{\\text{LASSO}} \\neq 0\\};\n\\]\nhinda OLS-ga mudel, mis sisaldab ainult tunnuseid \\(X_{\\hat{S}}\\): \\[\nY_i = X_{i,\\hat{S}}'\\beta_{\\hat{S}} + u_i.\n\\]\n\nNii saadud OLS-kordajaid nimetatakse Post-LASSO hinnanguteks. Need on endiselt mõjutatud tunnuste valiku ebastabiilsusest, kuid vähem nihkes kui LASSO koefitsiendid ise.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#tavaline-lasso-glmnet-cv-põhine",
+    "href": "10-mllasso.html#tavaline-lasso-glmnet-cv-põhine",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "14.1 Tavaline LASSO (glmnet, CV-põhine)",
+    "text": "14.1 Tavaline LASSO (glmnet, CV-põhine)\nTüüpiline LASSO rakendus prognoosimisel (nt pakett glmnet) kasutab ristvalideerimist:\n\n\\(\\lambda\\) valitakse, et minimeerida prognoosiviga (MSE) ristvalideerimisel;\nkõik tunnused koheldakse karistamisel ühtviisi;\neesmärk: võimalikult hea prognoos.\n\nSee on sobiv, kui:\n\nhuvi pakub eeskätt prognoositäpsus,\nei ole vaja täpseid usalduspiire mõjuhinnangutele,\nmodelleerime „must kast“ seoseid.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#teooriapõhine-lasso-rigorous-lasso-hdmrlasso",
+    "href": "10-mllasso.html#teooriapõhine-lasso-rigorous-lasso-hdmrlasso",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "14.2 Teooriapõhine LASSO (rigorous LASSO, hdm::rlasso)",
+    "text": "14.2 Teooriapõhine LASSO (rigorous LASSO, hdm::rlasso)\nTeooriapõhine LASSO (nt R-pakett hdm, funktsioon rlasso) valib \\(\\lambda\\) teoreetiliste piiride alusel, lähtudes:\n\nvaatluste arvust \\(n\\),\ntunnuste arvust \\(p\\),\nvealiikme dispersiooni hinnangust,\nvõimalusest, et olemas on heteroskedastilisus.\n\nEesmärk:\n\nusaldusväärne järeldus põhjusliku seose kohta,\nkorrektsed usaldusvahemikud ja testid.\n\nOmadused:\n\n\\(\\lambda\\) on tavaliselt suurem kui ristvalideerimisel, mudel konservatiivsem;\nvalib vähem tunnuseid (harvem üle-sobitamine);\nstandardvigade hinnangud on kohandatud heteroskedastilisuse suhtes.\n\nTeooriapõhine LASSO sobib kõige paremini mõju hindamise kontekstis, kus peamine on parameetri usaldusväärne järeldus, mitte pelgalt hea prognoos.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#fwl-teoreem-ja-residuaalne-regressioon",
+    "href": "10-mllasso.html#fwl-teoreem-ja-residuaalne-regressioon",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.1 FWL-teoreem ja residuaalne regressioon",
+    "text": "16.1 FWL-teoreem ja residuaalne regressioon\nVõtame mudeli, kus huvi pakub ravi mõju:\n\\[\nY_i = \\alpha D_i + X_i'\\beta + u_i,\n\\]\nkus \\(D_i\\) on ravi (näiteks koolitus, ravimeede, poliitikameede) ja \\(X_i\\) kontrolltunnuste vektor. Frisch–Waugh–Lovelli (FWL) teoreem ütleb, et OLS-hinnang \\(\\hat{\\alpha}\\), mis saadakse ühisest regressioonist \\(Y\\) peal \\(D\\) ja \\(X\\), võrdub järgmise kolmesammulise protseduuri tulemusena saadud hinnanguga:\n\nregresseeri \\(Y\\) \\(X\\)-ile ja võta jäägid: \\[\n\\tilde{Y}_i = Y_i - \\hat{\\mathbb{E}}[Y_i \\mid X_i];\n\\]\nregresseeri \\(D\\) \\(X\\)-ile ja võta jäägid: \\[\n\\tilde{D}_i = D_i - \\hat{\\mathbb{E}}[D_i \\mid X_i];\n\\]\nregresseeri \\(\\tilde{Y}_i\\) \\(\\tilde{D}_i\\)-le OLS-iga: \\[\n\\tilde{Y}_i = \\alpha \\tilde{D}_i + \\eta_i.\n\\]\n\nSee tähendab, et oleme „partialiseerinud välja“ \\(X\\)-de mõju nii tulemuselt kui ravilt ja hindame seejärel seost nende jääkide vahel.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#tingimusliku-sõltumatuse-eeldus",
+    "href": "10-mllasso.html#tingimusliku-sõltumatuse-eeldus",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.2 Tingimusliku sõltumatuse eeldus",
+    "text": "16.2 Tingimusliku sõltumatuse eeldus\nMõju hindamisel eeldame sageli:\n\\[\n(Y_i(0), Y_i(1)) \\perp D_i \\mid X_i\n\\]\n(CIA – conditional independence assumption). Kui see eeldus kehtib ja \\(X_i\\) vektor on piisavalt rikas, siis on ravi keskmine mõju identifitseeritud mudelis\n\\[\nY_i = \\alpha D_i + X_i'\\beta + u_i.\n\\]\nKui aga \\(X\\)-e on palju, ei sobi lihtne OLS kontrollimiseks. Jääkide meetod LASSOga asendab OLS-põhise regressiooni \\(Y\\) ja \\(D\\) peal prognoosimismudelitega, mis on hinnatud LASSO abil.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#jääkide-meetod-lassoga-sammud",
+    "href": "10-mllasso.html#jääkide-meetod-lassoga-sammud",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.3 Jääkide meetod LASSOga: sammud",
+    "text": "16.3 Jääkide meetod LASSOga: sammud\nEeldame, et meil on:\n\n\\(Y\\) – tulemusmuutuja,\n\\(D\\) – ravi muutuja,\n\\(X\\) – suur hulk kandidaattunnuseid (võib olla \\(p &gt; n\\)).\n\nJääkide meetod LASSOga toimib järgmiselt.\n\nsamm – \\(Y\\) prognoosimine \\(X\\)-dega:\n\n\\[\n\\hat{m}_Y(X_i) = \\hat{\\mathbb{E}}[Y_i \\mid X_i]\n\\quad\\text{LASSO abil,}\n\\]\nnäiteks:",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#jääkide-meetod-lassoga-sammud-1",
+    "href": "10-mllasso.html#jääkide-meetod-lassoga-sammud-1",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.4 Jääkide meetod LASSOga: sammud",
+    "text": "16.4 Jääkide meetod LASSOga: sammud\nEeldame, et meil on:\n\n(Y) – tulemusmuutuja,\n(D) – ravi muutuja,\n(X) – suur hulk kandidaattunnuseid (võib olla (p &gt; n)).\n\nJääkide meetodi LASSOga idee on kasutada LASSOt selleks, et „välja võtta” (X)-de mõju nii (Y)-lt kui (D)-lt ja seejärel hinnata ravi mõju nende jääkide vahelise regressiooniga. See põhineb Frisch–Waugh–Lovelli teoreemil, mille kohaselt saab huvipakkuva ravi koefitsiendi () leida regressioonist jääkide peal.\n\n1. samm – (Y) prognoosimine (X)-dega\nKõigepealt prognoosime tulemusmuutujat (Y) kontrolltunnuste (X) abil LASSOga:\n\\[\n\\hat{m}_Y(X_i) = \\hat{\\mathbb{E}}[Y_i \\mid X_i],\n\\]\nja leiame jäägid:\n\\[\n\\tilde{Y}_i = Y_i - \\hat{m}_Y(X_i).\n\\]\nR-is võiks see välja näha näiteks nii:\nSiin kasutab rlasso teooriapõhist () valikut, mis sobib paremini mõju hindamiseks kui puhas ristvalideerimine.\n\n\n2. samm – (D) prognoosimine (X)-dega\nJärgmisena prognoosime ravi (D) samade kontrolltunnuste abil:\n\\[\n\\hat{m}_D(X_i) = \\hat{\\mathbb{E}}[D_i \\mid X_i],\n\\]\nja leiame meetmes osalemise jäägid:\n\\[\n\\tilde{D}_i = D_i - \\hat{m}_D(X_i).\n\\]\nKui (D) on binaarne (nt osales koolitusel vs ei osalenud), kasutab LASSO siin lineaarset tõenäosusmudelit; vajadusel saab kasutada ka logit/probit-mudeleid, kuid klassikalises hdm-raamistikus lähtutakse lineaarse regressiooni loogikast.\n\n\n3. samm – mõju hindamine jääkide regressioonina\nKolmandas sammus regressime jääktulemust (_i) jäigravi (_i) peal:\n\\[ \\tilde{Y}\\_i = \\alpha \\tilde{D}\\_i + \\eta\\_i.\\] OLS-hinnang () on siin LASSO-põhise partialling out -meetodi hinnang ravi keskmisele mõjule (CATE või ATE sõltuvalt seadetest ja laiendustest).\nR-is:\nPaketis hdm saab kogu protseduuri teha ühe käsuga:\nSiin:\n\nmethod = \"partialling out\" ütleb, et kasutatakse jääkide meetodit;\npost = TRUE tähendab, et lõplik regressioon tehakse Post-LASSO-na (tunnuste valiku järel OLS).\n\nJääkide meetodi puhul on võtme-eeldus, et prognoosid (_Y(X_i)) ja (_D(X_i)) on piisavalt täpsed, ning et CIA (tingimuslik sõltumatus) kehtib: pärast (X)-de arvessevõttu ei ole ravi (D) korreleeritud potentsiaalsete tulemustega.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#topeltvaliku-meetod-double-selection",
+    "href": "10-mllasso.html#topeltvaliku-meetod-double-selection",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.5 Topeltvaliku meetod (double selection)",
+    "text": "16.5 Topeltvaliku meetod (double selection)\n\nMotivatsioon\nJääkide meetod eeldab kaudselt, et samad kontrollmuutujad (X) on olulised nii (Y) kui (D) jaoks, ning et LASSO valib need piisavalt hästi välja prognoosimissammudes. Praktikas võib juhtuda, et:\n\nmõni tunnus mõjutab tugevalt ravi (D), kuid mõjutab (Y)-d vaid nõrgalt;\nLASSO võib selle tunnuse välja jätta, kui prognoosime (Y)-d;\nsee võib omakorda tekitada nihet ravi mõju hinnangus, sest oluline konfundeeriv tunnus puudub.\n\nTopeltvaliku meetod vähendab seda ohtu, kasutades LASSOt nii (Y)- kui (D)-võrrandi jaoks ja kombineerides tulemused.\n\n\nSammud\nAlgne mudel:\n\\[ Y_i = \\alpha D_i + X_i'\\beta + u_i.\\]\nTopeltvaliku meetodi sammud:\n\nLASSO regressioon tulemuse jaoks:\n\\[ Y_i = X_i'\\beta\\_Y + u_i.\\]\nValime tundede hulga:\n\\[ \\hat{S}*Y = { j :* \\hat{\\beta}{Y,j}\\^{\\text{LASSO}} \\neq 0 }.\\]\nLASSO regressioon ravi jaoks:\n\\[ D_i = X_i'\\beta\\_D + v_i.\\]\nValime tundede hulga:\n\\[ \\hat{S}*D = { j :* \\hat{\\beta}{D,j}\\^{\\text{LASSO}} \\neq 0 }.\\]\nÜhendame tulemused:\n\\[ \\hat{S} = \\hat{S}\\_Y \\cup \\hat{S}\\_D.\\]\nHinnang Post-LASSO OLS-iga:\n\\[ Y_i = \\alpha D_i + X\\_{i,\\hat{S}}'\\beta\\_{\\hat{S}} + u_i.\\]\n\nR-s:\nTopeltvaliku meetodi omadused:\n\nkaasab mudelisse nii tunnused, mis on olulised (Y) jaoks, kui need, mis on olulised (D) jaoks;\non robustsem ohu suhtes, et mõni oluline tunnus jääb ühe LASSO-sammu käigus välja;\ntavaliselt toob mudelisse rohkem kontrollmuutujaid kui puhas partialling out;\nstandardvead võivad pisut suureneda (rohkem kontrolle), kuid nihe väheneb.\n\nIntuitsioon: kui mingi (X_j) on oluline ravi (D) jaoks (vältimaks omistatavat seost (D)-le, mis tegelikult tuleneb (X_j)-st), siis jõuab see mudelisse vähemalt ravi-võrrandi kaudu, isegi kui (Y)-võrrandi LASSO teda ei valinud.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#instrumentmuutuja-meetod-lassoga",
+    "href": "10-mllasso.html#instrumentmuutuja-meetod-lassoga",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.6 Instrumentmuutuja meetod LASSOga",
+    "text": "16.6 Instrumentmuutuja meetod LASSOga\n\nEndogeensus ja IV-raamistik\nKui ravi (D) on endogeenne, st (\\[u_i \\mid D_i\\] ), siis ei ole lihtne kontrollmuutujate lisamine piisav. Kasutame instrumentmuutujat (Z), mis:\n\non korreleeritud ravi (D)-ga (relevantsus),\nei ole korreleeritud vealiikmega (u) (eksogeensus).\n\nKlassikaline IV-mudel:\n\\[ Y_i = \\alpha D_i + X_i'\\beta + u_i,\\] \\[ D_i = Z_i'\\pi + X_i'\\gamma + v_i.\\]\nKui instrumente ja kontrolle on vähe, on standardne kaheastmeline väikseimate ruutude meetod (2SLS) piisav. Kui aga:\n\ninstrumente (Z) on palju (nt kõikvõimalikud interaktsioonid ja polünoomid),\nkontrolle (X) on samuti palju,\n\nsiis muutub klassikaline 2SLS ebastabiilseks. Siin tuleb appi LASSO, mis aitab valida olulised komponendid nii instrumentide kui kontrollide hulgast.\n\n\nJääkide meetod IV-kontekstis\nLASSOga IV-metoodika põhineb samal residualiseerimise ideel, kuid nüüd rakendame seda nii (Y), (D) kui ka (Z) suhtes.\nÜldised sammud:\n\nResidualiseeri (Y) kontrollide (X) suhtes:\n\\[ \\hat{m}\\_Y(X_i) = \\hat{\\mathbb{E}}\\]Y_i X_i\\[, \\quad rY_i = Y_i - \\hat{m}\\_Y(X_i).\\]\nResidualiseeri (D) kontrollide (X) suhtes:\n\\[ \\hat{m}\\_D(X_i) = \\hat{\\mathbb{E}}\\]D_i X_i\\[, \\quad rD_i = D_i - \\hat{m}\\_D(X_i).\\]\nResidualiseeri (Z) kontrollide (X) suhtes:\n\\[ \\hat{m}\\_Z(X_i) = \\hat{\\mathbb{E}}\\]Z_i X_i\\[, \\quad rZ_i = Z_i - \\hat{m}\\_Z(X_i).\\]\nKui instrumente on mitu, tehakse see iga komponendi jaoks eraldi.\nRakenda IV regressiooni jääkide vahel:\n\nesimene samm: regressioon (rD) peal (rZ), mis loob prognoosi (r);\nteine samm: regressioon (rY) peal (r).\n\n\nR-s võib käsitsi teostus välja näha selline:\nPaketis hdm on olemas rlassoIV, mis teeb need etapid automaatselt:\nSiin:\n\nkontrolltunnused (X) sisaldavad erinevaid piirkonna tunnuseid, laiuse ruutu jms ja nende teisendeid;\nLASSO valib välja olulised kontrollid, mis mõjutavad nii (Y) kui (D);\ninstrument logMort (asustajate suremus) jääb mudelisse ilma LASSO-karistuseta, sest teda käsitletakse „põhiinstrumendina“;\ntulemuseks on hinnang (), mis kirjeldab omandiõiguse kaitse (Exprop) mõju SKP-le (GDP), võttes arvesse kõrgedimensioonilisi kontrolle.\n\n\n\nMillal kasutada LASSOga IV-lähenemist\nLASSOga IV-lähenemine sobib eriti siis, kui:\n\ninstrumente ja kontrolle on palju, sh paljud võimalikud interaktsioonid ja polünoomid;\neeldame, et tegelik „tõeline“ mudel on hõre (sparse), st vaid väike osa tunnustest omab olulist mõju;\nsoovime teha ranget põhjuslikku järeldust, mitte ainult leida mõnda prognoosimudelit.\n\nOluline on:\n\nkasutada teooriapõhist () valikut (nagu rlasso vaikeseaded),\nkontrollida instrumentide tugevust (esimese sammu F-statistika jmt),\nmitte tugineda ainult CV-põhisele glmnet-LASSOle, kui eesmärk on põhjuslik mõju.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#double-machine-learning-ja-laiendused",
+    "href": "10-mllasso.html#double-machine-learning-ja-laiendused",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.7 Double machine learning ja laiendused",
+    "text": "16.7 Double machine learning ja laiendused\nJääkide meetod ja topeltvalik on erijuhud üldisemast double machine learning (DML) raamistikust, kus:\n\n(Y)- ja (D)-seosed (X)-dega modelleeritakse masinõppega (LASSO, juhumetsad, boosting, närvivõrgud),\nravi mõju hinnatakse seejärel regressiooniga jääkide vahel,\nandmed jagatakse sageli osadeks, et vähendada üle-sobitamise nihet (cross-fitting).\n\nÜldine idee:\n\nHinda mudelid (m_Y(x) \\[Y \\mid X=x\\]) ja (m_D(x) \\[D \\mid X=x\\]) masinõppe abil.\nArvuta jäägid (_i = Y_i - _Y(X_i)) ja (_i = D_i - _D(X_i)).\nHinda () regressioonis (_i = _i + _i).\n\nCross-fitting’u korral:\n\njagatakse andmed mitmeks osaks,\nühte osa kasutatakse prognoosimismudelite hindamiseks,\nteist osa mõju hindamiseks,\nseejärel keskmistatakse tulemused osade vahel.\n\nSee vähendab nihet, mis tekib, kui sama paindlik mudel kasutatakse korraga nii seose kui mõju hindamiseks.\nLASSO sobitub DML-raamistikku kui üks võimalik „nuisance“-mudelite (st (_Y, _D)) estimatsiooni meetod, mis on kiirem ja paremini mõistetav kui keerukamad musta kasti masinõppemudelid, kuid juba võimaldab kõrgedimensioonilist käsitlust.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel",
+    "href": "10-mllasso.html#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.8 Praktilised soovitused LASSO kasutamiseks mõju hindamisel",
+    "text": "16.8 Praktilised soovitused LASSO kasutamiseks mõju hindamisel\nKokkuvõtlikud juhised:\n\nKui eesmärk on prognoos:\n\nkasuta ristvalideeritud LASSOt (näiteks glmnet),\nvali () CV alusel,\ninterpreteeri mudeleid pigem „must kast“ lähenemisena.\n\nKui eesmärk on põhjuslik mõju:\n\nära toetu ainult CV-LASSOle,\nkasuta teooriapõhist LASSOt (nt hdm::rlasso),\nkasuta kas:\n\njääkliikmete meetodit (partialling out),\ntopeltvalikut (double selection),\nvõi nende IV-varianti (rlassoIV).\n\n\nJääkide meetod:\n\nefektiivsem, kui prognoosimismudelid (_Y) ja (_D) on täpsed;\nsobib hästi, kui tõesti usud, et LASSO leiab õiged seosed.\n\nTopeltvalik:\n\nrobustsem, kui seosed on nõrgad ja tunnuseid palju;\nkaasab mudelisse kõik (X)-d, mis on olulised kas (Y) või (D) jaoks;\nväldib olulise konfundeeriva tunnuse väljajätmist.\n\nIV-kontextis:\n\nkasuta LASSOt kontrollide ja instrumentide komponentide valikuks,\njäta peamised instrumendid karistamata (select.Z = FALSE),\nkontrolli instrumentide tugevust ja tõlgenda tulemusi teoreetilise raamistikuga kooskõlas.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#kokkuvõte",
+    "href": "10-mllasso.html#kokkuvõte",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.9 Kokkuvõte",
+    "text": "16.9 Kokkuvõte\nJääkliikmete meetod, topeltvalik ja LASSOga instrumentmuutuja meetod seovad masinõppe ja klassikalise ökonomeetria, et võimaldada usaldusväärset mõju hindamist kõrgedimensioonilistes seadetes. LASSO mängib seejuures kaht rolli:\n\nprognoosijana, mis aitab modelleerida keerulisi seoseid (Y) ja (D) ning instrumentide ja kontrollide vahel;\ntunnuste valijana, mis vähendab mudeli mõõtmeid ja aitab vältida üle-sobitamist.\n\nKorrektse regulaarimisparameetri valiku (teooriapõhine ()) ning sobiva järeldusmetoodika (partialling out, double selection, IV) korral saame LASSO abil hinnata poliitikate ja sekkumiste põhjuslikke mõjusid ka olukorras, kus traditsioonilised ökonomeetrilised meetodid jäävad suurte tunnustehulkade ja multikollineaarsuse tõttu hätta.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#näide",
+    "href": "10-mllasso.html#näide",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "16.10 Näide",
+    "text": "16.10 Näide",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#lihtne-näide-lassoga-prognoosimisel",
+    "href": "10-mllasso.html#lihtne-näide-lassoga-prognoosimisel",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "18.1 Lihtne näide LASSOga prognoosimisel",
+    "text": "18.1 Lihtne näide LASSOga prognoosimisel\nKasutame sama andmestikku\n\nload(url(\"http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.RData\"))\n\n#vali siit mida tahad\natp$y= atp$employed12\n\n#Nimetame meetmes osalemise ümber d-ks, lühem\natp$d= atp$training\n\natp2 &lt;- atp %&gt;% select(-training, -starts_with(\"wage\"), -starts_with(\"employed\")) #Kõik, mis algavad wage või employed, jätame välja\n#Muudame ka järjestust\n\natp2 &lt;- atp2 %&gt;% select(y, d, everything())\n\nTeeme andmemaatriksid\n\n#define response variable\ny &lt;- atp2$y\n\n#define matrix of predictor variables\n# - 1 no intercept\nxw &lt;- model.matrix(~ d + year + age + gender + collar + immigrant + rural + region + educ + lastemp + benefit -1, data = atp2)\n#head(xw)\n#drop year2006\n#xw &lt;- xw[, colnames(xw) != \"year2006\", drop = FALSE]\n\ndim(xw)\n\n[1] 7140   19\n\n#18 selgitavat muutujat\n\nglmnet() funktsioon sobitab lasso regressioonimudeli, kui määrata alpha = 1.\nTee k-kordne ristvalideerimine, et leida optimaalne lambda väärtus. Olgu k = 5\n\ncv_model &lt;- cv.glmnet(xw, y, alpha = 1, nfolds = 5)\ncv_model\n\n\nCall:  cv.glmnet(x = xw, y = y, nfolds = 5, alpha = 1) \n\nMeasure: Mean-Squared Error \n\n      Lambda Index Measure       SE Nonzero\nmin 0.001963    42  0.2375 0.001170      16\n1se 0.009543    25  0.2387 0.001072      12\n\n#min - näitab minimaalse MSE väärtusega\n\nLeia optimaalne lambda väärtus, mis minimeerib testandmete ruutkeskmise vea (MSE).\n\nbest_lambda &lt;- cv_model$lambda.min\nbest_lambda\n\n[1] 0.001962509\n\n\nTeeme joonise lambda väärtuse ja testandmestiku MSE vahel\n\nplot(cv_model) \n\n\n\n\n\n\n\n\nParim mudel\n\nbest_model &lt;- glmnet(xw, y, alpha = 1, lambda = best_lambda)\n\nJa kordajad\n\nround(coef(best_model),5)\n\n20 x 1 sparse Matrix of class \"dgCMatrix\"\n                       s0\n(Intercept)       0.36505\nd                 0.03945\nyear2006          0.00139\nyear2007          .      \nage3049          -0.00287\nage5064          -0.08791\ngendermale       -0.02049\ncollarwhite       .      \nimmigrant1       -0.07813\nrural            -0.02917\nregionBludhaven   0.00208\nregionCentral    -0.01090\nregionGotham      0.04110\nregionMetropolis  .      \neducSecondary     0.05102\neducTertiary      0.08711\nlastemp1_2        0.03588\nlastemp2_4        0.05447\nlastempover4      0.03616\nbenefit           0.14823\n\n\nÜllatuslikult jäid kõik alles - post-LASSO\nEt ei peaks käsitsi trükkima\n\nselected_vars &lt;- row.names(coef(best_model))[which(coef(best_model) != 0)][-1]\nformula_str &lt;- paste(\"y ~\", paste(selected_vars, collapse = \" + \"))\n\natp3 &lt;- data.frame(y, xw)\n\n\nolsmodel &lt;- lm(as.formula(formula_str), data = atp3)\nsummary(olsmodel)\n\n\nCall:\nlm(formula = as.formula(formula_str), data = atp3)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-0.7622 -0.4580 -0.2355  0.4702  0.8026 \n\nCoefficients:\n                 Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)      0.353265   0.022680  15.576  &lt; 2e-16 ***\nd                0.043209   0.013452   3.212 0.001324 ** \nyear2006         0.005216   0.011580   0.450 0.652421    \nage3049         -0.016039   0.014251  -1.125 0.260421    \nage5064         -0.104547   0.018097  -5.777 7.92e-09 ***\ngendermale      -0.021955   0.011878  -1.848 0.064586 .  \nimmigrant1      -0.081956   0.016572  -4.945 7.78e-07 ***\nrural           -0.032598   0.014815  -2.200 0.027813 *  \nregionBludhaven  0.012030   0.023106   0.521 0.602610    \nregionCentral   -0.011218   0.017666  -0.635 0.525447    \nregionGotham     0.044970   0.015882   2.831 0.004647 ** \neducSecondary    0.063766   0.017014   3.748 0.000180 ***\neducTertiary     0.099545   0.017641   5.643 1.74e-08 ***\nlastemp1_2       0.046207   0.018961   2.437 0.014836 *  \nlastemp2_4       0.065331   0.017073   3.827 0.000131 ***\nlastempover4     0.048027   0.015523   3.094 0.001983 ** \nbenefit          0.150644   0.012398  12.151  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4864 on 7123 degrees of freedom\nMultiple R-squared:  0.05563,   Adjusted R-squared:  0.05351 \nF-statistic: 26.23 on 16 and 7123 DF,  p-value: &lt; 2.2e-16\n\n\nLASSO kordajad peaksid olema nihkega nulli suunas",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#näited-kasutades-paketti-hdm",
+    "href": "10-mllasso.html#näited-kasutades-paketti-hdm",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "18.2 Näited kasutades paketti hdm",
+    "text": "18.2 Näited kasutades paketti hdm\nrlasso teeb nii Lasso kui post-Lasso. Lubab nii homoskedastiiseid kui heteroskedastiivseid vigu (default homoscedastic = FALSE)\n\nrequire(hdm)\n\n#tavaline lasso\ncv_model &lt;- cv.glmnet(xw, y, alpha = 1, nfolds = 10)\nbest_lambda &lt;- cv_model$lambda.min\nbest_lambda\n\n[1] 0.0004861285\n\nplot(cv_model) \n\n\n\n\n\n\n\nbest_model &lt;- glmnet(xw, y, alpha = 1, lambda = best_lambda)\ncoef(best_model)\n\n20 x 1 sparse Matrix of class \"dgCMatrix\"\n                           s0\n(Intercept)       0.344699097\nd                 0.042128993\nyear2006          0.004459528\nyear2007          .          \nage3049          -0.012936475\nage5064          -0.101884446\ngendermale       -0.021584370\ncollarwhite      -0.005753881\nimmigrant1       -0.078547303\nrural            -0.032935249\nregionBludhaven   0.021113776\nregionCentral     .          \nregionGotham      0.055425473\nregionMetropolis  0.017704494\neducSecondary     0.061692726\neducTertiary      0.099017957\nlastemp1_2        0.044320275\nlastemp2_4        0.063197320\nlastempover4      0.046263605\nbenefit           0.151101177\n\n\nKäsk rlasso\n\nlasso.reg = rlasso(y ~ xw, post = FALSE) # use lasso, not-Post-lasso\nsum.lasso &lt;- summary(lasso.reg, all = FALSE)\n\n\nCall:\nrlasso.formula(formula = y ~ xw, post = FALSE)\n\nPost-Lasso Estimation:  FALSE \n\nTotal number of variables: 19\nNumber of selected variables: 12 \n\nResiduals: \n    Min      1Q  Median      3Q     Max \n-0.6797 -0.4524 -0.3246  0.4742  0.7154 \n\n              Estimate\n(Intercept)      0.408\nd                0.025\nage5064         -0.057\ngendermale      -0.013\ncollarwhite      0.002\nimmigrant1      -0.055\nrural           -0.014\nregionGotham     0.037\neducSecondary    0.001\neducTertiary     0.045\nlastemp2_4       0.018\nlastempover4     0.003\nbenefit          0.145\n\nResidual standard error: 0.4876\nMultiple R-squared:  0.04909\nAdjusted R-squared:  0.04749\nJoint significance test:\n the sup score statistic for joint significance test is 3.753 with a p-value of     0",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#meetme-mõju-hindamine-lassoga",
+    "href": "10-mllasso.html#meetme-mõju-hindamine-lassoga",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "18.3 Meetme mõju hindamine LASSOga",
+    "text": "18.3 Meetme mõju hindamine LASSOga\nOLS-ga ette võrdluseks\n\nfmla = as.formula(paste(\"y ~ \", paste(colnames(xw), collapse = \"+\")))\nfmla\n\ny ~ d + year2006 + year2007 + age3049 + age5064 + gendermale + \n    collarwhite + immigrant1 + rural + regionBludhaven + regionCentral + \n    regionGotham + regionMetropolis + educSecondary + educTertiary + \n    lastemp1_2 + lastemp2_4 + lastempover4 + benefit\n\n#OLS\nfull.fit = lm(fmla, data = atp3)\n#Koolituse mõju on4.8 protsendipunkti\nsummary(full.fit)\n\n\nCall:\nlm(formula = fmla, data = atp3)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-0.7597 -0.4573 -0.2346  0.4716  0.7989 \n\nCoefficients: (1 not defined because of singularities)\n                  Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)       0.334523   0.031092  10.759  &lt; 2e-16 ***\nd                 0.042997   0.013459   3.195 0.001406 ** \nyear2006          0.005558   0.011618   0.478 0.632365    \nyear2007                NA         NA      NA       NA    \nage3049          -0.016288   0.014262  -1.142 0.253475    \nage5064          -0.106782   0.018210  -5.864 4.72e-09 ***\ngendermale       -0.021911   0.011889  -1.843 0.065383 .  \ncollarwhite      -0.008810   0.013776  -0.639 0.522521    \nimmigrant1       -0.077865   0.018121  -4.297 1.75e-05 ***\nrural            -0.034460   0.014907  -2.312 0.020826 *  \nregionBludhaven   0.030854   0.031133   0.991 0.321695    \nregionCentral     0.007689   0.027158   0.283 0.777104    \nregionGotham      0.063473   0.024808   2.559 0.010531 *  \nregionMetropolis  0.027074   0.029516   0.917 0.359037    \neducSecondary     0.065434   0.017116   3.823 0.000133 ***\neducTertiary      0.103454   0.018363   5.634 1.83e-08 ***\nlastemp1_2        0.047213   0.019009   2.484 0.013026 *  \nlastemp2_4        0.066187   0.017134   3.863 0.000113 ***\nlastempover4      0.049855   0.015697   3.176 0.001499 ** \nbenefit           0.152305   0.012566  12.120  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4865 on 7121 degrees of freedom\nMultiple R-squared:  0.0558,    Adjusted R-squared:  0.05341 \nF-statistic: 23.38 on 18 and 7121 DF,  p-value: &lt; 2.2e-16\n\n#Eraldi soovi korral\nsummary(full.fit)$coef[\"d\", 1:2]\n\n  Estimate Std. Error \n0.04299741 0.01345912",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "10-mllasso.html#partialling-out-method---jääkliikmete-meetod",
+    "href": "10-mllasso.html#partialling-out-method---jääkliikmete-meetod",
+    "title": "11  LASSO mõju hindamisel",
+    "section": "18.4 Partialling out method - jääkliikmete meetod",
+    "text": "18.4 Partialling out method - jääkliikmete meetod\nTehniline eeltöö. Leiame selgitavate muutujate nimed ilma training muutujata\n\nx &lt;- model.matrix(~ year + age + gender + collar + immigrant + rural + region + educ + lastemp + benefit - 1, data = atp2)\nhead(x)\n\n  year2006 year2007 age3049 age5064 gendermale collarwhite immigrant1 rural\n1        1        0       1       0          0           1          0     0\n2        1        0       1       0          0           1          0     0\n3        1        0       0       0          0           0          0     0\n4        1        0       1       0          0           1          0     0\n5        1        0       1       0          0           1          0     0\n6        1        0       0       1          0           0          1     0\n  regionBludhaven regionCentral regionGotham regionMetropolis educSecondary\n1               0             0            0                0             0\n2               0             0            1                0             1\n3               0             0            0                0             0\n4               0             1            0                0             0\n5               0             0            1                0             0\n6               0             0            1                0             0\n  educTertiary lastemp1_2 lastemp2_4 lastempover4 benefit\n1            1          1          0            0       1\n2            0          0          0            1       1\n3            0          0          0            0       0\n4            1          0          0            0       1\n5            1          0          1            0       1\n6            1          0          0            1       1\n\nxnames &lt;- colnames(x)\n\nTeeme valemid, et ei peaks käsitsi trükkima\n\n#Y võrrand\nfmla.y = as.formula(paste(\"y ~ \", paste(xnames, collapse = \"+\")))\n#D võrrand\n\nfmla.d = as.formula(paste(\"d ~ \", paste(xnames, collapse = \"+\")))\n\n\nJa nüüd esimesed sammud OLSga.\nLeiame jääkliikmed\n\n# partial fit via ols\n\n#väljund\nmudelyjax = lm(fmla.y, data = atp3)\nsummary(mudelyjax)\n\n\nCall:\nlm(formula = fmla.y, data = atp3)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-0.7278 -0.4589 -0.2356  0.4748  0.7899 \n\nCoefficients: (1 not defined because of singularities)\n                  Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)       0.339102   0.031079  10.911  &lt; 2e-16 ***\nyear2006          0.005563   0.011625   0.478  0.63232    \nyear2007                NA         NA      NA       NA    \nage3049          -0.015162   0.014267  -1.063  0.28794    \nage5064          -0.108447   0.018214  -5.954 2.74e-09 ***\ngendermale       -0.020094   0.011883  -1.691  0.09089 .  \ncollarwhite      -0.008197   0.013783  -0.595  0.55208    \nimmigrant1       -0.077598   0.018132  -4.280 1.90e-05 ***\nrural            -0.033885   0.014916  -2.272  0.02313 *  \nregionBludhaven   0.033445   0.031143   1.074  0.28289    \nregionCentral     0.009097   0.027172   0.335  0.73780    \nregionGotham      0.061740   0.024818   2.488  0.01288 *  \nregionMetropolis  0.029592   0.029524   1.002  0.31623    \neducSecondary     0.068455   0.017101   4.003 6.32e-05 ***\neducTertiary      0.108364   0.018311   5.918 3.41e-09 ***\nlastemp1_2        0.047588   0.019021   2.502  0.01238 *  \nlastemp2_4        0.067030   0.017143   3.910 9.31e-05 ***\nlastempover4      0.050303   0.015706   3.203  0.00137 ** \nbenefit           0.154204   0.012560  12.277  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4868 on 7122 degrees of freedom\nMultiple R-squared:  0.05445,   Adjusted R-squared:  0.05219 \nF-statistic: 24.12 on 17 and 7122 DF,  p-value: &lt; 2.2e-16\n\nrY = mudelyjax$res\n\n#Sama meetmes osalemisega\n#Teeme otse\nrD = lm(fmla.d, data = atp3)$res\n\n#Ja nüüd seos jääkliimete vahel\npartial.fit.ls = lm(rY ~ rD)\nsummary(partial.fit.ls)$coef[\"rD\", 1:2]\n\n  Estimate Std. Error \n0.04299741 0.01344309 \n\n#Täpselt sama, mis oli (!)\nsummary(full.fit)$coef[\"d\", 1:2]\n\n  Estimate Std. Error \n0.04299741 0.01345912 \n\n\n\n\nAga nüüd teeme selle LASSOga\nPost-LASSO\n\n# partial fit via post-lasso\nrY = rlasso(fmla.y, data = atp3)$res\nrD = rlasso(fmla.d, data = atp3)$res\npartial.fit.postlasso = lm(rY ~ rD)\nsummary(partial.fit.postlasso)$coef[\"rD\", 1:2]\n\n  Estimate Std. Error \n0.04568989 0.01344290 \n\n\nMõju hinnang sarnane\n\n\nFunktsioon rlassoEffect teeb selle kõik ise!\n\n#We have Xs, Y, D as parameters\nEff = rlassoEffects(xw, y, index = c(1), method = \"partialling out\")  #indeks 1 ütleb, et meede on esimeses veerus\nsummary(Eff)$coef[, 1:2]\n\n Estimate. Std. Error \n0.04568989 0.01344290 \n\n\n\n\nTopelt selektsiooni meetod (double selection method)\n\nVali Lasso abil kontrollmuutujad x_{ij}, mis ennustavad y_i.\nVali Lasso abil kontrollmuutujad x_{ij}, mis ennustavad d_i.\nTeosta tavaruutude meetod (OLS), kus y_i regresseeritakse d_i ja kontrollmuutujate ühisosa (!) suhtes, mis valiti sammudes 1 ja 2.\n\n\nEff = rlassoEffects(xw, y, index = c(1), method = \"double selection\") \nsummary(Eff)$coef[, 1:2]\n\n Estimate. Std. Error \n0.04569497 0.01356472 \n\n\nSarnased efektid",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>LASSO mõju hindamisel</span>"
+    ]
+  },
+  {
+    "objectID": "11-tehajaideed.html",
+    "href": "11-tehajaideed.html",
+    "title": "12  Teha",
+    "section": "",
+    "text": "Lisada peatükid:\n\nInterrupted time series\nRDD peatükki alapunktid\n\nRegression Discontinuity in Time - seos interrupted time series meetodiga\nRegression Discontinuity in Space\n\nStruktuursete võrranditega mudelid (SEM), seos DAGiga",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Teha</span>"
     ]
   }
 ]

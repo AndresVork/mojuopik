@@ -194,7 +194,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -229,20 +229,26 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-mlpuumets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-mllasso.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LASSO</span></span></a>
+  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-synthcontr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusrühma meetod</span></span></a>
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
   </div>
 </li>
     </ul>
@@ -325,7 +331,7 @@ window.Quarto = {
 <p><span class="math display">\[Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \mathbf{X}_i \beta + \epsilon_i\]</span></p>
 <ul>
 <li><p><strong>Valem:</strong> <span class="math inline">\(Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \beta_1 X_{1i} + \dots + \epsilon_i\)</span></p></li>
-<li><p><strong>Mõju <span class="math inline">\(X_{ki}\)</span> väärtusel:</strong> <span class="math inline">\(\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}\)</span>.</p></li>
+<li><p><strong>Mõju</strong> <span class="math inline">\(X_{ki}\)</span> väärtusel: <span class="math inline">\(\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}\)</span>.</p></li>
 <li><p><strong>Kasutamine:</strong> Seda mudelit kasutades saab hinnata <strong>CATE</strong>-t (Conditional Average Treatment Effect), st keskmist mõju alamrühmas, ja leida seejärel kaalutud keskmist leides ATE või ATT.</p></li>
 </ul>
 </section>
@@ -334,8 +340,8 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="kaks-eraldi-eegressioonimudelit-g-computation">Kaks eraldi eegressioonimudelit (G-Computation)</h3>
 <p>See meetod hinnatakse regressioonimudeleid eraldi osalejate (<span class="math inline">\(D=1\)</span>) ja mitte-osalejate (<span class="math inline">\(D=0\)</span>) andmetel, mis võimaldab arvestada <strong>heterogeenset funktsionaalset seost</strong> <span class="math inline">\(Y_0\)</span> ja <span class="math inline">\(Y_1\)</span> vahel.</p>
 <ol type="1">
-<li><p><strong>Mudel osalejatel (<span class="math inline">\(D=1\)</span>):</strong> <span class="math display">\[Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1\]</span> Prognoosime tulemuse <span class="math inline">\(Y_{i1}\)</span> <strong>kõigile</strong> vaatlustele: <span class="math inline">\(\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1\)</span>.</p></li>
-<li><p><strong>Mudel mitte-osalejatel (<span class="math inline">\(D=0\)</span>):</strong></p></li>
+<li><p><strong>Mudel osalejatel (</strong><span class="math inline">\(D=1\)</span>): <span class="math display">\[Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1\]</span> Prognoosime tulemuse <span class="math inline">\(Y_{i1}\)</span> <strong>kõigile</strong> vaatlustele: <span class="math inline">\(\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1\)</span>.</p></li>
+<li><p><strong>Mudel mitte-osalejatel (</strong><span class="math inline">\(D=0\)</span>):</p></li>
 </ol>
 <p><span class="math display">\[Y_i = \alpha_0 + \mathbf{X}_i \beta_0 + \epsilon_{i0} \quad \text{kui } D_i=0\]</span></p>
 <p>Prognoosime tulemuse <span class="math inline">\(Y_{i0}\)</span> <strong>kõigile</strong> vaatlustele: <span class="math inline">\(\hat{Y}_{i0} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0\)</span>.</p>
@@ -359,8 +365,8 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="muutujate-selgitused">Muutujate selgitused</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 80%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1201,8 +1207,8 @@ Some BCa intervals may be unstable</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02-pohimoisted.html" class="pagination-link" aria-label="Potentsiaalse tulemuse mudel">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span>
+      <a href="./02-pohimoisted.html" class="pagination-link" aria-label="Sissejuhatus">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Potentsiaalse tulemuse mudel – Põhjuslike seoste hindamine majanduses</title>
+<title>3&nbsp; Sissejuhatus – Põhjuslike seoste hindamine majanduses</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -84,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-pohimoisted.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-pohimoisted.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
@@ -130,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -165,20 +194,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-mlpuumets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-mllasso.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LASSO</span></span></a>
+  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-synthcontr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusrühma meetod</span></span></a>
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
   </div>
 </li>
     </ul>
@@ -186,15 +221,61 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#notatsioon-ja-potentsiaalsed-tulemused" id="toc-notatsioon-ja-potentsiaalsed-tulemused" class="nav-link active" data-scroll-target="#notatsioon-ja-potentsiaalsed-tulemused"><span class="header-section-number">4</span> Notatsioon ja potentsiaalsed tulemused</a>
+  <ul class="collapse">
+  <li><a href="#töötlus-ja-tulemused" id="toc-töötlus-ja-tulemused" class="nav-link" data-scroll-target="#töötlus-ja-tulemused"><span class="header-section-number">4.1</span> Töötlus ja tulemused</a></li>
+  <li><a href="#individuaalne-mõju" id="toc-individuaalne-mõju" class="nav-link" data-scroll-target="#individuaalne-mõju"><span class="header-section-number">4.2</span> Individuaalne mõju</a></li>
+  </ul></li>
+  <li><a href="#huvipakkuvad-keskmised-mõjud" id="toc-huvipakkuvad-keskmised-mõjud" class="nav-link" data-scroll-target="#huvipakkuvad-keskmised-mõjud"><span class="header-section-number">5</span> Huvipakkuvad keskmised mõjud</a>
+  <ul class="collapse">
+  <li><a href="#ate-keskmine-mõju-populatsioonis" id="toc-ate-keskmine-mõju-populatsioonis" class="nav-link" data-scroll-target="#ate-keskmine-mõju-populatsioonis"><span class="header-section-number">5.1</span> ATE – keskmine mõju populatsioonis</a></li>
+  <li><a href="#att-keskmine-mõju-osalenutele" id="toc-att-keskmine-mõju-osalenutele" class="nav-link" data-scroll-target="#att-keskmine-mõju-osalenutele"><span class="header-section-number">5.2</span> ATT – keskmine mõju osalenutele</a></li>
+  <li><a href="#atu-keskmine-mõju-mitteosalenutele" id="toc-atu-keskmine-mõju-mitteosalenutele" class="nav-link" data-scroll-target="#atu-keskmine-mõju-mitteosalenutele"><span class="header-section-number">5.3</span> ATU – keskmine mõju mitteosalenutele</a></li>
+  <li><a href="#ate-seos-att-ja-atu-ga" id="toc-ate-seos-att-ja-atu-ga" class="nav-link" data-scroll-target="#ate-seos-att-ja-atu-ga"><span class="header-section-number">5.4</span> ATE seos ATT ja ATU-ga</a></li>
+  </ul></li>
+  <li><a href="#näited-ate-att-ja-atu-tõlgendamisest" id="toc-näited-ate-att-ja-atu-tõlgendamisest" class="nav-link" data-scroll-target="#näited-ate-att-ja-atu-tõlgendamisest"><span class="header-section-number">6</span> Näited ATE, ATT ja ATU tõlgendamisest</a>
+  <ul class="collapse">
+  <li><a href="#näide-1-töötajate-koolitusprogramm" id="toc-näide-1-töötajate-koolitusprogramm" class="nav-link" data-scroll-target="#näide-1-töötajate-koolitusprogramm"><span class="header-section-number">6.1</span> Näide 1: Töötajate koolitusprogramm</a></li>
+  <li><a href="#näide-2-turunduskampaania" id="toc-näide-2-turunduskampaania" class="nav-link" data-scroll-target="#näide-2-turunduskampaania"><span class="header-section-number">6.2</span> Näide 2: Turunduskampaania</a></li>
+  </ul></li>
+  <li><a href="#lihtne-keskmiste-erinevus-ja-nihe" id="toc-lihtne-keskmiste-erinevus-ja-nihe" class="nav-link" data-scroll-target="#lihtne-keskmiste-erinevus-ja-nihe"><span class="header-section-number">7</span> Lihtne keskmiste erinevus ja nihe</a>
+  <ul class="collapse">
+  <li><a href="#lihtne-erinevus-tulemustes" id="toc-lihtne-erinevus-tulemustes" class="nav-link" data-scroll-target="#lihtne-erinevus-tulemustes"><span class="header-section-number">7.1</span> Lihtne erinevus tulemustes</a></li>
+  <li><a href="#valikunihe-ja-heterogeense-mõju-nihe" id="toc-valikunihe-ja-heterogeense-mõju-nihe" class="nav-link" data-scroll-target="#valikunihe-ja-heterogeense-mõju-nihe"><span class="header-section-number">7.2</span> Valikunihe ja heterogeense mõju nihe</a></li>
+  </ul></li>
+  <li><a href="#sutva-stabiilse-ühikunäitaja-eeldus" id="toc-sutva-stabiilse-ühikunäitaja-eeldus" class="nav-link" data-scroll-target="#sutva-stabiilse-ühikunäitaja-eeldus"><span class="header-section-number">8</span> SUTVA – stabiilse ühikunäitaja eeldus</a></li>
+  <li><a href="#sõltumatuse-eeldus-ja-juhuslik-eksperiment" id="toc-sõltumatuse-eeldus-ja-juhuslik-eksperiment" class="nav-link" data-scroll-target="#sõltumatuse-eeldus-ja-juhuslik-eksperiment"><span class="header-section-number">9</span> Sõltumatuse eeldus ja juhuslik eksperiment</a>
+  <ul class="collapse">
+  <li><a href="#tugev-sõltumatuse-eeldus" id="toc-tugev-sõltumatuse-eeldus" class="nav-link" data-scroll-target="#tugev-sõltumatuse-eeldus"><span class="header-section-number">9.1</span> Tugev sõltumatuse eeldus</a></li>
+  </ul></li>
+  <li><a href="#tingimuslik-sõltumatus-cia-ja-sellega-seotud-eeldused" id="toc-tingimuslik-sõltumatus-cia-ja-sellega-seotud-eeldused" class="nav-link" data-scroll-target="#tingimuslik-sõltumatus-cia-ja-sellega-seotud-eeldused"><span class="header-section-number">10</span> Tingimuslik sõltumatus (CIA) ja sellega seotud eeldused</a>
+  <ul class="collapse">
+  <li><a href="#tingimuslik-sõltumatuse-eeldus-cia" id="toc-tingimuslik-sõltumatuse-eeldus-cia" class="nav-link" data-scroll-target="#tingimuslik-sõltumatuse-eeldus-cia"><span class="header-section-number">10.1</span> Tingimuslik sõltumatuse eeldus (CIA)</a></li>
+  <li><a href="#tingimuslik-keskväärtuse-sõltumatus" id="toc-tingimuslik-keskväärtuse-sõltumatus" class="nav-link" data-scroll-target="#tingimuslik-keskväärtuse-sõltumatus"><span class="header-section-number">10.2</span> Tingimuslik keskväärtuse sõltumatus</a></li>
+  </ul></li>
+  <li><a href="#ühine-tugi-common-support" id="toc-ühine-tugi-common-support" class="nav-link" data-scroll-target="#ühine-tugi-common-support"><span class="header-section-number">11</span> Ühine tugi (common support)</a></li>
+  <li><a href="#att-hindamine-cia-abil" id="toc-att-hindamine-cia-abil" class="nav-link" data-scroll-target="#att-hindamine-cia-abil"><span class="header-section-number">12</span> ATT hindamine CIA abil</a></li>
+  <li><a href="#täiendavad-statistikud-itt-late-ja-cate" id="toc-täiendavad-statistikud-itt-late-ja-cate" class="nav-link" data-scroll-target="#täiendavad-statistikud-itt-late-ja-cate"><span class="header-section-number">13</span> Täiendavad statistikud: ITT, LATE ja CATE</a>
+  <ul class="collapse">
+  <li><a href="#intention-to-treat-effect-itt" id="toc-intention-to-treat-effect-itt" class="nav-link" data-scroll-target="#intention-to-treat-effect-itt"><span class="header-section-number">13.1</span> Intention to treat effect (ITT)</a></li>
+  <li><a href="#lokaalne-keskmine-mõju-late" id="toc-lokaalne-keskmine-mõju-late" class="nav-link" data-scroll-target="#lokaalne-keskmine-mõju-late"><span class="header-section-number">13.2</span> Lokaalne keskmine mõju (LATE)</a></li>
+  <li><a href="#tingimuslik-keskmine-mõju-cate" id="toc-tingimuslik-keskmine-mõju-cate" class="nav-link" data-scroll-target="#tingimuslik-keskmine-mõju-cate"><span class="header-section-number">13.3</span> Tingimuslik keskmine mõju (CATE)</a></li>
+  </ul></li>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">14</span> Kokkuvõte</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></h1>
 </div>
 
 
@@ -211,9 +292,305 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Poolik - arenev</p>
+<p>Potentsiaalse tulemuse mudel (potential outcomes model, POM) on põhjusliku mõju hindamise standardne raamistik statistikas ja majandusteaduses. Mudeli juured on Splawa-Neymani (1923), Roy (1951), Quandt’i (1958) ja Rubini (1974) töödes ning seda nimetatakse sageli Neyman–Rubin–Roy mudeliks.</p>
+<p>Põhiidee on lihtne: enne poliitikameedet või sekkumist on igal indiviidil mitu võimalikku tulemust, sõltuvalt sellest, kas ta osaleb meetmes või mitte. Reaalses elus näeme iga indiviidi kohta vaid üht realiseerunud tulemust. Sellest tekib põhjuslikkuse „põhiprobleem”: me ei näe kunagi sama indiviidi nii osalemas kui mitteosalejana samal ajal.</p>
+<p>POM annab süsteemse raamistiku, kuidas notatsiooni abil defineerida huvipakkuvad suurused (ATE, ATT, ATU, CATE, LATE jne) ning milliste eelduste korral võime neid põhjuslikult tõlgendada.</p>
+<section id="notatsioon-ja-potentsiaalsed-tulemused" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Notatsioon ja potentsiaalsed tulemused</h1>
+<section id="töötlus-ja-tulemused" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="töötlus-ja-tulemused"><span class="header-section-number">4.1</span> Töötlus ja tulemused</h2>
+<p>Olgu indiviid (i) jaoks</p>
+<ul>
+<li><p>meetmes osalemise tunnus<br>
+<span class="math display">\[
+D_i \in \{0,1\},
+\]</span> kus (D_i = 1) tähendab osalemist meetmes ja (D_i = 0) mitteosalemist;</p></li>
+<li><p>potentsiaalsed tulemused<br>
+Meetmes osalemise korral:</p>
+<p><span class="math display">\[ Y_i(1) \quad \text{tulemus, kui } D_i = 1, \]</span></p></li>
+</ul>
+<p>Meetmes mitteosalemise korral</p>
+<p><span class="math display">\[ Y_i(0) \quad \text{tulemus, kui } D_i = 0. \]</span></p>
+<p>Reaalselt jälgitav tulemus on</p>
+<p><span class="math display">\[ Y_i = D_i \, Y_i(1) + (1 - D_i)\, Y_i(0). \]</span></p>
+<p>Sageli on meil lisaks ka vektor individuaalseid tunnuseid</p>
+<p><span class="math display">\[ X_i = (X_{i1}, X_{i2}, \dots, X_{ik}), \]</span></p>
+<p>näiteks sugu, vanus, haridus, piirkond, varasem sissetulek jne.</p>
+</section>
+<section id="individuaalne-mõju" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="individuaalne-mõju"><span class="header-section-number">4.2</span> Individuaalne mõju</h2>
+<p>Individuaalne põhjuslik mõju indiviidi (i) jaoks on</p>
+<p><span class="math display">\[
+\delta_i = Y_i(1) - Y_i(0).
+\]</span></p>
+<p>Sellist mõju ei saa kunagi otse mõõta, sest me ei näe sama indiviidi korraga kahes olekus. Seetõttu keskendume populatsiooni- või alampopulatsiooni keskmistele mõjudele.</p>
+</section>
+</section>
+<section id="huvipakkuvad-keskmised-mõjud" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Huvipakkuvad keskmised mõjud</h1>
+<section id="ate-keskmine-mõju-populatsioonis" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="ate-keskmine-mõju-populatsioonis"><span class="header-section-number">5.1</span> ATE – keskmine mõju populatsioonis</h2>
+<p>Poliitikameetme keskmine mõju (average treatment effect, ATE) on defineeritud kui</p>
+<p><span class="math display">\[
+\text{ATE} = \mathbb{E}\big[ Y_i(1) - Y_i(0) \big]
+           = \mathbb{E}\big[ Y_i(1) \big] - \mathbb{E}\big[ Y_i(0) \big].
+\]</span></p>
+<p>Tõlgendus: milline oleks keskmine tulemus, kui kogu populatsioon saaks töötluse, võrreldes olukorraga, kui keegi ei saaks töötlust.</p>
+</section>
+<section id="att-keskmine-mõju-osalenutele" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="att-keskmine-mõju-osalenutele"><span class="header-section-number">5.2</span> ATT – keskmine mõju osalenutele</h2>
+<p>Osalenute keskmine mõju (average treatment effect on the treated, ATT) on</p>
+<p><span class="math display">\[
+\text{ATT} = \mathbb{E}\big[ Y_i(1) - Y_i(0) \mid D_i = 1 \big].
+\]</span></p>
+<p>Tõlgendus: kui palju paranesid tulemused nende jaoks, kes tegelikult osalesid, võrreldes hüpoteetilise olukorraga, kus just need samad inimesed ei oleks osalenud.</p>
+</section>
+<section id="atu-keskmine-mõju-mitteosalenutele" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="atu-keskmine-mõju-mitteosalenutele"><span class="header-section-number">5.3</span> ATU – keskmine mõju mitteosalenutele</h2>
+<p>Mitteosalenute keskmine mõju (average treatment effect on the untreated, ATU) on</p>
+<p><span class="math display">\[
+\text{ATU} = \mathbb{E}\big[ Y_i(1) - Y_i(0) \mid D_i = 0 \big].
+\]</span></p>
+<p>Tõlgendus: kui palju oleks muutunud mitteosalenute tulemused, kui just nemad oleksid töötluse saanud.</p>
+</section>
+<section id="ate-seos-att-ja-atu-ga" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="ate-seos-att-ja-atu-ga"><span class="header-section-number">5.4</span> ATE seos ATT ja ATU-ga</h2>
+<p>Olgu</p>
+<p><span class="math display">\[
+p = \Pr(D_i = 1)
+\]</span></p>
+<p>osalenute osakaal populatsioonis. Siis kehtib seos</p>
+<p><span class="math display">\[
+\text{ATE} = p \cdot \text{ATT} + (1 - p) \cdot \text{ATU}.
+\]</span></p>
+<p>Seega võivad ATT ja ATU olla erinevad, kui mõju on heterogeenne eri rühmades, ning ATE on nende kaalutud keskmine.</p>
+</section>
+</section>
+<section id="näited-ate-att-ja-atu-tõlgendamisest" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Näited ATE, ATT ja ATU tõlgendamisest</h1>
+<p>Alljärgnevalt mõned rakendusnäited majandusest.</p>
+<section id="näide-1-töötajate-koolitusprogramm" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="näide-1-töötajate-koolitusprogramm"><span class="header-section-number">6.1</span> Näide 1: Töötajate koolitusprogramm</h2>
+<ul>
+<li>Meede: ettevõte viib valitud töötajatele läbi edasijõudnute programmeerimiskoolituse.</li>
+<li>Tulemus: tootlikkuse kasv (nt müük töötaja kohta, koodi kvaliteet).</li>
+<li>Grupid:
+<ul>
+<li>koolitatud: koolitusele valitud töötajad ((D=1));</li>
+<li>koolitamata: töötajad, kes koolitust ei saanud ((D=0)).</li>
+</ul></li>
+</ul>
+<p>Tõlgendused:</p>
+<ul>
+<li>ATT:<br>
+Kui palju paranes tootlikkus koolitusel osalenud töötajatel võrreldes olukorraga, kus just need samad töötajad ei oleks koolitusel osalenud?</li>
+<li>ATU:<br>
+Kui palju oleks muutunud tootlikkus töötajatel, kes ei osalenud, kui nemad oleksid koolituse saanud?</li>
+<li>ATE:<br>
+Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv ettevõttes?</li>
+</ul>
+</section>
+<section id="näide-2-turunduskampaania" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="näide-2-turunduskampaania"><span class="header-section-number">6.2</span> Näide 2: Turunduskampaania</h2>
+<ul>
+<li>Meede: ettevõte saadab valitud klientidele e-posti kampaania allahindlusega.</li>
+<li>Tulemus: ostutõenäosuse või käibe muutus.</li>
+</ul>
+<p>Tõlgendused:</p>
+<ul>
+<li>ATT: milline oli müügi kasv kampaania saanud klientide seas (võrreldes olukorraga, kus need kliendid poleks pakkumist saanud)?</li>
+<li>ATU: kui palju oleks muutunud kampaania saamata klientide ostutõenäosus, kui neile oleks pakkumine saadetud?</li>
+<li>ATE: mis oleks tulemus, kui kampaania saadetaks kõigile klientidele?</li>
+</ul>
+<p>Sarnasel viisil saab tõlgendada ka tehnoloogiauendusi (nt uue AI-laohaldussüsteemi kasutuselevõtt) või paindlikke töökorraldusi (kaugtöö võimalus).</p>
+</section>
+</section>
+<section id="lihtne-keskmiste-erinevus-ja-nihe" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Lihtne keskmiste erinevus ja nihe</h1>
+<section id="lihtne-erinevus-tulemustes" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="lihtne-erinevus-tulemustes"><span class="header-section-number">7.1</span> Lihtne erinevus tulemustes</h2>
+<p>Praktikas alustatakse sageli lihtsa keskmiste erinevusega</p>
+<p><span class="math display">\[
+\text{SDO}
+= \mathbb{E}[Y_i \mid D_i = 1] - \mathbb{E}[Y_i \mid D_i = 0],
+\]</span></p>
+<p>mida nimetatakse sageli simple difference of outcomes.</p>
+<p>Üldjuhul ei võrdunud see ATE-ga, sest osalejad ja mitteosalejad erinevad süsteemselt (valikunihe) ning mõju võib olla heterogeenne.</p>
+</section>
+<section id="valikunihe-ja-heterogeense-mõju-nihe" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="valikunihe-ja-heterogeense-mõju-nihe"><span class="header-section-number">7.2</span> Valikunihe ja heterogeense mõju nihe</h2>
+<p>SDO saame kirjutada kujul</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{SDO}
+&amp;= \mathbb{E}\big[ Y_i(1) \mid D_i = 1 \big]
+   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big] \\
+&amp;= \underbrace{\mathbb{E}\big[ Y_i(1) - Y_i(0) \mid D_i = 1 \big]}_{\text{ATT}}
+   + \underbrace{\Big(\mathbb{E}\big[ Y_i(0) \mid D_i = 1 \big]
+   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big]\Big)}_{\text{valikunihe}}.
+\end{aligned}
+\]</span></p>
+<p>Lihtne erinevus sisaldab seega kahte komponenti:</p>
+<ul>
+<li>tõeline põhjuslik mõju osalenutele (ATT);</li>
+<li>valikunihe (selection bias), mis tuleneb sellest, et osalenute ja mitteosalenute potentsiaalsed tulemused ilma meetmeta on erinevad.</li>
+</ul>
+<p>Lisaks võib tekkida nihe heterogeense mõju tõttu, sest ATE, ATT ja ATU on erinevad ning lihtne erinevus ei kasuta „õigeid” kaale eri rühmade keskmiste kombineerimisel. Kokkuvõttes võib kirjutada skemaatiliselt</p>
+<p><span class="math display">\[
+\text{SDO} = \text{ATE} + \text{valikunihe} + \text{heterogeense mõju nihe}.
+\]</span></p>
+<p>Ainult juhul, kui puudub valikunihe ja mõju ei ole heterogeenne (või kasutatakse sobivaid kaale), võime lihtsat erinevust tõlgendada keskmise põhjusliku mõjuna.</p>
+</section>
+</section>
+<section id="sutva-stabiilse-ühikunäitaja-eeldus" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> SUTVA – stabiilse ühikunäitaja eeldus</h1>
+<p>Stable unit treatment value assumption (SUTVA) koosneb kahest osast.</p>
+<ol type="1">
+<li>Puuduvad interferentsid: ühe indiviidi tulemus ei sõltu sellest, millise töötluse saavad teised indiviidid. Formaliseeritult<br>
+<span class="math display">\[
+Y_i(d) \text{ ei sõltu } D_j, \quad j \neq i.
+\]</span></li>
+<li>Puuduvad erinevad, aga majanduslikult eristamatud töötlusversioonid: (D=1) tähendab kõigi jaoks sama tüüpi sekkumist.</li>
+</ol>
+<p>SUTVA rikkumise näited:</p>
+<ul>
+<li>kui üks töötutest osaleb koolitusel, võib see vähendada teiste töötute võimalust sama koolitust saada;</li>
+<li>kui üks töötutest leiab töö, võib see vähendada teiste töötute töö leidmise tõenäosust (konkurents töökohtade pärast);</li>
+<li>kui igal aastal koolitatakse suur hulk töötuid, võib see mõjutada palgataset kogu tööturul, muutes nii osalejate kui mitteosalejate palku.</li>
+</ul>
+<p>SUTVA on POM-i keskne eeldus: ilma selleta ei saa potentsiaalseid tulemusi selgelt defineerida.</p>
+</section>
+<section id="sõltumatuse-eeldus-ja-juhuslik-eksperiment" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Sõltumatuse eeldus ja juhuslik eksperiment</h1>
+<section id="tugev-sõltumatuse-eeldus" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="tugev-sõltumatuse-eeldus"><span class="header-section-number">9.1</span> Tugev sõltumatuse eeldus</h2>
+<p>Kõige lihtsam olukord on juhuslik eksperiment, kus töötlus määratakse loosiga. Sellisel juhul eeldame, et</p>
+<p><span class="math display">\[
+\big( Y_i(0), Y_i(1) \big) \;\perp\!\!\!\perp\; D_i,
+\]</span></p>
+<p>st osalemine ei sõltu potentsiaalsetest tulemustest.</p>
+<p>Sellisel juhul</p>
+<p><span class="math display">\[
+\mathbb{E}[Y_i(0) \mid D_i = 1] = \mathbb{E}[Y_i(0) \mid D_i = 0],
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{E}[Y_i(1) \mid D_i = 1] = \mathbb{E}[Y_i(1) \mid D_i = 0],
+\]</span></p>
+<p>ja lihtne keskmiste erinevus annab ATE:</p>
+<p><span class="math display">\[
+\text{SDO} = \mathbb{E}[Y_i \mid D_i=1] - \mathbb{E}[Y_i \mid D_i=0] = \text{ATE}.
+\]</span></p>
+<p>Majanduses on see eeldus sageli ebarealistlik: inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu (enesevalik), ning programmitöötajad võivad „koort riisuda”, valides osalejateks motiveeritumaid või võimekamaid indiviide.</p>
+</section>
+</section>
+<section id="tingimuslik-sõltumatus-cia-ja-sellega-seotud-eeldused" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Tingimuslik sõltumatus (CIA) ja sellega seotud eeldused</h1>
+<section id="tingimuslik-sõltumatuse-eeldus-cia" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="tingimuslik-sõltumatuse-eeldus-cia"><span class="header-section-number">10.1</span> Tingimuslik sõltumatuse eeldus (CIA)</h2>
+<p>Tingimusliku sõltumatuse eeldus (conditional independence assumption, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis potentsiaalsed tulemused ei sõltu enam osalemisotsusest:</p>
+<p><span class="math display">\[
+\big( Y_i(0), Y_i(1) \big) \;\perp\!\!\!\perp\; D_i \mid X_i.
+\]</span></p>
+<p>Sarnased terminid kirjanduses:</p>
+<ul>
+<li>unconfoundedness (Rosenbaum ja Rubin, 1983),</li>
+<li>selection on observables (Barnow jt, 1980),</li>
+<li>exogeneity (Imbens, 2004),</li>
+<li>ignorability (Rubin, 1978).</li>
+</ul>
+<p>Intuitsioon: kui kontrollime piisavalt rikkalikku (X)-vektorit (nt sugu, vanus, haridus, varasem palgatase, tööstusharu jne), siis osalemisotsus on „nagu juhuslik” tingimuslikult (X)-le.</p>
+</section>
+<section id="tingimuslik-keskväärtuse-sõltumatus" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="tingimuslik-keskväärtuse-sõltumatus"><span class="header-section-number">10.2</span> Tingimuslik keskväärtuse sõltumatus</h2>
+<p>Nõrgem versioon on tingimusliku keskväärtuse sõltumatuse eeldus:</p>
+<p><span class="math display">\[
+\mathbb{E}[ Y_i(0) \mid D_i=1, X_i = x]
+= \mathbb{E}[ Y_i(0) \mid D_i=0, X_i = x],
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{E}[ Y_i(1) \mid D_i=1, X_i = x]
+= \mathbb{E}[ Y_i(1) \mid D_i=0, X_i = x].
+\]</span></p>
+<p>See eeldab, et erinevused keskmistes potentsiaalsetes tulemustes kaovad, kui vaatleme piisavalt kitsaid (X)-alamrühmi, ehkki jaotuste kujud võivad erineda.</p>
+</section>
+</section>
+<section id="ühine-tugi-common-support" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Ühine tugi (common support)</h1>
+<p>CIA praktiline rakendamine nõuab ühist tuge:</p>
+<p><span class="math display">\[
+0 &lt; \Pr(D_i = 1 \mid X_i = x) &lt; 1
+\]</span></p>
+<p>kõigi huvipakkuvate (x) jaoks.</p>
+<p>Intuitsioon: iga (X)-väärtuse korral peavad olema nii osalejad kui mitteosalejad; ei tohi olla selliseid (X)-alasid, kus osalevad ainult ühte tüüpi indiviidid. Vastasel juhul ei saa nendes alamrühmades usaldusväärset võrdlust teha.</p>
+<p>Praktikas tähendab see, et ei tohi minna liiga detailsele tasemele väga paljude tunnuste ja kategooriatega, ning sageli kasutatakse pidevate tunnuste puhul intervalljaotust (nt sissetuleku kvantiilid).</p>
+</section>
+<section id="att-hindamine-cia-abil" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> ATT hindamine CIA abil</h1>
+<p>Kui CIA ja ühine tugi kehtivad, saame ATT väljendada jälgitavate suuruste abil. Üks võimalus on kirjutada</p>
+<p><span class="math display">\[
+\text{ATT}
+= \mathbb{E}_{X \mid D=1}
+  \Big[ \mathbb{E}[Y_i \mid D_i = 1, X_i]
+       - \mathbb{E}[Y_i \mid D_i = 0, X_i] \Big].
+\]</span></p>
+<p>Intuitsioon:</p>
+<ol type="1">
+<li>jagame andmed (K) rühma (X)-vektori alusel (nt mehed, vanuses 40–60, kõrgharidusega);</li>
+<li>igas rühmas võrdleme osalenute ja mitteosalenute keskmisi tulemusi;</li>
+<li>võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute osakaalud nendes rühmades.</li>
+</ol>
+<p>See on mitteparametriline lähenemine; praktikas kasutatakse sagel ka:</p>
+<ul>
+<li>logistilist regressiooni osalemise tõenäosuse hindamiseks ja propensity score matching’ut,</li>
+<li>regressioonimudeleid,</li>
+<li>kaalumismeetodeid (inverse probability weighting),</li>
+<li>või nende kombinatsioone.</li>
+</ul>
+</section>
+<section id="täiendavad-statistikud-itt-late-ja-cate" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Täiendavad statistikud: ITT, LATE ja CATE</h1>
+<section id="intention-to-treat-effect-itt" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="intention-to-treat-effect-itt"><span class="header-section-number">13.1</span> Intention to treat effect (ITT)</h2>
+<p>Sageli ei saa me kontrollida, kas indiviid tegelikult meetmes osales; kontrollime ainult, kas talle pakuti töötlust. Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist (instrumentaalne muutuja).</p>
+<p>ITT on</p>
+<p><span class="math display">\[
+\text{ITT} = \mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0].
+\]</span></p>
+<p>See mõõdab mõju „pakutud” töötlusele, mitte tegelikule osalemisele, ning võib olla oluline poliitika mõjude hindamisel, kus täitmine on ebatäielik.</p>
+</section>
+<section id="lokaalne-keskmine-mõju-late" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="lokaalne-keskmine-mõju-late"><span class="header-section-number">13.2</span> Lokaalne keskmine mõju (LATE)</h2>
+<p>Instrumentaalmuutujate raamistikus saame määratleda lokaalse keskmise mõju (local average treatment effect, LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentaalse muutuja muutumise tõttu (compliers):</p>
+<p><span class="math display">\[
+\text{LATE}
+= \frac{\mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0]}
+       {\mathbb{E}[D_i \mid Z_i = 1] - \mathbb{E}[D_i \mid Z_i = 0]}.
+\]</span></p>
+<p>LATE on keskmine mõju nende indiviidide jaoks, kes „on piiri peal” ning kelle osalemine sõltub instrumendist (näiteks seadusemuudatusest, kvoodist, loteriivõidust).</p>
+</section>
+<section id="tingimuslik-keskmine-mõju-cate" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="tingimuslik-keskmine-mõju-cate"><span class="header-section-number">13.3</span> Tingimuslik keskmine mõju (CATE)</h2>
+<p>Kui mõju on heterogeenne, võib huvitada tingimuslik keskmine mõju teatud (X)-väärtuse korral:</p>
+<p><span class="math display">\[
+\text{CATE}(x)
+= \mathbb{E}\big[ Y_i(1) - Y_i(0) \mid X_i = x \big].
+\]</span></p>
+<p>CATE võimaldab uurida näiteks:</p>
+<ul>
+<li>kuidas erineb tööturukoolituse mõju vanusegruppide lõikes;</li>
+<li>kuidas sõltub mõju varasemast palgatasemest;</li>
+<li>millistele alarühmadele programm kõige rohkem kasu toob.</li>
+</ul>
+</section>
+</section>
+<section id="kokkuvõte" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Kokkuvõte</h1>
+<p>Potentsiaalse tulemuse mudel formaliseerib põhjusliku mõju mõiste, kirjeldades iga indiviidi jaoks kahte potentsiaalset tulemust (Y_i(0)) ja (Y_i(1)). Kuna reaalses elus näeme ainult üht neist, keskendume erinevatele keskmistele mõjudele (ATE, ATT, ATU, CATE, LATE, ITT) ja eeldustele, mille alusel neid saab hinnata.</p>
+<p>Lihtne keskmiste erinevus osalenute ja mitteosalenute vahel on enamasti nihkes valikunihe ja heterogeense mõju tõttu. Selleks, et anda põhjuslik tõlgendus, on vaja tugevaid eeldusi (nt juhuslik eksperiment) või realistlikumaid tingimuslikke eeldusi (CIA, ühine tugi) koos sobivate meetoditega (sobitamine, regressioon, kaalud).</p>
+<p>POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud asüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

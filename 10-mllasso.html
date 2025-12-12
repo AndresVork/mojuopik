@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; LASSO mõju hindamisel – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./11-tehajaideed.html" rel="next">
+<link href="./09-mlpuumets.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-mllasso.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eessõna</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-sissejuhatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pohimoisted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#seade" id="toc-seade" class="nav-link active" data-scroll-target="#seade"><span class="header-section-number">11.1</span> Seade</a></li>
+  <li><a href="#regulaaritud-regressioon-üldine-raamistik" id="toc-regulaaritud-regressioon-üldine-raamistik" class="nav-link" data-scroll-target="#regulaaritud-regressioon-üldine-raamistik"><span class="header-section-number">11.2</span> Regulaaritud regressioon: üldine raamistik</a>
+  <ul class="collapse">
+  <li><a href="#lineaarne-mudel-ja-ols" id="toc-lineaarne-mudel-ja-ols" class="nav-link" data-scroll-target="#lineaarne-mudel-ja-ols">Lineaarne mudel ja OLS</a></li>
+  </ul></li>
+  <li><a href="#regulaaritud-regressiooni-üldkuju" id="toc-regulaaritud-regressiooni-üldkuju" class="nav-link" data-scroll-target="#regulaaritud-regressiooni-üldkuju"><span class="header-section-number">11.3</span> Regulaaritud regressiooni üldkuju</a></li>
+  <li><a href="#kantregressioon-ridge" id="toc-kantregressioon-ridge" class="nav-link" data-scroll-target="#kantregressioon-ridge"><span class="header-section-number">12</span> Kantregressioon (ridge)</a>
+  <ul class="collapse">
+  <li><a href="#mudeli-definitsioon" id="toc-mudeli-definitsioon" class="nav-link" data-scroll-target="#mudeli-definitsioon"><span class="header-section-number">12.1</span> Mudeli definitsioon</a></li>
+  <li><a href="#regulaarimisparameeter-ja-valik" id="toc-regulaarimisparameeter-ja-valik" class="nav-link" data-scroll-target="#regulaarimisparameeter-ja-valik"><span class="header-section-number">12.2</span> Regulaarimisparameeter ja valik</a></li>
+  <li><a href="#millal-kasutada-ridgei" id="toc-millal-kasutada-ridgei" class="nav-link" data-scroll-target="#millal-kasutada-ridgei"><span class="header-section-number">12.3</span> Millal kasutada ridge’i</a></li>
+  </ul></li>
+  <li><a href="#lasso-regressioon" id="toc-lasso-regressioon" class="nav-link" data-scroll-target="#lasso-regressioon"><span class="header-section-number">13</span> LASSO regressioon</a>
+  <ul class="collapse">
+  <li><a href="#mudeli-definitsioon-1" id="toc-mudeli-definitsioon-1" class="nav-link" data-scroll-target="#mudeli-definitsioon-1"><span class="header-section-number">13.1</span> Mudeli definitsioon</a></li>
+  <li><a href="#elastic-net" id="toc-elastic-net" class="nav-link" data-scroll-target="#elastic-net"><span class="header-section-number">13.2</span> Elastic net</a></li>
+  <li><a href="#post-lasso" id="toc-post-lasso" class="nav-link" data-scroll-target="#post-lasso"><span class="header-section-number">13.3</span> Post-LASSO</a></li>
+  </ul></li>
+  <li><a href="#tavaline-lasso-versus-teooriapõhine-lasso" id="toc-tavaline-lasso-versus-teooriapõhine-lasso" class="nav-link" data-scroll-target="#tavaline-lasso-versus-teooriapõhine-lasso"><span class="header-section-number">14</span> Tavaline LASSO versus teooriapõhine LASSO</a>
+  <ul class="collapse">
+  <li><a href="#tavaline-lasso-glmnet-cv-põhine" id="toc-tavaline-lasso-glmnet-cv-põhine" class="nav-link" data-scroll-target="#tavaline-lasso-glmnet-cv-põhine"><span class="header-section-number">14.1</span> Tavaline LASSO (glmnet, CV-põhine)</a></li>
+  <li><a href="#teooriapõhine-lasso-rigorous-lasso-hdmrlasso" id="toc-teooriapõhine-lasso-rigorous-lasso-hdmrlasso" class="nav-link" data-scroll-target="#teooriapõhine-lasso-rigorous-lasso-hdmrlasso"><span class="header-section-number">14.2</span> Teooriapõhine LASSO (rigorous LASSO, hdm::rlasso)</a></li>
+  </ul></li>
+  <li><a href="#prognoosimine-versus-mõju-hindamine" id="toc-prognoosimine-versus-mõju-hindamine" class="nav-link" data-scroll-target="#prognoosimine-versus-mõju-hindamine"><span class="header-section-number">15</span> Prognoosimine versus mõju hindamine</a></li>
+  <li><a href="#jääkliikmete-meetod-partialling-out" id="toc-jääkliikmete-meetod-partialling-out" class="nav-link" data-scroll-target="#jääkliikmete-meetod-partialling-out"><span class="header-section-number">16</span> Jääkliikmete meetod (partialling out)</a>
+  <ul class="collapse">
+  <li><a href="#fwl-teoreem-ja-residuaalne-regressioon" id="toc-fwl-teoreem-ja-residuaalne-regressioon" class="nav-link" data-scroll-target="#fwl-teoreem-ja-residuaalne-regressioon"><span class="header-section-number">16.1</span> FWL-teoreem ja residuaalne regressioon</a></li>
+  <li><a href="#tingimusliku-sõltumatuse-eeldus" id="toc-tingimusliku-sõltumatuse-eeldus" class="nav-link" data-scroll-target="#tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">16.2</span> Tingimusliku sõltumatuse eeldus</a></li>
+  <li><a href="#jääkide-meetod-lassoga-sammud" id="toc-jääkide-meetod-lassoga-sammud" class="nav-link" data-scroll-target="#jääkide-meetod-lassoga-sammud"><span class="header-section-number">16.3</span> Jääkide meetod LASSOga: sammud</a></li>
+  <li><a href="#jääkide-meetod-lassoga-sammud-1" id="toc-jääkide-meetod-lassoga-sammud-1" class="nav-link" data-scroll-target="#jääkide-meetod-lassoga-sammud-1"><span class="header-section-number">16.4</span> Jääkide meetod LASSOga: sammud</a>
+  <ul class="collapse">
+  <li><a href="#samm-y-prognoosimine-x-dega" id="toc-samm-y-prognoosimine-x-dega" class="nav-link" data-scroll-target="#samm-y-prognoosimine-x-dega">1. samm – (Y) prognoosimine (X)-dega</a></li>
+  <li><a href="#samm-d-prognoosimine-x-dega" id="toc-samm-d-prognoosimine-x-dega" class="nav-link" data-scroll-target="#samm-d-prognoosimine-x-dega">2. samm – (D) prognoosimine (X)-dega</a></li>
+  <li><a href="#samm-mõju-hindamine-jääkide-regressioonina" id="toc-samm-mõju-hindamine-jääkide-regressioonina" class="nav-link" data-scroll-target="#samm-mõju-hindamine-jääkide-regressioonina">3. samm – mõju hindamine jääkide regressioonina</a></li>
+  </ul></li>
+  <li><a href="#topeltvaliku-meetod-double-selection" id="toc-topeltvaliku-meetod-double-selection" class="nav-link" data-scroll-target="#topeltvaliku-meetod-double-selection"><span class="header-section-number">16.5</span> Topeltvaliku meetod (double selection)</a>
+  <ul class="collapse">
+  <li><a href="#motivatsioon" id="toc-motivatsioon" class="nav-link" data-scroll-target="#motivatsioon">Motivatsioon</a></li>
+  <li><a href="#sammud" id="toc-sammud" class="nav-link" data-scroll-target="#sammud">Sammud</a></li>
+  </ul></li>
+  <li><a href="#instrumentmuutuja-meetod-lassoga" id="toc-instrumentmuutuja-meetod-lassoga" class="nav-link" data-scroll-target="#instrumentmuutuja-meetod-lassoga"><span class="header-section-number">16.6</span> Instrumentmuutuja meetod LASSOga</a>
+  <ul class="collapse">
+  <li><a href="#endogeensus-ja-iv-raamistik" id="toc-endogeensus-ja-iv-raamistik" class="nav-link" data-scroll-target="#endogeensus-ja-iv-raamistik">Endogeensus ja IV-raamistik</a></li>
+  <li><a href="#jääkide-meetod-iv-kontekstis" id="toc-jääkide-meetod-iv-kontekstis" class="nav-link" data-scroll-target="#jääkide-meetod-iv-kontekstis">Jääkide meetod IV-kontekstis</a></li>
+  <li><a href="#millal-kasutada-lassoga-iv-lähenemist" id="toc-millal-kasutada-lassoga-iv-lähenemist" class="nav-link" data-scroll-target="#millal-kasutada-lassoga-iv-lähenemist">Millal kasutada LASSOga IV-lähenemist</a></li>
+  </ul></li>
+  <li><a href="#double-machine-learning-ja-laiendused" id="toc-double-machine-learning-ja-laiendused" class="nav-link" data-scroll-target="#double-machine-learning-ja-laiendused"><span class="header-section-number">16.7</span> Double machine learning ja laiendused</a></li>
+  <li><a href="#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" id="toc-praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" class="nav-link" data-scroll-target="#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel"><span class="header-section-number">16.8</span> Praktilised soovitused LASSO kasutamiseks mõju hindamisel</a></li>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">16.9</span> Kokkuvõte</a></li>
+  <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide"><span class="header-section-number">16.10</span> Näide</a></li>
+  </ul></li>
+  <li><a href="#vajalikud-paketid" id="toc-vajalikud-paketid" class="nav-link" data-scroll-target="#vajalikud-paketid"><span class="header-section-number">17</span> Vajalikud paketid</a></li>
+  <li><a href="#lasso-ja-mõju-hindamine" id="toc-lasso-ja-mõju-hindamine" class="nav-link" data-scroll-target="#lasso-ja-mõju-hindamine"><span class="header-section-number">18</span> LASSO ja mõju hindamine</a>
+  <ul class="collapse">
+  <li><a href="#lihtne-näide-lassoga-prognoosimisel" id="toc-lihtne-näide-lassoga-prognoosimisel" class="nav-link" data-scroll-target="#lihtne-näide-lassoga-prognoosimisel"><span class="header-section-number">18.1</span> Lihtne näide LASSOga prognoosimisel</a></li>
+  <li><a href="#näited-kasutades-paketti-hdm" id="toc-näited-kasutades-paketti-hdm" class="nav-link" data-scroll-target="#näited-kasutades-paketti-hdm"><span class="header-section-number">18.2</span> Näited kasutades paketti hdm</a></li>
+  <li><a href="#meetme-mõju-hindamine-lassoga" id="toc-meetme-mõju-hindamine-lassoga" class="nav-link" data-scroll-target="#meetme-mõju-hindamine-lassoga"><span class="header-section-number">18.3</span> Meetme mõju hindamine LASSOga</a></li>
+  <li><a href="#partialling-out-method---jääkliikmete-meetod" id="toc-partialling-out-method---jääkliikmete-meetod" class="nav-link" data-scroll-target="#partialling-out-method---jääkliikmete-meetod"><span class="header-section-number">18.4</span> Partialling out method - jääkliikmete meetod</a>
+  <ul class="collapse">
+  <li><a href="#ja-nüüd-esimesed-sammud-olsga." id="toc-ja-nüüd-esimesed-sammud-olsga." class="nav-link" data-scroll-target="#ja-nüüd-esimesed-sammud-olsga.">Ja nüüd esimesed sammud OLSga.</a></li>
+  <li><a href="#aga-nüüd-teeme-selle-lassoga" id="toc-aga-nüüd-teeme-selle-lassoga" class="nav-link" data-scroll-target="#aga-nüüd-teeme-selle-lassoga">Aga nüüd teeme selle LASSOga</a></li>
+  <li><a href="#funktsioon-rlassoeffect-teeb-selle-kõik-ise" id="toc-funktsioon-rlassoeffect-teeb-selle-kõik-ise" class="nav-link" data-scroll-target="#funktsioon-rlassoeffect-teeb-selle-kõik-ise">Funktsioon <code>rlassoEffect</code> teeb selle kõik ise!</a></li>
+  <li><a href="#topelt-selektsiooni-meetod-double-selection-method" id="toc-topelt-selektsiooni-meetod-double-selection-method" class="nav-link" data-scroll-target="#topelt-selektsiooni-meetod-double-selection-method">Topelt selektsiooni meetod (double selection method)</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="seade" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="seade"><span class="header-section-number">11.1</span> Seade</h2>
+<p>Selles peatükis käsitleme LASSO-regressioonimudelit ja kantregressiooni (ridge), mis kuuluvad regulariseeritud regressioonimeetodite hulka. Need meetodid on kasulikud olukordades, kus meil on palju selgitavaid tunnuseid, sh nende polünoomid ja interaktsioonid, selgitavate tunnuste vahel on tugev multikollineaarsus ning me soovime automatiseerida mudelisse kaasatavate tunnuste valikut. Sellistes tingimustes ei tööta klassikaline vähimruutude meetod (OLS) hästi, eriti kui parameetrite arv on lähedane vaatluste arvule koguni suurem.</p>
+<p>Lisaks prognoosimisele pakuvad LASSO ja ridge vahendeid põhjuslike mõjude hindamiseks keerukates olukordades, kus:</p>
+<ul>
+<li>on palju potentsiaalseid kontrollmuutujaid,</li>
+<li>eeldame tingimuslikku sõltumatust (CIA),</li>
+</ul>
+<p>Eraldi käsitleme kolme lähenemist:</p>
+<ul>
+<li>jääkliikmete meetodit (partialling out),</li>
+<li>topeltvaliku meetodit (double selection),</li>
+<li>instrumentmuutuja meetodit koos LASSO-põhise tunnuste valikuga.</li>
+</ul>
+</section>
+<section id="regulaaritud-regressioon-üldine-raamistik" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="regulaaritud-regressioon-üldine-raamistik"><span class="header-section-number">11.2</span> Regulaaritud regressioon: üldine raamistik</h2>
+<section id="lineaarne-mudel-ja-ols" class="level3">
+<h3 class="anchored" data-anchor-id="lineaarne-mudel-ja-ols">Lineaarne mudel ja OLS</h3>
+<p>Lähtume klassikalisest lineaarsest mudelist:</p>
+<p><span class="math display">\[
+Y_i = X_i'\beta + \varepsilon_i,\quad i = 1,\dots,n,
+\]</span></p>
+<p>kus <span class="math inline">\(Y_i\)</span> on sõltuv muutuja, <span class="math inline">\(X_i\)</span> pikkusega <span class="math inline">\(p\)</span> selgitavate tunnuste vektor, <span class="math inline">\(\beta\)</span> tundmatu parameetrite vektor ja <span class="math inline">\(\varepsilon_i\)</span> vealiige. Vektorkujul võime kirjutada:</p>
+<p><span class="math display">\[
+Y = X\beta + \varepsilon,
+\]</span></p>
+<p>kus <span class="math inline">\(Y \in \mathbb{R}^n\)</span>, <span class="math inline">\(X \in \mathbb{R}^{n \times p}\)</span>, <span class="math inline">\(\beta \in \mathbb{R}^p\)</span> ja <span class="math inline">\(\varepsilon \in \mathbb{R}^n\)</span>.</p>
+<p>OLS-hinnang leitakse miinimumruutude põhimõttel:</p>
+<p><span class="math display">\[
+\hat{\beta}^{\text{OLS}} = \arg\min_{\beta} \frac{1}{n} \sum_{i=1}^n (Y_i - X_i'\beta)^2
+= \arg\min_{\beta} \frac{1}{n}\|Y - X\beta\|_2^2.
+\]</span></p>
+<p>Kui <span class="math inline">\(p\)</span> on suur (või koguni <span class="math inline">\(p &gt; n\)</span>), muutub OLS ebastabiilseks:</p>
+<ul>
+<li>parameetrite variatsioon on suur,</li>
+<li>multikollineaarsus tekitab ebakindlust,</li>
+<li>mudel kipub andmetesse üle-sobituma.</li>
+</ul>
+<p>Regulaaritud regressiooni idee on lisada optimeerimiskriteeriumile karistustermin, mis surub parameetreid nulli suunas ja vähendab mudeli keerukust.</p>
+</section>
+</section>
+<section id="regulaaritud-regressiooni-üldkuju" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="regulaaritud-regressiooni-üldkuju"><span class="header-section-number">11.3</span> Regulaaritud regressiooni üldkuju</h2>
+<p>Regulaaritud regressiooni üldine eesmärk on leida:</p>
+<p><span class="math display">\[
+\hat{\beta} = \arg\min_{\beta}
+\left\{
+\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
++ \lambda P(\beta)
+\right\},
+\]</span></p>
+<p>kus <span class="math inline">\(P(\beta)\)</span> on karistusfunktsioon ja <span class="math inline">\(\lambda \ge 0\)</span> regulaarimisparameeter, mis kontrollib karistuse tugevust.</p>
+<ul>
+<li>Kui <span class="math inline">\(\lambda = 0\)</span>, langeb mudel kokku OLS-iga.</li>
+<li>Kui <span class="math inline">\(\lambda\)</span> kasvab, suureneb parameetrite kahanemine nulli suunas ja mudeli keerukus väheneb.</li>
+</ul>
+<p>Eduka regulaarimise eelduseks on tavaliselt, et tunnused <span class="math inline">\(X\)</span> standardiseeritakse (nullkeskmine ja ühikvariatsioon), et karistus erinevate tunnuste vahel oleks võrreldav.</p>
+</section>
+<section id="kantregressioon-ridge" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Kantregressioon (ridge)</h1>
+<section id="mudeli-definitsioon" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="mudeli-definitsioon"><span class="header-section-number">12.1</span> Mudeli definitsioon</h2>
+<p>Kantregressioon (ridge-regressioon) kasutab L2-karistust:</p>
+<p><span class="math display">\[
+\hat{\beta}^{\text{ridge}}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
++ \lambda \sum_{j=1}^p \beta_j^2
+\right\}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\|Y - X\beta\|_2^2 + \lambda \|\beta\|_2^2
+\right\}.
+\]</span></p>
+<p>Siin surutakse kõiki koefitsiente nulli suunas, kuid ükski neist ei muutu täpselt nulliks (välja arvatud erijuhtudel). Seetõttu:</p>
+<ul>
+<li>ridge ei tee otsest tunnuste valikut,</li>
+<li>kuid vähendab multikollineaarsuse mõju ja stabiliseerib hinnanguid.</li>
+</ul>
+<p>Maatrikskujuline suletud lahend on</p>
+<p><span class="math display">\[
+\hat{\beta}^{\text{ridge}} = (X'X + n\lambda I_p)^{-1} X'Y,
+\]</span></p>
+<p>kus <span class="math inline">\(I_p\)</span> on <span class="math inline">\(p \times p\)</span> ühikmaatriks.</p>
+</section>
+<section id="regulaarimisparameeter-ja-valik" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="regulaarimisparameeter-ja-valik"><span class="header-section-number">12.2</span> Regulaarimisparameeter ja valik</h2>
+<p>Regulaarimisparameeter <span class="math inline">\(\lambda\)</span> kontrollib nihe–dispersioon kompromissi:</p>
+<ul>
+<li>väikese <span class="math inline">\(\lambda\)</span> korral on nihe väike, kuid dispersioon suur,</li>
+<li>suure <span class="math inline">\(\lambda\)</span> korral suureneb nihe, kuid dispersioon väheneb.</li>
+</ul>
+<p>Prognoosimisel valitakse <span class="math inline">\(\lambda\)</span> tavaliselt ristvalideerimisega (K-kordne CV):</p>
+<ol type="1">
+<li>jaga andmed <span class="math inline">\(K\)</span> osaks;</li>
+<li>iga kandidaadi <span class="math inline">\(\lambda\)</span> korral hinda mudel <span class="math inline">\(K-1\)</span> osal andmetest;</li>
+<li>arvuta keskmine ruutprognoosiviga järelejäänud osal;</li>
+<li>vali <span class="math inline">\(\lambda\)</span>, mis minimeerib prognoosivea.</li>
+</ol>
+</section>
+<section id="millal-kasutada-ridgei" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="millal-kasutada-ridgei"><span class="header-section-number">12.3</span> Millal kasutada ridge’i</h2>
+<p>Kantregressiooni kasutatakse eelkõige siis, kui:</p>
+<ul>
+<li>selgitavaid tunnuseid on palju (sh polünoomid, interaktsioonid),</li>
+<li>esineb tugev multikollineaarsus,</li>
+<li>eesmärk on hea prognoos, mitte üksikute koefitsientide selge interpreteerimine,</li>
+<li>parameetrite arv on lähedane vaatluste arvule.</li>
+</ul>
+<p>Põhjusliku mõju hindamise juures kasutatakse ridge’i tavaliselt osana laiendatud meetoditest (nt Augmented Synthetic Control, double machine learning) – harvem iseseisva „mõju hinnanguna“.</p>
+</section>
+</section>
+<section id="lasso-regressioon" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> LASSO regressioon</h1>
+<section id="mudeli-definitsioon-1" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="mudeli-definitsioon-1"><span class="header-section-number">13.1</span> Mudeli definitsioon</h2>
+<p>LASSO (Least Absolute Shrinkage and Selection Operator) kasutab L1-karistust:</p>
+<p><span class="math display">\[
+\hat{\beta}^{\text{LASSO}}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
++ \lambda \sum_{j=1}^p |\beta_j|
+\right\}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\|Y - X\beta\|_2^2 + \lambda \|\beta\|_1
+\right\}.
+\]</span></p>
+<p>Oluline omadus: L1-karistus võib seada osa koefitsiente täpselt nulli:</p>
+<ul>
+<li>kui tunnus <span class="math inline">\(X_j\)</span> on väheoluline, siis <span class="math inline">\(\hat{\beta}_j = 0\)</span>,</li>
+<li>kui tunnus on oluline, võib <span class="math inline">\(\hat{\beta}_j \neq 0\)</span>.</li>
+</ul>
+<p>Seega LASSO kombineerib:</p>
+<ul>
+<li>regulaarimise (koefitsientide kahanemine),</li>
+<li>tunnuste valiku (paljud koefitsiendid muutuvad nulliks).</li>
+</ul>
+<p>Intuitsioonilt:</p>
+<ul>
+<li>kui <span class="math inline">\(\lambda\)</span> on väike, on tulemus sarnane OLS-iga, paljud koefitsiendid mitnullilised;</li>
+<li>kui <span class="math inline">\(\lambda\)</span> on suur, jääb mudelisse vähe tunnuseid.</li>
+</ul>
+</section>
+<section id="elastic-net" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="elastic-net"><span class="header-section-number">13.2</span> Elastic net</h2>
+<p>Elastic net ühendab ridge’i ja LASSO karistused:</p>
+<p><span class="math display">\[
+\hat{\beta}^{\text{EN}}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\|Y - X\beta\|_2^2
++ \lambda
+\left(
+\alpha \|\beta\|_1 + (1-\alpha)\|\beta\|_2^2
+\right)
+\right\},
+\]</span></p>
+<p>kus <span class="math inline">\(0 \le \alpha \le 1\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\alpha = 1\)</span> korral saame LASSO,</li>
+<li><span class="math inline">\(\alpha = 0\)</span> korral ridge’i.</li>
+</ul>
+<p>Elastic net on kasulik, kui tunnused on tugevalt korreleeritud: puhas LASSO kaldub valima ühe tunnuse grupist ja teised välja jätma, elastic net võimaldab „grupivalikut“.</p>
+</section>
+<section id="post-lasso" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="post-lasso"><span class="header-section-number">13.3</span> Post-LASSO</h2>
+<p>LASSO koefitsiendid on nihkega nulli suunas, kui <span class="math inline">\(\lambda &gt; 0\)</span>. See on prognoosimisel aktsepteeritav, kuid mõju interpreteerimisel võib nihe häirida. Post-LASSO lähenemine:</p>
+<ol type="1">
+<li>hinda LASSO mudel ja vali aktiivsete tunnuste hulk <span class="math display">\[
+\hat{S} = \{j: \hat{\beta}_j^{\text{LASSO}} \neq 0\};
+\]</span></li>
+<li>hinda OLS-ga mudel, mis sisaldab ainult tunnuseid <span class="math inline">\(X_{\hat{S}}\)</span>: <span class="math display">\[
+Y_i = X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
+\]</span></li>
+</ol>
+<p>Nii saadud OLS-kordajaid nimetatakse Post-LASSO hinnanguteks. Need on endiselt mõjutatud tunnuste valiku ebastabiilsusest, kuid vähem nihkes kui LASSO koefitsiendid ise.</p>
+</section>
+</section>
+<section id="tavaline-lasso-versus-teooriapõhine-lasso" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Tavaline LASSO versus teooriapõhine LASSO</h1>
+<section id="tavaline-lasso-glmnet-cv-põhine" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="tavaline-lasso-glmnet-cv-põhine"><span class="header-section-number">14.1</span> Tavaline LASSO (glmnet, CV-põhine)</h2>
+<p>Tüüpiline LASSO rakendus prognoosimisel (nt pakett glmnet) kasutab ristvalideerimist:</p>
+<ul>
+<li><span class="math inline">\(\lambda\)</span> valitakse, et minimeerida prognoosiviga (MSE) ristvalideerimisel;</li>
+<li>kõik tunnused koheldakse karistamisel ühtviisi;</li>
+<li>eesmärk: võimalikult hea prognoos.</li>
+</ul>
+<p>See on sobiv, kui:</p>
+<ul>
+<li>huvi pakub eeskätt prognoositäpsus,</li>
+<li>ei ole vaja täpseid usalduspiire mõjuhinnangutele,</li>
+<li>modelleerime „must kast“ seoseid.</li>
+</ul>
+</section>
+<section id="teooriapõhine-lasso-rigorous-lasso-hdmrlasso" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="teooriapõhine-lasso-rigorous-lasso-hdmrlasso"><span class="header-section-number">14.2</span> Teooriapõhine LASSO (rigorous LASSO, hdm::rlasso)</h2>
+<p>Teooriapõhine LASSO (nt R-pakett hdm, funktsioon rlasso) valib <span class="math inline">\(\lambda\)</span> teoreetiliste piiride alusel, lähtudes:</p>
+<ul>
+<li>vaatluste arvust <span class="math inline">\(n\)</span>,</li>
+<li>tunnuste arvust <span class="math inline">\(p\)</span>,</li>
+<li>vealiikme dispersiooni hinnangust,</li>
+<li>võimalusest, et olemas on heteroskedastilisus.</li>
+</ul>
+<p>Eesmärk:</p>
+<ul>
+<li>usaldusväärne järeldus põhjusliku seose kohta,</li>
+<li>korrektsed usaldusvahemikud ja testid.</li>
+</ul>
+<p>Omadused:</p>
+<ul>
+<li><span class="math inline">\(\lambda\)</span> on tavaliselt suurem kui ristvalideerimisel, mudel konservatiivsem;</li>
+<li>valib vähem tunnuseid (harvem üle-sobitamine);</li>
+<li>standardvigade hinnangud on kohandatud heteroskedastilisuse suhtes.</li>
+</ul>
+<p>Teooriapõhine LASSO sobib kõige paremini mõju hindamise kontekstis, kus peamine on parameetri usaldusväärne järeldus, mitte pelgalt hea prognoos.</p>
+</section>
+</section>
+<section id="prognoosimine-versus-mõju-hindamine" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Prognoosimine versus mõju hindamine</h1>
+<p>Prognoosimisel on mudeli kvaliteedi peamine kriteerium väike prognoosiviga (nt MSE testandmetel). Mõju hindamisel on oluline:</p>
+<ul>
+<li>väike nihe huvipakkuva parameetri (nt ravi mõju) hinnangul,</li>
+<li>korrektselt hinnatud standardvead ja usaldusvahemikud,</li>
+<li>robustsus tunnuste valiku vigade ja üle-sobitamise suhtes.</li>
+</ul>
+<p>Ristvalideeritud LASSO võib valida liiga väikese <span class="math inline">\(\lambda\)</span>:</p>
+<ul>
+<li>prognoos võib olla küll väga täpne,</li>
+<li>kuid mõju hinnang võib olla nihkes ja usaldusvahemikud liiga kitsad.</li>
+</ul>
+<p>Seetõttu kasutatakse mõju hindamisel teooriapõhist LASSOt ja spetsiaalseid konstruktsioone (jääkide meetod, topeltvalik, LASSOga IV), mis on teoreetiliselt õigustatud „sparse high-dimensional“ tingimustes.</p>
+</section>
+<section id="jääkliikmete-meetod-partialling-out" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Jääkliikmete meetod (partialling out)</h1>
+<section id="fwl-teoreem-ja-residuaalne-regressioon" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="fwl-teoreem-ja-residuaalne-regressioon"><span class="header-section-number">16.1</span> FWL-teoreem ja residuaalne regressioon</h2>
+<p>Võtame mudeli, kus huvi pakub ravi mõju:</p>
+<p><span class="math display">\[
+Y_i = \alpha D_i + X_i'\beta + u_i,
+\]</span></p>
+<p>kus <span class="math inline">\(D_i\)</span> on ravi (näiteks koolitus, ravimeede, poliitikameede) ja <span class="math inline">\(X_i\)</span> kontrolltunnuste vektor. Frisch–Waugh–Lovelli (FWL) teoreem ütleb, et OLS-hinnang <span class="math inline">\(\hat{\alpha}\)</span>, mis saadakse ühisest regressioonist <span class="math inline">\(Y\)</span> peal <span class="math inline">\(D\)</span> ja <span class="math inline">\(X\)</span>, võrdub järgmise kolmesammulise protseduuri tulemusena saadud hinnanguga:</p>
+<ol type="1">
+<li>regresseeri <span class="math inline">\(Y\)</span> <span class="math inline">\(X\)</span>-ile ja võta jäägid: <span class="math display">\[
+\tilde{Y}_i = Y_i - \hat{\mathbb{E}}[Y_i \mid X_i];
+\]</span></li>
+<li>regresseeri <span class="math inline">\(D\)</span> <span class="math inline">\(X\)</span>-ile ja võta jäägid: <span class="math display">\[
+\tilde{D}_i = D_i - \hat{\mathbb{E}}[D_i \mid X_i];
+\]</span></li>
+<li>regresseeri <span class="math inline">\(\tilde{Y}_i\)</span> <span class="math inline">\(\tilde{D}_i\)</span>-le OLS-iga: <span class="math display">\[
+\tilde{Y}_i = \alpha \tilde{D}_i + \eta_i.
+\]</span></li>
+</ol>
+<p>See tähendab, et oleme „partialiseerinud välja“ <span class="math inline">\(X\)</span>-de mõju nii tulemuselt kui ravilt ja hindame seejärel seost nende jääkide vahel.</p>
+</section>
+<section id="tingimusliku-sõltumatuse-eeldus" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">16.2</span> Tingimusliku sõltumatuse eeldus</h2>
+<p>Mõju hindamisel eeldame sageli:</p>
+<p><span class="math display">\[
+(Y_i(0), Y_i(1)) \perp D_i \mid X_i
+\]</span></p>
+<p>(CIA – conditional independence assumption). Kui see eeldus kehtib ja <span class="math inline">\(X_i\)</span> vektor on piisavalt rikas, siis on ravi keskmine mõju identifitseeritud mudelis</p>
+<p><span class="math display">\[
+Y_i = \alpha D_i + X_i'\beta + u_i.
+\]</span></p>
+<p>Kui aga <span class="math inline">\(X\)</span>-e on palju, ei sobi lihtne OLS kontrollimiseks. Jääkide meetod LASSOga asendab OLS-põhise regressiooni <span class="math inline">\(Y\)</span> ja <span class="math inline">\(D\)</span> peal prognoosimismudelitega, mis on hinnatud LASSO abil.</p>
+</section>
+<section id="jääkide-meetod-lassoga-sammud" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="jääkide-meetod-lassoga-sammud"><span class="header-section-number">16.3</span> Jääkide meetod LASSOga: sammud</h2>
+<p>Eeldame, et meil on:</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> – tulemusmuutuja,</li>
+<li><span class="math inline">\(D\)</span> – ravi muutuja,</li>
+<li><span class="math inline">\(X\)</span> – suur hulk kandidaattunnuseid (võib olla <span class="math inline">\(p &gt; n\)</span>).</li>
+</ul>
+<p>Jääkide meetod LASSOga toimib järgmiselt.</p>
+<ol type="1">
+<li>samm – <span class="math inline">\(Y\)</span> prognoosimine <span class="math inline">\(X\)</span>-dega:</li>
+</ol>
+<p><span class="math display">\[
+\hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i]
+\quad\text{LASSO abil,}
+\]</span></p>
+<p>näiteks:</p>
+</section>
+<section id="jääkide-meetod-lassoga-sammud-1" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="jääkide-meetod-lassoga-sammud-1"><span class="header-section-number">16.4</span> Jääkide meetod LASSOga: sammud</h2>
+<p>Eeldame, et meil on:</p>
+<ul>
+<li>(Y) – tulemusmuutuja,</li>
+<li>(D) – ravi muutuja,</li>
+<li>(X) – suur hulk kandidaattunnuseid (võib olla (p &gt; n)).</li>
+</ul>
+<p>Jääkide meetodi LASSOga idee on kasutada LASSOt selleks, et „välja võtta” (X)-de mõju nii (Y)-lt kui (D)-lt ja seejärel hinnata ravi mõju nende jääkide vahelise regressiooniga. See põhineb Frisch–Waugh–Lovelli teoreemil, mille kohaselt saab huvipakkuva ravi koefitsiendi () leida regressioonist jääkide peal.</p>
+<section id="samm-y-prognoosimine-x-dega" class="level3">
+<h3 class="anchored" data-anchor-id="samm-y-prognoosimine-x-dega">1. samm – (Y) prognoosimine (X)-dega</h3>
+<p>Kõigepealt prognoosime tulemusmuutujat (Y) kontrolltunnuste (X) abil LASSOga:</p>
+<p><span class="math display">\[
+\hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i],
+\]</span></p>
+<p>ja leiame jäägid:</p>
+<p><span class="math display">\[
+\tilde{Y}_i = Y_i - \hat{m}_Y(X_i).
+\]</span></p>
+<p>R-is võiks see välja näha näiteks nii:</p>
+<p>Siin kasutab <code>rlasso</code> teooriapõhist () valikut, mis sobib paremini mõju hindamiseks kui puhas ristvalideerimine.</p>
+</section>
+<section id="samm-d-prognoosimine-x-dega" class="level3">
+<h3 class="anchored" data-anchor-id="samm-d-prognoosimine-x-dega">2. samm – (D) prognoosimine (X)-dega</h3>
+<p>Järgmisena prognoosime ravi (D) samade kontrolltunnuste abil:</p>
+<p><span class="math display">\[
+\hat{m}_D(X_i) = \hat{\mathbb{E}}[D_i \mid X_i],
+\]</span></p>
+<p>ja leiame meetmes osalemise jäägid:</p>
+<p><span class="math display">\[
+\tilde{D}_i = D_i - \hat{m}_D(X_i).
+\]</span></p>
+<p>Kui (D) on binaarne (nt osales koolitusel vs ei osalenud), kasutab LASSO siin lineaarset tõenäosusmudelit; vajadusel saab kasutada ka logit/probit-mudeleid, kuid klassikalises hdm-raamistikus lähtutakse lineaarse regressiooni loogikast.</p>
+</section>
+<section id="samm-mõju-hindamine-jääkide-regressioonina" class="level3">
+<h3 class="anchored" data-anchor-id="samm-mõju-hindamine-jääkide-regressioonina">3. samm – mõju hindamine jääkide regressioonina</h3>
+<p>Kolmandas sammus regressime jääktulemust (_i) jäigravi (_i) peal:</p>
+<p><span class="math display">\[ \tilde{Y}\_i = \alpha \tilde{D}\_i + \eta\_i.\]</span> OLS-hinnang () on siin LASSO-põhise partialling out -meetodi hinnang ravi keskmisele mõjule (CATE või ATE sõltuvalt seadetest ja laiendustest).</p>
+<p>R-is:</p>
+<p>Paketis hdm saab kogu protseduuri teha ühe käsuga:</p>
+<p>Siin:</p>
+<ul>
+<li><code>method = "partialling out"</code> ütleb, et kasutatakse jääkide meetodit;</li>
+<li><code>post = TRUE</code> tähendab, et lõplik regressioon tehakse Post-LASSO-na (tunnuste valiku järel OLS).</li>
+</ul>
+<p>Jääkide meetodi puhul on võtme-eeldus, et prognoosid (_Y(X_i)) ja (_D(X_i)) on piisavalt täpsed, ning et CIA (tingimuslik sõltumatus) kehtib: pärast (X)-de arvessevõttu ei ole ravi (D) korreleeritud potentsiaalsete tulemustega.</p>
+</section>
+</section>
+<section id="topeltvaliku-meetod-double-selection" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="topeltvaliku-meetod-double-selection"><span class="header-section-number">16.5</span> Topeltvaliku meetod (double selection)</h2>
+<section id="motivatsioon" class="level3">
+<h3 class="anchored" data-anchor-id="motivatsioon">Motivatsioon</h3>
+<p>Jääkide meetod eeldab kaudselt, et samad kontrollmuutujad (X) on olulised nii (Y) kui (D) jaoks, ning et LASSO valib need piisavalt hästi välja prognoosimissammudes. Praktikas võib juhtuda, et:</p>
+<ul>
+<li>mõni tunnus mõjutab tugevalt ravi (D), kuid mõjutab (Y)-d vaid nõrgalt;</li>
+<li>LASSO võib selle tunnuse välja jätta, kui prognoosime (Y)-d;</li>
+<li>see võib omakorda tekitada nihet ravi mõju hinnangus, sest oluline konfundeeriv tunnus puudub.</li>
+</ul>
+<p>Topeltvaliku meetod vähendab seda ohtu, kasutades LASSOt nii (Y)- kui (D)-võrrandi jaoks ja kombineerides tulemused.</p>
+</section>
+<section id="sammud" class="level3">
+<h3 class="anchored" data-anchor-id="sammud">Sammud</h3>
+<p>Algne mudel:</p>
+<p><span class="math display">\[ Y_i = \alpha D_i + X_i'\beta + u_i.\]</span></p>
+<p>Topeltvaliku meetodi sammud:</p>
+<ol type="1">
+<li><p>LASSO regressioon tulemuse jaoks:</p>
+<p><span class="math display">\[ Y_i = X_i'\beta\_Y + u_i.\]</span></p>
+<p>Valime tundede hulga:</p>
+<p><span class="math display">\[ \hat{S}*Y = { j :* \hat{\beta}{Y,j}\^{\text{LASSO}} \neq 0 }.\]</span></p></li>
+<li><p>LASSO regressioon ravi jaoks:</p>
+<p><span class="math display">\[ D_i = X_i'\beta\_D + v_i.\]</span></p>
+<p>Valime tundede hulga:</p>
+<p><span class="math display">\[ \hat{S}*D = { j :* \hat{\beta}{D,j}\^{\text{LASSO}} \neq 0 }.\]</span></p></li>
+<li><p>Ühendame tulemused:</p>
+<p><span class="math display">\[ \hat{S} = \hat{S}\_Y \cup \hat{S}\_D.\]</span></p></li>
+<li><p>Hinnang Post-LASSO OLS-iga:</p>
+<p><span class="math display">\[ Y_i = \alpha D_i + X\_{i,\hat{S}}'\beta\_{\hat{S}} + u_i.\]</span></p></li>
+</ol>
+<p>R-s:</p>
+<p>Topeltvaliku meetodi omadused:</p>
+<ul>
+<li>kaasab mudelisse nii tunnused, mis on olulised (Y) jaoks, kui need, mis on olulised (D) jaoks;</li>
+<li>on robustsem ohu suhtes, et mõni oluline tunnus jääb ühe LASSO-sammu käigus välja;</li>
+<li>tavaliselt toob mudelisse rohkem kontrollmuutujaid kui puhas partialling out;</li>
+<li>standardvead võivad pisut suureneda (rohkem kontrolle), kuid nihe väheneb.</li>
+</ul>
+<p>Intuitsioon: kui mingi (X_j) on oluline ravi (D) jaoks (vältimaks omistatavat seost (D)-le, mis tegelikult tuleneb (X_j)-st), siis jõuab see mudelisse vähemalt ravi-võrrandi kaudu, isegi kui (Y)-võrrandi LASSO teda ei valinud.</p>
+</section>
+</section>
+<section id="instrumentmuutuja-meetod-lassoga" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="instrumentmuutuja-meetod-lassoga"><span class="header-section-number">16.6</span> Instrumentmuutuja meetod LASSOga</h2>
+<section id="endogeensus-ja-iv-raamistik" class="level3">
+<h3 class="anchored" data-anchor-id="endogeensus-ja-iv-raamistik">Endogeensus ja IV-raamistik</h3>
+<p>Kui ravi (D) on endogeenne, st (<span class="math display">\[u_i \mid D_i\]</span> ), siis ei ole lihtne kontrollmuutujate lisamine piisav. Kasutame instrumentmuutujat (Z), mis:</p>
+<ul>
+<li>on korreleeritud ravi (D)-ga (relevantsus),</li>
+<li>ei ole korreleeritud vealiikmega (u) (eksogeensus).</li>
+</ul>
+<p>Klassikaline IV-mudel:</p>
+<p><span class="math display">\[ Y_i = \alpha D_i + X_i'\beta + u_i,\]</span> <span class="math display">\[ D_i = Z_i'\pi + X_i'\gamma + v_i.\]</span></p>
+<p>Kui instrumente ja kontrolle on vähe, on standardne kaheastmeline väikseimate ruutude meetod (2SLS) piisav. Kui aga:</p>
+<ul>
+<li>instrumente (Z) on palju (nt kõikvõimalikud interaktsioonid ja polünoomid),</li>
+<li>kontrolle (X) on samuti palju,</li>
+</ul>
+<p>siis muutub klassikaline 2SLS ebastabiilseks. Siin tuleb appi LASSO, mis aitab valida olulised komponendid nii instrumentide kui kontrollide hulgast.</p>
+</section>
+<section id="jääkide-meetod-iv-kontekstis" class="level3">
+<h3 class="anchored" data-anchor-id="jääkide-meetod-iv-kontekstis">Jääkide meetod IV-kontekstis</h3>
+<p>LASSOga IV-metoodika põhineb samal residualiseerimise ideel, kuid nüüd rakendame seda nii (Y), (D) kui ka (Z) suhtes.</p>
+<p>Üldised sammud:</p>
+<ol type="1">
+<li><p>Residualiseeri (Y) kontrollide (X) suhtes:</p>
+<p><span class="math display">\[ \hat{m}\_Y(X_i) = \hat{\mathbb{E}}\]</span>Y_i X_i<span class="math display">\[, \quad rY_i = Y_i - \hat{m}\_Y(X_i).\]</span></p></li>
+<li><p>Residualiseeri (D) kontrollide (X) suhtes:</p>
+<p><span class="math display">\[ \hat{m}\_D(X_i) = \hat{\mathbb{E}}\]</span>D_i X_i<span class="math display">\[, \quad rD_i = D_i - \hat{m}\_D(X_i).\]</span></p></li>
+<li><p>Residualiseeri (Z) kontrollide (X) suhtes:</p>
+<p><span class="math display">\[ \hat{m}\_Z(X_i) = \hat{\mathbb{E}}\]</span>Z_i X_i<span class="math display">\[, \quad rZ_i = Z_i - \hat{m}\_Z(X_i).\]</span></p>
+<p>Kui instrumente on mitu, tehakse see iga komponendi jaoks eraldi.</p></li>
+<li><p>Rakenda IV regressiooni jääkide vahel:</p>
+<ul>
+<li>esimene samm: regressioon (rD) peal (rZ), mis loob prognoosi (r);</li>
+<li>teine samm: regressioon (rY) peal (r).</li>
+</ul></li>
+</ol>
+<p>R-s võib käsitsi teostus välja näha selline:</p>
+<p>Paketis hdm on olemas <code>rlassoIV</code>, mis teeb need etapid automaatselt:</p>
+<p>Siin:</p>
+<ul>
+<li>kontrolltunnused (X) sisaldavad erinevaid piirkonna tunnuseid, laiuse ruutu jms ja nende teisendeid;</li>
+<li>LASSO valib välja olulised kontrollid, mis mõjutavad nii (Y) kui (D);</li>
+<li>instrument logMort (asustajate suremus) jääb mudelisse ilma LASSO-karistuseta, sest teda käsitletakse „põhiinstrumendina“;</li>
+<li>tulemuseks on hinnang (), mis kirjeldab omandiõiguse kaitse (Exprop) mõju SKP-le (GDP), võttes arvesse kõrgedimensioonilisi kontrolle.</li>
+</ul>
+</section>
+<section id="millal-kasutada-lassoga-iv-lähenemist" class="level3">
+<h3 class="anchored" data-anchor-id="millal-kasutada-lassoga-iv-lähenemist">Millal kasutada LASSOga IV-lähenemist</h3>
+<p>LASSOga IV-lähenemine sobib eriti siis, kui:</p>
+<ul>
+<li>instrumente ja kontrolle on palju, sh paljud võimalikud interaktsioonid ja polünoomid;</li>
+<li>eeldame, et tegelik „tõeline“ mudel on hõre (sparse), st vaid väike osa tunnustest omab olulist mõju;</li>
+<li>soovime teha ranget põhjuslikku järeldust, mitte ainult leida mõnda prognoosimudelit.</li>
+</ul>
+<p>Oluline on:</p>
+<ul>
+<li>kasutada teooriapõhist () valikut (nagu <code>rlasso</code> vaikeseaded),</li>
+<li>kontrollida instrumentide tugevust (esimese sammu F-statistika jmt),</li>
+<li>mitte tugineda ainult CV-põhisele glmnet-LASSOle, kui eesmärk on põhjuslik mõju.</li>
+</ul>
+</section>
+</section>
+<section id="double-machine-learning-ja-laiendused" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="double-machine-learning-ja-laiendused"><span class="header-section-number">16.7</span> Double machine learning ja laiendused</h2>
+<p>Jääkide meetod ja topeltvalik on erijuhud üldisemast double machine learning (DML) raamistikust, kus:</p>
+<ul>
+<li>(Y)- ja (D)-seosed (X)-dega modelleeritakse masinõppega (LASSO, juhumetsad, boosting, närvivõrgud),</li>
+<li>ravi mõju hinnatakse seejärel regressiooniga jääkide vahel,</li>
+<li>andmed jagatakse sageli osadeks, et vähendada üle-sobitamise nihet (cross-fitting).</li>
+</ul>
+<p>Üldine idee:</p>
+<ol type="1">
+<li>Hinda mudelid (m_Y(x) <span class="math display">\[Y \mid X=x\]</span>) ja (m_D(x) <span class="math display">\[D \mid X=x\]</span>) masinõppe abil.</li>
+<li>Arvuta jäägid (_i = Y_i - _Y(X_i)) ja (_i = D_i - _D(X_i)).</li>
+<li>Hinda () regressioonis (_i = _i + _i).</li>
+</ol>
+<p>Cross-fitting’u korral:</p>
+<ul>
+<li>jagatakse andmed mitmeks osaks,</li>
+<li>ühte osa kasutatakse prognoosimismudelite hindamiseks,</li>
+<li>teist osa mõju hindamiseks,</li>
+<li>seejärel keskmistatakse tulemused osade vahel.</li>
+</ul>
+<p>See vähendab nihet, mis tekib, kui sama paindlik mudel kasutatakse korraga nii seose kui mõju hindamiseks.</p>
+<p>LASSO sobitub DML-raamistikku kui üks võimalik „nuisance“-mudelite (st (_Y, _D)) estimatsiooni meetod, mis on kiirem ja paremini mõistetav kui keerukamad musta kasti masinõppemudelid, kuid juba võimaldab kõrgedimensioonilist käsitlust.</p>
+</section>
+<section id="praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" class="level2" data-number="16.8">
+<h2 data-number="16.8" class="anchored" data-anchor-id="praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel"><span class="header-section-number">16.8</span> Praktilised soovitused LASSO kasutamiseks mõju hindamisel</h2>
+<p>Kokkuvõtlikud juhised:</p>
+<ul>
+<li><p>Kui eesmärk on prognoos:</p>
+<ul>
+<li>kasuta ristvalideeritud LASSOt (näiteks <code>glmnet</code>),</li>
+<li>vali () CV alusel,</li>
+<li>interpreteeri mudeleid pigem „must kast“ lähenemisena.</li>
+</ul></li>
+<li><p>Kui eesmärk on põhjuslik mõju:</p>
+<ul>
+<li><p>ära toetu ainult CV-LASSOle,</p></li>
+<li><p>kasuta teooriapõhist LASSOt (nt <code>hdm::rlasso</code>),</p></li>
+<li><p>kasuta kas:</p>
+<ul>
+<li>jääkliikmete meetodit (partialling out),</li>
+<li>topeltvalikut (double selection),</li>
+<li>või nende IV-varianti (<code>rlassoIV</code>).</li>
+</ul></li>
+</ul></li>
+<li><p>Jääkide meetod:</p>
+<ul>
+<li>efektiivsem, kui prognoosimismudelid (_Y) ja (_D) on täpsed;</li>
+<li>sobib hästi, kui tõesti usud, et LASSO leiab õiged seosed.</li>
+</ul></li>
+<li><p>Topeltvalik:</p>
+<ul>
+<li>robustsem, kui seosed on nõrgad ja tunnuseid palju;</li>
+<li>kaasab mudelisse kõik (X)-d, mis on olulised kas (Y) või (D) jaoks;</li>
+<li>väldib olulise konfundeeriva tunnuse väljajätmist.</li>
+</ul></li>
+<li><p>IV-kontextis:</p>
+<ul>
+<li>kasuta LASSOt kontrollide ja instrumentide komponentide valikuks,</li>
+<li>jäta peamised instrumendid karistamata (select.Z = FALSE),</li>
+<li>kontrolli instrumentide tugevust ja tõlgenda tulemusi teoreetilise raamistikuga kooskõlas.</li>
+</ul></li>
+</ul>
+</section>
+<section id="kokkuvõte" class="level2" data-number="16.9">
+<h2 data-number="16.9" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">16.9</span> Kokkuvõte</h2>
+<p>Jääkliikmete meetod, topeltvalik ja LASSOga instrumentmuutuja meetod seovad masinõppe ja klassikalise ökonomeetria, et võimaldada usaldusväärset mõju hindamist kõrgedimensioonilistes seadetes. LASSO mängib seejuures kaht rolli:</p>
+<ul>
+<li>prognoosijana, mis aitab modelleerida keerulisi seoseid (Y) ja (D) ning instrumentide ja kontrollide vahel;</li>
+<li>tunnuste valijana, mis vähendab mudeli mõõtmeid ja aitab vältida üle-sobitamist.</li>
+</ul>
+<p>Korrektse regulaarimisparameetri valiku (teooriapõhine ()) ning sobiva järeldusmetoodika (partialling out, double selection, IV) korral saame LASSO abil hinnata poliitikate ja sekkumiste põhjuslikke mõjusid ka olukorras, kus traditsioonilised ökonomeetrilised meetodid jäävad suurte tunnustehulkade ja multikollineaarsuse tõttu hätta.</p>
+</section>
+<section id="näide" class="level2" data-number="16.10">
+<h2 data-number="16.10" class="anchored" data-anchor-id="näide"><span class="header-section-number">16.10</span> Näide</h2>
+</section>
+</section>
+<section id="vajalikud-paketid" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Vajalikud paketid</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr)      <span class="co"># used for data manipulation and joining</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dplyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(glmnet) <span class="co">#glmnet, LASSO </span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: glmnet</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loaded glmnet 4.1-10</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(hdm)    <span class="co"># LASSO</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: hdm</code></pre>
+</div>
+</div>
+</section>
+<section id="lasso-ja-mõju-hindamine" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> LASSO ja mõju hindamine</h1>
+<section id="lihtne-näide-lassoga-prognoosimisel" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="lihtne-näide-lassoga-prognoosimisel"><span class="header-section-number">18.1</span> Lihtne näide LASSOga prognoosimisel</h2>
+<p>Kasutame sama andmestikku</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.RData"</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#vali siit mida tahad</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>y<span class="ot">=</span> atp<span class="sc">$</span>employed12</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Nimetame meetmes osalemise ümber d-ks, lühem</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>d<span class="ot">=</span> atp<span class="sc">$</span>training</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>atp2 <span class="ot">&lt;-</span> atp <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>training, <span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"wage"</span>), <span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"employed"</span>)) <span class="co">#Kõik, mis algavad wage või employed, jätame välja</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Muudame ka järjestust</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>atp2 <span class="ot">&lt;-</span> atp2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(y, d, <span class="fu">everything</span>())</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Teeme andmemaatriksid</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#define response variable</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> atp2<span class="sc">$</span>y</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#define matrix of predictor variables</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - 1 no intercept</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>xw <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> d <span class="sc">+</span> year <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> collar <span class="sc">+</span> immigrant <span class="sc">+</span> rural <span class="sc">+</span> region <span class="sc">+</span> educ <span class="sc">+</span> lastemp <span class="sc">+</span> benefit <span class="sc">-</span><span class="dv">1</span>, <span class="at">data =</span> atp2)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#head(xw)</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#drop year2006</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#xw &lt;- xw[, colnames(xw) != "year2006", drop = FALSE]</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(xw)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7140   19</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#18 selgitavat muutujat</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>glmnet() funktsioon sobitab lasso regressioonimudeli, kui määrata alpha = 1.</p>
+<p>Tee k-kordne ristvalideerimine, et leida optimaalne lambda väärtus. Olgu k = 5</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(xw, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">nfolds =</span> <span class="dv">5</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>cv_model</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:  cv.glmnet(x = xw, y = y, nfolds = 5, alpha = 1) 
+
+Measure: Mean-Squared Error 
+
+      Lambda Index Measure       SE Nonzero
+min 0.001963    42  0.2375 0.001170      16
+1se 0.009543    25  0.2387 0.001072      12</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#min - näitab minimaalse MSE väärtusega</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Leia optimaalne lambda väärtus, mis minimeerib testandmete ruutkeskmise vea (MSE).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>best_lambda</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.001962509</code></pre>
+</div>
+</div>
+<p>Teeme joonise lambda väärtuse ja testandmestiku MSE vahel</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model) </span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10-mllasso_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Parim mudel</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(xw, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> best_lambda)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ja kordajad</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(best_model),<span class="dv">5</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>20 x 1 sparse Matrix of class "dgCMatrix"
+                       s0
+(Intercept)       0.36505
+d                 0.03945
+year2006          0.00139
+year2007          .      
+age3049          -0.00287
+age5064          -0.08791
+gendermale       -0.02049
+collarwhite       .      
+immigrant1       -0.07813
+rural            -0.02917
+regionBludhaven   0.00208
+regionCentral    -0.01090
+regionGotham      0.04110
+regionMetropolis  .      
+educSecondary     0.05102
+educTertiary      0.08711
+lastemp1_2        0.03588
+lastemp2_4        0.05447
+lastempover4      0.03616
+benefit           0.14823</code></pre>
+</div>
+</div>
+<p>Üllatuslikult jäid kõik alles - post-LASSO</p>
+<p>Et ei peaks käsitsi trükkima</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>selected_vars <span class="ot">&lt;-</span> <span class="fu">row.names</span>(<span class="fu">coef</span>(best_model))[<span class="fu">which</span>(<span class="fu">coef</span>(best_model) <span class="sc">!=</span> <span class="dv">0</span>)][<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>formula_str <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"y ~"</span>, <span class="fu">paste</span>(selected_vars, <span class="at">collapse =</span> <span class="st">" + "</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>atp3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, xw)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>olsmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.formula</span>(formula_str), <span class="at">data =</span> atp3)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(olsmodel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = as.formula(formula_str), data = atp3)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.7622 -0.4580 -0.2355  0.4702  0.8026 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      0.353265   0.022680  15.576  &lt; 2e-16 ***
+d                0.043209   0.013452   3.212 0.001324 ** 
+year2006         0.005216   0.011580   0.450 0.652421    
+age3049         -0.016039   0.014251  -1.125 0.260421    
+age5064         -0.104547   0.018097  -5.777 7.92e-09 ***
+gendermale      -0.021955   0.011878  -1.848 0.064586 .  
+immigrant1      -0.081956   0.016572  -4.945 7.78e-07 ***
+rural           -0.032598   0.014815  -2.200 0.027813 *  
+regionBludhaven  0.012030   0.023106   0.521 0.602610    
+regionCentral   -0.011218   0.017666  -0.635 0.525447    
+regionGotham     0.044970   0.015882   2.831 0.004647 ** 
+educSecondary    0.063766   0.017014   3.748 0.000180 ***
+educTertiary     0.099545   0.017641   5.643 1.74e-08 ***
+lastemp1_2       0.046207   0.018961   2.437 0.014836 *  
+lastemp2_4       0.065331   0.017073   3.827 0.000131 ***
+lastempover4     0.048027   0.015523   3.094 0.001983 ** 
+benefit          0.150644   0.012398  12.151  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4864 on 7123 degrees of freedom
+Multiple R-squared:  0.05563,   Adjusted R-squared:  0.05351 
+F-statistic: 26.23 on 16 and 7123 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>LASSO kordajad peaksid olema nihkega nulli suunas</p>
+</section>
+<section id="näited-kasutades-paketti-hdm" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="näited-kasutades-paketti-hdm"><span class="header-section-number">18.2</span> Näited kasutades paketti hdm</h2>
+<p><code>rlasso</code> teeb nii Lasso kui post-Lasso. Lubab nii homoskedastiiseid kui heteroskedastiivseid vigu (default homoscedastic = FALSE)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(hdm)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#tavaline lasso</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(xw, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">nfolds =</span> <span class="dv">10</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>best_lambda</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0004861285</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model) </span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10-mllasso_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(xw, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> best_lambda)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(best_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>20 x 1 sparse Matrix of class "dgCMatrix"
+                           s0
+(Intercept)       0.344699097
+d                 0.042128993
+year2006          0.004459528
+year2007          .          
+age3049          -0.012936475
+age5064          -0.101884446
+gendermale       -0.021584370
+collarwhite      -0.005753881
+immigrant1       -0.078547303
+rural            -0.032935249
+regionBludhaven   0.021113776
+regionCentral     .          
+regionGotham      0.055425473
+regionMetropolis  0.017704494
+educSecondary     0.061692726
+educTertiary      0.099017957
+lastemp1_2        0.044320275
+lastemp2_4        0.063197320
+lastempover4      0.046263605
+benefit           0.151101177</code></pre>
+</div>
+</div>
+<p>Käsk <code>rlasso</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>lasso.reg <span class="ot">=</span> <span class="fu">rlasso</span>(y <span class="sc">~</span> xw, <span class="at">post =</span> <span class="cn">FALSE</span>) <span class="co"># use lasso, not-Post-lasso</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sum.lasso <span class="ot">&lt;-</span> <span class="fu">summary</span>(lasso.reg, <span class="at">all =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+rlasso.formula(formula = y ~ xw, post = FALSE)
+
+Post-Lasso Estimation:  FALSE 
+
+Total number of variables: 19
+Number of selected variables: 12 
+
+Residuals: 
+    Min      1Q  Median      3Q     Max 
+-0.6797 -0.4524 -0.3246  0.4742  0.7154 
+
+              Estimate
+(Intercept)      0.408
+d                0.025
+age5064         -0.057
+gendermale      -0.013
+collarwhite      0.002
+immigrant1      -0.055
+rural           -0.014
+regionGotham     0.037
+educSecondary    0.001
+educTertiary     0.045
+lastemp2_4       0.018
+lastempover4     0.003
+benefit          0.145
+
+Residual standard error: 0.4876
+Multiple R-squared:  0.04909
+Adjusted R-squared:  0.04749
+Joint significance test:
+ the sup score statistic for joint significance test is 3.753 with a p-value of     0</code></pre>
+</div>
+</div>
+</section>
+<section id="meetme-mõju-hindamine-lassoga" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="meetme-mõju-hindamine-lassoga"><span class="header-section-number">18.3</span> Meetme mõju hindamine LASSOga</h2>
+<p>OLS-ga ette võrdluseks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fmla <span class="ot">=</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">"y ~ "</span>, <span class="fu">paste</span>(<span class="fu">colnames</span>(xw), <span class="at">collapse =</span> <span class="st">"+"</span>)))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>fmla</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>y ~ d + year2006 + year2007 + age3049 + age5064 + gendermale + 
+    collarwhite + immigrant1 + rural + regionBludhaven + regionCentral + 
+    regionGotham + regionMetropolis + educSecondary + educTertiary + 
+    lastemp1_2 + lastemp2_4 + lastempover4 + benefit</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#OLS</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>full.fit <span class="ot">=</span> <span class="fu">lm</span>(fmla, <span class="at">data =</span> atp3)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Koolituse mõju on4.8 protsendipunkti</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full.fit)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = fmla, data = atp3)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.7597 -0.4573 -0.2346  0.4716  0.7989 
+
+Coefficients: (1 not defined because of singularities)
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       0.334523   0.031092  10.759  &lt; 2e-16 ***
+d                 0.042997   0.013459   3.195 0.001406 ** 
+year2006          0.005558   0.011618   0.478 0.632365    
+year2007                NA         NA      NA       NA    
+age3049          -0.016288   0.014262  -1.142 0.253475    
+age5064          -0.106782   0.018210  -5.864 4.72e-09 ***
+gendermale       -0.021911   0.011889  -1.843 0.065383 .  
+collarwhite      -0.008810   0.013776  -0.639 0.522521    
+immigrant1       -0.077865   0.018121  -4.297 1.75e-05 ***
+rural            -0.034460   0.014907  -2.312 0.020826 *  
+regionBludhaven   0.030854   0.031133   0.991 0.321695    
+regionCentral     0.007689   0.027158   0.283 0.777104    
+regionGotham      0.063473   0.024808   2.559 0.010531 *  
+regionMetropolis  0.027074   0.029516   0.917 0.359037    
+educSecondary     0.065434   0.017116   3.823 0.000133 ***
+educTertiary      0.103454   0.018363   5.634 1.83e-08 ***
+lastemp1_2        0.047213   0.019009   2.484 0.013026 *  
+lastemp2_4        0.066187   0.017134   3.863 0.000113 ***
+lastempover4      0.049855   0.015697   3.176 0.001499 ** 
+benefit           0.152305   0.012566  12.120  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4865 on 7121 degrees of freedom
+Multiple R-squared:  0.0558,    Adjusted R-squared:  0.05341 
+F-statistic: 23.38 on 18 and 7121 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Eraldi soovi korral</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full.fit)<span class="sc">$</span>coef[<span class="st">"d"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Estimate Std. Error 
+0.04299741 0.01345912 </code></pre>
+</div>
+</div>
+</section>
+<section id="partialling-out-method---jääkliikmete-meetod" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="partialling-out-method---jääkliikmete-meetod"><span class="header-section-number">18.4</span> Partialling out method - jääkliikmete meetod</h2>
+<p>Tehniline eeltöö. Leiame selgitavate muutujate nimed ilma training muutujata</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> year <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> collar <span class="sc">+</span> immigrant <span class="sc">+</span> rural <span class="sc">+</span> region <span class="sc">+</span> educ <span class="sc">+</span> lastemp <span class="sc">+</span> benefit <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> atp2)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  year2006 year2007 age3049 age5064 gendermale collarwhite immigrant1 rural
+1        1        0       1       0          0           1          0     0
+2        1        0       1       0          0           1          0     0
+3        1        0       0       0          0           0          0     0
+4        1        0       1       0          0           1          0     0
+5        1        0       1       0          0           1          0     0
+6        1        0       0       1          0           0          1     0
+  regionBludhaven regionCentral regionGotham regionMetropolis educSecondary
+1               0             0            0                0             0
+2               0             0            1                0             1
+3               0             0            0                0             0
+4               0             1            0                0             0
+5               0             0            1                0             0
+6               0             0            1                0             0
+  educTertiary lastemp1_2 lastemp2_4 lastempover4 benefit
+1            1          1          0            0       1
+2            0          0          0            1       1
+3            0          0          0            0       0
+4            1          0          0            0       1
+5            1          0          1            0       1
+6            1          0          0            1       1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>xnames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Teeme valemid, et ei peaks käsitsi trükkima</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Y võrrand</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>fmla.y <span class="ot">=</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">"y ~ "</span>, <span class="fu">paste</span>(xnames, <span class="at">collapse =</span> <span class="st">"+"</span>)))</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">#D võrrand</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>fmla.d <span class="ot">=</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">"d ~ "</span>, <span class="fu">paste</span>(xnames, <span class="at">collapse =</span> <span class="st">"+"</span>)))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="ja-nüüd-esimesed-sammud-olsga." class="level3">
+<h3 class="anchored" data-anchor-id="ja-nüüd-esimesed-sammud-olsga.">Ja nüüd esimesed sammud OLSga.</h3>
+<p>Leiame jääkliikmed</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># partial fit via ols</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#väljund</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>mudelyjax <span class="ot">=</span> <span class="fu">lm</span>(fmla.y, <span class="at">data =</span> atp3)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudelyjax)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = fmla.y, data = atp3)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.7278 -0.4589 -0.2356  0.4748  0.7899 
+
+Coefficients: (1 not defined because of singularities)
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       0.339102   0.031079  10.911  &lt; 2e-16 ***
+year2006          0.005563   0.011625   0.478  0.63232    
+year2007                NA         NA      NA       NA    
+age3049          -0.015162   0.014267  -1.063  0.28794    
+age5064          -0.108447   0.018214  -5.954 2.74e-09 ***
+gendermale       -0.020094   0.011883  -1.691  0.09089 .  
+collarwhite      -0.008197   0.013783  -0.595  0.55208    
+immigrant1       -0.077598   0.018132  -4.280 1.90e-05 ***
+rural            -0.033885   0.014916  -2.272  0.02313 *  
+regionBludhaven   0.033445   0.031143   1.074  0.28289    
+regionCentral     0.009097   0.027172   0.335  0.73780    
+regionGotham      0.061740   0.024818   2.488  0.01288 *  
+regionMetropolis  0.029592   0.029524   1.002  0.31623    
+educSecondary     0.068455   0.017101   4.003 6.32e-05 ***
+educTertiary      0.108364   0.018311   5.918 3.41e-09 ***
+lastemp1_2        0.047588   0.019021   2.502  0.01238 *  
+lastemp2_4        0.067030   0.017143   3.910 9.31e-05 ***
+lastempover4      0.050303   0.015706   3.203  0.00137 ** 
+benefit           0.154204   0.012560  12.277  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4868 on 7122 degrees of freedom
+Multiple R-squared:  0.05445,   Adjusted R-squared:  0.05219 
+F-statistic: 24.12 on 17 and 7122 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rY <span class="ot">=</span> mudelyjax<span class="sc">$</span>res</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Sama meetmes osalemisega</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Teeme otse</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>rD <span class="ot">=</span> <span class="fu">lm</span>(fmla.d, <span class="at">data =</span> atp3)<span class="sc">$</span>res</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Ja nüüd seos jääkliimete vahel</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>partial.fit.ls <span class="ot">=</span> <span class="fu">lm</span>(rY <span class="sc">~</span> rD)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(partial.fit.ls)<span class="sc">$</span>coef[<span class="st">"rD"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Estimate Std. Error 
+0.04299741 0.01344309 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Täpselt sama, mis oli (!)</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full.fit)<span class="sc">$</span>coef[<span class="st">"d"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Estimate Std. Error 
+0.04299741 0.01345912 </code></pre>
+</div>
+</div>
+</section>
+<section id="aga-nüüd-teeme-selle-lassoga" class="level3">
+<h3 class="anchored" data-anchor-id="aga-nüüd-teeme-selle-lassoga">Aga nüüd teeme selle LASSOga</h3>
+<p>Post-LASSO</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># partial fit via post-lasso</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>rY <span class="ot">=</span> <span class="fu">rlasso</span>(fmla.y, <span class="at">data =</span> atp3)<span class="sc">$</span>res</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>rD <span class="ot">=</span> <span class="fu">rlasso</span>(fmla.d, <span class="at">data =</span> atp3)<span class="sc">$</span>res</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>partial.fit.postlasso <span class="ot">=</span> <span class="fu">lm</span>(rY <span class="sc">~</span> rD)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(partial.fit.postlasso)<span class="sc">$</span>coef[<span class="st">"rD"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Estimate Std. Error 
+0.04568989 0.01344290 </code></pre>
+</div>
+</div>
+<p>Mõju hinnang sarnane</p>
+</section>
+<section id="funktsioon-rlassoeffect-teeb-selle-kõik-ise" class="level3">
+<h3 class="anchored" data-anchor-id="funktsioon-rlassoeffect-teeb-selle-kõik-ise">Funktsioon <code>rlassoEffect</code> teeb selle kõik ise!</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#We have Xs, Y, D as parameters</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>Eff <span class="ot">=</span> <span class="fu">rlassoEffects</span>(xw, y, <span class="at">index =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">method =</span> <span class="st">"partialling out"</span>)  <span class="co">#indeks 1 ütleb, et meede on esimeses veerus</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Eff)<span class="sc">$</span>coef[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Estimate. Std. Error 
+0.04568989 0.01344290 </code></pre>
+</div>
+</div>
+</section>
+<section id="topelt-selektsiooni-meetod-double-selection-method" class="level3">
+<h3 class="anchored" data-anchor-id="topelt-selektsiooni-meetod-double-selection-method">Topelt selektsiooni meetod (double selection method)</h3>
+<ol type="1">
+<li>Vali Lasso abil kontrollmuutujad x_{ij}, mis ennustavad y_i.</li>
+<li>Vali Lasso abil kontrollmuutujad x_{ij}, mis ennustavad d_i.</li>
+<li>Teosta tavaruutude meetod (OLS), kus y_i regresseeritakse d_i ja kontrollmuutujate ühisosa (!) suhtes, mis valiti sammudes 1 ja 2.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>Eff <span class="ot">=</span> <span class="fu">rlassoEffects</span>(xw, y, <span class="at">index =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">method =</span> <span class="st">"double selection"</span>) </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Eff)<span class="sc">$</span>coef[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Estimate. Std. Error 
+0.04569497 0.01356472 </code></pre>
+</div>
+</div>
+<p>Sarnased efektid</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./09-mlpuumets.html" class="pagination-link" aria-label="Masinõppemudelid">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./11-tehajaideed.html" class="pagination-link" aria-label="Teha">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
