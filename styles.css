@@ -1,3 +1,20 @@
 body {
   font-size: 0.9em;
 }
+
+/* Raamatu sisu H1 ja H2 pealkirjad väiksemaks */
+h1 {
+  font-size: 1.4rem;   /* vali endale sobiv suurus */
+}
+
+h1 .chapter-title {
+  font-size: 0.9em;   /* veel pisem pealkirja tekst */
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
