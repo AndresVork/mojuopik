@@ -11,7 +11,7 @@ Tuginedes potentsiaalsete tulemuste raamistikule tähistame:
 - $Y_i(1)$ – isiku $i$ tulemus, kui ta osaleb meetmes  
 - $Y_i(0)$ – sama isiku tulemus, kui ta ei osale  
 - $D_i \in \{0,1\}$ – indicator, kas isik osales (1) või mitte (0)  
-- $X_i4 – vektor taustatunnuseid (vanus, sugu, haridus, eelnev töökogemus jne)
+- $X_i4$ – vektor taustatunnuseid (vanus, sugu, haridus, eelnev töökogemus jne)
 
 Meid huvitab näiteks keskmine mõju osalejatele (ATT):
 

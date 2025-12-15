@@ -4,21 +4,18 @@ Poolik - arenev
 
 ## Mudeli seade
 
-
 Juurdekasvude erinevuse (DiD) meetod on üks populaarsemaid kvaasi-eksperimentaalseid meetodeid põhjusliku mõju hindamiseks. See eemaldab ajas muutumatud erinevused gruppide vahel ja ajas muutuvad tegurid, mis mõjutavad mõlemaid gruppe ühtemoodi.
-
 
 ### Klassikaline 2x2 DiD disain
 
 Kõige lihtsamal kujul on meil kaks rühma ja kaks ajahetke:
 
-  * **Grupid ($D$):**
-      * $D=1$: Osalusrühm (*Treatment*), kes saab mingil hetkel sekkumise.
-      * $D=0$: Võrdlusrühm (*Control*), kes sekkumist ei saa.
-  
-  * **Aeg ($T$):**
-      * $T=1$: Pärast sekkumist (*Post*).
-      * $T=0$: Enne sekkumist (*Pre*).
+-   **Grupid (**$D$):
+    -   $D=1$: Osalusrühm (*Treatment*), kes saab mingil hetkel sekkumise.
+    -   $D=0$: Võrdlusrühm (*Control*), kes sekkumist ei saa.
+-   **Aeg (**$T$):
+    -   $T=1$: Pärast sekkumist (*Post*).
+    -   $T=0$: Enne sekkumist (*Pre*).
 
 ### DiD hinnang Valemina
 
@@ -26,8 +23,7 @@ DiD hinnang ($\hat{\delta}_{DiD}$) leitakse kui erinevus osalejate ajas toimunud
 
 $$
 \hat{\delta}_{DiD} = \underbrace{(\bar{Y}_{T=1}^{D=1} - \bar{Y}_{T=0}^{D=1})}_{\text{Muutus osalejatel}} - \underbrace{(\bar{Y}_{T=1}^{D=0} - \bar{Y}_{T=0}^{D=0})}_{\text{Muutus võrdlusrühmal}}
-$$
-Kus $\bar{Y}_{T}^{D}$ on tulemuse keskmine vastavas grupis ja ajahetkel.
+$$ Kus $\bar{Y}_{T}^{D}$ on tulemuse keskmine vastavas grupis ja ajahetkel.
 
 ### DiD Regressioonimudelina
 
@@ -38,11 +34,10 @@ $$
 
 Kus:
 
-  * $\alpha$: Kontrollgrupi keskmine enne sekkumist (Constant).
-  * $\beta_1$: Gruppidevaheline püsiv erinevus (*Treatment Group Effect*).
-  * $\beta_2$: Ajaline trend, mis on ühine mõlemale grupile (*Time Trend*).
-  * ** $\delta_{DiD}$ **: Põhjuslik mõju ehk huvipakkuv parameeter (ATT). See näitab lisandumist tulemuses, mis tekib ainult osalejatel pärast sekkumist.
-
+-   $\alpha$: Kontrollgrupi keskmine enne sekkumist (Constant).
+-   $\beta_1$: Gruppidevaheline püsiv erinevus (*Treatment Group Effect*).
+-   $\beta_2$: Ajaline trend, mis on ühine mõlemale grupile (*Time Trend*).
+-   \*\* $\delta_{DiD}$ \*\*: Põhjuslik mõju ehk huvipakkuv parameeter (ATT). See näitab lisandumist tulemuses, mis tekib ainult osalejatel pärast sekkumist.
 
 ### Paralleelse trendi eeldus ja ATT
 
@@ -56,13 +51,11 @@ $$
 E[Y^0_{t=1} - Y^0_{t=0} | D=1] = E[Y^0_{t=1} - Y^0_{t=0} | D=0]
 $$
 
-
 Kuidas see annab ATT?
 
 Meie eesmärk on leida keskmine mõju osalejatele (**ATT** - *Average Treatment Effect on the Treated*):
 
-$$ATT = E[Y^1_{t=1} - Y^0_{t=1} | D=1] $$
-Kuna $Y^0_{t=1}$ (osalejate tulemus ilma sekkumiseta) ei ole vaadeldav, kasutame paralleelse trendi eeldust selle asendamiseks:
+$$ATT = E[Y^1_{t=1} - Y^0_{t=1} | D=1] $$ Kuna $Y^0_{t=1}$ (osalejate tulemus ilma sekkumiseta) ei ole vaadeldav, kasutame paralleelse trendi eeldust selle asendamiseks:
 
 1.  **Tegelik muutus osalejatel:** $E[Y^1_{t=1} | D=1] - E[Y^0_{t=0} | D=1]$
 2.  **Muutus kui sekkumist poleks:** Eelduse kohaselt võrdne kontrollgrupi muutusega $E[Y^0_{t=1} | D=0] - E[Y^0_{t=0} | D=0]$.
@@ -73,10 +66,9 @@ $$
 ATT = (\text{Osalusrühma muutus}) - (\text{Võrdlusrühma muutus})
 $$
 
-
 ### Kahesuunaline fikseeritud effektide mudel (TWFE)
 
-_Two-way Fixed Effects model_
+*Two-way Fixed Effects model*
 
 Kui andmed on paneelkujul (sama objekti jälgitakse mitmel ajahetkel) või meil on palju objekte ja ajahetki, kasutatakse TWFE mudelit. See on 2x2 disaini üldistus.
 
@@ -84,17 +76,12 @@ $$
 Y_{it} = \alpha_i + \gamma_t + \delta D_{it} + \mathbf{X}_{it}\beta + \epsilon_{it}
 $$
 
-
 Kus:
 
-* $\alpha_i$ **(Unit Fixed Effects):** Ühiku-spetsiifiline fikseeritud efekt. See kontrollib kõiki tegureid, mis on ühikule $i$ omased ja ajas ei muutu (nt asukoht, kultuur, geneetika). Asendab $\text{Treat}_i$ muutujat.
-* $\gamma_t$ **(Time Fixed Effects):** Aja-spetsiifiline fikseeritud efekt. See kontrollib šokke, mis mõjutavad kõiki ühikuid antud aastal $t$ ühtemoodi (nt majanduskriis, seadusemuudatused). Asendab $\text{Post}_t$ muutujat.
-* $D_{it}$ **(Treatment Indicator):** Binaarne muutuja, mis on 1, kui ühik $i$ on ajal $t$ sekkumise all.
-* $\delta$:  Hinnanguline ATT (eeldusel, et mõju on homogeenne).
-
-
-
-
+-   $\alpha_i$ **(Unit Fixed Effects):** Ühiku-spetsiifiline fikseeritud efekt. See kontrollib kõiki tegureid, mis on ühikule $i$ omased ja ajas ei muutu (nt asukoht, kultuur, geneetika). Asendab $\text{Treat}_i$ muutujat.
+-   $\gamma_t$ **(Time Fixed Effects):** Aja-spetsiifiline fikseeritud efekt. See kontrollib šokke, mis mõjutavad kõiki ühikuid antud aastal $t$ ühtemoodi (nt majanduskriis, seadusemuudatused). Asendab $\text{Post}_t$ muutujat.
+-   $D_{it}$ **(Treatment Indicator):** Binaarne muutuja, mis on 1, kui ühik $i$ on ajal $t$ sekkumise all.
+-   $\delta$: Hinnanguline ATT (eeldusel, et mõju on homogeenne).
 
 ### Sündmuste uuring (Event study)
 
@@ -110,27 +97,22 @@ $$
 
 ### Muutujate selgitus
 
-* $Y_{it}$: Tulemusmuutuja ühikule $i$ ajahetkel $t$.
-* $\alpha_i$: **Ühiku fikseeritud efekt** (*Unit Fixed Effects*). Kontrollib ajas muutumatuid eripärasid (nt asukoht, kultuur).
-* $\gamma_t$: **Aja fikseeritud efekt** (*Time Fixed Effects*). Kontrollib šokke, mis mõjutavad kõiki ühikuid samal ajal (nt majanduskriis, inflatsioon).
-* $k$: Suhteline aeg sündmuseni ($t - E_i$, kus $E_i$ on sündmuse toimumise aeg).
-    * $k < 0$: Perioodid **enne** meedet (*Leads*).
-    * $k \ge 0$: Perioodid **pärast** meedet (*Lags*).
-* $D_{it}^k$: **Sündmuse indikaatorid** (*Event Time Dummies*).
-    * Muutuja on **1**, kui ühik $i$ on ajahetkel $t$ täpselt $k$ perioodi kaugusel sündmusest.
-    * Muutuja on **0** muudel juhtudel.
-* $\beta_k$: **Huvipakkuvad koefitsiendid**:
-    * Kui $k < 0$ (Eel-periood): $\beta_k$ näitab erinevust töötlus- ja kontrollgrupi vahel enne meedet. **See testib paralleelseid trende.** Kui eeldus kehtib, peaksid need $\beta$-d olema statistiliselt nullist eristamatud (nulljoone lähedal).
-    * Kui $k \ge 0$ (Järel-periood): $\beta_k$ näitab meetme dünaamilist mõju $k$ perioodi pärast sündmust.
-* $k \neq 0$: Väljajäetud kategooria.
-    * Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust ($k = 0$), et vältida multikollineaarsust. Kõiki teisi koefitsiente ($\beta_k$) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 1 tekib esimest korda avatus meetmele.
-
-
-
+-   $Y_{it}$: Tulemusmuutuja ühikule $i$ ajahetkel $t$.
+-   $\alpha_i$: **Ühiku fikseeritud efekt** (*Unit Fixed Effects*). Kontrollib ajas muutumatuid eripärasid (nt asukoht, kultuur).
+-   $\gamma_t$: **Aja fikseeritud efekt** (*Time Fixed Effects*). Kontrollib šokke, mis mõjutavad kõiki ühikuid samal ajal (nt majanduskriis, inflatsioon).
+-   $k$: Suhteline aeg sündmuseni ($t - E_i$, kus $E_i$ on sündmuse toimumise aeg).
+    -   $k < 0$: Perioodid **enne** meedet (*Leads*).
+    -   $k \ge 0$: Perioodid **pärast** meedet (*Lags*).
+-   $D_{it}^k$: **Sündmuse indikaatorid** (*Event Time Dummies*).
+    -   Muutuja on **1**, kui ühik $i$ on ajahetkel $t$ täpselt $k$ perioodi kaugusel sündmusest.
+    -   Muutuja on **0** muudel juhtudel.
+-   $\beta_k$: **Huvipakkuvad koefitsiendid**:
+    -   Kui $k < 0$ (Eel-periood): $\beta_k$ näitab erinevust töötlus- ja kontrollgrupi vahel enne meedet. **See testib paralleelseid trende.** Kui eeldus kehtib, peaksid need $\beta$-d olema statistiliselt nullist eristamatud (nulljoone lähedal).
+    -   Kui $k \ge 0$ (Järel-periood): $\beta_k$ näitab meetme dünaamilist mõju $k$ perioodi pärast sündmust.
+-   $k \neq 0$: Väljajäetud kategooria.
+    -   Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust ($k = 0$), et vältida multikollineaarsust. Kõiki teisi koefitsiente ($\beta_k$) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 1 tekib esimest korda avatus meetmele.
 
 ## Näide tööpoliitikast
-
-
 
 ```{r}
 #| message: false
@@ -142,7 +124,6 @@ library(stargazer)
 
 ```
 
-
 ```{r}
 #Muutke ära andmete kataloog
 datapath = "http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/"
@@ -153,10 +134,7 @@ dfl <- read.csv(file = paste0(datapath, "adulttraininglong.csv"))
 
 ```
 
-
-
 ## Kirjeldav statistiline analüüs
-
 
 ```{r}
 stargazer(df, type = "text")
@@ -164,7 +142,6 @@ stargazer(df %>% filter(koolituses ==1), type = "text")
 stargazer(df %>% filter(koolituses ==0), type = "text")
 
 ```
-
 
 ```{r}
 #Gruppide võrdlus
@@ -183,6 +160,7 @@ Palk on tuhandetes eurodes
 Mis on palga muutus osalusgrupis ja võrdlusgrupis? (Enne-pärast hinnang)
 
 Vaatame 2008 vs 2013. Arvutame erinevuse.
+
 ```{r}
 df %>% 
   group_by(koolituses) %>% 
@@ -212,7 +190,6 @@ difdif
 
 ```
 
-
 ## Joonis
 
 ```{r}
@@ -236,8 +213,6 @@ ggplot(temp, aes(x = aasta, y = palk, color = factor(koolituses))) +
   theme_light()
 
 ```
-
-
 
 ## Regressioonanalüüs
 
@@ -304,9 +279,7 @@ coefplot(mudel, intercept = FALSE)
 
 ```
 
-
 Lisame mineviku palga enne koolitust sisse ja vaatame muutust võrreldes 2008 aasta palgaga
-
 
 ```{r}
 dfl <- dfl %>% 
@@ -324,8 +297,6 @@ coefplot(mudel2, intercept = FALSE)
 
 
 ```
-
-
 
 Teeme mudeli eraldi töötavate, töötute ja mitteaktiivsete jaoks.
 
@@ -372,8 +343,6 @@ multiplot(models) + theme_light() + labs(color = "Rühm")
 
 ```
 
-
-
 ```{r}
 models <- lapply(split(dfl, dfl$seisundtext), function(df) {
   
@@ -390,5 +359,3 @@ summary(models[[3]])
 multiplot(models) + theme_light() + labs(color = "Rühm")
 
 ```
-
-

@@ -1,0 +1,19 @@
+# Teha
+
+Lisada peatükid:
+
+-   Interrupted time series
+
+-   RDD peatükki alapunktid
+
+    -   Regression Discontinuity in Time - seos interrupted time series meetodiga
+
+    -   Regression Discontinuity in Space
+
+-   Struktuursete võrranditega mudelid (SEM), seos DAGiga
+
+-   Causal forest for panel data,
+
+    -   <https://onlinelibrary.wiley.com/doi/full/10.1002/jae.70001>
+
+    -   

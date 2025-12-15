@@ -1,0 +1,801 @@
+---
+title: "Valemid aines Põhjuse ja tagajärje seosed"
+format:
+  html:
+    toc: false
+  pdf: default
+---
+
+
+# Valemid eksamiks kordamiseks
+
+$$  D_i \in \{0,1\}$$
+
+
+$$Y_i=(1−D_i)Y_i^0+D_iY_i^1=Y_i^0+D_i(Y_i^1−Y_i^0)$$  
+
+$$\delta_i = {Y}_{i}^1 - {Y}_{i}^0$$
+
+
+$$
+\text{ATE} = \mathbb{E}\big[ \delta_i \big] 
+           = \mathbb{E}\big[ Y_i^1−Y_i^0 \big]
+           = \mathbb{E}\big[ Y_i^1 \big] - \mathbb{E}\big[ Y_i^0 \big]
+$$
+
+
+$$
+\text{ATT} = = \mathbb{E}\big[ Y_i^1−Y_i^0 \mid D_i = 1 \big]
+$$
+
+$$
+\text{ATU} = = \mathbb{E}\big[ Y_i^1−Y_i^0 \mid D_i = 0 \big]
+$$
+
+$$
+p = \Pr(D_i = 1)
+$$
+
+
+$$
+\text{ATE} = p \cdot \text{ATT} + (1 - p) \cdot \text{ATU}.
+$$
+
+
+$$
+\text{SDO} 
+= \mathbb{E}[Y_i \mid D_i = 1] - \mathbb{E}[Y_i \mid D_i = 0],
+$$
+
+
+$$
+\begin{aligned}
+\text{SDO} 
+&= \mathbb{E}\big[ Y_i(1) \mid D_i = 1 \big] 
+   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big] \\
+&= \underbrace{\mathbb{E}\big[ Y_i(1) - Y_i(0) \mid D_i = 1 \big]}_{\text{ATT}}
+   + \underbrace{\Big(\mathbb{E}\big[ Y_i(0) \mid D_i = 1 \big] 
+   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big]\Big)}_{\text{selection bias}}.
+\end{aligned}
+$$
+
+
+$$\text{SDO} = \text{ATE} + \text{Valikunihe} + \text{Nihe heterogeense mõju tõttu}$$  
+
+
+$$E[Y_0 | D=1, \mathbf{X}] = E[Y_0 | D=0, \mathbf{X}]$$
+
+$$Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta + \epsilon_i$$
+$$Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i$$
+
+$$Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \mathbf{X}_i \beta + \epsilon_i$$
+$$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$
+
+ $$\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1$$
+ 
+ $$Y_i = \alpha_0 + \mathbf{X}_i \beta_0 + \epsilon_{i0} \quad \text{kui } D_i=0$$
+
+# Regressioonimudelid
+
+
+$$
+E[Y_0 \mid D=1, \mathbf{X}] = E[Y_0 \mid D=0, \mathbf{X}]
+$$
+$$
+Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta + \epsilon_i
+$$
+
+
+$$
+Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i
+$$
+
+
+$$
+Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \mathbf{X}_i \beta + \epsilon_i
+$$
+
+$$
+Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \beta_1 X_{1i} + \dots + \epsilon_i
+$$
+
+$$
+\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}
+$$
+
+
+$$
+Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1
+$$
+
+
+$$
+\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1
+$$
+
+
+$$
+Y_i = \alpha_0 + \mathbf{X}_i \beta_0 + \epsilon_{i0} \quad \text{kui } D_i=0
+$$
+
+
+$$
+\hat{Y}_{i0} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0
+$$
+
+
+$$
+\hat{\Delta}_i = \hat{Y}_{i1} - \hat{Y}_{i0}
+$$
+
+
+$$
+\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i
+$$
+
+$$
+\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i
+$$
+
+
+$$
+\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i
+$$
+
+
+# Juurdekasvude erinevuse (DiD) valemid
+
+$$
+Y_{it} = \alpha + \beta_1 \text{D}_i + \beta_2 \text{Post}_t + \delta*(\text{D}_i \times \text{Post}_t) + \epsilon_{it}
+$$
+
+$$
+\hat{\delta}_{DiD} = \underbrace{(\bar{Y}_{T=1}^{D=1} - \bar{Y}_{T=0}^{D=1})}_{\text{Muutus osalejatel}} - \underbrace{(\bar{Y}_{T=1}^{D=0} - \bar{Y}_{T=0}^{D=0})}_{\text{Muutus võrdlusrühmal}}
+$$
+
+
+
+$$
+E[Y^0_{t=1} - Y^0_{t=0} \mid D=1] = E[Y^0_{t=1} - Y^0_{t=0} \mid D=0]
+$$
+
+
+$$
+ATT = E[Y^1_{t=1} - Y^0_{t=1} \mid D=1]
+$$
+
+## DiD lagundamine kaheks muutuseks
+
+Tegelik muutus osalejatel:
+
+$$
+E[Y^1_{t=1} \mid D=1] - E[Y^0_{t=0} \mid D=1]
+$$
+
+Muutus, kui sekkumist poleks olnud (asendatav kontrollgrupi muutusega):
+
+$$
+E[Y^0_{t=1} \mid D=0] - E[Y^0_{t=0} \mid D=0]
+$$
+
+ATT vastavuse sõnaline kuju:
+
+$$
+ATT = (\text{Osalusrühma muutus}) - (\text{Võrdlusrühma muutus})
+$$
+
+## Kahesuunaline fikseeritud efektide DiD-mudel (TWFE)
+
+Paneelandmete DiD mudel fikseeritud efektidega:
+
+$$
+Y_{it} = \alpha_i + \gamma_t + \delta D_{it} + \mathbf{X}_{it}\beta + \epsilon_{it}
+$$
+
+## Sündmuspõhine DiD / event-study (TWFE)
+
+Üldine sündmuspõhine TWFE mudel:
+
+$$
+Y_{it} = \alpha_i + \gamma_t + \sum_{k=-K, k \neq 0}^{L} \beta_k \cdot D_{it}^k + \epsilon_{it}
+$$
+
+## RDD 
+
+## Potentsiaalsed tulemused ja tinglikud keskmised
+
+$$
+m_1(x) = \mathbb{E}[Y_i(1)\mid X_i = x], \quad
+m_0(x) = \mathbb{E}[Y_i(0)\mid X_i = x].
+$$
+
+Indikaator meetme saamiseks lõikepunkti põhjal:
+
+$$
+D_i = \mathbf{1}(X_i \ge c),
+$$
+
+täheldatud tulemus:
+
+$$
+Y_i = D_i Y_i(1) + (1-D_i)Y_i(0).
+$$
+
+
+## Järsk RDD (Sharp RDD)
+
+Lokaalne mõju lõikepunktis:
+
+$$
+\tau^{SRD} = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x]
+            - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x].
+$$
+
+Potentsiaalsete tulemuste kujul:
+
+$$
+\tau^{SRD} = \mathbb{E}\big[Y_i(1) - Y_i(0) \,\big|\, X_i = c\big].
+$$
+
+
+## Hägune RDD (Fuzzy RDD)
+
+Ravi tõenäosus jookseva muutuja funktsioonina:
+
+$$
+p(x) = \Pr(D_i = 1 \mid X_i = x)
+$$
+
+häguses disainis on ravi tõenäosuses hüpe lõikepunkti juures:
+
+$$
+\lim_{x \downarrow c} p(x) \neq \lim_{x \uparrow c} p(x),
+$$
+
+tulemusmuutujal täheldatud hüpe:
+
+$$
+\Delta Y = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x]
+         - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x],
+$$
+
+ravi tõenäosuse muutus:
+
+$$
+\Delta D = \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x]
+         - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x].
+$$
+
+Lokaalne Waldi-hinnang (fuzzy RDD mõju):
+
+$$
+\tau^{FRD} = \frac{\Delta Y}{\Delta D}.
+$$
+
+
+## Pidevuse eeldus
+
+Pidevuse eeldus kontrolltulemuste jaoks:
+
+$$
+\lim_{x \downarrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+=
+\lim_{x \uparrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+$$
+
+
+# Sobitamine
+
+
+Potentsiaalsed tulemused:
+
+$$
+Y_i(1), \quad Y_i(0)
+$$
+
+Täheldatud tulemus:
+
+$$
+Y_i = D_i Y_i(1) + (1-D_i)Y_i(0)
+$$
+
+Keskmine mõju osalejatele (ATT):
+
+$$
+ATT = \mathbb{E}[Y_i(1) - Y_i(0)\mid D_i = 1]
+$$
+
+## Tingimusliku sõltumatuse eeldus (CIA)
+
+Tingimuslik sõltumatus:
+
+$$
+(Y_i(1), Y_i(0)) \perp D_i \mid X_i
+$$
+
+Vähendatud kujul:
+
+$$
+Y_i(0) \perp D_i \mid X_i
+$$
+
+Seos ATT ja täheldatud suuruste vahel:
+
+$$
+ATT = \mathbb{E}[Y_i \mid D_i = 1] - \mathbb{E}\big[\,Y_i \mid D_i = 0, X_i\,\big] \text{ keskmistatuna } X_i \text{ jaotuse järgi osalejatel}.
+$$
+
+## Ühine tugi (common support)
+
+Ühise toe eeldus:
+
+$$
+0 < \Pr(D_i = 1 \mid X_i = x) < 1
+$$
+
+kõigi asjakohaste \(x\) korral.
+
+## Propensity score
+
+Propensity score ehk ravi tõenäosus:
+
+$$
+e(X_i) = \Pr(D_i = 1 \mid X_i)
+$$
+
+Tingimuslik sõltumatus propensity score’i kaudu:
+
+$$
+(Y_i(1), Y_i(0)) \perp D_i \mid e(X_i)
+$$
+
+Balansseerimisomadus:
+
+$$
+D_i \perp X_i \mid e(X_i)
+$$
+
+## Lihtne sobitamise ATT hinnang (1-naaber)
+
+Olgu \(C(i)\) kontrollüksus, kellel on sarnasem \(X\) (või \(e(X)\)) kui osalejal \(i\).
+
+Lähima naabri sobitamise ATT:
+
+$$
+\widehat{ATT}_{NN} = \frac{1}{N_T} \sum_{i:D_i=1} \big( Y_i - Y_{C(i)} \big)
+$$
+
+kus \(N_T\) on osalejate arv.
+
+## Sobitamine propensity score’i alusel
+
+Sobitamine tõenäosuse järgi:
+
+$$
+C(i) = \arg\min_{j:D_j=0} \left| e(X_i) - e(X_j) \right|
+$$
+
+Caliper-tingimus:
+
+$$
+\left| e(X_i) - e(X_j) \right| \le h
+$$
+
+kus \(h\) on etteantud lävi (caliper).
+
+## Üldine kaalutud sobitamise ATT
+
+Kaalud kontrollidele antud osaleja \(i\) jaoks: \(w_{ij}\).
+
+Üldine kuju:
+
+$$
+\widehat{ATT} = \frac{1}{N_T} \sum_{i:D_i=1} \left( Y_i - \sum_{j:D_j=0} w_{ij} Y_j \right)
+$$
+
+Kaalude omadused:
+
+$$
+w_{ij} \ge 0, \qquad \sum_{j:D_j=0} w_{ij} = 1 \quad \text{kõigi } i \text{ korral, kellel } D_i = 1.
+$$
+
+## Kernel-sobitamine propensity score’i alusel
+
+Kernel-kaalud:
+
+$$
+w_{ij} = \frac{K\!\left(\dfrac{e(X_i) - e(X_j)}{h}\right)}{\sum_{k:D_k=0} K\!\left(\dfrac{e(X_i) - e(X_k)}{h}\right)}
+$$
+
+kus
+
+- \(K(\cdot)\) on kernel-funktsioon,
+- \(h\) on bandwidth.
+
+ATT kernel-sobitamisega:
+
+$$
+\widehat{ATT}_{kernel} = \frac{1}{N_T} \sum_{i:D_i=1} \left( Y_i - \sum_{j:D_j=0} w_{ij} Y_j \right)
+$$
+
+## Mahalanobise kaugus sobitamisel
+
+Mahalanobise kaugus osaleja \(i\) ja kontrolli \(j\) vahel:
+
+$$
+d_M(i,j) = \sqrt{ (X_i - X_j)^{\top} S^{-1} (X_i - X_j) }
+$$
+
+kus \(S\) on kovariatsioonimaatriks tunnustele \(X\).
+
+Lähima naabri sobitamine:
+
+$$
+C(i) = \arg\min_{j:D_j=0} d_M(i,j).
+$$
+
+
+
+
+# Instrumentmuutuja (IV) põhiideed ja valemid
+
+## Struktuurne mudel ja endogeensus
+
+Lineaarne mudel koos kontrollmuutujatega:
+
+$$
+Y_i = \alpha + \beta D_i + \gamma^\top X_i + u_i,
+$$
+
+OLS-i eksogeensuse eeldus:
+
+$$
+\mathbb{E}[u_i \mid D_i, X_i] = 0
+\quad\Longleftrightarrow\quad
+\operatorname{Cov}(D_i, u_i) = 0.
+$$
+
+## Instrumenti tingimused
+
+Relevantsus:
+
+$$
+\operatorname{Cov}(Z_i, D_i) \neq 0.
+$$
+
+Eksogeensus (exclusion restriction):
+
+$$
+\operatorname{Cov}(Z_i, u_i) = 0.
+$$
+
+## Lihtne IV / Waldi hinnang
+
+Lihtne mudel ilma kontrollmuutujateta:
+
+$$
+Y_i = \alpha + \beta D_i + u_i.
+$$
+
+Wald-tüüpi IV-hinnang:
+
+$$
+\hat\beta^{IV} =
+\frac{\mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0]}
+     {\mathbb{E}[D_i \mid Z_i = 1] - \mathbb{E}[D_i \mid Z_i = 0]}.
+$$
+
+## Kaheastmeline vähimruutude meetod (2SLS)
+
+Struktuurne mudel koos kontrollidega:
+
+$$
+Y_i = \alpha + \beta D_i + \gamma^\top X_i + u_i,
+$$
+
+esimene aste (first stage):
+
+$$
+D_i = \pi_0 + \pi_1 Z_i + \pi_2^\top X_i + v_i,
+$$
+
+esimese astme hinnatud võrrand:
+
+$$
+D_i = \hat\pi_0 + \hat\pi_1 Z_i + \hat\pi_2^\top X_i + \hat v_i.
+$$
+
+teine aste (second stage):
+
+$$
+Y_i = \alpha + \beta \hat D_i + \gamma^\top X_i + \varepsilon_i.
+$$
+
+
+# Sünteetilise kontrolli valemid
+
+## 1. Mõju definitsioon
+
+$$
+\alpha_{1t} = Y_{1t}^{I} - Y_{1t}^{N}, \quad t > T_0,
+$$
+
+kus  
+\(Y_{1t}^{I}\) – täheldatud tulemus käsitletaval üksusel pärast sekkumist,  
+\(Y_{1t}^{N}\) – vastav kontrafaktuaalne tulemus ilma sekkumiseta.
+
+## 2. Sünteetiline kontroll kui kaalutud keskmine
+
+$$
+Y_{1t}^{N} \approx \sum_{j=2}^{J+1} w_j Y_{jt}, \quad t = 1, \dots, T,
+$$
+
+kus kaalud \(w_j \ge 0\) ja \(\sum_{j=2}^{J+1} w_j = 1\).
+
+Hinnatud mõju:
+
+$$
+\hat{\alpha}_{1t} = Y_{1t} - \sum_{j=2}^{J+1} \hat{w}_j Y_{jt}.
+$$
+
+## 3. Kovariaatide vektor ja maatriks
+
+Käsitletava üksuse kovariaadid:
+
+$$
+X_1 = (x_{11}, \dots, x_{1K})',
+$$
+
+kontrollüksuste kovariaadimaatriks:
+
+$$
+X_0 =
+\begin{pmatrix}
+x_{21} & \dots & x_{J+1,1} \\
+\vdots & \ddots & \vdots \\
+x_{2K} & \dots & x_{J+1,K}
+\end{pmatrix}.
+$$
+
+## 4. Optimaalsed kaalud w
+
+Kaalud \(w = (w_2, \dots, w_{J+1})'\) valitakse, et minimeerida kovariaatide erinevus käsitletava üksuse ja sünteetilise kontrolli vahel:
+
+$$
+\min_{w} (X_1 - X_0 w)' V (X_1 - X_0 w),
+$$
+
+kus \(V\) on mitte-negatiivne diagonaal-maatriks, mis määrab, millised tunnused on sobitamisel olulisemad.
+
+## 5. Sobivuse mõõdikud (RMSPE)
+
+Enne sekkumist (pre-treatment) keskmine ruutkeskmine viga:
+
+$$
+\text{RMSPE}_{\text{pre}} = \sqrt{\frac{1}{T_0} \sum_{t=1}^{T_0} \bigl(Y_{it} - Y_{it}^{\text{SC}}\bigr)^2},
+$$
+
+pärast sekkumist (post-treatment):
+
+$$
+\text{RMSPE}_{\text{post}} = \sqrt{\frac{1}{T - T_0} \sum_{t=T_0+1}^{T} \bigl(Y_{it} - Y_{it}^{\text{SC}}\bigr)^2},
+$$
+
+kus \(Y_{it}^{\text{SC}}\) on sünteetilise kontrolli prognoos üksusele \(i\).
+
+## 6. RMSPE suhe ja platsébokatse
+
+Rühmade kaupa RMSPE suhtarv:
+
+$$
+R_i = \frac{\text{RMSPE}_{\text{post}}}{\text{RMSPE}_{\text{pre}}}.
+$$
+
+P-väärtuse laadne mõõdik platsébokatsete põhjal:
+
+$$
+p = \frac{\#\{i : R_i \geq R_{\text{treated}}\}}{\text{kõigi üksuste arv}}.
+$$
+
+
+
+# Lineaarne mudel ja OLS
+
+Tavaline lineaarne mudel:
+
+$$
+Y_i = X_i'\beta + \varepsilon_i,\quad i = 1,\dots,n,
+$$
+
+vektorkujul:
+
+$$
+Y = X\beta + \varepsilon.
+$$
+
+OLS-hinnang:
+
+$$
+\hat{\beta}^{\text{OLS}} = \arg\min_{\beta} \frac{1}{n} \sum_{i=1}^n (Y_i - X_i'\beta)^2
+= \arg\min_{\beta} \frac{1}{n}\|Y - X\beta\|_2^2.
+$$
+
+# Üldine regulaaritud regressioon
+
+Regulaaritud regressiooni üldine kuju:
+
+$$
+\hat{\beta} = \arg\min_{\beta} 
+\left\{
+\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
++ \lambda P(\beta)
+\right\},
+$$
+
+kus \(P(\beta)\) on karistusfunktsioon ja \(\lambda \ge 0\) regulaarimisparameeter.
+
+# Kantregressioon (ridge)
+
+Ridge-regressiooni eesmärk:
+
+$$
+\hat{\beta}^{\text{ridge}}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\|Y - X\beta\|_2^2 + \lambda \|\beta\|_2^2
+\right\}.
+$$
+
+Ridge-lahendi suletud kuju:
+
+$$
+\hat{\beta}^{\text{ridge}} = (X'X + n\lambda I_p)^{-1} X'Y,
+$$
+
+kus \(I_p\) on \(p \times p\) ühikmaatriks.
+
+# LASSO
+
+LASSO-regressiooni eesmärk:
+
+$$
+\hat{\beta}^{\text{LASSO}}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
++ \lambda \sum_{j=1}^p |\beta_j|
+\right\}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\|Y - X\beta\|_2^2 + \lambda \|\beta\|_1
+\right\}.
+$$
+
+# Elastic Net
+
+Elastic Net’i regulaaritud regressioon:
+
+$$
+\hat{\beta}^{\text{EN}}
+= \arg\min_{\beta}
+\left\{
+\frac{1}{n}\|Y - X\beta\|_2^2
++ \lambda \bigl(\alpha\|\beta\|_1 + (1-\alpha)\|\beta\|_2^2\bigr)
+\right\},
+$$
+
+kus \(0 \le \alpha \le 1\) juhib üleminekut LASSO (\(\alpha=1\)) ja ridge’i (\(\alpha=0\)) vahel.
+
+# Post-LASSO
+
+LASSO koefitsiendid on nihkega nulli suunas. Post-LASSO protseduur:
+
+1.  LASSO mudelist valitud aktiivsete tunnuste hulk:
+
+    $$
+    \hat{S} = \{j: \hat{\beta}_j^{\text{LASSO}} \neq 0\};
+    $$
+
+2.  OLS ainult valitud tunnustel:
+
+    $$
+    Y_i = X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
+    $$
+
+Nii saadud \(\hat{\beta}_{\hat{S}}\) on Post-LASSO hinnang.
+
+# LASSO põhjusliku mõju hindamisel
+
+## Struktuurne mõju-mudel
+
+Põhjusliku mõju mudel:
+
+$$
+Y_i = \alpha D_i + X_i'\beta + u_i.
+$$
+
+Tingimusliku sõltumatuse eeldus (CIA):
+
+$$
+(Y_i(0), Y_i(1)) \perp D_i \mid X_i.
+$$
+
+## Jääkliikmete meetod (partialling out)
+
+Tingimuslikke ootusi ligikaudistatakse LASSO abil. Väljaõppe mõju näitel:
+
+$$
+\hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i],
+$$
+
+$$
+\hat{m}_D(X_i) = \hat{\mathbb{E}}[D_i \mid X_i].
+$$
+
+Jääkide arvutamine:
+
+$$
+\tilde{Y}_i = Y_i - \hat{m}_Y(X_i),
+$$
+
+$$
+\tilde{D}_i = D_i - \hat{m}_D(X_i).
+$$
+
+Teise astme regressioon jääkidega:
+
+$$
+\tilde{Y}_i = \alpha \tilde{D}_i + \eta_i.
+$$
+
+Siin \(\hat{\alpha}\) on hinnang keskmisele raviefektile tingimusel \(X_i\).
+
+## Topeltvaliku (double selection) idee
+
+1.  LASSO regressioon tulemusel:
+
+    $$
+    Y_i = X_i'\beta_Y + u_i.
+    $$
+
+2.  LASSO regressioon ravimuutujal:
+
+    $$
+    D_i = X_i'\gamma_D + v_i.
+    $$
+
+3.  Valitud tunnuste ühik:
+
+    $$
+    \hat{S} = \hat{S}_Y \cup \hat{S}_D.
+    $$
+
+4.  Lõplik OLS-mudel:
+
+    $$
+    Y_i = \alpha D_i + X_{i,\hat{S}}'\delta + u_i.
+    $$
+
+# LASSO abil hinnatavad tingimuslikud ootused IV-seades
+
+Kui lisaks ravimuutujale \(D_i\) on instrument \(Z_i\), siis kasutatakse LASSO-t ka instrumentide ja kontrollide mudeliteks:
+
+$$
+\hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i],
+$$
+
+$$
+\hat{m}_D(X_i) = \hat{\mathbb{E}}[D_i \mid X_i],
+$$
+
+$$
+\hat{m}_Z(X_i) = \hat{\mathbb{E}}[Z_i \mid X_i].
+$$
+
+Tingimuslik jaotus:
+
+$$
+Y \mid X = x,\qquad D \mid X = x.
+$$
+
+

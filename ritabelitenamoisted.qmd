@@ -1,0 +1,285 @@
+---
+title: "Rismoisted"
+format: html
+---
+
+
+```{r}
+library(kableExtra)
+library(knitr)
+
+```
+
+
+
+```{r}
+pom_data <- data.frame(
+  Mõiste = c(
+    "**Põhjuslik mõju** (Causal Effect)",
+    "**Potentsiaalne tulemus** ($Y_{i1}, Y_{i0}$)",
+    "**Keskmine mõju (ATE)** (Average Treatment Effect)",
+    "**Keskmine mõju osalejatele (ATT)** (Average Treatment Effect for the Treated)",
+    "**Lihtne keskmiste erinevus (SDO)** (Simple Difference of Outcomes)",
+    "**Valikunihe** (Selection Bias)",
+    "**SUTVA eeldus** (Stable Unit Treatment Value Assumption)",
+    "**Tingimuslik sõltumatuse eeldus (CIA)** (Conditional Independence Assumption)"
+  ),
+  Selgitus = c(
+    "Mõju on defineeritud kui kahe oleku (sekkumine $D=1$ ja võrdlusseisund $D=0$) tulemuse **võrdlus**. See on see, mida püütakse hinnata.",
+    "Tulemus, mis **võiks** realiseeruda isikule $i$. $Y_{i1}$ on tulemus (nt palk), kui isik osales meetmes ($D=1$); $Y_{i0}$ on tulemus, kui isik ei osalenud ($D=0$). Me saame vaadelda vaid ühte neist.",
+    "Poliitikameetme keskmine mõju **kogu üldkogumile**. See näitab, milline oleks programmi keskmine mõju, kui see tehtaks kohustuslikuks.",
+    "Programmi keskmine mõju **nendele, kes tegelikult osalesid**. Tavaliselt erineb ATE-st, kuna mõju on inimeste jaoks erinev.",
+    "Vaadeldud osalusgrupi ja võrdlusgrupi keskmiste tulemuste lihtne erinevus. See annab üldjuhul **nihkega** tulemuse.",
+    "Viga hinnangus, mis tekib, kuna osalenud ($D=1$) ja mitteosalenud ($D=0$) inimesed/ühikud erinevad üksteisest (nt võimekuse või motivatsiooni poolest). See on mõju hindamisel peamine fookus.",
+    "Eeldus, mis koosneb kahest tingimusest: 1) Üksikisiku tulemus sõltub ainult tema enda osalemise otsusest, mitte teiste omast (puuduvad välismõjud). 2) Vaatlused on sõltumatud.",
+    "Tuntud ka kui *Selection on Observables*. Eeldus, et potentsiaalne tulemus ($Y$) ja meetmes osalemine ($D$) on sõltumatud **pärast seda, kui oleme arvesse võtnud kõik olulised jälgitavad tunnused ($X$)**."
+  )
+)
+
+kable(pom_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Potentsiaalse tulemuse mudel (POM)",
+      col.width = c("25%", "75%"))
+```
+
+
+
+```{r}
+dag_data <- data.frame(
+  Mõiste = c(
+    "**Suunatud atsükliline graaf (DAG)** (Directed Acyclic Graph)",
+    "**Segaja** (Confounder)",
+    "**Tagauks** (Backdoor Path)",
+    "**Omitted Variable Bias** (Nihe välja jäetud muutuja tõttu)",
+    "**Kollaider / Põrguti** (Collider)"
+  ),
+  Selgitus = c(
+    "Graafiline vahend, mis kirjeldab muutujate vahelisi **põhjuslikke seoseid**. Noolteta jooned tähendavad, et seost ei ole. Põhjuslikkus on ühesuunaline ja ei sisalda tsükleid. ",
+    "Muutuja (nt $X$), mis on seotud nii **meede**ga ($D$) kui ka **tulemus**ega ($Y$). Segaja kaudu kulgeb **tagauks**, mis tuleb sulgeda, et hinnang oleks nihketa.",
+    "Põhjuslik tee meedet ($D$) ja tulemust ($Y$) vahel, mis kulgeb läbi segaja(te) ja on seotud mittespetsiifilise korrelatsiooniga. Tuleb sulgeda, kas regressiooniga, sobitamisega või eksperimendi abil.",
+    "Nihkega hinnang, mis tekib, kui oluline segaja ($X$) jäetakse analüüsist välja.",
+    "Muutuja (nt $X$), mis on **kahe noolega põhjustatud** ($D \\rightarrow X \\leftarrow Y$). Kui **kollaider** pannakse mudelisse, luuakse uus (nihkega) seos, mistõttu neid ei tohi reeglina mudelitesse lisada. "
+  )
+)
+
+kable(dag_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Graafiline mõju modelleerimine (DAG)",
+      col.width = c("25%", "75%"))
+```
+
+
+```{r}
+
+reg_data <- data.frame(
+  Mõiste = c(
+    "**Homogeenne efekt** (Homogeneous Effect)",
+    "**Heterogeenne mõju** (Heterogeneous Effect)",
+    "**Instrument-muutuja** (Instrumental Variable, Z)",
+    "**Sobitamine** (Matching)",
+    "**Paneelandmete kasutamine**",
+    "**Loomulik eksperiment** (Natural Experiment)",
+    "**Ühine tugi** (Common Support)"
+  ),
+  Selgitus = c(
+    "Regressioonimudeli eeldus, et põhjuslik mõju ($\\delta$) on **kõigi jaoks ühesugune**. Sellisel juhul $\\text{ATE} = \\text{ATT} = \\text{ATU}$.",
+    "Eeldus, et põhjuslik mõju **erineb** isikuti või alamrühmade kaupa. Saab modelleerida, lisades regressioonivõrrandisse **ristkorrutised** (nt $D_i \\cdot X_i$).",
+    "Regressioonianalüüsis kasutatav muutuja, mis on seotud meetmega ($D$), aga seos tulemusega ($Y$) tekib ainult $D$ kaudu. Aitab vähendada mittejälgitavate segajate ($u$) mõju.",
+    "Meetod valikunihke vähendamiseks, kus osalenud isikutele leitakse sarnased mitteosalenud isikud (nt haridustaseme, vanuse vms $X$ väärtuste alusel).",
+    "Meetod, mis aitab elimineerida ajas **muutumatute** mittejälgitavate segajate ($u$) mõju (nt kaasasündinud võimekust).",
+    "Olukord, kus loodus või institutsionaalne muutus (nt seaduse muutus) eraldab juhuslikult kaks rühma, andes peaaegu samaväärse tingimuse kui juhuslik eksperiment.",
+    "Tingimus, mis peab olema täidetud CIA eelduse ja sobitamismeetodite korral. See tähendab, et antud $X$ väärtuste juures peavad olema esindatud nii osalejad ($D=1$) kui ka mitteosalejad ($D=0$)."
+  )
+)
+
+kable(reg_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Regressioonimudelid ja alusmeetodid",
+      col.width = c("25%", "75%"))
+```
+
+
+
+
+```{r}
+did_data <- data.frame(
+  Mõiste = c(
+    "**Juurdekasvude Erinevus (DiD)** (Difference-in-Differences)",
+    "**Paralleelsete trendide eeldus** (Parallel Trends Assumption)",
+    "**Töötlusgrupp** (Treatment Group)",
+    "**Kontrollgrupp** (Control Group)",
+    "**Loomulik eksperiment** (Natural Experiment)",
+    "**Kolmekordne erinevus (Triple Difference)**"
+  ),
+  Selgitus = c(
+    "Meetod **paneelandmete** abil põhjusliku mõju hindamiseks. Eeldab **töötlusgruppi** ja **kontrollgruppi** ning andmeid nii enne kui ka pärast meetme rakendamist.",
+    "**Kõige olulisem eeldus** DiD-meetodis. Nõuab, et kui töötlusgrupp ei oleks meedet saanud, oleks nende tulemuse trend ajas olnud **sama** kui kontrollgrupil. ",
+    "Ühikud (isikud, ettevõtted, piirkonnad), mis saavad meetme või mida mõjutab poliitikamuutus.",
+    "Ühikud, mis ei saa meedet ja mida kasutatakse paralleelsete trendide võrdlusalusena.",
+    "Olukord, kus DiD-meetodit sageli kasutatakse. Tekib, kui väline muutus mõjutab ühte rühma, aga mitte teist.",
+    "DiD-meetodi edasiarendus. Kasutatakse teise DiD hinnangu (nt vähem mõjutatud rühma) võrdlemist, et elimineerida potentsiaalsed välised segajad."
+  )
+)
+
+kable(did_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Juurdekasvude Erinevus (Difference-in-Differences, DiD)",
+      col.width = c("25%", "75%"))
+
+
+```
+
+
+
+```{r}
+
+rdd_data <- data.frame(
+  Mõiste = c(
+    "**Regressiooni Katkemise Disain (RDD)** (Regression Discontinuity Design)",
+    "**Lõikepunkt / Lävi** (Cut-off / Threshold)",
+    "**Määrav muutuja** (Running Variable / Assignment Variable)",
+    "**Lokaalne keskmine mõju** (Local Average Treatment Effect, LATE)",
+    "**Täpne RDD (Sharp RDD)**",
+    "**Hägune RDD (Fuzzy RDD)**",
+    "**Pidevuse eeldus** (Continuity Assumption)"
+  ),
+  Selgitus = c(
+    "Mõju hindamise meetod, mida kasutatakse, kui meetmes osalemine on määratud **täpse lävendi** (*cut-off*) alusel pideva muutuja (*running variable*) väärtusel.",
+    "Täpne väärtus määravas muutujas ($X$), mis määrab, kas ühik saab meetme ($D=1$) või mitte ($D=0$).",
+    "Pidev muutuja (nt vanus, sissetulek), mille lävend määrab meetmes osalemise.",
+    "RDD-ga saadud hinnang näitab meetme põhjuslikku mõju ainult **lävel oleval piiril** olevatele isikutele.",
+    "RDD vorm, kus lävendi ületamine **määrab täielikult** meetmes osalemise (st $P(D=1 \\vert X) = 1$ lävest paremal, ja 0 vasakul).",
+    "RDD vorm, kus lävendi ületamine **muudab järsult tõenäosust** meetmes osaleda, kuid ei määra seda täielikult. Eeldab instrument-muutuja mudelit.",
+    "Oluline eeldus. Nõuab, et potentsiaalne tulemus ($Y_0, Y_1$) oleks **pidev** lävendi juures (st lävendi lähedal ei tohi olla muid järske muutusi peale meetme osalemise muutuse)."
+  )
+)
+
+kable(rdd_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Regressiooni Katkemise Disain (RDD)",
+      col.width = c("25%", "75%"))
+
+```
+
+
+```{r}
+
+matching_data <- data.frame(
+  Mõiste = c(
+    "**Sobitamine** (Matching)",
+    "**Tingimuslik sõltumatuse eeldus (CIA)** (Conditional Independence Assumption)",
+    "**Ühine tugi** (Common Support)",
+    "**Tõenäosuse skoor (PS)** (Propensity Score, $P(X)$)",
+    "**Sobitamine tõenäosuse skoori alusel (PSM)** (Propensity Score Matching)",
+    "**Lähima naabri sobitamine** (Nearest Neighbor Matching)",
+    "**Kaliiber** (Caliper)",
+    "**Tasakaalu test** (Balance Test)",
+    "**Otse lõikamine** (Trimming)"
+  ),
+  Selgitus = c(
+    "Mõju hindamise meetod, mille eesmärk on leida igale **töötlusgrupis** olevale isikule võimalikult sarnane isik **kontrollgrupist**.",
+    "**Sobitamise põhi-eeldus**: $Y_0$ ja $Y_1$ on sõltumatud $D$-st tingimusel, et on arvesse võetud kõik **jälgitavad segajad $X$**. Tegeleb vaid jälgitava valikunihkega.",
+    "Eeldus, mis peab kehtima: Iga **töötlusgrupis** oleva isiku **jälgitavate tunnuste $X$** väärtuste läheduses peab olema vaatlusi ka **kontrollgrupis**.",
+    "Tõenäosus, et isik kuulub **töötlusgruppi**, arvestades tema jälgitavaid tunnuseid $X$. See on regressioonimudeli abil hinnatud väärtus.",
+    "Praktiline sobitusmeetod, mis kasutab mitme muutuja $X$ asemel ühte mõõdikut: **tõenäosuse skoori**. Sobitatakse isikud, kelle $P(X)$ väärtused on väga lähedal.",
+    "Meetod, kus igale töötlusgrupi vaatlusele leitakse **kõige väiksema kaugusega** (nt $P(X)$ alusel) vaste kontrollgrupist.",
+    "Määratud maksimaalne lubatud kaugus ($P(X)$ erinevus) paari sobitamisel. Aitab tagada **kvaliteetsemad vasted**.",
+    "Oluline samm sobitamise järel. Kontrollitakse, kas **jälgitavate tunnuste $X$** keskmised väärtused on sobitatud rühmades piisavalt sarnased.",
+    "Sobitamise-eelne või -järgne tegevus, millega **eemaldatakse** analüüsist vaatlused, millel **puudub ühine tugi** (nt liiga väike või liiga suur $P(X)$ väärtus)."
+  )
+)
+
+kable(matching_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Sobitamine (Matching)",
+      col.width = c("25%", "75%"))
+
+```
+
+
+
+```{r}
+
+iv_data <- data.frame(
+  Mõiste = c(
+    "**Instrumentmuutuja (Z)** (Instrumental Variable, IV)",
+    "**Endogeensus / Nihe** (Endogeneity / Bias)",
+    "**IV Tingimus 1: Relevantsus** (Relevance)",
+    "**IV Tingimus 2: Väline kehtivus / Eksogeensus** (Exclusion Restriction / Exogeneity)",
+    "**Kaheetapiline vähimruutude meetod (2SLS)** (Two-Stage Least Squares)",
+    "**Lokaalne keskmine mõju (LATE)** (Local Average Treatment Effect)",
+    "**Nõrk instrument** (Weak Instrument)",
+    "**Hausman-Wu test** (Hausman-Wu Test)",
+    "**Sargani test** (Sargan Test)",
+    "**Redutseeritud vorm** (Reduced Form)"
+  ),
+  Selgitus = c(
+    "Muutuja, mida kasutatakse regressioonis, et saada nihketa hinnang meetme ($D$) mõjule tulemusele ($Y$). Peab vastama kahele tingimusele.",
+    "Probleem, kus meetme muutuja ($D$) on korreleeritud regressiooni vealiikmega ($u$). See tekib **valikunihke** tõttu ning viib OLS-i puhul nihkega hinnanguni.",
+    "Esimene ja testitav eeldus: instrumentmuutuja ($Z$) peab olema **tugevalt korreleeritud** meetme muutujaga ($D$). St, $Z$ peab mõjutama $D$-d.",
+    "Teine ja mittetestitav eeldus: Instrumentmuutuja ($Z$) tohib mõjutada tulemust ($Y$) ainult **meetme muutuja ($D$) kaudu**. St, $Z$ ei tohi olla korreleeritud vealiikmega ($u$).",
+    "Peamine IV-meetodi rakendamise viis. **1. etapp:** regresseeritakse $D$ $Z$-i peale. **2. etapp:** regresseeritakse $Y$ $D$ *ennustatud väärtuse* peale.",
+    "IV-meetodi puhul saadud põhjuslik mõju hinnang. See mõju kehtib vaid **kompliantidele** (*compliers*) – neile, kelle osalemisotsus ($D$) oli mõjutatud instrumentmuutujast ($Z$).",
+    "Olukord, kus instrumentmuutuja ($Z$) ei ole **piisavalt tugevalt** seotud meetme muutujaga ($D$). Viib nihkega (OLS-i poole kaldu) ja ebatäpsete IV-hinnanguteni.",
+    "Test, millega kontrollitakse **endogeensuse** olemasolu meetme muutuja ($D$) ja vealiikme ($u$) vahel. Kui test on oluline, näitab see, et IV-meetodi kasutamine on vajalik.",
+    "Test, millega kontrollitakse **väliste kehtivuse eelduse** paikapidavust, kui meil on **rohkem instrumente** kui endogeenseid muutujaid (ülemäärane identifitseerimine).",
+    "Regressioon, kus **tulemuse muutuja ($Y$)** on regresseeritud **instrumentmuutuja ($Z$)** ja kontrollivate muutujate ($X$) peale. Annab mõõdiku $Z$-i ja $Y$-i korrelatsioonist."
+  )
+)
+
+kable(iv_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Instrumentmuutuja meetod (IV)",
+      col.width = c("25%", "75%"))
+
+```
+
+
+
+
+```{r}
+#| eval: false
+#| include: false
+
+ml_data <- data.frame(
+  Mõiste = c(
+    "**Otsustuspuu** (Decision Tree)",
+    "**Põhjuslik Juhumets (Causal Forest)**",
+    "**AIPW** (Augmented Inverse Probability Weighting)",
+    "**LASSO** (Least Absolute Shrinkage and Selection Operator)",
+    "**Double Selection LASSO (DS-LASSO)**",
+    "**Residualisation (Jääkliikmete meetod)**",
+    "**Post-LASSO**",
+    "**Teoreetiline $\\lambda$ valik (`rlasso` meetod)** (Data-driven $\\lambda$ selection)",
+    "**Regulatsiooniparameeter ($\\lambda$)** (Regularization Parameter, $\\lambda$)"
+  ),
+  Selgitus = c(
+    "Masinõppe algoritm, mis jaotab andmestiku rekursiivselt alamhulkadeks. Moodustab aluse juhumetsale.",
+    "Juhumetsa edasiarendus, mis on loodud spetsiaalselt **heterogeense põhjusliku mõju (CATE)** hindamiseks.",
+    "Hübriidne hinnangumeetod, mis kombineerib **regressiooni** ja **kaalumise** tulemused. See on **topelt-robustne** (double robust).",
+    "Regulaarsustav regressioonimeetod, mis **karistab** suurte koefitsientide eest, lisades **koefitsientide absoluutväärtuste summa** (L1-norm). Sunnib väheolulisi tunnuseid olema **täpselt null**.",
+    "Meetod, mille eesmärk on leida kõik **olulised segajad** ($X$). Viib läbi kaks LASSO-valikut ($Y \\sim X$ ja $D \\sim X$). Mudelisse jäetakse **kõik tunnused**, mis valiti kummaski etapis.",
+    "Alternatiivne DML lähenemine. Modelleeritakse $Y \\sim X$ ja $D \\sim X$ abil, leitakse **jääkliikmed** ($r_Y, r_D$) ja hinnatakse mõju regressiooniga: $r_Y \\sim r_D$.",
+    "Meetod, kus kõigepealt kasutatakse LASSO-t **oluliste tunnuste** valikuks ja seejärel tehakse nende tunnustega **tavaline OLS** regressioon põhjusliku mõju hindamiseks.",
+    "Pakett `rlasso` (Belloni jt.) kasutab **teoorial põhinevat, andmepõhist regulatsiooniparameetri ($\lambda$) valikut** (nn rate-consistent $\\lambda$), mis tagab **asümptootilise nihketuse** ja **normaalsuse** põhjusliku mõju hindamisel, erinedes prognoosile suunatud ristvalideerimisest (CV).",
+    "Parameeter LASSO ja Ridge mudelites, mis määrab **karistuse tugevuse**. Mida suurem $\\lambda$, seda rohkem koefitsiente sunnitakse nulliks. Optimaalne $\\lambda$ valitakse tavaliselt **ristvalideerimise** (prognoosimisel) või **teoreetilise valiku** (kausaalsel järeldamisel) abil."
+  )
+)
+
+kable(ml_data, 
+      col.names = c("Mõiste", "Selgitus"), 
+      align = 'l', 
+      caption = "Masinõpe ja LASSO põhjuslikus järeldamises",
+      col.width = c("25%", "75%"))
+
+
+```
+
+

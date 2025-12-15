@@ -2,7 +2,6 @@
 
 Poolik - arenev
 
-
 ## Mudeli seade
 
 Vaatame mõju (nt meetmes osalemise $D$ mõju tulemile $Y$) hindamise meetodeid, kasutades regressioonimudeleid ja eeldust tingimuslikust sõltumatusest (Conditional Independence Assumption, CIA).
@@ -14,7 +13,6 @@ Põhjusliku mõju leidmiseks regressiooniga peab kehtima tingimusliku sõltumatu
 $$E[Y_0 | D=1, \mathbf{X}] = E[Y_0 | D=0, \mathbf{X}]$$
 
 See tähendab, et pärast **kõigi oluliste segavate tegurite** $\mathbf{X}$ (eelkõige $X \rightarrow D$ ja $X \rightarrow Y$) arvesse võtmist ei ole potentsiaalsel tulemusel $Y_0$ ja meetmes osalemisel $D$ enam seost. Seega, tingimuslikult sarnased osalejad ja mitte-osalejad on võrreldavad.
-
 
 ### Regressioonimudelid mõju hindamiseks
 
@@ -28,9 +26,9 @@ $$Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta + \epsilon_i$$
 
 Või üldjuhul, kui on selgitavaid tegureid rohkem:
 
-* **Valem:** $Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i$
+-   **Valem:** $Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i$
 
-* **Mõju hinnang:** $\hat{\delta}$ on hinnang **ATE-le** (Average Treatment Effect), st keskmisele mõjule kõigile.
+-   **Mõju hinnang:** $\hat{\delta}$ on hinnang **ATE-le** (Average Treatment Effect), st keskmisele mõjule kõigile.
 
 #### Regressioonimudel interaktsiooniga (heterogeenne mõju)
 
@@ -38,37 +36,30 @@ Kui on alust arvata, et meetme mõju $D$ sõltub mõnest tunnusest $X_k$ (st mõ
 
 $$Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \mathbf{X}_i \beta + \epsilon_i$$
 
-* **Valem:** $Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \beta_1 X_{1i} + \dots + \epsilon_i$
+-   **Valem:** $Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \beta_1 X_{1i} + \dots + \epsilon_i$
 
+-   **Mõju** $X_{ki}$ väärtusel: $\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}$.
 
-* **Mõju $X_{ki}$ väärtusel:** $\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}$.
-
-* **Kasutamine:** Seda mudelit kasutades saab hinnata **CATE**-t (Conditional Average Treatment Effect), st keskmist mõju alamrühmas, ja leida seejärel kaalutud keskmist leides ATE või ATT.
+-   **Kasutamine:** Seda mudelit kasutades saab hinnata **CATE**-t (Conditional Average Treatment Effect), st keskmist mõju alamrühmas, ja leida seejärel kaalutud keskmist leides ATE või ATT.
 
 ### Kaks eraldi eegressioonimudelit (G-Computation)
 
 See meetod hinnatakse regressioonimudeleid eraldi osalejate ($D=1$) ja mitte-osalejate ($D=0$) andmetel, mis võimaldab arvestada **heterogeenset funktsionaalset seost** $Y_0$ ja $Y_1$ vahel.
 
-1.  **Mudel osalejatel ($D=1$):**
-    $$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$
-    Prognoosime tulemuse $Y_{i1}$ **kõigile** vaatlustele: $\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1$.
+1.  **Mudel osalejatel (**$D=1$): $$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$ Prognoosime tulemuse $Y_{i1}$ **kõigile** vaatlustele: $\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1$.
 
-2.  **Mudel mitte-osalejatel ($D=0$):**
+2.  **Mudel mitte-osalejatel (**$D=0$):
 
 $$Y_i = \alpha_0 + \mathbf{X}_i \beta_0 + \epsilon_{i0} \quad \text{kui } D_i=0$$
 
 Prognoosime tulemuse $Y_{i0}$ **kõigile** vaatlustele: $\hat{Y}_{i0} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0$.
 
 3.  **Mõju arvutamine (G-Computation):** Mõju on igal isikul prognooside vahe: $\hat{\Delta}_i = \hat{Y}_{i1} - \hat{Y}_{i0}$.
-    * **ATE** (kogu populatsioon): $\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i$
-    * **ATT** (meetmes osalejatele): $\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i$
-    * **ATU** (võrdlusrühmale): $\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i$
+    -   **ATE** (kogu populatsioon): $\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i$
+    -   **ATT** (meetmes osalejatele): $\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i$
+    -   **ATU** (võrdlusrühmale): $\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i$
 
 See meetod on regressiooni mudeliga hindamise erijuht ja annab paindlikumad hinnangud, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitte-osalejatel.
-
-
-
-
 
 ## Näide tööpoliitikast
 
@@ -80,7 +71,7 @@ Anonümiseeritud andmestik asub failis:\
 ### Muutujate selgitused
 
 | Muutuja | Selgitus |
-|--------------|----------------------------------------------------------|
+|----|----|
 | `training` | Received labour market training in 2000 / Tunnus kas sai tööturukoolitust või ei 2000. aasta esimeses pooles |
 | `nwage` | Netopalk 2002. aasta septembris |
 | `employed` | Employed in September 2002 / Hõivatus 2002. aasta septembris (1 – hõivatud, 0 – töötu või mitteaktiivne) |
@@ -188,12 +179,9 @@ stargazer(lin_employed, lin_nwage, se = list(robust_se1, robust_se2), type = "te
 
 Kas robustsete standardvigade kasutamine muudab statistilist parameetrite statistilist olulisust?
 
-
 ### Eraldi mudelid osalejatele ja mitteosalejatele
 
-
-####  Näide - meetme mõju palgale vanuse lõikes
-
+#### Näide - meetme mõju palgale vanuse lõikes
 
 ```{r}
 atpj <- atp %>% filter(!is.na(nwage)) %>% 
@@ -221,12 +209,9 @@ atpj$ate <-
            predict(lm(nwage ~ age, data=atpj[atpj$training==0,]), new=atpj)
 ```
 
-
 See joonis näitab, kuidas vanus mõjutab palka kahes erinevas grupis (osalejad vs mitte-osalejad). Kasutame valemi $Y \sim X$ seost vanuse osas.
 
-
 Mõju sõltub vanusest. Mida noorem, seda suurem efekt.
-
 
 ```{r}
 ggplot(atpj,
@@ -245,7 +230,6 @@ ggplot(atpj,
 
 ```
 
-
 Lisame täiendavad selgitavad tunnused
 
 Töötamise jaoks
@@ -258,7 +242,6 @@ atp$pemployed_1 <- predict(lin_employed_ra1, newdata = atp)
 
 
 ```
-
 
 Hinnake samasugune mudel ka mitteosalejate põhjal  *training==0* ja prognoosige tulemused kõigile
 
@@ -274,7 +257,6 @@ Leiame individuaalsed erinevused prognoositud hinnangutes
 atp$demployed <- atp$pemployed_1 - atp$pemployed_0
 ```
 
-
 Keskmised mõjuhinnangud (ATE) ja eraldi ka osalejatele ning mitteosalejatele
 
 ```{r}
@@ -287,8 +269,8 @@ att_empl
 atu_empl
 
 ```
-Kas tulemused muutusid võrreldes ühise regressioonimudeliga?
 
+Kas tulemused muutusid võrreldes ühise regressioonimudeliga?
 
 Sama palgaga
 
@@ -310,10 +292,7 @@ atu_nwage
 
 ```
 
-
 Kas koolituse mõju on suurem osalejatele või oleks olnud suurem mitte-osalejatele? Kas mõju on statistiliselt oluline?
-
-
 
 ### Bootstrapping hinnangute standardvea leidmiseks - fännidele
 
@@ -334,7 +313,6 @@ mybs = function(data, indices, formula =f) {
 
 ja rakendame seda
 
-
 ```{r}
 
 set.seed(1632)
@@ -342,5 +320,3 @@ results <- boot(data = atp, statistic = mybs, R = 50, stype = "i")
 boot.ci(results)
 
 ```
-
-

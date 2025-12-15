@@ -1,0 +1,65 @@
+|  |  |
+|----------------------|-------------------------------------------------|
+| **Väline kehtivus** (External Validity) | Masinõppe mudeli võime üldistada tulemusi väljaspool uuritud valimit. Masinõppe mudelid võivad olla *üle-sobitatud*, mis vähendab nende välise kehtivust. |
+
+
+## Recall from the last lecture
+
+
+
+### Tõestus
+
+Eesmärk on näidata, et:
+
+$$
+\text{SDO}
+= \text{ATE} + \text{valikunihe} + (1-p)\,\text{heterogeenne mõju}
+$$ 
+
+Kirjutame definitsioonid:
+
+$$
+\begin{aligned}
+(1)\quad 
+\text{SDO}
+&= \mathbb{E}[Y^1 \mid D = 1] - \mathbb{E}[Y^0 \mid D = 0] \\
+&= \mathbb{E}[Y \mid D = 1] - \mathbb{E}[Y \mid D = 0]
+\end{aligned}
+$$
+
+ATE definitsioon läbi kaalutud keskmise $$
+(2)\quad
+\text{ATE} = p \cdot \text{ATT} + (1-p)\cdot \text{ATU}
+$$ Valikunihe
+
+$$
+(3)\quad \text{SB} = \mathbb{E}[Y^0 \mid D = 1] - \mathbb{E}[Y^0 \mid D = 0]
+$$ Nihe mõju heterogeensusest (olgu HTE - *heterogenous treatment effect*)
+
+$$
+(4)\quad (1-p)\cdot \text{HTE} = (1-p)(\text{ATT} - \text{ATU})
+$$ Kui liita kokku valemid (2) ja (4), saame järgmise avaldise.
+
+$$
+\qquad \text{ATE} + (1-p)\cdot \text{HTE} = \text{ATT}
+$$
+
+$$
+\text{SDO}
+= \text{ATT} + \text{SB}
+$$
+
+
+$$
+\begin{aligned}
+&\big\{\mathbb{E}[Y^1 \mid D = 1] - \mathbb{E}[Y^0 \mid D = 1]\big\} \\
+&\quad + \big\{\mathbb{E}[Y^0 \mid D = 1] - \mathbb{E}[Y^0 \mid D = 0]\big\} \\
+&= \mathbb{E}[Y^1 \mid D = 1] - \mathbb{E}[Y^0 \mid D = 0] \\
+&= \text{SDO}
+\end{aligned}
+$$
+
+
+$$
+\quad \blacksquare
+$$
