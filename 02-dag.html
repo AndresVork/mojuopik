@@ -286,7 +286,12 @@ window.Quarto = {
   <li><a href="#segaja-ja-kollaideri-võrdlus" id="toc-segaja-ja-kollaideri-võrdlus" class="nav-link" data-scroll-target="#segaja-ja-kollaideri-võrdlus"><span class="header-section-number">3.14</span> Segaja ja kollaideri võrdlus</a></li>
   <li><a href="#mida-panna-regressioonimudelisse" id="toc-mida-panna-regressioonimudelisse" class="nav-link" data-scroll-target="#mida-panna-regressioonimudelisse"><span class="header-section-number">3.15</span> Mida panna regressioonimudelisse?</a></li>
   <li><a href="#dag-ja-põhjusliku-mõju-identifitseerimine" id="toc-dag-ja-põhjusliku-mõju-identifitseerimine" class="nav-link" data-scroll-target="#dag-ja-põhjusliku-mõju-identifitseerimine"><span class="header-section-number">3.16</span> DAG ja põhjusliku mõju identifitseerimine</a></li>
-  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">3.17</span> Kokkuvõte</a></li>
+  <li><a href="#näiteid-ettevõtluse-valdkonnast" id="toc-näiteid-ettevõtluse-valdkonnast" class="nav-link" data-scroll-target="#näiteid-ettevõtluse-valdkonnast"><span class="header-section-number">3.17</span> Näiteid ettevõtluse valdkonnast</a>
+  <ul class="collapse">
+  <li><a href="#segaja-turunduskampaania-ja-müügitulu" id="toc-segaja-turunduskampaania-ja-müügitulu" class="nav-link" data-scroll-target="#segaja-turunduskampaania-ja-müügitulu">Segaja: turunduskampaania ja müügitulu</a></li>
+  <li><a href="#põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi" id="toc-põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi" class="nav-link" data-scroll-target="#põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi">Põrguti: innovatsioon, kasumlikkus ja investorite huvi</a></li>
+  </ul></li>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">3.18</span> Kokkuvõte</a></li>
   </ul>
 </nav>
     </div>
@@ -882,8 +887,76 @@ window.Quarto = {
 </ul>
 <p>DAG aitab need eeldused nähtavaks teha.</p>
 </section>
-<section id="kokkuvõte" class="level2" data-number="3.17">
-<h2 data-number="3.17" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">3.17</span> Kokkuvõte</h2>
+<section id="näiteid-ettevõtluse-valdkonnast" class="level2" data-number="3.17">
+<h2 data-number="3.17" class="anchored" data-anchor-id="näiteid-ettevõtluse-valdkonnast"><span class="header-section-number">3.17</span> Näiteid ettevõtluse valdkonnast</h2>
+<section id="segaja-turunduskampaania-ja-müügitulu" class="level3">
+<h3 class="anchored" data-anchor-id="segaja-turunduskampaania-ja-müügitulu">Segaja: turunduskampaania ja müügitulu</h3>
+<p>Oletame, et soovime hinnata, kas <strong>turunduskampaania</strong> suurendab ettevõtte müügitulu.</p>
+<ul>
+<li><span class="math inline">\(D\)</span> – turunduskampaania;</li>
+<li><span class="math inline">\(Y\)</span> – müügitulu;</li>
+<li><span class="math inline">\(X\)</span> – ettevõtte turunduseelarve või üldine ressursside tase.</li>
+</ul>
+<p>Suuremate ressurssidega ettevõtted teevad tõenäolisemalt turunduskampaaniaid. Samal ajal võivad suuremad ressursid ka ilma kampaaniata suurendada ettevõtte müügitulu.</p>
+<p>Seega mõjutab <span class="math inline">\(X\)</span> nii <span class="math inline">\(D\)</span>-d kui ka <span class="math inline">\(Y\)</span>-d ning on <strong>segaja</strong> (<em>confounder</em>).</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    X["Ettevõtte ressursid X"] --&gt; D["Turunduskampaania D"]
+    X --&gt; Y["Müügitulu Y"]
+    D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Kui ettevõtte ressursse analüüsis ei arvestata, võib turunduskampaania hinnatud mõju sisaldada ka erinevusi ettevõtete ressurssides.</p>
+<p>Näiteks võivad suuremad ettevõtted teha sagedamini reklaamikampaaniaid ja neil võib olla ka suurem müük juba enne kampaaniat. Lihtne kampaaniaga ja kampaaniata ettevõtete müügi võrdlus võib seetõttu kampaania mõju üle hinnata.</p>
+<p>Kui <span class="math inline">\(X\)</span> on mõõdetav, saame seda arvesse võtta näiteks regressioonimudelis.</p>
+</section>
+<section id="põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi" class="level3">
+<h3 class="anchored" data-anchor-id="põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi">Põrguti: innovatsioon, kasumlikkus ja investorite huvi</h3>
+<p>Oletame nüüd, et soovime hinnata, kas <strong>innovaatilise toote turuletoomine</strong> suurendab ettevõtte kasumlikkust.</p>
+<ul>
+<li><span class="math inline">\(D\)</span> – innovaatilise toote turuletoomine;</li>
+<li><span class="math inline">\(Y\)</span> – ettevõtte kasumlikkus;</li>
+<li><span class="math inline">\(C\)</span> – investorite huvi või rahastuse saamine.</li>
+</ul>
+<p>Innovaatilise toote turuletoomine võib suurendada investorite huvi. Samal ajal võib ka kõrge kasumlikkus muuta ettevõtte investorite jaoks atraktiivsemaks.</p>
+<p>Seega mõjutavad nii <span class="math inline">\(D\)</span> kui ka <span class="math inline">\(Y\)</span> muutujat <span class="math inline">\(C\)</span>.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["Innovaatiline toode D"] --&gt; Y["Kasumlikkus Y"]
+    D --&gt; C["Investorite huvi C"]
+    Y --&gt; C
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Muutuja <span class="math inline">\(C\)</span> on siin <strong>põrguti ehk kollaider</strong> (<em>collider</em>), sest kaks noolt suunduvad sellesse.</p>
+<p>Kui me <span class="math inline">\(C\)</span>-d analüüsis <strong>ei arvesta</strong>, on see rada suletud.</p>
+<p>Kui aga piirame valimi näiteks ainult ettevõtetega, kes said investoritelt rahastuse, või lisame investorite huvi kontrollmuutujana regressiooni, siis tingime põrguti <span class="math inline">\(C\)</span> peal.</p>
+<p>See võib avada kunstliku seose <span class="math inline">\(D\)</span> ja <span class="math inline">\(Y\)</span> vahel ning põhjustada <strong>põrgutinihke</strong> (<em>collider bias</em>).</p>
+<p>Näiteks rahastuse saanud ettevõtete hulgas võib olla:</p>
+<ul>
+<li>innovaatilisi ettevõtteid, mille kasumlikkus ei ole veel kõrge;</li>
+<li>väga kasumlikke ettevõtteid, mille innovatsioonitase on madalam.</li>
+</ul>
+<p>Kui vaatame ainult rahastuse saanud ettevõtteid, võib innovatsiooni ja kasumlikkuse vahel tekkida seos, mida üldkogumis sellisel kujul ei ole.</p>
+</section>
+</section>
+<section id="kokkuvõte" class="level2" data-number="3.18">
+<h2 data-number="3.18" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">3.18</span> Kokkuvõte</h2>
 <p>Suunatud atsükliline graaf ehk DAG on vahend põhjuslike eelduste kirjeldamiseks.</p>
 <p>Peamised mõtted on järgmised:</p>
 <ul>
@@ -905,6 +978,7 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>“Milline põhjuslik roll on igal muutujal minu uurimisküsimuses?”</p>
 </blockquote>
+<p>Peamine õppetund on, et põhjuslikus analüüsis ei ole hea reegel panna regressiooni võimalikult palju kontrollmuutujaid. Kõigepealt tuleb mõelda, <strong>milline põhjuslik roll igal muutujal on</strong>.</p>
 
 
 </section>
