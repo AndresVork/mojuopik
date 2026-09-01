@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Potentsiaalse tulemuse mudel – Põhjuslike seoste hindamine majanduses</title>
+<title>4&nbsp; Potentsiaalse tulemuse mudel – Põhjuslike seoste hindamine majanduses</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./03-regressioon.html" rel="next">
-<link href="./pohimoistedkordamiseks.html" rel="prev">
+<link href="./02-dag.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-pom.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-pom.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
@@ -193,62 +193,68 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./02-dag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./02-pom.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
   </div>
 </li>
     </ul>
@@ -261,44 +267,44 @@ window.Quarto = {
     <h2 id="toc-title">Sisukord</h2>
    
   <ul>
-  <li><a href="#tähistused" id="toc-tähistused" class="nav-link active" data-scroll-target="#tähistused"><span class="header-section-number">3.1</span> Tähistused</a>
+  <li><a href="#tähistused" id="toc-tähistused" class="nav-link active" data-scroll-target="#tähistused"><span class="header-section-number">4.1</span> Tähistused</a>
   <ul class="collapse">
   <li><a href="#meede-ja-tulemused" id="toc-meede-ja-tulemused" class="nav-link" data-scroll-target="#meede-ja-tulemused">Meede ja tulemused</a></li>
   <li><a href="#individuaalne-mõju" id="toc-individuaalne-mõju" class="nav-link" data-scroll-target="#individuaalne-mõju">Individuaalne mõju</a></li>
   </ul></li>
-  <li><a href="#huvipakkuvad-keskmised-mõjud" id="toc-huvipakkuvad-keskmised-mõjud" class="nav-link" data-scroll-target="#huvipakkuvad-keskmised-mõjud"><span class="header-section-number">3.2</span> Huvipakkuvad keskmised mõjud</a>
+  <li><a href="#huvipakkuvad-keskmised-mõjud" id="toc-huvipakkuvad-keskmised-mõjud" class="nav-link" data-scroll-target="#huvipakkuvad-keskmised-mõjud"><span class="header-section-number">4.2</span> Huvipakkuvad keskmised mõjud</a>
   <ul class="collapse">
   <li><a href="#ate-keskmine-mõju-populatsioonis" id="toc-ate-keskmine-mõju-populatsioonis" class="nav-link" data-scroll-target="#ate-keskmine-mõju-populatsioonis">ATE – keskmine mõju populatsioonis</a></li>
   <li><a href="#att-keskmine-mõju-osalenutele" id="toc-att-keskmine-mõju-osalenutele" class="nav-link" data-scroll-target="#att-keskmine-mõju-osalenutele">ATT – keskmine mõju osalenutele</a></li>
   <li><a href="#atu-keskmine-mõju-mitteosalenutele" id="toc-atu-keskmine-mõju-mitteosalenutele" class="nav-link" data-scroll-target="#atu-keskmine-mõju-mitteosalenutele">ATU – keskmine mõju mitteosalenutele</a></li>
   <li><a href="#ate-seos-att-ja-atu-ga" id="toc-ate-seos-att-ja-atu-ga" class="nav-link" data-scroll-target="#ate-seos-att-ja-atu-ga">ATE seos ATT ja ATU-ga</a></li>
   </ul></li>
-  <li><a href="#näited-ate-att-ja-atu-tõlgendamisest" id="toc-näited-ate-att-ja-atu-tõlgendamisest" class="nav-link" data-scroll-target="#näited-ate-att-ja-atu-tõlgendamisest"><span class="header-section-number">3.3</span> Näited ATE, ATT ja ATU tõlgendamisest</a>
+  <li><a href="#näited-ate-att-ja-atu-tõlgendamisest" id="toc-näited-ate-att-ja-atu-tõlgendamisest" class="nav-link" data-scroll-target="#näited-ate-att-ja-atu-tõlgendamisest"><span class="header-section-number">4.3</span> Näited ATE, ATT ja ATU tõlgendamisest</a>
   <ul class="collapse">
   <li><a href="#näide-1-töötajate-koolitusprogramm" id="toc-näide-1-töötajate-koolitusprogramm" class="nav-link" data-scroll-target="#näide-1-töötajate-koolitusprogramm">Näide 1: Töötajate koolitusprogramm</a></li>
   <li><a href="#näide-2-turunduskampaania" id="toc-näide-2-turunduskampaania" class="nav-link" data-scroll-target="#näide-2-turunduskampaania">Näide 2: Turunduskampaania</a></li>
   </ul></li>
-  <li><a href="#lihtne-keskmiste-erinevus-ja-nihe" id="toc-lihtne-keskmiste-erinevus-ja-nihe" class="nav-link" data-scroll-target="#lihtne-keskmiste-erinevus-ja-nihe"><span class="header-section-number">3.4</span> Lihtne keskmiste erinevus ja nihe</a>
+  <li><a href="#lihtne-keskmiste-erinevus-ja-nihe" id="toc-lihtne-keskmiste-erinevus-ja-nihe" class="nav-link" data-scroll-target="#lihtne-keskmiste-erinevus-ja-nihe"><span class="header-section-number">4.4</span> Lihtne keskmiste erinevus ja nihe</a>
   <ul class="collapse">
   <li><a href="#lihtne-erinevus-tulemustes" id="toc-lihtne-erinevus-tulemustes" class="nav-link" data-scroll-target="#lihtne-erinevus-tulemustes">Lihtne erinevus tulemustes</a></li>
   <li><a href="#valikunihe-ja-nihe-heterogeensest-mõjust" id="toc-valikunihe-ja-nihe-heterogeensest-mõjust" class="nav-link" data-scroll-target="#valikunihe-ja-nihe-heterogeensest-mõjust">Valikunihe ja nihe heterogeensest mõjust</a></li>
   </ul></li>
-  <li><a href="#sutva-stabiilse-ühikunäitaja-eeldus" id="toc-sutva-stabiilse-ühikunäitaja-eeldus" class="nav-link" data-scroll-target="#sutva-stabiilse-ühikunäitaja-eeldus"><span class="header-section-number">3.5</span> SUTVA – stabiilse ühikunäitaja eeldus</a></li>
-  <li><a href="#sõltumatuse-eeldus" id="toc-sõltumatuse-eeldus" class="nav-link" data-scroll-target="#sõltumatuse-eeldus"><span class="header-section-number">3.6</span> Sõltumatuse eeldus</a></li>
-  <li><a href="#tingimusliku-sõltumatuse-eeldus" id="toc-tingimusliku-sõltumatuse-eeldus" class="nav-link" data-scroll-target="#tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">3.7</span> Tingimusliku sõltumatuse eeldus</a>
+  <li><a href="#sutva-stabiilse-ühikunäitaja-eeldus" id="toc-sutva-stabiilse-ühikunäitaja-eeldus" class="nav-link" data-scroll-target="#sutva-stabiilse-ühikunäitaja-eeldus"><span class="header-section-number">4.5</span> SUTVA – stabiilse ühikunäitaja eeldus</a></li>
+  <li><a href="#sõltumatuse-eeldus" id="toc-sõltumatuse-eeldus" class="nav-link" data-scroll-target="#sõltumatuse-eeldus"><span class="header-section-number">4.6</span> Sõltumatuse eeldus</a></li>
+  <li><a href="#tingimusliku-sõltumatuse-eeldus" id="toc-tingimusliku-sõltumatuse-eeldus" class="nav-link" data-scroll-target="#tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">4.7</span> Tingimusliku sõltumatuse eeldus</a>
   <ul class="collapse">
   <li><a href="#tingimuslik-keskväärtuse-sõltumatus" id="toc-tingimuslik-keskväärtuse-sõltumatus" class="nav-link" data-scroll-target="#tingimuslik-keskväärtuse-sõltumatus">Tingimuslik keskväärtuse sõltumatus</a></li>
   </ul></li>
-  <li><a href="#ühine-tugi" id="toc-ühine-tugi" class="nav-link" data-scroll-target="#ühine-tugi"><span class="header-section-number">3.8</span> Ühine tugi</a></li>
-  <li><a href="#att-hindamine-cia-abil" id="toc-att-hindamine-cia-abil" class="nav-link" data-scroll-target="#att-hindamine-cia-abil"><span class="header-section-number">3.9</span> ATT hindamine CIA abil</a></li>
-  <li><a href="#muid-statistikuid" id="toc-muid-statistikuid" class="nav-link" data-scroll-target="#muid-statistikuid"><span class="header-section-number">3.10</span> Muid statistikuid</a>
+  <li><a href="#ühine-tugi" id="toc-ühine-tugi" class="nav-link" data-scroll-target="#ühine-tugi"><span class="header-section-number">4.8</span> Ühine tugi</a></li>
+  <li><a href="#att-hindamine-cia-abil" id="toc-att-hindamine-cia-abil" class="nav-link" data-scroll-target="#att-hindamine-cia-abil"><span class="header-section-number">4.9</span> ATT hindamine CIA abil</a></li>
+  <li><a href="#muid-statistikuid" id="toc-muid-statistikuid" class="nav-link" data-scroll-target="#muid-statistikuid"><span class="header-section-number">4.10</span> Muid statistikuid</a>
   <ul class="collapse">
   <li><a href="#meetme-pakkumise-mõju-intention-to-treat-effect---itt" id="toc-meetme-pakkumise-mõju-intention-to-treat-effect---itt" class="nav-link" data-scroll-target="#meetme-pakkumise-mõju-intention-to-treat-effect---itt">Meetme pakkumise mõju (Intention to treat effect - ITT)</a></li>
   <li><a href="#lokaalne-keskmine-mõju-late" id="toc-lokaalne-keskmine-mõju-late" class="nav-link" data-scroll-target="#lokaalne-keskmine-mõju-late">Lokaalne keskmine mõju (LATE)</a></li>
   <li><a href="#tingimuslik-keskmine-mõju-cate" id="toc-tingimuslik-keskmine-mõju-cate" class="nav-link" data-scroll-target="#tingimuslik-keskmine-mõju-cate">Tingimuslik keskmine mõju (CATE)</a></li>
   </ul></li>
-  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">3.11</span> Kokkuvõte</a></li>
-  <li><a href="#ülesanded" id="toc-ülesanded" class="nav-link" data-scroll-target="#ülesanded"><span class="header-section-number">3.12</span> Ülesanded</a>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">4.11</span> Kokkuvõte</a></li>
+  <li><a href="#ülesanded" id="toc-ülesanded" class="nav-link" data-scroll-target="#ülesanded"><span class="header-section-number">4.12</span> Ülesanded</a>
   <ul class="collapse">
   <li><a href="#ülesanne-1." id="toc-ülesanne-1." class="nav-link" data-scroll-target="#ülesanne-1.">Ülesanne 1.</a></li>
   <li><a href="#ülesanne-2." id="toc-ülesanne-2." class="nav-link" data-scroll-target="#ülesanne-2.">Ülesanne 2.</a></li>
@@ -311,7 +317,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></h1>
 </div>
 
 
@@ -331,50 +337,50 @@ window.Quarto = {
 <p>Potentsiaalse tulemuse mudel (<em>potential outcomes model</em>, POM) on põhjusliku mõju hindamise standardne raamistik statistikas ja majandusteaduses. Mudeli juured on Splawa-Neymani (1923), Roy (1951), Quandt’i (1958) ja Rubini (1974) töödes ning seda nimetatakse sageli Neyman–Rubin–Roy mudeliks. Majandusteadustes sai see populaarseks 1990ndatel.</p>
 <p>Põhiidee on lihtne: enne poliitikameedet või sekkumist on igal indiviidil mitu võimalikku tulemust, sõltuvalt sellest, kas ta osaleb meetmes või mitte. Reaalses elus näeme iga indiviidi kohta vaid üht realiseerunud tulemust. Sellest tekib põhjuslikkuse „põhiprobleem”: me ei näe kunagi sama indiviidi samal ajal nii osalemas kui mitte-osalemas.</p>
 <p>POM annab süsteemse raamistiku, kuidas defineerida huvipakkuvad suurused (ATE, ATT, ATU, CATE, LATE jne) ning milliste eelduste korral võime neid suuruseid tõlgendada põhjusliku mõju hinnangutena.</p>
-<section id="tähistused" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="tähistused"><span class="header-section-number">3.1</span> Tähistused</h2>
+<section id="tähistused" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="tähistused"><span class="header-section-number">4.1</span> Tähistused</h2>
 <section id="meede-ja-tulemused" class="level3">
 <h3 class="anchored" data-anchor-id="meede-ja-tulemused">Meede ja tulemused</h3>
 <p>Olgu indiviid (i) jaoks meetmes osalemise tunnus</p>
 <p><span class="math display">\[
 D_i \in \{0,1\},
-\]</span> kus (<span class="math inline">\(D_i = 1\)</span>) tähendab osalemist meetmes ja (<span class="math inline">\(D_i = 0\)</span>) mitteosalemist</p>
-<p>Et majandusteadlased on võtnud üle meditsiinivaldkonna meetodit, siis nimetatakse tunnust <span class="math inline">\(D\)</span> inglise keeles <em>treatment</em>. Eesti keelde siiski me ei tõlgi seda kui ravi raamine, vaid pigem “meede” ja “meetmes osalemine”.</p>
+\]</span> kus <span class="math inline">\(D_i = 1\)</span> tähendab osalemist meetmes ja <span class="math inline">\(D_i = 0\)</span> mitteosalemist</p>
+<p>Et majandusteadlased on võtnud üle meditsiinivaldkonna meetodit, siis nimetatakse tunnust <span class="math inline">\(D\)</span> inglise keeles <em>treatment</em>. Eesti keelde siiski me ei tõlgi seda kui ravi saamine, vaid pigem “meede” ja “meetmes osalemine”.</p>
 <p>Inimesed või ettevõtted, kes osalesid meetmes, nimetamegi “osalusrühm” või “osalusgrupp”. Inimesed või ettevõtted, kes ei osalenud meetmes nimetame “võrdlusrühm” või “võrdlusgrupp”; vahel ka otse inglise keelest tõlkides “kontrollgrupp”.</p>
 <p>Defineerime potentsiaalsed tulemused ( <em>potential outcomes</em> ):</p>
 <p>Meetmes osalemise korral:</p>
-<p><span class="math display">\[ Y_i(1) \quad \text{tulemus, kui } D_i = 1, \]</span></p>
+<p><span class="math display">\[ Y_i^1 \quad \text{tulemus, kui } D_i = 1, \]</span></p>
 <p>Meetmes mitteosalemise korral:</p>
-<p><span class="math display">\[ Y_i(0) \quad \text{tulemus, kui } D_i = 0. \]</span></p>
+<p><span class="math display">\[ Y_i^0 \quad \text{tulemus, kui } D_i = 0. \]</span></p>
 <p>Reaalselt jälgitav tulemus <span class="math inline">\(Y_i\)</span> on see, mis realiseerub. Kui inimene osaleb meetmes, siis näeme potentsiaalset tulemust meetmes osalemise korral. Kui inimene ei osale meetmes, siis näeme potentsiaalset tulemust meetmes mitteosalemise korral.</p>
-<p><span class="math display">\[ Y_i = D_i \, Y_i(1) + (1 - D_i)\, Y_i(0) = Y_i(0) + D_i \, (Y_i(1)-Y_i(0)). \]</span></p>
-<p>Alati on meil lisaks ka vektor individuaalseid tunnuseid, mida kasutame kas selgitamaks, mis tegurid mõjutavad meetmes osalemist <span class="math inline">\(D\)</span> või potentsiaalset tulemust <span class="math inline">\(Y_i(1)\)</span> ja <span class="math inline">\(Y_i(0)\)</span>.</p>
+<p><span class="math display">\[ Y_i = D_i \, Y_i^1 + (1 - D_i)\, Y_i^0 = Y_i^0 + D_i \, (Y_i^1-Y_i^0). \]</span></p>
+<p>Alati on meil lisaks ka vektor individuaalseid tunnuseid, mida kasutame kas selgitamaks, mis tegurid mõjutavad meetmes osalemist <span class="math inline">\(D\)</span> või potentsiaalset tulemust <span class="math inline">\(Y_i^1\)</span> ja <span class="math inline">\(Y_i^0\)</span>.</p>
 <p><span class="math display">\[ X_i = (X_{i1}, X_{i2}, \dots, X_{ik}), \]</span></p>
 <p>näiteks sugu, vanus, haridus, piirkond, varasem sissetulek jne.</p>
 <p>Meetmes osalemine (<span class="math inline">\(D\)</span>) võib olla määratud mitmel moel.</p>
-<p>Meetmes osalemine võib olla täiesti juhuslik (eksogeenne). Näiteks eksperiment, kus osad kaupluse kliendid saavad juhuslikult allahindlust ja osad mitte, ja kaupluse omanik soovib analüüsida inimeste ostude hinnatundlikkust. Või Töötukassas registreeritud osad töötud peavad tulema konsultandi juurde kontorisse tööd otsima, aga teised võivad ise otsida tööd.</p>
+<p>Meetmes osalemine võib olla täiesti juhuslik (eksogeenne). Näiteks eksperiment, kus osad kaupluse kliendid saavad juhuslikult allahindlust ja osad mitte, ja kaupluse omanik soovib analüüsida inimeste ostmise hinnatundlikkust. Või Töötukassas registreeritud osad töötud peavad tulema konsultandi juurde kontorisse tööd otsima, aga teised võivad ise otsida tööd.</p>
 <p>Meetmes osalemine võib sõltuda jälgitavatest tunnustest <span class="math inline">\(X\)</span>. Näiteks töötukassa annab tööturukoolitust neile töötutele, kellel on madalam haridustase või kes ei oska eesti keelt. Analüütikutena saame seda arvesse võtta.</p>
-<p>Meetme osalemine võib sõltuda mittejälgitavatest tunnustest (mis omakorda on seotud tulemusega <span class="math inline">\(Y\)</span>). Näiteks targemate juhtidega firmad oskavad taotleda Ettevõtluse ja Innovatsiooni Sihtasutuselt eksporditoetust, aga nad omavad ka ise paremaid väliskontakte. Meie analüütikutena, aga ei saa mõõta firma juhtide oskusi. Me arvame, et firmade edukus on seotud eksporditoetusega, aga tegelikult on kõik heade juhtide töö tulemus.</p>
+<p>Meetme osalemine võib sõltuda mittejälgitavatest tunnustest (mis omakorda on seotud tulemusega <span class="math inline">\(Y\)</span>). Näiteks targemate juhtidega firmad oskavad taotleda Ettevõtluse ja Innovatsiooni Sihtasutuselt eksporditoetust, aga nad omavad ka ise paremaid väliskontakte. Meie analüütikutena aga ei saa mõõta firma juhtide oskusi. Me arvame, et firmade edukus on seotud eksporditoetusega, aga tegelikult on kõik heade juhtide töö tulemus.</p>
 <p>Meetmes osalemise jaoks ei ole üldjuhul vaja keerukat struktuurset mudelit.</p>
 </section>
 <section id="individuaalne-mõju" class="level3">
 <h3 class="anchored" data-anchor-id="individuaalne-mõju">Individuaalne mõju</h3>
 <p>Individuaalne põhjuslik mõju indiviidi (i) jaoks on defineeritud kui potentsiaalsete tulemuste vahe.</p>
 <p><span class="math display">\[
-\delta_i = Y_i(1) - Y_i(0).
+\delta_i = Y_i^1 - Y_i^0.
 \]</span></p>
 <p>Sellist mõju ei saa kunagi otse mõõta, sest me ei näe sama indiviidi korraga kahes olekus. Me näeme vaid ühte seisundit. Teist seisundit nimetame ka võrdlusseisundiks või vastandseisundiks ( <em>counterfactual</em> - kontrafaktuaal).</p>
 <p>Üksikisiku jaoks mõju hindamise asemel keskendume keskendume populatsiooni- või alampopulatsiooni keskmistele mõjudele.</p>
 </section>
 </section>
-<section id="huvipakkuvad-keskmised-mõjud" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="huvipakkuvad-keskmised-mõjud"><span class="header-section-number">3.2</span> Huvipakkuvad keskmised mõjud</h2>
+<section id="huvipakkuvad-keskmised-mõjud" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="huvipakkuvad-keskmised-mõjud"><span class="header-section-number">4.2</span> Huvipakkuvad keskmised mõjud</h2>
 <section id="ate-keskmine-mõju-populatsioonis" class="level3">
 <h3 class="anchored" data-anchor-id="ate-keskmine-mõju-populatsioonis">ATE – keskmine mõju populatsioonis</h3>
 <p>Poliitikameetme keskmine mõju (<em>average treatment effect</em>, ATE) on defineeritud kui</p>
 <p><span class="math display">\[
-\text{ATE} = \mathbb{E}\big[ Y_i(1) - Y_i(0) \big]
-           = \mathbb{E}\big[ Y_i(1) \big] - \mathbb{E}\big[ Y_i(0) \big].
+\text{ATE} = \mathbb{E}\big[ Y_i^1 - Y_i^0 \big]
+           = \mathbb{E}\big[ Y_i^1 \big] - \mathbb{E}\big[ Y_i^0 \big].
 \]</span></p>
 <p>Tõlgendus: milline oleks keskmine tulemus, kui kogu populatsioon osaleks meetmes, võrreldes olukorraga, kui keegi ei osaleks meetmes. Või, milline oleks meetme oodatav mõju, kui võtame juhuslikult ühe inimese üldkogumist.</p>
 </section>
@@ -382,7 +388,7 @@ D_i \in \{0,1\},
 <h3 class="anchored" data-anchor-id="att-keskmine-mõju-osalenutele">ATT – keskmine mõju osalenutele</h3>
 <p>Keskmine mõju osalejate jaoks (<em>average treatment effect on the treated</em>, ATT) on</p>
 <p><span class="math display">\[
-\text{ATT} = \mathbb{E}\big[ Y_i(1) - Y_i(0) \mid D_i = 1 \big].
+\text{ATT} = \mathbb{E}\big[ Y_i^1 - Y_i^0 \mid D_i = 1 \big].
 \]</span></p>
 <p>Tõlgendus: kui palju muutuks tulemus nende jaoks, kes tegelikult osalesid, võrreldes hüpoteetilise olukorraga, kus just need samad inimesed ei oleks osalenud.</p>
 </section>
@@ -390,7 +396,7 @@ D_i \in \{0,1\},
 <h3 class="anchored" data-anchor-id="atu-keskmine-mõju-mitteosalenutele">ATU – keskmine mõju mitteosalenutele</h3>
 <p>Mitteosalenute keskmine mõju (<em>average treatment effect on the untreated</em>, ATU) on</p>
 <p><span class="math display">\[
-\text{ATU} = \mathbb{E}\big[ Y_i(1) - Y_i(0) \mid D_i = 0 \big].
+\text{ATU} = \mathbb{E}\big[ Y_i^1 - Y_i^0 \mid D_i = 0 \big].
 \]</span></p>
 <p>Tõlgendus: kui palju oleks muutunud mitteosalenute tulemused, kui just nemad oleksid meetmes osalenud.</p>
 </section>
@@ -406,8 +412,8 @@ p = \Pr(D_i = 1)
 <p>ATT ja ATU võivad olla erinevad, kui mõju on erinev eri sotsiaaldemograafilistes rühmades (nn heterogeenne mõju). Näiteks kui põhiharidusega inimeste jaoks on tööturukoolituse efekt suurem kui kõrgharidusega inimeste jaoks, aga koolitust saanute seas on põhiharidusega inimesi suhteliselt enam, siis ongi ATT suurem kui ATU.</p>
 </section>
 </section>
-<section id="näited-ate-att-ja-atu-tõlgendamisest" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="näited-ate-att-ja-atu-tõlgendamisest"><span class="header-section-number">3.3</span> Näited ATE, ATT ja ATU tõlgendamisest</h2>
+<section id="näited-ate-att-ja-atu-tõlgendamisest" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="näited-ate-att-ja-atu-tõlgendamisest"><span class="header-section-number">4.3</span> Näited ATE, ATT ja ATU tõlgendamisest</h2>
 <p>Alljärgnevalt mõned rakendusnäited majandusest.</p>
 <section id="näide-1-töötajate-koolitusprogramm" class="level3">
 <h3 class="anchored" data-anchor-id="näide-1-töötajate-koolitusprogramm">Näide 1: Töötajate koolitusprogramm</h3>
@@ -444,8 +450,8 @@ Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv e
 </ul>
 </section>
 </section>
-<section id="lihtne-keskmiste-erinevus-ja-nihe" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="lihtne-keskmiste-erinevus-ja-nihe"><span class="header-section-number">3.4</span> Lihtne keskmiste erinevus ja nihe</h2>
+<section id="lihtne-keskmiste-erinevus-ja-nihe" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="lihtne-keskmiste-erinevus-ja-nihe"><span class="header-section-number">4.4</span> Lihtne keskmiste erinevus ja nihe</h2>
 <section id="lihtne-erinevus-tulemustes" class="level3">
 <h3 class="anchored" data-anchor-id="lihtne-erinevus-tulemustes">Lihtne erinevus tulemustes</h3>
 <p>Praktikas alustatakse sageli lihtsa keskmiste erinevuse arvutamisega osalus- ja võrdlusrühma jaoks kasutades nende tegelikke jälgitavaid tulemusi.</p>
@@ -465,15 +471,15 @@ Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv e
 </section>
 <section id="valikunihe-ja-nihe-heterogeensest-mõjust" class="level3">
 <h3 class="anchored" data-anchor-id="valikunihe-ja-nihe-heterogeensest-mõjust">Valikunihe ja nihe heterogeensest mõjust</h3>
-<p>SDO saame kirjutada alljärgneval kujul - liites ja lahutades liikme <span class="math inline">\(\mathbb{E}\big[ Y_i(1) \mid D_i = 0 \big]\)</span></p>
+<p>SDO saame kirjutada alljärgneval kujul - liites ja lahutades liikme <span class="math inline">\(\mathbb{E}\big[ Y_i^1 \mid D_i = 0 \big]\)</span></p>
 <p><span class="math display">\[
 \begin{aligned}
 \text{SDO}
-&amp;= \mathbb{E}\big[ Y_i(1) \mid D_i = 1 \big]
-   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big] \\
-&amp;= \underbrace{\mathbb{E}\big[ Y_i(1) - Y_i(0) \mid D_i = 1 \big]}_{\text{ATT}}
-   + \underbrace{\Big(\mathbb{E}\big[ Y_i(0) \mid D_i = 1 \big]
-   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big]\Big)}_{\text{valikunihe}}.
+&amp;= \mathbb{E}\big[ Y_i^1 \mid D_i = 1 \big]
+   - \mathbb{E}\big[ Y_i^0 \mid D_i = 0 \big] \\
+&amp;= \underbrace{\mathbb{E}\big[ Y_i^1 - Y_i^0 \mid D_i = 1 \big]}_{\text{ATT}}
+   + \underbrace{\Big(\mathbb{E}\big[ Y_i^0 \mid D_i = 1 \big]
+   - \mathbb{E}\big[ Y_i^0 \mid D_i = 0 \big]\Big)}_{\text{valikunihe}}.
 \end{aligned}
 \]</span></p>
 <p>Lihtne erinevus sisaldab seega kahte komponenti:</p>
@@ -494,11 +500,11 @@ Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv e
 <p><span class="math display">\[
 \begin{aligned}
 \text{SDO}
-&amp;= \mathbb{E}\big[ Y_i(1) \mid D_i = 1 \big]
-   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big] \\
-&amp;= \underbrace{\mathbb{E}\big[ Y_i(1) - Y_i(0) \big]}_{\text{ATE}}
-   + \underbrace{\Big(\mathbb{E}\big[ Y_i(0) \mid D_i = 1 \big]
-   - \mathbb{E}\big[ Y_i(0) \mid D_i = 0 \big]\Big)}_{\text{valikunihe}}
+&amp;= \mathbb{E}\big[ Y_i^1 \mid D_i = 1 \big]
+   - \mathbb{E}\big[ Y_i^0 \mid D_i = 0 \big] \\
+&amp;= \underbrace{\mathbb{E}\big[ Y_i^1 - Y_i^0 \big]}_{\text{ATE}}
+   + \underbrace{\Big(\mathbb{E}\big[ Y_i^0 \mid D_i = 1 \big]
+   - \mathbb{E}\big[ Y_i^0 \mid D_i = 0 \big]\Big)}_{\text{valikunihe}}
    + \underbrace{(1 - p) \cdot\Big(\text{ATT}-\text{ATU}\Big)}_{\text{nihe mõju heterogeensusest}}.
 \end{aligned}
 \]</span></p>
@@ -509,8 +515,8 @@ Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv e
 <p>Ainult juhul, kui puudub valikunihe ja mõju ei ole heterogeenne, võime lihtsat osalusrühma ja võrdlusrühma väärtuste erinevust tõlgendada keskmise põhjusliku mõjuna.</p>
 </section>
 </section>
-<section id="sutva-stabiilse-ühikunäitaja-eeldus" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="sutva-stabiilse-ühikunäitaja-eeldus"><span class="header-section-number">3.5</span> SUTVA – stabiilse ühikunäitaja eeldus</h2>
+<section id="sutva-stabiilse-ühikunäitaja-eeldus" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="sutva-stabiilse-ühikunäitaja-eeldus"><span class="header-section-number">4.5</span> SUTVA – stabiilse ühikunäitaja eeldus</h2>
 <p><em>Stable unit treatment value assumption</em> (SUTVA) koosneb kahest osast.</p>
 <ol type="1">
 <li>Puuduvad interferentsid: ühe indiviidi osalemine ega tulemus ei sõltu sellest, kas teised indiviidid osalevad meetmes või mis on nende tulemus. Formaliseeritult potentsiaalsete tulemuste sõltumatus inimeste <span class="math inline">\(i\)</span> ja <span class="math inline">\(j\)</span> vahel<br>
@@ -533,8 +539,8 @@ D_i \perp D_j
 </ul>
 <p>SUTVA on POM-i keskne eeldus: ilma selle kehtivuseta ei saa potentsiaalseid tulemusi selgelt defineerida.</p>
 </section>
-<section id="sõltumatuse-eeldus" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="sõltumatuse-eeldus"><span class="header-section-number">3.6</span> Sõltumatuse eeldus</h2>
+<section id="sõltumatuse-eeldus" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="sõltumatuse-eeldus"><span class="header-section-number">4.6</span> Sõltumatuse eeldus</h2>
 <p>Sõltumatuse eeldus ( <em>independence assumption</em> ) tähedab seda, et meetmes osalemine ei sõltu potentsiaalsetest tulemustest.</p>
 <p><span class="math display">\[
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i
@@ -554,8 +560,8 @@ D_i \perp D_j
 \text{SDO} = \mathbb{E}[Y_i \mid D_i=1] - \mathbb{E}[Y_i \mid D_i=0] = \text{ATE}.
 \]</span> Sellisel juhul puudub valikunihe ja nihe heterogeense mõju tõttu.</p>
 </section>
-<section id="tingimusliku-sõltumatuse-eeldus" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">3.7</span> Tingimusliku sõltumatuse eeldus</h2>
+<section id="tingimusliku-sõltumatuse-eeldus" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">4.7</span> Tingimusliku sõltumatuse eeldus</h2>
 <p>Tingimusliku sõltumatuse eeldus ( <em>conditional independence assumption</em>, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis osalemisotsus ei sõltu enam potentsiaalsetest tulemustest:</p>
 <p><span class="math display">\[
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i \mid X_i.
@@ -582,8 +588,8 @@ D_i \perp D_j
 <p>See eeldus ütleb, et erinevused keskmistes potentsiaalsetes tulemustes kaovad osalus- ja võrdlusrühma vahel, kui vaatleme piisavalt kitsaid alamrühmi, ehkki jaotuste kujud võivad erineda. (Nt võib tinglik dispersioon olla erinev kahes rühmas.)</p>
 </section>
 </section>
-<section id="ühine-tugi" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="ühine-tugi"><span class="header-section-number">3.8</span> Ühine tugi</h2>
+<section id="ühine-tugi" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="ühine-tugi"><span class="header-section-number">4.8</span> Ühine tugi</h2>
 <p>CIA praktiline rakendamine nõuab ühist tuge ( <em>common support</em> ):</p>
 <p><span class="math display">\[
 0 &lt; \Pr(D_i = 1 \mid X_i = x) &lt; 1
@@ -593,8 +599,8 @@ D_i \perp D_j
 <p>Näiteks, kui kõik registreeritud töötud, kes on alla 24-aastased peavad osalema tööturukoolitusel, siis meil ei ole neid kellegagi võrrelda ja seega ei ole ühise toe eeldus täidetud.</p>
 <p>Praktikas tähendab see ka seda, et ei tohi minna liiga detailsele tasemele väga paljude tunnuste ja kategooriatega, ning sageli kasutatakse pidevate tunnuste puhul intervalljaotust (nt sissetuleku kvantiilid) või vanus 5-aastastes vanusrühmades jm.</p>
 </section>
-<section id="att-hindamine-cia-abil" class="level2" data-number="3.9">
-<h2 data-number="3.9" class="anchored" data-anchor-id="att-hindamine-cia-abil"><span class="header-section-number">3.9</span> ATT hindamine CIA abil</h2>
+<section id="att-hindamine-cia-abil" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="att-hindamine-cia-abil"><span class="header-section-number">4.9</span> ATT hindamine CIA abil</h2>
 <p>Kui CIA ja ühine tugi kehtivad, saame ATT väljendada jälgitavate suuruste abil. Üks võimalus on kirjutada</p>
 <p><span class="math display">\[
 \text{ATT}
@@ -616,8 +622,8 @@ D_i \perp D_j
 <li>või nende kombinatsioone.</li>
 </ul>
 </section>
-<section id="muid-statistikuid" class="level2" data-number="3.10">
-<h2 data-number="3.10" class="anchored" data-anchor-id="muid-statistikuid"><span class="header-section-number">3.10</span> Muid statistikuid</h2>
+<section id="muid-statistikuid" class="level2" data-number="4.10">
+<h2 data-number="4.10" class="anchored" data-anchor-id="muid-statistikuid"><span class="header-section-number">4.10</span> Muid statistikuid</h2>
 <section id="meetme-pakkumise-mõju-intention-to-treat-effect---itt" class="level3">
 <h3 class="anchored" data-anchor-id="meetme-pakkumise-mõju-intention-to-treat-effect---itt">Meetme pakkumise mõju (Intention to treat effect - ITT)</h3>
 <p>Sageli ei saa me kontrollida, kas indiviid tegelikult meetmes osales. Teame vaid, ainult, kas talle pakuti meedet. Näiteks Töötukassa pakub kollektiivse koondamise puhul ettevõtetele ja nende töötajatele teabe jagamiseks kohtumisi, sh uute võimalike tööandjatega. Aga me ei tea täpselt, kes koondatutest nendel üritusel käisid.</p>
@@ -663,14 +669,14 @@ D_i \perp D_j
 <p>CATE-t vaatame põhjalikumalt kausaalmetsa (causal forest) korral.</p>
 </section>
 </section>
-<section id="kokkuvõte" class="level2" data-number="3.11">
-<h2 data-number="3.11" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">3.11</span> Kokkuvõte</h2>
+<section id="kokkuvõte" class="level2" data-number="4.11">
+<h2 data-number="4.11" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">4.11</span> Kokkuvõte</h2>
 <p>Potentsiaalse tulemuse mudel formaliseerib põhjusliku mõju mõiste, kirjeldades iga indiviidi jaoks kahte potentsiaalset tulemust <span class="math inline">\(Y_i^0\)</span> ja <span class="math inline">\(Y_i^1\)</span>. Kuna reaalses elus näeme ainult üht neist, keskendume erinevatele keskmistele mõjudele (ATE, ATT, ATU, CATE, LATE, ITT) ja eeldustele, mille alusel neid saab hinnata.</p>
 <p>Lihtne keskmiste erinevus osalenute ja mitteosalenute vahel SDO on enamasti nihkes keskmise mõju jaoks valikunihke ja heterogeense mõju tõttu. Selleks, et anda põhjuslik tõlgendus, on vaja tugevaid eeldusi (nt juhuslik eksperiment) või realistlikumaid tingimuslikke eeldusi (CIA, ühine tugi) koos sobivate meetoditega (sobitamine, regressioonimudel, kaalumised).</p>
 <p>POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud asüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.</p>
 </section>
-<section id="ülesanded" class="level2" data-number="3.12">
-<h2 data-number="3.12" class="anchored" data-anchor-id="ülesanded"><span class="header-section-number">3.12</span> Ülesanded</h2>
+<section id="ülesanded" class="level2" data-number="4.12">
+<h2 data-number="4.12" class="anchored" data-anchor-id="ülesanded"><span class="header-section-number">4.12</span> Ülesanded</h2>
 <section id="ülesanne-1." class="level3">
 <h3 class="anchored" data-anchor-id="ülesanne-1.">Ülesanne 1.</h3>
 <p>On antud andmed 10 töötu kohta ja nende tulevase potentsiaalse palga kohta kaks aastat pärast töötuks jäämist, kui nad peaksid töötusperioodi ajal osalema kohustuslikult 3 kuud tööturukoolitusel.</p>
@@ -680,7 +686,7 @@ D_i \perp D_j
 <th style="text-align: center;">Isik</th>
 <th style="text-align: center;">Y1</th>
 <th style="text-align: center;">Y0</th>
-<th style="text-align: center;">δᵢ</th>
+<th style="text-align: center;">δ</th>
 <th style="text-align: center;">D</th>
 <th style="text-align: center;">Y</th>
 </tr>
@@ -774,7 +780,7 @@ D_i \perp D_j
 </li>
 <li><span class="math inline">\(Y_0\)</span>: palk, kui nad ei osaleks meetmes<br>
 </li>
-<li><span class="math inline">\(\delta_i = Y_1 - Y_0\)</span>: mõju koolitusest<br>
+<li><span class="math inline">\(\delta = Y1 - Y0\)</span>: mõju koolitusest<br>
 </li>
 <li><span class="math inline">\(D\)</span>: koolituses osalemine (0/1)<br>
 </li>
@@ -782,20 +788,20 @@ D_i \perp D_j
 </ul>
 <p><em>Küsimused</em></p>
 <ol type="1">
-<li><p>Arvuta igale inimesele oodatav kasu koolitusmeetmest <span class="math inline">\(\delta_i = Y_1 - Y_0\)</span>.</p></li>
+<li><p>Arvuta igale inimesele oodatav kasu koolitusmeetmest <span class="math inline">\(\delta = Y1 - Y0\)</span>.</p></li>
 <li><p>Arvuta keskmine mõju meetmest (ATE):</p>
 <p><span class="math display">\[
 \text{ATE} = \frac{1}{n} \sum_{i=1}^{n} \delta_i.
 \]</span></p></li>
-<li><p>Eeldame, et töötud teavad, milline on kasu koolitusest, ja koolituse võtavad vastu vaid need, kes sellest saavad kasu (st <span class="math inline">\(\delta_i &gt; 0\)</span>).<br>
+<li><p>Eeldame, et töötud teavad, milline on kasu koolitusest, ja koolituse võtavad vastu vaid need, kes sellest saavad kasu (st <span class="math inline">\(\delta &gt; 0\)</span>).<br>
 Mitu inimest võtavad koolituse vastu?</p></li>
 <li><p>Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult osalevad (ATT)?</p>
 <p><span class="math display">\[
-\text{ATT} = \mathbb{E}[\delta_i \mid D_i = 1].
+\text{ATT} = \mathbb{E}[\delta \mid D_i = 1].
 \]</span></p></li>
 <li><p>Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult ei osalenud (ATU)?</p>
 <p><span class="math display">\[
-\text{ATU} = \mathbb{E}[\delta_i \mid D_i = 0].
+\text{ATU} = \mathbb{E}[\delta \mid D_i = 0].
 \]</span></p></li>
 </ol>
 <p>Meie analüütikutena ei näe mõlemat potentsiaalset väljundit ja näeme vaid seda olekut, mida töötu kasutas.</p>
@@ -834,7 +840,7 @@ Näita käsitsi lahendust
 <li>Individuaalsed mõjud <span class="math inline">\(\delta_i\)</span></li>
 </ol>
 <p><span class="math display">\[
-\delta_i = Y_1 - Y_0
+\delta_i = Y1 - Y0
 \]</span></p>
 <table class="caption-top table">
 <thead>
@@ -842,7 +848,7 @@ Näita käsitsi lahendust
 <th style="text-align: center;">Isik</th>
 <th style="text-align: center;">Y1</th>
 <th style="text-align: center;">Y0</th>
-<th style="text-align: center;">δᵢ</th>
+<th style="text-align: center;">δ</th>
 <th style="text-align: center;">D</th>
 <th style="text-align: center;">Y</th>
 </tr>
@@ -942,7 +948,7 @@ Näita käsitsi lahendust
 <ol start="3" type="1">
 <li>Kes võtavad koolituse vastu</li>
 </ol>
-<p>Eeldusel, et koolituse võtavad vaid need, kelle <span class="math inline">\(\delta_i &gt; 0\)</span>, võtavad koolituse vastu isikud:</p>
+<p>Eeldusel, et koolituse võtavad vaid need, kelle <span class="math inline">\(\delta &gt; 0\)</span>, võtavad koolituse vastu isikud:</p>
 <p>1, 3, 5, 6 ja 10 → kokku 5 inimest.</p>
 <ol start="4" type="1">
 <li>ATT</li>
@@ -956,7 +962,7 @@ Näita käsitsi lahendust
 <ol start="5" type="1">
 <li>ATU</li>
 </ol>
-<p>Mitteosalenute (δ ≤ 0) indiviidid: 2, 4, 7, 8, 9.</p>
+<p>Mitteosalenute <span class="math inline">\(\delta &lt; 0\)</span> indiviidid: 2, 4, 7, 8, 9.</p>
 <p><span class="math display">\[
 \text{ATU}
 = \frac{-100 - 200 - 500 - 100 - 200}{5}
@@ -1061,99 +1067,97 @@ Näita lahendust Ris
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(isik, y1, y0) </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Arvuta igale inimesele oodatav kasu koolitusmeetmest</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">deltai =</span> y1<span class="sc">-</span>y0)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">delta =</span> y1<span class="sc">-</span>y0)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Arvuta keskmine mõju meetmest – ATE</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ate<span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>deltai)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ate<span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>delta)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ate</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 90</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Või</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">ate =</span> <span class="fu">mean</span>(deltai)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(ate)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 90</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Eeldame, et töötud teavad, milline on kasu koolitusest, ja iga koolituse võtavad vastu vaid need, kes sellest saavad kasu.</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Mitu inimest võtavad koolituse vastu?</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>d <span class="ot">=</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>deltai<span class="sc">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#või</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">d =</span> <span class="fu">ifelse</span>(deltai <span class="sc">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>))</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>d)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#df %&gt;% summarise(ate = mean(delta)) %&gt;% pull(ate)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Eeldame, et töötud teavad, milline on kasu koolitusest, ja iga koolituse võtavad vastu vaid need, kes sellest saavad kasu.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Mitu inimest võtavad koolituse vastu?</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>d <span class="ot">=</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>delta<span class="sc">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#või</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#df &lt;- df %&gt;% </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(d = ifelse(delta &gt;0,1,0))</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>d)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 0 1 
 5 5 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#või</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>deltai<span class="sc">&gt;</span><span class="dv">0</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#või</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>delta<span class="sc">&gt;</span><span class="dv">0</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 FALSE  TRUE 
     5     5 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult osalevad? ATT</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>att <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>deltai[df<span class="sc">$</span>deltai<span class="sc">&gt;</span><span class="dv">0</span>])</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>att</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult osalevad? ATT</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>att <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>delta[df<span class="sc">$</span>delta<span class="sc">&gt;</span><span class="dv">0</span>])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>att</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 400</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Või</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>(att2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(deltai<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">att =</span> <span class="fu">mean</span>(deltai)) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(att))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Või</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>(att2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(delta<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">att =</span> <span class="fu">mean</span>(delta)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(att))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 400</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult ei osalenud? ATU</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>atu <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>deltai[df<span class="sc">$</span>deltai<span class="sc">&lt;</span><span class="dv">0</span>])</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>atu</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult ei osalenud? ATU</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>atu <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>delta[df<span class="sc">$</span>delta<span class="sc">&lt;</span><span class="dv">0</span>])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>atu</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -220</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) SDO</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Erinevus jälgitavates tulemustes</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SDO = E(Y1|D=1) - E(Y0|D=0)</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>sdo <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>y1[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y0[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">0</span>]) </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sdo</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) SDO</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Erinevus jälgitavates tulemustes</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SDO = E(Y1|D=1) - E(Y0|D=0)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sdo <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>y1[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y0[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">0</span>]) </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>sdo</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -20</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) Valikunihe</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#E(Y0|D=1) - E(Y0|D=0)</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>valikunihe <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>y0[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y0[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">0</span>]) </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>valikunihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) Valikunihe</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#E(Y0|D=1) - E(Y0|D=0)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>valikunihe <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>y0[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y0[df<span class="sc">$</span>d <span class="sc">==</span> <span class="dv">0</span>]) </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>valikunihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -420</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) Mõju heterogeensus (1-pii)*(ATT-ATU)</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>hetnihe <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span><span class="fu">sum</span>(df<span class="sc">$</span>d)<span class="sc">/</span><span class="fu">nrow</span>(df)) <span class="sc">*</span> (att <span class="sc">-</span> atu)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>hetnihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) Mõju heterogeensus (1-pii)*(ATT-ATU)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>hetnihe <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span><span class="fu">sum</span>(df<span class="sc">$</span>d)<span class="sc">/</span><span class="fu">nrow</span>(df)) <span class="sc">*</span> (att <span class="sc">-</span> atu)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>hetnihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 310</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 9) Näita, et kehtib. SDO = ATE + valikunihe + (1-meetmes osalenute osakaal)*nihe mõju heterogeensusest</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sdo</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 9) Näita, et kehtib. SDO = ATE + valikunihe + (1-meetmes osalenute osakaal)*nihe mõju heterogeensusest</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sdo</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -20</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ate <span class="sc">+</span> valikunihe <span class="sc">+</span> hetnihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ate <span class="sc">+</span> valikunihe <span class="sc">+</span> hetnihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -20</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kehtib</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 10) Näita, et kehtib SDO = ATT + valikunihe</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>att <span class="sc">+</span> valikunihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kehtib</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 10) Näita, et kehtib SDO = ATT + valikunihe</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>att <span class="sc">+</span> valikunihe</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -20</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kehtib</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kehtib</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </details>
 </section>
@@ -1165,9 +1169,9 @@ FALSE  TRUE
 <table class="caption-top table">
 <colgroup>
 <col style="width: 17%">
-<col style="width: 20%">
-<col style="width: 33%">
-<col style="width: 28%">
+<col style="width: 19%">
+<col style="width: 32%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1259,51 +1263,51 @@ Näita lahendust Ris
 </summary>
 <p><em>Lahendus Ris</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Teeme lähteandmed Ri andmetabeliks</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>piirkond <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Pohi"</span>, <span class="st">"Louna"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>osalus_n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">20</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>vordlus_n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">10</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>osalus_y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>vordlus_y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">140</span>)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(piirkond, osalus_n, vordlus_n, osalus_y, vordlus_y)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Teeme lähteandmed Ri andmetabeliks</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>piirkond <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Pohi"</span>, <span class="st">"Louna"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>osalus_n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">20</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>vordlus_n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">10</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>osalus_y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>vordlus_y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">140</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(piirkond, osalus_n, vordlus_n, osalus_y, vordlus_y)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  piirkond osalus_n vordlus_n osalus_y vordlus_y
 1     Pohi       40        30      150       120
 2    Louna       20        10      150       140</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Leidke eraldi piirkondade lõikes ja kogu firmas, eeldades CIA kehtivust (conditional independence assumption) ning kasutades osalus- ja võrdlusgrupi erinevust</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>moju <span class="ot">&lt;-</span> df<span class="sc">$</span>osalus_y<span class="sc">-</span>df<span class="sc">$</span>vordlus_y</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>moju</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Leidke eraldi piirkondade lõikes ja kogu firmas, eeldades CIA kehtivust (conditional independence assumption) ning kasutades osalus- ja võrdlusgrupi erinevust</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>moju <span class="ot">&lt;-</span> df<span class="sc">$</span>osalus_y<span class="sc">-</span>df<span class="sc">$</span>vordlus_y</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>moju</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 30 10</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kaalud</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kaal_ate =</span> (osalus_n <span class="sc">+</span> vordlus_n) <span class="sc">/</span> <span class="fu">sum</span>(osalus_n <span class="sc">+</span> vordlus_n),</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">kaal_att =</span> osalus_n <span class="sc">/</span> <span class="fu">sum</span>(osalus_n),</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">kaal_atu =</span> vordlus_n <span class="sc">/</span> <span class="fu">sum</span>(vordlus_n))</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1)    Mõju osalusgrupile (average treatment effect on treated - ATT)</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2)    Mõju võrdlusgrupile, kui ta oleks osalenud (average treatment effect on untreated - ATU)</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3)    Oodatav mõju kogu firmale, kui kõik oleksid osalenud (average treatment effect - ATE) </span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">att =</span> <span class="fu">sum</span>(moju<span class="sc">*</span>kaal_att),</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">atu =</span> <span class="fu">sum</span>(moju<span class="sc">*</span>kaal_atu),</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ate =</span> <span class="fu">sum</span>(moju<span class="sc">*</span>kaal_ate))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kaalud</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kaal_ate =</span> (osalus_n <span class="sc">+</span> vordlus_n) <span class="sc">/</span> <span class="fu">sum</span>(osalus_n <span class="sc">+</span> vordlus_n),</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">kaal_att =</span> osalus_n <span class="sc">/</span> <span class="fu">sum</span>(osalus_n),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">kaal_atu =</span> vordlus_n <span class="sc">/</span> <span class="fu">sum</span>(vordlus_n))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1)    Mõju osalusgrupile (average treatment effect on treated - ATT)</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2)    Mõju võrdlusgrupile, kui ta oleks osalenud (average treatment effect on untreated - ATU)</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3)    Oodatav mõju kogu firmale, kui kõik oleksid osalenud (average treatment effect - ATE) </span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">att =</span> <span class="fu">sum</span>(moju<span class="sc">*</span>kaal_att),</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">atu =</span> <span class="fu">sum</span>(moju<span class="sc">*</span>kaal_atu),</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ate =</span> <span class="fu">sum</span>(moju<span class="sc">*</span>kaal_ate))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       att atu ate
 1 23.33333  25  24</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tagantjärgi täeindav info</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>osalus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">120</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>vordlus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">160</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">data.frame</span>(osalus_y_enne,vordlus_y_enne))</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tagantjärgi täeindav info</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>osalus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">120</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>vordlus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">160</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">data.frame</span>(osalus_y_enne,vordlus_y_enne))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  piirkond osalus_n vordlus_n osalus_y vordlus_y moju kaal_ate  kaal_att
 1     Pohi       40        30      150       120   30      0.7 0.6666667
@@ -1312,16 +1316,16 @@ Näita lahendust Ris
 1     0.75           140            140
 2     0.25           120            160</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Muutus müügis</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">osalus_dy =</span> osalus_y <span class="sc">-</span> osalus_y_enne, </span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vordlus_dy =</span> vordlus_y<span class="sc">-</span> vordlus_y_enne,</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">moju_dy =</span> osalus_dy<span class="sc">-</span> vordlus_dy)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Arvestades muutust</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">att =</span> <span class="fu">sum</span>(moju_dy<span class="sc">*</span>kaal_att),</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">atu =</span> <span class="fu">sum</span>(moju_dy<span class="sc">*</span>kaal_atu),</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ate =</span> <span class="fu">sum</span>(moju_dy<span class="sc">*</span>kaal_ate))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Muutus müügis</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">osalus_dy =</span> osalus_y <span class="sc">-</span> osalus_y_enne, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vordlus_dy =</span> vordlus_y<span class="sc">-</span> vordlus_y_enne,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">moju_dy =</span> osalus_dy<span class="sc">-</span> vordlus_dy)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Arvestades muutust</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">att =</span> <span class="fu">sum</span>(moju_dy<span class="sc">*</span>kaal_att),</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">atu =</span> <span class="fu">sum</span>(moju_dy<span class="sc">*</span>kaal_atu),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ate =</span> <span class="fu">sum</span>(moju_dy<span class="sc">*</span>kaal_ate))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       att atu ate
 1 36.66667  35  36</code></pre>
@@ -1736,13 +1740,13 @@ Näita lahendust Ris
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pohimoistedkordamiseks.html" class="pagination-link" aria-label="Põhimõisted eksamiks kordamiseks">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span>
+      <a href="./02-dag.html" class="pagination-link" aria-label="Suunatud atsüklilised graafid (DAG)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./03-regressioon.html" class="pagination-link" aria-label="Regressioonimudeli kasutamine">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

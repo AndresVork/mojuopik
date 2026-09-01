@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Suunatud atsüklilised graafid (DAG) – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-pom.html" rel="next">
+<link href="./pohimoistedkordamiseks.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-dag.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eessõna</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-sissejuhatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sissejuhatus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dag.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (Dif-Dif)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#sissejuhatus" id="toc-sissejuhatus" class="nav-link active" data-scroll-target="#sissejuhatus"><span class="header-section-number">3.1</span> Sissejuhatus</a></li>
+  <li><a href="#mis-on-dag" id="toc-mis-on-dag" class="nav-link" data-scroll-target="#mis-on-dag"><span class="header-section-number">3.2</span> Mis on DAG?</a></li>
+  <li><a href="#otsene-ja-vahendatud-mõju" id="toc-otsene-ja-vahendatud-mõju" class="nav-link" data-scroll-target="#otsene-ja-vahendatud-mõju"><span class="header-section-number">3.3</span> Otsene ja vahendatud mõju</a></li>
+  <li><a href="#miks-on-dag-atsükliline" id="toc-miks-on-dag-atsükliline" class="nav-link" data-scroll-target="#miks-on-dag-atsükliline"><span class="header-section-number">3.4</span> Miks on DAG atsükliline?</a></li>
+  <li><a href="#põhjuslik-mõju-ja-võrdlusseisund" id="toc-põhjuslik-mõju-ja-võrdlusseisund" class="nav-link" data-scroll-target="#põhjuslik-mõju-ja-võrdlusseisund"><span class="header-section-number">3.5</span> Põhjuslik mõju ja võrdlusseisund</a></li>
+  <li><a href="#segaja-ehk-confounder" id="toc-segaja-ehk-confounder" class="nav-link" data-scroll-target="#segaja-ehk-confounder"><span class="header-section-number">3.6</span> Segaja ehk confounder</a></li>
+  <li><a href="#tagaukse-sulgemine" id="toc-tagaukse-sulgemine" class="nav-link" data-scroll-target="#tagaukse-sulgemine"><span class="header-section-number">3.7</span> Tagaukse sulgemine</a></li>
+  <li><a href="#simuleeritud-näide-mõõdetav-segaja" id="toc-simuleeritud-näide-mõõdetav-segaja" class="nav-link" data-scroll-target="#simuleeritud-näide-mõõdetav-segaja"><span class="header-section-number">3.8</span> Simuleeritud näide: mõõdetav segaja</a></li>
+  <li><a href="#mittevaadeldav-segaja" id="toc-mittevaadeldav-segaja" class="nav-link" data-scroll-target="#mittevaadeldav-segaja"><span class="header-section-number">3.9</span> Mittevaadeldav segaja</a></li>
+  <li><a href="#simuleeritud-näide-mittevaadeldav-segaja" id="toc-simuleeritud-näide-mittevaadeldav-segaja" class="nav-link" data-scroll-target="#simuleeritud-näide-mittevaadeldav-segaja"><span class="header-section-number">3.10</span> Simuleeritud näide: mittevaadeldav segaja</a></li>
+  <li><a href="#kollaider-ehk-põrguti" id="toc-kollaider-ehk-põrguti" class="nav-link" data-scroll-target="#kollaider-ehk-põrguti"><span class="header-section-number">3.11</span> Kollaider ehk põrguti</a></li>
+  <li><a href="#miks-ei-tohi-kollaiderit-arvesse-võtta" id="toc-miks-ei-tohi-kollaiderit-arvesse-võtta" class="nav-link" data-scroll-target="#miks-ei-tohi-kollaiderit-arvesse-võtta"><span class="header-section-number">3.12</span> Miks ei tohi kollaiderit arvesse võtta?</a></li>
+  <li><a href="#simuleeritud-näide-kollaiderist-tekkiv-nihe" id="toc-simuleeritud-näide-kollaiderist-tekkiv-nihe" class="nav-link" data-scroll-target="#simuleeritud-näide-kollaiderist-tekkiv-nihe"><span class="header-section-number">3.13</span> Simuleeritud näide: kollaiderist tekkiv nihe</a></li>
+  <li><a href="#segaja-ja-kollaideri-võrdlus" id="toc-segaja-ja-kollaideri-võrdlus" class="nav-link" data-scroll-target="#segaja-ja-kollaideri-võrdlus"><span class="header-section-number">3.14</span> Segaja ja kollaideri võrdlus</a></li>
+  <li><a href="#mida-panna-regressioonimudelisse" id="toc-mida-panna-regressioonimudelisse" class="nav-link" data-scroll-target="#mida-panna-regressioonimudelisse"><span class="header-section-number">3.15</span> Mida panna regressioonimudelisse?</a></li>
+  <li><a href="#dag-ja-põhjusliku-mõju-identifitseerimine" id="toc-dag-ja-põhjusliku-mõju-identifitseerimine" class="nav-link" data-scroll-target="#dag-ja-põhjusliku-mõju-identifitseerimine"><span class="header-section-number">3.16</span> DAG ja põhjusliku mõju identifitseerimine</a></li>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">3.17</span> Kokkuvõte</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sissejuhatus" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sissejuhatus"><span class="header-section-number">3.1</span> Sissejuhatus</h2>
+<p>Suunatud atsükliline graaf ehk <strong>DAG</strong> (<em>directed acyclic graph</em>) on üks lihtsamaid viise põhjuslike seoste kirjeldamiseks. DAG aitab kujutada, millised muutujad võivad üksteist mõjutada ning milliseid muutujaid peaks põhjusliku mõju hindamisel arvesse võtma.</p>
+<p>DAG ei ole andmetest automaatselt leitud põhjuslik mudel. See on uurija teadmiste ja eelduste väljendus. Need eeldused võivad tugineda majandusteooriale, varasematele uuringutele, institutsioonide tundmisele või teadmistele selle kohta, kuidas mingi protsess tegelikult toimib.</p>
+<p>DAG-i kasutatakse eelkõige selleks, et vastata küsimusele:</p>
+<blockquote class="blockquote">
+<p>Milliseid muutujaid peame põhjusliku mõju hindamisel arvesse võtma ja milliseid ei tohiks arvesse võtta?</p>
+</blockquote>
+<p>Selles peatükis kasutame lihtsaid näiteid. Meie põhimuutujad on tavaliselt:</p>
+<ul>
+<li><span class="math inline">\(D\)</span> – sekkumine või poliitikameede;</li>
+<li><span class="math inline">\(Y\)</span> – tulemus;</li>
+<li><span class="math inline">\(X\)</span> – muu tunnus, mis võib mõjutada (D)-d, (Y)-d või mõlemat.</li>
+</ul>
+</section>
+<section id="mis-on-dag" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="mis-on-dag"><span class="header-section-number">3.2</span> Mis on DAG?</h2>
+<p>DAG koosneb muutujatest ja nendevahelistest nooltest.</p>
+<p>Kui kirjutame</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["D"] --&gt; Y["Y"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>siis tähendab see, et (D) avaldab põhjuslikku mõju (Y)-le.</p>
+<p>Näiteks:</p>
+<ul>
+<li><span class="math inline">\(D\)</span> – osalemine tööturukoolitusel;</li>
+<li><span class="math inline">\(Y\)</span> – hilisem palk.</li>
+</ul>
+<p>Nool</p>
+<p><span class="math display">\[ D \rightarrow Y \]</span></p>
+<p>tähendab, et koolitus mõjutab palka.</p>
+</section>
+<section id="otsene-ja-vahendatud-mõju" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="otsene-ja-vahendatud-mõju"><span class="header-section-number">3.3</span> Otsene ja vahendatud mõju</h2>
+<p>Põhjuslik mõju võib olla otsene:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["Koolitus D"] --&gt; Y["Palk Y"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>või vahendatud mõne teise muutuja kaudu:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["Koolitus D"] --&gt; M["Oskused M"] --&gt; Y["Palk Y"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Teises näites suurendab koolitus oskusi ja paremad oskused suurendavad omakorda palka.</p>
+<p>DAG-is on oluline ka see, <strong>milliseid nooli ei ole</strong>. Kui kahe muutuja vahel noolt ei ole, siis väidame oma põhjuslikus mudelis, et üks ei põhjusta otseselt teist.</p>
+</section>
+<section id="miks-on-dag-atsükliline" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="miks-on-dag-atsükliline"><span class="header-section-number">3.4</span> Miks on DAG atsükliline?</h2>
+<p>DAG-i põhjuslikud nooled liiguvad ühes suunas. Graafis ei tohi tekkida tsüklit, kus põhjuslik rada jõuab tagasi samasse muutujasse.</p>
+<p>Näiteks võib tegelikus elus olla võimalik, et:</p>
+<ol type="1">
+<li>haridus suurendab palka;</li>
+<li>suurem palk võimaldab hiljem omandada täiendavat haridust.</li>
+</ol>
+<p>Seda ei kujutata ühe ja sama ajahetke tsüklina. Selle asemel eristatakse perioode:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    E1["Haridus t"] --&gt; W1["Palk t+1"] --&gt; E2["Täiendav haridus t+2"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Sellisel kujul liigub põhjuslikkus ajas edasi.</p>
+</section>
+<section id="põhjuslik-mõju-ja-võrdlusseisund" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="põhjuslik-mõju-ja-võrdlusseisund"><span class="header-section-number">3.5</span> Põhjuslik mõju ja võrdlusseisund</h2>
+<p>Põhjusliku mõju idee eeldab kahe võimaliku olukorra võrdlemist.</p>
+<p>Näiteks:</p>
+<ul>
+<li>D=1: inimene osales tööturukoolitusel;</li>
+<li>D=0: sama inimene ei osalenud tööturukoolitusel.</li>
+</ul>
+<p>Soovime teada, kuidas erineks tema palk nendes kahes olukorras.</p>
+<p>Praktikas näeme ühe inimese puhul ainult ühte olukorda. Seetõttu vajame sobivat võrdlusgruppi ning eeldusi, mis võimaldavad käsitleda gruppide erinevust põhjusliku mõjuna.</p>
+<p>DAG aitab sõnastada, millised eeldused on selle võrdluse jaoks vajalikud.</p>
+</section>
+<section id="segaja-ehk-confounder" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="segaja-ehk-confounder"><span class="header-section-number">3.6</span> Segaja ehk confounder</h2>
+<p>Üks olulisemaid DAG-i mõisteid on <strong>segaja</strong> (<em>confounder</em>).</p>
+<p>Segaja on muutuja, mis mõjutab nii sekkumist (D) kui ka tulemust (Y).</p>
+<p>Oletame, et:</p>
+<ul>
+<li><span class="math inline">\(D\)</span> – tööturukoolitus;</li>
+<li><span class="math inline">\(Y\)</span> – palk;</li>
+<li><span class="math inline">\(X\)</span> – eelnev haridus.</li>
+</ul>
+<p>Kõrgema haridusega inimesed võivad suurema tõenäosusega koolitusel osaleda ning neil võib olla ka kõrgem palk.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    X["Haridus X"] --&gt; D["Koolitus D"]
+    X --&gt; Y["Palk Y"]
+    D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Siin on kaks rada (D) ja (Y) vahel.</p>
+<p>Põhjuslik rada:</p>
+<p><span class="math display">\[ D \rightarrow Y \]</span></p>
+<p>ja nn <strong>tagauks</strong> (<em>backdoor path</em>):</p>
+<p><span class="math display">\[ D \leftarrow X \rightarrow Y. \]</span></p>
+<p>Tagaukse kaudu tekkiv seos ei ole koolituse põhjuslik mõju. See tuleneb haridusest.</p>
+<p>Kui võrdleme lihtsalt koolitusel osalenute ja mitteosalenute palku, segunevad kaks asja:</p>
+<ol type="1">
+<li>koolituse tegelik mõju;</li>
+<li>osalejate ja mitteosalejate erinev haridustase.</li>
+</ol>
+</section>
+<section id="tagaukse-sulgemine" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="tagaukse-sulgemine"><span class="header-section-number">3.7</span> Tagaukse sulgemine</h2>
+<p>Kui (X) on mõõdetav segaja, saame tagaukse sulgeda, võrreldes inimesi sama (X) väärtuse korral.</p>
+<p>Praktikas võib seda teha näiteks:</p>
+<ul>
+<li>gruppides analüüsimisega;</li>
+<li>regressioonimudeliga;</li>
+<li>sobitamisega (<em>matching</em>);</li>
+<li>kaalumismeetoditega (<em>inverse probability weighting</em>).</li>
+</ul>
+<p>Näiteks regressioonis:</p>
+<p><span class="math display">\[ Y_i = \alpha + \beta D_i + \gamma X_i + \varepsilon_i \]</span></p>
+<p>Kui DAG kirjeldab põhjuslikku protsessi õigesti ja vajalikud segajad on arvesse võetud, saab ()-t tõlgendada (D) põhjusliku mõjuna (Y)-le.</p>
+</section>
+<section id="simuleeritud-näide-mõõdetav-segaja" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="simuleeritud-näide-mõõdetav-segaja"><span class="header-section-number">3.8</span> Simuleeritud näide: mõõdetav segaja</h2>
+<p>Simuleerime olukorra, kus haridus mõjutab nii koolitusel osalemist kui ka palka.</p>
+<p>Tegelik koolituse mõju palgale on simulatsioonis ainult 5 ühikut.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"broom"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>to_install <span class="ot">&lt;-</span> packages[<span class="sc">!</span>packages <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(to_install) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(to_install)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">education =</span> <span class="fu">floor</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">min =</span> <span class="dv">9</span>, <span class="at">max =</span> <span class="dv">21</span>)),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">adulttraining =</span> <span class="fu">if_else</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> <span class="sc">*</span> education <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>) <span class="sc">&gt;</span> <span class="dv">35</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1000</span> <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> education <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> <span class="sc">*</span> adulttraining <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tb)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  education adulttraining  wage
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;
+1        19             1 1384.
+2         9             0 1186.
+3        10             0 1159.
+4        12             0 1250.
+5        12             0 1228.
+6        20             1 1400.</code></pre>
+</div>
+</div>
+<p>Kõigepealt hindame mudeli, kus palk sõltub ainult koolitusest.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> adulttraining, <span class="at">data =</span> tb)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term          estimate std.error statistic   p.value conf.low conf.high
+  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)      1259.      1.84     685.  0            1255.     1263.
+2 adulttraining     121.      3.59      33.7 1.39e-166     114.      128.</code></pre>
+</div>
+</div>
+<p>See hinnang on nihkega, sest koolitusel osalejad on keskmiselt kõrgema haridusega.</p>
+<p>Kontrollime seda otse:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tb <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(adulttraining) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_education =</span> <span class="fu">mean</span>(education),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_wage =</span> <span class="fu">mean</span>(wage)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  adulttraining     n average_education average_wage
+          &lt;dbl&gt; &lt;int&gt;             &lt;dbl&gt;        &lt;dbl&gt;
+1             0   738              13.0        1259.
+2             1   262              18.8        1380.</code></pre>
+</div>
+</div>
+<p>Nüüd lisame regressioonimudelisse hariduse.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> adulttraining <span class="sc">+</span> education, <span class="at">data =</span> tb)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Ilma hariduseta"</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Haridusega"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"adulttraining"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, std.error, conf.low, conf.high)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  model           estimate std.error conf.low conf.high
+  &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 Ilma hariduseta   121.        3.59   114.       128. 
+2 Haridusega          5.96      2.21     1.62      10.3</code></pre>
+</div>
+</div>
+<p>Teise mudeli koolituse koefitsient on palju lähemal simulatsioonis ette antud tegelikule mõjule (5).</p>
+<p><strong>Intuitsioon:</strong> hariduse arvesse võtmisega võrdleme koolitusel osalenud ja mitteosalenud inimesi tingimusel, et nende haridustase on sama. Sellega sulgeme tagaukse</p>
+<p><span class="math display">\[ D \leftarrow X \rightarrow Y. \]</span></p>
+</section>
+<section id="mittevaadeldav-segaja" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="mittevaadeldav-segaja"><span class="header-section-number">3.9</span> Mittevaadeldav segaja</h2>
+<p>Keerulisem olukord tekib siis, kui segaja mõjutab nii sekkumist kui ka tulemust, kuid seda ei ole andmetes mõõdetud.</p>
+<p>Näiteks:</p>
+<ul>
+<li><span class="math inline">\(D\)</span> – tööturukoolitus;</li>
+<li><span class="math inline">\(Y\)</span> – palk;</li>
+<li><span class="math inline">\(U\)</span> – inimese võimekus.</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    U["Võimekus U"] --&gt; D["Koolitus D"]
+    U --&gt; Y["Palk Y"]
+    D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Kui (U)-d ei mõõdeta, jääb tagauks</p>
+<p><span class="math display">\[ D \leftarrow U \rightarrow Y \]</span></p>
+<p>avatuks.</p>
+<p>Sellisel juhul ei piisa tavalisest regressioonist, kuhu lisame ainult olemasolevad mõõdetud tunnused. Kui oluline segaja jääb puudu, võib hinnang olla nihkega.</p>
+</section>
+<section id="simuleeritud-näide-mittevaadeldav-segaja" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="simuleeritud-näide-mittevaadeldav-segaja"><span class="header-section-number">3.10</span> Simuleeritud näide: mittevaadeldav segaja</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tb_u <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ability =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">adulttraining =</span> <span class="fu">if_else</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> <span class="sc">*</span> ability <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>) <span class="sc">&gt;</span> <span class="fl">0.75</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1000</span> <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span> <span class="sc">*</span> ability <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> <span class="sc">*</span> adulttraining <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>lm_u <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> adulttraining, <span class="at">data =</span> tb_u)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_u, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term          estimate std.error statistic   p.value conf.low conf.high
+  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)       947.      3.09     306.  0             941.      953.
+2 adulttraining     148.      4.98      29.8 7.06e-140     139.      158.</code></pre>
+</div>
+</div>
+<p>Kuigi tegelik koolituse mõju on jälle ainult 5, võib lihtne regressioon näidata palju suuremat seost.</p>
+<p>Põhjus on selles, et koolitusel osalemine kannab endas infot ka inimese võimekuse kohta.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tb_u <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(adulttraining) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_ability =</span> <span class="fu">mean</span>(ability),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_wage =</span> <span class="fu">mean</span>(wage)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  adulttraining average_ability average_wage
+          &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+1             0          -0.543         947.
+2             1           0.924        1095.</code></pre>
+</div>
+</div>
+<p>See näide näitab, miks põhjuslik analüüs ei ole ainult regressioonimudeli hindamise tehnika küsimus. Vajame ka teadmisi selle kohta, millised olulised segajad võivad olemas olla.</p>
+</section>
+<section id="kollaider-ehk-põrguti" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="kollaider-ehk-põrguti"><span class="header-section-number">3.11</span> Kollaider ehk põrguti</h2>
+<p>Teine väga oluline DAG-i mõiste on <strong>kollaider</strong> (<em>collider</em>), mida selles kursuses nimetame ka <strong>põrgutiks</strong>.</p>
+<p>Kollaider on muutuja, mida põhjustavad kaks teist muutujat.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["D"] --&gt; X["Kollaider X"]
+    Y["Y"] --&gt; X
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Siin on (X) kollaider, sest sinna suundub kaks noolt:</p>
+<p><span class="math display">\[ D \rightarrow X \leftarrow Y. \]</span></p>
+<p>Oluline erinevus segajast on järgmine:</p>
+<ul>
+<li>segaja puhul nooled <strong>lähevad segajast välja</strong>;</li>
+<li>kollaideri puhul nooled <strong>tulevad kollaiderisse sisse</strong>.</li>
+</ul>
+</section>
+<section id="miks-ei-tohi-kollaiderit-arvesse-võtta" class="level2" data-number="3.12">
+<h2 data-number="3.12" class="anchored" data-anchor-id="miks-ei-tohi-kollaiderit-arvesse-võtta"><span class="header-section-number">3.12</span> Miks ei tohi kollaiderit arvesse võtta?</h2>
+<p>Kollaideri rada on algselt suletud.</p>
+<p>Kui hakkame aga (X)-i arvestama, näiteks lisame selle regressioonimudelisse, võime tekitada (D) ja (Y) vahele kunstliku seose, mida seal ei ole.</p>
+<p>Seetõttu kehtib lihtne praktiline reegel:</p>
+<blockquote class="blockquote">
+<p>Kõiki olemasolevaid kontrollmuutujaid ei ole mõistlik regressiooni lisada.</p>
+</blockquote>
+<p>Muutuja lisamine võib vähendada nihet, kuid mõnel juhul võib see hoopis nihet tekitada.</p>
+</section>
+<section id="simuleeritud-näide-kollaiderist-tekkiv-nihe" class="level2" data-number="3.13">
+<h2 data-number="3.13" class="anchored" data-anchor-id="simuleeritud-näide-kollaiderist-tekkiv-nihe"><span class="header-section-number">3.13</span> Simuleeritud näide: kollaiderist tekkiv nihe</h2>
+<p>Kasutame lihtsat näidet:</p>
+<ul>
+<li><span class="math inline">\(D\)</span> – haridus;</li>
+<li><span class="math inline">\(Y\)</span> – palk;</li>
+<li><span class="math inline">\(X\)</span> – abikaasa “skoor”.</li>
+</ul>
+<p>Oletame, et inimese abikaasa valikut mõjutavad nii tema haridus kui ka palk.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["Haridus D"] --&gt; Y["Palk Y"]
+    D --&gt; X["Abikaasa skoor X"]
+    Y --&gt; X
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Siin on abikaasa skoor (X) kollaider.</p>
+<p>Simuleerime andmed.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tb_c <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">education =</span> <span class="fu">floor</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">min =</span> <span class="dv">9</span>, <span class="at">max =</span> <span class="dv">21</span>)),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1000</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> education <span class="sc">+</span> <span class="dv">50</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">spousescore =</span> education <span class="sc">+</span> wage <span class="sc">/</span> <span class="dv">100</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tb_c)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  education  wage spousescore
+      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
+1        19 1152.        30.5
+2         9 1101.        20.7
+3        10 1117.        17.0
+4        12 1121.        24.2
+5        12 1101.        21.8
+6        20 1184.        31.3</code></pre>
+</div>
+</div>
+<p>Tegelik hariduse mõju palgale on simulatsioonis 10 ühikut.</p>
+<p>Kõigepealt hindame õige lihtsa mudeli.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lm_c1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> education, <span class="at">data =</span> tb_c)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_c1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term        estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    996.      6.85      145.  0          983.      1009. 
+2 education       10.3     0.458      22.5 3.69e-91     9.41      11.2</code></pre>
+</div>
+</div>
+<p>Nüüd lisame mudelisse kollaideri <code>spousescore</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lm_c2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> education <span class="sc">+</span> spousescore, <span class="at">data =</span> tb_c)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_c1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Ilma kollaiderita"</span>),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_c2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Kollaider mudelis"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"education"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, std.error, conf.low, conf.high)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  model             estimate std.error conf.low conf.high
+  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 Ilma kollaiderita    10.3      0.458     9.41     11.2 
+2 Kollaider mudelis     4.47     0.907     2.69      6.25</code></pre>
+</div>
+</div>
+<p>Hariduse koefitsient muutub, kuigi <code>spousescore</code> võib esmapilgul tunduda täiesti mõistliku kontrollmuutujana.</p>
+<p>Probleem on selles, et <code>spousescore</code> on ise hariduse ja palga tagajärg.</p>
+<p>Kui leiame selle järgi tingimusliku keskväärtuse, siis avame raja</p>
+<p><span class="math display">\[ D \rightarrow X \leftarrow Y. \]</span></p>
+<p>Seda nimetatakse <strong>kollaiderinihkeks</strong> (<em>collider bias</em>).</p>
+</section>
+<section id="segaja-ja-kollaideri-võrdlus" class="level2" data-number="3.14">
+<h2 data-number="3.14" class="anchored" data-anchor-id="segaja-ja-kollaideri-võrdlus"><span class="header-section-number">3.14</span> Segaja ja kollaideri võrdlus</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tunnus</th>
+<th>Segaja (<em>confounder</em>)</th>
+<th>Kollaider / põrguti (<em>collider</em>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Graafi kuju</td>
+<td><span class="math inline">\(D \leftarrow X \rightarrow Y\)</span></td>
+<td><span class="math inline">\(D \rightarrow X \leftarrow Y\)</span></td>
+</tr>
+<tr class="even">
+<td>Mis roll on (X)-il?</td>
+<td><span class="math inline">\(X\)</span> põhjustab nii <span class="math inline">\(D\)</span>-d kui <span class="math inline">\(Y\)</span>-d</td>
+<td><span class="math inline">\(D\)</span> ja <span class="math inline">\(Y\)</span> põhjustavad <span class="math inline">\(X\)</span>-i</td>
+</tr>
+<tr class="odd">
+<td>Kas rada on algselt avatud?</td>
+<td>Jah</td>
+<td>Ei</td>
+</tr>
+<tr class="even">
+<td>Kas <span class="math inline">\(X\)</span>-i peaks lisama kontrollmuutujaks?</td>
+<td>Jah</td>
+<td>Ei</td>
+</tr>
+<tr class="odd">
+<td>Mis juhtub valesti käitudes?</td>
+<td>Segamisest tulenev nihe jääb alles</td>
+<td>Võime tekitada kollaiderinihke</td>
+</tr>
+</tbody>
+</table>
+<p>Kõige olulisem on noole suund.</p>
+<p>Üks ja sama statistiline korrelatsioonitabel ei ütle meile, kas muutuja on segaja või kollaider. Selle määramiseks vajame teadmisi põhjusliku protsessi kohta.</p>
+</section>
+<section id="mida-panna-regressioonimudelisse" class="level2" data-number="3.15">
+<h2 data-number="3.15" class="anchored" data-anchor-id="mida-panna-regressioonimudelisse"><span class="header-section-number">3.15</span> Mida panna regressioonimudelisse?</h2>
+<p>DAG-i vaatenurgast ei ole hea strateegia panna regressiooni automaatselt “kõik olemasolevad muutujad”.</p>
+<p>Enne mudeli hindamist tasub küsida:</p>
+<ol type="1">
+<li>Milline on minu sekkumine (D)?</li>
+<li>Milline on tulemus (Y)?</li>
+<li>Millised muutujad põhjustavad nii (D)-d kui ka (Y)-d?</li>
+<li>Kas nende kaudu on avatud tagauksi?</li>
+<li>Millised muutujad on (D) või (Y) tagajärjed?</li>
+<li>Kas mõni kontrollmuutuja on kollaider?</li>
+</ol>
+<p>Kui (X) on segaja:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    X["X"] --&gt; D["D"]
+    X --&gt; Y["Y"]
+    D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>siis on (X)-i arvesse võtmine tavaliselt vajalik.</p>
+<p>Kui (X) on kollaider:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    D["D"] --&gt; X["X"]
+    Y["Y"] --&gt; X
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>siis võib (X)-i arvesse võtmine tekitada nihke.</p>
+</section>
+<section id="dag-ja-põhjusliku-mõju-identifitseerimine" class="level2" data-number="3.16">
+<h2 data-number="3.16" class="anchored" data-anchor-id="dag-ja-põhjusliku-mõju-identifitseerimine"><span class="header-section-number">3.16</span> DAG ja põhjusliku mõju identifitseerimine</h2>
+<p>DAG aitab sõnastada <strong>identifitseeriva eelduse</strong> (<em>identifying assumption</em>).</p>
+<p>Lihtsa segaja näite puhul on idee järgmine:</p>
+<blockquote class="blockquote">
+<p>Kui arvestame haridust, ei ole koolitusel osalejate ja mitteosalejate vahel enam muid selliseid erinevusi, mis mõjutaksid palka.</p>
+</blockquote>
+<p>See on tugev sisuline eeldus. Andmed ise ei tõesta tavaliselt, et kõik olulised segajad on mõõdetud.</p>
+<p>Seetõttu peab põhjuslik analüüs ühendama:</p>
+<ul>
+<li>teooria;</li>
+<li>institutsioonide tundmise;</li>
+<li>varasemad empiirilised uuringud;</li>
+<li>sobiva uuringudisaini;</li>
+<li>statistilise meetodi.</li>
+</ul>
+<p>DAG aitab need eeldused nähtavaks teha.</p>
+</section>
+<section id="kokkuvõte" class="level2" data-number="3.17">
+<h2 data-number="3.17" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">3.17</span> Kokkuvõte</h2>
+<p>Suunatud atsükliline graaf ehk DAG on vahend põhjuslike eelduste kirjeldamiseks.</p>
+<p>Peamised mõtted on järgmised:</p>
+<ul>
+<li>nool (D Y) tähistab põhjuslikku mõju;</li>
+<li>DAG-is liigub põhjuslikkus ühes suunas ja tsükleid ei ole;</li>
+<li><strong>segaja</strong> (<em>confounder</em>) mõjutab nii sekkumist kui ka tulemust;</li>
+<li>segaja võib avada tagaukse (D X Y);</li>
+<li>mõõdetava segaja järgi tingimine võib tagaukse sulgeda;</li>
+<li>mittevaadeldav segaja võib põhjustada nihkega hinnangu;</li>
+<li><strong>kollaider ehk põrguti</strong> (<em>collider</em>) on kahe muutuja ühine tagajärg;</li>
+<li>kollaideri kontrollimine võib avada varem suletud raja ja tekitada kollaiderinihke;</li>
+<li>põhjuslikus regressioonis ei ole eesmärk lisada võimalikult palju kontrollmuutujaid, vaid valida muutujad vastavalt põhjuslikule mudelile.</li>
+</ul>
+<p>Kõige olulisem küsimus enne regressiooni hindamist ei ole seega ainult</p>
+<blockquote class="blockquote">
+<p>“Millised muutujad mul andmestikus olemas on?”</p>
+</blockquote>
+<p>vaid</p>
+<blockquote class="blockquote">
+<p>“Milline põhjuslik roll on igal muutujal minu uurimisküsimuses?”</p>
+</blockquote>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./pohimoistedkordamiseks.html" class="pagination-link" aria-label="Põhimõisted eksamiks kordamiseks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-pom.html" class="pagination-link" aria-label="Potentsiaalse tulemuse mudel">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
