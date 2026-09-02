@@ -101,15 +101,13 @@ Olgu
 
 $$
 p = \Pr(D_i = 1)
-$$ 
-osalenute osakaal populatsioonis. Siis on keskmine mõju populatsioonis (ATE) lihtsalt kaalutud keskmine mõjust osalenute (ATT) ja mitte-osalenute jaoks (ATU)
+$$ osalenute osakaal populatsioonis. Siis on keskmine mõju populatsioonis (ATE) lihtsalt kaalutud keskmine mõjust osalenute (ATT) ja mitte-osalenute jaoks (ATU)
 
 $$
 \text{ATE} = p \cdot \text{ATT} + (1 - p) \cdot \text{ATU}.
 $$
 
-ATT ja ATU võivad olla erinevad, kui mõju on erinev eri sotsiaaldemograafilistes rühmades (nn heterogeenne mõju). Näiteks kui põhiharidusega inimeste jaoks on tööturukoolituse efekt suurem kui kõrgharidusega inimeste jaoks, aga koolitust saanute seas on põhiharidusega inimesi suhteliselt enam, siis ongi ATT suurem kui ATU. 
-
+ATT ja ATU võivad olla erinevad, kui mõju on erinev eri sotsiaaldemograafilistes rühmades (nn heterogeenne mõju). Näiteks kui põhiharidusega inimeste jaoks on tööturukoolituse efekt suurem kui kõrgharidusega inimeste jaoks, aga koolitust saanute seas on põhiharidusega inimesi suhteliselt enam, siis ongi ATT suurem kui ATU.
 
 ## Näited ATE, ATT ja ATU tõlgendamisest
 
@@ -131,7 +129,6 @@ Tõlgendused:
     Kui palju oleks muutunud tootlikkus töötajatel, kes ei osalenud, kui nemad oleksid koolituse saanud?
 -   ATE:\
     Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv ettevõttes?
-
 
 ### Näide 2: Turunduskampaania
 
@@ -249,15 +246,13 @@ SUTVA on POM-i keskne eeldus: ilma selle kehtivuseta ei saa potentsiaalseid tule
 
 ## Sõltumatuse eeldus
 
-Sõltumatuse eeldus ( _independence assumption_ ) tähedab seda, et meetmes osalemine ei sõltu potentsiaalsetest tulemustest. 
-
+Sõltumatuse eeldus ( *independence assumption* ) tähedab seda, et meetmes osalemine ei sõltu potentsiaalsetest tulemustest.
 
 $$
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i
-$$
-Kõige lihtsam olukord on juhuslik eksperiment, kus meetmes osalemine määratakse loosiga. 
+$$ Kõige lihtsam olukord on juhuslik eksperiment, kus meetmes osalemine määratakse loosiga.
 
-Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu, toimub iseselektsioon ( _self-selection_ ), ning meedet pakkuvad töötajad võivad „koort riisuda” ( _cream skimming_ ), valides osalejateks motiveeritumaid või võimekamaid indiviide.
+Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu, toimub iseselektsioon ( *self-selection* ), ning meedet pakkuvad töötajad võivad „koort riisuda” ( *cream skimming* ), valides osalejateks motiveeritumaid või võimekamaid indiviide.
 
 See on täidetud juhusliku eksperimendi korral. See võib olla osaliselt täidetud kui välised tegurid mõjutavad osalemist, nt seaduse muutused, COVID-19 vmt, kus inimene ise ei saa otsustada meetmes osalemist.
 
@@ -267,9 +262,7 @@ Potentsiaalne tulemus mitteosalemise korral:
 
 $$
 \mathbb{E}[Y_i^0 \mid D_i = 1] = \mathbb{E}[Y_i^0 \mid D_i = 0],
-$$
-ja potentsiaalne tulemus osalemise korral:
-
+$$ ja potentsiaalne tulemus osalemise korral:
 
 $$
 \mathbb{E}[Y_i^1 \mid D_i = 1] = \mathbb{E}[Y_i^1 \mid D_i = 0],
@@ -279,13 +272,11 @@ ja sellisel juhul annab lihtne keskmiste erinevus (SDO) keskmise oodatava mõju 
 
 $$
 \text{SDO} = \mathbb{E}[Y_i \mid D_i=1] - \mathbb{E}[Y_i \mid D_i=0] = \text{ATE}.
-$$
-Sellisel juhul puudub valikunihe ja nihe heterogeense mõju tõttu.
-
+$$ Sellisel juhul puudub valikunihe ja nihe heterogeense mõju tõttu.
 
 ## Tingimusliku sõltumatuse eeldus
 
-Tingimusliku sõltumatuse eeldus ( _conditional independence assumption_, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis osalemisotsus ei sõltu enam potentsiaalsetest tulemustest:
+Tingimusliku sõltumatuse eeldus ( *conditional independence assumption*, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis osalemisotsus ei sõltu enam potentsiaalsetest tulemustest:
 
 $$
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i \mid X_i.
@@ -316,10 +307,9 @@ $$
 
 See eeldus ütleb, et erinevused keskmistes potentsiaalsetes tulemustes kaovad osalus- ja võrdlusrühma vahel, kui vaatleme piisavalt kitsaid alamrühmi, ehkki jaotuste kujud võivad erineda. (Nt võib tinglik dispersioon olla erinev kahes rühmas.)
 
-
 ## Ühine tugi
 
-CIA praktiline rakendamine nõuab ühist tuge ( _common support_ ):
+CIA praktiline rakendamine nõuab ühist tuge ( *common support* ):
 
 $$
 0 < \Pr(D_i = 1 \mid X_i = x) < 1
@@ -348,16 +338,14 @@ Selitus:
 
 1.  jagame andmed (K) rühma X-vektori alusel (nt mehed, vanuses 40–60, kõrgharidusega; mehed, vanuses 40-60, keskharidusega jne);
 2.  igas rühmas võrdleme osalenute ja mitteosalenute keskmisi tulemusi;
-3.  võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute struktuur osalusrühmas. 
-(Analoogselt kasutame ATU jaoks kaaludena mitte-osalenute struktuuri.)
+3.  võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute struktuur osalusrühmas. (Analoogselt kasutame ATU jaoks kaaludena mitte-osalenute struktuuri.)
 
 See on mitteparametriline lähenemine CIA eelduse rakendamiseks. Praktikas kasutatakse sageli ka:
 
 -   regressioonimudeleid,
--   logistilist regressiooni osalemise tõenäosuse hindamiseks ja selle alusel sobitamisel (_propensity score matching_),
--   kaalumismeetodeid (_inverse probability weighting_),
+-   logistilist regressiooni osalemise tõenäosuse hindamiseks ja selle alusel sobitamisel (*propensity score matching*),
+-   kaalumismeetodeid (*inverse probability weighting*),
 -   või nende kombinatsioone.
-
 
 ## Muid statistikuid
 
@@ -365,7 +353,7 @@ See on mitteparametriline lähenemine CIA eelduse rakendamiseks. Praktikas kasut
 
 Sageli ei saa me kontrollida, kas indiviid tegelikult meetmes osales. Teame vaid, ainult, kas talle pakuti meedet. Näiteks Töötukassa pakub kollektiivse koondamise puhul ettevõtetele ja nende töötajatele teabe jagamiseks kohtumisi, sh uute võimalike tööandjatega. Aga me ei tea täpselt, kes koondatutest nendel üritusel käisid.
 
-Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist. ITT on defineeritud siis kui oodatav erinevus väljundis inimeste vahel, kellele pakuti meedet ja kellele ei pakutud meedet. 
+Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist. ITT on defineeritud siis kui oodatav erinevus väljundis inimeste vahel, kellele pakuti meedet ja kellele ei pakutud meedet.
 
 $$
 \text{ITT} = \mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0].
@@ -384,11 +372,9 @@ $$
 = \frac{N_{\text{Tegelik osalejate arv meetmes}}}{N_{\text{Plaanitud osalejate arv}}}
 $$
 
-
-
 ### Lokaalne keskmine mõju (LATE)
 
-Instrumentmuutuja raamistikus saame määratleda lokaalse keskmise mõju ( _local average treatment effect_ - LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentmuutuja muutumise tõttu (compliers):
+Instrumentmuutuja raamistikus saame määratleda lokaalse keskmise mõju ( *local average treatment effect* - LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentmuutuja muutumise tõttu (compliers):
 
 $$
 \text{LATE}
@@ -415,7 +401,6 @@ CATE võimaldab uurida näiteks:
 -   kuidas sõltub mõju varasemast palgatasemest;
 -   millistele alarühmadele programm kõige rohkem kasu toob.
 
-
 CATE-t vaatame põhjalikumalt kausaalmetsa (causal forest) korral.
 
 ## Kokkuvõte
@@ -426,94 +411,90 @@ Lihtne keskmiste erinevus osalenute ja mitteosalenute vahel SDO on enamasti nihk
 
 POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud asüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.
 
-
-
-
 ## Ülesanded
 
-### Ülesanne 1. 
+### Ülesanne 1.
 
 On antud andmed 10 töötu kohta ja nende tulevase potentsiaalse palga kohta kaks aastat pärast töötuks jäämist, kui nad peaksid töötusperioodi ajal osalema kohustuslikult 3 kuud tööturukoolitusel.
 
-
-| Isik | Y1   | Y0   | δ | D | Y    |
-|:----:|:----:|:----:|:--:|:-:|:----:|
-| 1    | 1200 | 1000 |    |   |      |
-| 2    | 1000 | 1100 |    |   |      |
-| 3    | 1000 | 300  |    |   |      |
-| 4    | 1000 | 1200 |    |   |      |
-| 5    | 800  | 400  |    |   |      |
-| 6    | 1500 | 1000 |    |   |      |
-| 7    | 1000 | 1500 |    |   |      |
-| 8    | 1000 | 1100 |    |   |      |
-| 9    | 900  | 1100 |    |   |      |
-| 10   | 1400 | 1200 |    |   |      |
+| Isik |  Y1  |  Y0  |  δ  |  D  |  Y  |
+|:----:|:----:|:----:|:---:|:---:|:---:|
+|  1   | 1200 | 1000 |     |     |     |
+|  2   | 1000 | 1100 |     |     |     |
+|  3   | 1000 | 300  |     |     |     |
+|  4   | 1000 | 1200 |     |     |     |
+|  5   | 800  | 400  |     |     |     |
+|  6   | 1500 | 1000 |     |     |     |
+|  7   | 1000 | 1500 |     |     |     |
+|  8   | 1000 | 1100 |     |     |     |
+|  9   | 900  | 1100 |     |     |     |
+|  10  | 1400 | 1200 |     |     |     |
 
 Selgitused:
 
-- $Y_1$: palk, kui nad osaleksid meetmes  
-- $Y_0$: palk, kui nad ei osaleks meetmes  
-- $\delta = Y1 - Y0$: mõju koolitusest  
-- $D$: koolituses osalemine (0/1)  
-- $Y$: jälgitav tunnus (tegelik palk, sõltub $D$-st)
+-   $Y_1$: palk, kui nad osaleksid meetmes\
+-   $Y_0$: palk, kui nad ei osaleks meetmes\
+-   $\delta = Y1 - Y0$: mõju koolitusest\
+-   $D$: koolituses osalemine (0/1)\
+-   $Y$: jälgitav tunnus (tegelik palk, sõltub $D$-st)
 
 *Küsimused*
 
-1. Arvuta igale inimesele oodatav kasu koolitusmeetmest $\delta = Y1 - Y0$.
+1.  Arvuta igale inimesele oodatav kasu koolitusmeetmest $\delta = Y1 - Y0$.
 
-2. Arvuta keskmine mõju meetmest (ATE):
+2.  Arvuta keskmine mõju meetmest (ATE):
 
-   $$
-   \text{ATE} = \frac{1}{n} \sum_{i=1}^{n} \delta_i.
-   $$
+    $$
+    \text{ATE} = \frac{1}{n} \sum_{i=1}^{n} \delta_i.
+    $$
 
-3. Eeldame, et töötud teavad, milline on kasu koolitusest, ja koolituse võtavad vastu vaid need, kes sellest saavad kasu (st $\delta > 0$).  
-   Mitu inimest võtavad koolituse vastu?
+3.  Eeldame, et töötud teavad, milline on kasu koolitusest, ja koolituse võtavad vastu vaid need, kes sellest saavad kasu (st $\delta > 0$).\
+    Mitu inimest võtavad koolituse vastu?
 
-4. Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult osalevad (ATT)?
+4.  Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult osalevad (ATT)?
 
-   $$
-   \text{ATT} = \mathbb{E}[\delta \mid D_i = 1].
-   $$
+    $$
+    \text{ATT} = \mathbb{E}[\delta \mid D_i = 1].
+    $$
 
-5. Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult ei osalenud (ATU)?
+5.  Mis on keskmine kasu koolitusest neile, kes koolituses tegelikult ei osalenud (ATU)?
 
-   $$
-   \text{ATU} = \mathbb{E}[\delta \mid D_i = 0].
-   $$
+    $$
+    \text{ATU} = \mathbb{E}[\delta \mid D_i = 0].
+    $$
 
 Meie analüütikutena ei näe mõlemat potentsiaalset väljundit ja näeme vaid seda olekut, mida töötu kasutas.
 
 Arvuta:
 
-6. SDO (simple difference in outcomes):
+6.  SDO (simple difference in outcomes):
 
-   $$
-   \text{SDO} = \mathbb{E}[Y \mid D = 1] - \mathbb{E}[Y \mid D = 0].
-   $$
+    $$
+    \text{SDO} = \mathbb{E}[Y \mid D = 1] - \mathbb{E}[Y \mid D = 0].
+    $$
 
-7. Valikunihe (selection bias):
+7.  Valikunihe (selection bias):
 
-   $$
-   \text{Valikunihe} = \mathbb{E}[Y_0 \mid D = 1] - \mathbb{E}[Y_0 \mid D = 0].
-   $$
+    $$
+    \text{Valikunihe} = \mathbb{E}[Y_0 \mid D = 1] - \mathbb{E}[Y_0 \mid D = 0].
+    $$
 
-8. Mõju heterogeensus:
+8.  Mõju heterogeensus:
 
-   $$
-   \text{Mõju heterogeensus} = \text{ATT} - \text{ATU}.
-   $$
+    $$
+    \text{Mõju heterogeensus} = \text{ATT} - \text{ATU}.
+    $$
 
-9. Näita, et kehtib
+9.  Näita, et kehtib
 
-   $$
-   \text{SDO} 
-   = \text{ATE} 
-   + \text{valikunihe} 
-   + (1 - p)\,(\text{ATT} - \text{ATU}),
-   $$
+    $$
+    \text{SDO} 
+    = \text{ATE} 
+    + \text{valikunihe} 
+    + (1 - p)\,(\text{ATT} - \text{ATU}),
+    $$
 
-   kus $p$ on meetmes osalenute osakaal.
+    kus $p$ on meetmes osalenute osakaal.
 
 10. Näita, et kehtib
 
@@ -521,32 +502,30 @@ Arvuta:
     \text{SDO} = \text{ATT} + \text{valikunihe}.
     $$
 
-
-
 <details>
 
-<summary> Näita käsitsi lahendust </summary>
+<summary>Näita käsitsi lahendust</summary>
 
-1. Individuaalsed mõjud $\delta_i$
+1.  Individuaalsed mõjud $\delta_i$
 
 $$
 \delta_i = Y1 - Y0
 $$
 
-| Isik | Y1   | Y0   | δ  | D | Y    |
-|:----:|:----:|:----:|:---:|:-:|:----:|
-| 1    | 1200 | 1000 | 200 | 1 | 1200 |
-| 2    | 1000 | 1100 | -100| 0 | 1100 |
-| 3    | 1000 | 300  | 700 | 1 | 1000 |
-| 4    | 1000 | 1200 | -200| 0 | 1200 |
-| 5    | 800  | 400  | 400 | 1 | 800  |
-| 6    | 1500 | 1000 | 500 | 1 | 1500 |
-| 7    | 1000 | 1500 | -500| 0 | 1500 |
-| 8    | 1000 | 1100 | -100| 0 | 1100 |
-| 9    | 900  | 1100 | -200| 0 | 1100 |
-| 10   | 1400 | 1200 | 200 | 1 | 1400 |
+| Isik |  Y1  |  Y0  |  δ   |  D  |  Y   |
+|:----:|:----:|:----:|:----:|:---:|:----:|
+|  1   | 1200 | 1000 | 200  |  1  | 1200 |
+|  2   | 1000 | 1100 | -100 |  0  | 1100 |
+|  3   | 1000 | 300  | 700  |  1  | 1000 |
+|  4   | 1000 | 1200 | -200 |  0  | 1200 |
+|  5   | 800  | 400  | 400  |  1  | 800  |
+|  6   | 1500 | 1000 | 500  |  1  | 1500 |
+|  7   | 1000 | 1500 | -500 |  0  | 1500 |
+|  8   | 1000 | 1100 | -100 |  0  | 1100 |
+|  9   | 900  | 1100 | -200 |  0  | 1100 |
+|  10  | 1400 | 1200 | 200  |  1  | 1400 |
 
-2. ATE
+2.  ATE
 
 $$
 \text{ATE}
@@ -555,13 +534,13 @@ $$
 = 90.
 $$
 
-3. Kes võtavad koolituse vastu
+3.  Kes võtavad koolituse vastu
 
 Eeldusel, et koolituse võtavad vaid need, kelle $\delta > 0$, võtavad koolituse vastu isikud:
 
 1, 3, 5, 6 ja 10 → kokku 5 inimest.
 
-4. ATT
+4.  ATT
 
 $$
 \text{ATT}
@@ -570,7 +549,7 @@ $$
 = 400.
 $$
 
-5. ATU
+5.  ATU
 
 Mitteosalenute $\delta < 0$ indiviidid: 2, 4, 7, 8, 9.
 
@@ -581,7 +560,7 @@ $$
 = -220.
 $$
 
-6. SDO
+6.  SDO
 
 $$
 \text{SDO}
@@ -612,7 +591,7 @@ $$
 \text{SDO} = 1180 - 1200 = -20.
 $$
 
-7. Valikunihe
+7.  Valikunihe
 
 $$
 \text{Valikunihe}
@@ -638,7 +617,7 @@ $$
 = 780 - 1200 = -420.
 $$
 
-8. Mõju heterogeensus
+8.  Mõju heterogeensus
 
 $$
 \text{ATT} - \text{ATU}
@@ -646,7 +625,7 @@ $$
 = 620.
 $$
 
-9. Seos: SDO = ATE + valikunihe + (1 − p)·(ATT − ATU)
+9.  Seos: SDO = ATE + valikunihe + (1 − p)·(ATT − ATU)
 
 Osalejate osakaal $p = 5/10 = 0.5$.
 
@@ -678,14 +657,11 @@ $$
 
 Seega kehtib ka see seos.
 
-
 </details>
-
-
 
 <details>
 
-<summary> Näita lahendust Ris </summary>
+<summary>Näita lahendust Ris</summary>
 
 *Lahendus Ris*
 
@@ -766,60 +742,54 @@ att + valikunihe
 
 </details>
 
-
 ### Ülesanne 2.
 
-Rahvusvaheline firma viis läbi oma ühe allüksuse müügiagentide seas müügikoolituse. Et hinnata müügikoolituse mõju, jagati osalejad juhuslikult kahte rühma piirkonna lõikes: ühed said koolitust (osalusgrupp) ja teised ei saanud (võrdlusgrupp). 
+Rahvusvaheline firma viis läbi oma ühe allüksuse müügiagentide seas müügikoolituse. Et hinnata müügikoolituse mõju, jagati osalejad juhuslikult kahte rühma piirkonna lõikes: ühed said koolitust (osalusgrupp) ja teised ei saanud (võrdlusgrupp).
 
 Koolituse mõju hindamiseks kasutatav näitaja oli keskmine palgale juurde makstav tulemustasu järgneva 12 kuu jooksul, mis sõltus otseselt inimeste personaalselt sõlmitud lepingutest. Andmed on toodud järgmises tabelis.
 
 *Andmed pärast koolitust*
 
-| Piirkond    | Grupp         | Inimesed, keda jälgiti | Keskmine tulemustasu |
-|:------------|:--------------|------------------------:|--------------------:|
-| Põhja-Eesti | Osalusgrupp   |                      40 |                 150 |
-| Põhja-Eesti | Võrdlusgrupp  |                      30 |                 120 |
-| Lõuna-Eesti | Osalusgrupp   |                      20 |                 150 |
-| Lõuna-Eesti | Võrdlusgrupp  |                      10 |                 140 |
+| Piirkond    | Grupp        | Inimesed, keda jälgiti | Keskmine tulemustasu |
+|:------------|:-------------|-----------------------:|---------------------:|
+| Põhja-Eesti | Osalusgrupp  |                     40 |                  150 |
+| Põhja-Eesti | Võrdlusgrupp |                     30 |                  120 |
+| Lõuna-Eesti | Osalusgrupp  |                     20 |                  150 |
+| Lõuna-Eesti | Võrdlusgrupp |                     10 |                  140 |
 
 Leidke eraldi piirkondade lõikes ja kogu firmas, eeldades CIA kehtivust (conditional independence assumption) ning kasutades osalus- ja võrdlusgrupi diferents-hinnangut:
 
-1. Mõju osalusgrupile (average treatment effect on treated – ATT)  
-2. Mõju võrdlusgrupile, kui ta oleks osalenud (average treatment effect on untreated – ATU)  
-3. Oodatav mõju kogu firmale, kui kõik oleksid osalenud (average treatment effect – ATE)  
-4. Arutlege, kas mõju hindamiseks vajalikud eeldused on täidetud.
+1.  Mõju osalusgrupile (average treatment effect on treated – ATT)\
+2.  Mõju võrdlusgrupile, kui ta oleks osalenud (average treatment effect on untreated – ATU)\
+3.  Oodatav mõju kogu firmale, kui kõik oleksid osalenud (average treatment effect – ATE)\
+4.  Arutlege, kas mõju hindamiseks vajalikud eeldused on täidetud.
 
+*Täiendav info ja teine olukord*
 
-*Täiendav info ja teine olukord* 
-
-Tagantjärgi selgus, et analüütik tegi vea ja inimeste jagamine ei olnud päris juhuslik, vaid selle otsustas personalitöötaja. Seega ei saanud eeldada, et inimeste võimekus oli ühesugune. 
+Tagantjärgi selgus, et analüütik tegi vea ja inimeste jagamine ei olnud päris juhuslik, vaid selle otsustas personalitöötaja. Seega ei saanud eeldada, et inimeste võimekus oli ühesugune.
 
 Analüüsi parandamiseks võeti kasutusele koolituseelsed müüginumbrid, mis olid järgmised.
 
 *Andmed enne koolitust*
 
-| Piirkond    | Grupp         | Keskmine tulemustasu enne koolitusi |
-|:------------|:--------------|------------------------------------:|
-| Põhja-Eesti | Osalusgrupp   |                                 140 |
-| Põhja-Eesti | Võrdlusgrupp  |                                 120 |
-| Lõuna-Eesti | Osalusgrupp   |                                 140 |
-| Lõuna-Eesti | Võrdlusgrupp  |                                 160 |
-
+| Piirkond    | Grupp        | Keskmine tulemustasu enne koolitusi |
+|:------------|:-------------|------------------------------------:|
+| Põhja-Eesti | Osalusgrupp  |                                 140 |
+| Põhja-Eesti | Võrdlusgrupp |                                 120 |
+| Lõuna-Eesti | Osalusgrupp  |                                 140 |
+| Lõuna-Eesti | Võrdlusgrupp |                                 160 |
 
 Millised võiksid olla ATT, ATU ja ATE hinnangud nüüd, kasutades väljundina tulemustasu **muutust** (pärast koolitust miinus enne koolitust):
 
-1.ATT: keskmine mõju nendele, kes osalesid koolitusel  
-2. ATU: keskmine mõju nendele, kes ei osalenud, kui nad oleksid osalenud  
+1.ATT: keskmine mõju nendele, kes osalesid koolitusel\
+2. ATU: keskmine mõju nendele, kes ei osalenud, kui nad oleksid osalenud\
 3. ATE: oodatav keskmine mõju kogu firmale, kui kõik oleksid osalenud
-
-
 
 <details>
 
-<summary> Näita lahendust Ris </summary>
+<summary>Näita lahendust Ris</summary>
 
 *Lahendus Ris*
-
 
 ```{r}
 #Teeme lähteandmed Ri andmetabeliks
@@ -875,4 +845,3 @@ df %>% summarise(att = sum(moju_dy*kaal_att),
 ```
 
 </details>
-

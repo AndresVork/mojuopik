@@ -3,700 +3,490 @@ title: "testimiseks"
 format: html
 ---
 
-# LASSO mõju hindamisel
+# Suunatud atsüklilised graafid (DAG)
 
-## Seade
+## Sissejuhatus
 
-Selles peatükis käsitleme LASSO-regressioonimudelit ja kantregressiooni (ridge), mis kuuluvad regulariseeritud regressioonimeetodite hulka. Need meetodid on kasulikud olukordades, kus meil on palju selgitavaid tunnuseid, sh nende polünoomid ja interaktsioonid, selgitavate tunnuste vahel on tugev multikollineaarsus ning me soovime automatiseerida mudelisse kaasatavate tunnuste valikut. Sellistes tingimustes ei tööta klassikaline vähimruutude meetod (OLS) hästi, eriti kui parameetrite arv on lähedane vaatluste arvule koguni suurem.
+Suunatud atsükliline graaf ehk **DAG** (*directed acyclic graph*) on üks lihtsamaid viise põhjuslike seoste kirjeldamiseks. DAG aitab kujutada, millised muutujad võivad üksteist mõjutada ning milliseid muutujaid peaks põhjusliku mõju hindamisel arvesse võtma.
 
-Lisaks prognoosimisele pakuvad LASSO ja ridge vahendeid põhjuslike mõjude hindamiseks keerukates olukordades, kus:
+DAG ei ole andmetest automaatselt leitud põhjuslik mudel. See on uurija teadmiste ja eelduste väljendus. Need eeldused võivad tugineda majandusteooriale, varasematele uuringutele, institutsioonide tundmisele või teadmistele selle kohta, kuidas mingi protsess tegelikult toimib.
 
-- on palju potentsiaalseid kontrollmuutujaid,
-- eeldame tingimuslikku sõltumatust (CIA),
+DAG-i kasutatakse eelkõige selleks, et vastata küsimusele:
 
-Eraldi käsitleme kolme lähenemist:
+> Milliseid muutujaid peame põhjusliku mõju hindamisel arvesse võtma ja milliseid ei tohiks arvesse võtta?
 
-- jääkliikmete meetodit (partialling out),
-- topeltvaliku meetodit (double selection),
-- instrumentmuutuja meetodit koos LASSO-põhise tunnuste valikuga.
+Selles peatükis kasutame lihtsaid näiteid. Meie põhimuutujad on tavaliselt:
 
-## Regulaaritud regressioon: üldine raamistik
+-   $D$ – sekkumine või poliitikameede;
+-   $Y$ – tulemus;
+-   $X$ – muu tunnus, mis võib mõjutada (D)-d, (Y)-d või mõlemat.
 
-### Lineaarne mudel ja OLS
+## Mis on DAG?
 
-Lähtume klassikalisest lineaarsest mudelist:
+DAG koosneb muutujatest ja nendevahelistest nooltest.
 
-$$
-Y_i = X_i'\beta + \varepsilon_i,\quad i = 1,\dots,n,
-$$
+Kui kirjutame
 
-kus $Y_i$ on sõltuv muutuja, $X_i$ pikkusega $p$ selgitavate tunnuste vektor, $\beta$ tundmatu parameetrite vektor ja $\varepsilon_i$ vealiige. Vektorkujul võime kirjutada:
-
-$$
-Y = X\beta + \varepsilon,
-$$
-
-kus $Y \in \mathbb{R}^n$, $X \in \mathbb{R}^{n \times p}$, $\beta \in \mathbb{R}^p$ ja $\varepsilon \in \mathbb{R}^n$.
-
-OLS-hinnang leitakse miinimumruutude põhimõttel:
-
-$$
-\hat{\beta}^{\text{OLS}} = \arg\min_{\beta} \frac{1}{n} \sum_{i=1}^n (Y_i - X_i'\beta)^2
-= \arg\min_{\beta} \frac{1}{n}\|Y - X\beta\|_2^2.
-$$
-
-Kui $p$ on suur (või koguni $p > n$), muutub OLS ebastabiilseks:
-
-- parameetrite variatsioon on suur,
-- multikollineaarsus tekitab ebakindlust,
-- mudel kipub andmetesse üle-sobituma.
-
-Regulaaritud regressiooni idee on lisada optimeerimiskriteeriumile karistustermin, mis surub parameetreid nulli suunas ja vähendab mudeli keerukust.
-
-## Regulaaritud regressiooni üldkuju
-
-Regulaaritud regressiooni üldine eesmärk on leida:
-
-$$
-\hat{\beta} = \arg\min_{\beta} 
-\left\{
-\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
-+ \lambda P(\beta)
-\right\},
-$$
-
-kus $P(\beta)$ on karistusfunktsioon ja $\lambda \ge 0$ regulaarimisparameeter, mis kontrollib karistuse tugevust.
-
-- Kui $\lambda = 0$, langeb mudel kokku OLS-iga.
-- Kui $\lambda$ kasvab, suureneb parameetrite kahanemine nulli suunas ja mudeli keerukus väheneb.
-
-Eduka regulaarimise eelduseks on tavaliselt, et tunnused $X$ standardiseeritakse (nullkeskmine ja ühikvariatsioon), et karistus erinevate tunnuste vahel oleks võrreldav.
-
-# Kantregressioon (ridge)
-
-## Mudeli definitsioon
-
-Kantregressioon (ridge-regressioon) kasutab L2-karistust:
-
-$$
-\hat{\beta}^{\text{ridge}}
-= \arg\min_{\beta}
-\left\{
-\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
-+ \lambda \sum_{j=1}^p \beta_j^2
-\right\}
-= \arg\min_{\beta}
-\left\{
-\frac{1}{n}\|Y - X\beta\|_2^2 + \lambda \|\beta\|_2^2
-\right\}.
-$$
-
-Siin surutakse kõiki koefitsiente nulli suunas, kuid ükski neist ei muutu täpselt nulliks (välja arvatud erijuhtudel). Seetõttu:
-
-- ridge ei tee otsest tunnuste valikut,
-- kuid vähendab multikollineaarsuse mõju ja stabiliseerib hinnanguid.
-
-Maatrikskujuline suletud lahend on
-
-$$
-\hat{\beta}^{\text{ridge}} = (X'X + n\lambda I_p)^{-1} X'Y,
-$$
-
-kus $I_p$ on $p \times p$ ühikmaatriks.
-
-## Regulaarimisparameeter ja valik
-
-Regulaarimisparameeter $\lambda$ kontrollib nihe–dispersioon kompromissi:
-
-- väikese $\lambda$ korral on nihe väike, kuid dispersioon suur,
-- suure $\lambda$ korral suureneb nihe, kuid dispersioon väheneb.
-
-Prognoosimisel valitakse $\lambda$ tavaliselt ristvalideerimisega (K-kordne CV):
-
-1. jaga andmed $K$ osaks;
-2. iga kandidaadi $\lambda$ korral hinda mudel $K-1$ osal andmetest;
-3. arvuta keskmine ruutprognoosiviga järelejäänud osal;
-4. vali $\lambda$, mis minimeerib prognoosivea.
-
-## Millal kasutada ridge’i
-
-Kantregressiooni kasutatakse eelkõige siis, kui:
-
-- selgitavaid tunnuseid on palju (sh polünoomid, interaktsioonid),
-- esineb tugev multikollineaarsus,
-- eesmärk on hea prognoos, mitte üksikute koefitsientide selge interpreteerimine,
-- parameetrite arv on lähedane vaatluste arvule.
-
-Põhjusliku mõju hindamise juures kasutatakse ridge’i tavaliselt osana laiendatud meetoditest (nt Augmented Synthetic Control, double machine learning) – harvem iseseisva „mõju hinnanguna“.
-
-# LASSO regressioon
-
-## Mudeli definitsioon
-
-LASSO (Least Absolute Shrinkage and Selection Operator) kasutab L1-karistust:
-
-$$
-\hat{\beta}^{\text{LASSO}}
-= \arg\min_{\beta}
-\left\{
-\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2
-+ \lambda \sum_{j=1}^p |\beta_j|
-\right\}
-= \arg\min_{\beta}
-\left\{
-\frac{1}{n}\|Y - X\beta\|_2^2 + \lambda \|\beta\|_1
-\right\}.
-$$
-
-Oluline omadus: L1-karistus võib seada osa koefitsiente täpselt nulli:
-
-- kui tunnus $X_j$ on väheoluline, siis $\hat{\beta}_j = 0$,
-- kui tunnus on oluline, võib $\hat{\beta}_j \neq 0$.
-
-Seega LASSO kombineerib:
-
-- regulaarimise (koefitsientide kahanemine),
-- tunnuste valiku (paljud koefitsiendid muutuvad nulliks).
-
-Intuitsioonilt:
-
-- kui $\lambda$ on väike, on tulemus sarnane OLS-iga, paljud koefitsiendid mitnullilised;
-- kui $\lambda$ on suur, jääb mudelisse vähe tunnuseid.
-
-## Elastic net
-
-Elastic net ühendab ridge’i ja LASSO karistused:
-
-$$
-\hat{\beta}^{\text{EN}}
-= \arg\min_{\beta}
-\left\{
-\frac{1}{n}\|Y - X\beta\|_2^2
-+ \lambda
-\left(
-\alpha \|\beta\|_1 + (1-\alpha)\|\beta\|_2^2
-\right)
-\right\},
-$$
-
-kus $0 \le \alpha \le 1$.
-
-- $\alpha = 1$ korral saame LASSO,
-- $\alpha = 0$ korral ridge’i.
-
-Elastic net on kasulik, kui tunnused on tugevalt korreleeritud: puhas LASSO kaldub valima ühe tunnuse grupist ja teised välja jätma, elastic net võimaldab „grupivalikut“.
-
-## Post-LASSO
-
-LASSO koefitsiendid on nihkega nulli suunas, kui $\lambda > 0$. See on prognoosimisel aktsepteeritav, kuid mõju interpreteerimisel võib nihe häirida. Post-LASSO lähenemine:
-
-1. hinda LASSO mudel ja vali aktiivsete tunnuste hulk
-   $$
-   \hat{S} = \{j: \hat{\beta}_j^{\text{LASSO}} \neq 0\};
-   $$
-2. hinda OLS-ga mudel, mis sisaldab ainult tunnuseid $X_{\hat{S}}$:
-   $$
-   Y_i = X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
-   $$
-
-Nii saadud OLS-kordajaid nimetatakse Post-LASSO hinnanguteks. Need on endiselt mõjutatud tunnuste valiku ebastabiilsusest, kuid vähem nihkes kui LASSO koefitsiendid ise.
-
-# Tavaline LASSO versus teooriapõhine LASSO
-
-## Tavaline LASSO (glmnet, CV-põhine)
-
-Tüüpiline LASSO rakendus prognoosimisel (nt pakett glmnet) kasutab ristvalideerimist:
-
-- $\lambda$ valitakse, et minimeerida prognoosiviga (MSE) ristvalideerimisel;
-- kõik tunnused koheldakse karistamisel ühtviisi;
-- eesmärk: võimalikult hea prognoos.
-
-See on sobiv, kui:
-
-- huvi pakub eeskätt prognoositäpsus,
-- ei ole vaja täpseid usalduspiire mõjuhinnangutele,
-- modelleerime „must kast“ seoseid.
-
-## Teooriapõhine LASSO (rigorous LASSO, hdm::rlasso)
-
-Teooriapõhine LASSO (nt R-pakett hdm, funktsioon rlasso) valib $\lambda$ teoreetiliste piiride alusel, lähtudes:
-
-- vaatluste arvust $n$,
-- tunnuste arvust $p$,
-- vealiikme dispersiooni hinnangust,
-- võimalusest, et olemas on heteroskedastilisus.
-
-Eesmärk:
-
-- usaldusväärne järeldus põhjusliku seose kohta,
-- korrektsed usaldusvahemikud ja testid.
-
-Omadused:
-
-- $\lambda$ on tavaliselt suurem kui ristvalideerimisel, mudel konservatiivsem;
-- valib vähem tunnuseid (harvem üle-sobitamine);
-- standardvigade hinnangud on kohandatud heteroskedastilisuse suhtes.
-
-Teooriapõhine LASSO sobib kõige paremini mõju hindamise kontekstis, kus peamine on parameetri usaldusväärne järeldus, mitte pelgalt hea prognoos.
-
-# Prognoosimine versus mõju hindamine
-
-Prognoosimisel on mudeli kvaliteedi peamine kriteerium väike prognoosiviga (nt MSE testandmetel). Mõju hindamisel on oluline:
-
-- väike nihe huvipakkuva parameetri (nt ravi mõju) hinnangul,
-- korrektselt hinnatud standardvead ja usaldusvahemikud,
-- robustsus tunnuste valiku vigade ja üle-sobitamise suhtes.
-
-Ristvalideeritud LASSO võib valida liiga väikese $\lambda$:
-
-- prognoos võib olla küll väga täpne,
-- kuid mõju hinnang võib olla nihkes ja usaldusvahemikud liiga kitsad.
-
-Seetõttu kasutatakse mõju hindamisel teooriapõhist LASSOt ja spetsiaalseid konstruktsioone (jääkide meetod, topeltvalik, LASSOga IV), mis on teoreetiliselt õigustatud „sparse high-dimensional“ tingimustes.
-
-# Jääkliikmete meetod (partialling out)
-
-## FWL-teoreem ja residuaalne regressioon
-
-Võtame mudeli, kus huvi pakub ravi mõju:
-
-$$
-Y_i = \alpha D_i + X_i'\beta + u_i,
-$$
-
-kus $D_i$ on ravi (näiteks koolitus, ravimeede, poliitikameede) ja $X_i$ kontrolltunnuste vektor. Frisch–Waugh–Lovelli (FWL) teoreem ütleb, et OLS-hinnang $\hat{\alpha}$, mis saadakse ühisest regressioonist $Y$ peal $D$ ja $X$, võrdub järgmise kolmesammulise protseduuri tulemusena saadud hinnanguga:
-
-1. regresseeri $Y$ $X$-ile ja võta jäägid:
-   $$
-   \tilde{Y}_i = Y_i - \hat{\mathbb{E}}[Y_i \mid X_i];
-   $$
-2. regresseeri $D$ $X$-ile ja võta jäägid:
-   $$
-   \tilde{D}_i = D_i - \hat{\mathbb{E}}[D_i \mid X_i];
-   $$
-3. regresseeri $\tilde{Y}_i$ $\tilde{D}_i$-le OLS-iga:
-   $$
-   \tilde{Y}_i = \alpha \tilde{D}_i + \eta_i.
-   $$
-
-See tähendab, et oleme „partialiseerinud välja“ $X$-de mõju nii tulemuselt kui ravilt ja hindame seejärel seost nende jääkide vahel.
-
-## Tingimusliku sõltumatuse eeldus
-
-Mõju hindamisel eeldame sageli:
-
-$$
-(Y_i(0), Y_i(1)) \perp D_i \mid X_i
-$$
-
-(CIA – conditional independence assumption). Kui see eeldus kehtib ja $X_i$ vektor on piisavalt rikas, siis on ravi keskmine mõju identifitseeritud mudelis
-
-$$
-Y_i = \alpha D_i + X_i'\beta + u_i.
-$$
-
-Kui aga $X$-e on palju, ei sobi lihtne OLS kontrollimiseks. Jääkide meetod LASSOga asendab OLS-põhise regressiooni $Y$ ja $D$ peal prognoosimismudelitega, mis on hinnatud LASSO abil.
-
-## Jääkide meetod LASSOga: sammud
-
-Eeldame, et meil on:
-
-- $Y$ – tulemusmuutuja,
-- $D$ – ravi muutuja,
-- $X$ – suur hulk kandidaattunnuseid (võib olla $p > n$).
-
-Jääkide meetod LASSOga toimib järgmiselt.
-
-1. samm – $Y$ prognoosimine $X$-dega:
-
-$$
-\hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i] 
-\quad\text{LASSO abil,}
-$$
-
-näiteks:
-
-```{r}
-#| eval: false
-#| include: true
-library(hdm)
-lasso_y <- rlasso(X, y)
-mY_hat  <- predict(lasso_y, X)
-
-
+```{mermaid}
+flowchart LR
+    D["D"] --> Y["Y"]
 ```
 
+siis tähendab see, et (D) avaldab põhjuslikku mõju (Y)-le.
 
-## Jääkide meetod LASSOga: sammud
+Näiteks:
 
-Eeldame, et meil on:
+-   $D$ – osalemine tööturukoolitusel;
+-   $Y$ – hilisem palk.
 
-- \(Y\) – tulemusmuutuja,
-- \(D\) – ravi muutuja,
-- \(X\) – suur hulk kandidaattunnuseid (võib olla \(p > n\)).
+Nool
 
-Jääkide meetodi LASSOga idee on kasutada LASSOt selleks, et „välja võtta” \(X\)-de mõju nii \(Y\)-lt kui \(D\)-lt ja seejärel hinnata ravi mõju nende jääkide vahelise regressiooniga. See põhineb Frisch–Waugh–Lovelli teoreemil, mille kohaselt saab huvipakkuva ravi koefitsiendi \(\alpha\) leida regressioonist jääkide peal.
+$$ D \rightarrow Y $$
 
-### 1. samm – \(Y\) prognoosimine \(X\)-dega
+tähendab, et koolitus mõjutab palka.
 
-Kõigepealt prognoosime tulemusmuutujat \(Y\) kontrolltunnuste \(X\) abil LASSOga:
+## Otsene ja vahendatud mõju
 
-\[
-\hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i],
-\]
+Põhjuslik mõju võib olla otsene:
 
-ja leiame jäägid:
-
-\[
-\tilde{Y}_i = Y_i - \hat{m}_Y(X_i).
-\]
-
-R-is võiks see välja näha näiteks nii:
-
-
-```{r}
-#| eval: false
-#| include: true
-
-library(hdm)
-lasso_y <- rlasso(X, y)
-mY_hat  <- predict(lasso_y, X)
-tildeY  <- y - mY_hat
-
+```{mermaid}
+flowchart LR
+    D["Koolitus D"] --> Y["Palk Y"]
 ```
 
-Siin kasutab `rlasso` teooriapõhist (\lambda) valikut, mis sobib paremini mõju hindamiseks kui puhas ristvalideerimine.
+või vahendatud mõne teise muutuja kaudu:
 
-### 2. samm – (D) prognoosimine (X)-dega
-
-Järgmisena prognoosime ravi (D) samade kontrolltunnuste abil:
-
-[
-\hat{m}_D(X_i) = \hat{\mathbb{E}}[D_i \mid X_i],
-]
-
-ja leiame ravi jäägid:
-
-[
-\tilde{D}_i = D_i - \hat{m}_D(X_i).
-]
-
-R-is:
-
-```{r}
-#| eval: false
-#| include: true
-
-lasso_d <- rlasso(X, d)
-mD_hat  <- predict(lasso_d, X)
-tildeD  <- d - mD_hat
-
+```{mermaid}
+flowchart LR
+    D["Koolitus D"] --> M["Oskused M"] --> Y["Palk Y"]
 ```
 
-Kui (D) on binaarne (nt osales koolitusel vs ei osalenud), kasutab LASSO siin lineaarset tõenäosusmudelit; vajadusel saab kasutada ka logit/probit-mudeleid, kuid klassikalises hdm-raamistikus lähtutakse lineaarse regressiooni loogikast.
+Teises näites suurendab koolitus oskusi ja paremad oskused suurendavad omakorda palka.
 
-### 3. samm – mõju hindamine jääkide regressioonina
+DAG-is on oluline ka see, **milliseid nooli ei ole**. Kui kahe muutuja vahel noolt ei ole, siis väidame oma põhjuslikus mudelis, et üks ei põhjusta otseselt teist.
 
-Kolmandas sammus regressime jääktulemust (\tilde{Y}_i) jäigravi (\tilde{D}_i) peal:
+## Miks on DAG atsükliline?
 
-[
-\tilde{Y}_i = \alpha \tilde{D}_i + \eta_i.
-]
+DAG-i põhjuslikud nooled liiguvad ühes suunas. Graafis ei tohi tekkida tsüklit, kus põhjuslik rada jõuab tagasi samasse muutujasse.
 
-OLS-hinnang (\hat{\alpha}) on siin LASSO-põhise partialling out -meetodi hinnang ravi keskmisele mõjule (CATE või ATE sõltuvalt seadetest ja laiendustest).
+Näiteks võib tegelikus elus olla võimalik, et:
 
-R-is:
+1.  haridus suurendab palka;
+2.  suurem palk võimaldab hiljem omandada täiendavat haridust.
 
-```{r}
-#| eval: false
-#| include: true
+Seda ei kujutata ühe ja sama ajahetke tsüklina. Selle asemel eristatakse perioode:
 
-effect_lm <- lm(tildeY ~ tildeD)
-summary(effect_lm)
+```{mermaid}
+flowchart LR
+    E1["Haridus t"] --> W1["Palk t+1"] --> E2["Täiendav haridus t+2"]
 ```
 
-Paketis hdm saab kogu protseduuri teha ühe käsuga:
+Sellisel kujul liigub põhjuslikkus ajas edasi.
 
-```{r}
-#| eval: false
-#| include: true
+## Põhjuslik mõju ja võrdlusseisund
 
-lasso_effect <- rlassoEffect(x = X, y = y, d = d,
-                             method = "partialling out",
-                             post   = TRUE)
-summary(lasso_effect)
+Põhjusliku mõju idee eeldab kahe võimaliku olukorra võrdlemist.
+
+Näiteks:
+
+-   (D=1): inimene osales tööturukoolitusel;
+-   (D=0): sama inimene ei osalenud tööturukoolitusel.
+
+Soovime teada, kuidas erineks tema palk nendes kahes olukorras.
+
+Praktikas näeme ühe inimese puhul ainult ühte olukorda. Seetõttu vajame sobivat võrdlusgruppi ning eeldusi, mis võimaldavad käsitleda gruppide erinevust põhjusliku mõjuna.
+
+DAG aitab sõnastada, millised eeldused on selle võrdluse jaoks vajalikud.
+
+## Segaja ehk confounder
+
+Üks olulisemaid DAG-i mõisteid on **segaja** (*confounder*).
+
+Segaja on muutuja, mis mõjutab nii sekkumist (D) kui ka tulemust (Y).
+
+Oletame, et:
+
+-   $D$ – tööturukoolitus;
+-   $Y$ – palk;
+-   $X$ – eelnev haridus.
+
+Kõrgema haridusega inimesed võivad suurema tõenäosusega koolitusel osaleda ning neil võib olla ka kõrgem palk.
+
+```{mermaid}
+flowchart LR
+    X["Haridus X"] --> D["Koolitus D"]
+    X --> Y["Palk Y"]
+    D --> Y
 ```
 
-Siin:
+Siin on kaks rada (D) ja (Y) vahel.
 
-* `method = "partialling out"` ütleb, et kasutatakse jääkide meetodit;
-* `post = TRUE` tähendab, et lõplik regressioon tehakse Post-LASSO-na (tunnuste valiku järel OLS).
+Põhjuslik rada:
 
-Jääkide meetodi puhul on võtme-eeldus, et prognoosid (\hat{m}_Y(X_i)) ja (\hat{m}_D(X_i)) on piisavalt täpsed, ning et CIA (tingimuslik sõltumatus) kehtib: pärast (X)-de arvessevõttu ei ole ravi (D) korreleeritud potentsiaalsete tulemustega.
+$$ D \rightarrow Y $$
 
-## Topeltvaliku meetod (double selection)
+ja nn **tagauks** (*backdoor path*):
 
-### Motivatsioon
+$$ D \leftarrow X \rightarrow Y. $$
 
-Jääkide meetod eeldab kaudselt, et samad kontrollmuutujad (X) on olulised nii (Y) kui (D) jaoks, ning et LASSO valib need piisavalt hästi välja prognoosimissammudes. Praktikas võib juhtuda, et:
+Tagaukse kaudu tekkiv seos ei ole koolituse põhjuslik mõju. See tuleneb haridusest.
 
-* mõni tunnus mõjutab tugevalt ravi (D), kuid mõjutab (Y)-d vaid nõrgalt;
-* LASSO võib selle tunnuse välja jätta, kui prognoosime (Y)-d;
-* see võib omakorda tekitada nihet ravi mõju hinnangus, sest oluline konfundeeriv tunnus puudub.
+Kui võrdleme lihtsalt koolitusel osalenute ja mitteosalenute palku, segunevad kaks asja:
 
-Topeltvaliku meetod vähendab seda ohtu, kasutades LASSOt nii (Y)- kui (D)-võrrandi jaoks ja kombineerides tulemused.
+1.  koolituse tegelik mõju;
+2.  osalejate ja mitteosalejate erinev haridustase.
 
-### Sammud
+## Tagaukse sulgemine
 
-Algne mudel:
+Kui (X) on mõõdetav segaja, saame tagaukse sulgeda, võrreldes inimesi sama (X) väärtuse korral.
 
-[
-Y_i = \alpha D_i + X_i'\beta + u_i.
-]
+Praktikas võib seda teha näiteks:
 
-Topeltvaliku meetodi sammud:
+-   gruppides analüüsimisega;
+-   regressioonimudeliga;
+-   sobitamisega (*matching*);
+-   kaalumismeetoditega (*inverse probability weighting*).
 
-1. LASSO regressioon tulemuse jaoks:
+Näiteks regressioonis:
 
-   [
-   Y_i = X_i'\beta_Y + u_i.
-   ]
+$$ Y_i = \alpha + \beta D_i + \gamma X_i + \varepsilon\_i. $$
 
-   Valime tundede hulga:
+Kui DAG kirjeldab põhjuslikku protsessi õigesti ja vajalikud segajad on arvesse võetud, saab (\beta)-t tõlgendada (D) põhjusliku mõjuna (Y)-le.
 
-   [
-   \hat{S}*Y = { j : \hat{\beta}*{Y,j}^{\text{LASSO}} \neq 0 }.
-   ]
+## Simuleeritud näide: mõõdetav segaja
 
-2. LASSO regressioon ravi jaoks:
+Simuleerime olukorra, kus haridus mõjutab nii koolitusel osalemist kui ka palka.
 
-   [
-   D_i = X_i'\beta_D + v_i.
-   ]
-
-   Valime tundede hulga:
-
-   [
-   \hat{S}*D = { j : \hat{\beta}*{D,j}^{\text{LASSO}} \neq 0 }.
-   ]
-
-3. Ühendame tulemused:
-
-   [
-   \hat{S} = \hat{S}_Y \cup \hat{S}_D.
-   ]
-
-4. Hinnang Post-LASSO OLS-iga:
-
-   [
-   Y_i = \alpha D_i + X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
-   ]
-
-R-s:
+Tegelik koolituse mõju palgale on simulatsioonis ainult 5 ühikut.
 
 ```{r}
-#| eval: false
-#| include: true
+#| label: sim-confounder
 
-doublesel_effect <- rlassoEffect(x = X, y = y, d = d,
-                                 method = "double selection",
-                                 post   = TRUE)
-summary(doublesel_effect)
-```
+packages <- c("tidyverse", "broom")
 
-Topeltvaliku meetodi omadused:
+to_install <- packages[!packages %in% rownames(installed.packages())]
+if (length(to_install) > 0) {
+  install.packages(to_install)
+}
 
-* kaasab mudelisse nii tunnused, mis on olulised (Y) jaoks, kui need, mis on olulised (D) jaoks;
-* on robustsem ohu suhtes, et mõni oluline tunnus jääb ühe LASSO-sammu käigus välja;
-* tavaliselt toob mudelisse rohkem kontrollmuutujaid kui puhas partialling out;
-* standardvead võivad pisut suureneda (rohkem kontrolle), kuid nihe väheneb.
+library(tidyverse)
+library(broom)
 
-Intuitsioon: kui mingi (X_j) on oluline ravi (D) jaoks (vältimaks omistatavat seost (D)-le, mis tegelikult tuleneb (X_j)-st), siis jõuab see mudelisse vähemalt ravi-võrrandi kaudu, isegi kui (Y)-võrrandi LASSO teda ei valinud.
+set.seed(1632)
 
-## Instrumentmuutuja meetod LASSOga
-
-### Endogeensus ja IV-raamistik
-
-Kui ravi (D) on endogeenne, st (\mathbb{E}[u_i \mid D_i] \neq 0), siis ei ole lihtne kontrollmuutujate lisamine piisav. Kasutame instrumentmuutujat (Z), mis:
-
-* on korreleeritud ravi (D)-ga (relevantsus),
-* ei ole korreleeritud vealiikmega (u) (eksogeensus).
-
-Klassikaline IV-mudel:
-
-[
-Y_i = \alpha D_i + X_i'\beta + u_i,
-]
-[
-D_i = Z_i'\pi + X_i'\gamma + v_i.
-]
-
-Kui instrumente ja kontrolle on vähe, on standardne kaheastmeline väikseimate ruutude meetod (2SLS) piisav. Kui aga:
-
-* instrumente (Z) on palju (nt kõikvõimalikud interaktsioonid ja polünoomid),
-* kontrolle (X) on samuti palju,
-
-siis muutub klassikaline 2SLS ebastabiilseks. Siin tuleb appi LASSO, mis aitab valida olulised komponendid nii instrumentide kui kontrollide hulgast.
-
-### Jääkide meetod IV-kontekstis
-
-LASSOga IV-metoodika põhineb samal residualiseerimise ideel, kuid nüüd rakendame seda nii (Y), (D) kui ka (Z) suhtes.
-
-Üldised sammud:
-
-1. Residualiseeri (Y) kontrollide (X) suhtes:
-
-   [
-   \hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i], \quad
-   rY_i = Y_i - \hat{m}_Y(X_i).
-   ]
-
-2. Residualiseeri (D) kontrollide (X) suhtes:
-
-   [
-   \hat{m}_D(X_i) = \hat{\mathbb{E}}[D_i \mid X_i], \quad
-   rD_i = D_i - \hat{m}_D(X_i).
-   ]
-
-3. Residualiseeri (Z) kontrollide (X) suhtes:
-
-   [
-   \hat{m}_Z(X_i) = \hat{\mathbb{E}}[Z_i \mid X_i], \quad
-   rZ_i = Z_i - \hat{m}_Z(X_i).
-   ]
-
-   Kui instrumente on mitu, tehakse see iga komponendi jaoks eraldi.
-
-4. Rakenda IV regressiooni jääkide vahel:
-
-   * esimene samm: regressioon (rD) peal (rZ), mis loob prognoosi (r\hat{D});
-   * teine samm: regressioon (rY) peal (r\hat{D}).
-
-R-s võib käsitsi teostus välja näha selline:
-
-```{r}
-#| eval: false
-#| include: true
-
-library(hdm)
-library(AER)
-
-# eeldame, et AJR andmestikus on definitsioonid:
-# fmla.y, fmla.d, fmla.z sisaldavad Y, D ja Z sõltuvuse X-st
-
-rY <- rlasso(fmla.y, data = AJR)$res
-rD <- rlasso(fmla.d, data = AJR)$res
-rZ <- rlasso(fmla.z, data = AJR)$res
-
-iv_fit <- ivreg(rY ~ rD | rZ)
-summary(iv_fit)
-```
-
-Paketis hdm on olemas `rlassoIV`, mis teeb need etapid automaatselt:
-
-```{r}
-#| eval: false
-#| include: true
-
-AJR_IV <- rlassoIV(
-  GDP ~ Exprop + (Latitude + Latitude2 + Africa + Asia + Namer + Samer)^2 |
-    logMort + (Latitude + Latitude2 + Africa + Asia + Namer + Samer)^2,
-  data     = AJR,
-  select.X = TRUE,   # valida X LASSOga
-  select.Z = FALSE   # jätta instrument (logMort) ilma karistuseta
+tb <- tibble(
+  education = floor(runif(n = 1000, min = 9, max = 21)),
+  adulttraining = if_else(
+    2 * education + rnorm(1000) > 35,
+    1, 0
+  ),
+  wage = 1000 +
+    20 * education +
+    5 * adulttraining +
+    20 * rnorm(1000)
 )
 
-summary(AJR_IV)
+head(tb)
 ```
 
-Siin:
+Kõigepealt hindame mudeli, kus palk sõltub ainult koolitusest.
 
-* kontrolltunnused (X) sisaldavad erinevaid piirkonna tunnuseid, laiuse ruutu jms ja nende teisendeid;
-* LASSO valib välja olulised kontrollid, mis mõjutavad nii (Y) kui (D);
-* instrument logMort (asustajate suremus) jääb mudelisse ilma LASSO-karistuseta, sest teda käsitletakse „põhiinstrumendina“;
-* tulemuseks on hinnang (\hat{\alpha}), mis kirjeldab omandiõiguse kaitse (Exprop) mõju SKP-le (GDP), võttes arvesse kõrgedimensioonilisi kontrolle.
+```{r}
+lm_1 <- lm(wage ~ adulttraining, data = tb)
 
-### Millal kasutada LASSOga IV-lähenemist
+tidy(lm_1, conf.int = TRUE)
+```
 
-LASSOga IV-lähenemine sobib eriti siis, kui:
+See hinnang on nihkega, sest koolitusel osalejad on keskmiselt kõrgema haridusega.
 
-* instrumente ja kontrolle on palju, sh paljud võimalikud interaktsioonid ja polünoomid;
-* eeldame, et tegelik „tõeline“ mudel on hõre (sparse), st vaid väike osa tunnustest omab olulist mõju;
-* soovime teha ranget põhjuslikku järeldust, mitte ainult leida mõnda prognoosimudelit.
+Kontrollime seda otse:
 
-Oluline on:
+```{r}
+tb |>
+  group_by(adulttraining) |>
+  summarise(
+    n = n(),
+    average_education = mean(education),
+    average_wage = mean(wage)
+  )
+```
 
-* kasutada teooriapõhist (\lambda) valikut (nagu `rlasso` vaikeseaded),
-* kontrollida instrumentide tugevust (esimese sammu F-statistika jmt),
-* mitte tugineda ainult CV-põhisele glmnet-LASSOle, kui eesmärk on põhjuslik mõju.
+Nüüd lisame regressiooni hariduse.
 
-## Double machine learning ja laiendused
+```{r}
+lm_2 <- lm(wage ~ adulttraining + education, data = tb)
 
-Jääkide meetod ja topeltvalik on erijuhud üldisemast double machine learning (DML) raamistikust, kus:
+bind_rows(
+  tidy(lm_1, conf.int = TRUE) |>
+    mutate(model = "Ilma hariduseta"),
+  tidy(lm_2, conf.int = TRUE) |>
+    mutate(model = "Haridusega")
+) |>
+  filter(term == "adulttraining") |>
+  select(model, estimate, std.error, conf.low, conf.high)
+```
 
-* (Y)- ja (D)-seosed (X)-dega modelleeritakse masinõppega (LASSO, juhumetsad, boosting, närvivõrgud),
-* ravi mõju hinnatakse seejärel regressiooniga jääkide vahel,
-* andmed jagatakse sageli osadeks, et vähendada üle-sobitamise nihet (cross-fitting).
+Teise mudeli koolituse koefitsient peaks olema palju lähemal simulatsioonis ette antud tegelikule mõjule (5).
 
-Üldine idee:
+**Intuitsioon:** hariduse arvesse võtmisega võrdleme koolitusel osalenud ja mitteosalenud inimesi tingimusel, et nende haridustase on sama. Sellega sulgeme tagaukse
 
-1. Hinda mudelid (m_Y(x) \approx \mathbb{E}[Y \mid X=x]) ja (m_D(x) \approx \mathbb{E}[D \mid X=x]) masinõppe abil.
-2. Arvuta jäägid (\tilde{Y}_i = Y_i - \hat{m}_Y(X_i)) ja (\tilde{D}_i = D_i - \hat{m}_D(X_i)).
-3. Hinda (\alpha) regressioonis (\tilde{Y}_i = \alpha \tilde{D}_i + \eta_i).
+$$ D \leftarrow X \rightarrow Y. $$
 
-Cross-fitting’u korral:
+## Mittevaadeldav segaja
 
-* jagatakse andmed mitmeks osaks,
-* ühte osa kasutatakse prognoosimismudelite hindamiseks,
-* teist osa mõju hindamiseks,
-* seejärel keskmistatakse tulemused osade vahel.
+Keerulisem olukord tekib siis, kui segaja mõjutab nii sekkumist kui ka tulemust, kuid seda ei ole andmetes mõõdetud.
 
-See vähendab nihet, mis tekib, kui sama paindlik mudel kasutatakse korraga nii seose kui mõju hindamiseks.
+Näiteks:
 
-LASSO sobitub DML-raamistikku kui üks võimalik „nuisance“-mudelite (st (\hat{m}_Y, \hat{m}_D)) estimatsiooni meetod, mis on kiirem ja paremini mõistetav kui keerukamad musta kasti masinõppemudelid, kuid juba võimaldab kõrgedimensioonilist käsitlust.
+-   $D$ – tööturukoolitus;
+-   $Y$ – palk;
+-   $U$ – inimese võimekus.
 
-## Praktilised soovitused LASSO kasutamiseks mõju hindamisel
+```{mermaid}
+flowchart LR
+    U["Võimekus U"] --> D["Koolitus D"]
+    U --> Y["Palk Y"]
+    D --> Y
+```
 
-Kokkuvõtlikud juhised:
+Kui (U)-d ei mõõdeta, jääb tagauks
 
-* Kui eesmärk on prognoos:
+$$ D \leftarrow U \rightarrow Y $$
 
-  * kasuta ristvalideeritud LASSOt (näiteks `glmnet`),
-  * vali (\lambda) CV alusel,
-  * interpreteeri mudeleid pigem „must kast“ lähenemisena.
+avatuks.
 
-* Kui eesmärk on põhjuslik mõju:
+Sellisel juhul ei piisa tavalisest regressioonist, kuhu lisame ainult olemasolevad mõõdetud tunnused. Kui oluline segaja jääb puudu, võib hinnang olla nihkega.
 
-  * ära toetu ainult CV-LASSOle,
-  * kasuta teooriapõhist LASSOt (nt `hdm::rlasso`),
-  * kasuta kas:
+## Simuleeritud näide: mittevaadeldav segaja
 
-    * jääkliikmete meetodit (partialling out),
-    * topeltvalikut (double selection),
-    * või nende IV-varianti (`rlassoIV`).
+```{r}
+#| label: sim-unobserved-confounder
 
-* Jääkide meetod:
+set.seed(1632)
 
-  * efektiivsem, kui prognoosimismudelid (\hat{m}_Y) ja (\hat{m}_D) on täpsed;
-  * sobib hästi, kui tõesti usud, et LASSO leiab õiged seosed.
+tb_u <- tibble(
+  ability = rnorm(1000),
+  adulttraining = if_else(
+    2 * ability + rnorm(1000) > 0.75,
+    1, 0
+  ),
+  wage = 1000 +
+    100 * ability +
+    5 * adulttraining +
+    20 * rnorm(1000)
+)
 
-* Topeltvalik:
+lm_u <- lm(wage ~ adulttraining, data = tb_u)
 
-  * robustsem, kui seosed on nõrgad ja tunnuseid palju;
-  * kaasab mudelisse kõik (X)-d, mis on olulised kas (Y) või (D) jaoks;
-  * väldib olulise konfundeeriva tunnuse väljajätmist.
+tidy(lm_u, conf.int = TRUE)
+```
 
-* IV-kontextis:
+Kuigi tegelik koolituse mõju on jälle ainult 5, võib lihtne regressioon näidata palju suuremat seost.
 
-  * kasuta LASSOt kontrollide ja instrumentide komponentide valikuks,
-  * jäta peamised instrumendid karistamata (select.Z = FALSE),
-  * kontrolli instrumentide tugevust ja tõlgenda tulemusi teoreetilise raamistikuga kooskõlas.
+Põhjus on selles, et koolitusel osalemine kannab endas infot ka inimese võimekuse kohta.
+
+```{r}
+tb_u |>
+  group_by(adulttraining) |>
+  summarise(
+    average_ability = mean(ability),
+    average_wage = mean(wage)
+  )
+```
+
+See näide näitab, miks põhjuslik analüüs ei ole ainult regressioonimudeli hindamise tehnika küsimus. Vajame ka teadmisi selle kohta, millised olulised segajad võivad olemas olla.
+
+## Kollaider ehk põrguti
+
+Teine väga oluline DAG-i mõiste on **kollaider** (*collider*), mida selles kursuses nimetame ka **põrgutiks**.
+
+Kollaider on muutuja, mida põhjustavad kaks teist muutujat.
+
+```{mermaid}
+flowchart LR
+    D["D"] --> X["Kollaider X"]
+    Y["Y"] --> X
+```
+
+Siin on (X) kollaider, sest sinna suundub kaks noolt:
+
+$$ D \rightarrow X \leftarrow Y. $$
+
+Oluline erinevus segajast on järgmine:
+
+-   segaja puhul nooled **lähevad segajast välja**;
+-   kollaideri puhul nooled **tulevad kollaiderisse sisse**.
+
+## Miks ei tohi kollaiderit niisama kontrollida?
+
+Kollaideri rada on algselt suletud.
+
+Kui hakkame aga (X)-i arvestama, näiteks lisame selle regressioonimudelisse, võime tekitada (D) ja (Y) vahele kunstliku seose, mida seal ei ole.
+
+Seetõttu kehtib lihtne praktiline reegel:
+
+> Kõiki olemasolevaid kontrollmuutujaid ei ole mõistlik regressiooni lisada.
+
+Muutuja lisamine võib vähendada nihet, kuid mõnel juhul võib see hoopis nihet tekitada.
+
+## Simuleeritud näide: kollaiderist tekkiv nihe
+
+Kasutame lihtsat näidet:
+
+-   $D$ – haridus;
+-   $Y$ – palk;
+-   $X$ – abikaasa "skoor".
+
+Oletame, et inimese abikaasa valikut mõjutavad nii tema haridus kui ka palk.
+
+```{mermaid}
+flowchart LR
+    D["Haridus D"] --> Y["Palk Y"]
+    D --> X["Abikaasa skoor X"]
+    Y --> X
+```
+
+Siin on abikaasa skoor (X) kollaider.
+
+Simuleerime andmed.
+
+```{r}
+#| label: sim-collider
+
+set.seed(1632)
+
+tb_c <- tibble(
+  education = floor(runif(n = 1000, min = 9, max = 21)),
+  wage = 1000 + 10 * education + 50 * rnorm(1000),
+  spousescore = education + wage / 100 + 2 * rnorm(1000)
+)
+
+head(tb_c)
+```
+
+Tegelik hariduse mõju palgale on simulatsioonis 10 ühikut.
+
+Kõigepealt hindame õige lihtsa mudeli.
+
+```{r}
+lm_c1 <- lm(wage ~ education, data = tb_c)
+
+tidy(lm_c1, conf.int = TRUE)
+```
+
+Nüüd lisame mudelisse kollaideri `spousescore`.
+
+```{r}
+lm_c2 <- lm(wage ~ education + spousescore, data = tb_c)
+
+bind_rows(
+  tidy(lm_c1, conf.int = TRUE) |>
+    mutate(model = "Ilma kollaiderita"),
+  tidy(lm_c2, conf.int = TRUE) |>
+    mutate(model = "Kollaider mudelis")
+) |>
+  filter(term == "education") |>
+  select(model, estimate, std.error, conf.low, conf.high)
+```
+
+Hariduse koefitsient muutub, kuigi `spousescore` võib esmapilgul tunduda täiesti mõistliku kontrollmuutujana.
+
+Probleem on selles, et `spousescore` on ise hariduse ja palga tagajärg.
+
+Kui leiame selle järgi tingimusliku keskväärtuse, siis avame raja
+
+$$ D \rightarrow X \leftarrow Y. $$
+
+Seda nimetatakse **kollaiderinihkeks** (*collider bias*).
+
+## Segaja ja kollaideri võrdlus
+
+| Tunnus | Segaja (*confounder*) | Kollaider / põrguti (*collider*) |
+|------------------------|------------------------|------------------------|
+| Graafi kuju | (D \leftarrow X \rightarrow Y) | (D \rightarrow X \leftarrow Y) |
+| Mis roll on (X)-il? | $X$ põhjustab nii (D)-d kui (Y)-d | $D$ ja (Y) põhjustavad (X)-i |
+| Kas rada on algselt avatud? | Jah | Ei |
+| Kas (X)-i järgi tuleks tavaliselt tingida? | Jah | Ei |
+| Mis juhtub valesti käitudes? | Segamisest tulenev nihe jääb alles | Võime tekitada kollaiderinihke |
+
+Kõige olulisem on noole suund.
+
+Üks ja sama statistiline korrelatsioonitabel ei ütle meile, kas muutuja on segaja või kollaider. Selle määramiseks vajame teadmisi põhjusliku protsessi kohta.
+
+## Mida panna regressioonimudelisse?
+
+DAG-i vaatenurgast ei ole hea strateegia panna regressiooni automaatselt "kõik olemasolevad muutujad".
+
+Enne mudeli hindamist tasub küsida:
+
+1.  Milline on minu sekkumine (D)?
+2.  Milline on tulemus (Y)?
+3.  Millised muutujad põhjustavad nii (D)-d kui ka (Y)-d?
+4.  Kas nende kaudu on avatud tagauksi?
+5.  Millised muutujad on (D) või (Y) tagajärjed?
+6.  Kas mõni kontrollmuutuja on kollaider?
+
+Kui (X) on segaja:
+
+```{mermaid}
+flowchart LR
+    X["X"] --> D["D"]
+    X --> Y["Y"]
+    D --> Y
+```
+
+siis on (X)-i arvesse võtmine tavaliselt vajalik.
+
+Kui (X) on kollaider:
+
+```{mermaid}
+flowchart LR
+    D["D"] --> X["X"]
+    Y["Y"] --> X
+```
+
+siis võib (X)-i arvesse võtmine tekitada nihke.
+
+## DAG ja põhjusliku mõju identifitseerimine
+
+DAG aitab sõnastada **identifitseeriva eelduse** (*identifying assumption*).
+
+Lihtsa segaja näite puhul on idee järgmine:
+
+> Kui arvestame haridust, ei ole koolitusel osalejate ja mitteosalejate vahel enam muid selliseid erinevusi, mis mõjutaksid palka.
+
+See on tugev sisuline eeldus. Andmed ise ei tõesta tavaliselt, et kõik olulised segajad on mõõdetud.
+
+Seetõttu peab põhjuslik analüüs ühendama:
+
+-   teooria;
+-   institutsioonide tundmise;
+-   varasemad empiirilised uuringud;
+-   sobiva uuringudisaini;
+-   statistilise meetodi.
+
+DAG aitab need eeldused nähtavaks teha.
 
 ## Kokkuvõte
 
-Jääkliikmete meetod, topeltvalik ja LASSOga instrumentmuutuja meetod seovad masinõppe ja klassikalise ökonomeetria, et võimaldada usaldusväärset mõju hindamist kõrgedimensioonilistes seadetes. LASSO mängib seejuures kaht rolli:
+Suunatud atsükliline graaf ehk DAG on vahend põhjuslike eelduste kirjeldamiseks.
 
-* prognoosijana, mis aitab modelleerida keerulisi seoseid (Y) ja (D) ning instrumentide ja kontrollide vahel;
-* tunnuste valijana, mis vähendab mudeli mõõtmeid ja aitab vältida üle-sobitamist.
+Peamised mõtted on järgmised:
 
-Korrektse regulaarimisparameetri valiku (teooriapõhine (\lambda)) ning sobiva järeldusmetoodika (partialling out, double selection, IV) korral saame LASSO abil hinnata poliitikate ja sekkumiste põhjuslikke mõjusid ka olukorras, kus traditsioonilised ökonomeetrilised meetodid jäävad suurte tunnustehulkade ja multikollineaarsuse tõttu hätta.
+-   nool (D \rightarrow Y) tähistab põhjuslikku mõju;
+-   DAG-is liigub põhjuslikkus ühes suunas ja tsükleid ei ole;
+-   **segaja** (*confounder*) mõjutab nii sekkumist kui ka tulemust;
+-   segaja võib avada tagaukse (D \leftarrow X \rightarrow Y);
+-   mõõdetava segaja järgi tingimine võib tagaukse sulgeda;
+-   mittevaadeldav segaja võib põhjustada nihkega hinnangu;
+-   **kollaider ehk põrguti** (*collider*) on kahe muutuja ühine tagajärg;
+-   kollaideri kontrollimine võib avada varem suletud raja ja tekitada kollaiderinihke;
+-   põhjuslikus regressioonis ei ole eesmärk lisada võimalikult palju kontrollmuutujaid, vaid valida muutujad vastavalt põhjuslikule mudelile.
+
+Kõige olulisem küsimus enne regressiooni hindamist ei ole seega ainult
+
+> "Millised muutujad mul andmestikus olemas on?"
+
+vaid
+
+> "Milline põhjuslik roll on igal muutujal minu uurimisküsimuses?"

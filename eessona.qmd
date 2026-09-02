@@ -10,4 +10,4 @@ Me kasutame näidisandmetena järgmisi andmefaile:
 
 -   PIAAC uuringu avalikud andmefailid
 
--   Eesti Töötukassa anonümiseeritud näitefailid
+-   Eesti Töötukassa andmete põhjal tehtud simuleeritud andmetega näitefailid

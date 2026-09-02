@@ -101,15 +101,13 @@ Olgu
 
 $$
 p = \Pr(D_i = 1)
-$$ 
-osalenute osakaal populatsioonis. Siis on keskmine mõju populatsioonis (ATE) lihtsalt kaalutud keskmine mõjust osalenute (ATT) ja mitte-osalenute jaoks (ATU)
+$$ osalenute osakaal populatsioonis. Siis on keskmine mõju populatsioonis (ATE) lihtsalt kaalutud keskmine mõjust osalenute (ATT) ja mitte-osalenute jaoks (ATU)
 
 $$
 \text{ATE} = p \cdot \text{ATT} + (1 - p) \cdot \text{ATU}.
 $$
 
-ATT ja ATU võivad olla erinevad, kui mõju on erinev eri sotsiaaldemograafilistes rühmades (nn heterogeenne mõju). Näiteks kui põhiharidusega inimeste jaoks on tööturukoolituse efekt suurem kui kõrgharidusega inimeste jaoks, aga koolitust saanute seas on põhiharidusega inimesi suhteliselt enam, siis ongi ATT suurem kui ATU. 
-
+ATT ja ATU võivad olla erinevad, kui mõju on erinev eri sotsiaaldemograafilistes rühmades (nn heterogeenne mõju). Näiteks kui põhiharidusega inimeste jaoks on tööturukoolituse efekt suurem kui kõrgharidusega inimeste jaoks, aga koolitust saanute seas on põhiharidusega inimesi suhteliselt enam, siis ongi ATT suurem kui ATU.
 
 ## Näited ATE, ATT ja ATU tõlgendamisest
 
@@ -131,7 +129,6 @@ Tõlgendused:
     Kui palju oleks muutunud tootlikkus töötajatel, kes ei osalenud, kui nemad oleksid koolituse saanud?
 -   ATE:\
     Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv ettevõttes?
-
 
 ### Näide 2: Turunduskampaania
 
@@ -249,15 +246,13 @@ SUTVA on POM-i keskne eeldus: ilma selle kehtivuseta ei saa potentsiaalseid tule
 
 ## Sõltumatuse eeldus
 
-Sõltumatuse eeldus ( _independence assumption_ ) tähedab seda, et meetmes osalemine ei sõltu potentsiaalsetest tulemustest. 
-
+Sõltumatuse eeldus ( *independence assumption* ) tähedab seda, et meetmes osalemine ei sõltu potentsiaalsetest tulemustest.
 
 $$
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i
-$$
-Kõige lihtsam olukord on juhuslik eksperiment, kus meetmes osalemine määratakse loosiga. 
+$$ Kõige lihtsam olukord on juhuslik eksperiment, kus meetmes osalemine määratakse loosiga.
 
-Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu, toimub iseselektsioon ( _self-selection_ ), ning meedet pakkuvad töötajad võivad „koort riisuda” ( _cream skimming_ ), valides osalejateks motiveeritumaid või võimekamaid indiviide.
+Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas oma eeldatavat kasu, toimub iseselektsioon ( *self-selection* ), ning meedet pakkuvad töötajad võivad „koort riisuda” ( *cream skimming* ), valides osalejateks motiveeritumaid või võimekamaid indiviide.
 
 See on täidetud juhusliku eksperimendi korral. See võib olla osaliselt täidetud kui välised tegurid mõjutavad osalemist, nt seaduse muutused, COVID-19 vmt, kus inimene ise ei saa otsustada meetmes osalemist.
 
@@ -267,9 +262,7 @@ Potentsiaalne tulemus mitteosalemise korral:
 
 $$
 \mathbb{E}[Y_i^0 \mid D_i = 1] = \mathbb{E}[Y_i^0 \mid D_i = 0],
-$$
-ja potentsiaalne tulemus osalemise korral:
-
+$$ ja potentsiaalne tulemus osalemise korral:
 
 $$
 \mathbb{E}[Y_i^1 \mid D_i = 1] = \mathbb{E}[Y_i^1 \mid D_i = 0],
@@ -279,13 +272,11 @@ ja sellisel juhul annab lihtne keskmiste erinevus (SDO) keskmise oodatava mõju 
 
 $$
 \text{SDO} = \mathbb{E}[Y_i \mid D_i=1] - \mathbb{E}[Y_i \mid D_i=0] = \text{ATE}.
-$$
-Sellisel juhul puudub valikunihe ja nihe heterogeense mõju tõttu.
-
+$$ Sellisel juhul puudub valikunihe ja nihe heterogeense mõju tõttu.
 
 ## Tingimusliku sõltumatuse eeldus
 
-Tingimusliku sõltumatuse eeldus ( _conditional independence assumption_, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis osalemisotsus ei sõltu enam potentsiaalsetest tulemustest:
+Tingimusliku sõltumatuse eeldus ( *conditional independence assumption*, CIA) ütleb, et kui võtame arvesse jälgitavad tunnused (X), siis osalemisotsus ei sõltu enam potentsiaalsetest tulemustest:
 
 $$
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i \mid X_i.
@@ -316,10 +307,9 @@ $$
 
 See eeldus ütleb, et erinevused keskmistes potentsiaalsetes tulemustes kaovad osalus- ja võrdlusrühma vahel, kui vaatleme piisavalt kitsaid alamrühmi, ehkki jaotuste kujud võivad erineda. (Nt võib tinglik dispersioon olla erinev kahes rühmas.)
 
-
 ## Ühine tugi
 
-CIA praktiline rakendamine nõuab ühist tuge ( _common support_ ):
+CIA praktiline rakendamine nõuab ühist tuge ( *common support* ):
 
 $$
 0 < \Pr(D_i = 1 \mid X_i = x) < 1
@@ -348,16 +338,14 @@ Selitus:
 
 1.  jagame andmed (K) rühma X-vektori alusel (nt mehed, vanuses 40–60, kõrgharidusega; mehed, vanuses 40-60, keskharidusega jne);
 2.  igas rühmas võrdleme osalenute ja mitteosalenute keskmisi tulemusi;
-3.  võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute struktuur osalusrühmas. 
-(Analoogselt kasutame ATU jaoks kaaludena mitte-osalenute struktuuri.)
+3.  võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute struktuur osalusrühmas. (Analoogselt kasutame ATU jaoks kaaludena mitte-osalenute struktuuri.)
 
 See on mitteparametriline lähenemine CIA eelduse rakendamiseks. Praktikas kasutatakse sageli ka:
 
 -   regressioonimudeleid,
--   logistilist regressiooni osalemise tõenäosuse hindamiseks ja selle alusel sobitamisel (_propensity score matching_),
--   kaalumismeetodeid (_inverse probability weighting_),
+-   logistilist regressiooni osalemise tõenäosuse hindamiseks ja selle alusel sobitamisel (*propensity score matching*),
+-   kaalumismeetodeid (*inverse probability weighting*),
 -   või nende kombinatsioone.
-
 
 ## Muid statistikuid
 
@@ -365,7 +353,7 @@ See on mitteparametriline lähenemine CIA eelduse rakendamiseks. Praktikas kasut
 
 Sageli ei saa me kontrollida, kas indiviid tegelikult meetmes osales. Teame vaid, ainult, kas talle pakuti meedet. Näiteks Töötukassa pakub kollektiivse koondamise puhul ettevõtetele ja nende töötajatele teabe jagamiseks kohtumisi, sh uute võimalike tööandjatega. Aga me ei tea täpselt, kes koondatutest nendel üritusel käisid.
 
-Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist. ITT on defineeritud siis kui oodatav erinevus väljundis inimeste vahel, kellele pakuti meedet ja kellele ei pakutud meedet. 
+Olgu (Z_i) indikaator, kas indiviidile pakuti osalemist. ITT on defineeritud siis kui oodatav erinevus väljundis inimeste vahel, kellele pakuti meedet ja kellele ei pakutud meedet.
 
 $$
 \text{ITT} = \mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0].
@@ -384,11 +372,9 @@ $$
 = \frac{N_{\text{Tegelik osalejate arv meetmes}}}{N_{\text{Plaanitud osalejate arv}}}
 $$
 
-
-
 ### Lokaalne keskmine mõju (LATE)
 
-Instrumentmuutuja raamistikus saame määratleda lokaalse keskmise mõju ( _local average treatment effect_ - LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentmuutuja muutumise tõttu (compliers):
+Instrumentmuutuja raamistikus saame määratleda lokaalse keskmise mõju ( *local average treatment effect* - LATE) indiviididele, kes muudavad oma osalemiskäitumist instrumentmuutuja muutumise tõttu (compliers):
 
 $$
 \text{LATE}
@@ -415,7 +401,6 @@ CATE võimaldab uurida näiteks:
 -   kuidas sõltub mõju varasemast palgatasemest;
 -   millistele alarühmadele programm kõige rohkem kasu toob.
 
-
 CATE-t vaatame põhjalikumalt kausaalmetsa (causal forest) korral.
 
 ## Kokkuvõte
@@ -425,5 +410,3 @@ Potentsiaalse tulemuse mudel formaliseerib põhjusliku mõju mõiste, kirjeldade
 Lihtne keskmiste erinevus osalenute ja mitteosalenute vahel SDO on enamasti nihkes keskmise mõju jaoks valikunihke ja heterogeense mõju tõttu. Selleks, et anda põhjuslik tõlgendus, on vaja tugevaid eeldusi (nt juhuslik eksperiment) või realistlikumaid tingimuslikke eeldusi (CIA, ühine tugi) koos sobivate meetoditega (sobitamine, regressioonimudel, kaalumised).
 
 POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud asüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.
-
-
