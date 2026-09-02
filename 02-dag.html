@@ -283,15 +283,16 @@ window.Quarto = {
   <li><a href="#kollaider-ehk-põrguti" id="toc-kollaider-ehk-põrguti" class="nav-link" data-scroll-target="#kollaider-ehk-põrguti"><span class="header-section-number">3.11</span> Kollaider ehk põrguti</a></li>
   <li><a href="#miks-ei-tohi-kollaiderit-arvesse-võtta" id="toc-miks-ei-tohi-kollaiderit-arvesse-võtta" class="nav-link" data-scroll-target="#miks-ei-tohi-kollaiderit-arvesse-võtta"><span class="header-section-number">3.12</span> Miks ei tohi kollaiderit arvesse võtta?</a></li>
   <li><a href="#simuleeritud-näide-kollaiderist-tekkiv-nihe" id="toc-simuleeritud-näide-kollaiderist-tekkiv-nihe" class="nav-link" data-scroll-target="#simuleeritud-näide-kollaiderist-tekkiv-nihe"><span class="header-section-number">3.13</span> Simuleeritud näide: kollaiderist tekkiv nihe</a></li>
-  <li><a href="#segaja-ja-kollaideri-võrdlus" id="toc-segaja-ja-kollaideri-võrdlus" class="nav-link" data-scroll-target="#segaja-ja-kollaideri-võrdlus"><span class="header-section-number">3.14</span> Segaja ja kollaideri võrdlus</a></li>
+  <li><a href="#segaja-ja-põrguti-võrdlus" id="toc-segaja-ja-põrguti-võrdlus" class="nav-link" data-scroll-target="#segaja-ja-põrguti-võrdlus"><span class="header-section-number">3.14</span> Segaja ja põrguti võrdlus</a></li>
   <li><a href="#mida-panna-regressioonimudelisse" id="toc-mida-panna-regressioonimudelisse" class="nav-link" data-scroll-target="#mida-panna-regressioonimudelisse"><span class="header-section-number">3.15</span> Mida panna regressioonimudelisse?</a></li>
   <li><a href="#dag-ja-põhjusliku-mõju-identifitseerimine" id="toc-dag-ja-põhjusliku-mõju-identifitseerimine" class="nav-link" data-scroll-target="#dag-ja-põhjusliku-mõju-identifitseerimine"><span class="header-section-number">3.16</span> DAG ja põhjusliku mõju identifitseerimine</a></li>
-  <li><a href="#näiteid-ettevõtluse-valdkonnast" id="toc-näiteid-ettevõtluse-valdkonnast" class="nav-link" data-scroll-target="#näiteid-ettevõtluse-valdkonnast"><span class="header-section-number">3.17</span> Näiteid ettevõtluse valdkonnast</a>
+  <li><a href="#näide-ettevõtluse-valdkonnast" id="toc-näide-ettevõtluse-valdkonnast" class="nav-link" data-scroll-target="#näide-ettevõtluse-valdkonnast"><span class="header-section-number">3.17</span> Näide ettevõtluse valdkonnast</a>
   <ul class="collapse">
   <li><a href="#segaja-turunduskampaania-ja-müügitulu" id="toc-segaja-turunduskampaania-ja-müügitulu" class="nav-link" data-scroll-target="#segaja-turunduskampaania-ja-müügitulu">Segaja: turunduskampaania ja müügitulu</a></li>
   <li><a href="#põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi" id="toc-põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi" class="nav-link" data-scroll-target="#põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi">Põrguti: innovatsioon, kasumlikkus ja investorite huvi</a></li>
   </ul></li>
   <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">3.18</span> Kokkuvõte</a></li>
+  <li><a href="#lisa-seos-dag-i-struktuursete-võrrandite-mudeli-ja-kinnitava-faktoranalüüsi-vahel" id="toc-lisa-seos-dag-i-struktuursete-võrrandite-mudeli-ja-kinnitava-faktoranalüüsi-vahel" class="nav-link" data-scroll-target="#lisa-seos-dag-i-struktuursete-võrrandite-mudeli-ja-kinnitava-faktoranalüüsi-vahel"><span class="header-section-number">3.19</span> Lisa: Seos DAG-i, struktuursete võrrandite mudeli ja kinnitava faktoranalüüsi vahel</a></li>
   </ul>
 </nav>
     </div>
@@ -329,7 +330,7 @@ window.Quarto = {
 <ul>
 <li><span class="math inline">\(D\)</span> – sekkumine või poliitikameede;</li>
 <li><span class="math inline">\(Y\)</span> – tulemus;</li>
-<li><span class="math inline">\(X\)</span> – muu tunnus, mis võib mõjutada (D)-d, (Y)-d või mõlemat.</li>
+<li><span class="math inline">\(X\)</span> – muu tunnus, mis võib mõjutada <span class="math inline">\(D\)</span>-d, <span class="math inline">\(Y\)</span>-d või mõlemat.</li>
 </ul>
 </section>
 <section id="mis-on-dag" class="level2" data-number="3.2">
@@ -349,7 +350,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>siis tähendab see, et (D) avaldab põhjuslikku mõju (Y)-le.</p>
+<p>siis tähendab see, et <span class="math inline">\(D\)</span> avaldab põhjuslikku mõju <span class="math inline">\(Y\)</span>-le.</p>
 <p>Näiteks:</p>
 <ul>
 <li><span class="math inline">\(D\)</span> – osalemine tööturukoolitusel;</li>
@@ -431,7 +432,7 @@ window.Quarto = {
 <section id="segaja-ehk-confounder" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="segaja-ehk-confounder"><span class="header-section-number">3.6</span> Segaja ehk confounder</h2>
 <p>Üks olulisemaid DAG-i mõisteid on <strong>segaja</strong> (<em>confounder</em>).</p>
-<p>Segaja on muutuja, mis mõjutab nii sekkumist (D) kui ka tulemust (Y).</p>
+<p>Segaja on muutuja, mis mõjutab nii sekkumist <span class="math inline">\(D\)</span> kui ka tulemust <span class="math inline">\(Y\)</span>.</p>
 <p>Oletame, et:</p>
 <ul>
 <li><span class="math inline">\(D\)</span> – tööturukoolitus;</li>
@@ -454,7 +455,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Siin on kaks rada (D) ja (Y) vahel.</p>
+<p>Siin on kaks rada <span class="math inline">\(D\)</span> ja <span class="math inline">\(Y\)</span> vahel.</p>
 <p>Põhjuslik rada:</p>
 <p><span class="math display">\[ D \rightarrow Y \]</span></p>
 <p>ja nn <strong>tagauks</strong> (<em>backdoor path</em>):</p>
@@ -468,7 +469,7 @@ window.Quarto = {
 </section>
 <section id="tagaukse-sulgemine" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="tagaukse-sulgemine"><span class="header-section-number">3.7</span> Tagaukse sulgemine</h2>
-<p>Kui (X) on mõõdetav segaja, saame tagaukse sulgeda, võrreldes inimesi sama (X) väärtuse korral.</p>
+<p>Kui <span class="math inline">\(X\)</span> on mõõdetav segaja, saame tagaukse sulgeda, võrreldes inimesi sama <span class="math inline">\(X\)</span> väärtuse korral.</p>
 <p>Praktikas võib seda teha näiteks:</p>
 <ul>
 <li>gruppides analüüsimisega;</li>
@@ -476,16 +477,16 @@ window.Quarto = {
 <li>sobitamisega (<em>matching</em>);</li>
 <li>kaalumismeetoditega (<em>inverse probability weighting</em>).</li>
 </ul>
-<p>Näiteks regressioonis:</p>
+<p>Näiteks regressioonimudelis:</p>
 <p><span class="math display">\[ Y_i = \alpha + \beta D_i + \gamma X_i + \varepsilon_i \]</span></p>
-<p>Kui DAG kirjeldab põhjuslikku protsessi õigesti ja vajalikud segajad on arvesse võetud, saab ()-t tõlgendada (D) põhjusliku mõjuna (Y)-le.</p>
+<p>Kui DAG kirjeldab põhjuslikku protsessi õigesti ja vajalikud segajad on arvesse võetud, saab ()-t tõlgendada <span class="math inline">\(D\)</span> põhjusliku mõjuna <span class="math inline">\(Y\)</span>-le.</p>
 </section>
 <section id="simuleeritud-näide-mõõdetav-segaja" class="level2" data-number="3.8">
 <h2 data-number="3.8" class="anchored" data-anchor-id="simuleeritud-näide-mõõdetav-segaja"><span class="header-section-number">3.8</span> Simuleeritud näide: mõõdetav segaja</h2>
 <p>Simuleerime olukorra, kus haridus mõjutab nii koolitusel osalemist kui ka palka.</p>
 <p>Tegelik koolituse mõju palgale on simulatsioonis ainult 5 ühikut.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"broom"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"broom"</span>, <span class="st">"stargazer"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>to_install <span class="ot">&lt;-</span> packages[<span class="sc">!</span>packages <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())]</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(to_install) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
@@ -494,84 +495,109 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">education =</span> <span class="fu">floor</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">min =</span> <span class="dv">9</span>, <span class="at">max =</span> <span class="dv">21</span>)),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">adulttraining =</span> <span class="fu">if_else</span>(</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> <span class="sc">*</span> education <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>) <span class="sc">&gt;</span> <span class="dv">35</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1000</span> <span class="sc">+</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> education <span class="sc">+</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> <span class="sc">*</span> adulttraining <span class="sc">+</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tb)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">haridus =</span> <span class="fu">floor</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">min =</span> <span class="dv">9</span>, <span class="at">max =</span> <span class="dv">21</span>)),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">koolitus =</span> <span class="fu">if_else</span>(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> <span class="sc">*</span> haridus <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>) <span class="sc">&gt;</span> <span class="dv">35</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">palk =</span> <span class="dv">1000</span> <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> haridus <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> <span class="sc">*</span> koolitus <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tb)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
-  education adulttraining  wage
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;
-1        19             1 1384.
-2         9             0 1186.
-3        10             0 1159.
-4        12             0 1250.
-5        12             0 1228.
-6        20             1 1400.</code></pre>
+  haridus koolitus  palk
+    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1      19        1 1384.
+2       9        0 1186.
+3      10        0 1159.
+4      12        0 1250.
+5      12        0 1228.
+6      20        1 1400.</code></pre>
 </div>
 </div>
 <p>Kõigepealt hindame mudeli, kus palk sõltub ainult koolitusest.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> adulttraining, <span class="at">data =</span> tb)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(palk <span class="sc">~</span> koolitus, <span class="at">data =</span> tb)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#või kasuta modelsummary funktsiooni paketist modelsummary</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#modelsummary(lm1, gof_omit = c("AIC|RMSE|BIC|R2 Ad|Log.Lik."))</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>,<span class="at">keep.stat =</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"rsq"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 7
-  term          estimate std.error statistic   p.value conf.low conf.high
-  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)      1259.      1.84     685.  0            1255.     1263.
-2 adulttraining     121.      3.59      33.7 1.39e-166     114.      128.</code></pre>
+<pre><code>
+========================================
+                 Dependent variable:    
+             ---------------------------
+                        palk            
+----------------------------------------
+koolitus             120.799***         
+                       (3.589)          
+Constant            1,259.098***        
+                       (1.837)          
+----------------------------------------
+Observations            1,000           
+R2                      0.532           
+========================================
+Note:        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
 <p>See hinnang on nihkega, sest koolitusel osalejad on keskmiselt kõrgema haridusega.</p>
 <p>Kontrollime seda otse:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tb <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(adulttraining) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(koolitus) <span class="sc">|&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_education =</span> <span class="fu">mean</span>(education),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_wage =</span> <span class="fu">mean</span>(wage)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">keskmine_haridus =</span> <span class="fu">mean</span>(haridus),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">keskmine_palk =</span> <span class="fu">mean</span>(palk)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
-  adulttraining     n average_education average_wage
-          &lt;dbl&gt; &lt;int&gt;             &lt;dbl&gt;        &lt;dbl&gt;
-1             0   738              13.0        1259.
-2             1   262              18.8        1380.</code></pre>
+  koolitus     n keskmine_haridus keskmine_palk
+     &lt;dbl&gt; &lt;int&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+1        0   738             13.0         1259.
+2        1   262             18.8         1380.</code></pre>
 </div>
 </div>
 <p>Nüüd lisame regressioonimudelisse hariduse.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> adulttraining <span class="sc">+</span> education, <span class="at">data =</span> tb)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Ilma hariduseta"</span>),</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Haridusega"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"adulttraining"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, std.error, conf.low, conf.high)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(palk <span class="sc">~</span> koolitus <span class="sc">+</span> haridus, <span class="at">data =</span> tb)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm1, lm2, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>, <span class="at">keep.stat =</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"rsq"</span>), <span class="at">column.labels=</span> <span class="fu">c</span>(<span class="st">"Hariduseta"</span>, <span class="st">"Haridusega"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-  model           estimate std.error conf.low conf.high
-  &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 Ilma hariduseta   121.        3.59   114.       128. 
-2 Haridusega          5.96      2.21     1.62      10.3</code></pre>
+<pre><code>
+=========================================
+                 Dependent variable:     
+             ----------------------------
+                         palk            
+               Hariduseta    Haridusega  
+                  (1)            (2)     
+-----------------------------------------
+koolitus       120.799***     5.964***   
+                (3.589)        (2.214)   
+haridus                       19.763***  
+                               (0.283)   
+Constant      1,259.098***  1,001.460*** 
+                (1.837)        (3.769)   
+-----------------------------------------
+Observations     1,000          1,000    
+R2               0.532          0.920    
+=========================================
+Note:         *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#modelsummary(models = list(lm1,lm2), gof_omit = c("AIC|RMSE|BIC|R2 Ad|Log.Lik."))</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Teise mudeli koolituse koefitsient on palju lähemal simulatsioonis ette antud tegelikule mõjule (5).</p>
 <p><strong>Intuitsioon:</strong> hariduse arvesse võtmisega võrdleme koolitusel osalenud ja mitteosalenud inimesi tingimusel, et nende haridustase on sama. Sellega sulgeme tagaukse</p>
@@ -601,57 +627,67 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Kui (U)-d ei mõõdeta, jääb tagauks</p>
+<p>Kui <span class="math inline">\(U\)</span>-d ei mõõdeta, jääb tagauks</p>
 <p><span class="math display">\[ D \leftarrow U \rightarrow Y \]</span></p>
 <p>avatuks.</p>
-<p>Sellisel juhul ei piisa tavalisest regressioonist, kuhu lisame ainult olemasolevad mõõdetud tunnused. Kui oluline segaja jääb puudu, võib hinnang olla nihkega.</p>
+<p>Sellisel juhul ei piisa tavalisest regressioonmudelist, kuhu lisame ainult olemasolevad mõõdetud tunnused. Kui oluline segaja jääb puudu, võib hinnang olla nihkega.</p>
 </section>
 <section id="simuleeritud-näide-mittevaadeldav-segaja" class="level2" data-number="3.10">
 <h2 data-number="3.10" class="anchored" data-anchor-id="simuleeritud-näide-mittevaadeldav-segaja"><span class="header-section-number">3.10</span> Simuleeritud näide: mittevaadeldav segaja</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tb_u <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ability =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>),</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">adulttraining =</span> <span class="fu">if_else</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> <span class="sc">*</span> ability <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>) <span class="sc">&gt;</span> <span class="fl">0.75</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1000</span> <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span> <span class="sc">*</span> ability <span class="sc">+</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> <span class="sc">*</span> adulttraining <span class="sc">+</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>lm_u <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> adulttraining, <span class="at">data =</span> tb_u)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_u, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>tb_u <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">voimekus =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">koolitus =</span> <span class="fu">if_else</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> <span class="sc">*</span> voimekus <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>) <span class="sc">&gt;</span> <span class="fl">0.75</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">palk =</span> <span class="dv">1000</span> <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span> <span class="sc">*</span> voimekus <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> <span class="sc">*</span> koolitus <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>lmu <span class="ot">&lt;-</span> <span class="fu">lm</span>(palk <span class="sc">~</span> koolitus, <span class="at">data =</span> tb_u)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lmu, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>,<span class="at">keep.stat =</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"rsq"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 7
-  term          estimate std.error statistic   p.value conf.low conf.high
-  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)       947.      3.09     306.  0             941.      953.
-2 adulttraining     148.      4.98      29.8 7.06e-140     139.      158.</code></pre>
+<pre><code>
+========================================
+                 Dependent variable:    
+             ---------------------------
+                        palk            
+----------------------------------------
+koolitus             148.354***         
+                       (4.984)          
+Constant             946.780***         
+                       (3.092)          
+----------------------------------------
+Observations            1,000           
+R2                      0.470           
+========================================
+Note:        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
-<p>Kuigi tegelik koolituse mõju on jälle ainult 5, võib lihtne regressioon näidata palju suuremat seost.</p>
+<p>Kuigi tegelik koolituse mõju on 5, näitab regressioonimudel palju tugevamat seost.</p>
 <p>Põhjus on selles, et koolitusel osalemine kannab endas infot ka inimese võimekuse kohta.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tb_u <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(adulttraining) <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_ability =</span> <span class="fu">mean</span>(ability),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_wage =</span> <span class="fu">mean</span>(wage)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tb_u <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(koolitus) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">keskmine_voimekus =</span> <span class="fu">mean</span>(voimekus),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">keskmine_palk =</span> <span class="fu">mean</span>(palk)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
-  adulttraining average_ability average_wage
-          &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
-1             0          -0.543         947.
-2             1           0.924        1095.</code></pre>
+  koolitus keskmine_voimekus keskmine_palk
+     &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
+1        0            -0.543          947.
+2        1             0.924         1095.</code></pre>
 </div>
 </div>
-<p>See näide näitab, miks põhjuslik analüüs ei ole ainult regressioonimudeli hindamise tehnika küsimus. Vajame ka teadmisi selle kohta, millised olulised segajad võivad olemas olla.</p>
+<p>Põhjuslik analüüs ei ole ainult regressioonimudeli hindamise tehnika küsimus. Vajame ka teadmisi selle kohta, millised olulised segajad võivad olemas olla.</p>
 </section>
 <section id="kollaider-ehk-põrguti" class="level2" data-number="3.11">
 <h2 data-number="3.11" class="anchored" data-anchor-id="kollaider-ehk-põrguti"><span class="header-section-number">3.11</span> Kollaider ehk põrguti</h2>
@@ -671,7 +707,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Siin on (X) kollaider, sest sinna suundub kaks noolt:</p>
+<p>Siin on <span class="math inline">\(X\)</span> kollaider, sest sinna suundub kaks noolt:</p>
 <p><span class="math display">\[ D \rightarrow X \leftarrow Y. \]</span></p>
 <p>Oluline erinevus segajast on järgmine:</p>
 <ul>
@@ -682,7 +718,7 @@ window.Quarto = {
 <section id="miks-ei-tohi-kollaiderit-arvesse-võtta" class="level2" data-number="3.12">
 <h2 data-number="3.12" class="anchored" data-anchor-id="miks-ei-tohi-kollaiderit-arvesse-võtta"><span class="header-section-number">3.12</span> Miks ei tohi kollaiderit arvesse võtta?</h2>
 <p>Kollaideri rada on algselt suletud.</p>
-<p>Kui hakkame aga (X)-i arvestama, näiteks lisame selle regressioonimudelisse, võime tekitada (D) ja (Y) vahele kunstliku seose, mida seal ei ole.</p>
+<p>Kui hakkame aga <span class="math inline">\(X\)</span>-i arvestama, näiteks lisame selle regressioonimudelisse, võime tekitada <span class="math inline">\(D\)</span> ja <span class="math inline">\(Y\)</span> vahele kunstliku seose, mida seal ei ole.</p>
 <p>Seetõttu kehtib lihtne praktiline reegel:</p>
 <blockquote class="blockquote">
 <p>Kõiki olemasolevaid kontrollmuutujaid ei ole mõistlik regressiooni lisada.</p>
@@ -713,72 +749,88 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Siin on abikaasa skoor (X) kollaider.</p>
+<p>Siin on abikaasa skoor <span class="math inline">\(X\)</span> kollaider.</p>
 <p>Simuleerime andmed.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tb_c <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">education =</span> <span class="fu">floor</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">min =</span> <span class="dv">9</span>, <span class="at">max =</span> <span class="dv">21</span>)),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1000</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> education <span class="sc">+</span> <span class="dv">50</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">spousescore =</span> education <span class="sc">+</span> wage <span class="sc">/</span> <span class="dv">100</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tb_c)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>tb_c <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">haridus =</span> <span class="fu">floor</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">min =</span> <span class="dv">9</span>, <span class="at">max =</span> <span class="dv">21</span>)),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">palk =</span> <span class="dv">1000</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> haridus <span class="sc">+</span> <span class="dv">50</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">abikaasaskoor =</span> haridus <span class="sc">+</span> palk <span class="sc">/</span> <span class="dv">100</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tb_c)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
-  education  wage spousescore
-      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1        19 1152.        30.5
-2         9 1101.        20.7
-3        10 1117.        17.0
-4        12 1121.        24.2
-5        12 1101.        21.8
-6        20 1184.        31.3</code></pre>
+  haridus  palk abikaasaskoor
+    &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
+1      19 1152.          30.5
+2       9 1101.          20.7
+3      10 1117.          17.0
+4      12 1121.          24.2
+5      12 1101.          21.8
+6      20 1184.          31.3</code></pre>
 </div>
 </div>
 <p>Tegelik hariduse mõju palgale on simulatsioonis 10 ühikut.</p>
 <p>Kõigepealt hindame õige lihtsa mudeli.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lm_c1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> education, <span class="at">data =</span> tb_c)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_c1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lmc1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(palk <span class="sc">~</span> haridus, <span class="at">data =</span> tb_c)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lmc1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>,<span class="at">keep.stat =</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"rsq"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 7
-  term        estimate std.error statistic  p.value conf.low conf.high
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)    996.      6.85      145.  0          983.      1009. 
-2 education       10.3     0.458      22.5 3.69e-91     9.41      11.2</code></pre>
+<pre><code>
+========================================
+                 Dependent variable:    
+             ---------------------------
+                        palk            
+----------------------------------------
+haridus               10.309***         
+                       (0.458)          
+Constant             996.044***         
+                       (6.847)          
+----------------------------------------
+Observations            1,000           
+R2                      0.337           
+========================================
+Note:        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
-<p>Nüüd lisame mudelisse kollaideri <code>spousescore</code>.</p>
+<p>Nüüd lisame mudelisse kollaideri <code>abikaasaskoor</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lm_c2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> education <span class="sc">+</span> spousescore, <span class="at">data =</span> tb_c)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_c1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Ilma kollaiderita"</span>),</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(lm_c2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Kollaider mudelis"</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"education"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, std.error, conf.low, conf.high)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lmc2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(palk <span class="sc">~</span> haridus <span class="sc">+</span> abikaasaskoor, <span class="at">data =</span> tb_c)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lmc1, lmc2, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>, <span class="at">keep.stat =</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"rsq"</span>), <span class="at">column.labels =</span>  <span class="fu">c</span>(<span class="st">"Ilma põrgutita"</span>, <span class="st">"Põrguti mudelis"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-  model             estimate std.error conf.low conf.high
-  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 Ilma kollaiderita    10.3      0.458     9.41     11.2 
-2 Kollaider mudelis     4.47     0.907     2.69      6.25</code></pre>
+<pre><code>
+============================================
+                   Dependent variable:      
+              ------------------------------
+                           palk             
+              Ilma põrgutita Põrguti mudelis
+                   (1)             (2)      
+--------------------------------------------
+haridus         10.309***       4.474***    
+                 (0.458)         (0.907)    
+abikaasaskoor                   5.360***    
+                                 (0.726)    
+Constant        996.044***     942.456***   
+                 (6.847)         (9.857)    
+--------------------------------------------
+Observations      1,000           1,000     
+R2                0.337           0.371     
+============================================
+Note:            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
-<p>Hariduse koefitsient muutub, kuigi <code>spousescore</code> võib esmapilgul tunduda täiesti mõistliku kontrollmuutujana.</p>
-<p>Probleem on selles, et <code>spousescore</code> on ise hariduse ja palga tagajärg.</p>
-<p>Kui leiame selle järgi tingimusliku keskväärtuse, siis avame raja</p>
+<p>Hariduse mõju koefitsient muutub, kuigi <code>abikaasaskoor</code> võib esmapilgul tunduda täiesti mõistliku kontrollmuutujana.</p>
+<p>Probleem on selles, et <code>abikaasaskoor</code> on ise inimese hariduse ja palga tulemus.</p>
+<p>Kui leiame selle järgi tingimusliku keskväärtuse, siis hoopis avame raja</p>
 <p><span class="math display">\[ D \rightarrow X \leftarrow Y. \]</span></p>
-<p>Seda nimetatakse <strong>kollaiderinihkeks</strong> (<em>collider bias</em>).</p>
+<p>Seda nimetatakse <strong>põrgutinihkeks / kollaiderinihkeks</strong> (<em>collider bias</em>).</p>
 </section>
-<section id="segaja-ja-kollaideri-võrdlus" class="level2" data-number="3.14">
-<h2 data-number="3.14" class="anchored" data-anchor-id="segaja-ja-kollaideri-võrdlus"><span class="header-section-number">3.14</span> Segaja ja kollaideri võrdlus</h2>
+<section id="segaja-ja-põrguti-võrdlus" class="level2" data-number="3.14">
+<h2 data-number="3.14" class="anchored" data-anchor-id="segaja-ja-põrguti-võrdlus"><span class="header-section-number">3.14</span> Segaja ja põrguti võrdlus</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -789,7 +841,7 @@ window.Quarto = {
 <tr class="header">
 <th>Tunnus</th>
 <th>Segaja (<em>confounder</em>)</th>
-<th>Kollaider / põrguti (<em>collider</em>)</th>
+<th>Põrguti (<em>collider</em>)</th>
 </tr>
 </thead>
 <tbody>
@@ -799,7 +851,7 @@ window.Quarto = {
 <td><span class="math inline">\(D \rightarrow X \leftarrow Y\)</span></td>
 </tr>
 <tr class="even">
-<td>Mis roll on (X)-il?</td>
+<td>Mis roll on <span class="math inline">\(X\)</span>-il?</td>
 <td><span class="math inline">\(X\)</span> põhjustab nii <span class="math inline">\(D\)</span>-d kui <span class="math inline">\(Y\)</span>-d</td>
 <td><span class="math inline">\(D\)</span> ja <span class="math inline">\(Y\)</span> põhjustavad <span class="math inline">\(X\)</span>-i</td>
 </tr>
@@ -821,21 +873,21 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Kõige olulisem on noole suund.</p>
-<p>Üks ja sama statistiline korrelatsioonitabel ei ütle meile, kas muutuja on segaja või kollaider. Selle määramiseks vajame teadmisi põhjusliku protsessi kohta.</p>
+<p>Üks ja sama statistiline korrelatsioonitabel ei ütle meile, kas muutuja on segaja või põrguti. Selle määramiseks vajame teadmisi põhjusliku protsessi kohta.</p>
 </section>
 <section id="mida-panna-regressioonimudelisse" class="level2" data-number="3.15">
 <h2 data-number="3.15" class="anchored" data-anchor-id="mida-panna-regressioonimudelisse"><span class="header-section-number">3.15</span> Mida panna regressioonimudelisse?</h2>
 <p>DAG-i vaatenurgast ei ole hea strateegia panna regressiooni automaatselt “kõik olemasolevad muutujad”.</p>
 <p>Enne mudeli hindamist tasub küsida:</p>
 <ol type="1">
-<li>Milline on minu sekkumine (D)?</li>
-<li>Milline on tulemus (Y)?</li>
-<li>Millised muutujad põhjustavad nii (D)-d kui ka (Y)-d?</li>
+<li>Milline on minu sekkumine <span class="math inline">\(D\)</span>?</li>
+<li>Milline on tulemus <span class="math inline">\(Y\)</span>?</li>
+<li>Millised muutujad põhjustavad nii <span class="math inline">\(D\)</span>-d kui ka <span class="math inline">\(Y\)</span>-d?</li>
 <li>Kas nende kaudu on avatud tagauksi?</li>
-<li>Millised muutujad on (D) või (Y) tagajärjed?</li>
+<li>Millised muutujad on <span class="math inline">\(D\)</span> või <span class="math inline">\(Y\)</span> tagajärjed?</li>
 <li>Kas mõni kontrollmuutuja on kollaider?</li>
 </ol>
-<p>Kui (X) on segaja:</p>
+<p>Kui <span class="math inline">\(X\)</span> on segaja:</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -851,8 +903,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>siis on (X)-i arvesse võtmine tavaliselt vajalik.</p>
-<p>Kui (X) on kollaider:</p>
+<p>siis on <span class="math inline">\(X\)</span>-i arvesse võtmine tavaliselt vajalik.</p>
+<p>Kui <span class="math inline">\(X\)</span> on kollaider:</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -867,7 +919,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>siis võib (X)-i arvesse võtmine tekitada nihke.</p>
+<p>siis võib <span class="math inline">\(X\)</span>-i arvesse võtmine tekitada nihke.</p>
 </section>
 <section id="dag-ja-põhjusliku-mõju-identifitseerimine" class="level2" data-number="3.16">
 <h2 data-number="3.16" class="anchored" data-anchor-id="dag-ja-põhjusliku-mõju-identifitseerimine"><span class="header-section-number">3.16</span> DAG ja põhjusliku mõju identifitseerimine</h2>
@@ -887,8 +939,8 @@ window.Quarto = {
 </ul>
 <p>DAG aitab need eeldused nähtavaks teha.</p>
 </section>
-<section id="näiteid-ettevõtluse-valdkonnast" class="level2" data-number="3.17">
-<h2 data-number="3.17" class="anchored" data-anchor-id="näiteid-ettevõtluse-valdkonnast"><span class="header-section-number">3.17</span> Näiteid ettevõtluse valdkonnast</h2>
+<section id="näide-ettevõtluse-valdkonnast" class="level2" data-number="3.17">
+<h2 data-number="3.17" class="anchored" data-anchor-id="näide-ettevõtluse-valdkonnast"><span class="header-section-number">3.17</span> Näide ettevõtluse valdkonnast</h2>
 <section id="segaja-turunduskampaania-ja-müügitulu" class="level3">
 <h3 class="anchored" data-anchor-id="segaja-turunduskampaania-ja-müügitulu">Segaja: turunduskampaania ja müügitulu</h3>
 <p>Oletame, et soovime hinnata, kas <strong>turunduskampaania</strong> suurendab ettevõtte müügitulu.</p>
@@ -898,7 +950,7 @@ window.Quarto = {
 <li><span class="math inline">\(X\)</span> – ettevõtte turunduseelarve või üldine ressursside tase.</li>
 </ul>
 <p>Suuremate ressurssidega ettevõtted teevad tõenäolisemalt turunduskampaaniaid. Samal ajal võivad suuremad ressursid ka ilma kampaaniata suurendada ettevõtte müügitulu.</p>
-<p>Seega mõjutab <span class="math inline">\(X\)</span> nii <span class="math inline">\(D\)</span>-d kui ka <span class="math inline">\(Y\)</span>-d ning on <strong>segaja</strong> (<em>confounder</em>).</p>
+<p>Seega mõjutab <span class="math inline">\(X\)</span> nii <span class="math inline">\(D\)</span>-d kui ka <span class="math inline">\(Y\)</span>-d ning on <strong>segaja</strong>.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -920,7 +972,7 @@ window.Quarto = {
 </section>
 <section id="põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi" class="level3">
 <h3 class="anchored" data-anchor-id="põrguti-innovatsioon-kasumlikkus-ja-investorite-huvi">Põrguti: innovatsioon, kasumlikkus ja investorite huvi</h3>
-<p>Oletame nüüd, et soovime hinnata, kas <strong>innovaatilise toote turuletoomine</strong> suurendab ettevõtte kasumlikkust.</p>
+<p>Oletame nüüd, et soovime hinnata, kas innovaatilise toote turuletoomine suurendab ettevõtte kasumlikkust.</p>
 <ul>
 <li><span class="math inline">\(D\)</span> – innovaatilise toote turuletoomine;</li>
 <li><span class="math inline">\(Y\)</span> – ettevõtte kasumlikkus;</li>
@@ -943,34 +995,33 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Muutuja <span class="math inline">\(C\)</span> on siin <strong>põrguti ehk kollaider</strong> (<em>collider</em>), sest kaks noolt suunduvad sellesse.</p>
-<p>Kui me <span class="math inline">\(C\)</span>-d analüüsis <strong>ei arvesta</strong>, on see rada suletud.</p>
-<p>Kui aga piirame valimi näiteks ainult ettevõtetega, kes said investoritelt rahastuse, või lisame investorite huvi kontrollmuutujana regressiooni, siis tingime põrguti <span class="math inline">\(C\)</span> peal.</p>
-<p>See võib avada kunstliku seose <span class="math inline">\(D\)</span> ja <span class="math inline">\(Y\)</span> vahel ning põhjustada <strong>põrgutinihke</strong> (<em>collider bias</em>).</p>
-<p>Näiteks rahastuse saanud ettevõtete hulgas võib olla:</p>
+<p>Muutuja <span class="math inline">\(C\)</span> on siin põrguti, sest kaks noolt suunduvad sellesse.</p>
+<p>Kui me <span class="math inline">\(C\)</span>-d analüüsis ei arvesta, on see rada suletud ja kõik on korras.</p>
+<p>Kui aga piirame valimi näiteks ainult ettevõtetega, kes said investoritelt rahastuse, või lisame investorite huvi kontrollmuutujana otse regressiooni, siis on meil <span class="math inline">\(C\)</span> arvesse võetud ja saame nihkega hinnangu innovaatilise toote ja kasumlikkuse vahel olevale seosele.</p>
+<p>Näiteks investorite rahastuse saanud ettevõtete hulgas võib olla:</p>
 <ul>
 <li>innovaatilisi ettevõtteid, mille kasumlikkus ei ole veel kõrge;</li>
 <li>väga kasumlikke ettevõtteid, mille innovatsioonitase on madalam.</li>
 </ul>
-<p>Kui vaatame ainult rahastuse saanud ettevõtteid, võib innovatsiooni ja kasumlikkuse vahel tekkida seos, mida üldkogumis sellisel kujul ei ole.</p>
+<p>Kui vaatame ainult rahastuse saanud ettevõtteid, võib innovatsiooni ja kasumlikkuse vahel tekkida seos (negatiivne (!)), mida üldkogumis sellisel kujul ei ole.</p>
 </section>
 </section>
 <section id="kokkuvõte" class="level2" data-number="3.18">
 <h2 data-number="3.18" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">3.18</span> Kokkuvõte</h2>
 <p>Suunatud atsükliline graaf ehk DAG on vahend põhjuslike eelduste kirjeldamiseks.</p>
-<p>Peamised mõtted on järgmised:</p>
+<p>Meeldes pidada:</p>
 <ul>
-<li>nool (D Y) tähistab põhjuslikku mõju;</li>
+<li>nool <span class="math inline">\(D \rightarrow Y\)</span> tähistab põhjuslikku mõju;</li>
 <li>DAG-is liigub põhjuslikkus ühes suunas ja tsükleid ei ole;</li>
 <li><strong>segaja</strong> (<em>confounder</em>) mõjutab nii sekkumist kui ka tulemust;</li>
-<li>segaja võib avada tagaukse (D X Y);</li>
-<li>mõõdetava segaja järgi tingimine võib tagaukse sulgeda;</li>
-<li>mittevaadeldav segaja võib põhjustada nihkega hinnangu;</li>
+<li>segaja võib avada tagaukse <span class="math inline">\(D \leftarrow X \rightarrow Y\)</span>;</li>
+<li>mõõdetava segaja arvesse võtmine sulgeb tagaukse;</li>
+<li>mittevaadeldav segaja, mida ei saa arvestada, võib põhjustada nihkega hinnangu;</li>
 <li><strong>kollaider ehk põrguti</strong> (<em>collider</em>) on kahe muutuja ühine tagajärg;</li>
-<li>kollaideri kontrollimine võib avada varem suletud raja ja tekitada kollaiderinihke;</li>
-<li>põhjuslikus regressioonis ei ole eesmärk lisada võimalikult palju kontrollmuutujaid, vaid valida muutujad vastavalt põhjuslikule mudelile.</li>
+<li>põrguti lisamine mudelisse võib avada varem suletud raja ja hoopis tekitada nihke (<em>collider bias</em>);</li>
+<li>regressioonimudelis, millega soovitakse hinnata põhjuslikke seoseid, ei ole eesmärk lisada võimalikult palju kontrollmuutujaid, vaid valida muutujad vastavalt põhjuslikule mudelile.</li>
 </ul>
-<p>Kõige olulisem küsimus enne regressiooni hindamist ei ole seega ainult</p>
+<p>Kõige olulisem küsimus enne regressioonimudeli hindamist ei ole seega ainult</p>
 <blockquote class="blockquote">
 <p>“Millised muutujad mul andmestikus olemas on?”</p>
 </blockquote>
@@ -978,7 +1029,125 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>“Milline põhjuslik roll on igal muutujal minu uurimisküsimuses?”</p>
 </blockquote>
-<p>Peamine õppetund on, et põhjuslikus analüüsis ei ole hea reegel panna regressiooni võimalikult palju kontrollmuutujaid. Kõigepealt tuleb mõelda, <strong>milline põhjuslik roll igal muutujal on</strong>.</p>
+<p>Põhjuslikus analüüsis ei ole hea reegel panna regressioonimudelisse võimalikult palju kontrollmuutujaid. Kõigepealt tuleb mõelda, milline põhjuslik roll igal muutujal on.</p>
+</section>
+<section id="lisa-seos-dag-i-struktuursete-võrrandite-mudeli-ja-kinnitava-faktoranalüüsi-vahel" class="level2" data-number="3.19">
+<h2 data-number="3.19" class="anchored" data-anchor-id="lisa-seos-dag-i-struktuursete-võrrandite-mudeli-ja-kinnitava-faktoranalüüsi-vahel"><span class="header-section-number">3.19</span> Lisa: Seos DAG-i, struktuursete võrrandite mudeli ja kinnitava faktoranalüüsi vahel</h2>
+<p>Lisaks DAGile kasutavad muutujate ja nendevaheliste seoste kirjeldamiseks graafilist esitusviisi ka <strong>struktuursete võrrandite mudelid</strong> (<em>structural equation models, SEM</em>) ja <strong>kinnitav faktoranalüüs</strong> (<em>confirmatory factor analysis, CFA</em>). Tunnuseid kujutatakse sõlmedena ning nendevahelisi seoseid nooltena. Noolte tähendus ei ole siiski kõigis kolmes lähenemises päris sama.</p>
+<p>DAG kirjeldab eelkõige meie <strong>põhjuslikke eeldusi</strong>. Kui graafis on nool, siis väidame, et <code>X</code> võib otseselt mõjutada <code>Y</code>-d.&nbsp;Sama mõtet saab väljendada struktuurse võrrandiga:</p>
+<p><span class="math display">\[
+Y = \beta X + \varepsilon_Y.
+\]</span></p>
+<p>Kui meil on näiteks DAG</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    X["X"] --&gt; D["D"]
+    X --&gt; Y["Y"]
+    D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>siis sellele võib vastata võrrandisüsteem:</p>
+<p><span class="math display">\[
+D = \alpha_0 + \alpha_1 X + \varepsilon_D,
+\]</span></p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 D + \beta_2 X + \varepsilon_Y
+\]</span></p>
+<p>Seega võib DAG-i vaadelda kui struktuursete võrrandite süsteemi <strong>graafilist kirjeldust</strong>: iga muutuja sõltub oma graafis olevatest „vanematest” (<em>parents</em>). DAG ise ei ütle tavaliselt, kas seos on lineaarne, kui suur on koefitsient või milline on vealiikme jaotus. SEM lisab nendele nooltele funktsionaalse kuju ja hinnatavad parameetrid. Selline seos DAG-ide ja struktuursete võrrandite vahel on ka tänapäevase strukturaalse põhjusmudeli (<em>structural causal model</em>) üks aluseid.</p>
+<p>Oluline on siiski terminoloogiline erinevus. Mitte iga tavapärane SEM ei ole automaatselt põhjuslik mudel. SEM-i diagrammis võib nool tähistada regressiooniseost, mille põhjuslik tõlgendus sõltub samamoodi sisulistest eeldustest nagu tavalise regressiooni puhul. Lisaks kasutatakse SEM-is sageli kahesuunalisi nooli kovariatsioonide ja omavahel korreleeritud vigade tähistamiseks; puhtas DAG-is kasutatakse ainult suunatud nooli ja tsükleid ei ole.</p>
+<p>Näide Anneli Kaasa (2003) doktoritööst “Sissetulekute ebavõrdsuse mõjurite analüüs struktuurse modelleerimise meetodil”</p>
+<div id="fig-sem" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/AnneliKaasa_SEM.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Joonis&nbsp;3.1: Struktuursete võrrandite mudeli näide
+</figcaption>
+</figure>
+</div>
+<p><strong>Kinnitav faktoranalüüs (CFA)</strong> on SEM-i mõõtemudeli erijuht. CFA-d kasutatakse siis, kui mingi mõiste ei ole otseselt mõõdetav. Sellist tunnust nimetatakse <strong>latentseks muutujaks</strong>. (Nähtus on olemas, aga me ei saa otse mõõta vaid kaudselt teiste näitajate abil.)</p>
+<p>Näiteks ettevõtte või inimese „ettevõtlikku orientatsiooni” ei saa ühe arvuga otseselt vaadelda. Seda võib mõõta mitme küsimuse või indikaatori abil:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    EO(("Ettevõtlik orientatsioon")) --&gt; I["Innovaatilisus"]
+    EO --&gt; R["Riskivalmidus"]
+    EO --&gt; P["Proaktiivsus"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>CFA mõõtemudelis võib näiteks esimese indikaatori võrrand olla</p>
+<p><span class="math display">\[
+I = \lambda_1 EO + \varepsilon_I
+\]</span></p>
+<p>ning analoogselt teiste indikaatorite puhul. Koefitsienti <code>lambda</code> nimetatakse <strong>faktorlaadungiks</strong> (<em>factor loading</em>).</p>
+<p>CFA puhul tähistab nool eelkõige seda, <strong>kuidas latentset konstrukti mõõdetakse</strong>. Seda noolt ei tohiks automaatselt tõlgendada samamoodi nagu poliitikameetme põhjuslikku mõju DAG-is. CFA kontrollib, kas andmed sobivad uurija poolt eelnevalt määratud faktorstruktuuriga. SEM võib seejärel ühendada mõõtemudeli ja latentsete või vaadeldavate muutujate vahelise struktuurse mudeli.</p>
+<p><strong>Sarnasused ja erinevused</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>DAG</th>
+<th>SEM</th>
+<th>CFA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kasutab tunnuseid ja nooli</td>
+<td>jah</td>
+<td>jah</td>
+<td>jah</td>
+</tr>
+<tr class="even">
+<td>Põhieesmärk</td>
+<td>põhjuslike eelduste kirjeldamine ja identifitseerimine</td>
+<td>mitme võrrandi/seose samaaegne modelleerimine</td>
+<td>latentsete tunnuste mõõtemudeli kontrollimine</td>
+</tr>
+<tr class="odd">
+<td>Latentsed muutujad</td>
+<td>võimalikud, enamasti väljas</td>
+<td>väga tavalised</td>
+<td>keskne osa</td>
+</tr>
+<tr class="even">
+<td>Nool tähendab</td>
+<td>põhjuslikku eeldust</td>
+<td>regressiooni- või struktuurset seost; põhjuslikkus vajab lisaeeldusi</td>
+<td>faktorlaadungit ehk mõõtmisseost</td>
+</tr>
+<tr class="odd">
+<td>Kahesuunalised nooled</td>
+<td>ei kuulu tavalisse DAG-i</td>
+<td>kasutatakse kovariatsioonide jaoks</td>
+<td>kasutatakse faktorite või vigade kovariatsioonide jaoks</td>
+</tr>
+</tbody>
+</table>
+<p>Seega on DAG ja SEM lähedased sugulased, kuid nende eesmärk on erinev. DAG keskendub küsimusele, milline põhjuslik struktuur peab kehtima, et mõju oleks identifitseeritav. SEM lisab graafile hinnatavad võrrandid ning võimaldab töötada latentsete muutujatega. CFA on omakorda SEM-i osa, mis keskendub küsimusele, kuidas latentseid mõisteid vaadeldavate tunnuste abil mõõta.</p>
+<!-- ## Kasutatud kirjandus -->
 
 
 </section>
