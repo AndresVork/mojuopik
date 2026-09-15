@@ -267,13 +267,14 @@ window.Quarto = {
     <h2 id="toc-title">Sisukord</h2>
    
   <ul>
-  <li><a href="#mudeli-seade" id="toc-mudeli-seade" class="nav-link active" data-scroll-target="#mudeli-seade"><span class="header-section-number">5.1</span> Mudeli seade</a>
+  <li><a href="#sissejuhatus" id="toc-sissejuhatus" class="nav-link active" data-scroll-target="#sissejuhatus"><span class="header-section-number">5.1</span> Sissejuhatus</a></li>
+  <li><a href="#tavaline-regressioonimudel" id="toc-tavaline-regressioonimudel" class="nav-link" data-scroll-target="#tavaline-regressioonimudel"><span class="header-section-number">5.2</span> Tavaline regressioonimudel</a></li>
+  <li><a href="#regressioonimudel-interaktsiooniga-heterogeenne-mõju" id="toc-regressioonimudel-interaktsiooniga-heterogeenne-mõju" class="nav-link" data-scroll-target="#regressioonimudel-interaktsiooniga-heterogeenne-mõju"><span class="header-section-number">5.3</span> Regressioonimudel interaktsiooniga (heterogeenne mõju)</a></li>
+  <li><a href="#kaks-eraldi-regressioonimudelit" id="toc-kaks-eraldi-regressioonimudelit" class="nav-link" data-scroll-target="#kaks-eraldi-regressioonimudelit"><span class="header-section-number">5.4</span> Kaks eraldi regressioonimudelit</a>
   <ul class="collapse">
-  <li><a href="#tingimusliku-sõltumatuse-eeldus-cia" id="toc-tingimusliku-sõltumatuse-eeldus-cia" class="nav-link" data-scroll-target="#tingimusliku-sõltumatuse-eeldus-cia">Tingimusliku sõltumatuse eeldus (CIA)</a></li>
-  <li><a href="#regressioonimudelid-mõju-hindamiseks" id="toc-regressioonimudelid-mõju-hindamiseks" class="nav-link" data-scroll-target="#regressioonimudelid-mõju-hindamiseks">Regressioonimudelid mõju hindamiseks</a></li>
-  <li><a href="#kaks-eraldi-eegressioonimudelit-g-computation" id="toc-kaks-eraldi-eegressioonimudelit-g-computation" class="nav-link" data-scroll-target="#kaks-eraldi-eegressioonimudelit-g-computation">Kaks eraldi eegressioonimudelit (G-Computation)</a></li>
+  <li><a href="#g-arvutus-g-computation" id="toc-g-arvutus-g-computation" class="nav-link" data-scroll-target="#g-arvutus-g-computation">G-arvutus (G-computation)</a></li>
   </ul></li>
-  <li><a href="#näide-tööpoliitikast" id="toc-näide-tööpoliitikast" class="nav-link" data-scroll-target="#näide-tööpoliitikast"><span class="header-section-number">5.2</span> Näide tööpoliitikast</a>
+  <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide"><span class="header-section-number">5.5</span> Näide</a>
   <ul class="collapse">
   <li><a href="#muutujate-selgitused" id="toc-muutujate-selgitused" class="nav-link" data-scroll-target="#muutujate-selgitused">Muutujate selgitused</a></li>
   <li><a href="#vajalikud-paketid" id="toc-vajalikud-paketid" class="nav-link" data-scroll-target="#vajalikud-paketid">Vajalikud paketid</a></li>
@@ -281,6 +282,7 @@ window.Quarto = {
   <li><a href="#kirjeldav-analüüs" id="toc-kirjeldav-analüüs" class="nav-link" data-scroll-target="#kirjeldav-analüüs">Kirjeldav analüüs</a></li>
   <li><a href="#regressioonimudel" id="toc-regressioonimudel" class="nav-link" data-scroll-target="#regressioonimudel">Regressioonimudel</a></li>
   <li><a href="#eraldi-mudelid-osalejatele-ja-mitteosalejatele" id="toc-eraldi-mudelid-osalejatele-ja-mitteosalejatele" class="nav-link" data-scroll-target="#eraldi-mudelid-osalejatele-ja-mitteosalejatele">Eraldi mudelid osalejatele ja mitteosalejatele</a></li>
+  <li><a href="#usalduspiiride-leidmine" id="toc-usalduspiiride-leidmine" class="nav-link" data-scroll-target="#usalduspiiride-leidmine">Usalduspiiride leidmine</a></li>
   <li><a href="#bootstrapping-hinnangute-standardvea-leidmiseks---fännidele" id="toc-bootstrapping-hinnangute-standardvea-leidmiseks---fännidele" class="nav-link" data-scroll-target="#bootstrapping-hinnangute-standardvea-leidmiseks---fännidele">Bootstrapping hinnangute standardvea leidmiseks - fännidele</a></li>
   </ul></li>
   </ul>
@@ -308,62 +310,60 @@ window.Quarto = {
 </header>
 
 
-<p>Poolik - arenev</p>
-<section id="mudeli-seade" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="mudeli-seade"><span class="header-section-number">5.1</span> Mudeli seade</h2>
-<p>Vaatame mõju (nt meetmes osalemise <span class="math inline">\(D\)</span> mõju tulemile <span class="math inline">\(Y\)</span>) hindamise meetodeid, kasutades regressioonimudeleid ja eeldust tingimuslikust sõltumatusest (Conditional Independence Assumption, CIA).</p>
-<section id="tingimusliku-sõltumatuse-eeldus-cia" class="level3">
-<h3 class="anchored" data-anchor-id="tingimusliku-sõltumatuse-eeldus-cia">Tingimusliku sõltumatuse eeldus (CIA)</h3>
-<p>Põhjusliku mõju leidmiseks regressiooniga peab kehtima tingimusliku sõltumatuse eeldus (CIA - conditional independence assumption).</p>
-<p><span class="math display">\[E[Y_0 | D=1, \mathbf{X}] = E[Y_0 | D=0, \mathbf{X}]\]</span></p>
-<p>See tähendab, et pärast <strong>kõigi oluliste segavate tegurite</strong> <span class="math inline">\(\mathbf{X}\)</span> (eelkõige <span class="math inline">\(X \rightarrow D\)</span> ja <span class="math inline">\(X \rightarrow Y\)</span>) arvesse võtmist ei ole potentsiaalsel tulemusel <span class="math inline">\(Y_0\)</span> ja meetmes osalemisel <span class="math inline">\(D\)</span> enam seost. Seega, tingimuslikult sarnased osalejad ja mitte-osalejad on võrreldavad.</p>
+<section id="sissejuhatus" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sissejuhatus"><span class="header-section-number">5.1</span> Sissejuhatus</h2>
+<p>Selles peatükis vaatame, kuidas põhjuslikku mõju hinnata regressioonimudeli abiga. Endiselt on meil eesmärk leida ming meetme <span class="math inline">\(D\)</span>, nt tööturukoolitus või turunduskampaania, mõju väljundile <span class="math inline">\(Y\)</span>, nt palgale või müügitulemustele.</p>
+<p>Meeldetuletuseks, põhjusliku mõju leidmiseks regressioonimudeliga peab endiselt kehtima tingliku sõltumatuse eeldus (<em>CIA - conditional independence assumption</em>).</p>
+<p><span class="math display">\[E[Y^0 | D=1, \mathbf{X}] = E[Y^0 | D=0, \mathbf{X}]\]</span> ja <span class="math display">\[E[Y^1 | D=1, \mathbf{X}] = E[Y^1 | D=0, \mathbf{X}]\]</span></p>
+<p>See tähendab, et pärast kõigi oluliste segavate tegurite <span class="math inline">\(\mathbf{X}\)</span> (<span class="math inline">\(X \rightarrow D\)</span> ja <span class="math inline">\(X \rightarrow Y\)</span>) arvesse võtmist ei ole potentsiaalsetel tulemustel <span class="math inline">\(Y^0\)</span> ja <span class="math inline">\(Y^1\)</span> ning meetmes osalemisel <span class="math inline">\(D\)</span> enam seost. Seega on meil osalejad ja mitteosalejad tehtud sarnaseks ja võrreldavaks.</p>
 </section>
-<section id="regressioonimudelid-mõju-hindamiseks" class="level3">
-<h3 class="anchored" data-anchor-id="regressioonimudelid-mõju-hindamiseks">Regressioonimudelid mõju hindamiseks</h3>
-<p>Kui CIA kehtib ja eeldame aditiivset (lineaarset) mudelit, saame regressiooniga hinnata erinevaid keskmisi mõjusid.</p>
-<section id="tavaline-regressioonimudel-ate-hinnang" class="level4">
-<h4 class="anchored" data-anchor-id="tavaline-regressioonimudel-ate-hinnang">Tavaline regressioonimudel (ATE hinnang)</h4>
-<p>Kõige lihtsam mudel eeldab, et mõju <span class="math inline">\(\delta\)</span> on <strong>homogeenne</strong> (sama kõigi <span class="math inline">\(\mathbf{X}\)</span> väärtuste korral) ja aditiivne.</p>
-<p><span class="math display">\[Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta + \epsilon_i\]</span></p>
-<p>Või üldjuhul, kui on selgitavaid tegureid rohkem:</p>
-<ul>
-<li><p><strong>Valem:</strong> <span class="math inline">\(Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i\)</span></p></li>
-<li><p><strong>Mõju hinnang:</strong> <span class="math inline">\(\hat{\delta}\)</span> on hinnang <strong>ATE-le</strong> (Average Treatment Effect), st keskmisele mõjule kõigile.</p></li>
-</ul>
+<section id="tavaline-regressioonimudel" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="tavaline-regressioonimudel"><span class="header-section-number">5.2</span> Tavaline regressioonimudel</h2>
+<p>Kõige lihtsam mudel eeldab, et mõju <span class="math inline">\(\delta\)</span> on homogeenne, st sama kõigi <span class="math inline">\(\mathbf{X}\)</span> väärtuste korral ja aditiivne.</p>
+<p><span class="math display">\[Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i\]</span></p>
+<p><span class="math inline">\(\hat{\delta}\)</span> on hinnang <strong>ATE-le</strong> (Average Treatment Effect), st keskmisele mõjule. Antud mudel eeldab, et ATE = ATT = ATU ehk mõju kõigile on ühesugune.</p>
+<p>Regressioonimudeli seose hindame vähimruutude meetodi abil ja kasutame standardvigu, mis lubavad ka heteroskedastiivsust (nn robustsed standardvead).</p>
+<p>Sellise meetodi tugevuseks on tema lihtsus ning võimalus hinnata ka seose siis, kui ühist tuge ei ole. (Viimase korral peab muidugi olema tõlgendamisel ettevaatlik.)</p>
+<p>Sageli paneme regressioonimudelisse sisse ka varasemaid sõltuva tunnuse väärtusi enne meedet, et võtta arvesse tunnuste inertsi, nt varasem palk, varasem läbimüük.</p>
+<p><span class="math display">\[Y_{iPost} = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \gamma Y_{iPre} \dots + \epsilon_i\]</span> kus <span class="math inline">\(Y_{iPost}\)</span> on tulemus peale meedet ja <span class="math inline">\(Y_{iPre}\)</span> tulemus enne meedet.</p>
+<p>See lähenemine on sarnane erinevuste vahe meetodiga (<em>difference-in-differences</em>). Pagem tähele, et sellisel juhul peab viitajaga sõltuv muutuja peab olema piisavalt enne meedet, et ei tekiks süstemaatilist langust enne meedet („pre-treatment dip“), mis on tingitud ootustest. Näiteks, kui me teame, et paeme minema kahe kuu pärast täiendõppekoolitusele, et õppida uus amet, siis juba praegusel kuul pingutan vähem ja saan vähem palka. (Lisada viide Ashenfelter (1978) artiklile.)</p>
 </section>
-<section id="regressioonimudel-interaktsiooniga-heterogeenne-mõju" class="level4">
-<h4 class="anchored" data-anchor-id="regressioonimudel-interaktsiooniga-heterogeenne-mõju">Regressioonimudel interaktsiooniga (heterogeenne mõju)</h4>
-<p>Kui on alust arvata, et meetme mõju <span class="math inline">\(D\)</span> sõltub mõnest tunnusest <span class="math inline">\(X_k\)</span> (st mõju on <strong>heterogeenne</strong>), lisatakse mudelisse interaktsiooniliige.</p>
+<section id="regressioonimudel-interaktsiooniga-heterogeenne-mõju" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="regressioonimudel-interaktsiooniga-heterogeenne-mõju"><span class="header-section-number">5.3</span> Regressioonimudel interaktsiooniga (heterogeenne mõju)</h2>
+<p>Kui on alust arvata, et meetme mõju <span class="math inline">\(D\)</span> sõltub mõnest tunnusest <span class="math inline">\(X_k\)</span> (st mõju on heterogeenne), siis lisatakse mudelisse interaktsiooniliige.</p>
 <p><span class="math display">\[Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \mathbf{X}_i \beta + \epsilon_i\]</span></p>
-<ul>
-<li><p><strong>Valem:</strong> <span class="math inline">\(Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \beta_1 X_{1i} + \dots + \epsilon_i\)</span></p></li>
-<li><p><strong>Mõju</strong> <span class="math inline">\(X_{ki}\)</span> väärtusel: <span class="math inline">\(\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}\)</span>.</p></li>
-<li><p><strong>Kasutamine:</strong> Seda mudelit kasutades saab hinnata <strong>CATE</strong>-t (Conditional Average Treatment Effect), st keskmist mõju alamrühmas, ja leida seejärel kaalutud keskmist leides ATE või ATT.</p></li>
-</ul>
+<p>Mõju sõltub nüüd inimese tunnustest. Väärtuse <span class="math inline">\(X_{ki}\)</span> korral on <span class="math inline">\(\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}\)</span>.</p>
+<p>Näiteks võib mõju olla erinev meestele ja naistele. Sellisel juhul peame lisama interaktsiooniliikme soo tunnuse ja meetmes osalemise tunnuse vahel.</p>
+<p>Seda mudelit kasutades saab hinnata <strong>CATE</strong> (<em>Conditional Average Treatment Effect</em>), st keskmise mõju konkreetses alamrühmas, nt eraldi meeste jaoks ja naiste jaoks. Seejärel saame leida ka kaalutud keskmise abil ATT, ATU või ATE, kasutades kaaludena <span class="math inline">\(X_{ki}\)</span> osakaale (nt meeste või naiste osakaale) kas kõigi inimeste seas, ainult osalejate seas või mitteosalejate seas.</p>
 </section>
-</section>
-<section id="kaks-eraldi-eegressioonimudelit-g-computation" class="level3">
-<h3 class="anchored" data-anchor-id="kaks-eraldi-eegressioonimudelit-g-computation">Kaks eraldi eegressioonimudelit (G-Computation)</h3>
-<p>See meetod hinnatakse regressioonimudeleid eraldi osalejate (<span class="math inline">\(D=1\)</span>) ja mitte-osalejate (<span class="math inline">\(D=0\)</span>) andmetel, mis võimaldab arvestada <strong>heterogeenset funktsionaalset seost</strong> <span class="math inline">\(Y_0\)</span> ja <span class="math inline">\(Y_1\)</span> vahel.</p>
+<section id="kaks-eraldi-regressioonimudelit" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="kaks-eraldi-regressioonimudelit"><span class="header-section-number">5.4</span> Kaks eraldi regressioonimudelit</h2>
+<p>Ülaltoodu mudel eeldas, et selgitavate tunnuste mõju <span class="math inline">\(Y\)</span>-e on ühesugune ja meetmes osalemise mõju varieerub vaid ühe tunnuse lõikes. Paindlikum lähenemine lubab selgitavatel tunnustel mõjutada väljundit erinevalt. Selle lähenemise korral hinnatakse regressioonimudeleid eraldi osalejate (<span class="math inline">\(D=1\)</span>) ja mitteosalejate (<span class="math inline">\(D=0\)</span>) andmetel. See võimaldab heterogeenset funktsionaalset seost <span class="math inline">\(\mathbf{X}\)</span> ja <span class="math inline">\(Y^0\)</span> ning <span class="math inline">\(Y^1\)</span> vahel.</p>
 <ol type="1">
-<li><p><strong>Mudel osalejatel (</strong><span class="math inline">\(D=1\)</span>): <span class="math display">\[Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1\]</span> Prognoosime tulemuse <span class="math inline">\(Y_{i1}\)</span> <strong>kõigile</strong> vaatlustele: <span class="math inline">\(\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1\)</span>.</p></li>
-<li><p><strong>Mudel mitte-osalejatel (</strong><span class="math inline">\(D=0\)</span>):</p></li>
+<li><p><strong>Mudel osalejate andmetel</strong> (<span class="math inline">\(D=1\)</span>): <span class="math display">\[Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1\]</span> Prognoosime tulemuse <span class="math inline">\(Y^1_{i}\)</span> kõigile vaatlustele: <span class="math inline">\(\hat{Y}^1_{i} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1\)</span>.</p></li>
+<li><p><strong>Mudel mitteosalejate andmetel</strong> (<span class="math inline">\(D=0\)</span>):</p></li>
 </ol>
 <p><span class="math display">\[Y_i = \alpha_0 + \mathbf{X}_i \beta_0 + \epsilon_{i0} \quad \text{kui } D_i=0\]</span></p>
-<p>Prognoosime tulemuse <span class="math inline">\(Y_{i0}\)</span> <strong>kõigile</strong> vaatlustele: <span class="math inline">\(\hat{Y}_{i0} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0\)</span>.</p>
+<p>Prognoosime tulemuse <span class="math inline">\(Y^0_{i}\)</span> kõigile* vaatlustele: <span class="math inline">\(\hat{Y}^0_{i} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0\)</span>.</p>
 <ol start="3" type="1">
-<li><strong>Mõju arvutamine (G-Computation):</strong> Mõju on igal isikul prognooside vahe: <span class="math inline">\(\hat{\Delta}_i = \hat{Y}_{i1} - \hat{Y}_{i0}\)</span>.
+<li><strong>Mõju arvutamine</strong> : Mõju on igal isikul prognooside vahe: <span class="math inline">\(\hat{\Delta}_i = \hat{Y}^1_{i} - \hat{Y}^0_{i}\)</span>. Üldise keskmise leiame lihtsalt saadud mõjuhinnangute keskmisena.
 <ul>
-<li><strong>ATE</strong> (kogu populatsioon): <span class="math inline">\(\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i\)</span></li>
-<li><strong>ATT</strong> (meetmes osalejatele): <span class="math inline">\(\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i\)</span></li>
-<li><strong>ATU</strong> (võrdlusrühmale): <span class="math inline">\(\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i\)</span></li>
+<li>ATE (kogu populatsioon): <span class="math inline">\(\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i\)</span></li>
+<li>ATT (meetmes osalejatele): <span class="math inline">\(\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i\)</span></li>
+<li>ATU (võrdlusrühmale, kui nad oleks osalenud): <span class="math inline">\(\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i\)</span>,</li>
 </ul></li>
 </ol>
-<p>See meetod on regressiooni mudeliga hindamise erijuht ja annab paindlikumad hinnangud, kuna võimaldab funktsionaalsel seosel <span class="math inline">\(Y \sim \mathbf{X}\)</span> olla erinev osalejatel ja mitte-osalejatel.</p>
+<p>kus <span class="math inline">\(N\)</span>, <span class="math inline">\(N_T\)</span> ja <span class="math inline">\(N_C\)</span> on vastavalt vaatluste arv kokku, osalusrühmas ja võrdlusrühmas.</p>
+<p>See meetod on regressioonimudeliga hindamise üldisem juht ja annab paindlikumad hinnangud, kuna võimaldab funktsionaalsel seosel <span class="math inline">\(Y \sim \mathbf{X}\)</span> olla erinev osalejatel ja mitteosalejatel.</p>
+<p>Saadud hinnangu standardvea ja seega usalduspiirid saab leida näiteks simulatsioonimeetodi abil (<em>bootstrapping</em>, vaata empiirilist näidet peatüki lõpus).</p>
+<p>Võib kasutada ka nt paketti <em>CausalGAM</em> (seisuga 15.09.2026 ei olnud seda uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html).</p>
+<section id="g-arvutus-g-computation" class="level3">
+<h3 class="anchored" data-anchor-id="g-arvutus-g-computation">G-arvutus (G-computation)</h3>
+<p>Eelnevat toodud läehemist nimetatakse ka G-arvutus (G-computation). See on üldine meetod, kus hindame esmalt tulemusnäitaja sõltuvuse sekkumisest <span class="math inline">\(D\)</span> ja segajatest <span class="math inline">\(X\)</span>. See võib olla regressioonimudel või ka paindlikum meetod, näiteks juhumets (<em>random forest</em>). Seejärel prognoosime igale inimese tulemuse mõlema sekkumisseisundi korral (<span class="math inline">\(D=1\)</span> ja <span class="math inline">\(D=0\)</span> korral) ning leiame nende vastasseisundite prognooside keskmised sihtpopulatsioonis. Erinevused keskmiste vahel annavadki meile keskmise mõjuhinnangu.</p>
 </section>
 </section>
-<section id="näide-tööpoliitikast" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="näide-tööpoliitikast"><span class="header-section-number">5.2</span> Näide tööpoliitikast</h2>
+<section id="näide" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="näide"><span class="header-section-number">5.5</span> Näide</h2>
 <p>Me kasutame näidisandmetena Poliitikauuringute Keskuse Praxis 2002. aastal läbiviidud uuringut aktiivse tööpoliitika mõju hindamise kohta. (Vt Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) <em>Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis</em>. Tallinn: Praxis, 108 lk. Vt ka: <a href="https://www.praxis.ee/tood/aktiivse-toopoliitika-tulemuslikkuse-hindamine-eestis/">Praxis töö</a> ja <a href="https://www.researchgate.net/publication/268371718_Evaluation_of_Active_Labour_Market_Programmes_in_Estonia">Leetmaa &amp; Võrk (2004)</a>)</p>
 <p>Anonümiseeritud andmestik asub failis:<br>
 <a href="http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv" class="uri">http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv</a></p>
@@ -492,7 +492,7 @@ window.Quarto = {
 878 429 </code></pre>
 </div>
 </div>
-<p>Kui suur osakaal koolituses osalejatest ja mitte-osalejatest töötas 2002. aasta septembris? Tabuleerige muutujad “training” ja “employed” ning leidke protsendid.</p>
+<p>Kui suur osakaal koolituses osalejatest ja mitteosalejatest töötas 2002. aasta septembris? Tabuleerige muutujad “training” ja “employed” ning leidke protsendid.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(atp<span class="sc">$</span>training, atp<span class="sc">$</span>employed)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="at">margin =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -503,7 +503,7 @@ window.Quarto = {
   1 0.2913753 0.7086247</code></pre>
 </div>
 </div>
-<p>Milline oli keskmine palk koolituses osalejatel ja mitte-osalejatel 2002. aasta septembris?</p>
+<p>Milline oli keskmine palk koolituses osalejatel ja mitteosalejatel 2002. aasta septembris?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>atp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(training) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_wage =</span> <span class="fu">mean</span>(nwage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -546,7 +546,7 @@ F Statistic         17.591*** (df = 1; 1305) 9.231*** (df = 1; 1254)
 Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
-<p>Hinnake mudelid koos teiste selgitavate teguritega</p>
+<p>Hinnake mudelid koos teiste selgitavate teguritega. Lubame kohe ka heteroskedastiivsust.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>age2 <span class="ot">&lt;-</span> atp<span class="sc">$</span>age<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lin_employed <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> training <span class="sc">+</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp)</span>
@@ -589,9 +589,7 @@ emplbefore    540.05556   220.40577  2.4503   0.01441 *
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Tõlgendage tulemusi!</p>
-<p>Lubage võimalikku heteroskedastiivsust.</p>
-<p>Leiame robustsed standarvead.</p>
+<p>Esitame mudelid koos tabelis.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>robust_se1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(lin_employed, <span class="at">type =</span> <span class="st">"HC1"</span>)))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>robust_se2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(lin_nwage, <span class="at">type =</span> <span class="st">"HC1"</span>)))</span>
@@ -634,8 +632,7 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 </section>
 <section id="eraldi-mudelid-osalejatele-ja-mitteosalejatele" class="level3">
 <h3 class="anchored" data-anchor-id="eraldi-mudelid-osalejatele-ja-mitteosalejatele">Eraldi mudelid osalejatele ja mitteosalejatele</h3>
-<section id="näide---meetme-mõju-palgale-vanuse-lõikes" class="level4">
-<h4 class="anchored" data-anchor-id="näide---meetme-mõju-palgale-vanuse-lõikes">Näide - meetme mõju palgale vanuse lõikes</h4>
+<p>Vaatame meetme mõju palgale lubades vaid vanuse täiendavat mõju.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>atpj <span class="ot">&lt;-</span> atp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(nwage)) <span class="sc">%&gt;%</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nwage<span class="sc">&lt;</span><span class="dv">5000</span>, nwage<span class="sc">&gt;</span><span class="dv">0</span>)</span>
@@ -671,8 +668,8 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(<span class="fu">lm</span>(nwage <span class="sc">~</span> age, <span class="at">data=</span>atpj[atpj<span class="sc">$</span>training<span class="sc">==</span><span class="dv">1</span>,]), <span class="at">new=</span>atpj) <span class="sc">-</span> </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">predict</span>(<span class="fu">lm</span>(nwage <span class="sc">~</span> age, <span class="at">data=</span>atpj[atpj<span class="sc">$</span>training<span class="sc">==</span><span class="dv">0</span>,]), <span class="at">new=</span>atpj)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>See joonis näitab, kuidas vanus mõjutab palka kahes erinevas grupis (osalejad vs mitte-osalejad). Kasutame valemi <span class="math inline">\(Y \sim X\)</span> seost vanuse osas.</p>
-<p>Mõju sõltub vanusest. Mida noorem, seda suurem efekt.</p>
+<p>See joonis näitab, kuidas vanus mõjutab palka kahes erinevas grupis (osalejad vs mitteosalejad). Kasutame valemi <span class="math inline">\(Y \sim X\)</span> seost vaid vanuse jaoks.</p>
+<p>Näeme, et mõju sõltub vanusest. Mida noorem, seda suurem efekt ehk joontevaheline erinevus. Esitame selle erinevuse joonisel koos vaatluste jaotuse histogrammiga X-teljel.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atpj,</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> ate)) <span class="sc">+</span></span>
@@ -698,14 +695,14 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 </div>
 </div>
 </div>
-<p>Lisame täiendavad selgitavad tunnused</p>
-<p>Töötamise jaoks</p>
-<p>Hindame mudeli osalejate andmete põhjal ja prognoosime tulemused <strong>kõigile.</strong></p>
+<p>Lisame järgnevalt täiendavad selgitavad tunnused.</p>
+<p><strong>Töötamise mudel</strong></p>
+<p>Hindame mudeli osalejate andmete põhjal <em>training==1</em> ja prognoosime tulemused kõigile.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lin_employed_ra1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ])</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>pemployed_1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_employed_ra1, <span class="at">newdata =</span> atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Hinnake samasugune mudel ka mitteosalejate põhjal &nbsp;<em>training==0</em> ja prognoosige tulemused kõigile</p>
+<p>Hindame samasuguse mudeli ka mitteosalejate põhjal <em>training==0</em> ja prognoosime tulemused kõigile</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lin_employed_ra0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ])</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>pemployed_0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_employed_ra0, <span class="at">newdata =</span> atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -734,7 +731,7 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 </div>
 </div>
 <p>Kas tulemused muutusid võrreldes ühise regressioonimudeliga?</p>
-<p>Sama palgaga</p>
+<p><strong>Mõju palgale</strong> leiame analoogselt:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>lin_nwage_ra1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ])</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>nwage_1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_nwage_ra1, <span class="at">newdata =</span> atp)</span>
@@ -760,27 +757,117 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <pre><code>[1] 261.6458</code></pre>
 </div>
 </div>
-<p>Kas koolituse mõju on suurem osalejatele või oleks olnud suurem mitte-osalejatele? Kas mõju on statistiliselt oluline?</p>
+<p>Kas koolituse mõju on suurem osalejatele või oleks olnud suurem mitteosalejatele? Kas mõju on statistiliselt oluline?</p>
 </section>
+<section id="usalduspiiride-leidmine" class="level3">
+<h3 class="anchored" data-anchor-id="usalduspiiride-leidmine">Usalduspiiride leidmine</h3>
+<p>Kui soovime leida usalduspiirid ATE, ATT ja ATU jaoks võime kasutada kas analüütilisi lähenemisi või simuleeritud viise. Vaatame esmalt paketti <em>margins</em>. Hindame mudeli interaktsiooniefektiga, mis vastab sellele, kui oleksime hinnanud kaks eraldi mudelid.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>intmudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> (male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore)<span class="sc">*</span>training, <span class="at">data =</span> atp)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(intmudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = employed ~ (male + est + age + age2 + educ + emplbefore) * 
+    training, data = atp)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8805 -0.5394  0.2637  0.3650  0.7429 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         -0.3667782  0.1809040  -2.027 0.042819 *  
+male                 0.0744352  0.0341843   2.177 0.029626 *  
+est                  0.0948953  0.0333345   2.847 0.004487 ** 
+age                  0.0416228  0.0116071   3.586 0.000348 ***
+age2                -0.0005708  0.0001498  -3.810 0.000146 ***
+educ                 0.0618809  0.0179495   3.447 0.000584 ***
+emplbefore           0.0452292  0.0636602   0.710 0.477536    
+training             0.8729799  0.3349351   2.606 0.009255 ** 
+male:training        0.0114457  0.0630477   0.182 0.855972    
+est:training         0.0090808  0.0578150   0.157 0.875217    
+age:training        -0.0450855  0.0214787  -2.099 0.036003 *  
+age2:training        0.0006390  0.0002819   2.267 0.023580 *  
+educ:training       -0.0301854  0.0321101  -0.940 0.347363    
+emplbefore:training  0.0352448  0.1091517   0.323 0.746825    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4717 on 1293 degrees of freedom
+Multiple R-squared:  0.05697,   Adjusted R-squared:  0.04749 
+F-statistic: 6.009 on 13 and 1293 DF,  p-value: 5.768e-11</code></pre>
+</div>
+</div>
+<p>Leiame nüüd muutuja <em>training</em> keskmise mõju terves valimis. Saame sellega ATE.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   factor    AME     SE      z      p  lower  upper
+ training 0.1063 0.0284 3.7399 0.0002 0.0506 0.1620</code></pre>
+</div>
+</div>
+<p>Leiame selle alamvalimis, kui training ==1. Saame ATT.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span><span class="dv">1</span>,]))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   factor    AME     SE      z      p  lower  upper
+ training 0.0926 0.0283 3.2750 0.0011 0.0372 0.1480</code></pre>
+</div>
+</div>
+<p>Leiame selle alamvalimis, kui training == 0. Saame ATU.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span><span class="dv">0</span>,]))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   factor    AME     SE      z      p  lower  upper
+ training 0.1130 0.0291 3.8864 0.0001 0.0560 0.1700</code></pre>
+</div>
+</div>
 </section>
 <section id="bootstrapping-hinnangute-standardvea-leidmiseks---fännidele" class="level3">
 <h3 class="anchored" data-anchor-id="bootstrapping-hinnangute-standardvea-leidmiseks---fännidele">Bootstrapping hinnangute standardvea leidmiseks - fännidele</h3>
-<p>Teeme funktsiooni</p>
+<p>Selleks, et leida standardvead ja usalduspiirid võime kasutada ka simulatsioonimeetodit ehk bootstrappingut.</p>
+<p>Teeme esmalt funktsiooni, mida me hindame. Vaatame esmalt mõju töötamisele.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">formula</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>mybs <span class="ot">=</span> <span class="cf">function</span>(data, indices, <span class="at">formula =</span>f) {</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">=</span> data[indices, ]</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  dify <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ]), <span class="at">newdata =</span> dat) <span class="sc">-</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ]), <span class="at">newdata =</span> dat)</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">ate =</span> <span class="fu">mean</span>(dify), <span class="at">att =</span> <span class="fu">mean</span>(dify[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>]))</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">formula</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>mybs <span class="ot">=</span> <span class="cf">function</span>(data, indices, <span class="at">formula =</span>f) {</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">=</span> data[indices, ]</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  dify <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ]), <span class="at">newdata =</span> dat) <span class="sc">-</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ]), <span class="at">newdata =</span> dat)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">ate =</span> <span class="fu">mean</span>(dify), <span class="at">att =</span> <span class="fu">mean</span>(dify[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>]))</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>ja rakendame seda</p>
+<p>Kui funktsioon on valmis rakendame seda andmestikule, mis moodustatakse juhuslikult võttes tagasipanekuga valimeid meie andmestikust. Iga valimi korral hinnatakse meid huvitav parameeter. Võttes niimoodi suure arvu valimeid leiame meie parameetrite jaotuse ja usalduspiirid ning standardvea. Saadud usalduspiire kasutame ülalleitud parameetrite (ATE, ATT) jaoks.</p>
+<p>NB! Praegu on kasutatud vaid 50 simulatsiooni (R = 50). Päris analüüsis peaks see number olema palju suurem, nt R= 2000.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> atp, <span class="at">statistic =</span> mybs, <span class="at">R =</span> <span class="dv">50</span>, <span class="at">stype =</span> <span class="st">"i"</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(results)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> atp, <span class="at">statistic =</span> mybs, <span class="at">R =</span> <span class="dv">50</span>, <span class="at">stype =</span> <span class="st">"i"</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ORDINARY NONPARAMETRIC BOOTSTRAP
+
+
+Call:
+boot(data = atp, statistic = mybs, R = 50, stype = "i")
+
+
+Bootstrap Statistics :
+     original      bias    std. error
+t1* 0.1063243 0.004948775  0.02477052
+t2* 0.0926108 0.005312717  0.02398158</code></pre>
+</div>
+</div>
+<p>Detailsemad tulemused koos usaldusintervalliga. ATT jaoks:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  results,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="dv">1</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in norm.inter(t, adj.alpha): extreme order statistics used as endpoints</code></pre>
 </div>
@@ -789,22 +876,59 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 Based on 50 bootstrap replicates
 
 CALL : 
-boot.ci(boot.out = results)
+boot.ci(boot.out = results, type = c("norm", "basic", "perc", 
+    "bca"), index = 1)
 
 Intervals : 
-Level      Normal              Basic             Studentized     
-95%   ( 0.0528,  0.1499 )   ( 0.0510,  0.1590 )   ( 0.0621,  0.1969 )  
+Level      Normal              Basic         
+95%   ( 0.0528,  0.1499 )   ( 0.0510,  0.1590 )  
 
 Level     Percentile            BCa          
 95%   ( 0.0536,  0.1617 )   ( 0.0503,  0.1415 )  
 Calculations and Intervals on Original Scale
 Some basic intervals may be unstable
-Some studentized intervals may be unstable
 Some percentile intervals may be unstable
 Warning : BCa Intervals used Extreme Quantiles
 Some BCa intervals may be unstable</code></pre>
 </div>
 </div>
+<p>Ja ATT jaoks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  results,</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="dv">2</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in norm.inter(t, adj.alpha): extreme order statistics used as endpoints</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 50 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = results, type = c("norm", "basic", "perc", 
+    "bca"), index = 2)
+
+Intervals : 
+Level      Normal              Basic         
+95%   ( 0.0403,  0.1343 )   ( 0.0370,  0.1518 )  
+
+Level     Percentile            BCa          
+95%   ( 0.0334,  0.1482 )   ( 0.0273,  0.1285 )  
+Calculations and Intervals on Original Scale
+Some basic intervals may be unstable
+Some percentile intervals may be unstable
+Warning : BCa Intervals used Extreme Quantiles
+Some BCa intervals may be unstable</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Normal - kasutab normaaljaotuse eeldust ja leiab usalduspiirid kui 1.96 korda simuleeritud standardviga. See on lihtne, aga eeldab, et jaotus on sümmeetriline.</p></li>
+<li><p>Percentile - leiab simuleeritud andmetest 95%lise usalduspiiri võttes mõlemast jaotuse otsast 2.5% vaatlusi maha. See sobib hästi, kui jaotus on ebasümmeetriline.</p></li>
+<li><p>Basic - võtab “esialgse”percentile” usalduspiirid ja paneb selle esialgse punkthinnangu ümber</p></li>
+<li><p>BCa - “bias corrected” ja “accelerated” - parandab “percentile” usalduspiire. Võiks pidada parimaks lähenemiseks. Nihutab protsentiile.</p></li>
+</ul>
 
 
 </section>

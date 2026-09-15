@@ -537,7 +537,7 @@ D_i \perp D_j
 <ul>
 <li>kui üks töötutest osaleb koolitusel, see vähendab teiste töötute võimalust sama koolitust saada;</li>
 <li>kui üks töötutest leiab töö, võib see vähendada teiste töötute töö leidmise tõenäosust (konkurents töökohtade pärast);</li>
-<li>kui igal aastal koolitatakse suur hulk töötuid, võib see mõjutada palgataset kogu tööturul, muutes nii osalejate kui mitteosalejate palku (nn üldise tasakaalu efekt- <span class="math inline">\(general equilibrium effects\)</span>).</li>
+<li>kui igal aastal koolitatakse suur hulk töötuid, võib see mõjutada palgataset kogu tööturul, muutes nii osalejate kui mitteosalejate palku (nn üldise tasakaalu efekt- <em>general equilibrium effects</em>).</li>
 </ul>
 <p>SUTVA on POM-i raamistiku keskne eeldus: ilma selle kehtivuseta ei saa potentsiaalseid tulemusi selgelt defineerida.</p>
 </section>
@@ -1308,8 +1308,8 @@ Näita lahendust Ris
 1 23.33333  25  24</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tagantjärgi täeindav info</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>osalus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">120</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>vordlus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">160</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>osalus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">140</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>vordlus_y_enne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">160</span>)</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">data.frame</span>(osalus_y_enne,vordlus_y_enne))</span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -1319,8 +1319,8 @@ Näita lahendust Ris
 1     Pohi       40        30      150       120   30      0.7 0.6666667
 2    Louna       20        10      150       140   10      0.3 0.3333333
   kaal_atu osalus_y_enne vordlus_y_enne
-1     0.75           140            140
-2     0.25           120            160</code></pre>
+1     0.75           140            120
+2     0.25           140            160</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Muutus müügis</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
@@ -1334,7 +1334,7 @@ Näita lahendust Ris
 <span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ate =</span> <span class="fu">sum</span>(moju_dy<span class="sc">*</span>kaal_ate))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       att atu ate
-1 36.66667  35  36</code></pre>
+1 16.66667  15  16</code></pre>
 </div>
 </div>
 </details>
