@@ -14,8 +14,7 @@ Olgu indiviid $i$ jaoks meetmes osalemise tunnus
 
 $$
 D_i \in \{0,1\},
-$$ 
-kus $D_i = 1$ tähendab osalemist meetmes ja $D_i = 0$ mitteosalemist.
+$$ kus $D_i = 1$ tähendab osalemist meetmes ja $D_i = 0$ mitteosalemist.
 
 Et majandusteadlased on võtnud üle meditsiinivaldkonna meetodit, siis nimetatakse tunnust $D$ inglise keeles *treatment*. Eesti keelde siiski me ei tõlgi seda kui ravi saamine, vaid pigem "meede" ja "meetmes osalemine".
 
@@ -76,7 +75,7 @@ $$
 
 Tõlgendus: milline oleks keskmine tulemus, kui kogu populatsioon osaleks meetmes, võrreldes olukorraga, kui keegi ei osaleks meetmes. Või, milline oleks meetme oodatav mõju, kui võtame juhuslikult ühe inimese üldkogumist.
 
-Seda nimetatakse vahel ka *average causal effect* (keskmine põhjuslik mõju). 
+Seda nimetatakse vahel ka *average causal effect* (keskmine põhjuslik mõju).
 
 ### ATT – keskmine mõju osalenutele
 
@@ -245,7 +244,7 @@ SUTVA rikkumise näited:
 
 -   kui üks töötutest osaleb koolitusel, see vähendab teiste töötute võimalust sama koolitust saada;
 -   kui üks töötutest leiab töö, võib see vähendada teiste töötute töö leidmise tõenäosust (konkurents töökohtade pärast);
--   kui igal aastal koolitatakse suur hulk töötuid, võib see mõjutada palgataset kogu tööturul, muutes nii osalejate kui mitteosalejate palku (nn üldise tasakaalu efekt- $general equilibrium effects$).
+-   kui igal aastal koolitatakse suur hulk töötuid, võib see mõjutada palgataset kogu tööturul, muutes nii osalejate kui mitteosalejate palku (nn üldise tasakaalu efekt- *general equilibrium effects*).
 
 SUTVA on POM-i raamistiku keskne eeldus: ilma selle kehtivuseta ei saa potentsiaalseid tulemusi selgelt defineerida.
 
@@ -257,7 +256,7 @@ $$
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i
 $$ Kõige lihtsam olukord on juhuslik eksperiment, kus meetmes osalemine määratakse loosiga.
 
-Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama meetmes osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas võitu meetmest ehk toimub iseselektsioon ( *self-selection* ). Teisest küljest ka  meedet pakkuvad töötajad võivad valida osalejateks motiveeritumaid või võimekamaid indiviide (juhul kui nende endi töötasu sõltub meetme edukusest) ehk toimub nn "koore riisumin"e" ( *cream skimming*).
+Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama meetmes osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas võitu meetmest ehk toimub iseselektsioon ( *self-selection* ). Teisest küljest ka meedet pakkuvad töötajad võivad valida osalejateks motiveeritumaid või võimekamaid indiviide (juhul kui nende endi töötasu sõltub meetme edukusest) ehk toimub nn "koore riisumin"e" ( *cream skimming*).
 
 See eeldus on täidetud juhusliku eksperimendi korral. See võib olla osaliselt täidetud ka siis, kui välised tegurid mõjutavad osalemist, nt seaduse muutused, COVID-19 vmt, kus inimene ise ei saa otsustada meetmes osalemist.
 
@@ -343,7 +342,7 @@ Selgitus:
 
 1.  jagame andmed $K$ rühma $X$-vektori alusel (nt üks rühm on mehed, vanuses 40–60, kõrgharidusega; teine rühm on mehed, vanuses 40-60, keskharidusega jne);
 2.  igas rühmas võrdleme osalenute ja mitteosalenute keskmisi tulemusi;
-3.  võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute struktuur osalusrühmas. 
+3.  võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute struktuur osalusrühmas.
 
 Analoogselt kasutame ATU jaoks kaaludena mitte-osalenute struktuuri.
 
@@ -833,8 +832,8 @@ df %>% summarise(att = sum(moju*kaal_att),
 
 
 # Tagantjärgi täeindav info
-osalus_y_enne <- c(140, 120)
-vordlus_y_enne <- c(140, 160)
+osalus_y_enne <- c(140, 140)
+vordlus_y_enne <- c(120, 160)
 
 df <- df %>% bind_cols(data.frame(osalus_y_enne,vordlus_y_enne))
 

@@ -1,67 +1,86 @@
 # Regressioonimudeli kasutamine
 
-Poolik - arenev
 
-## Mudeli seade
+## Sissejuhatus
 
-Vaatame mõju (nt meetmes osalemise $D$ mõju tulemile $Y$) hindamise meetodeid, kasutades regressioonimudeleid ja eeldust tingimuslikust sõltumatusest (Conditional Independence Assumption, CIA).
+Selles peatükis vaatame, kuidas põhjuslikku mõju hinnata regressioonimudeli abiga. Endiselt on meil eesmärk leida ming meetme $D$, nt tööturukoolitus või turunduskampaania, mõju väljundile $Y$, nt palgale või müügitulemustele.
 
-### Tingimusliku sõltumatuse eeldus (CIA)
+Meeldetuletuseks, põhjusliku mõju leidmiseks regressioonimudeliga peab endiselt kehtima tingliku sõltumatuse eeldus (*CIA - conditional independence assumption*).
 
-Põhjusliku mõju leidmiseks regressiooniga peab kehtima tingimusliku sõltumatuse eeldus (CIA - conditional independence assumption).
+$$E[Y^0 | D=1, \mathbf{X}] = E[Y^0 | D=0, \mathbf{X}]$$ 
+ja 
+$$E[Y^1 | D=1, \mathbf{X}] = E[Y^1 | D=0, \mathbf{X}]$$
 
-$$E[Y_0 | D=1, \mathbf{X}] = E[Y_0 | D=0, \mathbf{X}]$$
+See tähendab, et pärast kõigi oluliste segavate tegurite $\mathbf{X}$ ($X \rightarrow D$ ja $X \rightarrow Y$) arvesse võtmist ei ole potentsiaalsetel tulemustel $Y^0$ ja $Y^1$ ning meetmes osalemisel $D$ enam seost. Seega on meil osalejad ja mitteosalejad tehtud sarnaseks ja võrreldavaks.
 
-See tähendab, et pärast **kõigi oluliste segavate tegurite** $\mathbf{X}$ (eelkõige $X \rightarrow D$ ja $X \rightarrow Y$) arvesse võtmist ei ole potentsiaalsel tulemusel $Y_0$ ja meetmes osalemisel $D$ enam seost. Seega, tingimuslikult sarnased osalejad ja mitte-osalejad on võrreldavad.
+## Tavaline regressioonimudel
 
-### Regressioonimudelid mõju hindamiseks
+Kõige lihtsam mudel eeldab, et mõju $\delta$ on homogeenne, st sama kõigi $\mathbf{X}$ väärtuste korral ja aditiivne.
 
-Kui CIA kehtib ja eeldame aditiivset (lineaarset) mudelit, saame regressiooniga hinnata erinevaid keskmisi mõjusid.
+$$Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i$$
 
-#### Tavaline regressioonimudel (ATE hinnang)
+$\hat{\delta}$ on hinnang **ATE-le** (Average Treatment Effect), st keskmisele mõjule. Antud mudel eeldab, et ATE = ATT = ATU ehk mõju kõigile on ühesugune.
 
-Kõige lihtsam mudel eeldab, et mõju $\delta$ on **homogeenne** (sama kõigi $\mathbf{X}$ väärtuste korral) ja aditiivne.
+Regressioonimudeli seose hindame vähimruutude meetodi abil ja kasutame standardvigu, mis lubavad ka heteroskedastiivsust (nn robustsed standardvead).
 
-$$Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta + \epsilon_i$$
+Sellise meetodi tugevuseks on tema lihtsus ning võimalus hinnata ka seose siis, kui ühist tuge ei ole. (Viimase korral peab muidugi olema tõlgendamisel ettevaatlik.)
 
-Või üldjuhul, kui on selgitavaid tegureid rohkem:
+Sageli paneme regressioonimudelisse sisse ka varasemaid sõltuva tunnuse väärtusi enne meedet, et võtta arvesse tunnuste inertsi, nt varasem palk, varasem läbimüük.
 
--   **Valem:** $Y_i = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \epsilon_i$
 
--   **Mõju hinnang:** $\hat{\delta}$ on hinnang **ATE-le** (Average Treatment Effect), st keskmisele mõjule kõigile.
+$$Y_{iPost} = \alpha + \delta D_i + \beta_1 X_{1i} + \beta_2 X_{2i} + \gamma Y_{iPre} \dots + \epsilon_i$$
+kus $Y_{iPost}$ on tulemus peale meedet ja $Y_{iPre}$ tulemus enne meedet. 
 
-#### Regressioonimudel interaktsiooniga (heterogeenne mõju)
+See lähenemine on sarnane erinevuste vahe meetodiga (*difference-in-differences*). Pagem tähele, et sellisel juhul peab viitajaga sõltuv muutuja peab olema piisavalt enne meedet, et ei tekiks süstemaatilist langust enne meedet („pre-treatment dip“), mis on tingitud ootustest. 
+Näiteks, kui me teame, et paeme minema kahe kuu pärast täiendõppekoolitusele, et õppida uus amet, siis juba praegusel kuul pingutan vähem ja saan vähem palka. (Lisada viide Ashenfelter (1978) artiklile.)
 
-Kui on alust arvata, et meetme mõju $D$ sõltub mõnest tunnusest $X_k$ (st mõju on **heterogeenne**), lisatakse mudelisse interaktsiooniliige.
+
+## Regressioonimudel interaktsiooniga (heterogeenne mõju)
+
+Kui on alust arvata, et meetme mõju $D$ sõltub mõnest tunnusest $X_k$ (st mõju on heterogeenne), siis lisatakse mudelisse interaktsiooniliige. 
 
 $$Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \mathbf{X}_i \beta + \epsilon_i$$
 
--   **Valem:** $Y_i = \alpha + \delta D_i + \gamma (D_i \cdot X_{ki}) + \beta_1 X_{1i} + \dots + \epsilon_i$
+Mõju sõltub nüüd inimese tunnustest. Väärtuse $X_{ki}$ korral on $\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}$.
 
--   **Mõju** $X_{ki}$ väärtusel: $\text{Mõju} = \hat{\delta} + \hat{\gamma} X_{ki}$.
+Näiteks võib mõju olla erinev meestele ja naistele. Sellisel juhul peame lisama interaktsiooniliikme soo tunnuse ja meetmes osalemise tunnuse vahel.
 
--   **Kasutamine:** Seda mudelit kasutades saab hinnata **CATE**-t (Conditional Average Treatment Effect), st keskmist mõju alamrühmas, ja leida seejärel kaalutud keskmist leides ATE või ATT.
+Seda mudelit kasutades saab hinnata **CATE** (*Conditional Average Treatment Effect*), st keskmise mõju konkreetses alamrühmas, nt eraldi meeste jaoks ja naiste jaoks. Seejärel saame leida ka kaalutud keskmise abil ATT, ATU või ATE, kasutades kaaludena $X_{ki}$ osakaale (nt meeste või naiste osakaale) kas kõigi inimeste seas, ainult osalejate seas või mitteosalejate seas. 
 
-### Kaks eraldi eegressioonimudelit (G-Computation)
+## Kaks eraldi regressioonimudelit
 
-See meetod hinnatakse regressioonimudeleid eraldi osalejate ($D=1$) ja mitte-osalejate ($D=0$) andmetel, mis võimaldab arvestada **heterogeenset funktsionaalset seost** $Y_0$ ja $Y_1$ vahel.
+Ülaltoodu mudel eeldas, et selgitavate tunnuste mõju $Y$-e on ühesugune ja meetmes osalemise mõju varieerub vaid ühe tunnuse lõikes. Paindlikum lähenemine lubab selgitavatel tunnustel mõjutada väljundit erinevalt. Selle lähenemise korral  hinnatakse regressioonimudeleid eraldi osalejate ($D=1$) ja mitteosalejate ($D=0$) andmetel. See võimaldab  heterogeenset funktsionaalset seost  $\mathbf{X}$ ja $Y^0$ ning $Y^1$ vahel.
 
-1.  **Mudel osalejatel (**$D=1$): $$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$ Prognoosime tulemuse $Y_{i1}$ **kõigile** vaatlustele: $\hat{Y}_{i1} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1$.
+1.  **Mudel osalejate andmetel** ($D=1$): 
+$$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$ 
+Prognoosime tulemuse $Y^1_{i}$ kõigile vaatlustele: $\hat{Y}^1_{i} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1$.
 
-2.  **Mudel mitte-osalejatel (**$D=0$):
+2.  **Mudel mitteosalejate andmetel** ($D=0$):
 
 $$Y_i = \alpha_0 + \mathbf{X}_i \beta_0 + \epsilon_{i0} \quad \text{kui } D_i=0$$
 
-Prognoosime tulemuse $Y_{i0}$ **kõigile** vaatlustele: $\hat{Y}_{i0} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0$.
+Prognoosime tulemuse $Y^0_{i}$ kõigile* vaatlustele: $\hat{Y}^0_{i} = \hat{\alpha}_0 + \mathbf{X}_i \hat{\beta}_0$.
 
-3.  **Mõju arvutamine (G-Computation):** Mõju on igal isikul prognooside vahe: $\hat{\Delta}_i = \hat{Y}_{i1} - \hat{Y}_{i0}$.
-    -   **ATE** (kogu populatsioon): $\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i$
-    -   **ATT** (meetmes osalejatele): $\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i$
-    -   **ATU** (võrdlusrühmale): $\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i$
+3.  **Mõju arvutamine** : Mõju on igal isikul prognooside vahe: $\hat{\Delta}_i = \hat{Y}^1_{i} - \hat{Y}^0_{i}$. Üldise keskmise leiame lihtsalt saadud mõjuhinnangute keskmisena.
+    -   ATE (kogu populatsioon): $\text{ATE} = \frac{1}{N} \sum_{i=1}^N \hat{\Delta}_i$
+    -   ATT (meetmes osalejatele): $\text{ATT} = \frac{1}{N_T} \sum_{i: D_i=1} \hat{\Delta}_i$
+    -   ATU (võrdlusrühmale, kui nad oleks osalenud): $\text{ATU} = \frac{1}{N_C} \sum_{i: D_i=0} \hat{\Delta}_i$,
+    
+kus $N$, $N_T$ ja $N_C$ on vastavalt vaatluste arv kokku, osalusrühmas ja võrdlusrühmas. 
 
-See meetod on regressiooni mudeliga hindamise erijuht ja annab paindlikumad hinnangud, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitte-osalejatel.
+See meetod on regressioonimudeliga hindamise üldisem juht ja annab paindlikumad hinnangud, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitteosalejatel.
 
-## Näide tööpoliitikast
+Saadud hinnangu standardvea ja seega usalduspiirid saab leida näiteks simulatsioonimeetodi abil (*bootstrapping*, vaata empiirilist näidet peatüki lõpus). 
+
+Võib kasutada ka nt paketti *CausalGAM* (seisuga 15.09.2026 ei olnud seda uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html).
+
+### G-arvutus (G-computation) 
+
+Eelnevat toodud läehemist nimetatakse ka G-arvutus (G-computation). See on üldine meetod, kus hindame esmalt tulemusnäitaja sõltuvuse sekkumisest $D$ ja segajatest $X$. See võib olla regressioonimudel või ka paindlikum meetod, näiteks juhumets (*random forest*). 
+Seejärel prognoosime igale inimese tulemuse mõlema sekkumisseisundi korral ($D=1$ ja $D=0$ korral) ning leiame nende vastasseisundite prognooside keskmised sihtpopulatsioonis. Erinevused keskmiste vahel annavadki meile keskmise mõjuhinnangu.
+
+
+## Näide
 
 Me kasutame näidisandmetena Poliitikauuringute Keskuse Praxis 2002. aastal läbiviidud uuringut aktiivse tööpoliitika mõju hindamise kohta. (Vt Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) *Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis*. Tallinn: Praxis, 108 lk. Vt ka: [Praxis töö](https://www.praxis.ee/tood/aktiivse-toopoliitika-tulemuslikkuse-hindamine-eestis/) ja [Leetmaa & Võrk (2004)](https://www.researchgate.net/publication/268371718_Evaluation_of_Active_Labour_Market_Programmes_in_Estonia))
 
@@ -71,7 +90,7 @@ Anonümiseeritud andmestik asub failis:\
 ### Muutujate selgitused
 
 | Muutuja | Selgitus |
-|----|----|
+|------------------------------------|------------------------------------|
 | `training` | Received labour market training in 2000 / Tunnus kas sai tööturukoolitust või ei 2000. aasta esimeses pooles |
 | `nwage` | Netopalk 2002. aasta septembris |
 | `employed` | Employed in September 2002 / Hõivatus 2002. aasta septembris (1 – hõivatud, 0 – töötu või mitteaktiivne) |
@@ -121,14 +140,14 @@ Leidke, mitu inimestest osales 2000. aastal koolituses ja mitu ei osalenud
 table(atp$training)
 ```
 
-Kui suur osakaal koolituses osalejatest ja mitte-osalejatest töötas 2002. aasta septembris? Tabuleerige muutujad "training" ja "employed" ning leidke protsendid.
+Kui suur osakaal koolituses osalejatest ja mitteosalejatest töötas 2002. aasta septembris? Tabuleerige muutujad "training" ja "employed" ning leidke protsendid.
 
 ```{r}
 tab <- table(atp$training, atp$employed)
 prop.table(tab, margin = 1)
 ```
 
-Milline oli keskmine palk koolituses osalejatel ja mitte-osalejatel 2002. aasta septembris?
+Milline oli keskmine palk koolituses osalejatel ja mitteosalejatel 2002. aasta septembris?
 
 ```{r}
 atp %>% group_by(training) %>% summarise(mean_wage = mean(nwage, na.rm = TRUE))
@@ -145,7 +164,7 @@ stargazer(m1, m2, type = "text")
 
 ```
 
-Hinnake mudelid koos teiste selgitavate teguritega
+Hinnake mudelid koos teiste selgitavate teguritega. Lubame kohe ka heteroskedastiivsust.
 
 ```{r}
 atp$age2 <- atp$age^2
@@ -164,12 +183,7 @@ coeftest(lin_nwage, vcov = vcovHC(lin_nwage, "HC1"))
 
 
 ```
-
-Tõlgendage tulemusi!
-
-Lubage võimalikku heteroskedastiivsust.
-
-Leiame robustsed standarvead.
+Esitame mudelid koos tabelis.
 
 ```{r}
 robust_se1 <- sqrt(diag(vcovHC(lin_employed, type = "HC1")))
@@ -181,7 +195,7 @@ Kas robustsete standardvigade kasutamine muudab statistilist parameetrite statis
 
 ### Eraldi mudelid osalejatele ja mitteosalejatele
 
-#### Näide - meetme mõju palgale vanuse lõikes
+Vaatame meetme mõju palgale lubades vaid vanuse täiendavat mõju.
 
 ```{r}
 atpj <- atp %>% filter(!is.na(nwage)) %>% 
@@ -209,9 +223,10 @@ atpj$ate <-
            predict(lm(nwage ~ age, data=atpj[atpj$training==0,]), new=atpj)
 ```
 
-See joonis näitab, kuidas vanus mõjutab palka kahes erinevas grupis (osalejad vs mitte-osalejad). Kasutame valemi $Y \sim X$ seost vanuse osas.
+See joonis näitab, kuidas vanus mõjutab palka kahes erinevas grupis (osalejad vs mitteosalejad). Kasutame valemi $Y \sim X$ seost vaid vanuse jaoks.
 
-Mõju sõltub vanusest. Mida noorem, seda suurem efekt.
+Näeme, et mõju sõltub vanusest. Mida noorem, seda suurem efekt ehk joontevaheline erinevus.
+Esitame selle erinevuse joonisel koos vaatluste jaotuse histogrammiga X-teljel.
 
 ```{r}
 ggplot(atpj,
@@ -230,11 +245,11 @@ ggplot(atpj,
 
 ```
 
-Lisame täiendavad selgitavad tunnused
+Lisame järgnevalt täiendavad selgitavad tunnused.
 
-Töötamise jaoks
+**Töötamise mudel**
 
-Hindame mudeli osalejate andmete põhjal ja prognoosime tulemused **kõigile.**
+Hindame mudeli osalejate andmete põhjal *training==1* ja prognoosime tulemused kõigile.
 
 ```{r}
 lin_employed_ra1 <- lm(employed ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 1, ])
@@ -243,7 +258,7 @@ atp$pemployed_1 <- predict(lin_employed_ra1, newdata = atp)
 
 ```
 
-Hinnake samasugune mudel ka mitteosalejate põhjal  *training==0* ja prognoosige tulemused kõigile
+Hindame samasuguse mudeli ka mitteosalejate põhjal *training==0* ja prognoosime tulemused kõigile
 
 ```{r}
 lin_employed_ra0 <- lm(employed ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 0, ])
@@ -272,7 +287,8 @@ atu_empl
 
 Kas tulemused muutusid võrreldes ühise regressioonimudeliga?
 
-Sama palgaga
+**Mõju palgale** leiame analoogselt:
+
 
 ```{r}
 lin_nwage_ra1 <- lm(nwage ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 1, ])
@@ -292,11 +308,47 @@ atu_nwage
 
 ```
 
-Kas koolituse mõju on suurem osalejatele või oleks olnud suurem mitte-osalejatele? Kas mõju on statistiliselt oluline?
+Kas koolituse mõju on suurem osalejatele või oleks olnud suurem mitteosalejatele? Kas mõju on statistiliselt oluline?
+
+### Usalduspiiride leidmine
+
+Kui soovime leida usalduspiirid ATE, ATT ja ATU jaoks võime kasutada kas analüütilisi lähenemisi või simuleeritud viise. 
+Vaatame esmalt paketti *margins*.  Hindame mudeli interaktsiooniefektiga, mis vastab sellele, kui oleksime hinnanud kaks eraldi mudelid.
+
+```{r}
+
+intmudel <- lm(employed ~ (male + est + age + age2 + educ + emplbefore)*training, data = atp)
+
+summary(intmudel)
+
+```
+Leiame nüüd muutuja *training* keskmise mõju terves valimis. Saame sellega ATE.
+
+```{r}
+library(margins)
+summary(margins(intmudel, variables = "training"))
+```
+
+Leiame selle alamvalimis, kui training ==1. Saame ATT.
+
+```{r}
+summary(margins(intmudel, variables = "training", data = atp[atp$training ==1,]))
+
+```
+
+Leiame selle alamvalimis, kui training == 0. Saame ATU.
+
+```{r}
+summary(margins(intmudel, variables = "training", data = atp[atp$training ==0,]))
+
+```
+
 
 ### Bootstrapping hinnangute standardvea leidmiseks - fännidele
 
-Teeme funktsiooni
+Selleks, et leida standardvead ja usalduspiirid võime kasutada ka simulatsioonimeetodit ehk bootstrappingut.
+
+Teeme esmalt funktsiooni, mida me hindame. Vaatame esmalt mõju töötamisele.
 
 ```{r}
 
@@ -311,12 +363,42 @@ mybs = function(data, indices, formula =f) {
 
 ```
 
-ja rakendame seda
+Kui funktsioon on valmis rakendame seda andmestikule, mis moodustatakse juhuslikult võttes tagasipanekuga valimeid meie andmestikust. Iga valimi korral hinnatakse meid huvitav parameeter. Võttes niimoodi suure arvu valimeid leiame meie parameetrite jaotuse ja usalduspiirid ning standardvea. Saadud usalduspiire kasutame ülalleitud parameetrite (ATE, ATT) jaoks.
+
+NB! Praegu on kasutatud vaid 50 simulatsiooni (R = 50). Päris analüüsis peaks see number olema palju suurem, nt R= 2000.
 
 ```{r}
 
 set.seed(1632)
 results <- boot(data = atp, statistic = mybs, R = 50, stype = "i")
-boot.ci(results)
-
+results
 ```
+Detailsemad tulemused koos usaldusintervalliga. ATT jaoks:
+
+```{r}
+boot.ci(
+  results,
+  index = 1,
+  type = c("norm", "basic", "perc", "bca")
+)
+```
+
+Ja ATT jaoks
+
+```{r}
+boot.ci(
+  results,
+  index = 2,
+  type = c("norm", "basic", "perc", "bca")
+)
+```
+
+  - Normal - kasutab normaaljaotuse eeldust ja leiab usalduspiirid kui 1.96 korda simuleeritud standardviga. See on lihtne, aga eeldab, et jaotus on sümmeetriline.
+
+  -  Percentile - leiab simuleeritud andmetest 95%lise usalduspiiri võttes mõlemast jaotuse otsast 2.5% vaatlusi maha. See sobib hästi, kui jaotus on ebasümmeetriline.
+
+  - Basic - võtab "esialgse "percentile" usalduspiirid ja paneb selle esialgse punkthinnangu ümber 
+  
+  - BCa - "bias corrected" ja "accelerated" - parandab "percentile" usalduspiire. Võiks pidada parimaks lähenemiseks. Nihutab protsentiile.
+  
+  
