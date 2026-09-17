@@ -222,7 +222,7 @@ $$
 \text{SDO} = \text{ATE} + \text{valikunihe} + \text{nihe mõju heterogeensusest}.
 $$
 
-Ainult juhul, kui puudub valikunihe ja mõju ei ole heterogeenne, võime lihtsat osalusrühma ja võrdlusrühma väärtuste erinevust tõlgendada keskmise põhjusliku mõjuna.
+Ainult juhul, kui puudub valikunihe ja mõju ei ole keskmiselt erinev osalejate ja mitteosalejate seas, võime lihtsat osalejate ja mitteosalejate keskmiste väärtuste erinevust tõlgendada keskmise põhjusliku mõjuna.
 
 ## SUTVA – stabiilse ühikunäitaja eeldus
 
@@ -256,7 +256,7 @@ $$
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i
 $$ Kõige lihtsam olukord on juhuslik eksperiment, kus meetmes osalemine määratakse loosiga.
 
-Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama meetmes osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas võitu meetmest ehk toimub iseselektsioon ( *self-selection* ). Teisest küljest ka meedet pakkuvad töötajad võivad valida osalejateks motiveeritumaid või võimekamaid indiviide (juhul kui nende endi töötasu sõltub meetme edukusest) ehk toimub nn "koore riisumin"e" ( *cream skimming*).
+Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama meetmes osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas võitu meetmest ehk toimub iseselektsioon ( *self-selection* ). Teisest küljest ka meedet pakkuvad töötajad võivad valida osalejateks motiveeritumaid või võimekamaid indiviide (juhul kui nende endi töötasu sõltub meetme edukusest) ehk toimub nn "koore riisumine" ( *cream skimming*).
 
 See eeldus on täidetud juhusliku eksperimendi korral. See võib olla osaliselt täidetud ka siis, kui välised tegurid mõjutavad osalemist, nt seaduse muutused, COVID-19 vmt, kus inimene ise ei saa otsustada meetmes osalemist.
 
@@ -346,7 +346,7 @@ Selgitus:
 
 Analoogselt kasutame ATU jaoks kaaludena mitte-osalenute struktuuri.
 
-See on mitteparametriline lähenemine CIA eelduse rakendamiseks. Praktikas kasutatakse sageli ka:
+See on mitteparameetriline lähenemine CIA eelduse rakendamiseks. Praktikas kasutatakse sageli ka:
 
 -   lineaarset regressioonimudelit,
 -   logistilist regressioonimudelit osalemise tõenäosuse hindamiseks ja selle alusel sobitamist (*propensity score matching*),
@@ -415,7 +415,7 @@ Potentsiaalse tulemuse mudel formaliseerib põhjusliku mõju mõiste, kirjeldade
 
 Lihtne keskmiste erinevus osalenute ja mitteosalenute vahel (SDO) on enamasti nihkes keskmise mõju jaoks valikunihke ja heterogeense mõju tõttu. Selleks, et anda põhjuslik tõlgendus, on vaja tugevaid eeldusi (nt juhuslik eksperiment) või realistlikumaid tinglikke eeldusi (CIA, ühine tugi) koos sobivate meetoditega (sobitamine, regressioonimudel, kaalumised).
 
-POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud asüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.
+POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud atsüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.
 
 ## Ülesanded
 
