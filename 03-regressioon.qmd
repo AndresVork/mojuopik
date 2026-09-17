@@ -50,7 +50,9 @@ $$Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta  + (D_i \cdot \mathbf{X}_{i}) \
 
 See võimaldab heterogeenset funktsionaalset seost $\mathbf{X}$ ja $Y^0$ ning $Y^1$ vahel.
 
-Interaktsiooniliikme lisamine igale selgitavale tunnusele, on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate ($D=1$) ja mitteosalejate ($D=0$) lõikes, sest iga parameeter tulebki erinev osalejatele ja mitteosalejatele. See meetod on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitteosalejatel.
+Keskmise mõju leidmiseks taolisest mudelist (nt ATE), peame leidma meetmes osalemise mõju iga vaatluse jaoks ja siis leidma keskmise. Seda saab teha erinevate Ri pakettidega (vt empiirilist näidet allpool). 
+
+Interaktsiooniliikme lisamine igale selgitavale tunnusele on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate ($D=1$) ja mitteosalejate ($D=0$) lõikes, sest interaktsiooniga mudelis tulebki iga parameeter erinev osalejatele ja mitteosalejatele. Kahe mudeli hindamine  on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitteosalejatel.
 
 1.  **Mudel osalejate andmetel** ($D=1$): $$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$
 
@@ -71,7 +73,8 @@ kus $N$, $N_T$ ja $N_C$ on vastavalt vaatluste arv kokku, osalusrühmas ja võrd
 
 **Standardvigade leidmine**
 
-Saadud ATE (või ka ATT, ATU) punkthinnangu standardvea ja usalduspiirid saab leida kas simulatsioonimeetodi abil (*bootstrapping*, vaata empiirilist näidet peatüki lõpus). On olemas ka valmis tehtud paketid, nt *CausalGAM* (mis küll seisuga 15.09.2026 ei olnud uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html) või pakett *margins*, mis lubab leida selgitava tunnuse mõju interaktsioonidega mudelist. Vaata näidet peatüki lõpus.
+Saadud ATE (või ka ATT, ATU) punkthinnangu standardvea ja usalduspiirid saab leida simulatsioonimeetodi abil (nn *bootstrapping*). Kui mudelit hinnata interaktsioonidega ühe mudeliga, siis saab marginaalsete efektide leidmisel paketist *margins* või *marginaleffects* ka automaatselt standardvead. Vaata näiteid empriilises ülesandes.
+Paidlik pakett on veel *CausalGAM* (mis küll seisuga 15.09.2026 ei olnud uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html) . 
 
 ### G-arvutus (*G-computation*)
 
@@ -87,7 +90,7 @@ Anonümiseeritud andmestik asub failis:\
 ### Muutujate selgitused
 
 | Muutuja | Selgitus |
-|--------------------|-----------------------------------------------------|
+|--------------------|----------------------------------------------------|
 | `training` | Tunnus kas sai tööturukoolitust või ei 2000. aasta esimeses pooles |
 | `nwage` | Netopalk 2002. aasta septembris. (Tegelikult on tegemist kroonidega, aga all tekstis kasutan sageli eurot) |
 | `employed` | Hõiveseisund 2002. aasta septembris (1 – hõivatud, 0 – töötu või mitteaktiivne) |
@@ -114,13 +117,19 @@ Anonümiseeritud andmestik asub failis:\
 ```{r}
 #| message: false
 #| warning: false
-library(dplyr)
-library(stargazer)
-library(lmtest)
-library(sandwich)
-library(boot)
-library(ggplot2)
-library(margins)
+library(dplyr) #andmete teisendamine
+library(stargazer) #tulemuste esitamine - võimalus 1
+library(modelsummary) #tulemuste esitamine - võimalus 2
+
+library(lmtest) #coeftest käsu jaoks, et esitada robustsete standardvigadega - võimalus 1
+library(sandwich) #robustsed standardvead  - võimalus 1
+library(fixest) #hindab lineaarse mudeli, lubab kohe robustseid standardvigu - võimalus 2
+
+library(margins)  #saab leida interkatsioonidega mudelist osamõjud, nt ATE - võimalus 1
+library(marginaleffects) #saab leida interkatsioonidega mudelist osamõjud, nt ATE - võimalus 2
+
+library(boot) #bootstrappinguks, leidmaks simulatsiooniga usalduspiirid
+library(ggplot2) #joonistamiseks
 
 ```
 
@@ -143,11 +152,11 @@ Meetmes osales 429 inimest ja ei osalenud 878 inimest.
 Kui suur osakaal koolituses osalejatest ja mitteosalejatest töötas 2002. aasta septembris? Tabuleerige muutujad "training" ja "employed" ning leidke protsendid.
 
 ```{r}
-tab <- table(atp$training, atp$employed)
+tab <- table("training"= atp$training, "employed" = atp$employed)
 prop.table(tab, margin = 1)
 ```
 
-Meetmes osalejate seas on pärast töötavaid inimesi 70.9 protsenti ja mitteosalejate seas on 59.0 protsenti. Seega on lihtne erinevus (*SDO*) 11.9 protsendipunkti.
+Meetmes osalejate seas (training = 1) on pärast töötavaid inimesi 70.9 protsenti ja mitteosalejate seas (training = 0) on 59.0 protsenti. Seega on lihtne erinevus (*SDO*) 11.9 protsendipunkti.
 
 Milline oli keskmine palk koolituses osalejatel ja mitteosalejatel 2002. aasta septembris?
 
@@ -182,7 +191,7 @@ coeftest(lin_employed, vcov = vcovHC(lin_employed, "HC1"))
 
 ```
 
-Näeme, et tööturukoolituses osalejatel on peale teiste tunnuste mõju arvesse võtmist 0.098 ehk 9.8 protsendipunkti suurem tõenäosus hiljem töötada.
+Näeme, et tööturukoolituses osalejatel on peale teiste tunnuste mõju arvesse võtmist 0.098 ehk 9.8 protsendipunkti suurem tõenäosus hiljem töötada kui koolituses mitteosalejatel.
 
 Tõlgendage ka teiste selgitavate tunnuste kordajaid. Kuidas tõlgendada vanuse mõju?
 
@@ -198,7 +207,7 @@ coeftest(lin_nwage, vcov = vcovHC(lin_nwage, "HC1"))
 
 Meetmes osalejate palk on pärast meedet keskmiselt 255 euro võrra suurem kui meetmes mitteosalejatel.
 
-Tavapäraselt esitame taolised regressioonimudelid kompaktselt koos ühes tabelis. Seda saab teha näiteks paketiga *stargazer*. (On ka teisi pakette, nt *modelsummary*).
+Tavapäraselt esitame taolised regressioonimudelid kompaktselt koos ühes tabelis. Seda saab teha näiteks paketiga *stargazer*.
 
 ```{r}
 robust_se1 <- sqrt(diag(vcovHC(lin_employed, type = "HC1")))
@@ -206,26 +215,46 @@ robust_se2 <- sqrt(diag(vcovHC(lin_nwage, type = "HC1")))
 stargazer(lin_employed, lin_nwage, se = list(robust_se1, robust_se2), type = "text", no.space = TRUE)
 ```
 
+Kõrvalepõikena, pakett *fixest* sisaldab käsku *feols*, mis laseb kohe esitada ka robustsed standardvead. Pakett *modelsummary* esitab need. Millist paketti kasutada on maitse asi. 
+
+```{r}
+lin_employedrob <- feols(employed ~ training + male + est+ age + age2  + educ + emplbefore, data=atp, vcov = "HC1")
+lin_nwagerob <- feols(nwage ~ training + male + est+ age + age2  + educ + emplbefore, data=atp, vcov = "HC1")
+
+modelsummary(models = list(lin_employedrob, lin_nwagerob), 
+             estimate = "{estimate} {stars}")
+
+```
+
+
+
+
 ### Eraldi mudelid osalejatele ja mitteosalejatele
 
 **Ühe tunnusega mudel**
 
-Järgnevalt lubame meetme mõjul erineda erinevates sotsiaaldemograafilistes rühmades. Alguses vaatame mõju palgale lubades vaid vanuse erinevat mõju, et saaksime illustreerida tulemusi joonisel.
+Järgnevalt lubame meetme mõjul erineda erinevates sotsiaaldemograafilistes rühmades. Alguses vaatame mõju palgale lubades vaid vanuse erinevat mõju, et saaksime illustreerida tulemusi joonisel. Piirame ajutiselt palka ülalt ja vaatame vaid mitte nulle.
 
 ```{r}
-#Joonise huvides piirama palka ülalt ning vaatame vaid mitte nulle.
 atpj <- atp %>% filter(!is.na(nwage)) %>% 
   filter(nwage<5000, nwage>0)
 
-ggplot(atpj,
-       aes(x = age, y = nwage, color = "Palk")) +
+mudelvanus <- lm(nwage ~ age*training, data = atpj)
+summary(mudelvanus)
+
+```
+Näeme, et koolituse mõju on positiivne (369 eurot), aga iga aasta, mis vanusele juurde tuleb, vähendab koolituse mõju 5.9 euro võrra. (Tõsi, ükski kumbki parameeter ei ole statistiliselt oluline.) 
+
+Illustreerime tulemust ka joonisel.
+
+```{r}
+
+ggplot(atpj, aes(x = age, y = nwage, color = "Palk")) +
   geom_point() +
   geom_smooth(data = atpj %>% filter(training ==1), method = "lm", 
-              #              formula = y ~ poly(x, 2),
               se = FALSE, 
               aes(color = "Prognoos, D = 1")) +
   geom_smooth(data = atpj %>% filter(training ==0), method = "lm", 
-              #              formula = y ~ poly(x, 2),
               se = FALSE, 
               aes(color = "Prognoos, D = 0")) +
   scale_color_manual(name = "", values = c("Palk" = "grey",
@@ -234,40 +263,34 @@ ggplot(atpj,
   theme_minimal() +
   labs(x = "Vanus", y = "Palk", color = "")
 
+#Salvestame ka prognoositud väärtuste erinevuse järgmise joonise jaoks
 atpj$ate <-
   predict(lm(nwage ~ age, data=atpj[atpj$training==1,]), new=atpj) - 
            predict(lm(nwage ~ age, data=atpj[atpj$training==0,]), new=atpj)
 ```
 
-See joonis näitab, kuidas vanus mõjutab palka osalejate ja mitteosalejate seas natuke erinevalt. Mida noorem on inimene, seda suurem on joontevaheline erinevus ehk meetmes osalemise mõju on suurem. Esitame selle erinevuse ka joonisel, lisame vaatluste jaotuse väikese histogrammina X-teljel.
+Joonis näitab, et vanus mõjutab palka osalejate ja mitteosalejate seas erinevalt. Mida noorem on inimene, seda suurem on joontevaheline erinevus ehk meetmes osalemise mõju on suurem. Esitame selle erinevuse eraldi joonisel, lisame vaatluste jaotuse väikese histogrammina X-teljel.
 
 ```{r}
 ggplot(atpj,
        aes(x = age, y = ate)) +
   geom_line() +
-  #geom_rug(sides = "b") +
-  #geom_histogram(aes(y = ..count..), 
-  #               binwidth = 1, alpha = 0.9, fill = "grey", position = "identity") +
   geom_histogram(aes(fill = as.factor(training), y = ..count..), 
-                 binwidth = 1, alpha = 0.5, position = "identity") +  # Colored histogram by gender
+                 binwidth = 1, alpha = 0.5, position = "identity") +
   scale_fill_manual(values = c("green", "blue")) +
-  
   theme_minimal() +
   labs(x = "Vanus", y = "Meetme mõju", fill = "Meetmes")
-
-
 ```
 
-**Täielik interkatsioon**
+**Täielik interaktsioon**
 
-Lisame järgnevalt kõik ülejäänud selgitavad tunnused. Viime läbi G-arvutuse töötamise väljundi jaoks.
+Lisame järgnevalt mudelisse kõik ülejäänud selgitavad tunnused. Viime läbi G-arvutuse töötamise väljundi jaoks.
 
 Esimene samm: hindame mudeli osalejate andmete põhjal *training==1* ja prognoosime tulemused kõigile.
 
 ```{r}
 lin_employed_ra1 <- lm(employed ~ male + est + age + age2 + educ + emplbefore, data = atp[atp$training == 1, ])
 atp$pemployed_1 <- predict(lin_employed_ra1, newdata = atp)
-
 
 ```
 
@@ -327,9 +350,7 @@ Kas koolituse mõju on suurem osalejatele või oleks olnud suurem mitteosalejate
 Kui soovime leida usalduspiirid ATE, ATT ja ATU jaoks võime kasutada kas analüütilisi lähenemisi või simuleeritud viise. Vaatame esmalt paketti *margins*. Hindame mudeli interaktsiooniefektiga kõigi tunnuste ja meetmes osalemise vahel. See on täpselt sama, kui oleksime hinnanud kaks eraldi mudelit.
 
 ```{r}
-
 intmudel <- lm(employed ~ (male + est + age + age2 + educ + emplbefore)*training, data = atp)
-
 summary(intmudel)
 
 ```
@@ -342,6 +363,11 @@ summary(margins(intmudel, variables = "training"))
 ```
 
 Saame sama punkthinnangu, mis ülal. Meetme keskmine mõju on 10.63 protsendipunkti. Nüüd on lisatud ka usalduspiirid, kust näeme, et 95%line usaldusvahemik on 5.06 - 16.2 protsendipunkti. Hinnang on ka statistiliselt oluline (p = 0.0002).
+
+Sama teeb ka käsk *avg_comparisons* paketist *marginaleffects*. Siin saame lubada kohe ka robustseid standardvigu.
+```{r}
+avg_comparisons(intmudel, variables = "training", vcov = "HC1")
+```
 
 Saame sarnaselt leida ka ATT, kui paneme andmetele peale tingimuse, et *training* ==1.
 
