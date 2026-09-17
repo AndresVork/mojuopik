@@ -329,7 +329,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">15/09/2026</p>
+      <p class="date-modified">17/09/2026</p>
     </div>
   </div>
     
@@ -520,7 +520,7 @@ Kui kõik töötajad oleks koolitatud, milline oleks keskmine tootlikkuse kasv e
 <p><span class="math display">\[
 \text{SDO} = \text{ATE} + \text{valikunihe} + \text{nihe mõju heterogeensusest}.
 \]</span></p>
-<p>Ainult juhul, kui puudub valikunihe ja mõju ei ole heterogeenne, võime lihtsat osalusrühma ja võrdlusrühma väärtuste erinevust tõlgendada keskmise põhjusliku mõjuna.</p>
+<p>Ainult juhul, kui puudub valikunihe ja mõju ei ole keskmiselt erinev osalejate ja mitteosalejate seas, võime lihtsat osalejate ja mitteosalejate keskmiste väärtuste erinevust tõlgendada keskmise põhjusliku mõjuna.</p>
 </section>
 </section>
 <section id="sutva-stabiilse-ühikunäitaja-eeldus" class="level2" data-number="4.5">
@@ -553,7 +553,7 @@ D_i \perp D_j
 <p><span class="math display">\[
 \big( Y_i^0, Y_i^1 \big) \;\perp\!\!\!\perp\; D_i
 \]</span> Kõige lihtsam olukord on juhuslik eksperiment, kus meetmes osalemine määratakse loosiga.</p>
-<p>Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama meetmes osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas võitu meetmest ehk toimub iseselektsioon ( <em>self-selection</em> ). Teisest küljest ka meedet pakkuvad töötajad võivad valida osalejateks motiveeritumaid või võimekamaid indiviide (juhul kui nende endi töötasu sõltub meetme edukusest) ehk toimub nn “koore riisumin”e” ( <em>cream skimming</em>).</p>
+<p>Majandusinimeste vaatevinklist on see rumal eeldus – miks peaks inimene otsustama meetmes osalemise ilma silmas pidamata võimalikku kasu? Inimesed otsustavad osaleda meetmes, pidades silmas võitu meetmest ehk toimub iseselektsioon ( <em>self-selection</em> ). Teisest küljest ka meedet pakkuvad töötajad võivad valida osalejateks motiveeritumaid või võimekamaid indiviide (juhul kui nende endi töötasu sõltub meetme edukusest) ehk toimub nn “koore riisumine” ( <em>cream skimming</em>).</p>
 <p>See eeldus on täidetud juhusliku eksperimendi korral. See võib olla osaliselt täidetud ka siis, kui välised tegurid mõjutavad osalemist, nt seaduse muutused, COVID-19 vmt, kus inimene ise ei saa otsustada meetmes osalemist.</p>
 <p>Kui sõltumatuse eeldus on täidetud, siis potentsiaalsed tulemused ei sõltu sellest, kas inimene osales meetmes või mitte.</p>
 <p>Potentsiaalne tulemus mitteosalemise korral:</p>
@@ -623,7 +623,7 @@ D_i \perp D_j
 <li>võtame nende rühmakeskmiste erinevuste kaalutud keskmise, kus kaaludeks on osalenute struktuur osalusrühmas.</li>
 </ol>
 <p>Analoogselt kasutame ATU jaoks kaaludena mitte-osalenute struktuuri.</p>
-<p>See on mitteparametriline lähenemine CIA eelduse rakendamiseks. Praktikas kasutatakse sageli ka:</p>
+<p>See on mitteparameetriline lähenemine CIA eelduse rakendamiseks. Praktikas kasutatakse sageli ka:</p>
 <ul>
 <li>lineaarset regressioonimudelit,</li>
 <li>logistilist regressioonimudelit osalemise tõenäosuse hindamiseks ja selle alusel sobitamist (<em>propensity score matching</em>),</li>
@@ -682,7 +682,7 @@ D_i \perp D_j
 <h2 data-number="4.11" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">4.11</span> Kokkuvõte</h2>
 <p>Potentsiaalse tulemuse mudel formaliseerib põhjusliku mõju mõiste, kirjeldades iga indiviidi jaoks kahte potentsiaalset tulemust <span class="math inline">\(Y_i^0\)</span> ja <span class="math inline">\(Y_i^1\)</span>. Kuna reaalses elus näeme ainult üht neist, keskendume erinevatele keskmistele mõjudele (ATE, ATT, ATU, CATE, LATE, ITT) ja eeldustele, mille alusel neid saab hinnata.</p>
 <p>Lihtne keskmiste erinevus osalenute ja mitteosalenute vahel (SDO) on enamasti nihkes keskmise mõju jaoks valikunihke ja heterogeense mõju tõttu. Selleks, et anda põhjuslik tõlgendus, on vaja tugevaid eeldusi (nt juhuslik eksperiment) või realistlikumaid tinglikke eeldusi (CIA, ühine tugi) koos sobivate meetoditega (sobitamine, regressioonimudel, kaalumised).</p>
-<p>POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud asüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.</p>
+<p>POM on kooskõlas ka teiste lähenemistega, näiteks DAG-id (suunatud atsüklilised graafid), mis keskenduvad eelkõige identifitseerimisele. Praktikas kasutatakse sageli POM-i raamistikku koos graafiliste mudelitega, et selgelt sõnastada nii eeldused kui ka hinnatav põhjuslik mõju.</p>
 </section>
 <section id="ülesanded" class="level2" data-number="4.12">
 <h2 data-number="4.12" class="anchored" data-anchor-id="ülesanded"><span class="header-section-number">4.12</span> Ülesanded</h2>

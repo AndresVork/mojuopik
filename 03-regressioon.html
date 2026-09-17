@@ -305,7 +305,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">16/09/2026</p>
+      <p class="date-modified">17/09/2026</p>
     </div>
   </div>
     
@@ -348,7 +348,7 @@ window.Quarto = {
 <p>Ülaltoodud mudel eeldas, et meetmes osalemise mõju varieerub vaid ühe tunnuse lõikes. Paindlikum lähenemine lubab meetmel olla erineva mõjuga kõigi tunnuste lõikes, st me korrutame iga selgitava tunnuse <span class="math inline">\(X\)</span> läbi meetmes osalemise tunnusega <span class="math inline">\(D\)</span>:</p>
 <p><span class="math display">\[Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta  + (D_i \cdot \mathbf{X}_{i}) \gamma + \epsilon_i\]</span></p>
 <p>See võimaldab heterogeenset funktsionaalset seost <span class="math inline">\(\mathbf{X}\)</span> ja <span class="math inline">\(Y^0\)</span> ning <span class="math inline">\(Y^1\)</span> vahel.</p>
-<p>Interaktsiooniliikme lisamine igale selgitavale tunnusele, on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate (<span class="math inline">\(D=1\)</span>) ja mitteosalejate (<span class="math inline">\(D=0\)</span>) lõikes. See meetod on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel <span class="math inline">\(Y \sim \mathbf{X}\)</span> olla erinev osalejatel ja mitteosalejatel.</p>
+<p>Interaktsiooniliikme lisamine igale selgitavale tunnusele, on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate (<span class="math inline">\(D=1\)</span>) ja mitteosalejate (<span class="math inline">\(D=0\)</span>) lõikes, sest iga parameeter tulebki erinev osalejatele ja mitteosalejatele. See meetod on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel <span class="math inline">\(Y \sim \mathbf{X}\)</span> olla erinev osalejatel ja mitteosalejatel.</p>
 <ol type="1">
 <li><p><strong>Mudel osalejate andmetel</strong> (<span class="math inline">\(D=1\)</span>): <span class="math display">\[Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1\]</span></p>
 <p>Prognoosime saadud regressioonimudeli parameetrite abile potentsiaalse tulemuse meetmes osalemise korral <strong>kõigile</strong> vaatlustele: <span class="math inline">\(\hat{Y}^1_{i} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1\)</span>.</p></li>
