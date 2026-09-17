@@ -305,7 +305,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">17/09/2026</p>
+      <p class="date-modified">18/09/2026</p>
     </div>
   </div>
     
@@ -477,13 +477,19 @@ window.Quarto = {
 <section id="vajalikud-paketid" class="level3">
 <h3 class="anchored" data-anchor-id="vajalikud-paketid">Vajalikud paketid</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co">#andmete teisendamine</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer) <span class="co">#tulemuste esitamine - võimalus 1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary) <span class="co">#tulemuste esitamine - võimalus 2</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest) <span class="co">#coeftest käsu jaoks, et esitada robustsete standardvigadega - võimalus 1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich) <span class="co">#robustsed standardvead  - võimalus 1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest) <span class="co">#hindab lineaarse mudeli, lubab kohe robustseid standardvigu - võimalus 2</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)  <span class="co">#saab leida interkatsioonidega mudelist osamõjud, nt ATE - võimalus 1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#saab leida interkatsioonidega mudelist osamõjud, nt ATE - võimalus 2</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot) <span class="co">#bootstrappinguks, leidmaks simulatsiooniga usalduspiirid</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co">#joonistamiseks</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="andmestiku-lugemine" class="level3">
@@ -506,16 +512,16 @@ window.Quarto = {
 <p>Meetmes osales 429 inimest ja ei osalenud 878 inimest.</p>
 <p>Kui suur osakaal koolituses osalejatest ja mitteosalejatest töötas 2002. aasta septembris? Tabuleerige muutujad “training” ja “employed” ning leidke protsendid.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(atp<span class="sc">$</span>training, atp<span class="sc">$</span>employed)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="st">"training"</span><span class="ot">=</span> atp<span class="sc">$</span>training, <span class="st">"employed"</span> <span class="ot">=</span> atp<span class="sc">$</span>employed)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="at">margin =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   
-            0         1
-  0 0.4100228 0.5899772
-  1 0.2913753 0.7086247</code></pre>
+<pre><code>        employed
+training         0         1
+       0 0.4100228 0.5899772
+       1 0.2913753 0.7086247</code></pre>
 </div>
 </div>
-<p>Meetmes osalejate seas on pärast töötavaid inimesi 70.9 protsenti ja mitteosalejate seas on 59.0 protsenti. Seega on lihtne erinevus (<em>SDO</em>) 11.9 protsendipunkti.</p>
+<p>Meetmes osalejate seas (training = 1) on pärast töötavaid inimesi 70.9 protsenti ja mitteosalejate seas (training = 0) on 59.0 protsenti. Seega on lihtne erinevus (<em>SDO</em>) 11.9 protsendipunkti.</p>
 <p>Milline oli keskmine palk koolituses osalejatel ja mitteosalejatel 2002. aasta septembris?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>atp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(training) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_wage =</span> <span class="fu">mean</span>(nwage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -584,7 +590,7 @@ emplbefore   0.05064137  0.05218072  0.9705 0.3319782
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Näeme, et tööturukoolituses osalejatel on peale teiste tunnuste mõju arvesse võtmist 0.098 ehk 9.8 protsendipunkti suurem tõenäosus hiljem töötada.</p>
+<p>Näeme, et tööturukoolituses osalejatel on peale teiste tunnuste mõju arvesse võtmist 0.098 ehk 9.8 protsendipunkti suurem tõenäosus hiljem töötada kui koolituses mitteosalejatel.</p>
 <p>Tõlgendage ka teiste selgitavate tunnuste kordajaid. Kuidas tõlgendada vanuse mõju?</p>
 <p>Hinnakem samasugune mudel ka palga kohta.</p>
 <div class="cell">
@@ -608,7 +614,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>Meetmes osalejate palk on pärast meedet keskmiselt 255 euro võrra suurem kui meetmes mitteosalejatel.</p>
-<p>Tavapäraselt esitame taolised regressioonimudelid kompaktselt koos ühes tabelis. Seda saab teha näiteks paketiga <em>stargazer</em>. (On ka teisi pakette, nt <em>modelsummary</em>).</p>
+<p>Tavapäraselt esitame taolised regressioonimudelid kompaktselt koos ühes tabelis. Seda saab teha näiteks paketiga <em>stargazer</em>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>robust_se1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(lin_employed, <span class="at">type =</span> <span class="st">"HC1"</span>)))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>robust_se2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(lin_nwage, <span class="at">type =</span> <span class="st">"HC1"</span>)))</span>
@@ -647,32 +653,241 @@ F Statistic         9.954*** (df = 7; 1299) 21.885*** (df = 7; 1248)
 Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
+<p>Kõrvalepõikena, pakett <em>fixest</em> sisaldab käsku <em>feols</em>, mis laseb kohe esitada ka robustsed standardvead. Pakett <em>modelsummary</em> esitab need. Millist paketti kasutada on maitse asi.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lin_employedrob <span class="ot">&lt;-</span> <span class="fu">feols</span>(employed <span class="sc">~</span> training <span class="sc">+</span> male <span class="sc">+</span> est<span class="sc">+</span> age <span class="sc">+</span> age2  <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data=</span>atp, <span class="at">vcov =</span> <span class="st">"HC1"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>lin_nwagerob <span class="ot">&lt;-</span> <span class="fu">feols</span>(nwage <span class="sc">~</span> training <span class="sc">+</span> male <span class="sc">+</span> est<span class="sc">+</span> age <span class="sc">+</span> age2  <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data=</span>atp, <span class="at">vcov =</span> <span class="st">"HC1"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: 51 observations removed because of NA values (LHS: 51).</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(<span class="at">models =</span> <span class="fu">list</span>(lin_employedrob, lin_nwagerob), </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">estimate =</span> <span class="st">"{estimate} {stars}"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_4f7hcjx34olq60nijdnt = TinyTable.createTableFunctions("tinytable_4f7hcjx34olq60nijdnt");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '23', j: 2 }, { i: '23', j: 3 } ], css_id: 'tinytable_css_rjz5txb453bthwoganft',}, 
+          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_npyjc71gmngmuv50iskj',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '20', j: 2 }, { i: '21', j: 2 }, { i: '22', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 }, { i: '20', j: 3 }, { i: '21', j: 3 }, { i: '22', j: 3 } ], css_id: 'tinytable_css_3wt59jmr06tzqzx7q23s',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_sja4su6i47g83uvxw2fo',}, 
+          { positions: [ { i: '23', j: 1 } ], css_id: 'tinytable_css_xssdmor15ihhelc01zbk',}, 
+          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_m1ogd6v4lens0a6z9f5g',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 }, { i: '22', j: 1 } ], css_id: 'tinytable_css_isa6m185qpzek09tz4vw',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_2xdzyhkmh06e15e6pzco',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_4f7hcjx34olq60nijdnt.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_rjz5txb453bthwoganft, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_rjz5txb453bthwoganft {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_npyjc71gmngmuv50iskj, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_npyjc71gmngmuv50iskj {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_3wt59jmr06tzqzx7q23s, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_3wt59jmr06tzqzx7q23s { text-align: center }
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_sja4su6i47g83uvxw2fo, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_sja4su6i47g83uvxw2fo {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_xssdmor15ihhelc01zbk, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_xssdmor15ihhelc01zbk {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_m1ogd6v4lens0a6z9f5g, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_m1ogd6v4lens0a6z9f5g {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_isa6m185qpzek09tz4vw, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_isa6m185qpzek09tz4vw { text-align: left }
+    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_2xdzyhkmh06e15e6pzco, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_2xdzyhkmh06e15e6pzco {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_4f7hcjx34olq60nijdnt" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">-0.151</td>
+                  <td data-row="1" data-col="3">-1284.892 +</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.152)</td>
+                  <td data-row="2" data-col="3">(687.883)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">training</td>
+                  <td data-row="3" data-col="2">0.098 ***</td>
+                  <td data-row="3" data-col="3">254.849 *</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.028)</td>
+                  <td data-row="4" data-col="3">(111.157)</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">male</td>
+                  <td data-row="5" data-col="2">0.080 **</td>
+                  <td data-row="5" data-col="3">871.323 ***</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.029)</td>
+                  <td data-row="6" data-col="3">(138.002)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">est</td>
+                  <td data-row="7" data-col="2">0.097 ***</td>
+                  <td data-row="7" data-col="3">821.638 ***</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2">(0.027)</td>
+                  <td data-row="8" data-col="3">(127.202)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">age</td>
+                  <td data-row="9" data-col="2">0.029 **</td>
+                  <td data-row="9" data-col="3">82.575 +</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2">(0.010)</td>
+                  <td data-row="10" data-col="3">(43.003)</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">age2</td>
+                  <td data-row="11" data-col="2">-0.000 **</td>
+                  <td data-row="11" data-col="3">-1.337 *</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2">(0.000)</td>
+                  <td data-row="12" data-col="3">(0.539)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">educ</td>
+                  <td data-row="13" data-col="2">0.053 ***</td>
+                  <td data-row="13" data-col="3">297.938 ***</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1"></td>
+                  <td data-row="14" data-col="2">(0.015)</td>
+                  <td data-row="14" data-col="3">(61.364)</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">emplbefore</td>
+                  <td data-row="15" data-col="2">0.051</td>
+                  <td data-row="15" data-col="3">540.056 *</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="1"></td>
+                  <td data-row="16" data-col="2">(0.052)</td>
+                  <td data-row="16" data-col="3">(220.406)</td>
+                </tr>
+                <tr>
+                  <td data-row="17" data-col="1">Num.Obs.</td>
+                  <td data-row="17" data-col="2">1307</td>
+                  <td data-row="17" data-col="3">1256</td>
+                </tr>
+                <tr>
+                  <td data-row="18" data-col="1">R2</td>
+                  <td data-row="18" data-col="2">0.051</td>
+                  <td data-row="18" data-col="3">0.109</td>
+                </tr>
+                <tr>
+                  <td data-row="19" data-col="1">R2 Adj.</td>
+                  <td data-row="19" data-col="2">0.046</td>
+                  <td data-row="19" data-col="3">0.104</td>
+                </tr>
+                <tr>
+                  <td data-row="20" data-col="1">AIC</td>
+                  <td data-row="20" data-col="2">1755.0</td>
+                  <td data-row="20" data-col="3">22521.6</td>
+                </tr>
+                <tr>
+                  <td data-row="21" data-col="1">BIC</td>
+                  <td data-row="21" data-col="2">1796.4</td>
+                  <td data-row="21" data-col="3">22562.7</td>
+                </tr>
+                <tr>
+                  <td data-row="22" data-col="1">RMSE</td>
+                  <td data-row="22" data-col="2">0.47</td>
+                  <td data-row="22" data-col="3">1882.36</td>
+                </tr>
+                <tr>
+                  <td data-row="23" data-col="1">Std.Errors</td>
+                  <td data-row="23" data-col="2">Heteroskedasticity-robust</td>
+                  <td data-row="23" data-col="3">Heteroskedasticity-robust</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
 </section>
 <section id="eraldi-mudelid-osalejatele-ja-mitteosalejatele" class="level3">
 <h3 class="anchored" data-anchor-id="eraldi-mudelid-osalejatele-ja-mitteosalejatele">Eraldi mudelid osalejatele ja mitteosalejatele</h3>
 <p><strong>Ühe tunnusega mudel</strong></p>
-<p>Järgnevalt lubame meetme mõjul erineda erinevates sotsiaaldemograafilistes rühmades. Alguses vaatame mõju palgale lubades vaid vanuse erinevat mõju, et saaksime illustreerida tulemusi joonisel.</p>
+<p>Järgnevalt lubame meetme mõjul erineda erinevates sotsiaaldemograafilistes rühmades. Alguses vaatame mõju palgale lubades vaid vanuse erinevat mõju, et saaksime illustreerida tulemusi joonisel. Piirame ajutiselt palka ülalt ja vaatame vaid mitte nulle.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Joonise huvides piirama palka ülalt ning vaatame vaid mitte nulle.</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>atpj <span class="ot">&lt;-</span> atp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(nwage)) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nwage<span class="sc">&lt;</span><span class="dv">5000</span>, nwage<span class="sc">&gt;</span><span class="dv">0</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atpj,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> nwage, <span class="at">color =</span> <span class="st">"Palk"</span>)) <span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> atpj <span class="sc">%&gt;%</span> <span class="fu">filter</span>(training <span class="sc">==</span><span class="dv">1</span>), <span class="at">method =</span> <span class="st">"lm"</span>, </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>              <span class="co">#              formula = y ~ poly(x, 2),</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Prognoos, D = 1"</span>)) <span class="sc">+</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> atpj <span class="sc">%&gt;%</span> <span class="fu">filter</span>(training <span class="sc">==</span><span class="dv">0</span>), <span class="at">method =</span> <span class="st">"lm"</span>, </span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>              <span class="co">#              formula = y ~ poly(x, 2),</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Prognoos, D = 0"</span>)) <span class="sc">+</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Palk"</span> <span class="ot">=</span> <span class="st">"grey"</span>,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Prognoos, D = 1"</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Prognoos, D = 0"</span> <span class="ot">=</span> <span class="st">"green"</span>)) <span class="sc">+</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vanus"</span>, <span class="at">y =</span> <span class="st">"Palk"</span>, <span class="at">color =</span> <span class="st">""</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>atpj <span class="ot">&lt;-</span> atp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(nwage)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nwage<span class="sc">&lt;</span><span class="dv">5000</span>, nwage<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>mudelvanus <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage <span class="sc">~</span> age<span class="sc">*</span>training, <span class="at">data =</span> atpj)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudelvanus)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = nwage ~ age * training, data = atpj)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2688.4  -690.8  -160.4   620.3  2413.5 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  2632.984    157.919  16.673   &lt;2e-16 ***
+age            -6.537      4.208  -1.553    0.121    
+training      368.920    264.198   1.396    0.163    
+age:training   -5.895      7.181  -0.821    0.412    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 933 on 674 degrees of freedom
+Multiple R-squared:  0.01776,   Adjusted R-squared:  0.01338 
+F-statistic: 4.061 on 3 and 674 DF,  p-value: 0.007099</code></pre>
+</div>
+</div>
+<p>Näeme, et koolituse mõju on positiivne (369 eurot), aga iga aasta, mis vanusele juurde tuleb, vähendab koolituse mõju 5.9 euro võrra. (Tõsi, ükski kumbki parameeter ei ole statistiliselt oluline.)</p>
+<p>Illustreerime tulemust ka joonisel.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atpj, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> nwage, <span class="at">color =</span> <span class="st">"Palk"</span>)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> atpj <span class="sc">%&gt;%</span> <span class="fu">filter</span>(training <span class="sc">==</span><span class="dv">1</span>), <span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Prognoos, D = 1"</span>)) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> atpj <span class="sc">%&gt;%</span> <span class="fu">filter</span>(training <span class="sc">==</span><span class="dv">0</span>), <span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Prognoos, D = 0"</span>)) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Palk"</span> <span class="ot">=</span> <span class="st">"grey"</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Prognoos, D = 1"</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Prognoos, D = 0"</span> <span class="ot">=</span> <span class="st">"green"</span>)) <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vanus"</span>, <span class="at">y =</span> <span class="st">"Palk"</span>, <span class="at">color =</span> <span class="st">""</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'
 `geom_smooth()` using formula = 'y ~ x'</code></pre>
@@ -680,28 +895,25 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03-regressioon_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-regressioon_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>atpj<span class="sc">$</span>ate <span class="ot">&lt;-</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(<span class="fu">lm</span>(nwage <span class="sc">~</span> age, <span class="at">data=</span>atpj[atpj<span class="sc">$</span>training<span class="sc">==</span><span class="dv">1</span>,]), <span class="at">new=</span>atpj) <span class="sc">-</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">predict</span>(<span class="fu">lm</span>(nwage <span class="sc">~</span> age, <span class="at">data=</span>atpj[atpj<span class="sc">$</span>training<span class="sc">==</span><span class="dv">0</span>,]), <span class="at">new=</span>atpj)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Salvestame ka prognoositud väärtuste erinevuse järgmise joonise jaoks</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>atpj<span class="sc">$</span>ate <span class="ot">&lt;-</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(<span class="fu">lm</span>(nwage <span class="sc">~</span> age, <span class="at">data=</span>atpj[atpj<span class="sc">$</span>training<span class="sc">==</span><span class="dv">1</span>,]), <span class="at">new=</span>atpj) <span class="sc">-</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">predict</span>(<span class="fu">lm</span>(nwage <span class="sc">~</span> age, <span class="at">data=</span>atpj[atpj<span class="sc">$</span>training<span class="sc">==</span><span class="dv">0</span>,]), <span class="at">new=</span>atpj)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>See joonis näitab, kuidas vanus mõjutab palka osalejate ja mitteosalejate seas natuke erinevalt. Mida noorem on inimene, seda suurem on joontevaheline erinevus ehk meetmes osalemise mõju on suurem. Esitame selle erinevuse ka joonisel, lisame vaatluste jaotuse väikese histogrammina X-teljel.</p>
+<p>Joonis näitab, et vanus mõjutab palka osalejate ja mitteosalejate seas erinevalt. Mida noorem on inimene, seda suurem on joontevaheline erinevus ehk meetmes osalemise mõju on suurem. Esitame selle erinevuse eraldi joonisel, lisame vaatluste jaotuse väikese histogrammina X-teljel.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atpj,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> ate)) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_rug(sides = "b") +</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_histogram(aes(y = ..count..), </span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#               binwidth = 1, alpha = 0.9, fill = "grey", position = "identity") +</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">as.factor</span>(training), <span class="at">y =</span> ..count..), </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span>  <span class="co"># Colored histogram by gender</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"green"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vanus"</span>, <span class="at">y =</span> <span class="st">"Meetme mõju"</span>, <span class="at">fill =</span> <span class="st">"Meetmes"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atpj,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> ate)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">as.factor</span>(training), <span class="at">y =</span> ..count..), </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"green"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vanus"</span>, <span class="at">y =</span> <span class="st">"Meetme mõju"</span>, <span class="at">fill =</span> <span class="st">"Meetmes"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.
 ℹ Please use `after_stat(count)` instead.</code></pre>
@@ -709,42 +921,42 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03-regressioon_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-regressioon_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Täielik interkatsioon</strong></p>
-<p>Lisame järgnevalt kõik ülejäänud selgitavad tunnused. Viime läbi G-arvutuse töötamise väljundi jaoks.</p>
+<p><strong>Täielik interaktsioon</strong></p>
+<p>Lisame järgnevalt mudelisse kõik ülejäänud selgitavad tunnused. Viime läbi G-arvutuse töötamise väljundi jaoks.</p>
 <p>Esimene samm: hindame mudeli osalejate andmete põhjal <em>training==1</em> ja prognoosime tulemused kõigile.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lin_employed_ra1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ])</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>pemployed_1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_employed_ra1, <span class="at">newdata =</span> atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>lin_employed_ra1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ])</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>pemployed_1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_employed_ra1, <span class="at">newdata =</span> atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Teine samm: hindame samasuguse mudeli ka mitteosalejate põhjal <em>training==0</em> ja prognoosime tulemused kõigile</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lin_employed_ra0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ])</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>pemployed_0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_employed_ra0, <span class="at">newdata =</span> atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>lin_employed_ra0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ])</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>pemployed_0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_employed_ra0, <span class="at">newdata =</span> atp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Kolmas samm: leiame individuaalsed erinevused prognoositud hinnangutes</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>demployed <span class="ot">&lt;-</span> atp<span class="sc">$</span>pemployed_1 <span class="sc">-</span> atp<span class="sc">$</span>pemployed_0</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>demployed <span class="ot">&lt;-</span> atp<span class="sc">$</span>pemployed_1 <span class="sc">-</span> atp<span class="sc">$</span>pemployed_0</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Neljas samm: Leiame keskmised mõjuhinnangud (ATE) ja eraldi ka osalejatele (ATT) ning mitteosalejatele (ATU).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ate_empl <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>demployed)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>att_empl <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>demployed[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>])</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>atu_empl <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>demployed[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>])</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ate_empl</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ate_empl <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>demployed)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>att_empl <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>demployed[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>atu_empl <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>demployed[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>ate_empl</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1063243</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>att_empl</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>att_empl</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0926108</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>atu_empl</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>atu_empl</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1130248</code></pre>
 </div>
@@ -752,26 +964,26 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <p>Näeme, et paindlikuma mudeli järgi tuli meetme keskmine mõju (ATE) pisut suurem. Enne oli 9.8 protsendipunkti, nüüd 10.6 protsendipunkti. Näeme ka, et meetme mõju oleks olnud suurem mitteosalejatele (ATU = 0.113) kui osalejatele (ATT = 0.093). See tähendab, et millegipärast sattusid tööturukoolitusele vähem need inimesed, kellel sellest oleks rohkem kasu olnud. Võimalik, et tegu on näiteks koore riisumisega. (Selle hindamiseks on andmestikus olemas tegelikult täiendavad tunnused training1, training2 jne, millega võite huvi korral ise analüüsi teha.)</p>
 <p><strong>Mõju palgale</strong> leiame analoogselt:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>lin_nwage_ra1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ])</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>nwage_1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_nwage_ra1, <span class="at">newdata =</span> atp)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>lin_nwage_ra0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ])</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>nwage_0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_nwage_ra0, <span class="at">newdata =</span> atp)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>dnwage <span class="ot">&lt;-</span> atp<span class="sc">$</span>nwage_1 <span class="sc">-</span> atp<span class="sc">$</span>nwage_0</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>ate_nwage <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>dnwage)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>att_nwage <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>dnwage[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>])</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>atu_nwage <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>dnwage[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>])</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>ate_nwage</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>lin_nwage_ra1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ])</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>nwage_1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_nwage_ra1, <span class="at">newdata =</span> atp)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>lin_nwage_ra0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nwage <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ])</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>nwage_0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lin_nwage_ra0, <span class="at">newdata =</span> atp)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>dnwage <span class="ot">&lt;-</span> atp<span class="sc">$</span>nwage_1 <span class="sc">-</span> atp<span class="sc">$</span>nwage_0</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>ate_nwage <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>dnwage)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>att_nwage <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>dnwage[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>atu_nwage <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>dnwage[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>ate_nwage</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 259.2266</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>att_nwage</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>att_nwage</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 254.2755</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>atu_nwage</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>atu_nwage</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 261.6458</code></pre>
 </div>
@@ -782,9 +994,8 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <h3 class="anchored" data-anchor-id="usalduspiiride-leidmine">Usalduspiiride leidmine</h3>
 <p>Kui soovime leida usalduspiirid ATE, ATT ja ATU jaoks võime kasutada kas analüütilisi lähenemisi või simuleeritud viise. Vaatame esmalt paketti <em>margins</em>. Hindame mudeli interaktsiooniefektiga kõigi tunnuste ja meetmes osalemise vahel. See on täpselt sama, kui oleksime hinnanud kaks eraldi mudelit.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>intmudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> (male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore)<span class="sc">*</span>training, <span class="at">data =</span> atp)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(intmudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>intmudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> (male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore)<span class="sc">*</span>training, <span class="at">data =</span> atp)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(intmudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -821,17 +1032,30 @@ F-statistic: 6.009 on 13 and 1293 DF,  p-value: 5.768e-11</code></pre>
 </div>
 <p>Leiame nüüd muutuja <em>training</em> keskmise mõju terves valimis käsuga <em>margins</em>. Saame sellega ATE hinnangu. Selle käsu pluss on see, et saame ka ligilähedased standardvead, mida pakett <em>margins</em> hindab delta-meetodiga (<em>AV</em> <em>endale: täpsusta metoodikat</em>)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   factor    AME     SE      z      p  lower  upper
  training 0.1063 0.0284 3.7399 0.0002 0.0506 0.1620</code></pre>
 </div>
 </div>
 <p>Saame sama punkthinnangu, mis ülal. Meetme keskmine mõju on 10.63 protsendipunkti. Nüüd on lisatud ka usalduspiirid, kust näeme, et 95%line usaldusvahemik on 5.06 - 16.2 protsendipunkti. Hinnang on ka statistiliselt oluline (p = 0.0002).</p>
+<p>Sama teeb ka käsk <em>avg_comparisons</em> paketist <em>marginaleffects</em>. Siin saame lubada kohe ka robustseid standardvigu.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_comparisons</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>, <span class="at">vcov =</span> <span class="st">"HC1"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Std. Error    z Pr(&gt;|z|)    S  2.5 % 97.5 %
+    0.106     0.0278 3.82   &lt;0.001 12.9 0.0518  0.161
+
+Term: training
+Type: response
+Comparison: 1 - 0</code></pre>
+</div>
+</div>
 <p>Saame sarnaselt leida ka ATT, kui paneme andmetele peale tingimuse, et <em>training</em> ==1.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span><span class="dv">1</span>,]))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span><span class="dv">1</span>,]))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   factor    AME     SE      z      p  lower  upper
  training 0.0926 0.0283 3.2750 0.0011 0.0372 0.1480</code></pre>
@@ -840,7 +1064,7 @@ F-statistic: 6.009 on 13 and 1293 DF,  p-value: 5.768e-11</code></pre>
 <p>Veenduge, et saate sama tulemuse, mis ülal.</p>
 <p>Viimaks, leiame D mõju alamvalimis, kui training == 0, millega saame ATU.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span><span class="dv">0</span>,]))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">margins</span>(intmudel, <span class="at">variables =</span> <span class="st">"training"</span>, <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span><span class="dv">0</span>,]))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   factor    AME     SE      z      p  lower  upper
  training 0.1130 0.0291 3.8864 0.0001 0.0560 0.1700</code></pre>
@@ -852,21 +1076,21 @@ F-statistic: 6.009 on 13 and 1293 DF,  p-value: 5.768e-11</code></pre>
 <p>Üldjuhul võib esimesel sammul leitud mudelid olla keerulisemad ja taoline käsk <em>margins</em> ei ole rakendatav. Sellisel juhul võib alati kasutada ka simulatsioonimeetodit ehk bootstrappingut.</p>
 <p>Teeme esmalt funktsiooni, mida me soovime hinnata. Vaatame esmalt mõju töötamisele. Selleks hindame töötamise mudeli osalus ja võrdlusrühmas, prognoosime kohe mudelist väärtused ja leiame prognooside erinevused. Allolevas funktsioonis on sisendiks andmestik <em>dat</em>, mis muutub.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">formula</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>mybs <span class="ot">=</span> <span class="cf">function</span>(data, indices, <span class="at">formula =</span>f) {</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">=</span> data[indices, ]</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  dify <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ]), <span class="at">newdata =</span> dat) <span class="sc">-</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ]), <span class="at">newdata =</span> dat)</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">ate =</span> <span class="fu">mean</span>(dify), <span class="at">att =</span> <span class="fu">mean</span>(dify[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>]))</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">formula</span>(employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>mybs <span class="ot">=</span> <span class="cf">function</span>(data, indices, <span class="at">formula =</span>f) {</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">=</span> data[indices, ]</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  dify <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ]), <span class="at">newdata =</span> dat) <span class="sc">-</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">predict</span>(<span class="fu">lm</span>(formula, <span class="at">data =</span> dat[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ]), <span class="at">newdata =</span> dat)</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">ate =</span> <span class="fu">mean</span>(dify), <span class="at">att =</span> <span class="fu">mean</span>(dify[dat<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>]))</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Kui funktsioon on valmis rakendame seda andmestikule <em>dat</em>, mis moodustatakse juhuslikult võttes tagasipanekuga valimeid meie algsest andmestikust. Iga taolise uue kunstliku andmestiku korral hinnatakse meid huvitavad parameetrid (meie puhul ATE ja ATT). Võttes niimoodi suure arvu valimeid, leiame meie parameetrite jaotuse, usalduspiirid ja standardvea. Saadud usalduspiire kasutame ülalleitud parameetrite (ATE, ATT) jaoks.</p>
 <p>Alljärgnev käsk viib läbi simulatsiooni. NB! Praegu on kasutatud vaid 50 simulatsiooni (R = 50). Päris analüüsis peaks see number olema palju suurem, nt R= 2000.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> atp, <span class="at">statistic =</span> mybs, <span class="at">R =</span> <span class="dv">50</span>, <span class="at">stype =</span> <span class="st">"i"</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1632</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> atp, <span class="at">statistic =</span> mybs, <span class="at">R =</span> <span class="dv">50</span>, <span class="at">stype =</span> <span class="st">"i"</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ORDINARY NONPARAMETRIC BOOTSTRAP
@@ -885,11 +1109,11 @@ t2* 0.0926108 0.005312717  0.02398158</code></pre>
 <p>Simulatsioon näitab meile algset ATE ja ATT väärtust (<em>original</em>), seda kui palju simuleeritud keskmised erinevad algsest väärtusest (<em>bias</em>) ja simuleeritud parameetrite väärtuste standardviga (<em>std. error</em>).</p>
 <p>Simuleeritud väärtuste järgi saame konstrueerida usaldusintervallid erinevate eelduste korral. Näiteks ATE jaoks (mis oli esimene simuleeritud parameeter):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  results,</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="dv">1</span>, <span class="co">#sest esimene parameeter funktsiooni väljundis</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span>)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  results,</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="dv">1</span>, <span class="co">#sest esimene parameeter funktsiooni väljundis</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span>)</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in norm.inter(t, adj.alpha): extreme order statistics used as endpoints</code></pre>
 </div>
@@ -916,11 +1140,11 @@ Some BCa intervals may be unstable</code></pre>
 </div>
 <p>Ja ATT jaoks</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  results,</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="dv">2</span>, <span class="co">#sest teine parameeter funktsiooni väljundis</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span>)</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  results,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="dv">2</span>, <span class="co">#sest teine parameeter funktsiooni väljundis</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span>)</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in norm.inter(t, adj.alpha): extreme order statistics used as endpoints</code></pre>
 </div>
