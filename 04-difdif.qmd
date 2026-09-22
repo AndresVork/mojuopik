@@ -1,49 +1,57 @@
-# Juurdekasvude erinevus (Dif-Dif)
-
-Poolik - arenev
+# Juurdekasvude erinevus (DIF-DIF)
 
 ## Mudeli seade
 
-Juurdekasvude erinevuse (DiD) meetod on üks populaarsemaid kvaasi-eksperimentaalseid meetodeid põhjusliku mõju hindamiseks. See eemaldab ajas muutumatud erinevused gruppide vahel ja ajas muutuvad tegurid, mis mõjutavad mõlemaid gruppe ühtemoodi.
+Juurdekasvude erinevuse meetod või erinevuste vahe meetod (*Differences-in-Differences*, DIF-DIF, DiD) on üks populaarsemaid kvaasi-eksperimentaalseid meetodeid põhjusliku mõju hindamiseks majanduses. See eemaldab ajas muutumatud erinevused osalus- ja võrldusgrupi vahel ja või ka ajas muutuvad tegurid, mis mõjutavad mõlemaid gruppe ühtemoodi.
 
 ### Klassikaline 2x2 DiD disain
 
 Kõige lihtsamal kujul on meil kaks rühma ja kaks ajahetke:
 
--   **Grupid (**$D$):
-    -   $D=1$: Osalusrühm (*Treatment*), kes saab mingil hetkel sekkumise.
+-   Rühmad($D$):
+    -   $D=1$: Osalusrühm (*Treatment*), kes saab mingil hetkel sekkumise, nt osaleb tööturukoolituses, osaleb reklaamikampaanias jm.
     -   $D=0$: Võrdlusrühm (*Control*), kes sekkumist ei saa.
--   **Aeg (**$T$):
-    -   $T=1$: Pärast sekkumist (*Post*).
-    -   $T=0$: Enne sekkumist (*Pre*).
+-   Aeg ($t$):
+    -   $t=1$: Ajahetk pärast sekkumist (*Post*).
+    -   $t=0$: Ajahetk enne sekkumist (*Pre*).
 
-### DiD hinnang Valemina
+### DiD hinnang valemina
 
 DiD hinnang ($\hat{\delta}_{DiD}$) leitakse kui erinevus osalejate ajas toimunud muutuse ja võrdlusrühma ajas toimunud muutuse vahel:
 
 $$
-\hat{\delta}_{DiD} = \underbrace{(\bar{Y}_{T=1}^{D=1} - \bar{Y}_{T=0}^{D=1})}_{\text{Muutus osalejatel}} - \underbrace{(\bar{Y}_{T=1}^{D=0} - \bar{Y}_{T=0}^{D=0})}_{\text{Muutus võrdlusrühmal}}
+\hat{\delta}_{DiD} = \underbrace{(\bar{Y}_{t=1}^{D=1} - \bar{Y}_{t=0}^{D=1})}_{\text{Muutus osalejatel}} - \underbrace{(\bar{Y}_{t=1}^{D=0} - \bar{Y}_{t=0}^{D=0})}_{\text{Muutus võrdlusrühmal}}
 $$ Kus $\bar{Y}_{T}^{D}$ on tulemuse keskmine vastavas grupis ja ajahetkel.
 
-### DiD Regressioonimudelina
+Kui me vaatame ainult erinevust osalejate grupi piires, siis seda nimetatakse ka enne-pärast hinnanguks (*before-after estimator*). Pikema aegrea puhul, kus jälgime vaatlusi enne ja pärast meedet, on tegemist aegrea katkemise meetodiga (*interrupted time series analysis*).
 
-Seda sama hinnangut saab leida lineaarse regressioonimudeli abil, kasutades interaktsiooniliiget:
+$$ \hat{\delta}_{BA} = (\bar{Y}_{t=1}^{D=1} - \bar{Y}_{t=0}^{D=1}) $$
+
+Sellisel juhul kasutame osalejate mineviku väärtuseid võrdlusseisundina. Seega eeldame, et potentsiaalne tulemus peale meedet, kui meedet ei oleks tegelikult toimunud, on võrdne potentsiaalse tulemusega enne meedet.
+
+$$ E({Y}_{t=1}^{0}|D=1) = E({Y}_{t=0}^{0}|D=1) $$
+
+See eeldab potentsiaalsete tulemuste püsivust ajas ja kõik on seotud sekkumisega. See on võimalik lühikeste programmide korral. Näiteks küsime inimeste teadmisi toote kohta enne ja pärast toote reklaami.
+
+### DiD regressioonimudelina
+
+DiD hinnangut saab leida ka lineaarse regressioonimudeli abil, kasutades interaktsiooniliiget:
 
 $$Y_{it} = \alpha + \beta_1 \text{D}_i + \beta_2 \text{Post}_t + \delta*(\text{D}_i \times \text{Post}_t) + \epsilon_{it}
 $$
 
 Kus:
 
--   $\alpha$: Kontrollgrupi keskmine enne sekkumist (Constant).
+-   $\alpha$: Kontrollgrupi keskmine enne sekkumist (*Constant*).
 -   $\beta_1$: Gruppidevaheline püsiv erinevus (*Treatment Group Effect*).
 -   $\beta_2$: Ajaline trend, mis on ühine mõlemale grupile (*Time Trend*).
 -   \*\* $\delta_{DiD}$ \*\*: Põhjuslik mõju ehk huvipakkuv parameeter (ATT). See näitab lisandumist tulemuses, mis tekib ainult osalejatel pärast sekkumist.
 
+Pangem tähele, et DiD meetod leiab mõju osalejate jaoks (ATT - *Average Treatment Effect on the Treated*).
+
 ### Paralleelse trendi eeldus ja ATT
 
-DiD meetodi kehtivus sõltub **paralleelse trendi eeldusest** (*Parallel trends assumption*).
-
-Eeldus väidab, et sekkumise puudumisel oleks osalusrühma keskmine tulemus muutunud ajas samamoodi nagu võrdlusrühmal.
+DiD meetodi kehtivus sõltub **paralleelse trendi eeldusest** (*Parallel trends assumption*). Eeldus väidab, et sekkumise puudumisel oleks osalusrühma keskmine tulemus muutunud ajas samamoodi nagu võrdlusrühmal.
 
 Matemaatiliselt (kasutades potentsiaalseid tulemusi $Y^0$):
 
@@ -51,26 +59,32 @@ $$
 E[Y^0_{t=1} - Y^0_{t=0} | D=1] = E[Y^0_{t=1} - Y^0_{t=0} | D=0]
 $$
 
-Kuidas see annab ATT?
+Kuidas see eeldus tagab, et DiD arvutus annab meile ATT hinnangu? Vaatame seda korra matemaatiliselt.
 
-Meie eesmärk on leida keskmine mõju osalejatele (**ATT** - *Average Treatment Effect on the Treated*):
+Meie tegelik eesmärk on leida keskmine mõju osalejatele (ATT) ehk mis oleks meetme mõju (st potentsiaalsete tulemuste erinevus) peale meetme toimumist (ajahetkel $t = 1$):
 
-$$ATT = E[Y^1_{t=1} - Y^0_{t=1} | D=1] $$ Kuna $Y^0_{t=1}$ (osalejate tulemus ilma sekkumiseta) ei ole vaadeldav, kasutame paralleelse trendi eeldust selle asendamiseks:
+$$ATT = E[Y^1_{t=1} - Y^0_{t=1} | D=1] $$ Kuna $Y^0_{t=1}$ (osalejate tulemus ilma sekkumiseta) ei ole vaadeldav, siis kasutame paralleelse trendi eeldust selle asendamiseks. Teeme selle läbi samm-haaval. Vaata selgitusi peale valemit.
 
-1.  **Tegelik muutus osalejatel:** $E[Y^1_{t=1} | D=1] - E[Y^0_{t=0} | D=1]$
-2.  **Muutus kui sekkumist poleks:** Eelduse kohaselt võrdne kontrollgrupi muutusega $E[Y^0_{t=1} | D=0] - E[Y^0_{t=0} | D=0]$.
+$$\begin{aligned}ATT & = E[Y^1_{t=1} - Y^0_{t=1} | D=1] \\ 
+\text(1) & = E[Y^1_{t=1}|D=1] -E[Y^0_{t=1} | D=1] = \\
+\text(2) & = E[Y^1_{t=1}|D=1] -E[Y^0_{t=1} | D=1] + \underbrace{E[Y^0_{t=0} | D=1] - E[Y^0_{t=0} | D=1]}_{\text{Liidame ja lahutame}} \\
+\text(3) & = \underbrace{E[Y^1_{t=1}|D=1] - E[Y^0_{t=0} | D=1]}_{\text{Tegelik muutus}} - \underbrace{(E[Y^0_{t=1} | D=1] - E[Y^0_{t=0} | D=1])}_{\text{Muutus ilma meetmeta}} \\
+\text(4) & = E[Y^1_{t=1}|D=1] - E[Y^0_{t=0} | D=1] - \underbrace{(E[Y^0_{t=1} | D=0] - E[Y^0_{t=0} | D=0])}_{\text{Paralleelse trendi eeldus}} \\ 
+\text(5) & = E[Y_{t=1}|D=1] - E[Y_{t=0} | D=1] - (E[Y_{t=1} | D=0] - E[Y_{t=0} | D=0]) 
+\end{aligned}
+$$
 
-Seega:
+Rida (1) on see, mis meid tegelikult huvitab ja kirjutame selle lihtsalt pikemalt lahti. Real (2) liidame ja lahutame potentsiaalse tulemuse enne meedet osalusrühma seas. Sisuliselt liidame nulli. Real (3) muudame lihtsat liidetavate järjekorda. Esimene liige on nüüd tegelik muutus osalejatel: $E[Y^1_{t=1} | D=1] - E[Y^0_{t=0} | D=1]$ ja teine liige on muutus osalejatel, kui sekkumist poleks olnud. Nüüd toome sisse paralleelse trendi eelduse. Eelduse kohaselt on muutus osalejate seas võrdne muutusega võrdlusrühma seas (rida (4) teine pool). Viimaks asendame potentsiaalsed tulemused tegelike väärtustega ja saamegi meie DiD hinnangu.
+
+Seega, kui on täidetud paralleelse trendi eeldus, siis annab taoline arvutus meile mõju osalejate jaoks:
 
 $$
 ATT = (\text{Osalusrühma muutus}) - (\text{Võrdlusrühma muutus})
 $$
 
-### Kahesuunaline fikseeritud effektide mudel (TWFE)
+### Kahesuunaline fikseeritud efektide mudel (TWFE)
 
-*Two-way Fixed Effects model*
-
-Kui andmed on paneelkujul (sama objekti jälgitakse mitmel ajahetkel) või meil on palju objekte ja ajahetki, kasutatakse TWFE mudelit. See on 2x2 disaini üldistus.
+Kui andmed on paneelkujul, st me jälgime palju objekte eri ajahetkedel, kasutatakse lineaarset paneelandmete fikseeritud efektidega mudelit - TWFE mudel (*Two-way Fixed Effects model*). See on ka 2x2 DiD disaini üldistus, mis lubab, et meil toimuda meetmes osalemine erinevatel ajahetkedel. Näiteks mõned ettevõtted saavad toetust ühel aastal, järgmised teisel aastal jne. Sellisel juhul $D$ väärtus objekti jaoks sõltub ajahetkest ja tähistame seda $D_{it}$.
 
 $$
 Y_{it} = \alpha_i + \gamma_t + \delta D_{it} + \mathbf{X}_{it}\beta + \epsilon_{it}
@@ -78,41 +92,93 @@ $$
 
 Kus:
 
--   $\alpha_i$ **(Unit Fixed Effects):** Ühiku-spetsiifiline fikseeritud efekt. See kontrollib kõiki tegureid, mis on ühikule $i$ omased ja ajas ei muutu (nt asukoht, kultuur, geneetika). Asendab $\text{Treat}_i$ muutujat.
--   $\gamma_t$ **(Time Fixed Effects):** Aja-spetsiifiline fikseeritud efekt. See kontrollib šokke, mis mõjutavad kõiki ühikuid antud aastal $t$ ühtemoodi (nt majanduskriis, seadusemuudatused). Asendab $\text{Post}_t$ muutujat.
--   $D_{it}$ **(Treatment Indicator):** Binaarne muutuja, mis on 1, kui ühik $i$ on ajal $t$ sekkumise all.
--   $\delta$: Hinnanguline ATT (eeldusel, et mõju on homogeenne).
+-   $Y_{it}$: Tulemusmuutuja objektile $i$ ajahetkel $t$.
+-   $\alpha_i$ (*Unit Fixed Effects*): objektispetsiifiline fikseeritud efekt. See kontrollib kõiki tegureid, mis on objektile $i$ omased ja ajas ei muutu (nt asukoht, kultuur, geneetika). Asendab ülal olnud $\text{D}_i$ muutujat.
+-   $\gamma_t$ (*Time Fixed Effects*): ajaspetsiifiline fikseeritud efekt. See kontrollib šokke, mis mõjutavad kõiki objekte antud aastal $t$ ühtemoodi (nt majanduskriis, seadusemuudatused). Asendab ülal $\text{Post}_t$ muutujat.
+-   $D_{it}$ (Treatment Indicator): Binaarne muutuja, mis on 1, kui objekt $i$ on ajal $t$ sekkumise all. Näiteks kui ettevõtte sai toetust 2020. aastal, siis selle ettevõtte jaoks on see muutuja null enne 2020. aastat ja üks 2020. aastal ja edasi.
+-   $\delta$: ATT hinnang (eeldusel, et mõju on ajas homogeenne).
+-   $\mathbf{X}_{it}$: Muud ajas muutuvad ja objektide vahel erinevad selgitavad tunnused.
 
-### Sündmuste uuring (Event study)
+See mudel eeldab, et mõju avaldub meetme aastal ja on pärast seda püsiv. Kui mõju tegelikult ajas muutub (näiteks alguses on väike, pärast kasvab), siis ülaltoodud mudel seda ei võimalda leida. Selleks, et näidata ajas toimuvat muutust, kasutatakse dünaamilist mudelit.
 
-Sündmuste uuring (*Event Study*) on dünaamiline regressioonimudel, mis võimaldab hinnata meetme mõju muutumist ajas ning testida visuaalselt ja statistiliselt paralleelse trendi eeldust.
+### Sündmusuuring (Event study)
 
-#### Regressioonivalem
+Sündmusuuring (*Event Study*) on dünaamiline regressioonimudel, mis võimaldab hinnata meetme mõju muutumist ajas ning testida nii visuaalselt ja ka statistiliselt paralleelse trendi eeldust.
 
-Üldkuju Kahesuunalise Fikseeritud Efektide (TWFE) mudelina:
+**Regressioonivalem**
+
+Üldkuju:
 
 $$
-Y_{it} = \alpha_i + \gamma_t + \sum_{k=-K, k \neq 0}^{L} \beta_k \cdot D_{it}^k + \epsilon_{it}
+Y_{it} = \alpha_i + \gamma_t + \sum_{k=-K, k \neq 0}^{L} \beta_k \cdot D_{it}^k + \mathbf{X}_{it}\beta + \epsilon_{it}
 $$
 
-### Muutujate selgitus
+Lisandunud muutujate selgitus:
 
--   $Y_{it}$: Tulemusmuutuja ühikule $i$ ajahetkel $t$.
--   $\alpha_i$: **Ühiku fikseeritud efekt** (*Unit Fixed Effects*). Kontrollib ajas muutumatuid eripärasid (nt asukoht, kultuur).
--   $\gamma_t$: **Aja fikseeritud efekt** (*Time Fixed Effects*). Kontrollib šokke, mis mõjutavad kõiki ühikuid samal ajal (nt majanduskriis, inflatsioon).
--   $k$: Suhteline aeg sündmuseni ($t - E_i$, kus $E_i$ on sündmuse toimumise aeg).
-    -   $k < 0$: Perioodid **enne** meedet (*Leads*).
-    -   $k \ge 0$: Perioodid **pärast** meedet (*Lags*).
--   $D_{it}^k$: **Sündmuse indikaatorid** (*Event Time Dummies*).
-    -   Muutuja on **1**, kui ühik $i$ on ajahetkel $t$ täpselt $k$ perioodi kaugusel sündmusest.
-    -   Muutuja on **0** muudel juhtudel.
--   $\beta_k$: **Huvipakkuvad koefitsiendid**:
-    -   Kui $k < 0$ (Eel-periood): $\beta_k$ näitab erinevust töötlus- ja kontrollgrupi vahel enne meedet. **See testib paralleelseid trende.** Kui eeldus kehtib, peaksid need $\beta$-d olema statistiliselt nullist eristamatud (nulljoone lähedal).
-    -   Kui $k \ge 0$ (Järel-periood): $\beta_k$ näitab meetme dünaamilist mõju $k$ perioodi pärast sündmust.
+-   $k$: Suhteline aeg sündmuseni ($t - E_i$, kus $E_i$ on sündmuse toimumise aeg objekti $i$ jaoks).
+    -   $k < 0$: Perioodid enne meedet (*Leads*).
+    -   $k \ge 0$: Perioodid pärast meedet (*Lags*).
+    -   $K$ ja $L$ sõltuvad andmestiku pikkusest, nt vaatame 5 aastat enne ja 5 pärast pärast meedet.
+-   $D_{it}^k$: Sündmuse indikaatorid (*Event Time Dummies*).
+    -   Muutuja on 1, kui objekt $i$ on ajahetkel $t$ täpselt $k$ perioodi kaugusel sündmusest.
+    -   Muutuja on 0 muudel juhtudel.
+-   $\beta_k$: Huvipakkuvad koefitsiendid:
+    -   Kui $k < 0$ (Meetme-eelne periood): $\beta_k$ näitab erinevust osalus- ja võrdlusrühma vahel enne meedet. See testib paralleelse trendi eeldus. Kui eeldus kehtib, peaksid need $\beta$-d olema statistiliselt nullist eristamatud (nulljoone lähedal).
+    -   Kui $k \ge 0$ (Meetmejärgne eriood): $\beta_k$ näitab meetme dünaamilist mõju $k$ perioodi pärast sündmust.
 -   $k \neq 0$: Väljajäetud kategooria.
-    -   Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust ($k = 0$), et vältida multikollineaarsust. Kõiki teisi koefitsiente ($\beta_k$) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 1 tekib esimest korda avatus meetmele.
+    -   Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust ($k = 0$), et vältida multikollineaarsust. Kõiki teisi koefitsiente ($\beta_k$) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 1 tekib esimest korda avatus meetmele. See pisut sõltub, et kas eeldame, et mõju avaldub juba samal perioodil või alates järgmisest perioodist.
 
-## Näide tööpoliitikast
+DiD meetodit võib kombineerida sobitamisega (vt järgmist peatükki). Sellisel juhul tehakse võrdlusrühm eelnevalt sarnaseks osalusrühmaga kasutades meetmele eelnevaid tunnuste väärtusi ja meetmest sõltumatuid tunnuseid. Näiteks inimese sugu, vanus ja palk enne meedet.
+
+DiD meetodil on tänapäeval palju edasiarendusi. Kui meetme mõjus ajas muutub (nt kasvab või kahaneb) ja meetmes osalevad ettevõtted või inimesed eri ajahetkedel (nn *staggered design*), siis on oht saada tavalise TWFE mudeliga nihkega hinnanguid.
+
+*(TODO! Lisada viited olulisematele allikatele)*
+
+## Näide pensionipoliitika mõju kohta hõivemäärale
+
+Aastatel 1995–2002 tõusus Eestis pensioniiga meestel 61-lt 63-le eluaastale. (Tegelikult lisaks toimus muutus, et pensionärid võisid samal ajal saada pensioni ja töötada.)
+
+Mis oli nende muutuste mõju 60–64-aastaste meeste hõivemäärale? Kuidas eristada pensionipoliitika muutusi majanduskeskkonna muutusest?
+
+Eeldame, et vanusrühm 60–64 on osalusrühm ja vanusrühm 55–59 on võrdlusrühm, keda pensioniea tõus ei mõjutanud, kuid kelle olukord tööturul on sarnane.
+
+**Lähteandmed hõivemäära kohta**
+
+| Aasta | 60–64 | 55–59 |
+|------:|------:|------:|
+|  1995 |  35.8 |  71.8 |
+|  2002 |  51.1 |  66.1 |
+
+Hõivemäärad on protsentides.
+
+Me näeme, et hõivemäär kasvas vanusrühmas 60-64 15.3 protsendipunkti.
+
+$$
+51.1 - 35.8 = 15.3
+$$
+
+Seega enne-pärast hinnang ütleks, et pensioniea tõus tõi kaasa hõivemäära kasvu 15.3 pp.
+
+Aga samal ajal toimusid muud muutused majanduses. Eeldame, et seda võtab kinni sarnane vanusrühm, keda aga pensioniea tõus otseselt ei mõjutanud, sest pensioniiga oli kõrgem. Näeme, et 55–59-aastaste hõivemäär hoopis vähenes 5.7 protsendipunkti.
+
+$$
+66.1 - 71.8 = -5.7
+$$
+
+Seega DiD hinnang, mis võrdleb osalusrühma hõivemäära muutust võrdlusrühma hõivemäära muutusega, on:
+
+$$
+\text{DiD}
+= (51.1 - 35.8) - (66.1 - 71.8) = 15.3 - (-5.7) = 21.0
+$$
+
+Seega pensioniea tõus suurendas 60–64-aastaste meeste hõivemäära 21 protsendipunkti. Tegelikes andmetes me näeme seda mõju väiksemana, 15.3 protsendipunkti, sest majanduses läks olukord kehvemaks ja seetõttu hõivemäär vähenes 5.7 protsendipunkti.
+
+Selle hinnangu põhjusliku mõjuna tõlgendamiseks peab kehtima eeldus, et ilma pensioniea tõusuta oleks 60–64- ja 55–59-aastaste hõivemäär muutunud ajas sarnaselt. Tegelikkuses tuleb arvestada, et vanusrühmad võivad erineda muude näitajate poolest (nt haridus, rahvus), mille mõju hõivemäärale võib olla erinev sõltuvalt majanduse olukorrast. Lisaks võivad esineda ka vanusrühmade omavahelised seosed, sest nad konkureerivad omavahel tööturul. (Ei kehti SUTVA eeldus.)
+
+## Näide tööturukoolituse mõju kohta
+
+Kasutame näitena anonümiseeritud andmeid Poliitikauuringute Keskuse Praxis raportist Leetmaa, Võrk, Kupts, Kirss (2015) „Programmi Täiskasvanute tööalane koolitus ja arendustegevused võrdlusrühmapõhine mõju hindamine“ <https://www.praxis.ee/tood/programmi-taiskasvanute-tooalane-koolitus-ja-arendustegevused-moju-hindamine/>
 
 ```{r}
 #| message: false
