@@ -305,7 +305,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">18/09/2026</p>
+      <p class="date-modified">23/09/2026</p>
     </div>
   </div>
     
@@ -348,7 +348,8 @@ window.Quarto = {
 <p>Ülaltoodud mudel eeldas, et meetmes osalemise mõju varieerub vaid ühe tunnuse lõikes. Paindlikum lähenemine lubab meetmel olla erineva mõjuga kõigi tunnuste lõikes, st me korrutame iga selgitava tunnuse <span class="math inline">\(X\)</span> läbi meetmes osalemise tunnusega <span class="math inline">\(D\)</span>:</p>
 <p><span class="math display">\[Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta  + (D_i \cdot \mathbf{X}_{i}) \gamma + \epsilon_i\]</span></p>
 <p>See võimaldab heterogeenset funktsionaalset seost <span class="math inline">\(\mathbf{X}\)</span> ja <span class="math inline">\(Y^0\)</span> ning <span class="math inline">\(Y^1\)</span> vahel.</p>
-<p>Interaktsiooniliikme lisamine igale selgitavale tunnusele, on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate (<span class="math inline">\(D=1\)</span>) ja mitteosalejate (<span class="math inline">\(D=0\)</span>) lõikes, sest iga parameeter tulebki erinev osalejatele ja mitteosalejatele. See meetod on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel <span class="math inline">\(Y \sim \mathbf{X}\)</span> olla erinev osalejatel ja mitteosalejatel.</p>
+<p>Keskmise mõju leidmiseks taolisest mudelist (nt ATE), peame leidma meetmes osalemise mõju iga vaatluse jaoks ja siis leidma keskmise. Seda saab teha erinevate Ri pakettidega (vt empiirilist näidet allpool).</p>
+<p>Interaktsiooniliikme lisamine igale selgitavale tunnusele on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate (<span class="math inline">\(D=1\)</span>) ja mitteosalejate (<span class="math inline">\(D=0\)</span>) lõikes, sest interaktsiooniga mudelis tulebki iga parameeter erinev osalejatele ja mitteosalejatele. Kahe mudeli hindamine on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel <span class="math inline">\(Y \sim \mathbf{X}\)</span> olla erinev osalejatel ja mitteosalejatel.</p>
 <ol type="1">
 <li><p><strong>Mudel osalejate andmetel</strong> (<span class="math inline">\(D=1\)</span>): <span class="math display">\[Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1\]</span></p>
 <p>Prognoosime saadud regressioonimudeli parameetrite abile potentsiaalse tulemuse meetmes osalemise korral <strong>kõigile</strong> vaatlustele: <span class="math inline">\(\hat{Y}^1_{i} = \hat{\alpha}_1 + \mathbf{X}_i \hat{\beta}_1\)</span>.</p></li>
@@ -366,7 +367,7 @@ window.Quarto = {
 </ol>
 <p>kus <span class="math inline">\(N\)</span>, <span class="math inline">\(N_T\)</span> ja <span class="math inline">\(N_C\)</span> on vastavalt vaatluste arv kokku, osalusrühmas ja võrdlusrühmas.</p>
 <p><strong>Standardvigade leidmine</strong></p>
-<p>Saadud ATE (või ka ATT, ATU) punkthinnangu standardvea ja usalduspiirid saab leida kas simulatsioonimeetodi abil (<em>bootstrapping</em>, vaata empiirilist näidet peatüki lõpus). On olemas ka valmis tehtud paketid, nt <em>CausalGAM</em> (mis küll seisuga 15.09.2026 ei olnud uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html) või pakett <em>margins</em>, mis lubab leida selgitava tunnuse mõju interaktsioonidega mudelist. Vaata näidet peatüki lõpus.</p>
+<p>Saadud ATE (või ka ATT, ATU) punkthinnangu standardvea ja usalduspiirid saab leida simulatsioonimeetodi abil (nn <em>bootstrapping</em>). Kui mudelit hinnata interaktsioonidega ühe mudeliga, siis saab marginaalsete efektide leidmisel paketist <em>margins</em> või <em>marginaleffects</em> ka automaatselt standardvead. Vaata näiteid empriilises ülesandes. Paidlik pakett on veel <em>CausalGAM</em> (mis küll seisuga 15.09.2026 ei olnud uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html) .</p>
 <section id="g-arvutus-g-computation" class="level3">
 <h3 class="anchored" data-anchor-id="g-arvutus-g-computation">G-arvutus (<em>G-computation</em>)</h3>
 <p>Eelnevat toodud lähemist nimetatakse ka G-arvutuseks (<em>G-computation</em>). See on üldine meetod, kus hindame esmalt tulemusnäitaja sõltuvuse sekkumisest <span class="math inline">\(D\)</span> ja segajatest <span class="math inline">\(X\)</span>. See võib olla regressioonimudel nagu just tegime või ka hoopis paindlikum meetod, näiteks juhumets (<em>random forest</em>), mida vaatame õpiku lõpuosas. Seejärel prognoosime igale inimese tulemuse mõlema sekkumise seisundi korral (<span class="math inline">\(D=1\)</span> ja <span class="math inline">\(D=0\)</span> korral) ning leiame nende prognooside keskmised väärtused sihtpopulatsioonis. Erinevused keskmiste vahel annavadki meile keskmise mõjuhinnangu. (See on tegelikult samaväärne, kui alguses leiame iga inimese jaoks erinevuse ja leiame erinevuste keskmised - nii oligi tehtud ülal).</p>
@@ -381,8 +382,8 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="muutujate-selgitused">Muutujate selgitused</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 72%">
+<col style="width: 29%">
+<col style="width: 70%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -669,25 +670,25 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_4f7hcjx34olq60nijdnt = TinyTable.createTableFunctions("tinytable_4f7hcjx34olq60nijdnt");
+      const tableFns_imhcprf1dz7thfcd0ynv = TinyTable.createTableFunctions("tinytable_imhcprf1dz7thfcd0ynv");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '23', j: 2 }, { i: '23', j: 3 } ], css_id: 'tinytable_css_rjz5txb453bthwoganft',}, 
-          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_npyjc71gmngmuv50iskj',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '20', j: 2 }, { i: '21', j: 2 }, { i: '22', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 }, { i: '20', j: 3 }, { i: '21', j: 3 }, { i: '22', j: 3 } ], css_id: 'tinytable_css_3wt59jmr06tzqzx7q23s',}, 
-          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_sja4su6i47g83uvxw2fo',}, 
-          { positions: [ { i: '23', j: 1 } ], css_id: 'tinytable_css_xssdmor15ihhelc01zbk',}, 
-          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_m1ogd6v4lens0a6z9f5g',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 }, { i: '22', j: 1 } ], css_id: 'tinytable_css_isa6m185qpzek09tz4vw',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_2xdzyhkmh06e15e6pzco',}, 
+          { positions: [ { i: '23', j: 2 }, { i: '23', j: 3 } ], css_id: 'tinytable_css_3gzmk25ikahwn6mjc0d6',}, 
+          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_w0nq2nw71ke419cv481h',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '20', j: 2 }, { i: '21', j: 2 }, { i: '22', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 }, { i: '20', j: 3 }, { i: '21', j: 3 }, { i: '22', j: 3 } ], css_id: 'tinytable_css_e7u6naobdqn5z9qijfwr',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_o8fz2arzb9j1hvlqgs7t',}, 
+          { positions: [ { i: '23', j: 1 } ], css_id: 'tinytable_css_0spjpejoekjft7njyhpc',}, 
+          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_v2xxx1afjalj5ceocefd',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 }, { i: '22', j: 1 } ], css_id: 'tinytable_css_k2zmblmttbpu08ye8wuq',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_nnsau5aeixc49pj3980q',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_4f7hcjx34olq60nijdnt.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_imhcprf1dz7thfcd0ynv.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -696,17 +697,17 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_rjz5txb453bthwoganft, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_rjz5txb453bthwoganft {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_npyjc71gmngmuv50iskj, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_npyjc71gmngmuv50iskj {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_3wt59jmr06tzqzx7q23s, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_3wt59jmr06tzqzx7q23s { text-align: center }
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_sja4su6i47g83uvxw2fo, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_sja4su6i47g83uvxw2fo {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_xssdmor15ihhelc01zbk, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_xssdmor15ihhelc01zbk {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_m1ogd6v4lens0a6z9f5g, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_m1ogd6v4lens0a6z9f5g {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_isa6m185qpzek09tz4vw, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_isa6m185qpzek09tz4vw { text-align: left }
-    #tinytable_4f7hcjx34olq60nijdnt td.tinytable_css_2xdzyhkmh06e15e6pzco, #tinytable_4f7hcjx34olq60nijdnt th.tinytable_css_2xdzyhkmh06e15e6pzco {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_3gzmk25ikahwn6mjc0d6, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_3gzmk25ikahwn6mjc0d6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_w0nq2nw71ke419cv481h, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_w0nq2nw71ke419cv481h {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_e7u6naobdqn5z9qijfwr, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_e7u6naobdqn5z9qijfwr { text-align: center }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_o8fz2arzb9j1hvlqgs7t, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_o8fz2arzb9j1hvlqgs7t {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_0spjpejoekjft7njyhpc, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_0spjpejoekjft7njyhpc {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_v2xxx1afjalj5ceocefd, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_v2xxx1afjalj5ceocefd {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_k2zmblmttbpu08ye8wuq, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_k2zmblmttbpu08ye8wuq { text-align: left }
+    #tinytable_imhcprf1dz7thfcd0ynv td.tinytable_css_nnsau5aeixc49pj3980q, #tinytable_imhcprf1dz7thfcd0ynv th.tinytable_css_nnsau5aeixc49pj3980q {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_4f7hcjx34olq60nijdnt" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_imhcprf1dz7thfcd0ynv" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
