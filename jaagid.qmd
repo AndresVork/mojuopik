@@ -1,11 +1,8 @@
 |  |  |
-|----------------------|-------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | **Väline kehtivus** (External Validity) | Masinõppe mudeli võime üldistada tulemusi väljaspool uuritud valimit. Masinõppe mudelid võivad olla *üle-sobitatud*, mis vähendab nende välise kehtivust. |
 
-
 ## Recall from the last lecture
-
-
 
 ### Tõestus
 
@@ -14,7 +11,7 @@ Eesmärk on näidata, et:
 $$
 \text{SDO}
 = \text{ATE} + \text{valikunihe} + (1-p)\,\text{heterogeenne mõju}
-$$ 
+$$
 
 Kirjutame definitsioonid:
 
@@ -49,7 +46,6 @@ $$
 = \text{ATT} + \text{SB}
 $$
 
-
 $$
 \begin{aligned}
 &\big\{\mathbb{E}[Y^1 \mid D = 1] - \mathbb{E}[Y^0 \mid D = 1]\big\} \\
@@ -59,7 +55,111 @@ $$
 \end{aligned}
 $$
 
-
 $$
 \quad \blacksquare
 $$
+
+
+DIFDIF konspektist
+
+
+dfl <- dfl %>%  
+  mutate(aegkoolitusest = ifelse(koolituses ==1, 
+                                 aasta - koolitusaasta,
+                                 0))
+
+#Joonise jaoks teeme selle faktoriks, et võrdlusrühm oleks -1
+dfl <- dfl %>% 
+  mutate(aegkoolitusest = factor(aegkoolitusest, levels = c(-1, -3:-2, 0:3)))
+  
+  
+  
+  mudel <- lm(data = dfl, formula = palk ~ aegkoolitusest + mees + 
+              eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund))
+              
+              
+              
+```{r}
+models <- lapply(split(dfl, dfl$seisundtext), function(df) {
+  
+  lm(palk ~ aegkoolitusest + mees + eestlane +
+       factor(haridus) + vanusgr + factor(aasta),
+     data = df)
+  
+})
+
+summary(models[[1]])  # results for seisund = 1
+summary(models[[2]])  # results for seisund = 2
+summary(models[[3]])
+
+multiplot(models) + theme_light() + labs(color = "Rühm")
+
+```
+
+
+
+```{r}
+library(broom)
+
+results <- dfl %>%
+  group_by(seisund) %>%
+  group_modify(~ broom::tidy(
+    lm(palk ~ aeg_m3 + aeg_m2 + aeg_0 + aeg_1 + aeg_2 + aeg_3 +
+    mees + eestlane + factor(haridus) + vanusgr + factor(aasta),
+       data = .x)
+  ))
+results
+
+```
+
+
+
+
+
+
+```{r}
+mudel <- lm(
+  palk ~ aeg_m3 + aeg_m2 + aeg_0 + aeg_1 + aeg_2 + aeg_3 +
+    mees + eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund),
+  data = dfl
+)
+
+summary(mudel)
+
+coefplot(mudel, intercept = FALSE)
+
+```
+
+
+
+Näeme jooniselt tegelikult, et kordajad ka enne meedet on juba erinevad, seega on meil erinevus meetme eelses trendis ja me ei saa oma tulemusi seega usaldada.
+
+Teeme ka mudeli eraldi töötavate, töötute ja mitteaktiivsete jaoks. See on seisund koolitusele minemise hetkel.
+
+```{r}
+dfl <- dfl %>% 
+  mutate(seisundtext = case_when(
+    seisund == 1 ~ "Töötab",
+    seisund == 2 ~ "Mitteaktiivne",
+    seisund == 3 ~ "Töötu"))
+    
+table(dfl$seisund, dfl$seisundtext)
+```
+
+```{r}
+models <- lapply(split(dfl, dfl$seisundtext), function(df) {
+  
+lm(palk ~ aeg_m3 + aeg_m2 + aeg_0 + aeg_1 + aeg_2 + aeg_3 +
+    mees + eestlane + factor(haridus) + vanusgr + factor(aasta),
+  data = df)
+})
+
+summary(models[[1]])  # results for seisund = 1
+summary(models[[2]])  # results for seisund = 2
+summary(models[[3]])
+
+multiplot(models) + theme_light() + labs(color = "Rühm")
+
+```
+
+Näeme endiselt, et ikkagi trend palgas enne meedet oli erinev osalus- ja võrdlusrühmas. Seega kahjuks me ei saa lõpuni usaldada meie tulemusi. Tuleme selle näite juurde tagasi sobitamise teema juures, kus vaatame, kuidas sobitamine koos DiD analüüsiga aitab saada loodetavasti õigemaid tulemusi.

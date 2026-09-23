@@ -50,9 +50,9 @@ $$Y_i = \alpha + \delta D_i + \mathbf{X}_i \beta  + (D_i \cdot \mathbf{X}_{i}) \
 
 See võimaldab heterogeenset funktsionaalset seost $\mathbf{X}$ ja $Y^0$ ning $Y^1$ vahel.
 
-Keskmise mõju leidmiseks taolisest mudelist (nt ATE), peame leidma meetmes osalemise mõju iga vaatluse jaoks ja siis leidma keskmise. Seda saab teha erinevate Ri pakettidega (vt empiirilist näidet allpool). 
+Keskmise mõju leidmiseks taolisest mudelist (nt ATE), peame leidma meetmes osalemise mõju iga vaatluse jaoks ja siis leidma keskmise. Seda saab teha erinevate Ri pakettidega (vt empiirilist näidet allpool).
 
-Interaktsiooniliikme lisamine igale selgitavale tunnusele on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate ($D=1$) ja mitteosalejate ($D=0$) lõikes, sest interaktsiooniga mudelis tulebki iga parameeter erinev osalejatele ja mitteosalejatele. Kahe mudeli hindamine  on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitteosalejatel.
+Interaktsiooniliikme lisamine igale selgitavale tunnusele on tegelikult samaväärne, kui hinnata regressioonimudelid eraldi osalejate ($D=1$) ja mitteosalejate ($D=0$) lõikes, sest interaktsiooniga mudelis tulebki iga parameeter erinev osalejatele ja mitteosalejatele. Kahe mudeli hindamine on regressioonimudeliga hindamise kõige paindlikum juht, kuna võimaldab funktsionaalsel seosel $Y \sim \mathbf{X}$ olla erinev osalejatel ja mitteosalejatel.
 
 1.  **Mudel osalejate andmetel** ($D=1$): $$Y_i = \alpha_1 + \mathbf{X}_i \beta_1 + \epsilon_{i1} \quad \text{kui } D_i=1$$
 
@@ -73,8 +73,7 @@ kus $N$, $N_T$ ja $N_C$ on vastavalt vaatluste arv kokku, osalusrühmas ja võrd
 
 **Standardvigade leidmine**
 
-Saadud ATE (või ka ATT, ATU) punkthinnangu standardvea ja usalduspiirid saab leida simulatsioonimeetodi abil (nn *bootstrapping*). Kui mudelit hinnata interaktsioonidega ühe mudeliga, siis saab marginaalsete efektide leidmisel paketist *margins* või *marginaleffects* ka automaatselt standardvead. Vaata näiteid empriilises ülesandes.
-Paidlik pakett on veel *CausalGAM* (mis küll seisuga 15.09.2026 ei olnud uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html) . 
+Saadud ATE (või ka ATT, ATU) punkthinnangu standardvea ja usalduspiirid saab leida simulatsioonimeetodi abil (nn *bootstrapping*). Kui mudelit hinnata interaktsioonidega ühe mudeliga, siis saab marginaalsete efektide leidmisel paketist *margins* või *marginaleffects* ka automaatselt standardvead. Vaata näiteid empriilises ülesandes. Paidlik pakett on veel *CausalGAM* (mis küll seisuga 15.09.2026 ei olnud uuendatud ja see oli arhiveeeritud https://cran-archive.r-project.org/web/checks/2026/2026-04-30_check_results_CausalGAM.html) .
 
 ### G-arvutus (*G-computation*)
 
@@ -90,7 +89,7 @@ Anonümiseeritud andmestik asub failis:\
 ### Muutujate selgitused
 
 | Muutuja | Selgitus |
-|--------------------|----------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | `training` | Tunnus kas sai tööturukoolitust või ei 2000. aasta esimeses pooles |
 | `nwage` | Netopalk 2002. aasta septembris. (Tegelikult on tegemist kroonidega, aga all tekstis kasutan sageli eurot) |
 | `employed` | Hõiveseisund 2002. aasta septembris (1 – hõivatud, 0 – töötu või mitteaktiivne) |
@@ -215,7 +214,7 @@ robust_se2 <- sqrt(diag(vcovHC(lin_nwage, type = "HC1")))
 stargazer(lin_employed, lin_nwage, se = list(robust_se1, robust_se2), type = "text", no.space = TRUE)
 ```
 
-Kõrvalepõikena, pakett *fixest* sisaldab käsku *feols*, mis laseb kohe esitada ka robustsed standardvead. Pakett *modelsummary* esitab need. Millist paketti kasutada on maitse asi. 
+Kõrvalepõikena, pakett *fixest* sisaldab käsku *feols*, mis laseb kohe esitada ka robustsed standardvead. Pakett *modelsummary* esitab need. Millist paketti kasutada on maitse asi.
 
 ```{r}
 lin_employedrob <- feols(employed ~ training + male + est+ age + age2  + educ + emplbefore, data=atp, vcov = "HC1")
@@ -225,9 +224,6 @@ modelsummary(models = list(lin_employedrob, lin_nwagerob),
              estimate = "{estimate} {stars}")
 
 ```
-
-
-
 
 ### Eraldi mudelid osalejatele ja mitteosalejatele
 
@@ -243,7 +239,8 @@ mudelvanus <- lm(nwage ~ age*training, data = atpj)
 summary(mudelvanus)
 
 ```
-Näeme, et koolituse mõju on positiivne (369 eurot), aga iga aasta, mis vanusele juurde tuleb, vähendab koolituse mõju 5.9 euro võrra. (Tõsi, ükski kumbki parameeter ei ole statistiliselt oluline.) 
+
+Näeme, et koolituse mõju on positiivne (369 eurot), aga iga aasta, mis vanusele juurde tuleb, vähendab koolituse mõju 5.9 euro võrra. (Tõsi, ükski kumbki parameeter ei ole statistiliselt oluline.)
 
 Illustreerime tulemust ka joonisel.
 
@@ -365,6 +362,7 @@ summary(margins(intmudel, variables = "training"))
 Saame sama punkthinnangu, mis ülal. Meetme keskmine mõju on 10.63 protsendipunkti. Nüüd on lisatud ka usalduspiirid, kust näeme, et 95%line usaldusvahemik on 5.06 - 16.2 protsendipunkti. Hinnang on ka statistiliselt oluline (p = 0.0002).
 
 Sama teeb ka käsk *avg_comparisons* paketist *marginaleffects*. Siin saame lubada kohe ka robustseid standardvigu.
+
 ```{r}
 avg_comparisons(intmudel, variables = "training", vcov = "HC1")
 ```

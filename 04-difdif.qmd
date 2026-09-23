@@ -66,7 +66,7 @@ Meie tegelik eesmärk on leida keskmine mõju osalejatele (ATT) ehk mis oleks me
 $$ATT = E[Y^1_{t=1} - Y^0_{t=1} | D=1] $$ Kuna $Y^0_{t=1}$ (osalejate tulemus ilma sekkumiseta) ei ole vaadeldav, siis kasutame paralleelse trendi eeldust selle asendamiseks. Teeme selle läbi samm-haaval. Vaata selgitusi peale valemit.
 
 $$\begin{aligned}ATT & = E[Y^1_{t=1} - Y^0_{t=1} | D=1] \\ 
-\text(1) & = E[Y^1_{t=1}|D=1] -E[Y^0_{t=1} | D=1] = \\
+\text(1) & = E[Y^1_{t=1}|D=1] -E[Y^0_{t=1} | D=1]  \\
 \text(2) & = E[Y^1_{t=1}|D=1] -E[Y^0_{t=1} | D=1] + \underbrace{E[Y^0_{t=0} | D=1] - E[Y^0_{t=0} | D=1]}_{\text{Liidame ja lahutame}} \\
 \text(3) & = \underbrace{E[Y^1_{t=1}|D=1] - E[Y^0_{t=0} | D=1]}_{\text{Tegelik muutus}} - \underbrace{(E[Y^0_{t=1} | D=1] - E[Y^0_{t=0} | D=1])}_{\text{Muutus ilma meetmeta}} \\
 \text(4) & = E[Y^1_{t=1}|D=1] - E[Y^0_{t=0} | D=1] - \underbrace{(E[Y^0_{t=1} | D=0] - E[Y^0_{t=0} | D=0])}_{\text{Paralleelse trendi eeldus}} \\ 
@@ -110,7 +110,7 @@ Sündmusuuring (*Event Study*) on dünaamiline regressioonimudel, mis võimaldab
 Üldkuju:
 
 $$
-Y_{it} = \alpha_i + \gamma_t + \sum_{k=-K, k \neq 0}^{L} \beta_k \cdot D_{it}^k + \mathbf{X}_{it}\beta + \epsilon_{it}
+Y_{it} = \alpha_i + \gamma_t + \sum_{k=-K, k \neq -1}^{L} \beta_k \cdot D_{it}^k + \mathbf{X}_{it}\beta + \epsilon_{it}
 $$
 
 Lisandunud muutujate selgitus:
@@ -118,21 +118,40 @@ Lisandunud muutujate selgitus:
 -   $k$: Suhteline aeg sündmuseni ($t - E_i$, kus $E_i$ on sündmuse toimumise aeg objekti $i$ jaoks).
     -   $k < 0$: Perioodid enne meedet (*Leads*).
     -   $k \ge 0$: Perioodid pärast meedet (*Lags*).
+    -   Periood $k = -1$ on välja jäetud ja kasutame seda referentspunktina
     -   $K$ ja $L$ sõltuvad andmestiku pikkusest, nt vaatame 5 aastat enne ja 5 pärast pärast meedet.
 -   $D_{it}^k$: Sündmuse indikaatorid (*Event Time Dummies*).
     -   Muutuja on 1, kui objekt $i$ on ajahetkel $t$ täpselt $k$ perioodi kaugusel sündmusest.
     -   Muutuja on 0 muudel juhtudel.
 -   $\beta_k$: Huvipakkuvad koefitsiendid:
     -   Kui $k < 0$ (Meetme-eelne periood): $\beta_k$ näitab erinevust osalus- ja võrdlusrühma vahel enne meedet. See testib paralleelse trendi eeldus. Kui eeldus kehtib, peaksid need $\beta$-d olema statistiliselt nullist eristamatud (nulljoone lähedal).
-    -   Kui $k \ge 0$ (Meetmejärgne eriood): $\beta_k$ näitab meetme dünaamilist mõju $k$ perioodi pärast sündmust.
--   $k \neq 0$: Väljajäetud kategooria.
-    -   Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust ($k = 0$), et vältida multikollineaarsust. Kõiki teisi koefitsiente ($\beta_k$) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 1 tekib esimest korda avatus meetmele. See pisut sõltub, et kas eeldame, et mõju avaldub juba samal perioodil või alates järgmisest perioodist.
+    -   Kui $k \ge 0$ (Meetmejärgne periood): $\beta_k$ näitab meetme dünaamilist mõju $k$ perioodi pärast sündmust.
+-   $k \neq -1$: Väljajäetud kategooria.
+    -   Tavaliselt jäetakse mudelist välja periood vahetult enne sündmust ($k = -1$), et vältida multikollineaarsust. Kõiki teisi koefitsiente ($\beta_k$) tõlgendatakse selle baasperioodi suhtes. Eeldame, et perioodil 0 tekib esimest korda avatus meetmele. See pisut sõltub, et kas eeldame, et mõju avaldub juba samal perioodil või alates järgmisest perioodist.
+
+### Paralleelse trendi eelduse test
+
+Sündmusuuringu spetsifikatsiooni korral saame testida, kas enne meedet paralleelne trend kehtis. See lisab kindlust eeldusel, et paralleelne trend oleks jätkunud ka ilma meetmeta. Seda kontrollime hüpoteesiga, kas kõik kordajad enne meedet on korraga nullid:
+
+$$
+H_0: \beta_{-K} = \beta_{-K+1} = \cdots = \beta_{-2} = 0.
+$$
+
+alternatiivne hüpotees oleks
+
+$$
+H_1: \text{vähemalt üks  } \beta_k \neq 0, \qquad k < -1.
+$$
+
+Kasutatakse kas Wald testi või F testi. Kui me ei saa $H_0$ ümber lükata, siis see on kooskõlas paralleelse trendi eeldusega. See küll tõesta, et paralleelse trendi eeldus kehtib.
+
+### Edasiarendused
 
 DiD meetodit võib kombineerida sobitamisega (vt järgmist peatükki). Sellisel juhul tehakse võrdlusrühm eelnevalt sarnaseks osalusrühmaga kasutades meetmele eelnevaid tunnuste väärtusi ja meetmest sõltumatuid tunnuseid. Näiteks inimese sugu, vanus ja palk enne meedet.
 
 DiD meetodil on tänapäeval palju edasiarendusi. Kui meetme mõjus ajas muutub (nt kasvab või kahaneb) ja meetmes osalevad ettevõtted või inimesed eri ajahetkedel (nn *staggered design*), siis on oht saada tavalise TWFE mudeliga nihkega hinnanguid.
 
-*(TODO! Lisada viited olulisematele allikatele)*
+*(TODO! Lisada viited olulisematele allikatele)* Sun & Abraham (2021, Journal of Econometrics) Callaway & Sant’Anna (2021, Journal of Econometrics) Roth (2022, American Economic Review: Insights).
 
 ## Näide pensionipoliitika mõju kohta hõivemäärale
 
@@ -180,6 +199,8 @@ Selle hinnangu põhjusliku mõjuna tõlgendamiseks peab kehtima eeldus, et ilma 
 
 Kasutame näitena anonümiseeritud andmeid Poliitikauuringute Keskuse Praxis raportist Leetmaa, Võrk, Kupts, Kirss (2015) „Programmi Täiskasvanute tööalane koolitus ja arendustegevused võrdlusrühmapõhine mõju hindamine“ <https://www.praxis.ee/tood/programmi-taiskasvanute-tooalane-koolitus-ja-arendustegevused-moju-hindamine/>
 
+Andmestik on pisut hägustatud, mistõttu päris samu punkthinnanguid ei saa, mis algses uuringus.
+
 ```{r}
 #| message: false
 #| warning: false
@@ -187,20 +208,43 @@ Kasutame näitena anonümiseeritud andmeid Poliitikauuringute Keskuse Praxis rap
 library(dplyr)
 library(coefplot)
 library(stargazer)
+library(fixest)
+library(panelView)
+library(did)
 
 ```
 
+Andmestiku kirjeldus
+
+| Tunnus | Selgitus |
+|---------------------------------|---------------------------------------|
+| `id` | Inimese pseudo-ID |
+| `koolituses` | Inimene osales koolituses 2010. või 2011. aastal |
+| `koolitusaasta` | Koolituse aasta: 2010 või 2011; kui inimene koolitusel ei osalenud, siis 0 |
+| `palk2008`, `palk2009`, ..., `palk2013` | Inimese aasta töötasu (brutosumma) aastatel 2008–2013, tuhandetes eurodes |
+| `haridus` | Haridustase: 2 – põhiharidus; 3 – üldkeskharidus; 4 – kutseharidus põhihariduse baasil; 5 – kutseharidus keskhariduse baasil; 6 – kõrgharidus |
+| `mees` | 1 – mees; 0 – naine |
+| `eestlane` | 1 – eestlane; 0 – mitte-eestlane |
+| `vanus` | Vanus 2010. aastal |
+| `vanusgr` | Vanuserühm |
+| `seisund` | Seisund koolitusse minemisel: 1 – töötav; 2 – mitteaktiivne; 3 – töötu |
+| `kulu` | Koolituse kulu eurodes osaleja kohta |
+
+Lugege andmed sisse ja vaadake, et saate aru andmete sisust. Üks fail on laial kujul ja teine on pikal kujul.
+
 ```{r}
-#Muutke ära andmete kataloog
+#Muutke ära andmete kataloog vajadusel
 datapath = "http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/"
 
-#Lugege sisse andmefail
+#Lugege sisse andmefailid laial kujul ja pikal kujul
 df <- read.csv(file = paste0(datapath, "adulttraining.csv"))
 dfl <- read.csv(file = paste0(datapath, "adulttraininglong.csv"))
 
 ```
 
-## Kirjeldav statistiline analüüs
+### Kirjeldav statistiline analüüs
+
+stargazer käsk esitab mugavalt peamised näitajad. Saame vaadata kogu valimit ja eraldi osalus- ja võrdlusrühma.
 
 ```{r}
 stargazer(df, type = "text")
@@ -209,33 +253,18 @@ stargazer(df %>% filter(koolituses ==0), type = "text")
 
 ```
 
+Võite ka võrrelda muidugi lithsa risttabeliga. Näiteks, kas koolituses osalejate seas on rohkem mehi kui mitteosalejate seas.
+
 ```{r}
 #Gruppide võrdlus
 prop.table(table("Koolituses" = df$koolituses, "Mees" = df$mees),1)
 ```
 
-Keskmine vanus
+### Käsitsi DiD
 
-```{r}
-df %>% group_by(koolituses) %>% 
-  summarise(keskminevanus = mean(vanus))
-```
+Mis on palga muutus osalusgrupis ja võrdlusgrupis? Vaatame näiteks aastaid 2008 vs 2013.
 
-Palk on tuhandetes eurodes
-
-Mis on palga muutus osalusgrupis ja võrdlusgrupis? (Enne-pärast hinnang)
-
-Vaatame 2008 vs 2013. Arvutame erinevuse.
-
-```{r}
-df %>% 
-  group_by(koolituses) %>% 
-  summarise(palk2008 = mean(palk2008),
-            palk2013 = mean(palk2013))
-
-```
-
-Palga muutus osalusgrupis
+Arvutame esmalt keskmised palgad mõlemas rühmas ja seejärel leiame palkade kasvu *palgamuut*.
 
 ```{r}
 
@@ -247,16 +276,23 @@ temp <- df %>%
 
 #Enne-pärast hinnang
 temp
+```
 
-#Osalusgrupis
-temp$palgamuut[2]
+Näeme, et osalejatel kavas palk 0.377 ehk 377 euro võrra. Mitteosalejatel palk hoopis vähemes 0.0865 võrra.
 
+Leiame nüüd DiD hinnangu. Lahutame teisest reast esimese.
+
+```{r}
 difdif = temp$palgamuut[2] - temp$palgamuut[1]
 difdif
 
 ```
 
-## Joonis
+DiD hinnang on 0.464 ehk osalusrühma palk kasvas tänu koolitusele 464 euro võrra aastas. Antud juhul, me ei arvesta mitte mingite muude erinevustega osalus- ja võrdlusrühmas.
+
+### Joonis
+
+Kujutame keskmiste palkade arengut osalus- ja võrdlusrühmas ka joonisel. Selleks esmalt teeme valmis keskmiste andmestiku. Kasutame selleks meie andmestikku pikal kujul.
 
 ```{r}
 
@@ -266,9 +302,13 @@ temp <- dfl %>% group_by(koolituses, aasta) %>%
   summarise(palk = mean(palk))
 
 temp
+```
+
+Ja nüüd kuvame selle ka joonisel. Lisame joonisele kasti, kus on toodud koolituse toimumise periood osalusrühmas. Näeme, et koolituses osalejatel olid juba enne koolitust kõrgemad palgad. Samas trend on sarnane enne koolitust, mõlemas rühmas palgad kukuvad 2008-2009.
+
+```{r}
 
 #Praksis tee rida haaval
-
 ggplot(temp, aes(x = aasta, y = palk, color = factor(koolituses))) +
   geom_rect(xmin = 2009.5, xmax = 2011.5, ymin = min(temp$palk)-0.5, ymax = max(temp$palk), fill = "grey100", 
             alpha = 0.1, color = "steelblue") +
@@ -280,9 +320,9 @@ ggplot(temp, aes(x = aasta, y = palk, color = factor(koolituses))) +
 
 ```
 
-## Regressioonanalüüs
+### Regressioonanalüüsiga DiD
 
-2x2 disain
+Näitame, et käsitsi tehtud arvutuse 2x2 disaini korral saame teha ka regressioonimudeliga. Selleks jätame alles vaid ülal kasutatud aastad 2008 ja 2013 ja hindame seejärel lineaarse mudeli.
 
 ```{r}
 #Jätame alles aastad
@@ -293,6 +333,19 @@ dfls <- dfl   %>%
 mudel <- lm(data = dfls, formula = palk ~ koolituses + aasta + koolituses*aasta)
 summary(mudel)
 
+```
+
+Vabaliige 5.726 näitab keskmist palka võrdlusrühmal enne meedet. Kordaja 0.673 tunnuse *koolituses* ees näitab, et koolituses osalejatel oli enne meedet palk kõrgem 0.673 võrra ehk nende palk oli 5.726+0.673 = 6.399.
+
+Kordaja -0.086 tunnuse *aasta2013* ees näitab, et palgad olid võrdlusrühmal peale meedet madalamad ehk 5.726-0.086 = 5.64.
+
+Viimaks ristkorrutis *koolituses:aasta2013i* näitab, et koolituses osalejatel oli peale meedet palk kõrgem 0.464 võrra. Ehk nende palk oli 5.726+0.673 - 0.086 + 0.464 = 6.777.
+
+Võrdle regressioonimudelist leitud arve ülal toodud 2x2 tabeliga ja veendu, et tulemused on samad. (Ümardamise erinevust arvesse võttes.)
+
+Analoogselt võime valida punktideks enne ja pärast meedet ja teised aastad, näiteks 2009 ja 2012.
+
+```{r}
 #Võrrelge nüüd 2009 ja 2012 andmetega
 dfls <- dfl %>% 
   filter(aasta ==2009 | aasta ==2012) %>% 
@@ -300,7 +353,13 @@ dfls <- dfl %>%
 
 mudel <- lm(data = dfls, formula = palk ~ koolituses + aasta + koolituses*aasta)
 summary(mudel)
+```
 
+Võrrelge, kuidas muutus hinnang koolituse mõjule? Näete, et see on pisut suurem 0.5504.
+
+Järgnevalt lisame regressioonimudelisse ja muud tegurid, mis võivad mõjutada palka. Pange tähele, et esialgu me ei lisa fikseeritud efekti inimesele. Siis peaksime välja jätma kõik demograafilised tunnused, sest need ei varieeru.
+
+```{r}
 #Lisame mudelisse muud tegurid
 
 #Andmestik uuesti
@@ -314,114 +373,265 @@ mudel <- lm(data = difdif1, formula = palk ~ koolituses + aasta +
               koolituses*aasta + mees + eestlane + factor(haridus) + vanusgr + factor(seisund))
 summary(mudel)
 
-mudel <- lm(data = difdif1, formula = palk ~ koolituses + aasta + 
-              koolituses*aasta + mees + eestlane + factor(haridus) + vanusgr)
+```
 
-summary(mudel)
+Esimesena vaatame taas aastaid 2008 ja 2013. Näeme, et koolituse mõju on praktiliselt sama, mis ülal, 0.464.
+
+Võime esitada kordajad ka graafikul käsuga *coefplot*.
+
+```{r}
+
 coefplot(mudel)
 
+```
 
-#Leiame erinevuse koolituse aastast. 
+### Paneelandmete mudel TWFE
+
+Hindame mudeli ka korrektselt kasutades TWFE lähenemist ja lisame fikseeritud efektid. Selleks kasutame *feols* käsku *fixest* paketist. See on mugav, et ei pea käsitsi tegema fiktviiseid (dummy) muutujaid. Need võetakse automaatselt arvesse.
+
+Esmalt peame tegema ka ajas muutuvad koolituse väärtuse tunnuse, mis on võrdne 1-ga peale koolitust. Võrdlusrühmal on see alati null.
+
+```{r}
+dfl <- dfl |>  mutate(koolitatud = as.integer(koolituses == 1 & aasta >= koolitusaasta))
+
+```
+
+Kontrollime joonisel, kas tuli välja nagu soovisime
+
+```{r}
+panelview(
+  palk ~ koolitatud,
+  data = dfl,
+  index = c("id", "aasta"),
+  pre.post = TRUE,
+  by.timing = TRUE,
+  axis.lab.angle = 90
+)
+```
+
+Joonis näitab, et tõepoolest on kontrollid ja osalusrühm, kus meede algas erineval ajahetkel.
+
+
+Hindame nüüd TWFE mudeli. Pangem tähele, et standardvigade arvutamisel lubame isikutel olla erinev vealiikme dispersioon.
+
+```{r}
+m_twfe <- feols(
+  palk ~ koolitatud | id + aasta,
+  data = dfl,
+  cluster = ~ id
+)
+
+summary(m_twfe)
+
+```
+
+Näeme, et TWFE mudeli järgi on koolituse mõju palkgale 0.209 ühikut ja see on statistiliselt oluline olulisusnivool 0.05.
+
+
+### Sündmusuuring
+
+Sündmusuuringu kujul mudeli hindamiseks peame lubama koolitusel omada mõju igal aastal enne ja pärast koolitust erinevalt. Selleks teema indikaatormuutujad. Kasutame referentsiks aastat -1. See jääb välja. Seega vaikimisi eeldame, et koolituse mõju algab samal aastal kui koolitus toimus.
+Nendele, kes koolitust ei saanud, paneme alati väärtuse nullikis. 
+
+```{r}
+#Leiame erinevuse koolituse aastast
 # Kõigile koolituses mitteosalejatele paneme selle nulliks
 
-dfl <- dfl %>%  
-  mutate(aegkoolitusest = ifelse(koolituses ==1, 
-                                 aasta - koolitusaasta,
-                                 0))
-
-#Joonise jaoks teeme selle faktoriks, et võrdlusrühm oleks null
-dfl <- dfl %>% 
-  mutate(aegkoolitusest = factor(aegkoolitusest, levels = c(0, -3:-1, 1:3)))
-
-table(dfl$aegkoolitusest)
-#Time event model
-
-mudel <- lm(data = dfl, formula = palk ~ aegkoolitusest + mees + 
-              eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund))
-
-summary(mudel)
-
-coefplot(mudel, intercept = FALSE)
-
+dfl <- dfl %>%
+  mutate(
+    aeg_m3 = as.integer(koolituses == 1 & aasta - koolitusaasta == -3),
+    aeg_m2 = as.integer(koolituses == 1 & aasta - koolitusaasta == -2),
+    # k = -1 jätame välja kui referentsperioodi
+    aeg_0  = as.integer(koolituses == 1 & aasta - koolitusaasta == 0),
+    aeg_1  = as.integer(koolituses == 1 & aasta - koolitusaasta == 1),
+    aeg_2  = as.integer(koolituses == 1 & aasta - koolitusaasta == 2),
+    aeg_3  = as.integer(koolituses == 1 & aasta - koolitusaasta == 3)
+  )
 ```
 
-Lisame mineviku palga enne koolitust sisse ja vaatame muutust võrreldes 2008 aasta palgaga
+Hindame nüüd TWFE mudeli dünaamiliste efektidega
 
 ```{r}
-dfl <- dfl %>% 
-  group_by(id) %>% 
-  mutate(palk2008 = palk[aasta==2008]) %>% 
-  mutate(dpalk2008 = palk - palk2008) %>% 
-  ungroup()
+m_twfedyn <- feols(
+  palk ~ aeg_m3 + aeg_m2 + aeg_0 + aeg_1 + aeg_2 + aeg_3 | id + aasta,
+  data = dfl,
+  cluster = ~ id
+)
 
-mudel2 <- lm(data = dfl, formula = dpalk2008 ~ aegkoolitusest + mees + 
-              eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund))
-
-summary(mudel2)
-
-coefplot(mudel2, intercept = FALSE)
-
-
+summary(m_twfe)
 ```
 
-Teeme mudeli eraldi töötavate, töötute ja mitteaktiivsete jaoks.
+
+Näeme, et koolituse mõju ajas kasvab oluliselt. 
+
+Võime võrrelda ka hinnatuid mudelid
 
 ```{r}
-library(broom)
-
-results <- dfl %>%
-  group_by(seisund) %>%
-  group_modify(~ broom::tidy(
-    lm(dpalk2008 ~ aegkoolitusest + mees + eestlane +
-         factor(haridus) + vanusgr + factor(aasta),
-       data = .x)
-  ))
-results
+etable(m_twfe, m_twfedyn)
 
 ```
 
-Või
+
+Dünaamiline mudel ei sunni koolituse mõju olema igal koolitusjärgsel aastal sama. Iga sündmusaja koefitsient näitab erinevust võrreldes võrdlusperioodiga -1, st viimase koolituseelse aastaga. Koolituseelsed koefitsiendid (-3, -2) on kasulikud paralleelsete trendide eeldust toetava diagnostikana: ideaalis ei tohiks enne koolitust olla selget süstemaatilist erinevust.
+
+Pangem tähele, et kui koolitus algab erinevatele inimestele erinevatel hetkedel (nn staggered treatment) siis on TWFE sündmusuuring olulise piiranguga. Kui erinevad rühmad saavad meedet eri ajal, võivad mõnes võrdluses kontrollina toimida inimesed, kes on juba varem meedet saanud. Kui meetme mõju muutub ajas või erineb kohortide vahel, võib see dünaamilisi koefitsiente moonutada. Seetõttu kasutatakse keerulisemaid meetodeid. 
+
+
+### Keerulisemad ja paindlikumad mudelid - vabatahtlik
+
+#### Sun–Abrahami dünaamiline hinnang
+
+Sun–Abrahami meetod on mõeldud just staggered treatment'i olukorraks. See arvestab eraldi kohorte ning väldib tavapärase TWFE event-study problemaatilisi juba-meetmes osalenud versus hiljem-osalenud võrdlusi.
+
+```{r model-sunab}
+m_dynamic <- feols(
+  palk ~ sunab(
+    koolitusaasta,
+    aasta,
+    ref.p = -1
+  ) | id + aasta,
+  data = dfl,
+  cluster = ~ id
+)
+
+summary(m_dynamic)
+```
+
+`sunab(koolitusaasta, aasta)` loob sisuliselt kohordi × sündmusaja mõjud. Kõigepealt võrreldakse näiteks 2010. aastal koolitatud inimesi sobiva kontrollrühmaga nende sündmusaja lõikes ning eraldi tehakse sama 2011. aastal koolitatutega. Seejärel agregeeritakse need kohordispetsiifilised mõjud sündmusaja järgi.
+
+Oluline erinevus tavapärasest TWFE event-study'st on see, et hinnang ei pea kasutama juba meetmes osalenud kohorti teise meetme kohordi kontrollina. `ref.p = -1` tähendab, et võrdlusperioodiks on viimane aasta enne koolitust. Seega saab koefitsiente tõlgendada kui mõju võrreldes viimase koolituseelse aastaga.
+
+Ka Sun–Abrahami mudelis on koolituseelsed koefitsiendid statistiliselt ebaolulised. Koolituse aasta mõju on samuti ebaoluline. Esimesel, teisel ja kolmandal koolitusjärgsel aastal on mõju vastavalt umbes **0,463**, **0,566** ja **0,680 tuhat eurot**, kõik statistiliselt olulised. Seega toetab see mudel järeldust, et koolituse mõju palgale ei teki kohe, vaid ilmneb eelkõige alates esimesest koolitusjärgsest aastast.
+
+Mudelite võrdlus
+
+```{r compare-models}
+etable(m_twfe, m_twfedyn, m_dynamic)
+```
+
+Esitame viimase mudeli kordajad ka joonisel
 
 ```{r}
-
-dfl <- dfl %>% 
-  mutate(seisundtext = case_when(
-    seisund == 1 ~ "Töötab",
-    seisund == 2 ~ "Mitteaktiivne",
-    seisund == 3 ~ "Töötu"))
-    
-table(dfl$seisund, dfl$seisundtext)
-
-
-models <- lapply(split(dfl, dfl$seisundtext), function(df) {
-  
-  lm(dpalk2008 ~ aegkoolitusest + mees + eestlane +
-       factor(haridus) + vanusgr + factor(aasta),
-     data = df)
-  
-})
-
-summary(models[[1]])  # results for seisund = 1
-summary(models[[2]])  # results for seisund = 2
-summary(models[[3]])
-
-multiplot(models) + theme_light() + labs(color = "Rühm")
-
+iplot(
+  m_dynamic,
+  ref.line = 0,
+  xlab = "Aastad koolitusest",
+  ylab = "Mõju palgale",
+  main = "Koolituse mõju palgale"
+)
 ```
 
-```{r}
-models <- lapply(split(dfl, dfl$seisundtext), function(df) {
-  
-  lm(palk2008 ~ aegkoolitusest + mees + eestlane +
-       factor(haridus) + vanusgr + factor(aasta),
-     data = df)
-  
-})
 
-summary(models[[1]])  # results for seisund = 1
-summary(models[[2]])  # results for seisund = 2
-summary(models[[3]])
+`iplot()` on `fixest` paketis mugav viis event-study koefitsientide ja usaldusvahemike joonistamiseks. Graafikult on dünaamikat tavaliselt lihtsam lugeda kui regressioonitabelist: enne meedet peaksid hinnangud olema nulli lähedal ning pärast meedet näeme, millal mõju tekib ja kuidas see ajas muutub.
 
-multiplot(models) + theme_light() + labs(color = "Rühm")
+#### Sun–Abrahami keskmine ATT
 
+Sun–Abrahami meetodil saame leida ka keskmise mõju.
+
+```{r model-sunab-att}
+m_att <- feols(
+  palk ~ sunab(
+    koolitusaasta,
+    aasta,
+    att = TRUE
+  ) | id + aasta,
+  data = dfl,
+  cluster = ~ id
+)
+
+summary(m_att)
 ```
+
+Dünaamilised koefitsiendid vastavad küsimusele „kuidas mõju muutub ajas pärast koolitust?“. Sageli tahame lisaks ühte kokkuvõtvat arvu: kui suur on keskmine mõju kõigi meetmes osalenud inimeste ja kõigi koolitusjärgsete perioodide peale kokku. `att = TRUE` palub Sun–Abrahami kohordispetsiifilised mõjud selliseks keskmiseks ATT-ks agregeerida.
+
+Seda arvu on lihtsam näiteks poliitikakokkuvõttes esitada, kuid see peidab dünaamika. Seetõttu on hea tava näidata kõrvuti nii keskmist ATT-d kui ka sündmuspõhist joonist.
+
+Keskmine Sun–Abrahami ATT on umbes **0,370 tuhat eurot** ehk **370 eurot aastas** ning on statistiliselt oluline. See on suurem kui lihtsa konstantse mõjuga TWFE hinnang 0.208. Erinevus näitab, et staggered treatment'i ja ajas muutuva mõju korral võib üks tavapärane TWFE koefitsient anda teistsuguse kokkuvõtte kui kohordipõhiste mõjude korrektne agregeerimine.
+
+
+#### Callaway–Sant'Anna meetod
+
+Callaway–Sant'Anna lähenemine alustab kõige detailsemast objektist: **ATT(g,t)** ehk mõju konkreetsele meetmes osalenud kohordile `g` konkreetsel kalendriaastal `t`. Seejärel saab neid hinnanguid agregeerida mitmel eri viisil.
+
+```{r model-cs-group-time}
+att_gr <- att_gt(
+  yname = "palk",
+  tname = "aasta",
+  idname = "id",
+  gname = "koolitusaasta",
+  xformla = ~ 1,
+  data = dfl,
+  panel = TRUE,
+  control_group = "nevertreated",
+  est_method = "dr"
+)
+
+summary(att_gr)
+```
+
+
+`att_gt()` hindab mõju eraldi iga meetme osaleva kohordi ja kalendriaasta kombinatsiooni jaoks. Näiteks saab 2010. aastal koolitatud rühmal olla 2011. aastal üks mõju ja 2012. aastal teine mõju. Kontrollrühmaks määrame siin selgelt `nevertreated`, st inimesed, kes ei saanud koolitust ühelgi vaatlusperioodil.
+
+Selline ülesehitus väldib vajadust suruda kogu informatsioon kohe ühte TWFE koefitsienti. Meetod teeb esmalt sobivad 2×2 DiD võrdlused ja alles seejärel agregeerib need vastavalt uurimisküsimusele. `est_method = "dr"` kasutab doubly robust DiD hinnangut; kuna `xformla = ~ 1`, ei lisa me selles etapis uusi selgitavaid tegureid.
+
+2010. aasta kohordi puhul on mõju alates 2011. aastast selgelt positiivne: hinnangud on ligikaudu **0,5115**, **0,7603** ja **0,6805 tuhat eurot** aastatel 2011–2013. 2011. aasta kohordi hinnangud on väiksemad ja simuleeritud usaldusvahemiku järgi statistiliselt ebaolulised. Paralleelsete trendide ühise pre-testi p-väärtus on umbes **0,33**, mistõttu andmed ei anna põhjust paralleelsete trendide eeldust enne meedet tagasi lükata.
+
+**Keskmine efekt**
+
+```{r model-cs-simple}
+overall_att <- aggte(att_gr, type = "simple")
+summary(overall_att)
+```
+
+
+`aggte()` võtab `att_gt()` loodud rühma- ja ajaspetsiifilised mõjud ning teeb neist uurimisküsimusele sobiva kokkuvõtte. `type = "simple"` annab ühe üldise ATT: kui suur on keskmine mõju meetme osalenud inimestele kõigi meetmejärgsete kohordi-aasta kombinatsioonide peale kokku.
+
+See on kõige lähem vaste küsimusele „mis oli koolituse keskmine mõju?“. 
+Samas ei näita see, millal mõju tekkis ega kas mõju oli eri kohortides erinev.
+
+Callaway–Sant'Anna üldine ATT on **0,370 tuhat eurot**. See on sisuliselt sama kui Sun–Abrahami agregeeritud ATT, mis on hea sisuline kontroll: kaks staggered treatment'i jaoks sobivat meetodit annavad siin keskmise mõju kohta väga sarnase tulemuse.
+
+**Dünaamiline mõju sündmusaja järgi**
+
+```{r model-cs-dynamic}
+dyn_att <- aggte(att_gr, type = "dynamic")
+summary(dyn_att)
+```
+
+`type = "dynamic"` rühmitab ATT(g,t) hinnangud selle järgi, mitu aastat on koolitusest möödunud. Seega ühendatakse näiteks kõik kohordid nende esimesel koolitusjärgsel aastal üheks sündmusaja `+1` hinnanguks. See on Callaway–Sant'Anna event-study versioon.
+
+Dünaamiline agregeerimine on eriti kasulik kahe küsimuse jaoks: kas enne meedet oli näha erinevaid trende ning kui kiiresti meetme mõju pärast meetme algust tekib. Nagu Sun–Abrahami puhul, on oluline vaadata nii koolituseelseid kui ka -järgseid koefitsiente.
+
+Sündmusajal `0` on mõju umbes **-0,0796 tuhat eurot** ja statistiliselt ebaoluline. Esimesel, teisel ja kolmandal koolitusjärgsel aastal on mõjud ligikaudu **0,463**, **0,566** ja **0,681 tuhat eurot** ning kõik on statistiliselt olulised. Dünaamiline muster on praktiliselt sama Sun–Abrahami mudeliga: mõju tekib viitajaga ja püsib järgmiste aastate jooksul positiivne.
+
+## Mõju kalendriaja järgi
+
+```{r model-cs-calendar}
+cal_att <- aggte(att_gr, type = "calendar")
+summary(cal_att)
+```
+
+`type = "calendar"` vastab teistsugusele küsimusele kui event-study: selle asemel, et küsida „mitu aastat pärast meedet“, küsime „kui suur oli meetme mõju konkreetsel kalendriaastal?“. Kõik selleks aastaks juba meetmes osalenud kohordid agregeeritakse vastava aasta hinnangusse.
+
+Kalendriaja agregeerimine võib olla kasulik siis, kui majanduskeskkond või programmi rakendamine muutub aastati. Näiteks võib sama koolitusprogramm anda majanduslanguse ajal teistsuguse tulemuse kui kiire palgakasvu perioodil.
+
+Kalendriaja järgi agregeeritud keskmine ATT on umbes **0,289 tuhat eurot**. 2010. aasta hinnang on negatiivne, kuid ebaoluline; 2011., 2012. ja 2013. aasta mõjud on vastavalt umbes **0.344**, **0,592** ja **0,523 tuhat eurot** ning statistiliselt olulised. See kinnitab üldpilti, et positiivne mõju on nähtav peamiselt pärast esimest koolitusaastat.
+
+#### Kokkuvõte
+
+Selles näites annavad staggered treatment'i jaoks sobivad Sun–Abrahami ja Callaway–Sant'Anna meetodid väga sarnase tulemuse. Sündmusuuring näitab, et mõju ei teki kohe koolituse aastal. Positiivne mõju ilmneb peamiselt alates esimesest koolitusjärgsest aastast ning jääb järgmisteks aastateks suurusjärku 0,6–0,7 tuhat eurot aastas.
+
+Selle näite  peamine õppetund on, et staggered treatment'i korral ei piisa alati tavapärasest TWFE mudelist. Kui mõju võib ajas muutuda, on mõistlik hinnata kohordi- ja ajaspetsiifilisi mõjusid ning kasutada nende korrektseks agregeerimiseks Sun–Abrahami või Callaway–Sant'Anna meetodit.
+
+
+### Viited:
+
+Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differences with Multiple Time Periods." Journal of Econometrics, Vol. 225, No. 2, pp. 200-230, 2021. <https://doi.org/10.1016/j.jeconom.2020.12.001>, <https://arxiv.org/abs/1803.09015> 
+
+Liyang Sun, Sarah Abraham, "Estimating dynamic treatment effects in event studies with heterogeneous treatment effects", Journal of Econometrics,
+Volume 225, Issue 2, 2021, Pages 175-199, https://doi.org/10.1016/j.jeconom.2020.09.006.
+(https://www.sciencedirect.com/science/article/pii/S030440762030378X)
+
+
+Lisada
+
