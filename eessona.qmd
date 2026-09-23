@@ -1,13 +1,7 @@
 # Eessõna {.unnumbered}
 
-Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid majandustudengitele. Konspektis kasutatakse tarkvara R.
+Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (*causal inference*) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine "Põhuse ja tagajärje seosed" õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R.
 
-Konspekt on jooksvalt täienev. Siia hakkan panema aines "Põhuse ja tagajärje seosed" kasutatud õppematerjale.
+Konspekt on jooksvalt täienev.
 
-Me kasutame näidisandmetena järgmisi andmefaile:
-
--   Poliitikauuringute Keskuse Praxis 2002. aastal läbiviidud uuringu anonüümset andmefaili aktiivse tööpoliitika mõju hindamise kohta. (Vt Leetmaa, R., Võrk, A., Eamets, R., Sõstra, K. (2003) Aktiivse tööpoliitika tulemuslikkuse analüüs Eestis. Tallinn: Praxis, 2003, 108 lk.)
-
--   PIAAC uuringu avalikud andmefailid
-
--   Eesti Töötukassa andmete põhjal tehtud simuleeritud andmetega näitefailid
+Soovitused ja tähelepanekud palun saata meilile andres.vork\@ut.ee

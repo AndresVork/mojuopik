@@ -260,6 +260,16 @@ Võite ka võrrelda muidugi lithsa risttabeliga. Näiteks, kas koolituses osalej
 prop.table(table("Koolituses" = df$koolituses, "Mees" = df$mees),1)
 ```
 
+Mis aastal toimus koolitus?
+
+```{r}
+table("Koolituses" = df$koolituses, "Koolitusaasta" = df$koolitusaasta)
+
+```
+
+Neist kes osalesid, ligi pooltel oli see 2010 ja pooltel 2011. 
+
+
 ### Käsitsi DiD
 
 Mis on palga muutus osalusgrupis ja võrdlusgrupis? Vaatame näiteks aastaid 2008 vs 2013.
@@ -341,6 +351,8 @@ Kordaja -0.086 tunnuse *aasta2013* ees näitab, et palgad olid võrdlusrühmal p
 
 Viimaks ristkorrutis *koolituses:aasta2013i* näitab, et koolituses osalejatel oli peale meedet palk kõrgem 0.464 võrra. Ehk nende palk oli 5.726+0.673 - 0.086 + 0.464 = 6.777.
 
+Pangem tähele, et peame osalusrühma puhul arvestama ka *aasta2013* kordajat.
+
 Võrdle regressioonimudelist leitud arve ülal toodud 2x2 tabeliga ja veendu, et tulemused on samad. (Ümardamise erinevust arvesse võttes.)
 
 Analoogselt võime valida punktideks enne ja pärast meedet ja teised aastad, näiteks 2009 ja 2012.
@@ -355,9 +367,9 @@ mudel <- lm(data = dfls, formula = palk ~ koolituses + aasta + koolituses*aasta)
 summary(mudel)
 ```
 
-Võrrelge, kuidas muutus hinnang koolituse mõjule? Näete, et see on pisut suurem 0.5504.
+Võrrelge, kuidas muutus hinnang koolituse mõjule? Näete, et see on pisut suurem 0.5504. Olge valmis arvutama sarnaselt eelmisele mudelile palgad kõikidel juhtudel.
 
-Järgnevalt lisame regressioonimudelisse ja muud tegurid, mis võivad mõjutada palka. Pange tähele, et esialgu me ei lisa fikseeritud efekti inimesele. Siis peaksime välja jätma kõik demograafilised tunnused, sest need ei varieeru.
+Järgnevalt lisame regressioonimudelisse ja muud tegurid, mis võivad mõjutada palka. Pange tähele, et esialgu me ei lisa fikseeritud efekti inimesele. Kui lisaksime, siis  peaksime välja jätma kõik demograafilised tunnused, sest need ei varieeru ajas ja seega on kollineaarsed inimese fikseeritud efektiga.
 
 ```{r}
 #Lisame mudelisse muud tegurid
@@ -387,9 +399,9 @@ coefplot(mudel)
 
 ### Paneelandmete mudel TWFE
 
-Hindame mudeli ka korrektselt kasutades TWFE lähenemist ja lisame fikseeritud efektid. Selleks kasutame *feols* käsku *fixest* paketist. See on mugav, et ei pea käsitsi tegema fiktviiseid (dummy) muutujaid. Need võetakse automaatselt arvesse.
+Hindame mudeli ka korrektselt kasutades TWFE lähenemist ja lisame fikseeritud efektid. Selleks kasutame *feols* käsku *fixest* paketist. See on mugav, sest siis ei pea käsitsi tegema fiktviiseid (dummy) muutujaid inimestele. Need võetakse automaatselt arvesse.
 
-Esmalt peame tegema ka ajas muutuvad koolituse väärtuse tunnuse, mis on võrdne 1-ga peale koolitust. Võrdlusrühmal on see alati null.
+Esmalt peame tegema ka ajas muutuva koolituse väärtuse tunnuse, mis on võrdne 1-ga peale koolitust ja null enne seda. Võrdlusrühmal on see alati null.
 
 ```{r}
 dfl <- dfl |>  mutate(koolitatud = as.integer(koolituses == 1 & aasta >= koolitusaasta))
@@ -409,10 +421,10 @@ panelview(
 )
 ```
 
-Joonis näitab, et tõepoolest on kontrollid ja osalusrühm, kus meede algas erineval ajahetkel.
+Joonis näitab, et tõepoolest on andmetes võrdlusrühm ja osalusrühm, kus meede algas erineval ajahetkel.
 
 
-Hindame nüüd TWFE mudeli. Pangem tähele, et standardvigade arvutamisel lubame isikutel olla erinev vealiikme dispersioon.
+Hindame nüüd TWFE mudeli. Pangem tähele, et standardvigade arvutamisel lubame, et igal isikul on erinev vealiikme dispersioon, st klasterdame isiku id järgi standardvigu. See on tavapärane soovitus paneelandmete puhul.
 
 ```{r}
 m_twfe <- feols(
@@ -425,13 +437,12 @@ summary(m_twfe)
 
 ```
 
-Näeme, et TWFE mudeli järgi on koolituse mõju palkgale 0.209 ühikut ja see on statistiliselt oluline olulisusnivool 0.05.
+Näeme, et TWFE mudeli järgi on koolituse mõju palgale 0.209 ehk 209 eurot aastast ja see on statistiliselt ka oluline olulisusnivool 0.05.
 
 
 ### Sündmusuuring
 
-Sündmusuuringu kujul mudeli hindamiseks peame lubama koolitusel omada mõju igal aastal enne ja pärast koolitust erinevalt. Selleks teema indikaatormuutujad. Kasutame referentsiks aastat -1. See jääb välja. Seega vaikimisi eeldame, et koolituse mõju algab samal aastal kui koolitus toimus.
-Nendele, kes koolitust ei saanud, paneme alati väärtuse nullikis. 
+Sündmusuuringu kujul mudeli hindamiseks peame lubama koolitusel omada mõju igal aastal enne ja pärast koolitust erinevalt. Selleks teeme indikaatormuutujad. Kasutame referentsiks aastat -1 ehk selle perioodi kordaja jääb mudelist välja. Seega vaikimisi eeldame, et koolituse mõju algab samal aastal kui koolitus toimus. Nendele, kes koolitust üldse ei saanud, paneme muutuja alati väärtuse nulliks. 
 
 ```{r}
 #Leiame erinevuse koolituse aastast
@@ -458,7 +469,7 @@ m_twfedyn <- feols(
   cluster = ~ id
 )
 
-summary(m_twfe)
+summary(m_twfedyn)
 ```
 
 
@@ -474,14 +485,32 @@ etable(m_twfe, m_twfedyn)
 
 Dünaamiline mudel ei sunni koolituse mõju olema igal koolitusjärgsel aastal sama. Iga sündmusaja koefitsient näitab erinevust võrreldes võrdlusperioodiga -1, st viimase koolituseelse aastaga. Koolituseelsed koefitsiendid (-3, -2) on kasulikud paralleelsete trendide eeldust toetava diagnostikana: ideaalis ei tohiks enne koolitust olla selget süstemaatilist erinevust.
 
-Pangem tähele, et kui koolitus algab erinevatele inimestele erinevatel hetkedel (nn staggered treatment) siis on TWFE sündmusuuring olulise piiranguga. Kui erinevad rühmad saavad meedet eri ajal, võivad mõnes võrdluses kontrollina toimida inimesed, kes on juba varem meedet saanud. Kui meetme mõju muutub ajas või erineb kohortide vahel, võib see dünaamilisi koefitsiente moonutada. Seetõttu kasutatakse keerulisemaid meetodeid. 
+
+Testime, kas mõlemad kordajad enne meedet on võrdsed nulliga. 
+
+$$
+H_0: \beta_{aeg\_m3} = \beta_{aeg\_m2} = 0
+$$
+
+```{r}
+
+wald(m_twfedyn, "aeg_m2|aeg_m3")
+
+```
 
 
-### Keerulisemad ja paindlikumad mudelid - vabatahtlik
+Seega meie meetme eelsed kordajad \(k=-3\) and \(k=-2\) on koos statistiliselt ebaolulised (\(p=0.297\)). Seega, andmed ei ole andmetes viidet, et trendid peaks olema enne meedet. (See küll ei tõsta, et paralleelse trendi eeldus kehtib.)
+
+
+### Paindlikumad mudelid
+
+Pangem tähele, et kui koolitus algab erinevatele inimestele erinevatel hetkedel (nn *staggered treatment*) siis on TWFE sündmusuuring olulise piiranguga. Kui erinevad rühmad saavad meedet eri ajahetkedel, võivad mõnes võrdluses kontrollina toimida inimesed, kes on juba varem meedet saanud. Kui meetme mõju muutub ajas või erineb kohortide vahel, võib see dünaamilisi koefitsiente moonutada. Seetõttu kasutatakse tänapäeval paindlikumaid meetodeid. 
+
 
 #### Sun–Abrahami dünaamiline hinnang
 
-Sun–Abrahami meetod on mõeldud just staggered treatment'i olukorraks. See arvestab eraldi kohorte ning väldib tavapärase TWFE event-study problemaatilisi juba-meetmes osalenud versus hiljem-osalenud võrdlusi.
+Sun–Abrahami meetod on mõeldud just *staggered treatment*'i olukorraks. See arvestab eraldi kohorte (nt need, kes said koolituse 2010, ja need, kes said koolituse 2011) ning väldib tavapärase TWFE sündmusuuringu problemaatilist võrdlust "varem meetmes osalenud" versus "hiljem meetmes osalenud".
+(Endale: tuua näide, miks see problemaatiline.)
 
 ```{r model-sunab}
 m_dynamic <- feols(
@@ -499,11 +528,11 @@ summary(m_dynamic)
 
 `sunab(koolitusaasta, aasta)` loob sisuliselt kohordi × sündmusaja mõjud. Kõigepealt võrreldakse näiteks 2010. aastal koolitatud inimesi sobiva kontrollrühmaga nende sündmusaja lõikes ning eraldi tehakse sama 2011. aastal koolitatutega. Seejärel agregeeritakse need kohordispetsiifilised mõjud sündmusaja järgi.
 
-Oluline erinevus tavapärasest TWFE event-study'st on see, et hinnang ei pea kasutama juba meetmes osalenud kohorti teise meetme kohordi kontrollina. `ref.p = -1` tähendab, et võrdlusperioodiks on viimane aasta enne koolitust. Seega saab koefitsiente tõlgendada kui mõju võrreldes viimase koolituseelse aastaga.
+Oluline erinevus tavapärasest TWFE event-study'st on see, et hinnang ei pea kasutama juba meetmes osalenud kohorti teise meetme kohordi võrdlusrühmana. `ref.p = -1` tähendab, et võrdlusperioodiks on viimane aasta enne koolitust. Seega saab koefitsiente tõlgendada kui mõju võrreldes viimase koolituseelse aastaga.
 
-Ka Sun–Abrahami mudelis on koolituseelsed koefitsiendid statistiliselt ebaolulised. Koolituse aasta mõju on samuti ebaoluline. Esimesel, teisel ja kolmandal koolitusjärgsel aastal on mõju vastavalt umbes **0,463**, **0,566** ja **0,680 tuhat eurot**, kõik statistiliselt olulised. Seega toetab see mudel järeldust, et koolituse mõju palgale ei teki kohe, vaid ilmneb eelkõige alates esimesest koolitusjärgsest aastast.
+Tulemustest näeme, et ka Sun–Abrahami mudelis on koolituseelsed koefitsiendid (aasta -3, aasta -2) statistiliselt ebaolulised. Koolituse aasta mõju on samuti ebaoluline. Esimesel, teisel ja kolmandal koolitusjärgsel aastal on mõju vastavalt umbes 0,463, 0,566 ja 0,680 tuhat eurot, kõik on statistiliselt olulised. Seega toetab see mudel järeldust, et koolituse mõju palgale ei teki kohe, vaid ilmneb eelkõige alates esimesest koolitusjärgsest aastast.
 
-Mudelite võrdlus
+Võrdleme seni hinnatud mudeleid omavahel
 
 ```{r compare-models}
 etable(m_twfe, m_twfedyn, m_dynamic)
@@ -517,7 +546,7 @@ iplot(
   ref.line = 0,
   xlab = "Aastad koolitusest",
   ylab = "Mõju palgale",
-  main = "Koolituse mõju palgale"
+  main = "Koolituse mõju aastapalgale (tuh eurot)"
 )
 ```
 
@@ -542,11 +571,11 @@ m_att <- feols(
 summary(m_att)
 ```
 
-Dünaamilised koefitsiendid vastavad küsimusele „kuidas mõju muutub ajas pärast koolitust?“. Sageli tahame lisaks ühte kokkuvõtvat arvu: kui suur on keskmine mõju kõigi meetmes osalenud inimeste ja kõigi koolitusjärgsete perioodide peale kokku. `att = TRUE` palub Sun–Abrahami kohordispetsiifilised mõjud selliseks keskmiseks ATT-ks agregeerida.
+Dünaamilised koefitsiendid vastavad küsimusele „kuidas mõju muutub ajas pärast koolitust?“. Sageli tahame lisaks ühte kokkuvõtvat arvu: kui suur on keskmine mõju kõigi meetmes osalenud inimeste ja kõigi koolitusjärgsete perioodide peale kokku. `att = TRUE` palub Sun–Abrahami kohordispetsiifilised mõjud selliseks keskmiseks ATT-ks agregeerida. Programm taas esitab ka mõjud enne meedet, mis peaksid olema (ja ongi) nullid.
 
 Seda arvu on lihtsam näiteks poliitikakokkuvõttes esitada, kuid see peidab dünaamika. Seetõttu on hea tava näidata kõrvuti nii keskmist ATT-d kui ka sündmuspõhist joonist.
 
-Keskmine Sun–Abrahami ATT on umbes **0,370 tuhat eurot** ehk **370 eurot aastas** ning on statistiliselt oluline. See on suurem kui lihtsa konstantse mõjuga TWFE hinnang 0.208. Erinevus näitab, et staggered treatment'i ja ajas muutuva mõju korral võib üks tavapärane TWFE koefitsient anda teistsuguse kokkuvõtte kui kohordipõhiste mõjude korrektne agregeerimine.
+Keskmine Sun–Abrahami ATT on umbes 0,370 ehk 370 eurot aastas ning on statistiliselt oluline. See on suurem kui eelnevalt leitud lihtsa konstantse mõjuga TWFE hinnang 0.208. Erinevus näitab, et staggered treatment'i ja ajas muutuva mõju korral võib üks tavapärane TWFE koefitsient anda teistsuguse kokkuvõtte kui kohordipõhiste mõjude korrektne agregeerimine.
 
 
 #### Callaway–Sant'Anna meetod
@@ -570,11 +599,13 @@ summary(att_gr)
 ```
 
 
-`att_gt()` hindab mõju eraldi iga meetme osaleva kohordi ja kalendriaasta kombinatsiooni jaoks. Näiteks saab 2010. aastal koolitatud rühmal olla 2011. aastal üks mõju ja 2012. aastal teine mõju. Kontrollrühmaks määrame siin selgelt `nevertreated`, st inimesed, kes ei saanud koolitust ühelgi vaatlusperioodil.
+`att_gt()` hindab mõju eraldi iga meetme osaleva kohordi ja kalendriaasta kombinatsiooni jaoks. Näiteks saab 2010. aastal koolitatud rühmal olla 2011. aastal ühesugune mõju ja 2012. aastal teistsugune mõju. Kontrollrühmaks määrame siin selgelt `nevertreated`, st inimesed, kes ei saanud koolitust ühelgi vaatlusperioodil.
 
 Selline ülesehitus väldib vajadust suruda kogu informatsioon kohe ühte TWFE koefitsienti. Meetod teeb esmalt sobivad 2×2 DiD võrdlused ja alles seejärel agregeerib need vastavalt uurimisküsimusele. `est_method = "dr"` kasutab doubly robust DiD hinnangut; kuna `xformla = ~ 1`, ei lisa me selles etapis uusi selgitavaid tegureid.
 
-2010. aasta kohordi puhul on mõju alates 2011. aastast selgelt positiivne: hinnangud on ligikaudu **0,5115**, **0,7603** ja **0,6805 tuhat eurot** aastatel 2011–2013. 2011. aasta kohordi hinnangud on väiksemad ja simuleeritud usaldusvahemiku järgi statistiliselt ebaolulised. Paralleelsete trendide ühise pre-testi p-väärtus on umbes **0,33**, mistõttu andmed ei anna põhjust paralleelsete trendide eeldust enne meedet tagasi lükata.
+2010. aastal koolitust saanud kohordi puhul on mõju alates 2011. aastast selgelt positiivne: hinnangud on ligikaudu **0,512**, **0,760** ja **0,681** tuhat eurot aastatel 2011–2013. 2011. aastal koolitust saanud kohordi hinnangud on aga väiksemad ja simuleeritud usaldusvahemiku järgi statistiliselt ebaolulised (välja arvatud 2012 aasta mõju 0.410, mis on statistiliselt oluline 0.05 olulisuse nivool). 
+
+Paralleelsete trendide ühise pre-testi p-väärtus on umbes **0,33**, mistõttu andmed ei anna põhjust paralleelsete trendide eeldust enne meedet tagasi lükata.
 
 **Keskmine efekt**
 
@@ -586,8 +617,7 @@ summary(overall_att)
 
 `aggte()` võtab `att_gt()` loodud rühma- ja ajaspetsiifilised mõjud ning teeb neist uurimisküsimusele sobiva kokkuvõtte. `type = "simple"` annab ühe üldise ATT: kui suur on keskmine mõju meetme osalenud inimestele kõigi meetmejärgsete kohordi-aasta kombinatsioonide peale kokku.
 
-See on kõige lähem vaste küsimusele „mis oli koolituse keskmine mõju?“. 
-Samas ei näita see, millal mõju tekkis ega kas mõju oli eri kohortides erinev.
+See on kõige lähem vaste küsimusele „mis oli koolituse keskmine mõju?“. Samas ei näita see, millal mõju tekkis ega kas mõju oli eri kohortides erinev.
 
 Callaway–Sant'Anna üldine ATT on **0,370 tuhat eurot**. See on sisuliselt sama kui Sun–Abrahami agregeeritud ATT, mis on hea sisuline kontroll: kaks staggered treatment'i jaoks sobivat meetodit annavad siin keskmise mõju kohta väga sarnase tulemuse.
 
@@ -602,24 +632,24 @@ summary(dyn_att)
 
 Dünaamiline agregeerimine on eriti kasulik kahe küsimuse jaoks: kas enne meedet oli näha erinevaid trende ning kui kiiresti meetme mõju pärast meetme algust tekib. Nagu Sun–Abrahami puhul, on oluline vaadata nii koolituseelseid kui ka -järgseid koefitsiente.
 
-Sündmusajal `0` on mõju umbes **-0,0796 tuhat eurot** ja statistiliselt ebaoluline. Esimesel, teisel ja kolmandal koolitusjärgsel aastal on mõjud ligikaudu **0,463**, **0,566** ja **0,681 tuhat eurot** ning kõik on statistiliselt olulised. Dünaamiline muster on praktiliselt sama Sun–Abrahami mudeliga: mõju tekib viitajaga ja püsib järgmiste aastate jooksul positiivne.
+Aastal  `0` on mõju -0,0796 ja statistiliselt ebaoluline. Esimesel, teisel ja kolmandal koolitusjärgsel aastal on mõjud ligikaudu **0,463**, **0,566** ja **0,681 tuhat eurot** ning kõik on statistiliselt olulised. Dünaamiline muster on praktiliselt sama Sun–Abrahami mudeliga: mõju tekib viitajaga ja püsib järgmiste aastate jooksul positiivne.
 
-## Mõju kalendriaja järgi
+#### Mõju kalendriaja järgi
 
 ```{r model-cs-calendar}
 cal_att <- aggte(att_gr, type = "calendar")
 summary(cal_att)
 ```
 
-`type = "calendar"` vastab teistsugusele küsimusele kui event-study: selle asemel, et küsida „mitu aastat pärast meedet“, küsime „kui suur oli meetme mõju konkreetsel kalendriaastal?“. Kõik selleks aastaks juba meetmes osalenud kohordid agregeeritakse vastava aasta hinnangusse.
+`type = "calendar"` vastab teistsugusele küsimusele kui event-study: selle asemel, et küsida „mitu aastat pärast meedet“, küsime „kui suur oli meetme mõju konkreetsel kalendriaastal?“. Kõik selleks aastaks juba meetmes osalenud kohordid agregeeritakse vastava aasta hinnangusse. 2010. aastal arvestame vaid esimest kohorti, kes said koolituse 2010. aastal. 2011. aastal on meil juba kahe kohordi andmed.
 
 Kalendriaja agregeerimine võib olla kasulik siis, kui majanduskeskkond või programmi rakendamine muutub aastati. Näiteks võib sama koolitusprogramm anda majanduslanguse ajal teistsuguse tulemuse kui kiire palgakasvu perioodil.
 
-Kalendriaja järgi agregeeritud keskmine ATT on umbes **0,289 tuhat eurot**. 2010. aasta hinnang on negatiivne, kuid ebaoluline; 2011., 2012. ja 2013. aasta mõjud on vastavalt umbes **0.344**, **0,592** ja **0,523 tuhat eurot** ning statistiliselt olulised. See kinnitab üldpilti, et positiivne mõju on nähtav peamiselt pärast esimest koolitusaastat.
+Kalendriaja järgi agregeeritud keskmine ATT on umbes **0,289 tuhat eurot**. 2010. aasta hinnang on isegi negatiivne; 2011., 2012. ja 2013. aasta mõjud on vastavalt umbes **0.344**, **0,592** ja **0,523 tuhat eurot** ning statistiliselt olulised. See kinnitab üldpilti, et positiivne mõju on nähtav peamiselt pärast esimest koolitusaastat.
 
 #### Kokkuvõte
 
-Selles näites annavad staggered treatment'i jaoks sobivad Sun–Abrahami ja Callaway–Sant'Anna meetodid väga sarnase tulemuse. Sündmusuuring näitab, et mõju ei teki kohe koolituse aastal. Positiivne mõju ilmneb peamiselt alates esimesest koolitusjärgsest aastast ning jääb järgmisteks aastateks suurusjärku 0,6–0,7 tuhat eurot aastas.
+Selles näites annavad ajas eri hetkedel rakendatavate meetmete (nn staggered treatment) jaoks sobivad Sun–Abrahami ja Callaway–Sant'Anna meetodid väga sarnase tulemuse. Sündmusuuring näitab, et mõju ei teki kohe koolituse aastal. Positiivne mõju ilmneb peamiselt alates esimesest koolitusjärgsest aastast ning jääb järgmisteks aastateks suurusjärku 0,6–0,7 tuhat eurot aastas.
 
 Selle näite  peamine õppetund on, et staggered treatment'i korral ei piisa alati tavapärasest TWFE mudelist. Kui mõju võib ajas muutuda, on mõistlik hinnata kohordi- ja ajaspetsiifilisi mõjusid ning kasutada nende korrektseks agregeerimiseks Sun–Abrahami või Callaway–Sant'Anna meetodit.
 
@@ -633,5 +663,5 @@ Volume 225, Issue 2, 2021, Pages 175-199, https://doi.org/10.1016/j.jeconom.2020
 (https://www.sciencedirect.com/science/article/pii/S030440762030378X)
 
 
-Lisada
+Lisada viiteid juurde.
 

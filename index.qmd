@@ -1,5 +1,7 @@
-# Eessõna {.unnumbered}
+# Sissejuhatus {.unnumbered}
 
-Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise (*causal inference*) meetodeid sotsiaalvaldkonna tudengitele. Siia hakkan panema majandusteaduskonna aines "Põhjuse ja tagajärje seosed" kasutatud õppematerjale.
+Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (*causal inference*) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine "Põhuse ja tagajärje seosed" õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R.
 
 Konspekt on jooksvalt täienev.
+
+Soovitused ja tähelepanekud palun saata meilile andres.vork\@ut.ee
