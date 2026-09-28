@@ -306,20 +306,19 @@ $$
 
 näiteks:
 
-
 ## Jääkide meetod LASSOga: sammud
 
 Eeldame, et meil on:
 
-- \(Y\) – tulemusmuutuja,
-- \(D\) – ravi muutuja,
-- \(X\) – suur hulk kandidaattunnuseid (võib olla \(p > n\)).
+-   \(Y\) – tulemusmuutuja,
+-   \(D\) – ravi muutuja,
+-   \(X\) – suur hulk kandidaattunnuseid (võib olla (p \> n)).
 
-Jääkide meetodi LASSOga idee on kasutada LASSOt selleks, et „välja võtta” \(X\)-de mõju nii \(Y\)-lt kui \(D\)-lt ja seejärel hinnata ravi mõju nende jääkide vahelise regressiooniga. See põhineb Frisch–Waugh–Lovelli teoreemil, mille kohaselt saab huvipakkuva ravi koefitsiendi \(\alpha\) leida regressioonist jääkide peal.
+Jääkide meetodi LASSOga idee on kasutada LASSOt selleks, et „välja võtta” (X)-de mõju nii (Y)-lt kui (D)-lt ja seejärel hinnata ravi mõju nende jääkide vahelise regressiooniga. See põhineb Frisch–Waugh–Lovelli teoreemil, mille kohaselt saab huvipakkuva ravi koefitsiendi (\alpha) leida regressioonist jääkide peal.
 
-### 1. samm – \(Y\) prognoosimine \(X\)-dega
+### 1. samm – (Y) prognoosimine (X)-dega
 
-Kõigepealt prognoosime tulemusmuutujat \(Y\) kontrolltunnuste \(X\) abil LASSOga:
+Kõigepealt prognoosime tulemusmuutujat (Y) kontrolltunnuste (X) abil LASSOga:
 
 $$
 \hat{m}_Y(X_i) = \hat{\mathbb{E}}[Y_i \mid X_i],
@@ -332,8 +331,6 @@ $$
 $$
 
 R-is võiks see välja näha näiteks nii:
-
-
 
 Siin kasutab `rlasso` teooriapõhist (\lambda) valikut, mis sobib paremini mõju hindamiseks kui puhas ristvalideerimine.
 
@@ -351,15 +348,13 @@ $$
 \tilde{D}_i = D_i - \hat{m}_D(X_i).
 $$
 
-
 Kui (D) on binaarne (nt osales koolitusel vs ei osalenud), kasutab LASSO siin lineaarset tõenäosusmudelit; vajadusel saab kasutada ka logit/probit-mudeleid, kuid klassikalises hdm-raamistikus lähtutakse lineaarse regressiooni loogikast.
 
 ### 3. samm – mõju hindamine jääkide regressioonina
 
 Kolmandas sammus regressime jääktulemust (\tilde{Y}\_i) jäigravi (\tilde{D}\_i) peal:
 
-$$ \tilde{Y}\_i = \alpha \tilde{D}\_i + \eta\_i.$$
-OLS-hinnang (\hat{\alpha}) on siin LASSO-põhise partialling out -meetodi hinnang ravi keskmisele mõjule (CATE või ATE sõltuvalt seadetest ja laiendustest).
+$$ \tilde{Y}\_i = \alpha \tilde{D}\_i + \eta\_i.$$ OLS-hinnang (\hat{\alpha}) on siin LASSO-põhise partialling out -meetodi hinnang ravi keskmisele mõjule (CATE või ATE sõltuvalt seadetest ja laiendustest).
 
 R-is:
 
@@ -626,8 +621,6 @@ Jääkliikmete meetod, topeltvalik ja LASSOga instrumentmuutuja meetod seovad ma
 
 Korrektse regulaarimisparameetri valiku (teooriapõhine (\lambda)) ning sobiva järeldusmetoodika (partialling out, double selection, IV) korral saame LASSO abil hinnata poliitikate ja sekkumiste põhjuslikke mõjusid ka olukorras, kus traditsioonilised ökonomeetrilised meetodid jäävad suurte tunnustehulkade ja multikollineaarsuse tõttu hätta.
 
-
-
 ## Näide
 
 # Vajalikud paketid
@@ -647,7 +640,6 @@ require(hdm)    # LASSO
 
 Kasutame sama andmestikku
 
-
 ```{r}
 
 
@@ -666,7 +658,6 @@ atp2 <- atp %>% select(-training, -starts_with("wage"), -starts_with("employed")
 atp2 <- atp2 %>% select(y, d, everything())
 
 ```
-
 
 Teeme andmemaatriksid
 
@@ -689,8 +680,7 @@ dim(xw)
 
 glmnet() funktsioon sobitab lasso regressioonimudeli, kui määrata alpha = 1.
 
-Tee k-kordne ristvalideerimine, et leida optimaalne lambda väärtus.
-Olgu k = 5
+Tee k-kordne ristvalideerimine, et leida optimaalne lambda väärtus. Olgu k = 5
 
 ```{r}
 cv_model <- cv.glmnet(xw, y, alpha = 1, nfolds = 5)
@@ -699,7 +689,6 @@ cv_model
 #min - näitab minimaalse MSE väärtusega
 
 ```
-
 
 Leia optimaalne lambda väärtus, mis minimeerib testandmete ruutkeskmise vea (MSE).
 
@@ -729,8 +718,8 @@ round(coef(best_model),5)
 
 Üllatuslikult jäid kõik alles - post-LASSO
 
-
 Et ei peaks käsitsi trükkima
+
 ```{r}
 selected_vars <- row.names(coef(best_model))[which(coef(best_model) != 0)][-1]
 formula_str <- paste("y ~", paste(selected_vars, collapse = " + "))
@@ -745,14 +734,11 @@ summary(olsmodel)
 
 ```
 
-LASSO kordajad peaksid olema nihkega nulli suunas 
-
-
+LASSO kordajad peaksid olema nihkega nulli suunas
 
 ## Näited kasutades paketti hdm
 
-`rlasso` teeb nii Lasso kui post-Lasso.
-Lubab nii homoskedastiiseid kui heteroskedastiivseid vigu (default homoscedastic = FALSE)
+`rlasso` teeb nii Lasso kui post-Lasso. Lubab nii homoskedastiiseid kui heteroskedastiivseid vigu (default homoscedastic = FALSE)
 
 ```{r}
 require(hdm)
@@ -767,7 +753,7 @@ coef(best_model)
 
 ```
 
-Käsk  `rlasso`
+Käsk `rlasso`
 
 ```{r}
 lasso.reg = rlasso(y ~ xw, post = FALSE) # use lasso, not-Post-lasso
@@ -778,7 +764,6 @@ sum.lasso <- summary(lasso.reg, all = FALSE)
 ## Meetme mõju hindamine LASSOga
 
 OLS-ga ette võrdluseks
-
 
 ```{r}
 fmla = as.formula(paste("y ~ ", paste(colnames(xw), collapse = "+")))
@@ -815,9 +800,9 @@ fmla.y = as.formula(paste("y ~ ", paste(xnames, collapse = "+")))
 fmla.d = as.formula(paste("d ~ ", paste(xnames, collapse = "+")))
 ```
 
-### Ja nüüd esimesed sammud OLSga. 
+### Ja nüüd esimesed sammud OLSga.
 
-Leiame jääkliikmed 
+Leiame jääkliikmed
 
 ```{r}
 # partial fit via ols
@@ -856,8 +841,7 @@ summary(partial.fit.postlasso)$coef["rD", 1:2]
 
 Mõju hinnang sarnane
 
-
-### Funktsioon  `rlassoEffect` teeb selle kõik ise!
+### Funktsioon `rlassoEffect` teeb selle kõik ise!
 
 ```{r}
 #We have Xs, Y, D as parameters
@@ -868,11 +852,9 @@ summary(Eff)$coef[, 1:2]
 
 ### Topelt selektsiooni meetod (double selection method)
 
-
-  (1) Vali Lasso abil kontrollmuutujad x_{ij}, mis ennustavad y_i.
-  (2) Vali Lasso abil kontrollmuutujad x_{ij}, mis ennustavad d_i.
-  (3) Teosta tavaruutude meetod (OLS), kus y_i regresseeritakse d_i ja kontrollmuutujate ühisosa (!) suhtes, mis valiti sammudes 1 ja 2.
-
+(1) Vali Lasso abil kontrollmuutujad x\_{ij}, mis ennustavad y_i.
+(2) Vali Lasso abil kontrollmuutujad x\_{ij}, mis ennustavad d_i.
+(3) Teosta tavaruutude meetod (OLS), kus y_i regresseeritakse d_i ja kontrollmuutujate ühisosa (!) suhtes, mis valiti sammudes 1 ja 2.
 
 ```{r}
 Eff = rlassoEffects(xw, y, index = c(1), method = "double selection") 
@@ -881,9 +863,3 @@ summary(Eff)$coef[, 1:2]
 ```
 
 Sarnased efektid
-
-
-
-
-
-

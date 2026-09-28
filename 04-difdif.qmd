@@ -502,6 +502,18 @@ wald(m_twfedyn, "aeg_m2|aeg_m3")
 Seega meie meetme eelsed kordajad \(k=-3\) and \(k=-2\) on koos statistiliselt ebaolulised (\(p=0.297\)). Seega, andmed ei ole andmetes viidet, et trendid peaks olema enne meedet. (See küll ei tõsta, et paralleelse trendi eeldus kehtib.)
 
 
+```{r}
+#| eval: false
+#| include: false
+#Sama oleks saanud teha ka nii:
+dfl <- dfl %>% mutate(aegkoolitusest = factor(aegkoolitusest, levels = c(-1, -3:-2, 0:3)))
+m_twfedyn2 <- feols( palk ~  aegkoolitusest | id + aasta,data = dfl, cluster = ~ id)
+
+```
+
+
+
+
 ### Paindlikumad mudelid
 
 Pangem tähele, et kui koolitus algab erinevatele inimestele erinevatel hetkedel (nn *staggered treatment*) siis on TWFE sündmusuuring olulise piiranguga. Kui erinevad rühmad saavad meedet eri ajahetkedel, võivad mõnes võrdluses kontrollina toimida inimesed, kes on juba varem meedet saanud. Kui meetme mõju muutub ajas või erineb kohortide vahel, võib see dünaamilisi koefitsiente moonutada. Seetõttu kasutatakse tänapäeval paindlikumaid meetodeid. 
