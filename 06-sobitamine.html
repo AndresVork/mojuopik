@@ -265,12 +265,13 @@ window.Quarto = {
   <li><a href="#täpne-ja-ligikaudne-sobitamine" id="toc-täpne-ja-ligikaudne-sobitamine" class="nav-link" data-scroll-target="#täpne-ja-ligikaudne-sobitamine"><span class="header-section-number">6.2</span> Täpne ja ligikaudne sobitamine</a>
   <ul class="collapse">
   <li><a href="#täpne-sobitamine" id="toc-täpne-sobitamine" class="nav-link" data-scroll-target="#täpne-sobitamine">Täpne sobitamine</a></li>
-  <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide">Näide</a></li>
+  <li><a href="#täpse-sobitamise-näide" id="toc-täpse-sobitamise-näide" class="nav-link" data-scroll-target="#täpse-sobitamise-näide">Täpse sobitamise näide</a></li>
   </ul></li>
   <li><a href="#ligikaudne-sobitamine" id="toc-ligikaudne-sobitamine" class="nav-link" data-scroll-target="#ligikaudne-sobitamine"><span class="header-section-number">6.3</span> Ligikaudne sobitamine</a>
   <ul class="collapse">
   <li><a href="#mahalanobise-kaugus" id="toc-mahalanobise-kaugus" class="nav-link" data-scroll-target="#mahalanobise-kaugus">Mahalanobise kaugus</a></li>
   <li><a href="#tõenäosusskoori-alusel-sobitamine" id="toc-tõenäosusskoori-alusel-sobitamine" class="nav-link" data-scroll-target="#tõenäosusskoori-alusel-sobitamine">Tõenäosusskoori alusel sobitamine</a></li>
+  <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide">Näide</a></li>
   <li><a href="#tasakaalu-kontroll-ja-edasine-modelleerimine" id="toc-tasakaalu-kontroll-ja-edasine-modelleerimine" class="nav-link" data-scroll-target="#tasakaalu-kontroll-ja-edasine-modelleerimine">Tasakaalu kontroll ja edasine modelleerimine</a></li>
   <li><a href="#sobitamisel-tehtavad-valikud" id="toc-sobitamisel-tehtavad-valikud" class="nav-link" data-scroll-target="#sobitamisel-tehtavad-valikud">Sobitamisel tehtavad valikud</a></li>
   <li><a href="#soovitusi" id="toc-soovitusi" class="nav-link" data-scroll-target="#soovitusi">Soovitusi</a></li>
@@ -289,6 +290,7 @@ window.Quarto = {
   <li><a href="#mõju-hindamine-sobitatud-andmetel" id="toc-mõju-hindamine-sobitatud-andmetel" class="nav-link" data-scroll-target="#mõju-hindamine-sobitatud-andmetel">Mõju hindamine sobitatud andmetel</a></li>
   <li><a href="#tõenäosuse-alusel-sobitamine" id="toc-tõenäosuse-alusel-sobitamine" class="nav-link" data-scroll-target="#tõenäosuse-alusel-sobitamine">Tõenäosuse alusel sobitamine</a></li>
   </ul></li>
+  <li><a href="#tekstülesande-vastus" id="toc-tekstülesande-vastus" class="nav-link" data-scroll-target="#tekstülesande-vastus"><span class="header-section-number">6.5</span> Tekstülesande vastus</a></li>
   </ul>
 </nav>
     </div>
@@ -366,9 +368,14 @@ window.Quarto = {
 = \frac{1}{N_0} \sum_{i: D_i = 0} \left(\left[ \frac{1}{M} \sum_{m = 1}^{M} Y_{m(i)} \right] -  Y_i \right),
 \]</span></p>
 <p>kus ja <span class="math inline">\(N_0\)</span> on vaatlusrühma vaatluste arv.</p>
+<p>Täpse sobitamise tulemusena tekib tavaliselt väike arv <span class="math inline">\(K\)</span> rühmi. Sisuliselt annab täpne sobitamine meile rühmadevaheliste erinevuste kaalutud keskmise. (Vt <a href="https://andresvork.github.io/mojuopik/02-pomate.html#%C3%BClesanne-2." class="uri">https://andresvork.github.io/mojuopik/02-pomate.html#%C3%BClesanne-2.</a>)</p>
+<p><span class="math display">\[
+\hat{\tau}_{ATT}
+= \sum^K_{k = 1} \left[ \left( \bar{Y}^{1, k} - \bar{Y}^{0, k} \right)\frac{N^k_1}{N_1} \right]
+\]</span> kus <span class="math inline">\(\bar{Y}^{1, k}\)</span> ja <span class="math inline">\(\bar{Y}^{0, k}\)</span> on osalusrühma ja võrdlusrühma vaatluste keskmised väärtused rühmas <span class="math inline">\(k\)</span>. <span class="math inline">\(N^k_1\)</span> on osalusrühma vaatluste arv rühmas <span class="math inline">\(k\)</span>. ATU leidmisel muutuvad vaid osakaalud, peame kasutama vastavalt <span class="math inline">\(N^k_0\)</span> ja <span class="math inline">\(N_0\)</span>.</p>
 </section>
-<section id="näide" class="level3">
-<h3 class="anchored" data-anchor-id="näide">Näide</h3>
+<section id="täpse-sobitamise-näide" class="level3">
+<h3 class="anchored" data-anchor-id="täpse-sobitamise-näide">Täpse sobitamise näide</h3>
 <p>Vaatleme viit inimest. Meetmes osalesid A ja C.</p>
 <table class="caption-top table">
 <thead>
@@ -490,12 +497,14 @@ window.Quarto = {
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 \operatorname{Cov}(X_k,X_1) &amp; \operatorname{Cov}(X_k,X_2) &amp; \cdots &amp; \operatorname{Var}(X_k)
 \end{pmatrix}
-\]</span> <span class="math inline">\(X_k\)</span> on siis k-nda tunnuse vektor, nt vanus. <span class="math inline">\(\operatorname{Var}(X_k)\)</span> on k-nda tunnuse dispersioon ja <span class="math inline">\(\operatorname{Cov}(X_l,X_k)\)</span> on kovariatsioon kahe tunnuse vahel.</p>
+\]</span></p>
+<p><span class="math inline">\(X_k\)</span> on siis k-nda tunnuse vektor, nt vanus. <span class="math inline">\(\operatorname{Var}(X_k)\)</span> on k-nda tunnuse dispersioon ja <span class="math inline">\(\operatorname{Cov}(X_l,X_k)\)</span> on kovariatsioon kahe tunnuse vahel.</p>
 <p>Mahalanobise kaugus on defineeritud kui:</p>
 <p><span class="math display">\[
 d_M(i, j)
   = \sqrt{ (X_i - X_j)^{\top} \Sigma^{-1} (X_i - X_j) }.
-\]</span> Pangem tähele, et kui <span class="math inline">\(\Sigma\)</span> on ühikmaatriks (ehk sisuliselt puudub ülal valemist), siis on tegemist eukleidilise kaugusega (ehk kooliajast tuttava punktide vahelise kauguse arvutamise valemiga). Eukleidiline kaugus käsitleb aga kõiki tunnuseid sama kaaluga ja eeldab, et tunnused on võrreldavad skaalas. See aga ei ole praktiline, sest näiteks sugu või sissetulek on väga erineva skaalaga.</p>
+\]</span></p>
+<p>Pangem tähele, et kui <span class="math inline">\(\Sigma\)</span> on ühikmaatriks (ehk sisuliselt puudub ülal valemist), siis on tegemist eukleidilise kaugusega (ehk kooliajast tuttava punktide vahelise kauguse arvutamise valemiga). Eukleidiline kaugus käsitleb aga kõiki tunnuseid sama kaaluga ja eeldab, et tunnused on võrreldavad skaalas. See aga ei ole praktiline, sest näiteks sugu või sissetulek on väga erineva skaalaga.</p>
 <p>Mahalanobise kaugus standardiseerib tunnused vastavalt nende dispersioonile ja arvestab samal ajal ka korrelatsioone tunnuste vahel (kovariatsioonimaatriksi kaudu). See on oluline, sest majandustunnused on sageli positiivselt seotud ja me ei sooviks sarnast asja näitavaid tunnuseid võtta topeltkaaluga.</p>
 <p>Kaks inimest on seega “lähedal”, kui nad on sarnased mitte ainult iga tunnuse osas eraldi, vaid ka nende kombinatsioonide osas, võttes arvesse tüüpilist variatsiooni ja kovariatsioone.</p>
 <p>Ligikaudse sobitamise puhul sobitame osalejate ja võrdlusgrupi isikuid nii, et Mahalanobise kaugus nende vahel oleks minimaalne. Praktikas kasutatakse tihti pakette, kus saab valida kauguse distantsi, nt (nt paketis <em>MatchIt</em> on valik <code>distance = "mahalanobis"</code>), ning funktsioon arvutab kaugused automaatselt.</p>
@@ -507,9 +516,11 @@ d_M(i, j)
 p(X_i) = \Pr(D_i = 1 \mid X_i).
 \]</span></p>
 <p>Rosenbaum ja Rubin (<em>lisada viide</em>) näitasid, et kui CIA kehtib <span class="math inline">\(X\)</span> suhtes ja lisaks on ühine tugi (st iga <span class="math inline">\(X\)</span> korral esineb nii osalejaid kui meetmes mitteosalejaid), siis kehtib CIA ka tõenäosusskoori suhtes:</p>
-<p>$$ (Y^0_i, Y^1_i) D_i X_i 0 &lt; (D_i = 1 X_i) &lt;1 \</p>
-<p>=&gt; \</p>
-<p>(Y^0_i, Y^1_i) D_i p(X_i) $$</p>
+<p><span class="math display">\[
+(Y^0_i, Y^1_i) \perp D_i \mid X_i \text{  ja   } 0&lt; Pr(D_i = 1 \mid X_i) &lt;1 \\
+=\&gt; \\
+(Y^0_i, Y^1_i) \perp D_i \mid p(X_i)
+\]</span></p>
 <p>See tähendab, et kui sobitame inimesi ainult tõenäosusskoori <span class="math inline">\(p(X)\)</span> alusel, siis tasakaalustame ka kõik <span class="math inline">\(X\)</span>-id, mida kasutati p-skoori hindamisel (eeldusel, et mudel on sobiv).</p>
 <p>Praktiline sammude jada on järgmine (näiteks hindamaks mõju meetmes osalejate jaoks):</p>
 <ol type="1">
@@ -528,6 +539,105 @@ p(X_i) = \Pr(D_i = 1 \mid X_i).
 <li>võimalik on tagasipanekuga (lubame ühel võrdlusgrupi vaatlusel olla sobitatud korduvalt) või tagasipanekuta sobitamine.</li>
 </ul>
 <p>Sobitamine tõenäosusskoori on kiirem kui sobitamine mitmemõõtmelise <span class="math inline">\(X\)</span> alusel, sest peame vaid vaatme ühte arvu <span class="math inline">\(p(X)\)</span>. Samas muutub oluliseks, kui hästi on p-skoori hindamisel mudel spetsifitseeritud; halb mudel tähendab halba tasakaalu. Seetõttu on oluline peale sobitamist alati kontrollida osalus- ja võrdlusgrupi sarnasust.</p>
+</section>
+<section id="näide" class="level3">
+<h3 class="anchored" data-anchor-id="näide">Näide</h3>
+<p>Oletame, et oleme hinnanud iga inimese tõenäosuse meetmes osaleda ehk propensity score’i <span class="math inline">\(\hat p(X)\)</span>. Leia igale meetmes osalejale 1 lähim ja 2 lähimat võrdlusrühma isikut tõenäosuskoori alusel ning arvuta mõlemal juhul ATT.</p>
+<p><strong>Osalusrühm</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Isik</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{p(X)}\)</span></th>
+<th style="text-align: right;">Palk (Y)</th>
+<th style="text-align: left;">Võrdlusgrupi palk kui 1 lähim naaber</th>
+<th>Võrdlusgrupi palk kui 2 lähimat naabrit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Anna</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">1500</td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Berta</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">1700</td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Caesar</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">2400</td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Dora</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">2100</td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">ATT =</td>
+<td>ATT =</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Võrdlusrühm</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Isik</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{p(X)}\)</span></th>
+<th style="text-align: right;">Palk (Y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Elmar</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">1600</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Friedrich</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">1400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Georg</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">1900</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Harald</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">1000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Ilmar</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">1700</td>
+</tr>
+</tbody>
+</table>
+<p>Leia igale meetmes osalejale 1 või 2 sarnaseimat võrdlusisikut ning arvuta ATT.</p>
+<p>Lahendus on toodud faili lõpus.</p>
 </section>
 <section id="tasakaalu-kontroll-ja-edasine-modelleerimine" class="level3">
 <h3 class="anchored" data-anchor-id="tasakaalu-kontroll-ja-edasine-modelleerimine">Tasakaalu kontroll ja edasine modelleerimine</h3>
@@ -704,8 +814,8 @@ p(X_i) = \Pr(D_i = 1 \mid X_i).
 <p>Failis on toodud järgmised andmed:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 29%">
-<col style="width: 70%">
+<col style="width: 31%">
+<col style="width: 68%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1755,10 +1865,141 @@ F-statistic: 5.933 on 7 and 907 DF,  p-value: 9.172e-07</code></pre>
 </div>
 </div>
 <p>Tõlgendamine on tavapärane. Meetmes osalemine suurendab hilisemat töötamise tõenäosust 7.2 protsendipunkti.</p>
-
-
 </section>
 </section>
+</section>
+<section id="tekstülesande-vastus" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="tekstülesande-vastus"><span class="header-section-number">6.5</span> Tekstülesande vastus</h2>
+<p>Ühe lähima naabri korral kasutame võrdlusisikut, kelle propensity score on osalejale kõige lähemal. Kahe lähima naabri korral kasutame kahe kõige lähedasema võrdlusisiku keskmist palka.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Isik</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{p}(X)\)</span></th>
+<th style="text-align: right;">Palk <span class="math inline">\(Y\)</span></th>
+<th style="text-align: right;">Võrdlusgrupi palk: 1 lähim naaber</th>
+<th style="text-align: right;">Võrdlusgrupi palk: 2 lähimat naabrit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Anna</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">1500</td>
+<td style="text-align: right;">1600 (Elmar)</td>
+<td style="text-align: right;">(1600+1400)/2=1500</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Berta</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">1700</td>
+<td style="text-align: right;">1400 (Friedrich)</td>
+<td style="text-align: right;">(1400+1600)/2=1500</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Caesar</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">2400</td>
+<td style="text-align: right;">1900 (Georg)</td>
+<td style="text-align: right;">(1900+1400)/2=1650</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Dora</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">2100</td>
+<td style="text-align: right;">1000 (Harald)</td>
+<td style="text-align: right;">(1000+1700)/2=1350</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>ATT = 450</strong></td>
+<td style="text-align: right;"><strong>ATT = 425</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Üks lähim naaber</strong></p>
+<p>Iga osaleja hinnatud individuaalne mõju on osaleja palga ja talle sobitatud võrdlusisiku palga vahe:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\tau}_{Anna} &amp;= 1500-1600=-100,\\
+\hat{\tau}_{Berta} &amp;= 1700-1400=300,\\
+\hat{\tau}_{Caesar} &amp;= 2400-1900=500,\\
+\hat{\tau}_{Dora} &amp;= 2100-1000=1100.
+\end{aligned}
+\]</span></p>
+<p>ATT on nende mõjude keskmine:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{ATT}_{1NN}
+&amp;=
+\frac{1}{4}
+\left[
+(1500-1600)
++(1700-1400)
++(2400-1900)
++(2100-1000)
+\right] \\
+&amp;=
+\frac{-100+300+500+1100}{4} \\
+&amp;=
+450
+\end{aligned}
+\]</span></p>
+<p><strong>Kaks lähimat naabrit</strong></p>
+<p>Kahe lähima naabri korral hinnatakse iga osaleja jaoks võrdlusseisundi palk kahe talle kõige sarnasema võrdlusisiku keskmise palgana.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\tau}_{Anna}
+&amp;=
+1500-\frac{1600+1400}{2}
+=0,\\
+\hat{\tau}_{Berta}
+&amp;=
+1700-\frac{1400+1600}{2}
+=200,\\
+\hat{\tau}_{Caesar}
+&amp;=
+2400-\frac{1900+1400}{2}
+=750,\\
+\hat{\tau}_{Dora}
+&amp;=
+2100-\frac{1000+1700}{2}
+=750.
+\end{aligned}
+\]</span></p>
+<p>Seega</p>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{ATT}_{2NN}
+&amp;=
+\frac{1}{4}
+\left[
+0+200+750+750
+\right] \\
+&amp;=
+425
+\end{aligned}
+\]</span></p>
+<p>Seega saame</p>
+<p><span class="math display">\[
+\widehat{ATT}_{1NN}=450
+\]</span></p>
+<p>ja</p>
+<p><span class="math display">\[
+\widehat{ATT}_{2NN}=425
+\]</span></p>
+<p>Tulemused erinevad, sest kahe lähima naabri kasutamisel moodustatakse iga osaleja võrdlusseisundi tulemus kahe võrdlusisiku keskmise põhjal. Praktilises töös sageli esitamegi tulemused näiteks 1, 2 ja 3 lähima naabriga ja võrdleme tulemusi.</p>
+
+
 </section>
 
 </main> <!-- /main -->
