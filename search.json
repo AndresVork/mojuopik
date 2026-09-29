@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Põhjuslike seoste hindamine majanduses",
     "section": "",
-    "text": "Sissejuhatus\nKäesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (causal inference) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine “Põhuse ja tagajärje seosed” õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R.\nKonspekt on jooksvalt täienev.\nSoovitused ja tähelepanekud palun saata meilile andres.vork@ut.ee",
+    "text": "Sissejuhatus\nKäesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (causal inference) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine “Põhuse ja tagajärje seosed” õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R. Konspektis kasutatud näiteandmestikud on anonümiseeritud.\nKonspekti kirjutamisel on kasutatud erinevate keelemudelite abi. Konspekt on jooksvalt täienev.\nKõik soovitused ja tähelepanekud palun saata meilile andres.vork@ut.ee",
     "crumbs": [
       "Sissejuhatus"
     ]
@@ -920,23 +920,283 @@
     ]
   },
   {
-    "objectID": "09-mlpuumets.html",
-    "href": "09-mlpuumets.html",
-    "title": "10  Masinõppemudelid",
+    "objectID": "09-masinope-kausaalmets.html",
+    "href": "09-masinope-kausaalmets.html",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
     "section": "",
-    "text": "10.1 Taust\nSiia tuleb lühike tutvustus causal foresti kohta",
+    "text": "10.1 Ökonomeetria ja masinõpe\nTODO: Tähistused ühtlustamata varasemate peatükkidega\nSelles peatükis vaatame, kuidas saab masinõppemeetodeid kasutada põhjusliku mõju hindamisel. Keskendume kolmele omavahel seotud meetodile:\nPõhiidee on liikuda samm-sammult prognoosimisest mõju hindamiseni. Kõigepealt õpime, kuidas puu ja juhumets prognoosivad tulemust \\(Y\\). Seejärel kasutame juhumetsa regressiooniga kohandamise ehk g-computation loogikas: prognoosime iga inimese tulemuse nii meetmes osalemise kui mitteosalemise korral. Viimaks jõuame kausaalmetsani, mille eesmärk ei ole enam prognoosida \\(Y\\)-d, vaid otse tingimuslikku põhjuslikku mõju\n\\[\n\\tau(x)=E[Y(1)-Y(0)\\mid X=x].\n\\]\nPeatüki lõpus seome kausaalmetsa peatükis õpitud AIPW-hinnanguga.\nPeatüki lõpuks peaksid oskama:\nTraditsioonilise ökonomeetria ja masinõppe rõhuasetused on sageli erinevad.\nMasinõppe tugevus on eeskätt paindlik prognoosimine. See on kasulik ka põhjusliku mõju hindamisel, sest mitmed põhjusliku mõju meetodid sisaldavad prognoosimisülesandeid.\nNäiteks eelmistes peatükkides kasutasime regressiooniga kohandamist:\n\\[\n\\mu_1(x)=E[Y\\mid D=1,X=x],\n\\]\n\\[\n\\mu_0(x)=E[Y\\mid D=0,X=x].\n\\]\nKui oskame neid kahte funktsiooni hästi hinnata, saame iga inimese jaoks arvutada\n\\[\n\\hat\\tau_i\n=\n\\hat\\mu_1(X_i)-\\hat\\mu_0(X_i)\n\\]\nning ATE hinnangu\n\\[\n\\widehat{ATE}\n=\n\\frac{1}{n}\\sum_{i=1}^n\n\\left[\n\\hat\\mu_1(X_i)-\\hat\\mu_0(X_i)\n\\right].\n\\]\nLineaarne regressioon on ainult üks võimalus funktsioonide \\(\\mu_1(x)\\) ja \\(\\mu_0(x)\\) hindamiseks. Nende asemel võime kasutada ka juhumetsa.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemudelid</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
     ]
   },
   {
-    "objectID": "09-mlpuumets.html#näide",
-    "href": "09-mlpuumets.html#näide",
-    "title": "10  Masinõppemudelid",
-    "section": "10.2 Näide",
-    "text": "10.2 Näide\nTuleb kunagi",
+    "objectID": "09-masinope-kausaalmets.html#ökonomeetria-ja-masinõpe",
+    "href": "09-masinope-kausaalmets.html#ökonomeetria-ja-masinõpe",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "",
+    "text": "Traditsiooniline ökonomeetria\nMasinõpe\n\n\n\n\nPõhiküsimus\nMilline on \\(X\\) või meetme \\(D\\) mõju \\(Y\\)-le?\nKui hästi suudame uut \\(Y\\) väärtust prognoosida?\n\n\nMudeli kuju\nSageli määratakse ette\nVäga paindlik\n\n\nTunnuste valik\nMajandusteooria ja varasemad uuringud\nSageli andmepõhine\n\n\nInteraktsioonid\nTuleb sageli ise määrata\nMeetod võib neid automaatselt leida\n\n\nMittelineaarsus\nTuleb sageli ise spetsifitseerida\nVõib tekkida automaatselt\n\n\nTõlgendatavus\nSageli hea\nVõib olla keerulisem\n\n\nÜlesobitamise oht\nTavaliselt väiksem\nOluline probleem\n\n\nMudeli valik\nTeooria, testid, informatsioonikriteeriumid\nTestandmed, ristvalideerimine, OOB\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTähtisMasinõpe ei lahenda põhjusliku identifitseerimise probleemi\n\n\n\nPaindlikum prognoosimudel ei muuda korrelatsiooni automaatselt põhjuslikuks mõjuks. Vaatlusandmete korral vajame endiselt tingliku sõltumatuse eeldust\n\\[\n\\{Y(1),Y(0)\\}\\perp D\\mid X\n\\]\nning ühist tuge\n\\[\n0&lt;P(D=1\\mid X)&lt;1.\n\\]\nMasinõpe aitab paindlikumalt modelleerida seoseid pärast seda, kui oleme määratlenud usutava põhjusliku identifitseerimise strateegia.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemudelid</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#otsustuspuu",
+    "href": "09-masinope-kausaalmets.html#otsustuspuu",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "10.2 Otsustuspuu",
+    "text": "10.2 Otsustuspuu\n\nPõhiidee\nOtsustuspuu jagab andmestiku järjest väiksemateks ja võimalikult homogeenseteks rühmadeks.\nKujutame ette, et tahame prognoosida töötuks jäänud inimese hilisemat palka. Alguses on kõik inimesed ühes rühmas. Algoritm proovib võimalikke küsimusi, näiteks:\n\nkas vanus on alla 30 aasta?\nkas eelnev palk oli alla 1200 euro?\nkas inimesel on kõrgharidus?\nkas inimene sai töötushüvitist?\n\nIga küsimus jagab andmed kaheks. Regressioonipuu valib sellise tunnuse ja lõikepunkti, mille korral tekkivates rühmades on \\(Y\\) väärtused võimalikult sarnased.\nNäiteks võib puu olla mõtteliselt järgmine:\n                       Kõik inimesed\n                            |\n                     vanus &lt; 30?\n                    /          \\\n                  jah          ei\n                  /              \\\n        eelnev palk &lt; 1200?     haridus = kõrgharidus?\n             /       \\              /       \\\n           ...       ...          ...       ...\nIga lõplikku rühma nimetatakse leheks (leaf). Uue inimese prognoosimiseks liigume tema tunnuste abil mööda puud kuni vastava leheni.\n\n\nRegressioonipuu\nKui tulemus \\(Y\\) on pidev, näiteks palk, kasutame regressioonipuud (regression tree).\nOletame, et puu jagab tunnuste ruumi \\(L\\) lõpp-piirkonnaks\n\\[\nR_1,R_2,\\ldots,R_L.\n\\]\nIgas lehes kasutame prognoosina selles lehes olevate inimeste keskmist tulemust:\n\\[\n\\bar Y_l\n=\n\\frac{1}{N_l}\n\\sum_{i:X_i\\in R_l}Y_i.\n\\]\nPuu prognoos on seega sammfunktsioon\n\\[\n\\boxed{\n\\hat m(x)\n=\n\\sum_{l=1}^L\n\\bar Y_l I(x\\in R_l)\n}\n\\]\nKõigil sama lehe inimestel on sama prognoos.\n\n\nKuidas leitakse parim jaotus?\nPideva väljundtunnuse korral proovib algoritm erinevaid tunnuseid ja lõikepunkte ning valib jaotuse, mis vähendab kõige rohkem jääkide ruutude summat.\nKui mingi kandidaatjaotus tekitab vasaku ja parema lehe \\(R_L\\) ja \\(R_R\\), siis vaatame näiteks suurust\n\\[\nRSS\n=\n\\sum_{i:X_i\\in R_L}(Y_i-\\bar Y_L)^2\n+\n\\sum_{i:X_i\\in R_R}(Y_i-\\bar Y_R)^2.\n\\]\nValitakse jaotus, mille korral see viga on kõige väiksem.\nSeejärel korratakse sama protsessi eraldi mõlemas harus.\n\n\n\n\n\n\nMärkusPuu on ahne algoritm\n\n\n\nPuu ei proovi korraga kõiki võimalikke lõplikke puustruktuure. Igas sõlmes valitakse sellel hetkel parim järgmine jaotus. Seetõttu nimetatakse seda ahneks (greedy) algoritmiks: iga samm on lokaalselt hea, kuid kogu puu ei pruugi olla globaalselt optimaalne.\n\n\n\n\nKlassifitseerimispuu\nKui tulemus on kategooriline, näiteks\n\\[\nY_i=\n\\begin{cases}\n1,& \\text{inimene töötab 24 kuu pärast},\\\\\n0,& \\text{inimene ei tööta},\n\\end{cases}\n\\]\nkasutame klassifitseerimispuud (classification tree).\nLeht võib anda näiteks prognoosi\n\\[\n\\widehat P(Y=1\\mid X\\in R_l)=0.72.\n\\]\nKui kasutame klassifitseerimise lävendit 0.5, prognoosime sellise inimese puhul \\(Y=1\\).\nPideva tulemuse RSS asemel kasutatakse jagamisel klassifikatsiooniks sobivaid veamõõdikuid, näiteks Gini indeksit.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#majandusteadlase-vaatenurk-puule",
+    "href": "09-masinope-kausaalmets.html#majandusteadlase-vaatenurk-puule",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "10.3 Majandusteadlase vaatenurk puule",
+    "text": "10.3 Majandusteadlase vaatenurk puule\nPuu on mõnes mõttes väga suure hulga mittelineaarsuste ja interaktsioonidega regressioonimudel.\nTavalises regressioonis võiksime kirjutada näiteks\n\\[\nY_i\n=\n\\beta_0\n+\\beta_1 vanus_i\n+\\beta_2 D_i\n+\\beta_3(vanus_i\\times D_i)\n+\\varepsilon_i.\n\\]\nKui arvame, et mõju muutub vanuses 30 järsult, peaksime selle eraldi mudelisse panema. Kui arvame, et mõju sõltub korraga vanusest, haridusest ja eelnevast palgast, peaksime lisama veel rohkem interaktsioone.\nPuu võib sellised mustrid ise leida:\n\nvanus \\(&lt;30\\) versus vanus \\(\\ge 30\\);\nselle sees eraldi kõrgharidusega ja kõrghariduseta inimesed;\nselle sees omakorda erinevad eelneva palga rühmad.\n\nSeega ei pea uurija kõiki võimalikke interaktsioone käsitsi ette kirjutama.\n\nPuu tugevused\nOtsustuspuu on:\n\nintuitiivne;\nhästi visualiseeritav;\nmittelineaarne;\nvõimeline leidma interaktsioone;\nsuhteliselt lihtsasti seletatav ka mitte-tehnilisele kasutajale.\n\n\n\nPuu põhiprobleem: suur dispersioon\nÜksik puu on sageli ebastabiilne. Kui andmestikus mõni vaatlus muutub, võib muutuda esimene jaotus, seejärel järgmised jaotused ning lõpuks terve puu.\nSügav puu võib treeningandmestikku väga hästi kirjeldada, kuid uute vaatluste prognoosimisel halvasti töötada. See on ülesobitamine (overfitting).\nLihtsustatult:\n\nväga madal puu: suurem nihe (bias), väiksem dispersioon (variance);\nväga sügav puu: väiksem nihe, kuid suurem dispersioon;\neesmärk on leida nende vahel mõistlik kompromiss.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#treeningandmed-testandmed-ja-ristvalideerimine",
+    "href": "09-masinope-kausaalmets.html#treeningandmed-testandmed-ja-ristvalideerimine",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "10.4 Treeningandmed, testandmed ja ristvalideerimine",
+    "text": "10.4 Treeningandmed, testandmed ja ristvalideerimine\nMasinõppes ei hinnata mudelit ainult selle järgi, kui hästi ta kirjeldab samu andmeid, millega mudel hinnati.\nTavapärane protseduur on:\n\njaga andmed treening- ja testandmeteks;\nhinda mudel treeningandmetel;\nprognoosi testandmetele;\nvõrdle prognoose tegelike väärtustega.\n\nPuu keerukuse valimiseks saab kasutada ristvalideerimist (cross-validation).\nRi pakett rpart kontrollib puu keerukust muu hulgas parameeter cp. Väga väike cp lubab puul kasvada suuremaks. Seejärel võime suure puu kärpida (prune) selliseks, mille ristvalideerimise viga on väiksem.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#r-i-näide-otsustuspuu",
+    "href": "09-masinope-kausaalmets.html#r-i-näide-otsustuspuu",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "10.5 R-i näide: otsustuspuu",
+    "text": "10.5 R-i näide: otsustuspuu\nKasutame tööturukoolituse andmeid. Tulemus on siin see, kas inimene töötab 24 kuud pärast töötuks jäämist.\n\nPaketid\n\npaketid &lt;- c(\n  \"rpart\", \"rpart.plot\", \"grf\",\n  \"dplyr\", \"ggplot2\", \"tidyr\", \"plotROC\"\n)\n\npuudu &lt;- paketid[!paketid %in% rownames(installed.packages())]\nif (length(puudu) &gt; 0) install.packages(puudu)\n\nlibrary(rpart)\nlibrary(rpart.plot)\nlibrary(grf)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(tidyr)\nlibrary(plotROC)\n\n\n\nAndmed\n\n# Kui fail on arvutis olemas, võib kasutada näiteks:\n# load(\"atp.RData\")\n\nload(url(\"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/atp.RData\"))\n\natp$y &lt;- atp$employed24\n\natp2 &lt;- atp |&gt;\n  select(-starts_with(\"wage\"), -starts_with(\"employed\")) |&gt;\n  select(y, training, everything())\n\nAndmestikus on näiteks järgmised tunnused.\n\n\n\nTunnus\nSisu\n\n\n\n\ntraining\nosales tööturukoolituses\n\n\nyear\nkoolituse aasta\n\n\ny\ntöötab 24 kuud pärast töötuks jäämist\n\n\nage\nvanuserühm\n\n\ngender\nsugu\n\n\nregion\nelukoha piirkond\n\n\nrural\nelab maal\n\n\neduc\nharidustase\n\n\nbenefit\nsai töötuse ajal toetust\n\n\nimmigrant\nimmigranditaust\n\n\nlastemp\nviimase töösuhte kestus\n\n\ncollar\nvalge- või sinikrae\n\n\n\n\n\nTreening- ja testvalim\nJagame andmestiku treening- ja testvalimiks. Olgu treeningandmes 80% vaatlustest.\n\nset.seed(1632)\n\ntrain_id &lt;- sample(\n  seq_len(nrow(atp2)),\n  size = floor(0.8 * nrow(atp2))\n)\n\ntest_id &lt;- setdiff(seq_len(nrow(atp2)), train_id)\n\ntrain &lt;- atp2[train_id, ]\ntest  &lt;- atp2[test_id, ]\n\n# Klassifitseerimispuu jaoks teeme Y faktortunnuseks\ntrain_tree &lt;- train |&gt; mutate(y = factor(y, levels = c(0, 1)))\ntest_tree  &lt;- test  |&gt; mutate(y = factor(y, levels = c(0, 1)))\n\n\n\nMadal puu\n\nset.seed(123)\n\nshallow_tree &lt;- rpart(\n  y ~ .,\n  data = train_tree,\n  method = \"class\",\n  control = rpart.control(\n    xval = 10,\n    cp = 0.002,\n    minbucket = 100\n  )\n)\n\nrpart.plot(shallow_tree, digits = 3, cex = 0.6)\n\n\n\n\n\n\n\n\nPuu annab meile korraga:\n\njaotusreeglid;\nlõpp-lehed;\nigas lehes sündmuse tõenäosuse;\ninformatsiooni selle kohta, milliseid tunnuseid jaotamiseks kasutati.\n\n\nshallow_tree$variable.importance\n\n   benefit       educ        age    lastemp     collar   workload     region \n94.4423876 45.6895089 39.0867667 33.0442593 23.9810341 13.7467872 12.3033462 \n  training  immigrant     gender      rural \n 8.6599195  8.6420656  2.8471243  0.4425334 \n\n\n\n\n\n\n\n\nHoiatusTunnuse olulisus ei ole põhjuslik mõju\n\n\n\nKui benefit või age on puus oluline, tähendab see, et tunnusest oli kasu prognoosimisel ja andmete jagamisel. See ei tähenda, et tunnuse muutmine põhjustaks vastava muutuse tulemuses.\n\n\n\n\nSügav puu ja kärpimine\n\nset.seed(1632)\n\ndeep_tree &lt;- rpart(\n  y ~ .,\n  data = train_tree,\n  method = \"class\",\n  control = rpart.control(\n    xval = 10,\n    cp = 0.00002,\n    minbucket = 10\n  )\n)\n\nplotcp(deep_tree)\n\n\n\n\n\n\n\n\nLeiame väikseima ristvalideerimise veaga puu ja kärbime suure puu selle suuruseni.\n\nop.index &lt;- which.min(deep_tree$cptable[, \"xerror\"])\ncp.val &lt;- deep_tree$cptable[op.index, \"CP\"]\n\npruned_tree &lt;- prune(deep_tree, cp = cp.val)\n\nrpart.plot(pruned_tree, digits = 3, cex = 0.6)\n\n\n\n\n\n\n\n\n\n\nPrognoos testvalimile\n\nyhat_tree &lt;- predict(\n  pruned_tree,\n  newdata = test_tree,\n  type = \"prob\"\n)[, \"1\"]\n\nhead(yhat_tree)\n\n        1         2         3         4         5         6 \n0.7043364 0.2432432 0.4317618 0.7043364 0.6522048 0.7043364 \n\n\nNäiteks klassifitseerime sündmuseks kõik prognoosid, mis on üle 0.5.\n\nloikepunkt &lt;- 0.5\n\nclasstable_tree &lt;- table(\n  prognoos = as.numeric(yhat_tree &gt; loikepunkt),\n  tegelik = test$y\n)\n\nclasstable_tree\n\n        tegelik\nprognoos   0   1\n       0 297 219\n       1 371 541\n\nround(prop.table(classtable_tree, 2), 2)\n\n        tegelik\nprognoos    0    1\n       0 0.44 0.29\n       1 0.56 0.71\n\n\nBinaarse tulemuse prognoosivõimet saame hinnata näiteks sensitiivsuse, spetsiifilisuse ja ROC-kõvera abil.\n\n\n\n\n\n\nMärkusROC-kõver ja AUC\n\n\n\n\n\nROC-kõver võrdleb erinevate klassifitseerimislävendite juures\n\nsensitiivsust ehk õigesti leitud positiivsete osakaalu;\n\\(1-\\)spetsiifilisust ehk valepositiivsete osakaalu.\n\nMida suurem on ROC-kõvera alune pindala AUC, seda paremini eristab mudel kahte rühma.\n\nroc_tree &lt;- ggplot(\n  data.frame(y = test$y, yhat_tree),\n  aes(d = as.numeric(y), m = yhat_tree)\n) +\n  geom_roc(n.cuts = 10, labelround = 2) +\n  style_roc(theme = theme_grey())\n\nroc_tree\n\n\n\n\n\n\n\ncalc_auc(roc_tree)\n\n  PANEL COORD group       AUC\n1     1     1    -1 0.5937195",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#bagging",
+    "href": "09-masinope-kausaalmets.html#bagging",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "11.1 Bagging",
+    "text": "11.1 Bagging\nEsimene samm on bagging (bootstrap aggregating või üldisemalt alamvalimitel puude kasvatamine).\nTeeme \\(B\\) erinevat puud\n\\[\n\\hat m_1(x),\\hat m_2(x),\\ldots,\\hat m_B(x)\n\\]\nning regressiooniprobleemi korral võtame nende keskmise:\n\\[\n\\boxed{\n\\hat m_{RF}(x)\n=\n\\frac{1}{B}\\sum_{b=1}^B \\hat m_b(x)\n}\n\\]\nKlassifitseerimisel võime keskmistada sündmuse prognoositud tõenäosusi või kasutada klasside enamust.\nKeskmistamine vähendab prognooside dispersiooni.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#mis-teeb-juhumetsast-juhumetsa",
+    "href": "09-masinope-kausaalmets.html#mis-teeb-juhumetsast-juhumetsa",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "11.2 Mis teeb juhumetsast juhumetsa?",
+    "text": "11.2 Mis teeb juhumetsast juhumetsa?\nKui kõik puud kasutaksid igal jagamisel kõiki tunnuseid, võiksid puud olla üksteisega väga sarnased. Juhumets lisab veel ühe juhuslikkuse allika:\n\niga puu kasutab ainult osa vaatlustest;\nigas sõlmes proovitakse ainult juhuslikult valitud osa tunnustest.\n\nSeetõttu on puud omavahel vähem korreleeritud ning nende keskmine võib olla täpsem.\nLihtsustatud algoritm:\n\nvõta andmetest juhuslik alamvalim;\nkasvata sellele puu;\niga jaotuse juures luba algoritmil proovida ainult osa tunnustest;\nkorda sadu või tuhandeid kordi;\nkeskmista puude prognoosid.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#out-of-bag-prognoos",
+    "href": "09-masinope-kausaalmets.html#out-of-bag-prognoos",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "11.3 Out-of-bag prognoos",
+    "text": "11.3 Out-of-bag prognoos\nKui ühe puu ehitamiseks kasutatakse ainult osa vaatlustest, jäävad mõned vaatlused sellest puust välja.\nVaatluse \\(i\\) out-of-bag ehk OOB-prognoos arvutatakse ainult nende puude põhjal, mille ehitamisel vaatlust \\(i\\) ei kasutatud.\nSee on oluline, sest nii ei prognoosi vaatlus iseenda abil.\nOOB-prognoose saab kasutada:\n\nprognoosivea hindamiseks;\nülesobitamise vähendamiseks;\npõhjusliku mõju meetodites abimudelite prognoosidena.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#ausad-puud",
+    "href": "09-masinope-kausaalmets.html#ausad-puud",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "11.4 Ausad puud",
+    "text": "11.4 Ausad puud\ngrf kasutab vaikimisi ausaid puid (honest trees).\nÜhe puu jaoks valitud alamvalim jagatakse omakorda kaheks:\n\nesimese osaga valitakse puu jaotused;\nteise osaga hinnatakse lõpp-lehtede väärtused.\n\nSee vähendab olukorda, kus sama juhuslik müra määrab korraga nii rühma moodustamise kui ka selle rühma hinnangu.\nKausaalse mõju heterogeensuse hindamisel on see eriti oluline: vastasel juhul võiks algoritm leida juhuslikust mürast näiliselt väga suure mõjuerinevuse ja seejärel sama müraga seda erinevust “kinnitada”.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#juhumetsa-tunnuste-olulisus",
+    "href": "09-masinope-kausaalmets.html#juhumetsa-tunnuste-olulisus",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "11.5 Juhumetsa tunnuste olulisus",
+    "text": "11.5 Juhumetsa tunnuste olulisus\ngrf::variable_importance() põhineb sellel, kui sageli tunnust kasutatakse puude jagamiseks erinevatel sügavustel.\nOluline on meeles pidada:\n\nsee näitab tunnuse kasulikkust metsa ehitamisel;\nsee ei näita seose suunda;\nsee ei ole regressioonikordaja;\nsee ei ole automaatselt põhjuslik mõju.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#r-i-näide-juhumets-prognoosimiseks",
+    "href": "09-masinope-kausaalmets.html#r-i-näide-juhumets-prognoosimiseks",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "11.6 R-i näide: juhumets prognoosimiseks",
+    "text": "11.6 R-i näide: juhumets prognoosimiseks\nKasutame sama treening- ja testvalimit. Loome ühe mudelimaatriksi kogu andmestikule, et faktorite veerud oleksid treening- ja testvalimis samad.\n\nX_pred &lt;- model.matrix(\n  ~ training + year + age + gender + collar + immigrant +\n    rural + region + educ + lastemp + benefit - 1,\n  data = atp2\n)\n\nX_train &lt;- X_pred[train_id, ]\nX_test  &lt;- X_pred[test_id, ]\n\nY_train &lt;- factor(atp2$y[train_id], levels = c(0, 1))\n\nHindame sündmuse tõenäosust prognoosiva juhumetsa.\n\nset.seed(1632)\nforest_y &lt;- probability_forest(X_train, Y_train)\n\nforest_y\n\nGRF forest object of type probability_forest \nNumber of trees: 2000 \nNumber of training samples: 5712 \nVariable importance: \n    1     2     3     4     5     6     7     8     9    10    11    12    13 \n0.033 0.003 0.003 0.024 0.033 0.017 0.034 0.041 0.006 0.004 0.004 0.014 0.005 \n   14    15    16    17    18    19 \n0.009 0.091 0.007 0.020 0.006 0.647 \n\n\ngrf kasutab vaikimisi suurt hulka puid. Õppeotstarbel võib puude arvu vähendada, kuid lõpliku analüüsi puhul annab suurem puude arv stabiilsema tulemuse.\nVõime vaadata ka üksikuid puid.\n\nplot(get_tree(forest_y, 1))\n\n\n\n\nplot(get_tree(forest_y, 5))\n\n\n\n\n\nTunnuste olulisus:\n\nimp &lt;- variable_importance(forest_y, max.depth = 4)\n\nimportance_table &lt;- data.frame(\n  tunnus = colnames(X_train),\n  olulisus = as.numeric(imp)\n) |&gt;\n  arrange(desc(olulisus))\n\nhead(importance_table, 10)\n\n         tunnus   olulisus\n1       benefit 0.64681895\n2  educTertiary 0.09058407\n3    immigrant1 0.04074118\n4   collarwhite 0.03376231\n5       age5064 0.03306397\n6      training 0.03274252\n7       age3049 0.02390460\n8    lastemp2_4 0.01999250\n9    gendermale 0.01678429\n10 regionGotham 0.01417415\n\n\nPrognoos testvalimile:\n\nyhat_rf &lt;- predict(forest_y, newdata = X_test)$predictions[, \"1\"]\nhead(yhat_rf)\n\n[1] 0.7810084 0.4333725 0.5151374 0.6831092 0.7170511 0.7045036\n\n\nVõime ROC-kõveral võrrelda puu, logistilise regressiooni ja juhumetsa prognoose.\n\nyhat_logit &lt;- predict(\n  glm(y ~ ., data = train, family = binomial(link = \"logit\")),\n  newdata = test,\n  type = \"response\"\n)\n\npredictions &lt;- data.frame(\n  y = test$y,\n  puu = yhat_tree,\n  logit = yhat_logit,\n  juhumets = yhat_rf\n) |&gt;\n  pivot_longer(\n    cols = c(puu, logit, juhumets),\n    names_to = \"mudel\",\n    values_to = \"toenaosus\"\n  )\n\nroc_models &lt;- ggplot(\n  predictions,\n  aes(d = y, m = toenaosus, color = mudel)\n) +\n  geom_roc() +\n  style_roc(theme = theme_grey())\n\nroc_models\n\n\n\n\n\n\n\ncalc_auc(roc_models)\n\n  PANEL COORD group    mudel       AUC\n1     1     1     1 juhumets 0.6430803\n2     1     1     2    logit 0.6310245\n3     1     1     3      puu 0.5937195\n\n\nSiin on küsimus endiselt prognoosimises: kui hästi oskame ennustada, kas inimene hiljem töötab?\nJärgmine samm on kasutada samu paindlikke prognoosimeetodeid põhjusliku mõju hindamiseks.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#r-i-näide-kaks-juhumetsa",
+    "href": "09-masinope-kausaalmets.html#r-i-näide-kaks-juhumetsa",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "12.1 R-i näide: kaks juhumetsa",
+    "text": "12.1 R-i näide: kaks juhumetsa\nEhitame \\(X\\) maatriksi ilma meetme tunnuseta training.\n\nX &lt;- model.matrix(\n  ~ year + age + gender + collar + immigrant + rural +\n    region + educ + lastemp + benefit - 1,\n  data = atp2\n)\n\nY_factor &lt;- factor(atp2$y, levels = c(0, 1))\nW &lt;- as.numeric(atp2$training)\n\nHindame esimese metsa ainult mitteosalejatel.\n\nset.seed(1632)\n\nrf.0 &lt;- probability_forest(\n  X[W == 0, ],\n  Y_factor[W == 0]\n)\n\n# Prognoos kõigile\nmu.hat.0 &lt;- predict(rf.0, X)$predictions[, \"1\"]\n\n# Mitteosalejate enda puhul kasutame OOB-prognoosi\nmu.hat.0[W == 0] &lt;- predict(rf.0)$predictions[, \"1\"]\n\nSama osalejate puhul.\n\nrf.1 &lt;- probability_forest(\n  X[W == 1, ],\n  Y_factor[W == 1]\n)\n\nmu.hat.1 &lt;- predict(rf.1, X)$predictions[, \"1\"]\nmu.hat.1[W == 1] &lt;- predict(rf.1)$predictions[, \"1\"]\n\nNüüd on igale inimesele kaks prognoosi:\n\nmu.hat.1: töötamise tõenäosus koolituse korral;\nmu.hat.0: töötamise tõenäosus koolituseta.\n\n\ntau.hat.rf &lt;- mean(mu.hat.1 - mu.hat.0)\ntau.hat.rf\n\n[1] 0.05343592\n\n\n\naasta praktikumifailis oli selle arvutuse tulemus ligikaudu\n\n\\[\n\\widehat{ATE}\\approx 0.054,\n\\]\nst tööturukoolitus suurendas hilisema töötamise tõenäosust mudeli järgi ligikaudu 5,4 protsendipunkti.\n\n\n\n\n\n\nTähtisMida me siin tegelikult tegime?\n\n\n\nMe ei kasutanud veel causal forest’i. Tegime kaks tavalist prognoosimetsa ja kasutasime neid regressiooniga kohandamise meetodis:\n\\[\n\\text{juhumets}+\\text{g-computation / RA}.\n\\]\nSee on kasulik vaheetapp, sest näitab, et masinõppemeetodi lisamiseks mõju hindamisse ei pea kogu põhjusliku analüüsi loogikat ümber tegema. Võime lihtsalt asendada jäiga regressioonifunktsiooni paindlikuma prognoosimudeliga.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#miks-mitte-lihtsalt-regressioon-interaktsioonidega",
+    "href": "09-masinope-kausaalmets.html#miks-mitte-lihtsalt-regressioon-interaktsioonidega",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "13.1 Miks mitte lihtsalt regressioon interaktsioonidega?",
+    "text": "13.1 Miks mitte lihtsalt regressioon interaktsioonidega?\nVõime hinnata näiteks\n\\[\nY_i\n=\n\\beta_0\n+\\beta_1D_i\n+\\beta_2 vanus_i\n+\\beta_3(D_i\\times vanus_i)\n+\\varepsilon_i.\n\\]\nSiin lubame mõjul sõltuda vanusest.\nProbleem on selles, et suure hulga tunnuste korral peame ise otsustama:\n\nmillised interaktsioonid lisada;\nkas seos on lineaarne;\nmillised läved on olulised;\nkas vaja on kolmekordseid või veel keerulisemaid interaktsioone.\n\nKausaalse metsa eesmärk on otsida sellist heterogeensust andmetest paindlikumalt.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#mida-causal-forest-prognoosib",
+    "href": "09-masinope-kausaalmets.html#mida-causal-forest-prognoosib",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "14.1 Mida causal forest prognoosib?",
+    "text": "14.1 Mida causal forest prognoosib?\nKolme mudeli erinevus on kasulik kokku võtta nii:\n\n\n\nMeetod\nMida mudel õpib?\nTüüpiline väljund\n\n\n\n\nRegressioonipuu\n\\(E[Y\\mid X=x]\\)\n\\(\\hat Y(x)\\)\n\n\nJuhumets\n\\(E[Y\\mid X=x]\\)\n\\(\\hat Y(x)\\)\n\n\nKausaalmets\n\\(E[Y(1)-Y(0)\\mid X=x]\\)\n\\(\\hat\\tau(x)\\)\n\n\n\nSeega causal forest’i põhiobjekt ei ole tulemus ise, vaid mõju funktsioon.\n\n\n\n\n\n\nMärkusKas \\(\\hat\\tau(X_i)\\) on inimese individuaalne põhjuslik mõju?\n\n\n\nMitte päris. Ühe inimese mõlemat potentsiaalset tulemust \\(Y_i(1)\\) ja \\(Y_i(0)\\) ei saa korraga vaadelda. Causal forest hindab tingimuslikku keskmist mõju inimestele, kellel on tunnused \\(X=x\\).\nPraktikas räägitakse sageli “individuaalsest” või “personaliseeritud” mõjuprognoosist, kuid statistiliselt on täpsem mõelda sellest kui \\(\\widehat{CATE}(x)\\)-ist.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#kuidas-causal-forest-puud-jagab",
+    "href": "09-masinope-kausaalmets.html#kuidas-causal-forest-puud-jagab",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "14.2 Kuidas causal forest puud jagab?",
+    "text": "14.2 Kuidas causal forest puud jagab?\nTavaline regressioonipuu küsib sisuliselt:\n\nmilline jaotus muudab vasaku ja parema haru \\(Y\\) väärtused võimalikult homogeenseks?\n\nCausal forest küsib selle asemel:\n\nmilline jaotus tekitab harud, kus meetme mõju erineb?\n\nNäiteks võib puu avastada, et koolituse mõju erineb eeskätt vanuse järgi:\n                         Kõik inimesed\n                              |\n                        vanus &lt; 50?\n                        /        \\\n                     jah          ei\n                  mõju 0.03     mõju 0.14\nSellise jaotuse eesmärk ei ole väita, et vanus põhjustab mõju erinevuse. Vanus aitab siin kirjeldada mõju heterogeensust.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#palju-põhjuslikke-puid",
+    "href": "09-masinope-kausaalmets.html#palju-põhjuslikke-puid",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "14.3 Palju põhjuslikke puid",
+    "text": "14.3 Palju põhjuslikke puid\nNagu tavalise juhumetsa puhul:\n\nvõetakse juhuslikke alamvalimeid;\nkasvatatakse palju puid;\nigas jaotuses proovitakse ainult osa tunnuseid;\nkasutatakse ausat jagamist;\nsama profiiliga vaatlustele moodustub üle metsa kaalutud “naabruskond”;\nselles lokaalses naabruskonnas hinnatakse meetme mõju.\n\nTulemuseks on\n\\[\n\\hat\\tau(x).\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#sama-idee-causal-forestis",
+    "href": "09-masinope-kausaalmets.html#sama-idee-causal-forestis",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "16.1 Sama idee causal forest’is",
+    "text": "16.1 Sama idee causal forest’is\nCausal forest kasutab masinõpet abifunktsioonide paindlikuks hindamiseks ning annab igale tunnuste profiilile mõjuprognoosi \\(\\hat\\tau(x)\\).\nKeskmise mõju hindamisel ei ole kõige parem lahendus lihtsalt\n\\[\n\\frac{1}{n}\\sum_i \\hat\\tau(X_i).\n\\]\ngrf kasutab selle asemel topeltrobustset parandust. Binaarse meetme korral saab vastava skoori kirjutada ka kujul\n\\[\n\\boxed{\n\\Gamma_i\n=\n\\hat\\tau(X_i)\n+\n\\frac{D_i-\\hat e(X_i)}\n{\\hat e(X_i)[1-\\hat e(X_i)]}\n\\left[\nY_i-\\hat\\mu(X_i,D_i)\n\\right]\n}\n\\]\nSee on AIPW sama põhiidee teises esituses:\n\nalusta mudeli mõjuprognoosist ja paranda seda tegeliku tulemuse prognoosiveaga, kus paranduse suurus sõltub meetmes osalemise tõenäosusest.\n\n\n\n\n\n\n\nTähtisAIPW on sild ökonomeetria ja causal machine learning’u vahel\n\n\n\nMasinõppemudelid annavad meile paindlikud prognoosid\n\\[\n\\hat e(x),\\quad \\hat\\mu(x),\\quad \\hat\\tau(x),\n\\]\naga põhjusliku parameetri, näiteks ATE, hindamiseks kasutame endiselt ökonomeetriast tuttavat ortogonaalset / topeltrobustset skoori.\nSee võimaldab kasutada väga paindlikke abimudeleid nii, et nende prognoosivead mõjutaksid lõplikku põhjusliku mõju hinnangut vähem.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#oluline-aipw-skoor-ei-ole-inimese-tõeline-individuaalne-mõju",
+    "href": "09-masinope-kausaalmets.html#oluline-aipw-skoor-ei-ole-inimese-tõeline-individuaalne-mõju",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "16.2 Oluline: AIPW-skoor ei ole inimese tõeline individuaalne mõju",
+    "text": "16.2 Oluline: AIPW-skoor ei ole inimese tõeline individuaalne mõju\n\\(\\Gamma_i\\) on kasulik pseudo-tulemus või skoor. Selle keskmine annab ATE hinnangu ja seda saab kasutada mõju heterogeensuse kirjeldamiseks.\nKuid üksiku inimese \\(\\Gamma_i\\) sisaldab suurt juhuslikku komponenti. Seda ei tohiks tõlgendada nii, nagu oleksime nüüd vaadelnud inimese tegelikku individuaalset põhjuslikku mõju.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#hinda-causal-forest",
+    "href": "09-masinope-kausaalmets.html#hinda-causal-forest",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "17.1 Hinda causal forest",
+    "text": "17.1 Hinda causal forest\nPraktikumi kiiruse huvides kasutame 500 puud. Lõpliku analüüsi ja eriti usaldusvahemike jaoks tasub kasutada suuremat puude arvu.\n\nset.seed(1632)\n\nc.forest &lt;- causal_forest(\n  X = X,\n  Y = Y,\n  W = W,\n  num.trees = 500,\n  sample.fraction = 0.5,\n  mtry = 3,\n  honesty = TRUE\n)\n\nc.forest\n\nGRF forest object of type causal_forest \nNumber of trees: 500 \nNumber of training samples: 7140 \nVariable importance: \n    1     2     3     4     5     6     7     8     9    10    11    12    13 \n0.069 0.083 0.051 0.103 0.067 0.044 0.041 0.052 0.043 0.045 0.060 0.038 0.052 \n   14    15    16    17    18 \n0.048 0.040 0.055 0.051 0.058 \n\n\nVõime vaadata üksikuid puid, kuid kogu causal forest’i prognoos ei põhine ühel konkreetsel puul.\n\nplot(get_tree(c.forest, 1))\n\n\n\n\nplot(get_tree(c.forest, 2))",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#cate-prognoosid",
+    "href": "09-masinope-kausaalmets.html#cate-prognoosid",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "17.2 CATE prognoosid",
+    "text": "17.2 CATE prognoosid\nKui newdata argument puudub, annab predict() treeningandmete jaoks OOB-prognoosid.\n\ntau_hat &lt;- predict(c.forest)$predictions\n\nhead(tau_hat)\n\n[1]  0.02608919  0.02495293 -0.02582730  0.06666892  0.04317588  0.05050049\n\nsummary(tau_hat)\n\n    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. \n-0.09173  0.02281  0.04978  0.05246  0.07862  0.21379 \n\nhist(tau_hat)\n\n\n\n\n\n\n\n\nIga tau_hat[i] on hinnang\n\\[\n\\hat\\tau(X_i),\n\\]\nst selle tunnuste profiiliga inimeste tingimuslikule keskmisele mõjule.\nLihtne prognooside keskmine on\n\nmean(tau_hat)\n\n[1] 0.05245646\n\n\n\naasta praktikumi näites oli see ligikaudu 5 protsendipunkti.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#ate-aipw-abil",
+    "href": "09-masinope-kausaalmets.html#ate-aipw-abil",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "17.3 ATE AIPW abil",
+    "text": "17.3 ATE AIPW abil\nTäpsemaks keskmise mõju hinnanguks kasutame topeltrobustset hinnangut.\n\nate_cf &lt;- average_treatment_effect(\n  forest = c.forest,\n  target.sample = \"all\",\n  method = \"AIPW\"\n)\n\nate_cf\n\n estimate   std.err \n0.0569899 0.0132383 \n\n\n\naasta praktikumifailis saadi\n\nestimate    std.err\n0.05644     0.01315\nSeega oli AIPW-ga korrigeeritud ATE ligikaudu 5,6 protsendipunkti.\n\nATT ja ATU\nOsalejate keskmine mõju:\n\naverage_treatment_effect(\n  c.forest,\n  target.sample = \"treated\",\n  method = \"AIPW\"\n)\n\n  estimate    std.err \n0.05151484 0.01326170 \n\n\nMitteosalejate keskmine mõju:\n\naverage_treatment_effect(\n  c.forest,\n  target.sample = \"control\",\n  method = \"AIPW\"\n)\n\n  estimate    std.err \n0.05887879 0.01351105 \n\n\n\naasta praktikumi väljundis olid hinnangud ligikaudu:\n\n\n\n\nSihtrühm\nMõjuhinnang\n\n\n\n\nATE: kõik\n0.0564\n\n\nATT: osalejad\n0.0514\n\n\nATU: mitteosalejad\n0.0582\n\n\n\nErinevus viitab sellele, et mõju võib rühmade vahel erineda, kuigi pelgalt nende kolme keskmise võrdlemine ei ole veel formaalne heterogeensuse test.\n\n\n\n\n\n\nHoiatusATE ja CATE terminoloogia\n\n\n\naverage_treatment_effect(c.forest, target.sample = \"all\") hindab ATE-d, mitte CATE-d.\nCATE on funktsioon\n\\[\n\\tau(x)=E[Y(1)-Y(0)\\mid X=x],\n\\]\nmida prognoosib predict(c.forest).\nATE saadakse CATE funktsiooni sihtrühma üle kokku võttes ja grf rakendab selleks topeltrobustset parandust.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#vaatame-aipw-skoore-otse",
+    "href": "09-masinope-kausaalmets.html#vaatame-aipw-skoore-otse",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "17.4 Vaatame AIPW-skoore otse",
+    "text": "17.4 Vaatame AIPW-skoore otse\ngrf võimaldab ka doubly robust ehk AIPW-skoorid otse välja võtta.\n\ndr_scores &lt;- get_scores(c.forest)\n\nhead(dr_scores)\n\n[1]  1.1072670 -0.4343757  0.4791820 -0.4716534 -2.3823916  0.7377783\n\nmean(dr_scores)\n\n[1] 0.0569899\n\n\nRegulaarsustingimustel on nende skooride keskmine efektiivne ATE hinnang.\nSee kood teeb AIPW seose eriti selgeks:\ncausal forest\n      |\n      +--&gt; CATE prognoosid tau_hat(x)\n      |\n      +--&gt; AIPW / doubly robust scores Gamma_i\n                    |\n                    +--&gt; keskmine = ATE",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#causal-foresti-tunnuste-olulisus",
+    "href": "09-masinope-kausaalmets.html#causal-foresti-tunnuste-olulisus",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "19.1 Causal forest’i tunnuste olulisus",
+    "text": "19.1 Causal forest’i tunnuste olulisus\n\ncf_imp &lt;- variable_importance(c.forest)\n\ncf_imp_table &lt;- data.frame(\n  tunnus = colnames(X),\n  olulisus = as.numeric(cf_imp)\n) |&gt;\n  arrange(desc(olulisus))\n\nhead(cf_imp_table, 10)\n\n          tunnus   olulisus\n1        age5064 0.10324835\n2       year2007 0.08293711\n3       year2006 0.06918095\n4     gendermale 0.06656367\n5   regionGotham 0.06023927\n6        benefit 0.05803090\n7     lastemp2_4 0.05496815\n8  educSecondary 0.05176734\n9          rural 0.05173782\n10       age3049 0.05124494\n\n\nCausal forest’i puhul tähendab suur variable_importance, et tunnust kasutati sageli selliste jagamiste tegemiseks, mis olid kasulikud metsa sihtparameetri õppimisel.\nSiiski ei tohiks seda tõlgendada regressioonikordajana:\n\nolulisus ei anna mõju suunda;\nolulisus ei ütle, mitu protsendipunkti mõju muutub;\nkorreleerunud tunnused võivad üksteise olulisust asendada.\n\nSeetõttu vaatame mõju heterogeensust ka sisulisemalt.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#prognoositud-cate-rühmade-lõikes",
+    "href": "09-masinope-kausaalmets.html#prognoositud-cate-rühmade-lõikes",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "19.2 Prognoositud CATE rühmade lõikes",
+    "text": "19.2 Prognoositud CATE rühmade lõikes\nLisame OOB-mõjuprognoosid andmestikku.\n\natp2$cate_hat &lt;- tau_hat\n\nVanuserühmade lõikes:\n\nggplot(atp2, aes(x = age, y = cate_hat)) +\n  geom_boxplot() +\n  labs(\n    x = \"Vanuserühm\",\n    y = \"Prognoositud CATE\"\n  ) +\n  theme_light()\n\n\n\n\n\n\n\n\nHariduse lõikes:\n\nggplot(atp2, aes(x = educ, y = cate_hat)) +\n  geom_boxplot() +\n  labs(\n    x = \"Haridus\",\n    y = \"Prognoositud CATE\"\n  ) +\n  theme_light()\n\n\n\n\n\n\n\n\nNeed joonised on kasulikud kirjeldamiseks, kuid neisse tuleb suhtuda ettevaatlikult: sama andmestikku kasutati ka metsa õppimiseks.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#juhumets-ainult-prognoosimiseks",
+    "href": "09-masinope-kausaalmets.html#juhumets-ainult-prognoosimiseks",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "22.1 1. Juhumets ainult prognoosimiseks",
+    "text": "22.1 1. Juhumets ainult prognoosimiseks\nHindame\n\\[\nE[Y\\mid X].\n\\]\nKüsimus on:\n\nkes tõenäoliselt töötab, ostab, lahkub kliendiks olemast või teenib kõrgemat palka?\n\nSee ei ole veel põhjuslik mõju hindamine.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#kaks-juhumetsa-potentsiaalsete-tulemuste-jaoks",
+    "href": "09-masinope-kausaalmets.html#kaks-juhumetsa-potentsiaalsete-tulemuste-jaoks",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "22.2 2. Kaks juhumetsa potentsiaalsete tulemuste jaoks",
+    "text": "22.2 2. Kaks juhumetsa potentsiaalsete tulemuste jaoks\nHindame\n\\[\n\\mu_1(x)=E[Y\\mid D=1,X=x]\n\\]\nja\n\\[\n\\mu_0(x)=E[Y\\mid D=0,X=x].\n\\]\nSeejärel\n\\[\n\\hat\\tau(x)=\\hat\\mu_1(x)-\\hat\\mu_0(x).\n\\]\nSee on paindlik regressiooniga kohandamine / g-computation.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
+    ]
+  },
+  {
+    "objectID": "09-masinope-kausaalmets.html#causal-forest",
+    "href": "09-masinope-kausaalmets.html#causal-forest",
+    "title": "10  Masinõppemeetodid mõju hindamisel: puust kausaalmetsani",
+    "section": "22.3 3. Causal forest",
+    "text": "22.3 3. Causal forest\nMetsa eesmärk on algusest peale õppida\n\\[\n\\tau(x)=E[Y(1)-Y(0)\\mid X=x].\n\\]\nMeetod:\n\nortogonaliseerib tulemuse ja meetme taustatunnuste suhtes;\notsib jaotusi, kus mõjud erinevad;\nkasutab ausaid puid;\nannab OOB CATE prognoose;\nkasutab keskmise mõju ja heterogeensuse kokkuvõtete jaoks doubly robust / AIPW parandusi.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span>"
     ]
   },
   {

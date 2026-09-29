@@ -100,6 +100,9 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/andresvork/mojuopik" title="Lähtekood" class="quarto-navigation-tool px-1" aria-label="Lähtekood"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -171,8 +174,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  <a href="./09-masinope-kausaalmets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -205,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#sissejuhatus" id="toc-sissejuhatus" class="nav-link active" data-scroll-target="#sissejuhatus">Sissejuhatus</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -230,7 +233,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23/09/2026</p>
+      <p class="date-modified">29/09/2026</p>
     </div>
   </div>
     
@@ -243,9 +246,9 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="sissejuhatus" class="level1 unnumbered">
 <h1 class="unnumbered">Sissejuhatus</h1>
-<p>Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (<em>causal inference</em>) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine “Põhuse ja tagajärje seosed” õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R.</p>
-<p>Konspekt on jooksvalt täienev.</p>
-<p>Soovitused ja tähelepanekud palun saata meilile andres.vork@ut.ee</p>
+<p>Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (<em>causal inference</em>) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine “Põhuse ja tagajärje seosed” õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R. Konspektis kasutatud näiteandmestikud on anonümiseeritud.</p>
+<p>Konspekti kirjutamisel on kasutatud erinevate keelemudelite abi. Konspekt on jooksvalt täienev.</p>
+<p>Kõik soovitused ja tähelepanekud palun saata meilile andres.vork@ut.ee</p>
 
 
 </section>
@@ -324,7 +327,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/andresvork\.github\.io\/mojuopik");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -665,4 +668,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></div></div></footer></body></html>
