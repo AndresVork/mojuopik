@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="et" xml:lang="et"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Pöördtõenäosusega kaalumine (IPW) ja AIPW – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-ivmeetod.html" rel="next">
+<link href="./06-sobitamine.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-ipw-aipw.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sissejuhatus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pomate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (DIF-DIF)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ipw-aipw.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-mlpuumets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemudelid</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#sobitamisest-kaalumiseni" id="toc-sobitamisest-kaalumiseni" class="nav-link active" data-scroll-target="#sobitamisest-kaalumiseni"><span class="header-section-number">7.1</span> Sobitamisest kaalumiseni</a>
+  <ul class="collapse">
+  <li><a href="#att-täpse-sobitamise-abil" id="toc-att-täpse-sobitamise-abil" class="nav-link" data-scroll-target="#att-täpse-sobitamise-abil">ATT täpse sobitamise abil</a></li>
+  <li><a href="#kuidas-siit-tekib-tõenäosusskoor" id="toc-kuidas-siit-tekib-tõenäosusskoor" class="nav-link" data-scroll-target="#kuidas-siit-tekib-tõenäosusskoor">Kuidas siit tekib tõenäosusskoor?</a></li>
+  <li><a href="#atu-sihtrühmaks-on-mitteosalejad" id="toc-atu-sihtrühmaks-on-mitteosalejad" class="nav-link" data-scroll-target="#atu-sihtrühmaks-on-mitteosalejad">ATU: sihtrühmaks on mitteosalejad</a></li>
+  <li><a href="#ate-sihtrühmaks-on-kogu-üldkogum" id="toc-ate-sihtrühmaks-on-kogu-üldkogum" class="nav-link" data-scroll-target="#ate-sihtrühmaks-on-kogu-üldkogum">ATE: sihtrühmaks on kogu üldkogum</a></li>
+  </ul></li>
+  <li><a href="#üldine-raamistik" id="toc-üldine-raamistik" class="nav-link" data-scroll-target="#üldine-raamistik"><span class="header-section-number">7.2</span> Üldine raamistik</a>
+  <ul class="collapse">
+  <li><a href="#eeldused" id="toc-eeldused" class="nav-link" data-scroll-target="#eeldused">Eeldused</a></li>
+  </ul></li>
+  <li><a href="#ipw-üldkogumis" id="toc-ipw-üldkogumis" class="nav-link" data-scroll-target="#ipw-üldkogumis"><span class="header-section-number">7.3</span> IPW üldkogumis</a>
+  <ul class="collapse">
+  <li><a href="#ate" id="toc-ate" class="nav-link" data-scroll-target="#ate">ATE</a></li>
+  <li><a href="#att" id="toc-att" class="nav-link" data-scroll-target="#att">ATT</a></li>
+  <li><a href="#atu" id="toc-atu" class="nav-link" data-scroll-target="#atu">ATU</a></li>
+  <li><a href="#kolm-hinnangut-ühe-tabelina" id="toc-kolm-hinnangut-ühe-tabelina" class="nav-link" data-scroll-target="#kolm-hinnangut-ühe-tabelina">Kolm hinnangut ühe tabelina</a></li>
+  </ul></li>
+  <li><a href="#mida-kaalumine-teeb" id="toc-mida-kaalumine-teeb" class="nav-link" data-scroll-target="#mida-kaalumine-teeb"><span class="header-section-number">7.4</span> Mida kaalumine teeb?</a></li>
+  <li><a href="#ipw-valimis" id="toc-ipw-valimis" class="nav-link" data-scroll-target="#ipw-valimis"><span class="header-section-number">7.5</span> IPW valimis</a>
+  <ul class="collapse">
+  <li><a href="#horvitzthompsoni-hinnang" id="toc-horvitzthompsoni-hinnang" class="nav-link" data-scroll-target="#horvitzthompsoni-hinnang">Horvitz–Thompsoni hinnang</a></li>
+  </ul></li>
+  <li><a href="#alternatiivne-ipw-hinnang-hájeki-normaliseeritud-hinnang" id="toc-alternatiivne-ipw-hinnang-hájeki-normaliseeritud-hinnang" class="nav-link" data-scroll-target="#alternatiivne-ipw-hinnang-hájeki-normaliseeritud-hinnang"><span class="header-section-number">7.6</span> Alternatiivne IPW-hinnang: Hájeki normaliseeritud hinnang</a>
+  <ul class="collapse">
+  <li><a href="#ate-1" id="toc-ate-1" class="nav-link" data-scroll-target="#ate-1">ATE</a></li>
+  <li><a href="#att-1" id="toc-att-1" class="nav-link" data-scroll-target="#att-1">ATT</a></li>
+  <li><a href="#atu-1" id="toc-atu-1" class="nav-link" data-scroll-target="#atu-1">ATU</a></li>
+  <li><a href="#sama-hinnang-kaalutud-regressiooniga" id="toc-sama-hinnang-kaalutud-regressiooniga" class="nav-link" data-scroll-target="#sama-hinnang-kaalutud-regressiooniga">Sama hinnang kaalutud regressiooniga</a></li>
+  </ul></li>
+  <li><a href="#kattuvus-ja-suured-kaalud" id="toc-kattuvus-ja-suured-kaalud" class="nav-link" data-scroll-target="#kattuvus-ja-suured-kaalud"><span class="header-section-number">7.7</span> Kattuvus ja suured kaalud</a></li>
+  <li><a href="#aipw-kaalumine-koos-regressiooniga" id="toc-aipw-kaalumine-koos-regressiooniga" class="nav-link" data-scroll-target="#aipw-kaalumine-koos-regressiooniga"><span class="header-section-number">7.8</span> AIPW: kaalumine koos regressiooniga</a></li>
+  <li><a href="#aipw-esimene-kuju-regressiooniprognoos-ipw-ga-kaalutud-jääk" id="toc-aipw-esimene-kuju-regressiooniprognoos-ipw-ga-kaalutud-jääk" class="nav-link" data-scroll-target="#aipw-esimene-kuju-regressiooniprognoos-ipw-ga-kaalutud-jääk"><span class="header-section-number">7.9</span> AIPW esimene kuju: regressiooniprognoos + IPW-ga kaalutud jääk</a></li>
+  <li><a href="#aipw-teine-kuju-ipw-regressiooniga-parandustermin" id="toc-aipw-teine-kuju-ipw-regressiooniga-parandustermin" class="nav-link" data-scroll-target="#aipw-teine-kuju-ipw-regressiooniga-parandustermin"><span class="header-section-number">7.10</span> AIPW teine kuju: IPW + regressiooniga parandustermin</a>
+  <ul class="collapse">
+  <li><a href="#miks-aipw-on-topeltrobustne" id="toc-miks-aipw-on-topeltrobustne" class="nav-link" data-scroll-target="#miks-aipw-on-topeltrobustne">Miks AIPW on topeltrobustne?</a></li>
+  </ul></li>
+  <li><a href="#ipw-ja-aipw-praktiline-töövoog" id="toc-ipw-ja-aipw-praktiline-töövoog" class="nav-link" data-scroll-target="#ipw-ja-aipw-praktiline-töövoog"><span class="header-section-number">7.11</span> IPW ja AIPW praktiline töövoog</a></li>
+  <li><a href="#r-i-näide-eesti-tööturukoolituse-andmed" id="toc-r-i-näide-eesti-tööturukoolituse-andmed" class="nav-link" data-scroll-target="#r-i-näide-eesti-tööturukoolituse-andmed"><span class="header-section-number">7.12</span> R-i näide: Eesti tööturukoolituse andmed</a>
+  <ul class="collapse">
+  <li><a href="#paketid-ja-andmed" id="toc-paketid-ja-andmed" class="nav-link" data-scroll-target="#paketid-ja-andmed">Paketid ja andmed</a></li>
+  <li><a href="#hinda-osalemise-tõenäosus" id="toc-hinda-osalemise-tõenäosus" class="nav-link" data-scroll-target="#hinda-osalemise-tõenäosus">1. Hinda osalemise tõenäosus</a></li>
+  <li><a href="#moodusta-ate--att--ja-atu-kaalud" id="toc-moodusta-ate--att--ja-atu-kaalud" class="nav-link" data-scroll-target="#moodusta-ate--att--ja-atu-kaalud">2. Moodusta ATE-, ATT- ja ATU-kaalud</a></li>
+  <li><a href="#ipw-hájeki-hinnang" id="toc-ipw-hájeki-hinnang" class="nav-link" data-scroll-target="#ipw-hájeki-hinnang">3. IPW: Hájeki hinnang</a></li>
+  <li><a href="#ipw-horvitzthompsoni-hinnang" id="toc-ipw-horvitzthompsoni-hinnang" class="nav-link" data-scroll-target="#ipw-horvitzthompsoni-hinnang">4. IPW: Horvitz–Thompsoni hinnang</a></li>
+  <li><a href="#sama-hájeki-hinnang-kaalutud-regressiooniga" id="toc-sama-hájeki-hinnang-kaalutud-regressiooniga" class="nav-link" data-scroll-target="#sama-hájeki-hinnang-kaalutud-regressiooniga">5. Sama Hájeki hinnang kaalutud regressiooniga</a></li>
+  </ul></li>
+  <li><a href="#aipw-r-is" id="toc-aipw-r-is" class="nav-link" data-scroll-target="#aipw-r-is"><span class="header-section-number">7.13</span> AIPW R-is</a>
+  <ul class="collapse">
+  <li><a href="#aipw-viis-1-prognoos-kaalutud-jääk" id="toc-aipw-viis-1-prognoos-kaalutud-jääk" class="nav-link" data-scroll-target="#aipw-viis-1-prognoos-kaalutud-jääk">AIPW viis 1: prognoos + kaalutud jääk</a></li>
+  <li><a href="#aipw-viis-2-ipw-parandustermin" id="toc-aipw-viis-2-ipw-parandustermin" class="nav-link" data-scroll-target="#aipw-viis-2-ipw-parandustermin">AIPW viis 2: IPW + parandustermin</a></li>
+  <li><a href="#aipw-seos-regressiooniga-korrigeerimise-ja-ipw-ga" id="toc-aipw-seos-regressiooniga-korrigeerimise-ja-ipw-ga" class="nav-link" data-scroll-target="#aipw-seos-regressiooniga-korrigeerimise-ja-ipw-ga">AIPW seos regressiooniga korrigeerimise ja IPW-ga</a></li>
+  </ul></li>
+  <li><a href="#miks-kasutada-aipw-d" id="toc-miks-kasutada-aipw-d" class="nav-link" data-scroll-target="#miks-kasutada-aipw-d"><span class="header-section-number">7.14</span> Miks kasutada AIPW-d?</a></li>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">7.15</span> Kokkuvõte</a></li>
+  <li><a href="#kontrollküsimused" id="toc-kontrollküsimused" class="nav-link" data-scroll-target="#kontrollküsimused"><span class="header-section-number">7.16</span> Kontrollküsimused</a></li>
+  <li><a href="#väike-harjutus" id="toc-väike-harjutus" class="nav-link" data-scroll-target="#väike-harjutus"><span class="header-section-number">7.17</span> Väike harjutus</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Muudetud</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">29/09/2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>NB! Tähistused ühtlustamata. Lisada viited</strong></p>
+<p>Selles peatükis vaatame, kuidas hinnata põhjuslikku mõju <strong>kaalumise</strong> abil. Põhiidee on väga sarnane sobitamisele: tahame muuta osalus- ja võrdlusrühma taustatunnuste jaotused omavahel võrreldavaks. Sobitamisel valisime igale osalejale ühe või mitu sarnast võrdlusisikut. Kaalumisel jätame põhimõtteliselt kõik vaatlused alles, kuid anname neile erineva kaalu.</p>
+<p>Peatüki lõpuks peaksid oskama:</p>
+<ul>
+<li>selgitada, miks täpne sobitamine rühmade lõikes on käsitletav kaalumisena;</li>
+<li>tuletada ATE, ATT ja ATU jaoks kasutatavad IPW-kaalud;</li>
+<li>eristada Horvitz–Thompsoni ja Hájeki IPW-hinnangut;</li>
+<li>selgitada, miks suured kaalud viitavad halvale kattuvusele (<em>overlap</em>);</li>
+<li>kirjeldada AIPW-hinnangut kahel samaväärsel viisil;</li>
+<li>arvutada IPW- ja AIPW-hinnanguid R-is.</li>
+</ul>
+<section id="sobitamisest-kaalumiseni" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sobitamisest-kaalumiseni"><span class="header-section-number">7.1</span> Sobitamisest kaalumiseni</h2>
+<p>Alustame lihtsast näitest. Oletame, et soovime hinnata tööturukoolituse mõju palgale. Inimesed elavad kas Põhja- või Lõuna-Eestis ning oletame lihtsuse mõttes, et piirkond on ainus taustatunnus, mida peame arvesse võtma.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Piirkond</th>
+<th style="text-align: right;">Osalejaid <span class="math inline">\(N_{1s}\)</span></th>
+<th style="text-align: right;">Võrdlusrühmas <span class="math inline">\(N_{0s}\)</span></th>
+<th style="text-align: right;">Osalejate keskmine <span class="math inline">\(\bar Y_{1s}\)</span></th>
+<th style="text-align: right;">Võrdlusrühma keskmine <span class="math inline">\(\bar Y_{0s}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Põhja-Eesti</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="even">
+<td>Lõuna-Eesti</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">140</td>
+</tr>
+<tr class="odd">
+<td><strong>Kokku</strong></td>
+<td style="text-align: right;"><strong>60</strong></td>
+<td style="text-align: right;"><strong>40</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<p>Siin tähendab <span class="math inline">\(D=1\)</span> koolitusel osalemist ja <span class="math inline">\(D=0\)</span> mitteosalemist. Tähistame piirkonda indeksiga <span class="math inline">\(s\)</span>.</p>
+<section id="att-täpse-sobitamise-abil" class="level3">
+<h3 class="anchored" data-anchor-id="att-täpse-sobitamise-abil">ATT täpse sobitamise abil</h3>
+<p>Kui meid huvitab <strong>keskmine mõju osalejatele</strong> (<em>average treatment effect on the treated</em>, ATT), siis peab võrdlusrühm esindama osalejate piirkondlikku jaotust.</p>
+<p>Osalejatest elab</p>
+<p><span class="math display">\[
+\frac{40}{60}
+\]</span></p>
+<p>Põhja-Eestis ja</p>
+<p><span class="math display">\[
+\frac{20}{60}
+\]</span></p>
+<p>Lõuna-Eestis. Seega</p>
+<p><span class="math display">\[
+\begin{aligned}
+ATT
+&amp;=
+\frac{40}{60}(150-120)
++
+\frac{20}{60}(150-140) \\
+&amp;=23.33.
+\end{aligned}
+\]</span></p>
+<p>Sama hinnangu saame nii, et anname võrdlusrühma inimestele piirkonniti erineva kaalu. Põhja-Eestis peab 30 võrdlusrühma inimest esindama 40 osalejat, mistõttu igaühe kaal on</p>
+<p><span class="math display">\[
+w_{0,N}=\frac{40}{30}.
+\]</span></p>
+<p>Lõuna-Eestis peab 10 võrdlusrühma inimest esindama 20 osalejat, mistõttu</p>
+<p><span class="math display">\[
+w_{0,S}=\frac{20}{10}=2.
+\]</span></p>
+<p>Osalejate kaal on ATT puhul 1. Pärast kaalumist on võrdlusrühma efektiivne piirkondlik koosseis sama mis osalejatel:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Piirkond</th>
+<th style="text-align: right;">Osalejaid</th>
+<th style="text-align: right;">Võrdlusrühmas</th>
+<th style="text-align: right;">Võrdlusrühma kaal</th>
+<th style="text-align: right;">Kaalutud võrdlusrühm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Põhja-Eesti</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;"><span class="math inline">\(40/30\)</span></td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td>Lõuna-Eesti</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;"><span class="math inline">\(20/10\)</span></td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td><strong>Kokku</strong></td>
+<td style="text-align: right;"><strong>60</strong></td>
+<td style="text-align: right;"><strong>40</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>60</strong></td>
+</tr>
+</tbody>
+</table>
+<p>See ongi kaalumise põhiidee: <strong>me ei pea tingimata leidma igale osalejale konkreetset paarilist. Võime muuta olemasolevate võrdlusisikute suhtelist tähtsust nii, et nad esindaksid osalejate jaotust.</strong></p>
+</section>
+<section id="kuidas-siit-tekib-tõenäosusskoor" class="level3">
+<h3 class="anchored" data-anchor-id="kuidas-siit-tekib-tõenäosusskoor">Kuidas siit tekib tõenäosusskoor?</h3>
+<p>Olgu piirkonnas <span class="math inline">\(s\)</span> koolitusel osalemise tõenäosus</p>
+<p><span class="math display">\[
+p_s=P(D=1\mid X=s)
+=\frac{N_{1s}}{N_{1s}+N_{0s}}.
+\]</span></p>
+<p>Siis</p>
+<p><span class="math display">\[
+1-p_s=\frac{N_{0s}}{N_{1s}+N_{0s}}.
+\]</span></p>
+<p>Nende suhe on</p>
+<p><span class="math display">\[
+\frac{p_s}{1-p_s}
+=
+\frac{N_{1s}/(N_{1s}+N_{0s})}
+{N_{0s}/(N_{1s}+N_{0s})}
+=
+\frac{N_{1s}}{N_{0s}}.
+\]</span></p>
+<p>Seega ATT jaoks leitud võrdlusrühma kaal</p>
+<p><span class="math display">\[
+\boxed{
+w_0(X)=\frac{p(X)}{1-p(X)}
+}
+\]</span></p>
+<p>on lihtsalt täpse sobitamise kaal <span class="math inline">\(N_1/N_0\)</span>, kirjutatud osalemise tõenäosuse abil.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tähtis</span>Seos sobitamise ja kaalumise vahel
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kui <span class="math inline">\(X\)</span> moodustab lõpliku arvu täpseid rühmi, siis saab kaalumist vaadata täpse sobitamise üldistusena. Kui <span class="math inline">\(X\)</span> sisaldab palju tunnuseid või pidevaid tunnuseid, pole identseid inimesi enamasti olemas. Siis hindame <span class="math inline">\(p(X)=P(D=1\mid X)\)</span> mudeliga ja kasutame sellest tuletatud kaale.</p>
+</div>
+</div>
+</section>
+<section id="atu-sihtrühmaks-on-mitteosalejad" class="level3">
+<h3 class="anchored" data-anchor-id="atu-sihtrühmaks-on-mitteosalejad">ATU: sihtrühmaks on mitteosalejad</h3>
+<p>Kui soovime hinnata mõju neile, kes <strong>ei osalenud</strong> (<em>average treatment effect on the untreated</em>, ATU), peavad osalejad esindama mitteosalejate jaotust.</p>
+<p>Seetõttu jääb mitteosalejate kaaluks 1 ning osalejate kaal on</p>
+<p><span class="math display">\[
+\frac{N_{0s}}{N_{1s}}
+=
+\frac{1-p_s}{p_s}.
+\]</span></p>
+<p>Seega</p>
+<p><span class="math display">\[
+\boxed{
+w_1(X)=\frac{1-p(X)}{p(X)},
+\qquad
+w_0(X)=1.
+}
+\]</span></p>
+<p>Meie näites</p>
+<p><span class="math display">\[
+ATU
+=
+\frac{30}{40}(150-120)
++
+\frac{10}{40}(150-140)
+=25.
+\]</span></p>
+</section>
+<section id="ate-sihtrühmaks-on-kogu-üldkogum" class="level3">
+<h3 class="anchored" data-anchor-id="ate-sihtrühmaks-on-kogu-üldkogum">ATE: sihtrühmaks on kogu üldkogum</h3>
+<p>ATE puhul peab nii osalus- kui võrdlusrühm esindama <strong>kogu üldkogumi</strong> piirkondlikku jaotust.</p>
+<p>Piirkonnas <span class="math inline">\(s\)</span> on kokku</p>
+<p><span class="math display">\[
+N_s=N_{1s}+N_{0s}
+\]</span></p>
+<p>inimest. Et <span class="math inline">\(N_{1s}\)</span> osalejat esindaks kõiki <span class="math inline">\(N_s\)</span> selle piirkonna inimesi, peab osaleja kaal olema</p>
+<p><span class="math display">\[
+\frac{N_s}{N_{1s}}
+=
+\frac{1}{p_s}.
+\]</span></p>
+<p>Samamoodi peab võrdlusrühma kaal olema</p>
+<p><span class="math display">\[
+\frac{N_s}{N_{0s}}
+=
+\frac{1}{1-p_s}.
+\]</span></p>
+<p>Seega ATE-kaalud on</p>
+<p><span class="math display">\[
+\boxed{
+w_1(X)=\frac{1}{p(X)},
+\qquad
+w_0(X)=\frac{1}{1-p(X)}.
+}
+\]</span></p>
+<p>Meie näites on kogu valimist 70% Põhja- ja 30% Lõuna-Eestist. Seega</p>
+<p><span class="math display">\[
+ATE
+=0.7(150-120)+0.3(150-140)
+=24.
+\]</span></p>
+<p>Näeme, et ATE, ATT ja ATU ei pea olema võrdsed. Need kasutavad erinevat <strong>sihtrühma</strong> ning annavad erineva keskmise juhul, kui ravi mõju erineb taustatunnuste lõikes.</p>
+</section>
+</section>
+<section id="üldine-raamistik" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="üldine-raamistik"><span class="header-section-number">7.2</span> Üldine raamistik</h2>
+<p>Olgu</p>
+<ul>
+<li><span class="math inline">\(D_i\in\{0,1\}\)</span> – osalemise indikaator;</li>
+<li><span class="math inline">\(Y_i(1)\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus osalemise korral;</li>
+<li><span class="math inline">\(Y_i(0)\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus mitteosalemise korral;</li>
+<li><span class="math inline">\(Y_i=D_iY_i(1)+(1-D_i)Y_i(0)\)</span> – vaadeldav tulemus;</li>
+<li><span class="math inline">\(X_i\)</span> – enne meetmes osalemist mõõdetud taustatunnused;</li>
+<li><span class="math inline">\(e(X_i)=P(D_i=1\mid X_i)\)</span> – tõenäosusskoor (<em>propensity score</em>).</li>
+</ul>
+<p>Kasutame tähist <span class="math inline">\(e(X)\)</span>, kuid empiirilises osas on meil tavaliselt selle hinnang</p>
+<p><span class="math display">\[
+\hat e_i=\widehat P(D_i=1\mid X_i).
+\]</span></p>
+<section id="eeldused" class="level3">
+<h3 class="anchored" data-anchor-id="eeldused">Eeldused</h3>
+<p>IPW tugineb samadele identifitseerimise eeldustele nagu tõenäosusskooril põhinev sobitamine.</p>
+<p><strong>1. Tinglik sõltumatus</strong> (<em>conditional independence</em>, <em>unconfoundedness</em>)</p>
+<p><span class="math display">\[
+\{Y(1),Y(0)\}\perp D\mid X.
+\]</span></p>
+<p>Pärast <span class="math inline">\(X\)</span> arvesse võtmist ei tohi olla järelejäänud mõõtmata segajaid, mis mõjutavad nii osalemist kui ka tulemust.</p>
+<p><strong>2. Kattuvus ehk positiivsus</strong> (<em>overlap</em>, <em>positivity</em>)</p>
+<p>ATE jaoks nõuame</p>
+<p><span class="math display">\[
+0&lt;e(X)&lt;1.
+\]</span></p>
+<p>Iga analüüsitava <span class="math inline">\(X\)</span> väärtuse juures peab leiduma nii osalejaid kui ka mitteosalejaid.</p>
+<p><strong>3. Järjepidevus</strong> (<em>consistency</em>)</p>
+<p>Kui <span class="math inline">\(D_i=d\)</span>, siis vaadeldud tulemus võrdub vastava potentsiaalse tulemusega:</p>
+<p><span class="math display">\[
+Y_i=Y_i(d).
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Märkus</span>IPW ei lahenda mõõtmata segajate probleemi
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kaalumine tasakaalustab ainult neid tunnuseid, mis on kaasatud <span class="math inline">\(X\)</span> hulka või mida kasutatud mudel suudab nende kaudu tasakaalustada. Kui oluline segaja jääb mõõtmata, ei muuda keerukam kaalumismeetod seda probleemi automaatselt olematuks.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="ipw-üldkogumis" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="ipw-üldkogumis"><span class="header-section-number">7.3</span> IPW üldkogumis</h2>
+<section id="ate" class="level3">
+<h3 class="anchored" data-anchor-id="ate">ATE</h3>
+<p>Keskmine põhjuslik mõju kogu üldkogumis on</p>
+<p><span class="math display">\[
+ATE=E[Y(1)-Y(0)].
+\]</span></p>
+<p>Tingliku sõltumatuse korral saame esimese potentsiaalse tulemuse keskmise kirjutada</p>
+<p><span class="math display">\[
+E[Y(1)]
+=
+E\left[\frac{DY}{e(X)}\right],
+\]</span></p>
+<p>ja teise</p>
+<p><span class="math display">\[
+E[Y(0)]
+=
+E\left[\frac{(1-D)Y}{1-e(X)}\right].
+\]</span></p>
+<p>Seetõttu</p>
+<p><span class="math display">\[
+\boxed{
+ATE
+=
+E\left[
+\frac{DY}{e(X)}
+-
+\frac{(1-D)Y}{1-e(X)}
+\right].
+}
+\]</span></p>
+<p>Miks esimene võrdus töötab? Tingides <span class="math inline">\(X\)</span> järgi,</p>
+<p><span class="math display">\[
+\begin{aligned}
+E\left[\frac{DY}{e(X)}\mid X\right]
+&amp;=
+\frac{1}{e(X)}E[D Y(1)\mid X] \\
+&amp;=
+\frac{P(D=1\mid X)}{e(X)}E[Y(1)\mid X] \\
+&amp;=
+E[Y(1)\mid X].
+\end{aligned}
+\]</span></p>
+<p>Viimases sammus kasutasime tinglikku sõltumatust. Keskmistades üle <span class="math inline">\(X\)</span> jaotuse saame <span class="math inline">\(E[Y(1)]\)</span>.</p>
+</section>
+<section id="att" class="level3">
+<h3 class="anchored" data-anchor-id="att">ATT</h3>
+<p>ATT on</p>
+<p><span class="math display">\[
+ATT=E[Y(1)-Y(0)\mid D=1].
+\]</span></p>
+<p>Olgu</p>
+<p><span class="math display">\[
+\pi=P(D=1).
+\]</span></p>
+<p>Siis</p>
+<p><span class="math display">\[
+\boxed{
+ATT
+=
+\frac{1}{\pi}
+E\left[
+DY
+-
+(1-D)\frac{e(X)}{1-e(X)}Y
+\right].
+}
+\]</span></p>
+<p>ATT puhul ei ole osalejaid vaja ümber kaaluda: nemad <strong>ongi sihtrühm</strong>. Ümber kaalutakse võrdlusrühm, et selle <span class="math inline">\(X\)</span> jaotus sarnaneks osalejate jaotusega.</p>
+</section>
+<section id="atu" class="level3">
+<h3 class="anchored" data-anchor-id="atu">ATU</h3>
+<p>ATU on</p>
+<p><span class="math display">\[
+ATU=E[Y(1)-Y(0)\mid D=0].
+\]</span></p>
+<p>Olgu <span class="math inline">\(1-\pi=P(D=0)\)</span>. Siis</p>
+<p><span class="math display">\[
+\boxed{
+ATU
+=
+\frac{1}{1-\pi}
+E\left[
+D\frac{1-e(X)}{e(X)}Y
+-
+(1-D)Y
+\right].
+}
+\]</span></p>
+<p>ATU puhul on mitteosalejad ise sihtrühm ning ümber kaalutakse osalejad.</p>
+</section>
+<section id="kolm-hinnangut-ühe-tabelina" class="level3">
+<h3 class="anchored" data-anchor-id="kolm-hinnangut-ühe-tabelina">Kolm hinnangut ühe tabelina</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hinnatav mõju</th>
+<th style="text-align: right;">Osaleja <span class="math inline">\((D=1)\)</span> kaal</th>
+<th style="text-align: right;">Mitteosaleja <span class="math inline">\((D=0)\)</span> kaal</th>
+<th>Sihtrühm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ATE</td>
+<td style="text-align: right;"><span class="math inline">\(1/e(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/[1-e(X)]\)</span></td>
+<td>kogu üldkogum</td>
+</tr>
+<tr class="even">
+<td>ATT</td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(e(X)/[1-e(X)]\)</span></td>
+<td>osalejad</td>
+</tr>
+<tr class="odd">
+<td>ATU</td>
+<td style="text-align: right;"><span class="math inline">\([1-e(X)]/e(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+<td>mitteosalejad</td>
+</tr>
+</tbody>
+</table>
+<p>Neid kolme kaalupaari saab kirjutada ka ühe üldise valemina. Olgu <span class="math inline">\(h(X)\)</span> funktsioon, mis kirjeldab sihtrühma. Siis</p>
+<p><span class="math display">\[
+w_1(X)=\frac{h(X)}{e(X)},
+\qquad
+w_0(X)=\frac{h(X)}{1-e(X)}.
+\]</span></p>
+<p>Valides</p>
+<p><span class="math display">\[
+h(X)=1
+\]</span></p>
+<p>saame ATE; valides <span class="math inline">\(h(X)=e(X)\)</span> saame ATT ning valides <span class="math inline">\(h(X)=1-e(X)\)</span> saame ATU.</p>
+</section>
+</section>
+<section id="mida-kaalumine-teeb" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="mida-kaalumine-teeb"><span class="header-section-number">7.4</span> Mida kaalumine teeb?</h2>
+<p>ATE-kaalude korral on osaleja kaal</p>
+<p><span class="math display">\[
+\frac{1}{e(X)}.
+\]</span></p>
+<p>Kui <span class="math inline">\(e(X)\)</span> on väike, siis on sellise <span class="math inline">\(X\)</span> väärtusega osaleja haruldane ning ta saab suure kaalu. Ta esindab paljusid sarnaseid inimesi, kes tegelikult osalejate hulka ei sattunud.</p>
+<p>Mitteosaleja kaal on</p>
+<p><span class="math display">\[
+\frac{1}{1-e(X)}.
+\]</span></p>
+<p>Kui <span class="math inline">\(e(X)\)</span> on suur, on sellise <span class="math inline">\(X\)</span> väärtusega mitteosaleja haruldane ning saab suure kaalu.</p>
+<p>Intuitiivselt loob IPW <strong>pseudo-üldkogumi</strong>, kus osalemine ei sõltu enam <span class="math inline">\(X\)</span> jaotusest. Korrektselt määratud ATE-kaalude korral kehtib näiteks iga sobiva funktsiooni <span class="math inline">\(g(X)\)</span> jaoks</p>
+<p><span class="math display">\[
+E\left[\frac{D}{e(X)}g(X)\right]
+=
+E[g(X)]
+\]</span></p>
+<p>ja</p>
+<p><span class="math display">\[
+E\left[\frac{1-D}{1-e(X)}g(X)\right]
+=
+E[g(X)].
+\]</span></p>
+<p>Seega kaalutud osalus- ja võrdlusrühm esindavad mõlemad sama <span class="math inline">\(X\)</span> jaotust.</p>
+</section>
+<section id="ipw-valimis" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="ipw-valimis"><span class="header-section-number">7.5</span> IPW valimis</h2>
+<p>Praktikas me <span class="math inline">\(e(X)\)</span> ei tea. Hindame selle näiteks logit- või probit-mudeliga ning saame iga isiku jaoks <span class="math inline">\(\hat e_i\)</span>.</p>
+<p>Tähistame valimi suuruse <span class="math inline">\(n\)</span>, osalejate arvu <span class="math inline">\(n_1\)</span> ja mitteosalejate arvu <span class="math inline">\(n_0\)</span>.</p>
+<section id="horvitzthompsoni-hinnang" class="level3">
+<h3 class="anchored" data-anchor-id="horvitzthompsoni-hinnang">Horvitz–Thompsoni hinnang</h3>
+<p>ATE otsene valimianaloog on</p>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATE}_{HT}
+=
+\frac{1}{n}
+\sum_{i=1}^n
+\left[
+\frac{D_iY_i}{\hat e_i}
+-
+\frac{(1-D_i)Y_i}{1-\hat e_i}
+\right].
+}
+\]</span></p>
+<p>ATT korral</p>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATT}_{HT}
+=
+\frac{1}{n_1}
+\sum_{i=1}^n
+\left[
+D_iY_i
+-
+(1-D_i)\frac{\hat e_i}{1-\hat e_i}Y_i
+\right].
+}
+\]</span></p>
+<p>ATU korral</p>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATU}_{HT}
+=
+\frac{1}{n_0}
+\sum_{i=1}^n
+\left[
+D_i\frac{1-\hat e_i}{\hat e_i}Y_i
+-
+(1-D_i)Y_i
+\right].
+}
+\]</span></p>
+<p>Horvitz–Thompsoni hinnang on kõige otsesem üldkogumi valemite valimianaloog. Selle nõrk külg on see, et üksikud väga suured kaalud võivad hinnangut tugevasti mõjutada.</p>
+</section>
+</section>
+<section id="alternatiivne-ipw-hinnang-hájeki-normaliseeritud-hinnang" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="alternatiivne-ipw-hinnang-hájeki-normaliseeritud-hinnang"><span class="header-section-number">7.6</span> Alternatiivne IPW-hinnang: Hájeki normaliseeritud hinnang</h2>
+<p>Praktikas kasutatakse sageli normaliseeritud kaale. Selle asemel, et jagada kaalutud summa <span class="math inline">\(n\)</span>, <span class="math inline">\(n_1\)</span> või <span class="math inline">\(n_0\)</span>-ga, jagame iga rühma kaalutud summa <strong>selle rühma kaalude summaga</strong>.</p>
+<section id="ate-1" class="level3">
+<h3 class="anchored" data-anchor-id="ate-1">ATE</h3>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATE}_{H}
+=
+\frac{\sum_i D_iY_i/\hat e_i}
+     {\sum_i D_i/\hat e_i}
+-
+\frac{\sum_i (1-D_i)Y_i/(1-\hat e_i)}
+     {\sum_i (1-D_i)/(1-\hat e_i)}.
+}
+\]</span></p>
+<p>See on lihtsalt kahe kaalutud keskmise erinevus.</p>
+</section>
+<section id="att-1" class="level3">
+<h3 class="anchored" data-anchor-id="att-1">ATT</h3>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATT}_{H}
+=
+\frac{\sum_i D_iY_i}{\sum_i D_i}
+-
+\frac{\sum_i (1-D_i)\dfrac{\hat e_i}{1-\hat e_i}Y_i}
+     {\sum_i (1-D_i)\dfrac{\hat e_i}{1-\hat e_i}}.
+}
+\]</span></p>
+</section>
+<section id="atu-1" class="level3">
+<h3 class="anchored" data-anchor-id="atu-1">ATU</h3>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATU}_{H}
+=
+\frac{\sum_i D_i\dfrac{1-\hat e_i}{\hat e_i}Y_i}
+     {\sum_i D_i\dfrac{1-\hat e_i}{\hat e_i}}
+-
+\frac{\sum_i (1-D_i)Y_i}{\sum_i(1-D_i)}.
+}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Märkus</span>Horvitz–Thompson või Hájek?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Horvitz–Thompsoni kuju on teooriaga kõige otsesemalt seotud. Hájeki hinnang normaliseerib kaalud rühmade sees ning on lõplikus valimis sageli stabiilsem. Suures valimis lähenevad mõlemad samale sihtparameetrile, kui tõenäosusskoori mudel on korrektselt määratud.</p>
+<p>Mõnikord nimetatakse normaliseerimist ka kaalude stabiliseerimiseks. Kitsamas terminoloogias tähendavad <em>stabilized weights</em> siiski kaale, mille lugejas kasutatakse marginaalset osalemistõenäosust, näiteks ATE korral <span class="math inline">\(P(D=1)/e(X)\)</span> osalejatele. Seetõttu kasutame siin selguse huvides terminit <strong>normaliseeritud Hájeki hinnang</strong>.</p>
+</div>
+</div>
+</section>
+<section id="sama-hinnang-kaalutud-regressiooniga" class="level3">
+<h3 class="anchored" data-anchor-id="sama-hinnang-kaalutud-regressiooniga">Sama hinnang kaalutud regressiooniga</h3>
+<p>Kui hindame mudeli</p>
+<p><span class="math display">\[
+Y_i=\alpha+\tau D_i+u_i
+\]</span></p>
+<p>kaalutud vähimruutude meetodil, kasutades ATE-, ATT- või ATU-kaale, siis <span class="math inline">\(\hat\tau\)</span> on vastavate <strong>kaalutud keskmiste erinevus</strong>. Seega annab lihtne kaalutud regressioon sama punktihinnangu kui Hájeki kujul käsitsi arvutatud kaalutud keskmiste erinevus.</p>
+<p>See on mugav arvutusviis, eriti kui soovime kohe kasutada regressiooniväljundit või robustseid standardvigu.</p>
+</section>
+</section>
+<section id="kattuvus-ja-suured-kaalud" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="kattuvus-ja-suured-kaalud"><span class="header-section-number">7.7</span> Kattuvus ja suured kaalud</h2>
+<p>IPW nõrk koht on väike või väga suur tõenäosusskoor.</p>
+<p>ATE puhul</p>
+<p><span class="math display">\[
+w_i=
+\begin{cases}
+1/\hat e_i, &amp; D_i=1,\\
+1/(1-\hat e_i), &amp; D_i=0.
+\end{cases}
+\]</span></p>
+<p>Kui osalejal on <span class="math inline">\(\hat e_i\approx 0\)</span>, võib tema kaal muutuda väga suureks. Kui mitteosalejal on <span class="math inline">\(\hat e_i\approx 1\)</span>, juhtub sama.</p>
+<p>See ei ole ainult tehniline probleem. Suur kaal ütleb sisuliselt, et selle inimese sarnaseid vaatlusi teises rühmas on väga vähe. Me püüame siis hinnata põhjuslikku mõju piirkonnas, kus andmed annavad vähe infot.</p>
+<p>Praktikas kontrollime vähemalt:</p>
+<ol type="1">
+<li>tõenäosusskooride kattuvust osalus- ja võrdlusrühmas;</li>
+<li>kaalude jaotust ja maksimaalseid kaale;</li>
+<li>taustatunnuste tasakaalu pärast kaalumist;</li>
+<li>efektiivset valimi suurust.</li>
+</ol>
+<p>Kaalutud valimi efektiivne suurus on</p>
+<p><span class="math display">\[
+\boxed{
+ESS
+=
+\frac{\left(\sum_i w_i\right)^2}
+     {\sum_i w_i^2}.
+}
+\]</span></p>
+<p>Kui üksikud vaatlused saavad väga suure kaalu, võib <span class="math inline">\(ESS\)</span> olla palju väiksem kui tegelik vaatluste arv.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hoiatus</span>Ära vali tõenäosusskoori mudelit ainult prognoositäpsuse järgi
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>IPW eesmärk ei ole ennustada võimalikult täpselt, kes osaleb. Eesmärk on saada pärast kaalumist hea taustatunnuste tasakaal. Seetõttu tuleb tõenäosusskoori mudelit hinnata ka selle järgi, kas kaalumine tasakaalustab olulised segajad.</p>
+</div>
+</div>
+</section>
+<section id="aipw-kaalumine-koos-regressiooniga" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="aipw-kaalumine-koos-regressiooniga"><span class="header-section-number">7.8</span> AIPW: kaalumine koos regressiooniga</h2>
+<p>IPW kasutab osalemismudelit</p>
+<p><span class="math display">\[
+e(X)=P(D=1\mid X).
+\]</span></p>
+<p>Regressiooniga korrigeerimine (<em>regression adjustment</em>, RA) kasutab omakorda tulemuse mudeleid</p>
+<p><span class="math display">\[
+m_1(X)=E[Y\mid D=1,X]
+\]</span></p>
+<p>ja</p>
+<p><span class="math display">\[
+m_0(X)=E[Y\mid D=0,X].
+\]</span></p>
+<p>AIPW (<em>augmented inverse probability weighting</em>) ühendab mõlemad.</p>
+<p>Järgnevalt keskendume ATE-le. ATT ja ATU jaoks saab konstrueerida analoogsed sihtrühmapõhised topeltrobustsed hinnangud, kuid ATE kuju näitab kõige selgemalt AIPW põhiideed.</p>
+</section>
+<section id="aipw-esimene-kuju-regressiooniprognoos-ipw-ga-kaalutud-jääk" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="aipw-esimene-kuju-regressiooniprognoos-ipw-ga-kaalutud-jääk"><span class="header-section-number">7.9</span> AIPW esimene kuju: regressiooniprognoos + IPW-ga kaalutud jääk</h2>
+<p>Regressiooniga korrigeerimise korral prognoosiksime iga inimese jaoks</p>
+<p><span class="math display">\[
+\hat m_1(X_i)
+\]</span></p>
+<p>ja</p>
+<p><span class="math display">\[
+\hat m_0(X_i)
+\]</span></p>
+<p>ning arvutaksime</p>
+<p><span class="math display">\[
+\widehat{ATE}_{RA}
+=
+\frac{1}{n}\sum_{i=1}^n
+\left[
+\hat m_1(X_i)-\hat m_0(X_i)
+\right].
+\]</span></p>
+<p>AIPW alustab samast prognoosist, kuid <strong>parandab prognoosi seal, kus tegelik tulemus on vaadeldav</strong>.</p>
+<p>Osalemise korral defineerime korrigeeritud potentsiaalse tulemuse</p>
+<p><span class="math display">\[
+\boxed{
+\tilde Y_i(1)
+=
+\hat m_1(X_i)
++
+\frac{D_i}{\hat e_i}
+\left[Y_i-\hat m_1(X_i)\right].
+}
+\]</span></p>
+<p>Mitteosalemise korral</p>
+<p><span class="math display">\[
+\boxed{
+\tilde Y_i(0)
+=
+\hat m_0(X_i)
++
+\frac{1-D_i}{1-\hat e_i}
+\left[Y_i-\hat m_0(X_i)\right].
+}
+\]</span></p>
+<p>Seega</p>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATE}_{AIPW}
+=
+\frac{1}{n}\sum_{i=1}^n
+\left[
+\tilde Y_i(1)-\tilde Y_i(0)
+\right].
+}
+\]</span></p>
+<p>Kirjutades kõik ühe valemina,</p>
+<p><span class="math display">\[
+\boxed{
+\widehat{ATE}_{AIPW}
+=
+\frac{1}{n}\sum_{i=1}^n
+\left\{
+\hat m_1(X_i)-\hat m_0(X_i)
++
+\frac{D_i}{\hat e_i}[Y_i-\hat m_1(X_i)]
+-
+\frac{1-D_i}{1-\hat e_i}[Y_i-\hat m_0(X_i)]
+\right\}.
+}
+\]</span></p>
+<p>Seda kuju on kasulik meelde jätta kui</p>
+<p><span class="math display">\[
+\boxed{
+\text{AIPW}
+=
+\text{regressiooniga prognoositud mõju}
++
+\text{IPW-ga kaalutud prognoosivead}.
+}
+\]</span></p>
+<p>Regressioon annab iga inimese puuduva potentsiaalse tulemuse kohta prognoosi. IPW osa kontrollib seda prognoosi nende inimeste juures, kelle vastav tulemus on tegelikult vaadeldav.</p>
+</section>
+<section id="aipw-teine-kuju-ipw-regressiooniga-parandustermin" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="aipw-teine-kuju-ipw-regressiooniga-parandustermin"><span class="header-section-number">7.10</span> AIPW teine kuju: IPW + regressiooniga parandustermin</h2>
+<p>Sama valemit saab ümber rühmitada nii, et alustame tavalisest IPW-hinnangust:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{ATE}_{AIPW}
+=
+\frac{1}{n}\sum_{i=1}^n
+\Bigg\{
+&amp;\underbrace{
+\frac{D_iY_i}{\hat e_i}
+-
+\frac{(1-D_i)Y_i}{1-\hat e_i}
+}_{\text{IPW}} \\
+&amp;+
+\underbrace{
+\left(1-\frac{D_i}{\hat e_i}\right)\hat m_1(X_i)
+-
+\left(1-\frac{1-D_i}{1-\hat e_i}\right)\hat m_0(X_i)
+}_{\text{regressiooniga parandustermin}}
+\Bigg\}.
+\end{aligned}
+\]</span></p>
+<p>Seega võime AIPW-d vaadata ka kui</p>
+<p><span class="math display">\[
+\boxed{
+\text{AIPW}
+=
+\text{IPW}
++
+\text{regressiooniga parandustermin}.
+}
+\]</span></p>
+<p>Need kaks esitust on algebrailiselt täpselt samad. Esimene kuju on tavaliselt intuitiivsem, kui oleme juba õppinud regressiooniga korrigeerimist. Teine kuju näitab paremini, miks meetodi nimes on sõna <strong>augmented</strong>: tavalisele IPW-le lisatakse tulemusemudelist tulev parandustermin.</p>
+<section id="miks-aipw-on-topeltrobustne" class="level3">
+<h3 class="anchored" data-anchor-id="miks-aipw-on-topeltrobustne">Miks AIPW on topeltrobustne?</h3>
+<p>AIPW oluline omadus on <strong>topeltrobustsus</strong> (<em>double robustness</em>). Lihtsustatult:</p>
+<ul>
+<li>kui osalemismudel <span class="math inline">\(e(X)\)</span> on õigesti määratud, võib tulemusemudel olla valesti määratud;</li>
+<li>kui tulemusemudelid <span class="math inline">\(m_1(X)\)</span> ja <span class="math inline">\(m_0(X)\)</span> on õigesti määratud, võib osalemismudel olla valesti määratud;</li>
+<li>hinnang on endiselt kooskõlaline, kui vähemalt üks neist kahest mudeliosast on korrektne.</li>
+</ul>
+<p>Näiteks kui <span class="math inline">\(e(X)\)</span> on korrektne, siis</p>
+<p><span class="math display">\[
+E\left[
+\hat m_1(X)
++
+\frac{D}{e(X)}(Y-\hat m_1(X))
+\mid X
+\right]
+=
+E[Y(1)\mid X]
+\]</span></p>
+<p>ka siis, kui <span class="math inline">\(\hat m_1(X)\)</span> ise pole õige regressioonifunktsioon.</p>
+<p>Kui aga <span class="math inline">\(m_1(X)\)</span> on korrektne, siis jäägi</p>
+<p><span class="math display">\[
+Y-m_1(X)
+\]</span></p>
+<p>tinglik keskmine on null ja korrigeerimistermini ootus kaob.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hoiatus</span>Topeltrobustne ei tähenda „vigade suhtes immuunne”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>AIPW ei ole korrektne, kui nii osalemismudel kui ka tulemusemudel on valesti määratud. Samuti jääb vajalikuks kattuvuse eeldus: väga väikesed või väga suured <span class="math inline">\(\hat e_i\)</span> võivad AIPW jäägiparanduse muuta väga ebastabiilseks.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="ipw-ja-aipw-praktiline-töövoog" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="ipw-ja-aipw-praktiline-töövoog"><span class="header-section-number">7.11</span> IPW ja AIPW praktiline töövoog</h2>
+<p>Tüüpiline analüüs koosneb järgmistest sammudest:</p>
+<ol type="1">
+<li>vali enne osalemist mõõdetud segajad <span class="math inline">\(X\)</span>;</li>
+<li>hinda osalemise tõenäosus <span class="math inline">\(\hat e(X)\)</span>;</li>
+<li>kontrolli kattuvust;</li>
+<li>moodusta soovitud sihtrühma jaoks ATE-, ATT- või ATU-kaalud;</li>
+<li>kontrolli kaalude jaotust ja taustatunnuste tasakaalu;</li>
+<li>arvuta IPW-hinnang;</li>
+<li>AIPW korral hinda lisaks tulemusemudelid <span class="math inline">\(\hat m_1(X)\)</span> ja <span class="math inline">\(\hat m_0(X)\)</span>;</li>
+<li>arvuta AIPW-hinnang;</li>
+<li>arvuta standardvead või usaldusvahemikud viisil, mis arvestab kogu hindamisprotsessi.</li>
+</ol>
+</section>
+<section id="r-i-näide-eesti-tööturukoolituse-andmed" class="level2" data-number="7.12">
+<h2 data-number="7.12" class="anchored" data-anchor-id="r-i-näide-eesti-tööturukoolituse-andmed"><span class="header-section-number">7.12</span> R-i näide: Eesti tööturukoolituse andmed</h2>
+<p>Jätkame varem kasutatud Eesti tööturukoolituse näitega. Tulemusmuutuja <code>employed</code> näitab, kas inimene oli pärast programmi hõivatud, ning <code>training</code> näitab koolitusel osalemist.</p>
+<section id="paketid-ja-andmed" class="level3">
+<h3 class="anchored" data-anchor-id="paketid-ja-andmed">Paketid ja andmed</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>atp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>atp <span class="ot">&lt;-</span> atp <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(training, employed, male, est, age, age2, educ, emplbefore) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ =</span> <span class="fu">factor</span>(educ))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Kõigepealt vaatame toorest erinevust osalejate ja mitteosalejate vahel.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>atp <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(training) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">employment_rate =</span> <span class="fu">mean</span>(employed),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  training     n employment_rate
+     &lt;int&gt; &lt;int&gt;           &lt;dbl&gt;
+1        0   878           0.590
+2        1   429           0.709</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(atp<span class="sc">$</span>employed[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(atp<span class="sc">$</span>employed[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>])</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1186475</code></pre>
+</div>
+</div>
+<p>See erinevus ei ole veel põhjusliku mõju hinnang, sest koolitusel osalenud ja mitteosalenud võivad erineda taustatunnuste poolest.</p>
+</section>
+<section id="hinda-osalemise-tõenäosus" class="level3">
+<h3 class="anchored" data-anchor-id="hinda-osalemise-tõenäosus">1. Hinda osalemise tõenäosus</h3>
+<p>Hindame logit-mudeli</p>
+<p><span class="math display">\[
+P(D_i=1\mid X_i)=\Lambda(X_i\gamma).
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ps_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  training <span class="sc">~</span> male <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> est <span class="sc">+</span> educ <span class="sc">+</span> emplbefore,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> atp,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>atp<span class="sc">$</span>pscore <span class="ot">&lt;-</span> <span class="fu">predict</span>(ps_model, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(atp<span class="sc">$</span>pscore)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.08677 0.27060 0.31087 0.32823 0.38732 0.57421 </code></pre>
+</div>
+</div>
+<p>Joonistame tõenäosusskooride jaotuse mõlemas rühmas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atp, <span class="fu">aes</span>(<span class="at">x =</span> pscore, <span class="at">fill =</span> <span class="fu">factor</span>(training))) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Hinnatud osalemise tõenäosus"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Tihedus"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Koolitusel"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Tõenäosusskoori kattuvus"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-ipw-aipw_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Otsime eelkõige piirkondi, kus üks rühm praktiliselt puudub. Just seal tekivad väga suured IPW-kaalud.</p>
+</section>
+<section id="moodusta-ate--att--ja-atu-kaalud" class="level3">
+<h3 class="anchored" data-anchor-id="moodusta-ate--att--ja-atu-kaalud">2. Moodusta ATE-, ATT- ja ATU-kaalud</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>atp <span class="ot">&lt;-</span> atp <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ate_w =</span> <span class="fu">if_else</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      training <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      <span class="dv">1</span> <span class="sc">/</span> pscore,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pscore)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">att_w =</span> <span class="fu">if_else</span>(</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      training <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>      <span class="dv">1</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>      pscore <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pscore)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">atu_w =</span> <span class="fu">if_else</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>      training <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">-</span> pscore) <span class="sc">/</span> pscore,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>      <span class="dv">1</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Vaatame, kui suured kaalud tekkisid.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>atp <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ate_max =</span> <span class="fu">max</span>(ate_w),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">att_max =</span> <span class="fu">max</span>(att_w),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">atu_max =</span> <span class="fu">max</span>(atu_w)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   ate_max  att_max  atu_max
+1 6.524299 1.197537 5.524299</code></pre>
+</div>
+</div>
+<p>ATE-kaalude efektiivne valimi suurus on näiteks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ess <span class="ot">&lt;-</span> <span class="cf">function</span>(w) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(w)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(w<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ess</span>(atp<span class="sc">$</span>ate_w)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1104.07</code></pre>
+</div>
+</div>
+<p>Soovi korral saab tasakaalu kontrollida paketiga <code>cobalt</code>, mida kasutasime ka sobitamise juures.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cobalt)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.tab</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  training <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> atp,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> atp<span class="sc">$</span>ate_w,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"weighting"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimand =</span> <span class="st">"ATE"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ipw-hájeki-hinnang" class="level3">
+<h3 class="anchored" data-anchor-id="ipw-hájeki-hinnang">3. IPW: Hájeki hinnang</h3>
+<p>Kirjutame abifunktsiooni kaalutud keskmiste erinevuse jaoks.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ipw_hajek <span class="ot">&lt;-</span> <span class="cf">function</span>(y, d, w) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">weighted.mean</span>(y[d <span class="sc">==</span> <span class="dv">1</span>], w[d <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">weighted.mean</span>(y[d <span class="sc">==</span> <span class="dv">0</span>], w[d <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>ate_ipw_h <span class="ot">&lt;-</span> <span class="fu">ipw_hajek</span>(atp<span class="sc">$</span>employed, atp<span class="sc">$</span>training, atp<span class="sc">$</span>ate_w)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>att_ipw_h <span class="ot">&lt;-</span> <span class="fu">ipw_hajek</span>(atp<span class="sc">$</span>employed, atp<span class="sc">$</span>training, atp<span class="sc">$</span>att_w)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>atu_ipw_h <span class="ot">&lt;-</span> <span class="fu">ipw_hajek</span>(atp<span class="sc">$</span>employed, atp<span class="sc">$</span>training, atp<span class="sc">$</span>atu_w)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ATE =</span> ate_ipw_h,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ATT =</span> att_ipw_h,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ATU =</span> atu_ipw_h</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       ATE        ATT        ATU 
+0.10551899 0.09620311 0.11006912 </code></pre>
+</div>
+</div>
+<p>Selle andmestiku varasemas analüüsis saime ligikaudu</p>
+<p><span class="math display">\[
+\widehat{ATE}_{H}=0.1055,
+\qquad
+\widehat{ATT}_{H}=0.0962,
+\qquad
+\widehat{ATU}_{H}=0.1101.
+\]</span></p>
+<p>Kuna <code>employed</code> on binaarne, võib ATE-d tõlgendada siin ligikaudu <strong>10.6 protsendipunktise erinevusena hõive tõenäosuses</strong> pärast taustatunnuste tasakaalustamist.</p>
+</section>
+<section id="ipw-horvitzthompsoni-hinnang" class="level3">
+<h3 class="anchored" data-anchor-id="ipw-horvitzthompsoni-hinnang">4. IPW: Horvitz–Thompsoni hinnang</h3>
+<p>ATE standardne Horvitz–Thompsoni valem on</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ate_ipw_ht <span class="ot">&lt;-</span> <span class="fu">mean</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  atp<span class="sc">$</span>training <span class="sc">*</span> atp<span class="sc">$</span>employed <span class="sc">/</span> atp<span class="sc">$</span>pscore <span class="sc">-</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">-</span> atp<span class="sc">$</span>training) <span class="sc">*</span> atp<span class="sc">$</span>employed <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> atp<span class="sc">$</span>pscore)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>ate_ipw_ht</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1014682</code></pre>
+</div>
+</div>
+<p>Sama andmestiku varasemas analüüsis oli tulemuseks ligikaudu</p>
+<p><span class="math display">\[
+\widehat{ATE}_{HT}=0.1015.
+\]</span></p>
+<p>See erineb veidi Hájeki hinnangust, sest lõplikus valimis ei summeeru hinnatud pöördkaalud täpselt nii, nagu need summeeruksid ideaalses pseudo-üldkogumis.</p>
+</section>
+<section id="sama-hájeki-hinnang-kaalutud-regressiooniga" class="level3">
+<h3 class="anchored" data-anchor-id="sama-hájeki-hinnang-kaalutud-regressiooniga">5. Sama Hájeki hinnang kaalutud regressiooniga</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ate_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> training, <span class="at">data =</span> atp, <span class="at">weights =</span> ate_w)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>att_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> training, <span class="at">data =</span> atp, <span class="at">weights =</span> att_w)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>atu_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(employed <span class="sc">~</span> training, <span class="at">data =</span> atp, <span class="at">weights =</span> atu_w)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ATE =</span> <span class="fu">coef</span>(ate_reg)[<span class="st">"training"</span>],</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ATT =</span> <span class="fu">coef</span>(att_reg)[<span class="st">"training"</span>],</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ATU =</span> <span class="fu">coef</span>(atu_reg)[<span class="st">"training"</span>]</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ATE.training ATT.training ATU.training 
+  0.10551899   0.09620311   0.11006912 </code></pre>
+</div>
+</div>
+<p>Punktihinnangud langevad kokku eespool arvutatud kaalutud keskmiste erinevustega.</p>
+<p>Robustse standardvea saab näiteks nii:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(ate_reg, <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(ate_reg, <span class="at">type =</span> <span class="st">"HC1"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+            Estimate Std. Error t value  Pr(&gt;|t|)    
+(Intercept) 0.597357   0.016659 35.8576 &lt; 2.2e-16 ***
+training    0.105519   0.028287  3.7303 0.0001994 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hoiatus</span>Standardvead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Lihtne <code>vcovHC()</code> käsitleb kasutatud kaale arvutuses etteantutena. Tegelikult on <span class="math inline">\(\hat e_i\)</span> hinnatud samast valimist. Kui soovime standardvigu, mis arvestavad kogu protseduuri ebakindlust, tuleb kasutada sobivat analüütilist variatsioonivalemit või bootstrap’ida <strong>kogu protseduur</strong>: võtta uus valim, hinnata uuesti tõenäosusskoor, arvutada uuesti kaalud ja seejärel mõju.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="aipw-r-is" class="level2" data-number="7.13">
+<h2 data-number="7.13" class="anchored" data-anchor-id="aipw-r-is"><span class="header-section-number">7.13</span> AIPW R-is</h2>
+<p>Nüüd lisame kaks tulemusemudelit. Jääme õppimise lihtsustamiseks sama lineaarse mudeli juurde, mida oleme selles näites varem kasutanud.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>outcome_model_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">1</span>, ]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>outcome_model_0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  employed <span class="sc">~</span> male <span class="sc">+</span> est <span class="sc">+</span> age <span class="sc">+</span> age2 <span class="sc">+</span> educ <span class="sc">+</span> emplbefore,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> atp[atp<span class="sc">$</span>training <span class="sc">==</span> <span class="dv">0</span>, ]</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>atp <span class="ot">&lt;-</span> atp <span class="sc">|&gt;</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">m1 =</span> <span class="fu">predict</span>(outcome_model_1, <span class="at">newdata =</span> atp),</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">m0 =</span> <span class="fu">predict</span>(outcome_model_0, <span class="at">newdata =</span> atp)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="aipw-viis-1-prognoos-kaalutud-jääk" class="level3">
+<h3 class="anchored" data-anchor-id="aipw-viis-1-prognoos-kaalutud-jääk">AIPW viis 1: prognoos + kaalutud jääk</h3>
+<p>Arvutame iga inimese jaoks korrigeeritud potentsiaalsed tulemused.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>atp <span class="ot">&lt;-</span> atp <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y1_aipw =</span> m1 <span class="sc">+</span> training <span class="sc">/</span> pscore <span class="sc">*</span> (employed <span class="sc">-</span> m1),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y0_aipw =</span> m0 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> training) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pscore) <span class="sc">*</span> (employed <span class="sc">-</span> m0),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">tau_aipw_1 =</span> y1_aipw <span class="sc">-</span> y0_aipw</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>ate_aipw_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>tau_aipw_1)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>ate_aipw_1</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1060233</code></pre>
+</div>
+</div>
+<p>Selle andmestiku varasemas analüüsis saime ligikaudu</p>
+<p><span class="math display">\[
+\widehat{ATE}_{AIPW}=0.1060.
+\]</span></p>
+</section>
+<section id="aipw-viis-2-ipw-parandustermin" class="level3">
+<h3 class="anchored" data-anchor-id="aipw-viis-2-ipw-parandustermin">AIPW viis 2: IPW + parandustermin</h3>
+<p>Arvutame nüüd täpselt sama hinnangu teise valemi abil.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>atp <span class="ot">&lt;-</span> atp <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ipw_part =</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>      training <span class="sc">*</span> employed <span class="sc">/</span> pscore <span class="sc">-</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">-</span> training) <span class="sc">*</span> employed <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pscore),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">augmentation_part =</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">-</span> training <span class="sc">/</span> pscore) <span class="sc">*</span> m1 <span class="sc">-</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> training) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pscore)) <span class="sc">*</span> m0,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">tau_aipw_2 =</span> ipw_part <span class="sc">+</span> augmentation_part</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>ate_aipw_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>tau_aipw_2)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>ate_aipw_2</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1060233</code></pre>
+</div>
+</div>
+<p>Kontrollime, et kaks kuju annavad sama tulemuse.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(ate_aipw_1, ate_aipw_2)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Tulemus peaks olema <code>TRUE</code>.</p>
+</section>
+<section id="aipw-seos-regressiooniga-korrigeerimise-ja-ipw-ga" class="level3">
+<h3 class="anchored" data-anchor-id="aipw-seos-regressiooniga-korrigeerimise-ja-ipw-ga">AIPW seos regressiooniga korrigeerimise ja IPW-ga</h3>
+<p>Võrdluseks arvutame ka puhta regressiooniga korrigeerimise hinnangu.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ate_ra <span class="ot">&lt;-</span> <span class="fu">mean</span>(atp<span class="sc">$</span>m1 <span class="sc">-</span> atp<span class="sc">$</span>m0)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">RA =</span> ate_ra,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">IPW_Hajek =</span> ate_ipw_h,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">IPW_HT =</span> ate_ipw_ht,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">AIPW =</span> ate_aipw_1</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       RA IPW_Hajek    IPW_HT      AIPW 
+0.1059810 0.1055190 0.1014682 0.1060233 </code></pre>
+</div>
+</div>
+<p>Need hinnangud ei pea lõplikus valimis olema täpselt võrdsed. Kui nii osalemismudel kui ka tulemusemudel kirjeldavad andmeid hästi, on nad sageli üsna lähedased.</p>
+</section>
+</section>
+<section id="miks-kasutada-aipw-d" class="level2" data-number="7.14">
+<h2 data-number="7.14" class="anchored" data-anchor-id="miks-kasutada-aipw-d"><span class="header-section-number">7.14</span> Miks kasutada AIPW-d?</h2>
+<p>IPW ja regressiooniga korrigeerimine lahendavad sama identifitseerimisprobleemi erinevalt.</p>
+<p>IPW küsib:</p>
+<blockquote class="blockquote">
+<p>Kui palju peaks iga vaatluse tähtsust muutma, et osalus- ja võrdlusrühm esindaksid sama sihtrühma?</p>
+</blockquote>
+<p>Regressiooniga korrigeerimine küsib:</p>
+<blockquote class="blockquote">
+<p>Milline oleks iga inimese prognoositud tulemus osalemise ja mitteosalemise korral, kui võrrelda inimesi samade <span class="math inline">\(X\)</span> väärtuste juures?</p>
+</blockquote>
+<p>AIPW kasutab mõlemat infot korraga:</p>
+<p><span class="math display">\[
+\text{regressiooniprognoos}
++
+\text{kaalutud parandustermin}.
+\]</span></p>
+<p>See annab AIPW-le topeltrobustsuse ning teeb sellest ühe keskse meetodi tänapäevases põhjuslikus analüüsis. Sama põhimõte ilmub hiljem ka masinõppel põhinevates meetodites, kus <span class="math inline">\(e(X)\)</span> ja <span class="math inline">\(m_d(X)\)</span> võib hinnata paindlike algoritmidega ning kasutada ristvalideerimisega seotud <em>cross-fitting</em>’ut.</p>
+</section>
+<section id="kokkuvõte" class="level2" data-number="7.15">
+<h2 data-number="7.15" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">7.15</span> Kokkuvõte</h2>
+<p>IPW-d võib mõista kui sobitamise loomulikku jätku. Täpse sobitamise korral rühmitame inimesed samade <span class="math inline">\(X\)</span> väärtuste järgi ja anname rühmades vajadusel erinevad kordajad. IPW asendab diskreetsed rühmad osalemise tõenäosusega <span class="math inline">\(e(X)\)</span>.</p>
+<p>Oluline on meeles pidada, <strong>millist sihtrühma tahame esindada</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Hinnang</th>
+<th style="text-align: right;">Osaleja kaal</th>
+<th style="text-align: right;">Mitteosaleja kaal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ATE</td>
+<td style="text-align: right;"><span class="math inline">\(1/e(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/[1-e(X)]\)</span></td>
+</tr>
+<tr class="even">
+<td>ATT</td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(e(X)/[1-e(X)]\)</span></td>
+</tr>
+<tr class="odd">
+<td>ATU</td>
+<td style="text-align: right;"><span class="math inline">\([1-e(X)]/e(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Horvitz–Thompsoni hinnang kasutab kaalutud summasid otsese valimianaloogina. Hájeki hinnang normaliseerib kaalud rühmade sees ja arvutab kaalutud keskmiste erinevuse.</p>
+<p>AIPW lisab IPW-le tulemusemudeli. Seda saab vaadata kahel samaväärsel moel:</p>
+<p><span class="math display">\[
+\boxed{
+\text{AIPW}
+=
+\text{RA}
++
+\text{IPW-ga kaalutud jäägid}
+}
+\]</span></p>
+<p>või</p>
+<p><span class="math display">\[
+\boxed{
+\text{AIPW}
+=
+\text{IPW}
++
+\text{regressiooniga parandustermin}.
+}
+\]</span></p>
+<p>Kõigi nende meetodite puhul jäävad keskseks samad küsimused: kas oleme mõõtnud olulised segajad, kas rühmadel on piisav kattuvus ning kas kaalumine tõepoolest tasakaalustab taustatunnused.</p>
+</section>
+<section id="kontrollküsimused" class="level2" data-number="7.16">
+<h2 data-number="7.16" class="anchored" data-anchor-id="kontrollküsimused"><span class="header-section-number">7.16</span> Kontrollküsimused</h2>
+<ol type="1">
+<li>Miks on ATT korral osalejate kaal 1?</li>
+<li>Miks saab ATT võrdlusrühma kaalu <span class="math inline">\(e(X)/(1-e(X))\)</span> tõlgendada kui täpse sobitamise rühmasuuruste suhet?</li>
+<li>Miks võivad ATE-kaalud olla väga suured, kui <span class="math inline">\(e(X)\)</span> on 0 või 1 lähedal?</li>
+<li>Mis on Horvitz–Thompsoni ja Hájeki hinnangu peamine arvutuslik erinevus?</li>
+<li>Miks ei taga hea osalemise prognoositäpsus tingimata head IPW-hinnangut?</li>
+<li>Millised kaks mudelit AIPW ühendab?</li>
+<li>Mida tähendab AIPW topeltrobustsus?</li>
+<li>Kas AIPW lahendab mõõtmata segajate probleemi? Põhjenda.</li>
+</ol>
+</section>
+<section id="väike-harjutus" class="level2" data-number="7.17">
+<h2 data-number="7.17" class="anchored" data-anchor-id="väike-harjutus"><span class="header-section-number">7.17</span> Väike harjutus</h2>
+<p>Oletame, et pärast tõenäosusskoori hindamist saame järgmised neli vaatlust.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Isik</th>
+<th style="text-align: right;"><span class="math inline">\(D\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(Y\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\hat e(X)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.40</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.60</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.20</td>
+</tr>
+</tbody>
+</table>
+<p>Arvuta:</p>
+<ol type="1">
+<li>ATE-kaal iga vaatluse jaoks;</li>
+<li>ATT-kaal iga vaatluse jaoks;</li>
+<li>ATU-kaal iga vaatluse jaoks;</li>
+<li>Hájeki IPW-hinnang ATE-le;</li>
+<li>milline vaatlus saab ATE puhul kõige suurema kaalu ja miks.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Vihje</span>Lahendus
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>ATE-kaalud on</p>
+<p><span class="math display">\[
+w_i=
+\begin{cases}
+1/\hat e_i, &amp; D_i=1,\\
+1/(1-\hat e_i), &amp; D_i=0.
+\end{cases}
+\]</span></p>
+<p>Seega</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Isik</th>
+<th style="text-align: right;">ATE-kaal</th>
+<th style="text-align: right;">ATT-kaal</th>
+<th style="text-align: right;">ATU-kaal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td style="text-align: right;"><span class="math inline">\(1/0.8=1.25\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.2/0.8=0.25\)</span></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td style="text-align: right;"><span class="math inline">\(1/0.4=2.50\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.6/0.4=1.50\)</span></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td style="text-align: right;"><span class="math inline">\(1/0.4=2.50\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.6/0.4=1.50\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td style="text-align: right;"><span class="math inline">\(1/0.8=1.25\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.2/0.8=0.25\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>ATE Hájeki hinnang:</p>
+<p><span class="math display">\[
+\bar Y_1^w
+=
+\frac{1.25\cdot 10+2.5\cdot 8}{1.25+2.5}
+=8.67,
+\]</span></p>
+<p><span class="math display">\[
+\bar Y_0^w
+=
+\frac{2.5\cdot 6+1.25\cdot 5}{2.5+1.25}
+=5.67.
+\]</span></p>
+<p>Seega</p>
+<p><span class="math display">\[
+\widehat{ATE}_H=8.67-5.67=3.00.
+\]</span></p>
+<p>Kõige suurema ATE-kaalu saavad B ja C. B on osaleja, kelle osalemistõenäosus on suhteliselt väike; C on mitteosaleja, kelle osalemistõenäosus on suhteliselt suur. Mõlemad on oma tegelikus rühmas seega suhteliselt haruldased vaatlused.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-sobitamine.html" class="pagination-link" aria-label="Sobitamine">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sobitamine</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-ivmeetod.html" class="pagination-link" aria-label="Instrumentmuutuja">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
