@@ -1,9 +1,3 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
-
 # Sobitamine
 
 ## Mõistetest
@@ -65,7 +59,14 @@ $$
 
 kus ja $N_0$ on vaatlusrühma vaatluste arv.
 
-### Näide
+Täpse sobitamise tulemusena tekib tavaliselt väike arv $K$ rühmi. Sisuliselt annab täpne sobitamine meile rühmadevaheliste erinevuste kaalutud keskmise. (Vt <https://andresvork.github.io/mojuopik/02-pomate.html#%C3%BClesanne-2.>)
+
+$$
+\hat{\tau}_{ATT}
+= \sum^K_{k = 1} \left[ \left( \bar{Y}^{1, k} - \bar{Y}^{0, k} \right)\frac{N^k_1}{N_1} \right]
+$$ kus $\bar{Y}^{1, k}$ ja $\bar{Y}^{0, k}$ on osalusrühma ja võrdlusrühma vaatluste keskmised väärtused rühmas $k$. $N^k_1$ on osalusrühma vaatluste arv rühmas $k$. ATU leidmisel muutuvad vaid osakaalud, peame kasutama vastavalt $N^k_0$ ja $N_0$.
+
+### Täpse sobitamise näide
 
 Vaatleme viit inimest. Meetmes osalesid A ja C.
 
@@ -126,14 +127,18 @@ $$
 \vdots & \vdots & \ddots & \vdots \\
 \operatorname{Cov}(X_k,X_1) & \operatorname{Cov}(X_k,X_2) & \cdots & \operatorname{Var}(X_k)
 \end{pmatrix}
-$$ $X_k$ on siis k-nda tunnuse vektor, nt vanus. $\operatorname{Var}(X_k)$ on k-nda tunnuse dispersioon ja $\operatorname{Cov}(X_l,X_k)$ on kovariatsioon kahe tunnuse vahel.
+$$
+
+$X_k$ on siis k-nda tunnuse vektor, nt vanus. $\operatorname{Var}(X_k)$ on k-nda tunnuse dispersioon ja $\operatorname{Cov}(X_l,X_k)$ on kovariatsioon kahe tunnuse vahel.
 
 Mahalanobise kaugus on defineeritud kui:
 
 $$
 d_M(i, j)
   = \sqrt{ (X_i - X_j)^{\top} \Sigma^{-1} (X_i - X_j) }.
-$$ Pangem tähele, et kui $\Sigma$ on ühikmaatriks (ehk sisuliselt puudub ülal valemist), siis on tegemist eukleidilise kaugusega (ehk kooliajast tuttava punktide vahelise kauguse arvutamise valemiga). Eukleidiline kaugus käsitleb aga kõiki tunnuseid sama kaaluga ja eeldab, et tunnused on võrreldavad skaalas. See aga ei ole praktiline, sest näiteks sugu või sissetulek on väga erineva skaalaga.
+$$
+
+Pangem tähele, et kui $\Sigma$ on ühikmaatriks (ehk sisuliselt puudub ülal valemist), siis on tegemist eukleidilise kaugusega (ehk kooliajast tuttava punktide vahelise kauguse arvutamise valemiga). Eukleidiline kaugus käsitleb aga kõiki tunnuseid sama kaaluga ja eeldab, et tunnused on võrreldavad skaalas. See aga ei ole praktiline, sest näiteks sugu või sissetulek on väga erineva skaalaga.
 
 Mahalanobise kaugus standardiseerib tunnused vastavalt nende dispersioonile ja arvestab samal ajal ka korrelatsioone tunnuste vahel (kovariatsioonimaatriksi kaudu). See on oluline, sest majandustunnused on sageli positiivselt seotud ja me ei sooviks sarnast asja näitavaid tunnuseid võtta topeltkaaluga.
 
@@ -151,11 +156,11 @@ $$
 
 Rosenbaum ja Rubin (*lisada viide*) näitasid, et kui CIA kehtib $X$ suhtes ja lisaks on ühine tugi (st iga $X$ korral esineb nii osalejaid kui meetmes mitteosalejaid), siis kehtib CIA ka tõenäosusskoori suhtes:
 
-\$\$ (Y\^0_i, Y\^1_i) \perp D_i \mid X_i \text{  ja   } 0 \< \Pr(D_i = 1 \mid X_i) \<1 \\
-
+$$
+(Y^0_i, Y^1_i) \perp D_i \mid X_i \text{  ja   } 0< Pr(D_i = 1 \mid X_i) <1 \\
 =\> \\
-
-(Y\^0_i, Y\^1_i) \perp D_i \mid p(X_i) \$\$
+(Y^0_i, Y^1_i) \perp D_i \mid p(X_i)
+$$
 
 See tähendab, et kui sobitame inimesi ainult tõenäosusskoori $p(X)$ alusel, siis tasakaalustame ka kõik $X$-id, mida kasutati p-skoori hindamisel (eeldusel, et mudel on sobiv).
 
@@ -176,6 +181,34 @@ Tõenäosusskoori alusel sobitamisel ei mõõdeta enam kaugust otse $X$-i ruumis
 - võimalik on tagasipanekuga (lubame ühel võrdlusgrupi vaatlusel olla sobitatud korduvalt) või tagasipanekuta sobitamine.
 
 Sobitamine tõenäosusskoori on kiirem kui sobitamine mitmemõõtmelise $X$ alusel, sest peame vaid vaatme ühte arvu $p(X)$. Samas muutub oluliseks, kui hästi on p-skoori hindamisel mudel spetsifitseeritud; halb mudel tähendab halba tasakaalu. Seetõttu on oluline peale sobitamist alati kontrollida osalus- ja võrdlusgrupi sarnasust.
+
+### Näide
+
+Oletame, et oleme hinnanud iga inimese tõenäosuse meetmes osaleda ehk propensity score'i $\hat p(X)$. Leia igale meetmes osalejale 1 lähim ja 2 lähimat võrdlusrühma isikut tõenäosuskoori alusel ning arvuta mõlemal juhul ATT.
+
+**Osalusrühm**
+
+| Isik | $\hat{p(X)}$ | Palk (Y) | Võrdlusgrupi palk kui 1 lähim naaber | Võrdlusgrupi palk kui 2 lähimat naabrit |
+|:--:|---:|---:|:---|----|
+| Anna | 0.81 | 1500 |  |  |
+| Berta | 0.73 | 1700 |  |  |
+| Caesar | 0.64 | 2400 |  |  |
+| Dora | 0.46 | 2100 |  |  |
+|  |  |  | ATT = | ATT = |
+
+**Võrdlusrühm**
+
+|   Isik    | $\hat{p(X)}$ | Palk (Y) |
+|:---------:|-------------:|---------:|
+|   Elmar   |         0.78 |     1600 |
+| Friedrich |         0.70 |     1400 |
+|   Georg   |         0.60 |     1900 |
+|  Harald   |         0.51 |     1000 |
+|   Ilmar   |         0.40 |     1700 |
+
+Leia igale meetmes osalejale 1 või 2 sarnaseimat võrdlusisikut ning arvuta ATT.
+
+Lahendus on toodud faili lõpus.
 
 ### Tasakaalu kontroll ja edasine modelleerimine
 
@@ -245,7 +278,6 @@ Selle tagamiseks kasutatakse:
 
 Ühise toe tagamine võib tähendada, et me ei saa kasutada kõiki vaatlusi osalusrühmast, mis võib tähendada, et peame ümber defineerima poliitikameetme, mille mõju hindame. Näiteks, kui meil tööturukoolituse saajate seas on inimesed, kes töötasid eelnevalt põlevkivi sektoris, aga võrdlusrühmas kedagi sellist ei ole, siis ei saa seda meetme seda osa hinnata.
 
-
 ### Soovitusi
 
 Sobitamine on paindlik meetod segajate $X$ mõju arvesse võtmiseks. Võrreldes regressioonimudeliga on sobitamine paindlikum meetod ja sobib paremini kui osalusrühm on palju väikesem kui võrdlusrühm.
@@ -260,8 +292,6 @@ Sobitamise meetodil saadud hinnangutesse jääb alati nihe, sest jäävad erinev
 4)  kontrolli, et sobitamine on täpsem just nende tunnuste osas, millel on uuritavale tunnusele $Y$ suurem mõju; (nt kui töökogemusel on palgale suurem mõju kui haridusel, siis peaks just töökogemus olema täpsemini sobitatud kui haridus);
 5)  kasuta täiendavaid kohandamismeetodeid peale sobitamist (*double robust method*), et elimineerida allesjäänud $X$-de erinevuste mõju väljundmuutujale.
 6)  Abadie, Imbens (2006, 2012) pakuvad standardvead hinnangutele, mis sobitavad $X$-i alusel; Abadie, Imbens (2016) pakuvad standardvead hinnangutele, mis sobitavad hinnatud tõenäosuse $p(X)$ alusel; Abadie sõnul bootstrapping ei tööta üldjuhul.
-
-
 
 ## Näide Eesti tööpoliitikast
 
@@ -302,13 +332,14 @@ Andmed on anonümiseeritud andmed uuringust Leetmaa, R., Võrk, A., Eamets, R., 
 
 ```{r}
 atp <- read.csv("http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv")
-summary(atp)
+stargazer(atp, type = "text")
+
 ```
 
 Failis on toodud järgmised andmed:
 
 | Muutuja | Selgitus |
-|---------------------|---------------------------------------------------|
+|----|----|
 | id | Inimese id |
 | training | Tunnus kas sai tööturukoolitust või ei 2000. aasta esimeses pooles |
 | training1 | osalusrühm tingimisel, et ei nõutud tõendit hilisema töö saamise kohta - kellelt nõuti, neil puuduv väärtus |
@@ -457,7 +488,6 @@ N_0   & = \text{kokku võrdlusvaatlusi andmetes.}
 \end{align*}
 $$
 
-
 Matched ESS on omakorda arvutatav järgmise suhtena:
 
 $$
@@ -495,7 +525,6 @@ Vastake küsimustele
 - Kuhu gruppi kuulub kõige rohkem osalusvaatlusi?
 - Kuidas leida, mis selgitava tunnuse väärtused selles grupis on?
 
-
 ### Mõju hindamine sobitatud andmetes
 
 Kui andmed on olemas, siis hindame mõju regressioonimudeliga kasutades sobitamisega saadud kaale vaatlustele.
@@ -509,7 +538,7 @@ summary(mudel1)
 
 ```
 
-Standardivgade leidmiseks on soovitatud kasutada klasterdatud standarvigu kihi järgi. 
+Standardvigade leidmiseks on soovitatud kasutada klasterdatud standardvigu kihi järgi.
 
 ```{r}
 #Soovitatakse kasutada standardvigu, mis arvestavad, et vaatlused ei ole sõltumatud ühes 
@@ -520,8 +549,7 @@ coeftest(mudel1, vcov. = vcovCL, cluster = ~subclass)
 
 ```
 
-Kui suur on koolituse mõju palgale?
-Koolituses osalejate palk on ligikaudu 281 eurot suurem ja see on ka statistiliselt oluline.
+Kui suur on koolituse mõju palgale? Koolituses osalejate palk on ligikaudu 281 eurot suurem ja see on ka statistiliselt oluline.
 
 Hnnakem sobitatud andmetel ka lineaarne tõenäosusmudel, kus väljundiks on töötamine.
 
@@ -533,7 +561,6 @@ coeftest(mudel1b, vcov. = vcovCL, cluster = ~subclass)
 ```
 
 Mis on mõju töötamise tõenäosusele?
-
 
 ### Kui täpselt enam ei saa sobitada
 
@@ -618,7 +645,6 @@ Katkendjooned esindavad piire, mille sees loetakse tasakaalu vastuvõetavaks. Ku
 
 Meie tulemuste puhul näib sobitamine olevat tasakaalu parandanud, eriti vanuse osas, kuid hariduse osas võib veel olla mõningaid tasakaalustamatuse märke (mõned punktid on "Matched" veerus `educ` muutuja puhul diagonaalist kaugemal).
 
-
 ### Mõju hindamine sobitatud andmetel
 
 Võtame sobitatud andmed taas välja eraldi objektiks.
@@ -627,7 +653,6 @@ Võtame sobitatud andmed taas välja eraldi objektiks.
 mnnsobitandmed <- match.data(mnnsobit)
 
 ```
-
 
 Kui sobitatud andmed koos kaaludega on leitud, siis hindame sobitatud andmetel mõju lineaarse mudeliga palgale ja töötamise tõenäosusele.
 
@@ -641,9 +666,7 @@ coeftest(mudel2, vcov. = vcovHC)    # robustsed standarvead
 
 ```
 
-Küsimus: mis on mõju palgale punkthinnang? Kas see on statistiliselt oluline?
-Kas mõju hinnang suurenes või vähenes võrreldes täpse sobitamisega?
-
+Küsimus: mis on mõju palgale punkthinnang? Kas see on statistiliselt oluline? Kas mõju hinnang suurenes või vähenes võrreldes täpse sobitamisega?
 
 Leidke iseseisvalt, kui suur on koolituse mõju hilisemale töötamise tõenäosusele?
 
@@ -696,17 +719,17 @@ osalemismudellogit <- glm(training ~ male + age + est  + emplbefore + educ,
                   family=binomial(link="logit"), data=atp)
 ```
 
-Meeldetuletuseks, logistilise mudeli puhul saame tõlgendada kordajaid, šansside suhet või marginaalseid efekte.
-Meid tegelikult praegu logit-mudelist osamõjud nii väga ei huvita, kasutame seda vaid tasakaalustamaks osalus- ja võrdlusrühma. 
+Meeldetuletuseks, logistilise mudeli puhul saame tõlgendada kordajaid, šansside suhet või marginaalseid efekte. Meid tegelikult praegu logit-mudelist osamõjud nii väga ei huvita, kasutame seda vaid tasakaalustamaks osalus- ja võrdlusrühma.
 
 **Kordajad** - saame tõlgendada märki. Positiivne märk näitab, et see muutuja suurendab tõenäosust meetmes osaleda.
 
 ```{r}
 summary(osalemismudellogit)
 ```
+
 Näiteks on vanematel inimestel väiksem tõenäosus osaleda meetmes. Eestlastel ja kõrgema haridusega inimestel on suurem tõenäosus osaleda meetmes.
 
-**Keskmised marginaalsed efektid**  - saame tõlgendada mõju suurust. Kui palju suureneb tõenäosus meetmes osaleda, kui selgitav tunnus suureneb ühe ühiku võrra.
+**Keskmised marginaalsed efektid** - saame tõlgendada mõju suurust. Kui palju suureneb tõenäosus meetmes osaleda, kui selgitav tunnus suureneb ühe ühiku võrra.
 
 ```{r}
 avg_comparisons(osalemismudellogit, vcov = "HC1")
@@ -723,7 +746,7 @@ Teha:
 - tõlgendage muutujate "educ" ja "male" mõju.
 - Kas mõlemad on statistiliselt olulised?
 
-(avg_comparisons väljundtabelis on veerus S Shannon information, mis võrdub $S = -\log_2(p)$ ehk näitab mitu korda järjest taolise p-väärtusega võiks tulla mündil kiri. Seda kasutatakse iseloomustamaks sündmuse tõenäosust, küll mitte sageli majandusteadustes.)
+(avg_comparisons väljundtabelis on veerus "S" Shannon information, mis võrdub $S = -\log_2(p)$. Seda kasutatakse iseloomustamaks sündmuse tõenäosust, küll mitte majandusteadustes. Mida suurem on see arv, seda parem. Võib ka tõlgendada nii, et tõenäosus saada juhuslikult p = 0.05 on sama väärne, kui 4.32 korda tuleks mündi viskamisel kiri. $4.32 = -log_2(0.05)$)
 
 Logit-mudelist leiame nüüd prognoositud tõenäosused kõigi inimeste jaoks ja nende alusel leitakse osalusrühmale sarnaseim võrdlusrühm.
 
@@ -763,8 +786,8 @@ mudel3 <- lm(employed  ~  training, data = mpsm0andmed, weights = weights)
 summary(mudel3)
 
 ```
-Näeme, et koolituses osalemine suurendab töötamise tõenäosust ca 7.2 protsendipunkti.
 
+Näeme, et koolituses osalemine suurendab töötamise tõenäosust ca 7.2 protsendipunkti.
 
 Alternatiivne võimalus on hinnata logit-mudel kohe käsu matchit sees.
 
@@ -789,7 +812,6 @@ plot(summary(mpsm))
 
 Mis tunnus on kõige rohkem tasakaalust väljas? (Kus on Std. Mean Diff. kõige erinevam nullist?)
 
-
 Võime vaadata ka tõenäosuste jaotust osalus- ja võrdlusrühmas.
 
 ```{r}
@@ -813,7 +835,7 @@ mdatapsm <- match.data(mpsm)
   
 ```
 
-Ja tulemused regressioonimudeliga. 
+Ja tulemused regressioonimudeliga.
 
 ```{r}
 mudel3 <- lm(employed  ~  training, data = mdatapsm, weights = weights)
@@ -835,4 +857,103 @@ summary(mudel3X)
 
 Tõlgendamine on tavapärane. Meetmes osalemine suurendab hilisemat töötamise tõenäosust 7.2 protsendipunkti.
 
+## Tekstülesande vastus
 
+Ülal oli esitatud tekstülesanne.
+
+Ühe lähima naabri korral kasutame võrdlusisikut, kelle tõenäosusskoor on osalejale kõige lähemal. Kahe lähima naabri korral kasutame kahe kõige lähedasema võrdlusisiku keskmist palka.
+
+| Isik | $\hat{p}(X)$ | Palk $Y$ | Võrdlusgrupi palk: 1 lähim naaber | Võrdlusgrupi palk: 2 lähimat naabrit |
+|:--:|---:|---:|---:|---:|
+| Anna | 0.81 | 1500 | 1600 (Elmar) | (1600+1400)/2=1500 |
+| Berta | 0.73 | 1700 | 1400 (Friedrich) | (1400+1600)/2=1500 |
+| Caesar | 0.64 | 2400 | 1900 (Georg) | (1900+1400)/2=1650 |
+| Dora | 0.46 | 2100 | 1000 (Harald) | (1000+1700)/2=1350 |
+|  |  |  | **ATT = 450** | **ATT = 425** |
+
+**Üks lähim naaber**
+
+Iga osaleja hinnatud individuaalne mõju on osaleja palga ja talle sobitatud võrdlusisiku palga vahe:
+
+$$
+\begin{aligned}
+\hat{\tau}_{Anna} &= 1500-1600=-100,\\
+\hat{\tau}_{Berta} &= 1700-1400=300,\\
+\hat{\tau}_{Caesar} &= 2400-1900=500,\\
+\hat{\tau}_{Dora} &= 2100-1000=1100.
+\end{aligned}
+$$
+
+ATT on nende mõjude keskmine:
+
+$$
+\begin{aligned}
+\widehat{ATT}_{1NN}
+&=
+\frac{1}{4}
+\left[
+(1500-1600)
++(1700-1400)
++(2400-1900)
++(2100-1000)
+\right] \\
+&=
+\frac{-100+300+500+1100}{4} \\
+&=
+450
+\end{aligned}
+$$
+
+**Kaks lähimat naabrit**
+
+Kahe lähima naabri korral hinnatakse iga osaleja jaoks võrdlusseisundi palk kahe talle kõige sarnasema võrdlusisiku keskmise palgana.
+
+$$
+\begin{aligned}
+\hat{\tau}_{Anna}
+&=
+1500-\frac{1600+1400}{2}
+=0,\\
+\hat{\tau}_{Berta}
+&=
+1700-\frac{1400+1600}{2}
+=200,\\
+\hat{\tau}_{Caesar}
+&=
+2400-\frac{1900+1400}{2}
+=750,\\
+\hat{\tau}_{Dora}
+&=
+2100-\frac{1000+1700}{2}
+=750.
+\end{aligned}
+$$
+
+Seega
+
+$$
+\begin{aligned}
+\widehat{ATT}_{2NN}
+&=
+\frac{1}{4}
+\left[
+0+200+750+750
+\right] \\
+&=
+425
+\end{aligned}
+$$
+
+Seega saame
+
+$$
+\widehat{ATT}_{1NN}=450
+$$
+
+ja
+
+$$
+\widehat{ATT}_{2NN}=425
+$$
+
+Tulemused erinevad, sest kahe lähima naabri kasutamisel moodustatakse iga osaleja võrdlusseisundi tulemus kahe võrdlusisiku keskmise põhjal. Praktilises töös sageli esitamegi tulemused näiteks 1, 2 ja 3 lähima naabriga ja võrdleme tulemusi.

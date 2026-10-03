@@ -1,7 +1,8 @@
-
 # Sünteetilise võrdlusobjekti meetod
 
 Synthetic control method (SCM)
+
+Poolik - arenev
 
 ## Taust
 
@@ -322,9 +323,9 @@ print(synth.tables)
 
 ```
 
--   tab.pred annab ennustajate väärtused käsitletud üksuse ja sünteetilise kontrolli jaoks, koos valimi keskmisega.
--   tab.v annab selgitavate muutujate kaalud.
--   tab.w annab piirkondade kaalud.
+- tab.pred annab ennustajate väärtused käsitletud üksuse ja sünteetilise kontrolli jaoks, koos valimi keskmisega.
+- tab.v annab selgitavate muutujate kaalud.
+- tab.w annab piirkondade kaalud.
 
 Pane tähele, et tab.loss sisaldab kahte väärtust:
 

@@ -1,45 +1,46 @@
 # Regressiooni katkemise meetod
 
-Poolik - arenev
-
 ## Mudeli seade
 
-
-Regressiooni katkemise disain (Regression Discontinuity Design, RDD) on kvaasieksperimentaalne meetod põhjusliku mõju hindamiseks, kui osalemine programmis või meetmes sõltub mõnest pidevast tunnusest (nt vanus, sissetulek, hinne) ja selgelt määratletud lõikepunktist.:contentReference[oaicite:0]{index=0}
+Regressiooni katkemise disain (Regression Discontinuity Design, RDD), tõlgitud ka kui "tükati pidev regressioon", on kvaasieksperimentaalne meetod põhjusliku mõju hindamiseks, kui osalemine meetmes sõltub mõnest pidevast tunnusest (nt vanus, sissetulek, hinne) ja selgelt määratletud lõikepunktist.
 
 Tüüpilised näited:
 
-- pensioniõigus alates vanusest 63 või 65  
-- tasuta hambaravi kuni 19. eluaastani  
-- toetus, kui käive langeb rohkem kui 30%  
-- stipendium, kui hinne ületab 4,5  
+- täispensionile õigus alates vanusest 65
+- tasuta hambaravi kuni 19. eluaastani
+- toetus ettevõtetele COVID-19 ajal, kui käive langeb rohkem kui 30%
+- stipendium, kui hinne ületab 4,5
 
-Oluline mõte: me ei saa leida täpselt samasugust osalus- ja võrdlusrühma (puudub ühine tugi, *common support*), kuid saame võrrelda **väga lähedal lõikepunktile** olevaid isikuid: nt 64 vs 65 aastat, hinne 4,4 vs 4,6.
+Antud disaini puhul me ei saa leida täpselt samasugust osalus- ja võrdlusrühma, sest meetmesse on sisse kirjutatud, et puudub ühine tugi (*common support*), kuid saame võrrelda **väga lähedal lõikepunktile** olevaid isikuid.
+
+Näiteks võrdleme täispensioni saamise mõju hindamiseks töötundidele inimesi vanuses 64 ja 66 aastat; võrdleme tasuta hambaravi mõju hindamiseks hambaarsti külastustele noori vanuses 18 ja 20; võrdleme stipendiumi mõju hindamiseks hilisemale töötasule üliõpilasi keskmise hindega 4,4 a 4,6.
+
+Me eeldame vaikimisi, et kui inimesed on sarnased jälgitava tunnuse osas (nt vanus, keskmine hinne), siis nad on sarnased ka mittejälgitavate tunnuste osas.
 
 ### Tähistused
 
 Olgu:
 
-- $(Y_i(1)$ – isiku $i$ potentsiaalne tulemus, kui ta osaleb programmis (D=1)  
-- $(Y_i(0)$ – potentsiaalne tulemus, kui ta ei osale (D=0)  
-- $D_i \in \{0,1\}$ – tegelik osalemine meetmes  
-- $X_i$ – määramismuuttuja (vanus, hinne, sissetulek), mis määrab abikõlblikkuse  
-- $c$ – lõikepunkt, lävend (cutoff)
+- $Y^1_i$ – isiku $i$ potentsiaalne tulemus, kui ta osaleks meetmes (D=1)
+- $Y^0_i$ – potentsiaalne tulemus, kui ta ei osaleks meetmes (D=0)
+- $D_i \in \{0,1\}$ – tegelik osalemine meetmes
+- $X_i$ – muutuja, mis määrab meetmes osalemise (vanus, hinne, sissetulek)
+- $c$ – lõikepunkt, lävend (*cutoff*)
 
 Vaatleme tinglikke keskmisi:
 
 $$
-m_1(x) = \mathbb{E}[Y_i(1)\mid X_i = x], \quad
-m_0(x) = \mathbb{E}[Y_i(0)\mid X_i = x].
+m_1(x) = \mathbb{E}[Y^1_i\mid X_i = x], \quad
+m_0(x) = \mathbb{E}[Y^0_i\mid X_i = x].
 $$
 
 RD meetod põhineb ideel, et vahetult lõikepunkti ümbruses on isikud “peaaegu juhuslikult” jaotatud.
 
-### Järsk (sharp) disain
+### Järsk disain
 
 Määramistingimus
 
-**Järsk disain** (*sharp design*) tähendab, et määramismuutuja $X_i$ ja lõikepunkt $c$ määravad osalemise deterministlikult:
+Järsk disain (*sharp design*) tähendab, et määramismuutuja $X_i$ ja lõikepunkt $c$ määravad osalemise deterministlikult:
 
 $$
 D_i = \mathbf{1}(X_i \ge c),
@@ -47,16 +48,18 @@ $$
 
 kus $\mathbf{1}(\cdot)$ on indikaatorfunktsioon.
 
-- Kui $X_i \ge c$, siis kõik osalevad: $D_i = 1$  
+- Kui $X_i \ge c$, siis kõik osalevad: $D_i = 1$
 - Kui $X_i < c$, siis keegi ei osale: $D_i = 0$
 
-Te gelikult vaatleme täheldatud tulemust
+Näiteks tasuta hambaravi saab vaid siis kui laps on täpselt alla 19. aastane. Ja nii kui on üle 19, siis hakkab maksma.
+
+Tegelikult vaatleme tulemust
 
 $$
-Y_i = D_i Y_i(1) + (1-D_i)Y_i(0).
+Y_i = D_i Y^1_i + (1-D_i)Y^0_i
 $$
 
-### Mõju hindamise valem (sharp RDD)
+### Mõju hindamise teoreetiline valem
 
 RDD põhiobjekt on **lokaalne keskmine mõju** lõikepunktis:
 
@@ -65,35 +68,614 @@ $$
             - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x].
 $$
 
-Sõnades:  
-– võtame tingliku keskmise väljundi vahetult lõikepunktist **paremal** (abikõlblikud)  
-– lahutame sellest tingliku keskmise väljundi vahetult lõikepunktist **vasakul** (mitteabikõlblikud).
+Sõnades:\
+– võtame tingliku keskmise väljundi vahetult lõikepunktist **paremal** (abikõlblikud) (st *x* läheneb lõikepunktile ülalt)\
+– lahutame sellest tingliku keskmise väljundi vahetult lõikepunktist **vasakul** (mitteabikõlblikud) (st x läheneb lõikepunktile alt).
 
-Kui pidevuse eeldus (vt allpool) kehtib, siis see vahe identifitseerib:
+Kui pidevuse eeldus (vt allpool) kehtib, siis see vahe identifitseerib mõju:
 
 $$
-\tau^{SRD} = \mathbb{E}\big[Y_i(1) - Y_i(0) \,\big|\, X_i = c\big],
+\tau^{SRD} = \mathbb{E}\big[Y^1_i - Y^0_i \big| X_i = c\big]
 $$
 
-ehk **lokaalse ATE** – *Local Average Treatment Effect* lõikepunkti juures (LATE).
+ehk lokaalse ATE – *Local Average Treatment Effect* lõikepunkti juures, sellist kohalikku hinnangut tähistame lühendiga LATE. (SRD - sharp regression design)
 
-### Hägus (fuzzy) disain
+## Mõju empiiriline hindamine järsku disaini korral
 
- Määramistingimus
+### Keskmiste võrdlemine lõikepunkti lähedal
+
+Kõige lihtsam viis RDD ideed rakendada on võtta lõikepunkti ümber kitsas aken ja võrrelda tulemuse $Y$ keskmisi väärtusi vahetult ülal- ja allpool lõikepunkti.
+
+Olgu akna laius $u$. Siis võime hinnata mõju:
+
+$$
+\hat{\tau}(u)
+=
+E(Y_i \mid c_0 \leq X_i < c_0+u)
+-
+E(Y_i \mid c_0-u < X_i < c_0).
+$$
+
+Valimis vastab sellele kahe keskmise erinevus:
+
+$$
+\hat{\tau}(u)
+=
+\overline{Y}_{c_0 \leq X<c_0+u}
+-
+\overline{Y}_{c_0-u<X<c_0}.
+$$
+
+Näiteks kui täispensioni saavad inimesed, kelle vanus on vähemalt 65 aastat, võime võrrelda inimesi vahemikes 60--64 ja 65--69. Või kui stipendiumi saab tudeng keskmisega hindega 4.6, siis võrdleme tudengeid hinnetega 4.4-4.5 ja 4.6-4.7.
+
+Selle meetodi keskne küsimus on: **Kui lähedal lõikepunktile on piisavalt lähedal?**
+
+Kui valime väga väikese $u$, on võrreldavad inimesed tõenäoliselt väga sarnased, kuid vaatlusi jääb vähe ja hinnang muutub ebatäpseks.
+
+Kui valime suure $u$, saame rohkem vaatlusi ja täpsema hinnangu, kuid riskime sellega, et lõikepunktist kaugemal olevad inimesed ei ole enam hästi võrreldavad.
+
+Seega tekib tüüpiline **nihke ja dispersiooni kompromiss** (*bias--variance trade-off*).
+
+Lisaks võib lihtne keskmiste erinevus olla eksitav, kui $X$ ja $Y$ vahel on juba ilma meetmeta tugev seos. Näiteks võib kõrgemas vanuses olla töötunnid madalamad sõltumata pensionisaamisest või suurema keskmisega hindega tudengil olla ka suurem hilisem palk sõltumata sellest, kas ta stipendiumi sai.
+
+Seetõttu modelleeritakse praktikas tavaliselt ka seost $X$ ja $Y$ vahel.
+
+### Regressioonimudel: sama funktsionaalne seos mõlemal pool lõikepunkti
+
+Kõige lihtsam regressioonimudel eeldab lineaarset seost $X$ ja $Y$ vahel ning lubab lõikepunktis tasemehüpet.
+
+Kõigepealt tsentreerime jooksva tunnuse lõikepunkti suhtes:
+
+$$
+\widetilde X_i = X_i-c_0.
+$$
+
+Seega on lõikepunktis $\widetilde X_i=0.$
+
+Hindame mudeli
+
+$$
+Y_i
+=
+\alpha
++
+\beta \widetilde X_i
++
+\delta D_i
++
+\varepsilon_i.
+$$
+
+Parameeter $\delta$ mõõdab hüpet regressioonijoones täpselt lõikepunktis ja on seetõttu RDD mõju hinnang.
+
+Mudelis eeldame, et regressioonijoone tõus on mõlemal pool lõikepunkti sama:
+
+- allpool lõikepunkti: $\alpha+\beta\widetilde X_i$;
+- ülevalpool lõikepunkti: $\alpha+\delta+\beta\widetilde X_i$.
+
+Meetme mõju on seega kahe paralleelse regressioonijoone vertikaalne vahe.
+
+**Polünoomne seos**
+
+Seos $X$ ja $Y$ vahel ei pea olema lineaarne. Võime kasutada ka polünoomi:
+
+$$
+Y_i
+=
+\alpha
++
+\beta_1\widetilde X_i
++
+\beta_2\widetilde X_i^2
++
+\cdots
++
+\beta_p\widetilde X_i^p
++
+\delta D_i
++
+\varepsilon_i.
+$$
+
+Näiteks ruutpolünoomi korral:
+
+$$
+Y_i
+=
+\alpha
++
+\beta_1\widetilde X_i
++
+\beta_2\widetilde X_i^2
++
+\delta D_i
++
+\varepsilon_i.
+$$
+
+Polünoom võimaldab kirjeldada mittelineaarset seost $X$ ja $Y$ vahel.
+
+Samas ei ole kõrge järgu polünoomide kasutamine RDD-s üldjuhul soovitatav. Kõrge järgu polünoom võib hakata üksikuid vaatlusi liiga täpselt järgima, eriti jaotuse otstes, ning anda lõikepunktis ebastabiilse tulemuse.
+
+Praktikas kasutatakse eelkõige **esimese või teise järgu lokaalseid polünoome**.
+
+### Lubame seosel olla lõikepunkti eri pooltel erinev
+
+Eelmine mudel eeldas, et funktsiooni kuju on mõlemal pool lõikepunkti sama. See võib olla liiga piirav.
+
+Näiteks võib $X$ mõju tulemusele $Y$ olla meetmes osalejate ja mitteosalejate hulgas erinev.
+
+Lineaarse mudeli korral saame lubada erinevaid tõuse, lisades interaktsiooni:
+
+$$
+Y_i
+=
+\alpha
++
+\beta_0\widetilde X_i
++
+\delta D_i
++
+\beta_1^*D_i\widetilde X_i
++
+\varepsilon_i.
+$$
+
+Allpool lõikepunkti, kus $D_i=0$, on regressioonijoon
+
+$$
+E(Y_i\mid X_i)
+=
+\alpha+\beta_0\widetilde X_i.
+$$
+
+Ülalpool lõikepunkti, kus $D_i=1$, on
+
+$$
+E(Y_i\mid X_i)
+=
+\alpha+\delta+
+(\beta_0+\beta_1^*)\widetilde X_i.
+$$
+
+Seega võivad regressioonijoonte tõusud olla erinevad.
+
+Kuna lõikepunktis $\widetilde X_i=0$, jääb kahe joone erinevuseks täpselt
+
+$$
+\delta.
+$$
+
+See ongi RDD mõju hinnang.
+
+### Erinevad polünoomid mõlemal pool lõikepunkti
+
+Üldisemalt võime hinnata
+
+$$
+Y_i
+=
+\alpha
++
+\beta_{01}\widetilde X_i
++
+\cdots
++
+\beta_{0p}\widetilde X_i^p
++
+\delta D_i
++
+\beta_1^*D_i\widetilde X_i
++
+\cdots
++
+\beta_p^*D_i\widetilde X_i^p
++
+\varepsilon_i.
+$$
+
+See võimaldab funktsiooni kujul olla lõikepunktist vasakul ja paremal täiesti erinev.
+
+Näiteks ruutpolünoomi korral:
+
+$$
+\begin{aligned}
+Y_i
+={}&
+\alpha
++\beta_{01}\widetilde X_i
++\beta_{02}\widetilde X_i^2
++\delta D_i \\
+&+\beta_1^*D_i\widetilde X_i
++\beta_2^*D_i\widetilde X_i^2
++\varepsilon_i.
+\end{aligned}
+$$
+
+Oluline on jällegi, et lõikepunktis
+
+$$
+\widetilde X_i=0,
+$$
+
+mistõttu kõik $\widetilde X_i$ sisaldavad liikmed kaovad ning kahe poole erinevus lõikepunktis on $\delta$.
+
+### Lokaalne regressioon
+
+Eelmistes mudelites võime regressiooni hinnata kogu valimi põhjal. RDD jaoks huvitavad meid aga eelkõige vaatlused **lõikepunkti lähedal**.
+
+Tänapäevases RDD analüüsis kasutatakse seetõttu enamasti **lokaalset polünoomset regressiooni** (*local polynomial regression*).
+
+Põhiidee on:
+
+1.  valime lõikepunkti ümber akna;
+2.  kasutame regressioonis ainult selles aknas olevaid vaatlusi;
+3.  anname lõikepunktile lähemal olevatele vaatlustele tavaliselt suurema kaalu;
+4.  hindame regressioonifunktsiooni eraldi mõlemal pool lõikepunkti;
+5.  võrdleme kahe hinnatud funktsiooni väärtust lõikepunktis.
+
+Kõige sagedamini kasutatakse lokaalset lineaarset regressiooni.
+
+Mudeli võib kirjutada kujul
+
+$$
+Y_i
+=
+\alpha
++
+\delta D_i
++
+\beta_0\widetilde X_i
++
+\beta_1D_i\widetilde X_i
++
+\varepsilon_i,
+$$
+
+kuid mudelit hinnatakse ainult vaatlustega
+
+$$
+|\widetilde X_i|\leq h,
+$$
+
+kus $h$ on **ribalaius** (*bandwidth*).
+
+Ribalaius määrab seega selle, kui kaugele lõikepunktist me vaatame.
+
+Ribalaiuse $h$ valik on RDD hinnangu juures väga oluline.
+
+Väike $h$ tähendab, et kasutame ainult lõikepunktile väga lähedal olevaid vaatlusi.
+
+Eelis:
+
+- väiksem risk, et $X$ ja $Y$ vahelise seose funktsionaalne kuju on valesti määratud.
+
+Puudus:
+
+- vähem vaatlusi;
+- suuremad standardvead;
+- hinnang võib olla ebatäpne.
+
+Suur $h$ tähendab, et kasutame rohkem vaatlusi.
+
+Eelis:
+
+- rohkem informatsiooni;
+- väiksem hinnangu dispersioon.
+
+Puudus:
+
+- kasutame lõikepunktist kaugemaid vaatlusi;
+- suureneb risk, et regressioonifunktsioon ei kirjelda seost õigesti;
+- hinnang võib muutuda kallutatuks.
+
+Seetõttu ei ole eesmärk valida võimalikult väikest või võimalikult suurt ribalaiust. Praktikas kasutatakse andmetest lähtuvaid meetodeid optimaalse ribalaiuse leidmiseks.
+
+**Kernel ehk kaalufunktsioon**
+
+Kõik aknas olevad vaatlused ei pea regressioonis saama sama kaalu.
+
+Võime anda lõikepunktile lähemal olevatele vaatlustele suurema kaalu ja kaugemal olevatele väiksema kaalu.
+
+Seda määrab **kernel** ehk kaalufunktsioon.
+
+RDD-s kasutatakse sageli kolmnurkset (*triangular*) kernel'it:
+
+$$
+K(u)
+=
+(1-|u|)
+\mathbf{1}(|u|\leq 1).
+$$
+
+Vaatluse $i$ kaal sõltub tema kaugusest lõikepunktist:
+
+$$
+w_i
+=
+K\left(
+\frac{X_i-c_0}{h}
+\right).
+$$
+
+Seega:
+
+- lõikepunktis on kaal kõige suurem;
+- lõikepunktist eemaldudes kaal väheneb;
+- väljaspool valitud ribalaiust $h$ on kaal null.
+
+See sobib hästi RDD loogikaga: meid huvitavad eelkõige lõikepunktile kõige lähemal olevad vaatlused.
+
+### Millist meetodit praktikas kasutada järsu disaini korral?
+
+RDD-d võib seega hinnata mitmel viisil.
+
+| Meetod | Põhiidee | Peamine probleem |
+|------------------------|------------------------|------------------------|
+| Keskmiste võrdlus | Võrdleme $Y$ keskmisi lõikepunkti ümber | Tulemus sõltub akna valikust ja ei arvesta $X$ trendi |
+| Globaalne lineaarne regressioon | Modelleerime $X$ ja $Y$ seose kogu valimis | Kauged vaatlused võivad hinnangut tugevalt mõjutada |
+| Globaalne polünoom | Lubame mittelineaarset seost | Kõrge järgu polünoomid võivad anda ebastabiilseid tulemusi |
+| Erinevad funktsioonid kahel pool | Lubame erinevaid tõuse ja kõverusi | Tulemused sõltuvad funktsionaalse kuju valikust |
+| Lokaalne polünoomne regressioon | Kasutame peamiselt lõikepunkti lähedasi vaatlusi | Tuleb valida ribalaius ja kaalufunktsioon |
+
+Praktilises RDD analüüsis kasutame tänapäeval põhihinnangut **lokaalsest lineaarsest regressioonimudelist** või vajadusel lokaalsest ruutliikmega regressioonimudelist.
+
+Kõrge järgu globaalsete polünoomide, näiteks neljanda, viienda või kõrgema astme polünoomide kasutamist tasub vältida.
+
+## Simuleeritud näide - RDD hindamine R-is
+
+RDD jaoks on olemas spetsiaalsed programmid, mis valivad sobiva ribalaiuse, võimaldavad lokaalset polünoomset regressiooni ning arvutavad RDD jaoks sobivad standardvead ja usaldusvahemikud.
+
+Üks enim kasutatavaid pakette on `rdrobust`.
+
+Paketi saab paigaldada:
+
+``` r
+install.packages("rdrobust")
+```
+
+ja laadida:
+
+``` r        
+library(rdrobust)
+```
+
+Oletame, et meil on järgmised andmed
+
+- tulemus on `Y`;
+- jooksev tunnus on `X`;
+- lõikepunkt on `50`.
+
+Simuleerime näiteandmed:
+
+```{r}
+#| message: true
+#| warning: false
+#| 
+
+# Vajadusel
+library(rdrobust)
+library(ggplot2)
+library(dplyr)
+
+set.seed(123)
+
+# Vaatluste arv
+n <- 1000
+# Jooksev muutuja (running variable)
+X <- runif(n, min = 0, max = 100)
+# Lõikepunkt
+c0 <- 50
+
+# Järsku RDD (Sharp RDD):
+# kõik X >= 50 saavad treatment'i
+D <- ifelse(X >= c0, 1, 0)
+
+# Tulemus
+# Tegelik seos:
+# Y = 20 + 0.5*X + 10*D + juhuslik viga
+#
+# Seega tegelik RDD mõju delta = 10
+Y <- 20 + 0.5 * X + 10 * D + rnorm(n, mean = 0, sd = 8)
+
+# Andmestik
+df <- data.frame(
+  Y = Y,
+  X = X,
+  D = D
+)
+
+head(df)
+
+```
+
+### RDD joonis
+
+Enne regressioonitulemuste vaatamist tuleks alati uurida seost graafiliselt.
+
+Võib teha ise `ggplot` käsuga, näiteks
+
+```{r}
+
+ggplot(df, aes(x = X, y = Y)) +
+  geom_point(alpha = 0.3) +
+  geom_vline(xintercept = 50, linetype = "dashed") +
+  geom_smooth(
+    data = subset(df, X < 50),
+    method = "lm",
+    se = FALSE
+  ) +
+  geom_smooth(
+    data = subset(df, X >= 50),
+    method = "lm",
+    se = FALSE
+  ) +
+  labs(
+    x = "X",
+    y = "Y",
+    title = "Järsk regressiooni katkemise disain"
+  ) +
+  theme_minimal()
+```
+
+
+Paketi `rdrobust` funktsioon `rdplot()` teeb selle automaatselt, võttes juba keskmised vaatlustest:
+
+```{r}
+rdplot(
+  y = df$Y,
+  x = df$X,
+  c = 50
+)
+```
+
+Graafikul peaksime vaatama:
+
+- kas $Y$ muutub lõikepunktis järsult;
+- kas seos $X$ ja $Y$ vahel tundub lõikepunkti mõlemal poolel sujuv;
+- kas üksikud vaatlused mõjutavad tulemust ebaproportsionaalselt;
+- kas lõikepunkti ümber on piisavalt vaatlusi.
+
+Graafik on RDD analüüsi oluline diagnostiline vahend, kuid ainult graafikust põhjusliku mõju hindamiseks ei piisa.
+
+### Sama mudel tavalise regressiooniga
+
+Õppimise eesmärgil võib RDD mudeli hinnata alguses tavalise `lm()` regressiooniga.
+
+Kõigepealt tsentreerime jooksva tunnuse:
+
+```{r}
+df$xc <- df$X - 50
+```
+
+**Sama tõus mõlemal pool lõikepunkti**
+
+```{r}
+m1 <- lm(Y ~ xc + D, data = df)
+
+summary(m1)
+```
+
+Näeme, et kordaja on ca 11.
+
+**Erinevad tõusud mõlemal pool lõikepunkti**
+
+```{r}
+m2 <- lm(Y ~ D * xc, data = df)
+summary(m2)
+```
+
+Mõjuhinnang sarnane, ca 12. Näeme tulemustest ka, et tegelikult ei ole tõus statistiliselt erinev (sest me simuleerisimegi sama tõusu).
+
+#### Lokaalne regressioon
+
+Kui tahame kasutada näiteks ainult vaatlusi 10 ühiku kaugusel lõikepunktist, siis saame seda piirata andmetes kas käsuga `subset` või `filter`:
+
+```{r}
+m3 <- lm(
+  Y ~ D * xc,
+  data = subset(df, abs(xc) <= 10)
+)
+summary(m3)
+```
+
+See illustreerib lokaalse RDD ideed, kuid tegelikus analüüsis on tavaliselt mõistlik kasutada spetsiaalset RDD tarkvara, mis valib ise ribalaiuse ja teeb statistilise järeldamise .
+
+
+Lokaalse lineaarse RDD hinnangu saame käsuga `rdrobust`:
+
+```{r}
+rd <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 50, #lõikepunkt
+  p = 1 #lokaalne lineaarne regressioon
+)
+
+summary(rd)
+```
+
+Lokaalse ruutregressiooni jaoks kasutame:
+
+```{r}
+rd <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 50,
+  p = 2
+)
+summary(rd)
+```
+
+Kolmnurkse kerneli võime määrata järgmiselt (mis ongi vaikimisi)
+
+```{r}
+rd <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 50,
+  p = 1,
+  kernel = "triangular"
+)
+summary(rd)
+
+```
+
+Järsku RDD korral ei ole vaja `rdrobust()` funktsioonile eraldi tunnust $D$ ette anda, sest meetmes osalemise määrab juba see, kummal pool lõikepunkti $X$ asub ja lõikepunkti anname ette.
+
+
+### Robustne statistiline järeldamine
+
+RDD hinnanguga koos tuleb hinnata ka selle statistilist ebakindlust.
+
+Lokaalse regressiooni korral tekib täiendav probleem: regressioonifunktsiooni lokaalset lähendamist kasutades võib punktihinnang sisaldada väikest nihet (**bias**).
+
+Kaasaegsed RDD paketid, näiteks `rdrobust`, kasutavad selle arvestamiseks **robustset nihkeparandusega statistilist järeldamist** (*robust bias-corrected inference*).
+
+Seetõttu on empiirilises töös mõistlik kasutada spetsiaalse RDD programmi antud standardvigu ja usaldusvahemikke, mitte lihtsalt tavalise OLS-regressiooni standardvigu.
+
+Hindamisel võime liikuda lihtsamast keerukama meetodi poole:
+
+1.  võrrelda keskmisi kitsas aknas lõikepunkti ümber;
+2.  hinnata lineaarset või madala järgu polünoomset regressiooni;
+3.  lubada regressioonifunktsioonidel olla lõikepunkti eri pooltel erinevad;
+4.  kasutada lokaalset lineaarset või lokaalset polünoomset regressiooni.
+
+
+### Iseseisev ülesanne
+
+Olgu simuleeritud andmestik järgmisel viisil (lubme olla erinev tõus all- ja ülalpool lõikepunkti.)
+
+```{r}
+set.seed(123)
+
+df <- df |>  mutate(
+  Y = 20 +
+  0.5 * X +
+  10 * D +
+  2 * D * (X - 50) +
+  rnorm(n, 0, 8))
+
+```
+
+Proovite ülal toodud valemeid kasutades leida mõju hinnang. 
+
+
+## Hägus disain
 
 **Hägus disain** (*fuzzy design*) tähendab, et lõikepunkt ei määra osalemist deterministlikult:
 
-- osalemise tõenäosus hüppab lõikepunktis, kuid  
-- enne lõikepunkti on osa isikuid, kes ikkagi osalevad  
+- osalemise tõenäosus hüppab lõikepunktis, kuid
+- enne lõikepunkti on osa isikuid, kes ikkagi osalevad
 - pärast lõikepunkti on osa, kes ei osale.
 
-Formaalne:
+Formaalselt:
 
 $$
 p(x) = \Pr(D_i = 1 \mid X_i = x)
 $$
 
-on **katkev** punktis \(c\), st
+on **katkev** punktis (c), st kui läheneme lõikepunktile ülevalt, siis saame teistsuguse tulemuse kui läheneme alt
 
 $$
 \lim_{x \downarrow c} p(x) \neq \lim_{x \uparrow c} p(x),
@@ -101,26 +683,30 @@ $$
 
 aga kumbki pole 0 ega 1.
 
-Mida see tähendab sisuliselt?  
-– reegel on olemas (nt pensioniiga 63)  
-– aga osa inimestest läheb pensionile varem või hiljem → reeglit ei järgita täielikult  
-– lõikepunkti lähedal on $X_i$ käitumas nagu **instrumentmuutuja**: mõjutab tugevalt osalemise tõenäosust, mitte otseselt tulemust.
+Mida see tähendab sisuliselt?\
+– reegel on olemas (nt pensioniiga 65)\
+– aga osa inimestest läheb pensionile varem või hiljem → reeglit ei järgita täielikult\
+– lõikepunkti lähedal on $X_i$ käitumas nagu instrumentmuutuja (*instrumental variable*): vanus mõjutab tugevalt osalemise (st pensioni saamise) tõenäosust, mitte otseselt tulemust.
 
-## Mõju hindamise valem (fuzzy RDD, Wald)
+## Mõju hindamise valem
 
-Hägusa disaini korral võrdleme lisaks $Y$ hüppele ka meetmes osalemise hüpet:
+Hägusa disaini korral võrdleme lisaks $Y$ hüppele ka meetmes osalemise hüpet.
+
+Muutus väljundtulemuses lõikepunkti juures:
 
 $$
 \Delta Y = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x]
          - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x],
 $$
 
+Muutus meetmes osalemise tõenäosuses lõikepunkti juures:
+
 $$
 \Delta D = \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x]
          - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x].
 $$
 
-**Lokaalne Waldi hinnang**:
+**Lokaalne Waldi hinnang** on nende muutuste suhe.
 
 $$
 \tau^{FRD} = \frac{\Delta Y}{\Delta D}.
@@ -128,44 +714,388 @@ $$
 
 See on analoogne IV-Waldi hinnanguga: kui lõikepunkti juures oleks tõenäosus muutunud 0-lt 1-le, siis $\Delta Y$ olekski mõju; kuna muutus on väiksem, skaleerime selle üles jagades $\Delta D$-ga.
 
+### Näide. Ettevõtlustoetuse mõju arvutamine
+
+Ettevõtted on teadus- ja arendustegevuse (T&A) toetuse saamiseks abikõlblikud, kui nad on piisavalt suured, st neil on rohkem kui 100 töötajat. "Väike ettevõte" tähendab ettevõtet, kus töötajate arv jääb vahemikku 90 kuni 100. "Suur ettevõte" tähendab ettevõtet, kus töötajate arv jääb vahemikku 101 kuni 110. Kokku on 40 suurt ja 40 väikest ettevõtet. Meetme korraldaja vea tõttu said vaid 30 suurt ettevõtet toetust ja lisaks said 10 väikest ettevõtet toetust. Üks aasta pärast toetuste väljamaksmist on kõigi suurte ettevõtete keskmine kasum 10 miljonit eurot, samas kui kõigi väikeste ettevõtete keskmine kasum on 8 miljonit eurot. Meid huvitab T&A toetuse saamise mõju kasumile. Mis on meetme mõju ettevõtete keskmisele kasumile (LATE hinnang) miljonites eurodes?
+
+Samm 1. Arvutame muutuse suurte ettevõtete keskmises kasumis.
+
+$\Delta Y = 10 - 8 = 2 \text{ mln}$
+
+Samm 2. Arvutame muutuse tõenäosuses saada meedet
+
+Ülalpool lõikepunkti: $30/40 = 0.75$
+
+Allpool lõikepunkti: $10/40 = 0.25$
+
+Muutus tõenäosuses: $\Delta D = 0.75- 0.25 = 0.5$
+
+Samm 3. Arvutame Waldi hinnangu:
+
+$$
+\tau^{FRD} = \frac{\Delta Y}{\Delta D} = \frac{2}{0.5} = 4 \text{ mln}.
+$$ Seega, andmetest näeme, et keskmine kasum kasvas 2 miljonit eurot ettevõtte kohta. Kuid teame, et meetmes osalemine kasvas samal ajal 50% võrra. Seega kui kõik ettevõtted oleksid saanud toetust, võiks arvata, et meetme mõju oleks olnud 2 korda suurem ehk 4 miljonit eurot.
+
+
+
+### Näide Ris
+
+Teeme simuleeritud andmed Ris
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+library(rdrobust)
+
+set.seed(1234)
+n  <- 4000
+c0 <- 100
+
+# Jooksev tunnus
+X <- runif(n, 80, 120)
+# Lõikepunkti suhtes tsentreeritud X
+Xc <- X - c0
+
+# Z = abikõlblikkus / instrument
+Z <- as.integer(X >= c0)
+
+# Meetmes osalemise tõenäosus
+# allpool lõikepunkti 25%
+# ülalpool lõikepunkti 75%
+pD <- 0.25 + 0.50 * Z
+
+# Tegelik meetmes osalemine
+D <- rbinom(n, size = 1, prob = pD)
+
+# Tegelik meetme mõju
+tau <- 4
+
+# Y ilma meetmeta muutub X-ga sujuvalt
+Y0 <- 8 + 0.10 * Xc
+
+# Vaadeldav Y
+Y <- Y0 + tau * D + rnorm(n, mean = 0, sd = 2)
+
+df <- data.frame(
+  X = X,
+  Xc = Xc,
+  Z = Z,
+  D = D,
+  Y = Y,
+  pD = pD
+)
+
+head(df)
+```
+
+
+
+```{r}
+# Teeme X põhjal väiksed intervallid
+df_plot <- df |>
+  mutate(
+    bin = cut(
+      X,
+      breaks = seq(80, 120, by = 1),
+      include.lowest = TRUE
+    )
+  ) |>
+  group_by(bin) |>
+  summarise(
+    X = mean(X),
+    D = mean(D),
+    Y = mean(Y),
+    .groups = "drop"
+  )
+
+```
+
+
+Joonis meetmes osalemise kohta
+
+```{r}
+p1 <- ggplot(df_plot, aes(x = X, y = D)) +
+  geom_point() +
+  geom_smooth(
+    data = subset(df, X < 100),
+    aes(x = X, y = D),
+    method = "lm",
+    se = FALSE
+  ) +
+  geom_smooth(
+    data = subset(df, X >= 100),
+    aes(x = X, y = D),
+    method = "lm",
+    se = FALSE
+  ) +
+  geom_vline(
+    xintercept = 100,
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "Meetmes osalemine",
+    subtitle = "Esimene samm",
+    x = "Jooksev tunnus X",
+    y = "Meetmes osalemise tõenäosus"
+  ) +
+  coord_cartesian(ylim = c(0, 1)) +
+  theme_minimal()
+```
+
+Joonis tulemuse kohta
+
+```{r}
+p2 <- ggplot(df_plot, aes(x = X, y = Y)) +
+  geom_point() +
+  geom_smooth(
+    data = subset(df, X < 100),
+    aes(x = X, y = Y),
+    method = "lm",
+    se = FALSE
+  ) +
+  geom_smooth(
+    data = subset(df, X >= 100),
+    aes(x = X, y = Y),
+    method = "lm",
+    se = FALSE
+  ) +
+  geom_vline(
+    xintercept = 100,
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "Väljundtunnus Y",
+    subtitle = "Jälgitav seos",
+    x = "Jooksev tunnus X",
+    y = "Y"
+  ) +
+  theme_minimal()
+```
+
+
+```{r}
+p1 + p2
+
+```
+
+
+Waldi hinnang käsitsi. Vaatame vaatlusi aknas 10 ühikut.
+
+```{r}
+df_local <- df |>
+  filter(abs(Xc) <= 10)
+```
+
+
+Samm 1. Kui palju muutub lõikepunktis $Z$ osalemine?
+
+$$
+D_i
+=
+\alpha
++
+\beta_0\widetilde X_i
++
+\Delta_D Z_i
++
+\beta_1Z_i\widetilde X_i
++
+u_i.
+$$
+
+```{r}
+m_D <- lm(
+  D ~ Xc * Z,
+  data = df_local
+)
+
+summary(m_D)
+
+```
+
+Näeme, et kordaja on tõepoolest ligi 0.5
+
+
+```{r}
+delta_D <- coef(m_D)["Z"]
+delta_D
+
+```
+
+
+Nüüd hindame sama regressiooni väljundtunnuse jaoks:
+
+$$
+Y_i
+=
+\alpha
++
+\beta_0\widetilde X_i
++
+\Delta_Y Z_i
++
+\beta_1Z_i\widetilde X_i
++
+\varepsilon_i
+$$
+
+
+```{r}
+m_Y <- lm(
+  Y ~ Xc * Z,
+  data = df_local
+)
+
+summary(m_Y)
+```
+
+Hüpe lõikepunktis:
+
+```{r}
+delta_Y <- coef(m_Y)["Z"]
+
+delta_Y
+```
+
+
+Samm 3. Wald
+
+Nüüd arvutame fuzzy RDD hinnangu ise:
+
+$$
+\hat\tau^{FRD}
+=
+\frac{\widehat{\Delta Y}}
+{\widehat{\Delta D}}
+$$
+
+
+```{r}
+tau_wald <- delta_Y / delta_D
+
+tau_wald
+
+```
+
+
+#### Sama fuzzy RDD rdrobust abil
+
+Nüüd laseme spetsiaalsel RDD paketil teha sisuliselt sama asja lokaalse polünoomse regressiooniga.
+
+```{r}
+rd_fuzzy <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 100,
+  fuzzy = df$D, #ütleb rdrobust-ile, et tegemist ei ole sharp RDD-ga, vaid $D$ on tegelik treatment,
+  p = 1
+)
+
+summary(rd_fuzzy)
+```
+
+
+`summary()` väljundis näed eraldi muu hulgas:
+
+  - First-stage estimates — hüpe meetmes osalemise tõenäosuses $\Delta D$;
+  - Treatment effect estimates — hägusa RDD hinnang ehk lokaalne Wald $\Delta Y/\Delta D$.
+
+
+Võiksime `rdrobust` abil vaadata ka mõlemat hüpet eraldi
+
+Hüpe Y-s. See on nn `reduced form` ehk ITT (intention to treat):
+
+```{r}
+rd_Y <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 100,
+  p = 1
+)
+summary(rd_Y)
+```
+
+
+Hüpe D-s. See on `first stage`:
+
+```{r}
+rd_D <- rdrobust(
+  y = df$D,
+  x = df$X,
+  c = 100,
+  p = 1
+)
+
+summary(rd_D)
+```
+
+Kordate suhe annabki meile selle suhte, mida rdrobust hindab. 
+
+Repliik:  Fuzzy RDD Waldi hinnang on Y hüppe ja D hüppe suhe, kuid mõlemad hüpped peavad olema hinnatud sama lokaalse ribalaiuse (akna) põhjal. Kui hinnata $Y$ ja $D$ eraldi rdrobust() käskudega, valib programm neile vaikimisi erinevad optimaalsed ribalaiused ning nende suhe ei pea seetõttu võrduma fuzzy rdrobust() hinnanguga.
+
+$$
+\underbrace{
+\frac{\widehat{\Delta Y}(h_Y)}
+{\widehat{\Delta D}(h_D)}
+}_{\text{kaks eraldi rdrobust käsku}}
+\neq
+\underbrace{
+\frac{\widehat{\Delta Y}(h_F)}
+{\widehat{\Delta D}(h_F)}
+}_{\text{fuzzy rdrobust}}
+$$
+üldjuhul, sest
+$$
+h_Y\neq h_D\neq h_F.
+$$
+
+
+
+Kes on õppinud instrumentmuutuja meetodit (või loeb edasi järgmist peatükki), siis lõikepunktist tulenev abikõlblikkus $Z$ on instrument (nt õigus saada täispensioni 65-selt), $D$ on endogeenne meetmes osalemine (treatment, nt kas inimene tegelikult sai pensioni) ja hägusa RDD hinnang on lokaalne IV/Wald hinnang lõikepunktis (nt 65-selt pensioni saamise mõju).
+
+
 ### Pidevuse eeldus
 
-RDD tuum on **pidevuse eeldus** (*continuity assumption*). Informaalne mõte:
+RDD keskne eeldus on **pidevuse eeldus** (*continuity assumption*). See tähendab, et kõik muud tegurid peale programmi mõju muutuvad lõikepunkti ümbruses “sujuvalt” (pidevalt). Ainus diskreetne hüpe $Y$-s lõikepunktis tuleb programmist.
 
-Kõik muud tegurid peale programmi mõju muutuvad lõikepunkti ümbruses “sujuvalt” (pidevalt). Ainus diskreetne hüpe $Y$-s lõikepunktis tuleb programmist.
+Näiteks, me eeldame, et kui vanus mõjutabki hambaarsti juures käimist, siis seal esineb sujuv mõju, nt vanuse kasvades alguses käime vähem ja pärast rohkem. Aga ei ole mingit järsku vanusest tulenevat langust 19. eluaasta juures. Või analoogselt, vanuses kasvades eakate töötundide arv väheneb, sest tervis muutub kehvemaks, aga ei tohiks olla mingit järsku tervise mõju muutust töötundidele just 65. eluaasta juures, kui muutub ka pensioniiga.
 
-Formaalne kuju:
+Formaalselt:
 
 $$
-\lim_{x \downarrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+\lim_{x \downarrow c} \mathbb{E}[Y^0_i\mid X_i=x]
 =
-\lim_{x \uparrow c} \mathbb{E}[Y_i(0)\mid X_i=x]
+\lim_{x \uparrow c} \mathbb{E}[Y^0_i\mid X_i=x]
 $$
 
-ja terava disaini korral samamoodi $Y_i(1)$ jaoks, või üldisemalt, et potentsiaalsete tulemuste tinglikud keskmised on pidevad $x=c$ juures.
+st tähendab, et ei ole vahet, kas läheneme lõikepunktile ülalt või alt, potentsiaalne tulemus ilma meetmete on sama väärtusega lõikepunkti juures.
 
-Lisaks saame kontrollida, kas ka $X£-i tihedusfunktsioon on pidev lõikepunkti juures (vt McCrary test).
+Analoogselt potentsiaalse tulemuse kohta meetmega $Y^1_i$ jaoks.
 
-Pidevuse rikkumised:
+$$ \lim_{x \downarrow c} \mathbb{E}[Y^1_i\mid X_i=x] = \lim_{x \uparrow c} \mathbb{E}[Y^1_i\mid X_i=x] $$
 
-- inimesed manipuleerivad oma $X£-i (hinne, sissetulek) üle/alla piiri, et reegliga mängida  
-- samal lõikepunktil juhtub mõni **muu** poliitikamuutus (teine reform, teine programm)  
-- lõikepunkt ise on endogeenne (nt “nutikad” ettevõtted planeerivad töötajate arvu täpselt alla piiri, et toetust saada)
+Lisaks peame kontrollima, et $X$-i tihedusfunktsioon on pidev lõikepunkti juures (vt McCrary test). See tähendab, et inimeste jaotus lõikepunkti juures on sujuv.
+
+Pidevuse rikkumiste näiteid:
+
+- inimesed manipuleerivad oma $X$-i üle või alla piiri, et reegliga mängida (nt inimesed ise mõjutavad keskmist hinnet, leibkonna muudavad sissetulekut et kvalifitseeruda elektritoetusele, ettevõtted vähendavad käivet, et saada COVID-19 toetust)
+- samal lõikepunktil juhtub ka mõni muu poliitikamuutus (teine reform, teine programm), nt vanuses 19 lõpetavad koolinoored ka gümnaasiumi ja lähevad edasi kõrgkooli vanemate silma alt ära, seega võib vähenev hambaarsti juures käimine olla hoopis sellega, et enam ema-isa ei sunni hambaarsti juurde ja tegemist ei ole üldse hambaravi hüvitise mõjuga.
 
 ### McCrary test: x-jaotuse pidevus
 
-Kui inimesed saavad määramismuutujat $X$ ise mõjutada (nt taotlusvormi täitmise kuupäeva, sissetuleku deklareerimist), võivad nad “koonduda” lõikepunkti alla või üles. Selle tuvastamiseks kasutatakse **McCrary tihedustesti**.
+Kui inimesed saavad määramismuutujat $X$ ise mõjutada (nt leibkonna sissetulekut ), võivad nad “koonduda” lõikepunkti alla või üles. Selle tuvastamiseks kasutatakse McCrary tihedustesti.
 
-- $H_0$: $X$ tihedus on lõikepunkti juures **pidev** (ei ole manipulatsiooni)  
-- $H_1$: tiheduses on **hüpe** lõikepunkti juures (viitab manipulatsioonile)
+- $H_0$: $X$ tihedus on lõikepunkti juures pidev (ei ole manipulatsiooni)
+- $H_1$: tiheduses on hüpe lõikepunkti juures (viitab manipulatsioonile)
 
 Idee:
 
-1. hinnatakse $X$ tihedust lõikepunkti vasakul ja paremal (nt lokaalse polünoomi abil),  
-2. testitakse, kas hinnatud tihedused erinevad statistiliselt olulisel määral.
+1.  hinnatakse $X$ tihedust lõikepunkti vasakul ja paremal (nt lokaalse polünoomi abil),
+2.  testitakse, kas hinnatud tihedused erinevad statistiliselt olulisel määral.
 
+Kui testi tulemus ei lükka $H_0$ hüpoteesi ümber (puudub oluline hüpe tihedusfunktsiooni väärtuses), on pidevuse eeldus ja see, et inimesed ei manipuleerinud tulemustega usutavam.
 
-Kui testi tulemus ei lükka $H_0$ hüpoteesi ümber (puudub oluline hüpe tiheduses), on pidevuse eeldus ja “manipuleerimatuse” eeldus usutavam.
 
 ### Platseebo test
 
@@ -173,30 +1103,38 @@ Platseebo test (või “fake cutoff test”) kontrollib, kas meie hinnatud mõju
 
 Idee:
 
-  1. valime valed (platseebo) lõikepunktid, mis ei tohiks sekkumisega seotud olla;
-  2. jooksutame RDD-analüüsi nende uute lõikepunktide juures;
-  3. eeldus: me ei tohiks leida süsteemselt suuri ja statistiliselt olulisi mõjusid.
+1.  valime valed (platseebo) lõikepunktid, mis ei tohiks sekkumisega seotud olla, nt pensioniea puhul vanused enne ja pärast pensioniiga (nt 62, 63, 66);
+2.  jooksutame RDD-analüüsi nende uute lõikepunktide juures;
+3.  eeldus: me ei tohiks leida süsteemselt suuri ja statistiliselt olulisi mõjusid valede lõikepunktide juures.
 
 Kui leiame tugevaid “mõjusid” ka mujal, võib see viidata:
 
-  * mudeli ülesobitamisele (liiga paindlik polünoom)
+- mudeli ülesobitamisele (liiga paindlik polünoom)
 
-  * andmetes olevale muule mittelineaarsusele, mida tõlgendatakse ekslikult “mõjuna”
+- andmetes olevale muule mittelineaarsusele, mida tõlgendatakse ekslikult “mõjuna”
 
-  * valesti määratud bandwidth’ile või kernelile.
-
+- valesti määratud bandwidth’ile (akna suurusele) või kernelile (silumisfunktsioonile).
 
 Kui ainult tõelise lõikepunkti juures on selge ja stabiilne mõju, suurendab see usaldust RDD tulemuste suhtes.
 
+### Lisalugemist
+
+TODO: Lisada lingid
+
+Lee, D. S. & Lemieux, T. (2010). *Regression Discontinuity Designs in Economics*. Journal of Economic Literature, 48(2), 281--355.
+
+Cattaneo, M. D., Idrobo, N. & Titiunik, R. (2020). *A Practical Introduction to Regression Discontinuity Designs: Foundations*. Cambridge University Press.
+
+Gelman, A. & Imbens, G. (2019). *Why High-Order Polynomials Should Not Be Used in Regression Discontinuity Designs*. Journal of Business & Economic Statistics, 37(3), 447--456.
+
+Calonico, S., Cattaneo, M. D. & Titiunik, R. (2014). *Robust Nonparametric Confidence Intervals for Regression-Discontinuity Designs*. Econometrica, 82(6), 2295--2326.
 
 ## Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.
 
-2010. aastal oli meeste seadusjärgne pensioniiga 63 aastat. Selles vanuses võiksid nad saada täispensioni. Nad võivad minna pensionile varem (ja kaotada pensioni suuruses) või hiljem pensionile jääda (ja neil on suurem pension). Neil võib olla ka eripension, mida mõnikord maksti varem, või ka töövõimetuspension.	
-Pensioniiga annab õiguse vanaduspensionile, väikesele, kuid kindlale lisasissetulekule, mis võib võimaldada vanematel inimestel oma tööaega lühendada.
+2010. aastal oli meeste seadusjärgne pensioniiga 63 aastat. Selles vanuses võiksid nad saada täispensioni. Nad võivad minna pensionile varem (ja kaotada pensioni suuruses) või hiljem pensionile jääda (ja neil on suurem pension). Neil võib olla ka eripension, mida mõnikord maksti varem, või ka töövõimetuspension.\
+      Pensioniiga annab õiguse vanaduspensionile, väikesele, kuid kindlale lisasissetulekule, mis võib võimaldada vanematel inimestel oma tööaega lühendada.
 
-Meie uurimisküsimus: 
-- kuidas mõjutab pensioni saamist nominaalpensioniikka (63) jõudmine? (Me peame seda järsuks disainiks– sest õigus tekib igal mehel)
-- kuidas mõjutab pensioni saamine nominaalpensioniea (63) lähedal töötunde. Seda võiks pidada hägusaks disainiks, sest nominaalpensioniikka jõudmine mõjutab pensioni saama hakkamist vaid osadel inimestel. 
+Meie uurimisküsimus: - kuidas mõjutab pensioni saamist nominaalpensioniikka (63) jõudmine? (Me peame seda järsuks disainiks– sest õigus tekib igal mehel) - kuidas mõjutab pensioni saamine nominaalpensioniea (63) lähedal töötunde. Seda võiks pidada hägusaks disainiks, sest nominaalpensioniikka jõudmine mõjutab pensioni saama hakkamist vaid osadel inimestel.
 
 Probleem on selles, et vanus ise mõjutab tervist, mis loomulikult vähendab tööaega. Kuidas neid mõjusid eristada – üks tervise ja teine lisatulu kaudu? Meil ei ole tervise jaoks selget mõõdikut, seega kasutame vanust lihtsalt lähendina.
 
@@ -219,19 +1157,17 @@ library(ivreg)
 
 ```
 
-
-
 ### Laadige andmed
 
 Meil on järgmised tunnused
 
-  - age
-  - ppension - 1-0 tunnus, kui inimene saab pensioni (meie meede)
-  -	oldage – inimene saab vanaduspensioni
-  -	disben – inimene saab töövõimetuspensioni
-  - hours – nädala töötunnid (meie väljund)
-  -	employed - 1-0 kui inimesel on täisajaga töökoht
-  - taustatunnused: estlang (räägib Eesti keelt), haridus (haridustase: 1,2,3)
+- age
+- pension - 1-0 tunnus, kui inimene saab pensioni (meie meede)
+- oldage – inimene saab vanaduspensioni
+- disben – inimene saab töövõimetuspensioni
+- hours – nädala töötunnid (meie väljund)
+- employed - 1-0 kui inimesel on täisajaga töökoht
+- taustatunnused: estlang (räägib Eesti keelt), haridus (haridustase: 1,2,3)
 
 ```{r}
 df <- read_dta("https://kodu.ut.ee/~avork/files/oppetoo/micro/pensioners.dta")
@@ -239,7 +1175,6 @@ df <- read_dta("https://kodu.ut.ee/~avork/files/oppetoo/micro/pensioners.dta")
 ```
 
 ### Alati alusta joonistest
-
 
 Tee joonis vanuse ja pensioni saamise vahel
 
@@ -249,15 +1184,9 @@ df %>% ggplot(aes(x=age, y = pension)) +
 
 ```
 
-lisa sammhaaval
-a)	silumine
-b)	värvi vanuse järgi age > 62
-c)	tee punctid väiksemaks  (size = 0.5) ja läbipaistvaks (alpha = 0.5)
-d)	lisa juhuslikku müra punktidele “position = position_jitter(width = 0.2,height = 0.05, seed = 1234)”
-e)	lisa vertikaalne joon 62.5
+lisa sammhaaval a) silumine b) värvi vanuse järgi age \> 62 c) tee punctid väiksemaks (size = 0.5) ja läbipaistvaks (alpha = 0.5) d) lisa juhuslikku müra punktidele “position = position_jitter(width = 0.2,height = 0.05, seed = 1234)” e) lisa vertikaalne joon 62.5
 
 Vaata, kuidas joonis muutub
-
 
 ```{r}
 df %>% ggplot(aes(x=age, y = pension, 
@@ -273,7 +1202,6 @@ df %>% ggplot(aes(x=age, y = pension,
 
 Arvutage pensioni saavate meeste keskmine osakaal (muutuja pension), keskmine tööaeg (muutuja hours) vanuse järgi ja näitaja (over62), kui vanus on üle 62,5
 
-
 ```{r}
 dfmeanprop <- df %>% group_by(age) %>% 
   summarise(pension = mean(pension)*100,
@@ -282,7 +1210,7 @@ dfmeanprop <- df %>% group_by(age) %>%
 
 ```
 
-Joonistage igas vanuses pensioni saavate meeste keskmine osakaal, värvige see üle62 võrra. Lisa silutud joon. 
+Joonistage igas vanuses pensioni saavate meeste keskmine osakaal, värvige see üle62 võrra. Lisa silutud joon.
 
 ```{r}
 
@@ -292,15 +1220,14 @@ dfmeanprop %>% ggplot(aes(x=age, y = pension, color = over62)) +
   scale_x_continuous(breaks = c(seq(50, 75, 5)))
 
 ```
+
 Kas 63-aastaselt on hüpe?
 
 Kas pensioniea mõju pensioni saamisele on järsk või hägune?
 
-
-
 ### Vanus ja töötunnid
 
-Joonistage lähteandmet põhjal seos iganädalaste töötundide ja vanuse järgi. Kasutage sama koodi, mida kasutasite pensioni jaoks, kuid asendage pension töötundidega. Vajadusel muutke position_jitter 
+Joonistage lähteandmet põhjal seos iganädalaste töötundide ja vanuse järgi. Kasutage sama koodi, mida kasutasite pensioni jaoks, kuid asendage pension töötundidega. Vajadusel muutke position_jitter
 
 ```{r}
 df %>% ggplot(aes(x=age, y = hours, color = age>62)) +
@@ -321,8 +1248,6 @@ dfmeanprop %>% ggplot(aes(x=age, y = hours, color = over62)) +
 
 ```
 
-
-
 ### Tee lõikepunkt ja leia vanus selle suhtes
 
 Teeme muutuja ‘penage’ = 62.5
@@ -334,7 +1259,6 @@ penage = 62.5
 
 Looge uus muutuja "agec", mis on erinevus vanusest 62,5. (Me ei tea täpselt, millal inimene sai 63-aastaseks, seetõttu kasutame 62,5). Looge tsentraliseeritud vanuse ruut ja kuupliige. Genereerige ka näitaja (1-0) muutuja, kui vanus on vanem kui pensioniiga: "overpenage".
 
-
 ```{r}
 df <- df %>%  
   mutate(agec = age-penage,
@@ -344,20 +1268,15 @@ df <- df %>%
 
 ```
 
-
-
 ### Järsk (terav) disain – pensioniea mõju tõenäosusele saada pensioni
 
-Vanaduspensioni ea kättejõudmise mõttes on tegu järsu disainiga (inimestel tekib õigus täispensionile, küll aga mõned valivad või saavad minna varem ja mõned hiljem). 
-Võrdleme pensioni saamist enne ja pärast pensioniiga Võtame u = 2. Võrdleme pensioni saamist vanuses 61-62 ja 63-64.
-
+Vanaduspensioni ea kättejõudmise mõttes on tegu järsu disainiga (inimestel tekib õigus täispensionile, küll aga mõned valivad või saavad minna varem ja mõned hiljem). Võrdleme pensioni saamist enne ja pärast pensioniiga Võtame u = 2. Võrdleme pensioni saamist vanuses 61-62 ja 63-64.
 
 ```{r}
 u = 2
 ```
 
 Leia käsitsi osakaalud enne ja pärast pensioniiga
-
 
 ```{r}
 meanpensbelow <- df %>%  filter(age>penage-u, age <penage) %>% 
@@ -377,13 +1296,11 @@ meanpensabove - meanpensbelow
 
 Võtke u = 1. Kui palju tulemus muutub?
 
-
 ### Mõju hindamine regressioonimudeliga
 
 Hinnake lineaarne tõenäosusmudel (mudel1), kus pensioni näitaja sõltub näitajast, kui inimene on pensionieas ja vanus. Lisage seejärel vanuse ruutliige (mudel2) ja kuupliige (mudel3)
 
 Muutuja “overpenage” koefitsient näitab pensioniea mõju pensioni saamise tõenäosusele. Vanus iseloomustab teiste kanalite mõju, nt terviseseisundi ja töövõimetuspensioni saamise.
-
 
 ```{r}
 model1 <- lm(pension ~ overpenage + agec, data = df)
@@ -398,9 +1315,9 @@ stargazer(model1, model2, model3, type = "text", no.space = TRUE)
 
 ```
 
-Pensioniea vanuspiiri ületamise efekt tõenäosusele, et mehed saavad pensioni on 31.6 protsendipunkti kui lubame lineaarse liikme mudelisse, 36.1 protsendipunkti ruutliikega mudelis ja 22.1 protsendipunkti kuuliikmega mudelis. Seega see, millist mittelineaarsust me lubame vanuspiiri lähedal, mõjutab meie tulemusi üsna palju. 
+Pensioniea vanuspiiri ületamise efekt tõenäosusele, et mehed saavad pensioni on 31.6 protsendipunkti kui lubame lineaarse liikme mudelisse, 36.1 protsendipunkti ruutliikega mudelis ja 22.1 protsendipunkti kuuliikmega mudelis. Seega see, millist mittelineaarsust me lubame vanuspiiri lähedal, mõjutab meie tulemusi üsna palju.
 
-Saame lubada ka erinevaid parameetreid lõikepunkti mõlemale poolele. overpenage koefitsient näitab nüüd  pensioniea kättejõudmise mõju pensioni saamise tõenäosusele lõikepunktis.
+Saame lubada ka erinevaid parameetreid lõikepunkti mõlemale poolele. overpenage koefitsient näitab nüüd pensioniea kättejõudmise mõju pensioni saamise tõenäosusele lõikepunktis.
 
 ```{r}
 model1a <- lm(pension ~ overpenage + agec +  
@@ -410,7 +1327,6 @@ model2a <- lm(pension ~ overpenage + agec +  agec2 +
 model3a <- lm(pension ~ overpenage + agec +  agec2 + agec3 +
                agec*overpenage +  agec2*overpenage + agec3*overpenage, data = df)
 ```
-
 
 ```{r}
 stargazer(model1a, model2a, model3a, type = "text", no.space = TRUE)
@@ -441,15 +1357,13 @@ rdrobust(y = df$pension, x = df$age, c = 62.5) %>%
 
 ```
 
-Tulemuste tõlgendamisest. 
+Tulemuste tõlgendamisest.
 
-1) Võib tulla hoiatus: masspunktid (mass points)
+1)  Võib tulla hoiatus: masspunktid (mass points)
 
 See tähendab, et vanusemuutujal on palju korduvaid väärtusi (meil täisaastad). See on vanusepõhiste RDD-de puhul tavaline – see ei riku disaini, kuid näitab, et jaotus ei ole täiesti sile.
 
-2) Valimi suurus 
-Kokku on vaatlusi 2607 vaatluse. 
-Hinnang tehakse aga lokaalsete lineaarsete regressioonidega, kolmnurkse kerneliga lõikepunkti ümber. Optimaalne ribalaius (mserd) on umbes 3,778 aastat mõlemal pool lävendit, seega kasutatakse enim vanuseid umbes 58–67.
+2)  Valimi suurus Kokku on vaatlusi 2607 vaatluse. Hinnang tehakse aga lokaalsete lineaarsete regressioonidega, kolmnurkse kerneliga lõikepunkti ümber. Optimaalne ribalaius (mserd) on umbes 3,778 aastat mõlemal pool lävendit, seega kasutatakse enim vanuseid umbes 58–67.
 
 "BW type mserd" – ribalaius või aken (bandwidth) on valitud nn mean squared error optimal for RD (ehk mserd) reegli alusel. See on automaatne optimaalne akna valik, mis püüab tasakaalustada täpsust ja nihet.
 
@@ -457,41 +1371,33 @@ Hinnang tehakse aga lokaalsete lineaarsete regressioonidega, kolmnurkse kernelig
 
 VCE method NN – dispersioonide ja standardvigade arvutamisel on kasutatud nearest-neighbor (NN) meetodit, mis põhineb lähimate punktide võrdlemisel. See on üks võimalikest robustsete standardvigade arvutusviisidest.
 
-3) Efektiivne vaatlustearv
-Kuigi kokku on 2607 vaatluse, panustavad tegelikult kõige enam 472 vaatlust enne ja 332 pärast lõikepunkti, sest kaalumine annab rohkem kaalu neile, kes on lõikepunktile lähedal.
+3)  Efektiivne vaatlustearv Kuigi kokku on 2607 vaatluse, panustavad tegelikult kõige enam 472 vaatlust enne ja 332 pärast lõikepunkti, sest kaalumine annab rohkem kaalu neile, kes on lõikepunktile lähedal.
 
-Order est. (p)  - lõikepunkti ümbruses on kasutatud esimese astme polünoomi, ehk lokaalset lineaarset regressiooni. See on RDD standardne valik.
+Order est. (p) - lõikepunkti ümbruses on kasutatud esimese astme polünoomi, ehk lokaalset lineaarset regressiooni. See on RDD standardne valik.
 
-Order bias (q) = 2 - võimaliku nihke hindamiseks kasutatakse teise astme polünoomi (ruutfunktsiooni).
-Teisisõnu, nihke parandust hinnatakse natuke paindlikuma mudeliga kui põhihinnangut.
+Order bias (q) = 2 - võimaliku nihke hindamiseks kasutatakse teise astme polünoomi (ruutfunktsiooni). Teisisõnu, nihke parandust hinnatakse natuke paindlikuma mudeliga kui põhihinnangut.
 
-BW est. (h) = 3.778 -  Optimaalne aken hinnangu tegemiseks on 3,78 aastat mõlemal pool lõikepunkti.
+BW est. (h) = 3.778 - Optimaalne aken hinnangu tegemiseks on 3,78 aastat mõlemal pool lõikepunkti.
 
 W bias (b) = 5.943 - Nihke hindamiseks kasutatakse laiemat akent, 5,94 aastat mõlemal pool lõikepunkti. See on tavapärane, sest nihke hindamiseks on vaja rohkem andmeid.
 
-
-rho (h/b) = 0.636 - See on suhe hinnangu akna ja nihke akna vahel: 3.78 / 5.94 ≈ 0.64.
-Väärtus alla 1 näitab, et nike hindamiseks kasutatakse suuremat akent kui põhihinnangu jaoks (mis on just õige).
+rho (h/b) = 0.636 - See on suhe hinnangu akna ja nihke akna vahel: 3.78 / 5.94 ≈ 0.64. Väärtus alla 1 näitab, et nike hindamiseks kasutatakse suuremat akent kui põhihinnangu jaoks (mis on just õige).
 
 Unique Obs. = 13 (vasakul), 12 (paremal) - lõikepunkti ümbruses on ainult 13 erinevat vanuseväärtust vasakul ja 12 erinevat vanuseväärtust paremal. Kuna vanus on diskreetne (tavaliselt täisaastad), ei ole lõikepunkti ümber väga palju erinevaid väärtusi, mis võib täpsust piirata.
 
+4)  Koefitsient (mõju)
 
-4) Koefitsient (mõju)
+Tavaline hinnang lõikepunkti mõjule on 0,185. See tähendab, et pensioniea ületamine suurendab pensioni saamise tõenäosust 18,5 protsendipunkti võrra. Standardviga: 0,070 z-statistik: 2,64 p-väärtus: 0,008 → statistiliselt oluline 1% tasemel
 
-Tavaline hinnang lõikepunkti mõjule on 0,185. See tähendab, et pensioniea ületamine suurendab pensioni saamise tõenäosust 18,5 protsendipunkti võrra.
-Standardviga: 0,070
-z-statistik: 2,64
-p-väärtus: 0,008 → statistiliselt oluline 1% tasemel
-
-5) Robustne (bias-corrected) hinnang on konservatiivsem: z = 1,921, p = 0,055. See on vaid napilt oluline 10% tasemel, sest 95% usaldusvahemik on [−0,003; 0,333] ja hõlmab nulli.
+5)  Robustne (bias-corrected) hinnang on konservatiivsem: z = 1,921, p = 0,055. See on vaid napilt oluline 10% tasemel, sest 95% usaldusvahemik on \[−0,003; 0,333\] ja hõlmab nulli.
 
 Tulemuste usaldusväärsus sõltub seega ka sellest, kas kasutame tavalist või robustset hinnangut: tavalise järgi on efekt kindlalt oluline, robustse järgi piiri peal.
 
 Kommentaar robustsete standardvigade kohta
 
-Tavaline ("Conventional") punkthinnang on lihtsalt vahe lõikepunkti vasakul ja paremal poolel lokaalse polünoomi ekstrapoleeritud väärtustes, antud akna korral. 
+Tavaline ("Conventional") punkthinnang on lihtsalt vahe lõikepunkti vasakul ja paremal poolel lokaalse polünoomi ekstrapoleeritud väärtustes, antud akna korral.
 
-Standardvead põhinevad asümptootilisel teoorial, kuid kipuvat liiga vähe arvestama nihet (bias), eriti väikeste valimite puhul. 
+Standardvead põhinevad asümptootilisel teoorial, kuid kipuvat liiga vähe arvestama nihet (bias), eriti väikeste valimite puhul.
 
 "Robust bias-corrected (RBC) hinnang" - Calonico, Cattaneo ja Titiunik (2014) järgi püüab korrigeerida lõikepunkti lähedal tekkivat hinnangute nihet.
 
@@ -503,14 +1409,12 @@ Punktihinnang ise tavaliselt palju ei muutu, kuid usaldusvahemikud muutuvad laie
 
 Seega on RBC hinnang konservatiivsem ja usaldusväärsem, vähendades riski vale-positiivsete tulemuste jaoks.
 
-
 Ja ka graafik
 
 ```{r}
 rdplot(y = df$pension, x = df$age, c = 62.5)
 
 ```
-
 
 ### Pensioniea mõju töötundidele
 
@@ -552,7 +1456,7 @@ meanhoursabove - meanhoursbelow
 
 ```
 
-Töötundide vähenemine on samal ajal  `r round(meanhoursabove - meanhoursbelow, 1)` tundi nädalas.
+Töötundide vähenemine on samal ajal `r round(meanhoursabove - meanhoursbelow, 1)` tundi nädalas.
 
 LATE on suhtarv, mis skaleerib muutuse.
 
@@ -561,12 +1465,9 @@ late = (meanhoursabove - meanhoursbelow) / (meanpensabove-meanpensbelow)
 late
 ```
 
-
 Õigus saada vanaduspensioni vähendaks töötunde ligi `r late` tunni võrra nädalas.
 
-Aga, et paljud on juba varem läinud pensionile ja paljud lükkavad edasi, 
-siis andmetest me näeme pensioniea ligidal vaid vähenemist `r round(meanhoursabove - meanhoursbelow, 1)` töötundi.
-
+Aga, et paljud on juba varem läinud pensionile ja paljud lükkavad edasi, siis andmetest me näeme pensioniea ligidal vaid vähenemist `r round(meanhoursabove - meanhoursbelow, 1)` töötundi.
 
 ### Regressioonimudel – kui oleks järsk disain
 
@@ -614,7 +1515,6 @@ rdplot(y = df$hours, x = df$age, c = 62.5)
 
 ```
 
-
 Iseloomustamaks funktsionaalse kuju ja lõikepunkti valiku mõju, siis kui oleksime nõudnud lineaarset seost vanuse ja töötundide vahel ja paneks piiri 63.5 (sest tööturukäitumise kohandamine võtab aega), oleks mõju ca 4 tundi vähem töötunde nädalas, küll pole see statistiliselt oluline:
 
 ```{r}
@@ -625,20 +1525,16 @@ rdrobust(y = df$hours, x = df$age, c = 63.5, p = 1) %>%
 
 ```
 
-
 #### Edasijõudnutele: instrumentmuutuja kasutamine
 
-
 Esimene samm on hinnata pensioni saamise tõenäosus. Kasutage lineaarset tõenäosusmudelit koos overpenage ja lineaarse ja ruudukujul vanusega. Seejärel prognoosige pensioni saamise tõenäosus. Pange nimeks "pensionhat". Hinnake tundide võrrand, kus pensioni saamise asemel on selgitavaks teguriks prognoositav pensioni saamine "pensionhat".
-
 
 ```{r}
 pensmodel <- lm(pension ~ overpenage + agec +  agec2, data = df)
 summary(pensmodel)
 ```
 
-Meeldetuletus: kui palju pensioniikka jõudmine suurendas tõenäosust pensioni saada?
-Vaata "overpenage" kordajat.
+Meeldetuletus: kui palju pensioniikka jõudmine suurendas tõenäosust pensioni saada? Vaata "overpenage" kordajat.
 
 Prognoosime pensioni saamise, nimetame muutuja 'pensionhat'.
 
@@ -658,7 +1554,7 @@ summary(modelf)
 
 Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi. See on sarnane käsitsi hinnatud LATEga (vt üles).
 
-Käsk `ivreg` teeb selle kahesammulise hindamise automaatselt. 
+Käsk `ivreg` teeb selle kahesammulise hindamise automaatselt.
 
 ```{r}
 fuzzyreg <- ivreg(
@@ -672,9 +1568,7 @@ summary(fuzzyreg)
 
 vaadake kordajat `pension` Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi.
 
-
 #### Paindlikum mudel
-
 
 Võime kasutada veelgi paindlikumat mudelit, lokaalset lineaarset regressioonimudelit, taas paketist rdrobust.
 
@@ -685,14 +1579,11 @@ rdrobust(y = df$hours, x = df$age, c = 62.5, fuzzy = df$pension) %>%
 
 ```
 
-Selle paindliku mudeli järgi ei ole seost pensioniea ja töötundide vahel.
-Seost ei ole, sest muutus töötundides võib olla mittelineaarse seose tulemus vanuse ja töötundide vahel.
-
+Selle paindliku mudeli järgi ei ole seost pensioniea ja töötundide vahel. Seost ei ole, sest muutus töötundides võib olla mittelineaarse seose tulemus vanuse ja töötundide vahel.
 
 ### Platseebo-test
 
-Vaatame, kas vanuses 63 on hüpe erinev võrreldes teiste lõikepunktidega.
-Me sooviksime näha, et 63 on hüpe kõrge ja mujal ei ole erinevused statistiliselt olulised.
+Vaatame, kas vanuses 63 on hüpe erinev võrreldes teiste lõikepunktidega. Me sooviksime näha, et 63 on hüpe kõrge ja mujal ei ole erinevused statistiliselt olulised.
 
 ```{r}
 #Meie väljund
@@ -717,8 +1608,7 @@ extract_rd <- function(cu) {
 }
 ```
 
-Ja nüüd rakendame tabelit.
-Kasutame Ri käsku mapdfr, mis annab tulemustest andmetabeli. Ja funktsiooniks on meie enda tehtud funktsioon `extract_rd`
+Ja nüüd rakendame tabelit. Kasutame Ri käsku mapdfr, mis annab tulemustest andmetabeli. Ja funktsiooniks on meie enda tehtud funktsioon `extract_rd`
 
 ```{r}
 res <- map_dfr(cuts, extract_rd) %>%
@@ -767,14 +1657,11 @@ ggplot(res, aes(x = cutoff, y = tau_rb)) +
   theme_minimal()
 ```
 
-
 Joonistelt näeme, et tõepoolest kas vanus 62.5 või 63 on see, kus on statistiliselt oluline hüpe pensioni saamise tõenäosuses. Samas on mingi kummaline tõenäosuse vähenemine hoopis vanuses 65, mis muidugi ei saa olla tõene, aga viitab metoodika nõrkusele.
-
 
 ### Platseebo test ka töötundidele
 
 Nüüd peame muutma funktsiooni keerukamaks, et ta võtaks arvesse meie hägusat disaini
-
 
 ```{r}
 #Meie väljund muutub
@@ -836,3 +1723,24 @@ Näeme, et mõjud kõiguvad väga palju. Mingeid erilist hüpet või muutust me 
 
 Kokkuvõtteks, me tõesti näeme hüpet pensioniea lähedases vanuses pensioni saajate seas. Kuid me ei saa ümber lükata nüll hüpoteesi, et töötundidele otsest pensionieani jõudmine avaldaks mõju. Töötundide vähenemine toimub sujuvalt.
 
+### Lisa: RDD hindamine Statas
+
+Stata jaoks saab kasutada sama `rdrobust` paketti.
+
+Näiteks:
+
+``` stata
+rdrobust Y X, c(50) p(1)
+```
+
+Lokaalse ruutregressiooni korral:
+
+``` stata
+rdrobust Y X, c(50) p(2)
+```
+
+RDD graafiku saab teha käsuga:
+
+``` stata
+rdplot Y X, c(50)
+```

@@ -1,0 +1,1249 @@
+# Pöördtõenäosusega kaalumine (IPW) ja AIPW
+
+**NB! Tähistused ühtlustamata. Lisada viited**
+
+Selles peatükis vaatame, kuidas hinnata põhjuslikku mõju **kaalumise** abil. Põhiidee on väga sarnane sobitamisele: tahame muuta osalus- ja võrdlusrühma taustatunnuste jaotused omavahel võrreldavaks. Sobitamisel valisime igale osalejale ühe või mitu sarnast võrdlusisikut. Kaalumisel jätame põhimõtteliselt kõik vaatlused alles, kuid anname neile erineva kaalu.
+
+Peatüki lõpuks peaksid oskama:
+
+- selgitada, miks täpne sobitamine rühmade lõikes on käsitletav kaalumisena;
+- tuletada ATE, ATT ja ATU jaoks kasutatavad IPW-kaalud;
+- eristada Horvitz--Thompsoni ja Hájeki IPW-hinnangut;
+- selgitada, miks suured kaalud viitavad halvale kattuvusele (*overlap*);
+- kirjeldada AIPW-hinnangut kahel samaväärsel viisil;
+- arvutada IPW- ja AIPW-hinnanguid R-is.
+
+## Sobitamisest kaalumiseni
+
+Alustame lihtsast näitest. Oletame, et soovime hinnata tööturukoolituse mõju palgale. Inimesed elavad kas Põhja- või Lõuna-Eestis ning oletame lihtsuse mõttes, et piirkond on ainus taustatunnus, mida peame arvesse võtma.
+
+| Piirkond | Osalejaid $N_{1s}$ | Võrdlusrühmas $N_{0s}$ | Osalejate keskmine $\bar Y_{1s}$ | Võrdlusrühma keskmine $\bar Y_{0s}$ |
+|---------------|--------------:|--------------:|--------------:|--------------:|
+| Põhja-Eesti | 40 | 30 | 150 | 120 |
+| Lõuna-Eesti | 20 | 10 | 150 | 140 |
+| **Kokku** | **60** | **40** |  |  |
+
+Siin tähendab $D=1$ koolitusel osalemist ja $D=0$ mitteosalemist. Tähistame piirkonda indeksiga $s$.
+
+### ATT täpse sobitamise abil
+
+Kui meid huvitab **keskmine mõju osalejatele** (*average treatment effect on the treated*, ATT), siis peab võrdlusrühm esindama osalejate piirkondlikku jaotust.
+
+Osalejatest elab
+
+$$
+\frac{40}{60}
+$$
+
+Põhja-Eestis ja
+
+$$
+\frac{20}{60}
+$$
+
+Lõuna-Eestis. Seega
+
+$$
+\begin{aligned}
+ATT
+&=
+\frac{40}{60}(150-120)
++
+\frac{20}{60}(150-140) \\
+&=23.33.
+\end{aligned}
+$$
+
+Sama hinnangu saame nii, et anname võrdlusrühma inimestele piirkonniti erineva kaalu. Põhja-Eestis peab 30 võrdlusrühma inimest esindama 40 osalejat, mistõttu igaühe kaal on
+
+$$
+w_{0,N}=\frac{40}{30}.
+$$
+
+Lõuna-Eestis peab 10 võrdlusrühma inimest esindama 20 osalejat, mistõttu
+
+$$
+w_{0,S}=\frac{20}{10}=2.
+$$
+
+Osalejate kaal on ATT puhul 1. Pärast kaalumist on võrdlusrühma efektiivne piirkondlik koosseis sama mis osalejatel:
+
+| Piirkond    | Osalejaid | Võrdlusrühmas | Võrdlusrühma kaal | Kaalutud võrdlusrühm |
+|---------------|--------------:|--------------:|--------------:|--------------:|
+| Põhja-Eesti |        40 |            30 |           $40/30$ |                   40 |
+| Lõuna-Eesti |        20 |            10 |           $20/10$ |                   20 |
+| **Kokku**   |    **60** |        **40** |                   |               **60** |
+
+See ongi kaalumise põhiidee: **me ei pea tingimata leidma igale osalejale konkreetset paarilist. Võime muuta olemasolevate võrdlusisikute suhtelist tähtsust nii, et nad esindaksid osalejate jaotust.**
+
+### Kuidas siit tekib tõenäosusskoor?
+
+Olgu piirkonnas $s$ koolitusel osalemise tõenäosus
+
+$$
+p_s=P(D=1\mid X=s)
+=\frac{N_{1s}}{N_{1s}+N_{0s}}.
+$$
+
+Siis
+
+$$
+1-p_s=\frac{N_{0s}}{N_{1s}+N_{0s}}.
+$$
+
+Nende suhe on
+
+$$
+\frac{p_s}{1-p_s}
+=
+\frac{N_{1s}/(N_{1s}+N_{0s})}
+{N_{0s}/(N_{1s}+N_{0s})}
+=
+\frac{N_{1s}}{N_{0s}}.
+$$
+
+Seega ATT jaoks leitud võrdlusrühma kaal
+
+$$
+\boxed{
+w_0(X)=\frac{p(X)}{1-p(X)}
+}
+$$
+
+on lihtsalt täpse sobitamise kaal $N_1/N_0$, kirjutatud osalemise tõenäosuse abil.
+
+::: callout-important
+## Seos sobitamise ja kaalumise vahel
+
+Kui $X$ moodustab lõpliku arvu täpseid rühmi, siis saab kaalumist vaadata täpse sobitamise üldistusena. Kui $X$ sisaldab palju tunnuseid või pidevaid tunnuseid, pole identseid inimesi enamasti olemas. Siis hindame $p(X)=P(D=1\mid X)$ mudeliga ja kasutame sellest tuletatud kaale.
+:::
+
+### ATU: sihtrühmaks on mitteosalejad
+
+Kui soovime hinnata mõju neile, kes **ei osalenud** (*average treatment effect on the untreated*, ATU), peavad osalejad esindama mitteosalejate jaotust.
+
+Seetõttu jääb mitteosalejate kaaluks 1 ning osalejate kaal on
+
+$$
+\frac{N_{0s}}{N_{1s}}
+=
+\frac{1-p_s}{p_s}.
+$$
+
+Seega
+
+$$
+\boxed{
+w_1(X)=\frac{1-p(X)}{p(X)},
+\qquad
+w_0(X)=1.
+}
+$$
+
+Meie näites
+
+$$
+ATU
+=
+\frac{30}{40}(150-120)
++
+\frac{10}{40}(150-140)
+=25.
+$$
+
+### ATE: sihtrühmaks on kogu üldkogum
+
+ATE puhul peab nii osalus- kui võrdlusrühm esindama **kogu üldkogumi** piirkondlikku jaotust.
+
+Piirkonnas $s$ on kokku
+
+$$
+N_s=N_{1s}+N_{0s}
+$$
+
+inimest. Et $N_{1s}$ osalejat esindaks kõiki $N_s$ selle piirkonna inimesi, peab osaleja kaal olema
+
+$$
+\frac{N_s}{N_{1s}}
+=
+\frac{1}{p_s}.
+$$
+
+Samamoodi peab võrdlusrühma kaal olema
+
+$$
+\frac{N_s}{N_{0s}}
+=
+\frac{1}{1-p_s}.
+$$
+
+Seega ATE-kaalud on
+
+$$
+\boxed{
+w_1(X)=\frac{1}{p(X)},
+\qquad
+w_0(X)=\frac{1}{1-p(X)}.
+}
+$$
+
+Meie näites on kogu valimist 70% Põhja- ja 30% Lõuna-Eestist. Seega
+
+$$
+ATE
+=0.7(150-120)+0.3(150-140)
+=24.
+$$
+
+Näeme, et ATE, ATT ja ATU ei pea olema võrdsed. Need kasutavad erinevat **sihtrühma** ning annavad erineva keskmise juhul, kui ravi mõju erineb taustatunnuste lõikes.
+
+## Üldine raamistik
+
+Olgu
+
+- $D_i\in\{0,1\}$ -- osalemise indikaator;
+- $Y_i(1)$ -- isiku $i$ potentsiaalne tulemus osalemise korral;
+- $Y_i(0)$ -- isiku $i$ potentsiaalne tulemus mitteosalemise korral;
+- $Y_i=D_iY_i(1)+(1-D_i)Y_i(0)$ -- vaadeldav tulemus;
+- $X_i$ -- enne meetmes osalemist mõõdetud taustatunnused;
+- $e(X_i)=P(D_i=1\mid X_i)$ -- tõenäosusskoor (*propensity score*).
+
+Kasutame tähist $e(X)$, kuid empiirilises osas on meil tavaliselt selle hinnang
+
+$$
+\hat e_i=\widehat P(D_i=1\mid X_i).
+$$
+
+### Eeldused
+
+IPW tugineb samadele identifitseerimise eeldustele nagu tõenäosusskooril põhinev sobitamine.
+
+**1. Tinglik sõltumatus** (*conditional independence*, *unconfoundedness*)
+
+$$
+\{Y(1),Y(0)\}\perp D\mid X.
+$$
+
+Pärast $X$ arvesse võtmist ei tohi olla järelejäänud mõõtmata segajaid, mis mõjutavad nii osalemist kui ka tulemust.
+
+**2. Kattuvus ehk positiivsus** (*overlap*, *positivity*)
+
+ATE jaoks nõuame
+
+$$
+0<e(X)<1.
+$$
+
+Iga analüüsitava $X$ väärtuse juures peab leiduma nii osalejaid kui ka mitteosalejaid.
+
+**3. Järjepidevus** (*consistency*)
+
+Kui $D_i=d$, siis vaadeldud tulemus võrdub vastava potentsiaalse tulemusega:
+
+$$
+Y_i=Y_i(d).
+$$
+
+::: callout-note
+## IPW ei lahenda mõõtmata segajate probleemi
+
+Kaalumine tasakaalustab ainult neid tunnuseid, mis on kaasatud $X$ hulka või mida kasutatud mudel suudab nende kaudu tasakaalustada. Kui oluline segaja jääb mõõtmata, ei muuda keerukam kaalumismeetod seda probleemi automaatselt olematuks.
+:::
+
+## IPW üldkogumis
+
+### ATE
+
+Keskmine põhjuslik mõju kogu üldkogumis on
+
+$$
+ATE=E[Y(1)-Y(0)].
+$$
+
+Tingliku sõltumatuse korral saame esimese potentsiaalse tulemuse keskmise kirjutada
+
+$$
+E[Y(1)]
+=
+E\left[\frac{DY}{e(X)}\right],
+$$
+
+ja teise
+
+$$
+E[Y(0)]
+=
+E\left[\frac{(1-D)Y}{1-e(X)}\right].
+$$
+
+Seetõttu
+
+$$
+\boxed{
+ATE
+=
+E\left[
+\frac{DY}{e(X)}
+-
+\frac{(1-D)Y}{1-e(X)}
+\right].
+}
+$$
+
+Miks esimene võrdus töötab? Tingides $X$ järgi,
+
+$$
+\begin{aligned}
+E\left[\frac{DY}{e(X)}\mid X\right]
+&=
+\frac{1}{e(X)}E[D Y(1)\mid X] \\
+&=
+\frac{P(D=1\mid X)}{e(X)}E[Y(1)\mid X] \\
+&=
+E[Y(1)\mid X].
+\end{aligned}
+$$
+
+Viimases sammus kasutasime tinglikku sõltumatust. Keskmistades üle $X$ jaotuse saame $E[Y(1)]$.
+
+### ATT
+
+ATT on
+
+$$
+ATT=E[Y(1)-Y(0)\mid D=1].
+$$
+
+Olgu
+
+$$
+\pi=P(D=1).
+$$
+
+Siis
+
+$$
+\boxed{
+ATT
+=
+\frac{1}{\pi}
+E\left[
+DY
+-
+(1-D)\frac{e(X)}{1-e(X)}Y
+\right].
+}
+$$
+
+ATT puhul ei ole osalejaid vaja ümber kaaluda: nemad **ongi sihtrühm**. Ümber kaalutakse võrdlusrühm, et selle $X$ jaotus sarnaneks osalejate jaotusega.
+
+### ATU
+
+ATU on
+
+$$
+ATU=E[Y(1)-Y(0)\mid D=0].
+$$
+
+Olgu $1-\pi=P(D=0)$. Siis
+
+$$
+\boxed{
+ATU
+=
+\frac{1}{1-\pi}
+E\left[
+D\frac{1-e(X)}{e(X)}Y
+-
+(1-D)Y
+\right].
+}
+$$
+
+ATU puhul on mitteosalejad ise sihtrühm ning ümber kaalutakse osalejad.
+
+### Kolm hinnangut ühe tabelina
+
+| Hinnatav mõju | Osaleja $(D=1)$ kaal | Mitteosaleja $(D=0)$ kaal | Sihtrühm      |
+|-----------------|------------------:|------------------:|-----------------|
+| ATE           |             $1/e(X)$ |              $1/[1-e(X)]$ | kogu üldkogum |
+| ATT           |                  $1$ |           $e(X)/[1-e(X)]$ | osalejad      |
+| ATU           |      $[1-e(X)]/e(X)$ |                       $1$ | mitteosalejad |
+
+Neid kolme kaalupaari saab kirjutada ka ühe üldise valemina. Olgu $h(X)$ funktsioon, mis kirjeldab sihtrühma. Siis
+
+$$
+w_1(X)=\frac{h(X)}{e(X)},
+\qquad
+w_0(X)=\frac{h(X)}{1-e(X)}.
+$$
+
+Valides
+
+$$
+h(X)=1
+$$
+
+saame ATE; valides $h(X)=e(X)$ saame ATT ning valides $h(X)=1-e(X)$ saame ATU.
+
+## Mida kaalumine teeb?
+
+ATE-kaalude korral on osaleja kaal
+
+$$
+\frac{1}{e(X)}.
+$$
+
+Kui $e(X)$ on väike, siis on sellise $X$ väärtusega osaleja haruldane ning ta saab suure kaalu. Ta esindab paljusid sarnaseid inimesi, kes tegelikult osalejate hulka ei sattunud.
+
+Mitteosaleja kaal on
+
+$$
+\frac{1}{1-e(X)}.
+$$
+
+Kui $e(X)$ on suur, on sellise $X$ väärtusega mitteosaleja haruldane ning saab suure kaalu.
+
+Intuitiivselt loob IPW **pseudo-üldkogumi**, kus osalemine ei sõltu enam $X$ jaotusest. Korrektselt määratud ATE-kaalude korral kehtib näiteks iga sobiva funktsiooni $g(X)$ jaoks
+
+$$
+E\left[\frac{D}{e(X)}g(X)\right]
+=
+E[g(X)]
+$$
+
+ja
+
+$$
+E\left[\frac{1-D}{1-e(X)}g(X)\right]
+=
+E[g(X)].
+$$
+
+Seega kaalutud osalus- ja võrdlusrühm esindavad mõlemad sama $X$ jaotust.
+
+## IPW valimis
+
+Praktikas me $e(X)$ ei tea. Hindame selle näiteks logit- või probit-mudeliga ning saame iga isiku jaoks $\hat e_i$.
+
+Tähistame valimi suuruse $n$, osalejate arvu $n_1$ ja mitteosalejate arvu $n_0$.
+
+### Horvitz--Thompsoni hinnang
+
+ATE otsene valimianaloog on
+
+$$
+\boxed{
+\widehat{ATE}_{HT}
+=
+\frac{1}{n}
+\sum_{i=1}^n
+\left[
+\frac{D_iY_i}{\hat e_i}
+-
+\frac{(1-D_i)Y_i}{1-\hat e_i}
+\right].
+}
+$$
+
+ATT korral
+
+$$
+\boxed{
+\widehat{ATT}_{HT}
+=
+\frac{1}{n_1}
+\sum_{i=1}^n
+\left[
+D_iY_i
+-
+(1-D_i)\frac{\hat e_i}{1-\hat e_i}Y_i
+\right].
+}
+$$
+
+ATU korral
+
+$$
+\boxed{
+\widehat{ATU}_{HT}
+=
+\frac{1}{n_0}
+\sum_{i=1}^n
+\left[
+D_i\frac{1-\hat e_i}{\hat e_i}Y_i
+-
+(1-D_i)Y_i
+\right].
+}
+$$
+
+Horvitz--Thompsoni hinnang on kõige otsesem üldkogumi valemite valimianaloog. Selle nõrk külg on see, et üksikud väga suured kaalud võivad hinnangut tugevasti mõjutada.
+
+## Alternatiivne IPW-hinnang: Hájeki normaliseeritud hinnang
+
+Praktikas kasutatakse sageli normaliseeritud kaale. Selle asemel, et jagada kaalutud summa $n$, $n_1$ või $n_0$-ga, jagame iga rühma kaalutud summa **selle rühma kaalude summaga**.
+
+### ATE
+
+$$
+\boxed{
+\widehat{ATE}_{H}
+=
+\frac{\sum_i D_iY_i/\hat e_i}
+     {\sum_i D_i/\hat e_i}
+-
+\frac{\sum_i (1-D_i)Y_i/(1-\hat e_i)}
+     {\sum_i (1-D_i)/(1-\hat e_i)}.
+}
+$$
+
+See on lihtsalt kahe kaalutud keskmise erinevus.
+
+### ATT
+
+$$
+\boxed{
+\widehat{ATT}_{H}
+=
+\frac{\sum_i D_iY_i}{\sum_i D_i}
+-
+\frac{\sum_i (1-D_i)\dfrac{\hat e_i}{1-\hat e_i}Y_i}
+     {\sum_i (1-D_i)\dfrac{\hat e_i}{1-\hat e_i}}.
+}
+$$
+
+### ATU
+
+$$
+\boxed{
+\widehat{ATU}_{H}
+=
+\frac{\sum_i D_i\dfrac{1-\hat e_i}{\hat e_i}Y_i}
+     {\sum_i D_i\dfrac{1-\hat e_i}{\hat e_i}}
+-
+\frac{\sum_i (1-D_i)Y_i}{\sum_i(1-D_i)}.
+}
+$$
+
+::: callout-note
+## Horvitz--Thompson või Hájek?
+
+Horvitz--Thompsoni kuju on teooriaga kõige otsesemalt seotud. Hájeki hinnang normaliseerib kaalud rühmade sees ning on lõplikus valimis sageli stabiilsem. Suures valimis lähenevad mõlemad samale sihtparameetrile, kui tõenäosusskoori mudel on korrektselt määratud.
+
+Mõnikord nimetatakse normaliseerimist ka kaalude stabiliseerimiseks. Kitsamas terminoloogias tähendavad *stabilized weights* siiski kaale, mille lugejas kasutatakse marginaalset osalemistõenäosust, näiteks ATE korral $P(D=1)/e(X)$ osalejatele. Seetõttu kasutame siin selguse huvides terminit **normaliseeritud Hájeki hinnang**.
+:::
+
+### Sama hinnang kaalutud regressiooniga
+
+Kui hindame mudeli
+
+$$
+Y_i=\alpha+\tau D_i+u_i
+$$
+
+kaalutud vähimruutude meetodil, kasutades ATE-, ATT- või ATU-kaale, siis $\hat\tau$ on vastavate **kaalutud keskmiste erinevus**. Seega annab lihtne kaalutud regressioon sama punktihinnangu kui Hájeki kujul käsitsi arvutatud kaalutud keskmiste erinevus.
+
+See on mugav arvutusviis, eriti kui soovime kohe kasutada regressiooniväljundit või robustseid standardvigu.
+
+## Kattuvus ja suured kaalud
+
+IPW nõrk koht on väike või väga suur tõenäosusskoor.
+
+ATE puhul
+
+$$
+w_i=
+\begin{cases}
+1/\hat e_i, & D_i=1,\\
+1/(1-\hat e_i), & D_i=0.
+\end{cases}
+$$
+
+Kui osalejal on $\hat e_i\approx 0$, võib tema kaal muutuda väga suureks. Kui mitteosalejal on $\hat e_i\approx 1$, juhtub sama.
+
+See ei ole ainult tehniline probleem. Suur kaal ütleb sisuliselt, et selle inimese sarnaseid vaatlusi teises rühmas on väga vähe. Me püüame siis hinnata põhjuslikku mõju piirkonnas, kus andmed annavad vähe infot.
+
+Praktikas kontrollime vähemalt:
+
+1.  tõenäosusskooride kattuvust osalus- ja võrdlusrühmas;
+2.  kaalude jaotust ja maksimaalseid kaale;
+3.  taustatunnuste tasakaalu pärast kaalumist;
+4.  efektiivset valimi suurust.
+
+Kaalutud valimi efektiivne suurus on
+
+$$
+\boxed{
+ESS
+=
+\frac{\left(\sum_i w_i\right)^2}
+     {\sum_i w_i^2}.
+}
+$$
+
+Kui üksikud vaatlused saavad väga suure kaalu, võib $ESS$ olla palju väiksem kui tegelik vaatluste arv.
+
+::: callout-warning
+## Ära vali tõenäosusskoori mudelit ainult prognoositäpsuse järgi
+
+IPW eesmärk ei ole ennustada võimalikult täpselt, kes osaleb. Eesmärk on saada pärast kaalumist hea taustatunnuste tasakaal. Seetõttu tuleb tõenäosusskoori mudelit hinnata ka selle järgi, kas kaalumine tasakaalustab olulised segajad.
+:::
+
+## AIPW: kaalumine koos regressiooniga
+
+IPW kasutab osalemismudelit
+
+$$
+e(X)=P(D=1\mid X).
+$$
+
+Regressiooniga korrigeerimine (*regression adjustment*, RA) kasutab omakorda tulemuse mudeleid
+
+$$
+m_1(X)=E[Y\mid D=1,X]
+$$
+
+ja
+
+$$
+m_0(X)=E[Y\mid D=0,X].
+$$
+
+AIPW (*augmented inverse probability weighting*) ühendab mõlemad.
+
+Järgnevalt keskendume ATE-le. ATT ja ATU jaoks saab konstrueerida analoogsed sihtrühmapõhised topeltrobustsed hinnangud, kuid ATE kuju näitab kõige selgemalt AIPW põhiideed.
+
+## AIPW esimene kuju: regressiooniprognoos + IPW-ga kaalutud jääk
+
+Regressiooniga korrigeerimise korral prognoosiksime iga inimese jaoks
+
+$$
+\hat m_1(X_i)
+$$
+
+ja
+
+$$
+\hat m_0(X_i)
+$$
+
+ning arvutaksime
+
+$$
+\widehat{ATE}_{RA}
+=
+\frac{1}{n}\sum_{i=1}^n
+\left[
+\hat m_1(X_i)-\hat m_0(X_i)
+\right].
+$$
+
+AIPW alustab samast prognoosist, kuid **parandab prognoosi seal, kus tegelik tulemus on vaadeldav**.
+
+Osalemise korral defineerime korrigeeritud potentsiaalse tulemuse
+
+$$
+\boxed{
+\tilde Y_i(1)
+=
+\hat m_1(X_i)
++
+\frac{D_i}{\hat e_i}
+\left[Y_i-\hat m_1(X_i)\right].
+}
+$$
+
+Mitteosalemise korral
+
+$$
+\boxed{
+\tilde Y_i(0)
+=
+\hat m_0(X_i)
++
+\frac{1-D_i}{1-\hat e_i}
+\left[Y_i-\hat m_0(X_i)\right].
+}
+$$
+
+Seega
+
+$$
+\boxed{
+\widehat{ATE}_{AIPW}
+=
+\frac{1}{n}\sum_{i=1}^n
+\left[
+\tilde Y_i(1)-\tilde Y_i(0)
+\right].
+}
+$$
+
+Kirjutades kõik ühe valemina,
+
+$$
+\boxed{
+\widehat{ATE}_{AIPW}
+=
+\frac{1}{n}\sum_{i=1}^n
+\left\{
+\hat m_1(X_i)-\hat m_0(X_i)
++
+\frac{D_i}{\hat e_i}[Y_i-\hat m_1(X_i)]
+-
+\frac{1-D_i}{1-\hat e_i}[Y_i-\hat m_0(X_i)]
+\right\}.
+}
+$$
+
+Seda kuju on kasulik meelde jätta kui
+
+$$
+\boxed{
+\text{AIPW}
+=
+\text{regressiooniga prognoositud mõju}
++
+\text{IPW-ga kaalutud prognoosivead}.
+}
+$$
+
+Regressioon annab iga inimese puuduva potentsiaalse tulemuse kohta prognoosi. IPW osa kontrollib seda prognoosi nende inimeste juures, kelle vastav tulemus on tegelikult vaadeldav.
+
+## AIPW teine kuju: IPW + regressiooniga parandustermin
+
+Sama valemit saab ümber rühmitada nii, et alustame tavalisest IPW-hinnangust:
+
+$$
+\begin{aligned}
+\widehat{ATE}_{AIPW}
+=
+\frac{1}{n}\sum_{i=1}^n
+\Bigg\{
+&\underbrace{
+\frac{D_iY_i}{\hat e_i}
+-
+\frac{(1-D_i)Y_i}{1-\hat e_i}
+}_{\text{IPW}} \\
+&+
+\underbrace{
+\left(1-\frac{D_i}{\hat e_i}\right)\hat m_1(X_i)
+-
+\left(1-\frac{1-D_i}{1-\hat e_i}\right)\hat m_0(X_i)
+}_{\text{regressiooniga parandustermin}}
+\Bigg\}.
+\end{aligned}
+$$
+
+Seega võime AIPW-d vaadata ka kui
+
+$$
+\boxed{
+\text{AIPW}
+=
+\text{IPW}
++
+\text{regressiooniga parandustermin}.
+}
+$$
+
+Need kaks esitust on algebrailiselt täpselt samad. Esimene kuju on tavaliselt intuitiivsem, kui oleme juba õppinud regressiooniga korrigeerimist. Teine kuju näitab paremini, miks meetodi nimes on sõna **augmented**: tavalisele IPW-le lisatakse tulemusemudelist tulev parandustermin.
+
+### Miks AIPW on topeltrobustne?
+
+AIPW oluline omadus on **topeltrobustsus** (*double robustness*). Lihtsustatult:
+
+- kui osalemismudel $e(X)$ on õigesti määratud, võib tulemusemudel olla valesti määratud;
+- kui tulemusemudelid $m_1(X)$ ja $m_0(X)$ on õigesti määratud, võib osalemismudel olla valesti määratud;
+- hinnang on endiselt kooskõlaline, kui vähemalt üks neist kahest mudeliosast on korrektne.
+
+Näiteks kui $e(X)$ on korrektne, siis
+
+$$
+E\left[
+\hat m_1(X)
++
+\frac{D}{e(X)}(Y-\hat m_1(X))
+\mid X
+\right]
+=
+E[Y(1)\mid X]
+$$
+
+ka siis, kui $\hat m_1(X)$ ise pole õige regressioonifunktsioon.
+
+Kui aga $m_1(X)$ on korrektne, siis jäägi
+
+$$
+Y-m_1(X)
+$$
+
+tinglik keskmine on null ja korrigeerimistermini ootus kaob.
+
+::: callout-warning
+## Topeltrobustne ei tähenda „vigade suhtes immuunne”
+
+AIPW ei ole korrektne, kui nii osalemismudel kui ka tulemusemudel on valesti määratud. Samuti jääb vajalikuks kattuvuse eeldus: väga väikesed või väga suured $\hat e_i$ võivad AIPW jäägiparanduse muuta väga ebastabiilseks.
+:::
+
+## IPW ja AIPW praktiline töövoog
+
+Tüüpiline analüüs koosneb järgmistest sammudest:
+
+1.  vali enne osalemist mõõdetud segajad $X$;
+2.  hinda osalemise tõenäosus $\hat e(X)$;
+3.  kontrolli kattuvust;
+4.  moodusta soovitud sihtrühma jaoks ATE-, ATT- või ATU-kaalud;
+5.  kontrolli kaalude jaotust ja taustatunnuste tasakaalu;
+6.  arvuta IPW-hinnang;
+7.  AIPW korral hinda lisaks tulemusemudelid $\hat m_1(X)$ ja $\hat m_0(X)$;
+8.  arvuta AIPW-hinnang;
+9.  arvuta standardvead või usaldusvahemikud viisil, mis arvestab kogu hindamisprotsessi.
+
+## R-i näide: Eesti tööturukoolituse andmed
+
+Jätkame varem kasutatud Eesti tööturukoolituse näitega. Tulemusmuutuja `employed` näitab, kas inimene oli pärast programmi hõivatud, ning `training` näitab koolitusel osalemist.
+
+### Paketid ja andmed
+
+```{r}
+#| message: false
+#| warning: false
+
+library(dplyr)
+library(ggplot2)
+library(sandwich)
+library(lmtest)
+
+atp <- read.csv("http://kodu.ut.ee/~avork/files/oppetoo/micro/atp.csv")
+
+atp <- atp |>
+  select(training, employed, male, est, age, age2, educ, emplbefore) |>
+  mutate(educ = factor(educ))
+```
+
+Kõigepealt vaatame toorest erinevust osalejate ja mitteosalejate vahel.
+
+```{r}
+atp |>
+  group_by(training) |>
+  summarise(
+    n = n(),
+    employment_rate = mean(employed),
+    .groups = "drop"
+  )
+
+mean(atp$employed[atp$training == 1]) -
+  mean(atp$employed[atp$training == 0])
+```
+
+See erinevus ei ole veel põhjusliku mõju hinnang, sest koolitusel osalenud ja mitteosalenud võivad erineda taustatunnuste poolest.
+
+### 1. Hinda osalemise tõenäosus
+
+Hindame logit-mudeli
+
+$$
+P(D_i=1\mid X_i)=\Lambda(X_i\gamma).
+$$
+
+```{r}
+ps_model <- glm(
+  training ~ male + age + age2 + est + educ + emplbefore,
+  data = atp,
+  family = binomial(link = "logit")
+)
+
+atp$pscore <- predict(ps_model, type = "response")
+
+summary(atp$pscore)
+```
+
+Joonistame tõenäosusskooride jaotuse mõlemas rühmas.
+
+```{r}
+ggplot(atp, aes(x = pscore, fill = factor(training))) +
+  geom_density(alpha = 0.35) +
+  labs(
+    x = "Hinnatud osalemise tõenäosus",
+    y = "Tihedus",
+    fill = "Koolitusel",
+    title = "Tõenäosusskoori kattuvus"
+  ) +
+  theme_minimal()
+```
+
+Otsime eelkõige piirkondi, kus üks rühm praktiliselt puudub. Just seal tekivad väga suured IPW-kaalud.
+
+### 2. Moodusta ATE-, ATT- ja ATU-kaalud
+
+```{r}
+atp <- atp |>
+  mutate(
+    ate_w = if_else(
+      training == 1,
+      1 / pscore,
+      1 / (1 - pscore)
+    ),
+    att_w = if_else(
+      training == 1,
+      1,
+      pscore / (1 - pscore)
+    ),
+    atu_w = if_else(
+      training == 1,
+      (1 - pscore) / pscore,
+      1
+    )
+  )
+```
+
+Vaatame, kui suured kaalud tekkisid.
+
+```{r}
+atp |>
+  summarise(
+    ate_max = max(ate_w),
+    att_max = max(att_w),
+    atu_max = max(atu_w)
+  )
+```
+
+ATE-kaalude efektiivne valimi suurus on näiteks
+
+```{r}
+ess <- function(w) {
+  sum(w)^2 / sum(w^2)
+}
+
+ess(atp$ate_w)
+```
+
+Soovi korral saab tasakaalu kontrollida paketiga `cobalt`, mida kasutasime ka sobitamise juures.
+
+```{r}
+#| eval: false
+
+library(cobalt)
+
+bal.tab(
+  training ~ male + est + age + age2 + educ + emplbefore,
+  data = atp,
+  weights = atp$ate_w,
+  method = "weighting",
+  estimand = "ATE"
+)
+```
+
+### 3. IPW: Hájeki hinnang
+
+Kirjutame abifunktsiooni kaalutud keskmiste erinevuse jaoks.
+
+```{r}
+ipw_hajek <- function(y, d, w) {
+  weighted.mean(y[d == 1], w[d == 1]) -
+    weighted.mean(y[d == 0], w[d == 0])
+}
+
+ate_ipw_h <- ipw_hajek(atp$employed, atp$training, atp$ate_w)
+att_ipw_h <- ipw_hajek(atp$employed, atp$training, atp$att_w)
+atu_ipw_h <- ipw_hajek(atp$employed, atp$training, atp$atu_w)
+
+c(
+  ATE = ate_ipw_h,
+  ATT = att_ipw_h,
+  ATU = atu_ipw_h
+)
+```
+
+Selle andmestiku varasemas analüüsis saime ligikaudu
+
+$$
+\widehat{ATE}_{H}=0.1055,
+\qquad
+\widehat{ATT}_{H}=0.0962,
+\qquad
+\widehat{ATU}_{H}=0.1101.
+$$
+
+Kuna `employed` on binaarne, võib ATE-d tõlgendada siin ligikaudu **10.6 protsendipunktise erinevusena hõive tõenäosuses** pärast taustatunnuste tasakaalustamist.
+
+### 4. IPW: Horvitz--Thompsoni hinnang
+
+ATE standardne Horvitz--Thompsoni valem on
+
+```{r}
+ate_ipw_ht <- mean(
+  atp$training * atp$employed / atp$pscore -
+    (1 - atp$training) * atp$employed / (1 - atp$pscore)
+)
+
+ate_ipw_ht
+```
+
+Sama andmestiku varasemas analüüsis oli tulemuseks ligikaudu
+
+$$
+\widehat{ATE}_{HT}=0.1015.
+$$
+
+See erineb veidi Hájeki hinnangust, sest lõplikus valimis ei summeeru hinnatud pöördkaalud täpselt nii, nagu need summeeruksid ideaalses pseudo-üldkogumis.
+
+### 5. Sama Hájeki hinnang kaalutud regressiooniga
+
+```{r}
+ate_reg <- lm(employed ~ training, data = atp, weights = ate_w)
+att_reg <- lm(employed ~ training, data = atp, weights = att_w)
+atu_reg <- lm(employed ~ training, data = atp, weights = atu_w)
+
+c(
+  ATE = coef(ate_reg)["training"],
+  ATT = coef(att_reg)["training"],
+  ATU = coef(atu_reg)["training"]
+)
+```
+
+Punktihinnangud langevad kokku eespool arvutatud kaalutud keskmiste erinevustega.
+
+Robustse standardvea saab näiteks nii:
+
+```{r}
+coeftest(ate_reg, vcov. = vcovHC(ate_reg, type = "HC1"))
+```
+
+::: callout-warning
+## Standardvead
+
+Lihtne `vcovHC()` käsitleb kasutatud kaale arvutuses etteantutena. Tegelikult on $\hat e_i$ hinnatud samast valimist. Kui soovime standardvigu, mis arvestavad kogu protseduuri ebakindlust, tuleb kasutada sobivat analüütilist variatsioonivalemit või bootstrap'ida **kogu protseduur**: võtta uus valim, hinnata uuesti tõenäosusskoor, arvutada uuesti kaalud ja seejärel mõju.
+:::
+
+## AIPW R-is
+
+Nüüd lisame kaks tulemusemudelit. Jääme õppimise lihtsustamiseks sama lineaarse mudeli juurde, mida oleme selles näites varem kasutanud.
+
+```{r}
+outcome_model_1 <- lm(
+  employed ~ male + est + age + age2 + educ + emplbefore,
+  data = atp[atp$training == 1, ]
+)
+
+outcome_model_0 <- lm(
+  employed ~ male + est + age + age2 + educ + emplbefore,
+  data = atp[atp$training == 0, ]
+)
+
+atp <- atp |>
+  mutate(
+    m1 = predict(outcome_model_1, newdata = atp),
+    m0 = predict(outcome_model_0, newdata = atp)
+  )
+```
+
+### AIPW viis 1: prognoos + kaalutud jääk
+
+Arvutame iga inimese jaoks korrigeeritud potentsiaalsed tulemused.
+
+```{r}
+atp <- atp |>
+  mutate(
+    y1_aipw = m1 + training / pscore * (employed - m1),
+    y0_aipw = m0 + (1 - training) / (1 - pscore) * (employed - m0),
+    tau_aipw_1 = y1_aipw - y0_aipw
+  )
+
+ate_aipw_1 <- mean(atp$tau_aipw_1)
+ate_aipw_1
+```
+
+Selle andmestiku varasemas analüüsis saime ligikaudu
+
+$$
+\widehat{ATE}_{AIPW}=0.1060.
+$$
+
+### AIPW viis 2: IPW + parandustermin
+
+Arvutame nüüd täpselt sama hinnangu teise valemi abil.
+
+```{r}
+atp <- atp |>
+  mutate(
+    ipw_part =
+      training * employed / pscore -
+      (1 - training) * employed / (1 - pscore),
+
+    augmentation_part =
+      (1 - training / pscore) * m1 -
+      (1 - (1 - training) / (1 - pscore)) * m0,
+
+    tau_aipw_2 = ipw_part + augmentation_part
+  )
+
+ate_aipw_2 <- mean(atp$tau_aipw_2)
+ate_aipw_2
+```
+
+Kontrollime, et kaks kuju annavad sama tulemuse.
+
+```{r}
+all.equal(ate_aipw_1, ate_aipw_2)
+```
+
+Tulemus peaks olema `TRUE`.
+
+### AIPW seos regressiooniga korrigeerimise ja IPW-ga
+
+Võrdluseks arvutame ka puhta regressiooniga korrigeerimise hinnangu.
+
+```{r}
+ate_ra <- mean(atp$m1 - atp$m0)
+
+c(
+  RA = ate_ra,
+  IPW_Hajek = ate_ipw_h,
+  IPW_HT = ate_ipw_ht,
+  AIPW = ate_aipw_1
+)
+```
+
+Need hinnangud ei pea lõplikus valimis olema täpselt võrdsed. Kui nii osalemismudel kui ka tulemusemudel kirjeldavad andmeid hästi, on nad sageli üsna lähedased.
+
+## Miks kasutada AIPW-d?
+
+IPW ja regressiooniga korrigeerimine lahendavad sama identifitseerimisprobleemi erinevalt.
+
+IPW küsib:
+
+> Kui palju peaks iga vaatluse tähtsust muutma, et osalus- ja võrdlusrühm esindaksid sama sihtrühma?
+
+Regressiooniga korrigeerimine küsib:
+
+> Milline oleks iga inimese prognoositud tulemus osalemise ja mitteosalemise korral, kui võrrelda inimesi samade $X$ väärtuste juures?
+
+AIPW kasutab mõlemat infot korraga:
+
+$$
+\text{regressiooniprognoos}
++
+\text{kaalutud parandustermin}.
+$$
+
+See annab AIPW-le topeltrobustsuse ning teeb sellest ühe keskse meetodi tänapäevases põhjuslikus analüüsis. Sama põhimõte ilmub hiljem ka masinõppel põhinevates meetodites, kus $e(X)$ ja $m_d(X)$ võib hinnata paindlike algoritmidega ning kasutada ristvalideerimisega seotud *cross-fitting*'ut.
+
+## Kokkuvõte
+
+IPW-d võib mõista kui sobitamise loomulikku jätku. Täpse sobitamise korral rühmitame inimesed samade $X$ väärtuste järgi ja anname rühmades vajadusel erinevad kordajad. IPW asendab diskreetsed rühmad osalemise tõenäosusega $e(X)$.
+
+Oluline on meeles pidada, **millist sihtrühma tahame esindada**:
+
+| Hinnang |    Osaleja kaal | Mitteosaleja kaal |
+|---------|----------------:|------------------:|
+| ATE     |        $1/e(X)$ |      $1/[1-e(X)]$ |
+| ATT     |             $1$ |   $e(X)/[1-e(X)]$ |
+| ATU     | $[1-e(X)]/e(X)$ |               $1$ |
+
+Horvitz--Thompsoni hinnang kasutab kaalutud summasid otsese valimianaloogina. Hájeki hinnang normaliseerib kaalud rühmade sees ja arvutab kaalutud keskmiste erinevuse.
+
+AIPW lisab IPW-le tulemusemudeli. Seda saab vaadata kahel samaväärsel moel:
+
+$$
+\boxed{
+\text{AIPW}
+=
+\text{RA}
++
+\text{IPW-ga kaalutud jäägid}
+}
+$$
+
+või
+
+$$
+\boxed{
+\text{AIPW}
+=
+\text{IPW}
++
+\text{regressiooniga parandustermin}.
+}
+$$
+
+Kõigi nende meetodite puhul jäävad keskseks samad küsimused: kas oleme mõõtnud olulised segajad, kas rühmadel on piisav kattuvus ning kas kaalumine tõepoolest tasakaalustab taustatunnused.
+
+## Kontrollküsimused
+
+1.  Miks on ATT korral osalejate kaal 1?
+2.  Miks saab ATT võrdlusrühma kaalu $e(X)/(1-e(X))$ tõlgendada kui täpse sobitamise rühmasuuruste suhet?
+3.  Miks võivad ATE-kaalud olla väga suured, kui $e(X)$ on 0 või 1 lähedal?
+4.  Mis on Horvitz--Thompsoni ja Hájeki hinnangu peamine arvutuslik erinevus?
+5.  Miks ei taga hea osalemise prognoositäpsus tingimata head IPW-hinnangut?
+6.  Millised kaks mudelit AIPW ühendab?
+7.  Mida tähendab AIPW topeltrobustsus?
+8.  Kas AIPW lahendab mõõtmata segajate probleemi? Põhjenda.
+
+## Väike harjutus
+
+Oletame, et pärast tõenäosusskoori hindamist saame järgmised neli vaatlust.
+
+| Isik | $D$ | $Y$ | $\hat e(X)$ |
+|------|----:|----:|------------:|
+| A    |   1 |  10 |        0.80 |
+| B    |   1 |   8 |        0.40 |
+| C    |   0 |   6 |        0.60 |
+| D    |   0 |   5 |        0.20 |
+
+Arvuta:
+
+1.  ATE-kaal iga vaatluse jaoks;
+2.  ATT-kaal iga vaatluse jaoks;
+3.  ATU-kaal iga vaatluse jaoks;
+4.  Hájeki IPW-hinnang ATE-le;
+5.  milline vaatlus saab ATE puhul kõige suurema kaalu ja miks.
+
+::: {.callout-tip collapse="true"}
+## Lahendus
+
+ATE-kaalud on
+
+$$
+w_i=
+\begin{cases}
+1/\hat e_i, & D_i=1,\\
+1/(1-\hat e_i), & D_i=0.
+\end{cases}
+$$
+
+Seega
+
+| Isik |     ATE-kaal |       ATT-kaal |       ATU-kaal |
+|------|-------------:|---------------:|---------------:|
+| A    | $1/0.8=1.25$ |            $1$ | $0.2/0.8=0.25$ |
+| B    | $1/0.4=2.50$ |            $1$ | $0.6/0.4=1.50$ |
+| C    | $1/0.4=2.50$ | $0.6/0.4=1.50$ |            $1$ |
+| D    | $1/0.8=1.25$ | $0.2/0.8=0.25$ |            $1$ |
+
+ATE Hájeki hinnang:
+
+$$
+\bar Y_1^w
+=
+\frac{1.25\cdot 10+2.5\cdot 8}{1.25+2.5}
+=8.67,
+$$
+
+$$
+\bar Y_0^w
+=
+\frac{2.5\cdot 6+1.25\cdot 5}{2.5+1.25}
+=5.67.
+$$
+
+Seega
+
+$$
+\widehat{ATE}_H=8.67-5.67=3.00.
+$$
+
+Kõige suurema ATE-kaalu saavad B ja C. B on osaleja, kelle osalemistõenäosus on suhteliselt väike; C on mitteosaleja, kelle osalemistõenäosus on suhteliselt suur. Mõlemad on oma tegelikus rühmas seega suhteliselt haruldased vaatlused.
+:::

@@ -1,0 +1,633 @@
+# Regression discontinuity design: mõju hindamine terava (*sharp*) disaini korral
+
+## Lähtekoht
+
+Regression discontinuity design'i (RDD) korral määrab meetmes osalemise pidev tunnus ehk **jooksev tunnus** (*running variable, score*) $X_i$ ja etteantud lõikepunkt $c_0$.
+
+Terava ehk *sharp* RDD korral määrab lõikepunkt meetmes osalemise täielikult:
+
+$$
+D_i =
+\begin{cases}
+0, & X_i < c_0,\\
+1, & X_i \geq c_0.
+\end{cases}
+$$
+
+Seega saavad kõik lõikepunktist ülalpool olevad isikud meetme ja kõik allpool olevad isikud ei saa seda.
+
+RDD põhiidee on võrrelda inimesi või muid vaatlusühikuid, kes asuvad **väga lähedal lõikepunktile**. Kui muud tulemust mõjutavad tegurid muutuvad lõikepunkti ümbruses sujuvalt, siis järsku muutust tulemuses $Y$ lõikepunktis saab tõlgendada meetme põhjusliku mõjuna.
+
+Meid huvitab seega hüpe tinglikus keskmises:
+
+$$
+\delta_{SRD}
+=
+\lim_{x \to c_0^+} E(Y_i \mid X_i=x)
+-
+\lim_{x \to c_0^-} E(Y_i \mid X_i=x).
+$$
+
+See on meetme **lokaalne põhjuslik mõju lõikepunktis**. RDD ei hinda üldjuhul keskmist mõju kogu populatsioonile, vaid mõju inimestele, kelle $X$ väärtus asub lõikepunkti lähedal.
+
+---
+
+## 1. Keskmiste võrdlemine lõikepunkti lähedal
+
+Kõige lihtsam viis RDD ideed rakendada on võtta lõikepunkti ümber kitsas aken ja võrrelda tulemuse $Y$ keskmist vahetult ülal- ja allpool lõikepunkti.
+
+Olgu akna laius $u$. Siis võime hinnata mõju:
+
+$$
+\hat{\delta}(u)
+=
+E(Y_i \mid c_0 \leq X_i < c_0+u)
+-
+E(Y_i \mid c_0-u < X_i < c_0).
+$$
+
+Valimis vastab sellele kahe keskmise erinevus:
+
+$$
+\hat{\delta}(u)
+=
+\overline{Y}_{c_0 \leq X<c_0+u}
+-
+\overline{Y}_{c_0-u<X<c_0}.
+$$
+
+Näiteks kui programmi saavad inimesed, kelle testitulemus on vähemalt 50 punkti, võime võrrelda inimesi vahemikes 50--55 ja 45--50.
+
+Selle meetodi keskne küsimus on:
+
+> **Kui lähedal lõikepunktile on piisavalt lähedal?**
+
+Kui valime väga väikese $u$, on võrreldavad inimesed tõenäoliselt väga sarnased, kuid vaatlusi jääb vähe ja hinnang muutub ebatäpseks.
+
+Kui valime suure $u$, saame rohkem vaatlusi ja täpsema hinnangu, kuid riskime sellega, et lõikepunktist kaugemal olevad inimesed ei ole enam hästi võrreldavad.
+
+Seega tekib tüüpiline **nihke ja dispersiooni kompromiss** (*bias--variance trade-off*).
+
+Lisaks võib lihtne keskmiste erinevus olla eksitav, kui $X$ ja $Y$ vahel on juba ilma meetmeta tugev seos. Näiteks võib suurema testitulemusega inimesel olla ka suurem hilisem palk sõltumata sellest, kas ta programmi sai.
+
+Seetõttu modelleeritakse praktikas tavaliselt ka seost $X$ ja $Y$ vahel.
+
+---
+
+## 2. Regressioonimudel: sama funktsionaalne seos mõlemal pool lõikepunkti
+
+Kõige lihtsam regressioonimudel eeldab lineaarset seost $X$ ja $Y$ vahel ning lubab lõikepunktis tasemehüpet.
+
+Kõigepealt tsentreerime jooksva tunnuse lõikepunkti suhtes:
+
+$$
+\widetilde X_i = X_i-c_0.
+$$
+
+Seega on lõikepunktis
+
+$$
+\widetilde X_i=0.
+$$
+
+Hindame mudeli
+
+$$
+Y_i
+=
+\alpha
++
+\beta \widetilde X_i
++
+\delta D_i
++
+\varepsilon_i.
+$$
+
+Parameeter $\delta$ mõõdab hüpet regressioonijoones täpselt lõikepunktis ja on seetõttu RDD mõju hinnang.
+
+Mudelis eeldame, et regressioonijoone tõus on mõlemal pool lõikepunkti sama:
+
+- allpool lõikepunkti: $\alpha+\beta\widetilde X_i$;
+- ülevalpool lõikepunkti: $\alpha+\delta+\beta\widetilde X_i$.
+
+Meetme mõju on seega kahe paralleelse regressioonijoone vertikaalne vahe.
+
+### Polünoomne seos
+
+Seos $X$ ja $Y$ vahel ei pea olema lineaarne. Võime kasutada ka polünoomi:
+
+$$
+Y_i
+=
+\alpha
++
+\beta_1\widetilde X_i
++
+\beta_2\widetilde X_i^2
++
+\cdots
++
+\beta_p\widetilde X_i^p
++
+\delta D_i
++
+\varepsilon_i.
+$$
+
+Näiteks ruutpolünoomi korral:
+
+$$
+Y_i
+=
+\alpha
++
+\beta_1\widetilde X_i
++
+\beta_2\widetilde X_i^2
++
+\delta D_i
++
+\varepsilon_i.
+$$
+
+Polünoom võimaldab kirjeldada mittelineaarset seost $X$ ja $Y$ vahel.
+
+Samas ei ole kõrge järgu polünoomide kasutamine RDD-s üldjuhul soovitatav. Kõrge järgu polünoom võib hakata üksikuid vaatlusi liiga täpselt järgima, eriti jaotuse otstes, ning anda lõikepunktis ebastabiilse tulemuse.
+
+Praktikas kasutatakse eelkõige **esimese või teise järgu lokaalseid polünoome**.
+
+---
+
+## 3. Lubame seosel olla lõikepunkti eri pooltel erinev
+
+Eelmine mudel eeldas, et funktsiooni kuju on mõlemal pool lõikepunkti sama. See võib olla liiga piirav.
+
+Näiteks võib $X$ mõju tulemusele $Y$ olla meetmes osalejate ja mitteosalejate hulgas erinev.
+
+Lineaarse mudeli korral saame lubada erinevaid tõuse, lisades interaktsiooni:
+
+$$
+Y_i
+=
+\alpha
++
+\beta_0\widetilde X_i
++
+\delta D_i
++
+\beta_1^*D_i\widetilde X_i
++
+\varepsilon_i.
+$$
+
+Allpool lõikepunkti, kus $D_i=0$, on regressioonijoon
+
+$$
+E(Y_i\mid X_i)
+=
+\alpha+\beta_0\widetilde X_i.
+$$
+
+Ülalpool lõikepunkti, kus $D_i=1$, on
+
+$$
+E(Y_i\mid X_i)
+=
+\alpha+\delta+
+(\beta_0+\beta_1^*)\widetilde X_i.
+$$
+
+Seega võivad regressioonijoonte tõusud olla erinevad.
+
+Kuna lõikepunktis $\widetilde X_i=0$, jääb kahe joone erinevuseks täpselt
+
+$$
+\delta.
+$$
+
+See ongi RDD mõju hinnang.
+
+### Erinevad polünoomid mõlemal pool lõikepunkti
+
+Üldisemalt võime hinnata
+
+$$
+Y_i
+=
+\alpha
++
+\beta_{01}\widetilde X_i
++
+\cdots
++
+\beta_{0p}\widetilde X_i^p
++
+\delta D_i
++
+\beta_1^*D_i\widetilde X_i
++
+\cdots
++
+\beta_p^*D_i\widetilde X_i^p
++
+\varepsilon_i.
+$$
+
+See võimaldab funktsiooni kujul olla lõikepunktist vasakul ja paremal täiesti erinev.
+
+Näiteks ruutpolünoomi korral:
+
+$$
+\begin{aligned}
+Y_i
+={}&
+\alpha
++\beta_{01}\widetilde X_i
++\beta_{02}\widetilde X_i^2
++\delta D_i \\
+&+\beta_1^*D_i\widetilde X_i
++\beta_2^*D_i\widetilde X_i^2
++\varepsilon_i.
+\end{aligned}
+$$
+
+Oluline on jällegi, et lõikepunktis
+
+$$
+\widetilde X_i=0,
+$$
+
+mistõttu kõik $\widetilde X_i$ sisaldavad liikmed kaovad ning kahe poole erinevus lõikepunktis on $\delta$.
+
+---
+
+## 4. Lokaalne regressioon
+
+Eelmistes mudelites võime regressiooni hinnata kogu valimi põhjal. RDD jaoks huvitavad meid aga eelkõige vaatlused **lõikepunkti lähedal**.
+
+Tänapäevases RDD analüüsis kasutatakse seetõttu enamasti **lokaalset polünoomset regressiooni** (*local polynomial regression*).
+
+Põhiidee on:
+
+1. valime lõikepunkti ümber akna;
+2. kasutame regressioonis ainult selles aknas olevaid vaatlusi;
+3. anname lõikepunktile lähemal olevatele vaatlustele tavaliselt suurema kaalu;
+4. hindame regressioonifunktsiooni eraldi mõlemal pool lõikepunkti;
+5. võrdleme kahe hinnatud funktsiooni väärtust lõikepunktis.
+
+Kõige sagedamini kasutatakse lokaalset lineaarset regressiooni.
+
+Mudeli võib kirjutada kujul
+
+$$
+Y_i
+=
+\alpha
++
+\delta D_i
++
+\beta_0\widetilde X_i
++
+\beta_1D_i\widetilde X_i
++
+\varepsilon_i,
+$$
+
+kuid mudelit hinnatakse ainult vaatlustega
+
+$$
+|\widetilde X_i|\leq h,
+$$
+
+kus $h$ on **ribalaius** (*bandwidth*).
+
+Ribalaius määrab seega selle, kui kaugele lõikepunktist me vaatame.
+
+### Bandwidth ehk ribalaius
+
+Ribalaiuse $h$ valik on RDD hinnangu juures väga oluline.
+
+Väike $h$ tähendab, et kasutame ainult lõikepunktile väga lähedal olevaid vaatlusi.
+
+Eelis:
+
+- väiksem risk, et $X$ ja $Y$ vahelise seose funktsionaalne kuju on valesti määratud.
+
+Puudus:
+
+- vähem vaatlusi;
+- suuremad standardvead;
+- hinnang võib olla ebatäpne.
+
+Suur $h$ tähendab, et kasutame rohkem vaatlusi.
+
+Eelis:
+
+- rohkem informatsiooni;
+- väiksem hinnangu dispersioon.
+
+Puudus:
+
+- kasutame lõikepunktist kaugemaid vaatlusi;
+- suureneb risk, et regressioonifunktsioon ei kirjelda seost õigesti;
+- hinnang võib muutuda kallutatuks.
+
+Seetõttu ei ole eesmärk valida võimalikult väikest või võimalikult suurt ribalaiust. Praktikas kasutatakse andmetest lähtuvaid meetodeid optimaalse ribalaiuse leidmiseks.
+
+### Kernel ehk kaalufunktsioon
+
+Kõik aknas olevad vaatlused ei pea regressioonis saama sama kaalu.
+
+Võime anda lõikepunktile lähemal olevatele vaatlustele suurema kaalu ja kaugemal olevatele väiksema kaalu.
+
+Seda määrab **kernel** ehk kaalufunktsioon.
+
+RDD-s kasutatakse sageli kolmnurkset (*triangular*) kernel'it:
+
+$$
+K(u)
+=
+(1-|u|)
+\mathbf{1}(|u|\leq 1).
+$$
+
+Vaatluse $i$ kaal sõltub tema kaugusest lõikepunktist:
+
+$$
+w_i
+=
+K\left(
+\frac{X_i-c_0}{h}
+\right).
+$$
+
+Seega:
+
+- lõikepunktis on kaal kõige suurem;
+- lõikepunktist eemaldudes kaal väheneb;
+- väljaspool valitud ribalaiust $h$ on kaal null.
+
+See sobib hästi RDD loogikaga: meid huvitavad eelkõige lõikepunktile kõige lähemal olevad vaatlused.
+
+---
+
+## Millist meetodit praktikas kasutada?
+
+RDD-d võib seega hinnata mitmel viisil.
+
+| Meetod | Põhiidee | Peamine probleem |
+|---|---|---|
+| Keskmiste võrdlus | Võrdleme $Y$ keskmisi lõikepunkti ümber | Tulemus sõltub akna valikust ja ei arvesta $X$ trendi |
+| Globaalne lineaarne regressioon | Modelleerime $X$ ja $Y$ seose kogu valimis | Kauged vaatlused võivad hinnangut tugevalt mõjutada |
+| Globaalne polünoom | Lubame mittelineaarset seost | Kõrge järgu polünoomid võivad anda ebastabiilseid tulemusi |
+| Erinevad funktsioonid kahel pool | Lubame erinevaid tõuse ja kõverusi | Tulemused sõltuvad funktsionaalse kuju valikust |
+| Lokaalne polünoomne regressioon | Kasutame peamiselt lõikepunkti lähedasi vaatlusi | Tuleb valida ribalaius ja kaalufunktsioon |
+
+Praktilises RDD analüüsis on tavapärane põhihinnang **lokaalne lineaarne regressioon** või vajadusel lokaalne ruutregressioon.
+
+Kõrge järgu globaalsete polünoomide, näiteks neljanda, viienda või kõrgema astme polünoomide kasutamist tasub vältida.
+
+---
+
+## RDD hindamine R-is
+
+RDD jaoks on olemas spetsiaalsed programmid, mis valivad sobiva ribalaiuse, võimaldavad lokaalset polünoomset regressiooni ning arvutavad RDD jaoks sobivad standardvead ja usaldusvahemikud.
+
+Üks enim kasutatavaid pakette on `rdrobust`.
+
+Paketi saab paigaldada:
+
+```r
+install.packages("rdrobust")
+```
+
+ja laadida:
+
+```r
+library(rdrobust)
+```
+
+Oletame, et
+
+- tulemus on `Y`;
+- jooksev tunnus on `X`;
+- lõikepunkt on `50`.
+
+Lokaalse lineaarse RDD hinnangu saame:
+
+```r
+rd <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 50,
+  p = 1
+)
+
+summary(rd)
+```
+
+Argument
+
+```r
+p = 1
+```
+
+tähendab lokaalset lineaarset regressiooni.
+
+Lokaalse ruutregressiooni jaoks kasutame:
+
+```r
+rd <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 50,
+  p = 2
+)
+```
+
+Kolmnurkse kernel'i võime määrata näiteks:
+
+```r
+rd <- rdrobust(
+  y = df$Y,
+  x = df$X,
+  c = 50,
+  p = 1,
+  kernel = "triangular"
+)
+```
+
+Sharp RDD korral ei ole vaja `rdrobust()` funktsioonile eraldi tunnust $D$ anda, sest meetmes osalemise määrab juba see, kummal pool lõikepunkti $X$ asub.
+
+---
+
+## RDD joonis
+
+Enne regressioonitulemuste vaatamist tuleks alati uurida seost graafiliselt.
+
+Paketi `rdrobust` funktsioon `rdplot()` teeb selle automaatselt:
+
+```r
+rdplot(
+  y = df$Y,
+  x = df$X,
+  c = 50
+)
+```
+
+Graafikul peaksime vaatama:
+
+- kas $Y$ muutub lõikepunktis järsult;
+- kas seos $X$ ja $Y$ vahel tundub lõikepunkti mõlemal poolel sujuv;
+- kas üksikud vaatlused mõjutavad tulemust ebaproportsionaalselt;
+- kas lõikepunkti ümber on piisavalt vaatlusi.
+
+Graafik on RDD analüüsi oluline diagnostiline vahend, kuid ainult graafikust põhjusliku mõju hindamiseks ei piisa.
+
+---
+
+## Sama mudel tavalise regressiooniga
+
+Õppimise eesmärgil võib RDD mudeli hinnata ka tavalise `lm()` regressiooniga.
+
+Kõigepealt tsentreerime jooksva tunnuse:
+
+```r
+df$xc <- df$X - 50
+df$D  <- as.integer(df$X >= 50)
+```
+
+### Sama tõus mõlemal pool lõikepunkti
+
+```r
+m1 <- lm(Y ~ xc + D, data = df)
+
+summary(m1)
+```
+
+Mudelis
+
+```r
+Y ~ xc + D
+```
+
+on `D` kordaja RDD hüppe hinnang.
+
+### Erinevad tõusud mõlemal pool lõikepunkti
+
+```r
+m2 <- lm(Y ~ D * xc, data = df)
+
+summary(m2)
+```
+
+See vastab mudelile
+
+$$
+Y_i
+=
+\alpha
++
+\beta_0\widetilde X_i
++
+\delta D_i
++
+\beta_1^*D_i\widetilde X_i
++
+\varepsilon_i.
+$$
+
+### Lokaalne regressioon
+
+Kui tahame kasutada näiteks ainult vaatlusi 10 ühiku kaugusel lõikepunktist:
+
+```r
+m3 <- lm(
+  Y ~ D * xc,
+  data = subset(df, abs(xc) <= 10)
+)
+
+summary(m3)
+```
+
+See illustreerib lokaalse RDD ideed, kuid tegelikus analüüsis on tavaliselt mõistlik kasutada spetsiaalset RDD tarkvara, mis valib ribalaiuse ja teeb statistilise järeldamise süstemaatiliselt.
+
+---
+
+## RDD hindamine Statas
+
+Stata jaoks saab kasutada sama `rdrobust` paketti.
+
+Näiteks:
+
+```stata
+rdrobust Y X, c(50) p(1)
+```
+
+Lokaalse ruutregressiooni korral:
+
+```stata
+rdrobust Y X, c(50) p(2)
+```
+
+RDD graafiku saab teha käsuga:
+
+```stata
+rdplot Y X, c(50)
+```
+
+---
+
+## Robustne statistiline järeldamine
+
+RDD hinnanguga koos tuleb hinnata ka selle statistilist ebakindlust.
+
+Lokaalse regressiooni korral tekib täiendav probleem: regressioonifunktsiooni lokaalset lähendamist kasutades võib punktihinnang sisaldada väikest nihkumust (*bias*).
+
+Kaasaegsed RDD programmid, näiteks `rdrobust`, kasutavad selle arvestamiseks **robustset nihkeparandusega statistilist järeldamist** (*robust bias-corrected inference*).
+
+Seetõttu on empiirilises töös mõistlik kasutada spetsiaalse RDD programmi antud standardvigu ja usaldusvahemikke, mitte lihtsalt tavalise OLS-regressiooni standardvigu.
+
+---
+
+## Kokkuvõte
+
+Sharp RDD puhul määrab lõikepunkt meetmes osalemise täielikult:
+
+$$
+D_i=\mathbf{1}(X_i\geq c_0).
+$$
+
+Meetme mõju identifitseeritakse tulemuse $Y$ hüppest lõikepunktis:
+
+$$
+\delta_{SRD}
+=
+\lim_{x\to c_0^+}E(Y_i\mid X_i=x)
+-
+\lim_{x\to c_0^-}E(Y_i\mid X_i=x).
+$$
+
+Hindamisel võime liikuda lihtsamast keerukama meetodi poole:
+
+1. võrrelda keskmisi kitsas aknas lõikepunkti ümber;
+2. hinnata lineaarset või madala järgu polünoomset regressiooni;
+3. lubada regressioonifunktsioonidel olla lõikepunkti eri pooltel erinevad;
+4. kasutada lokaalset lineaarset või lokaalset polünoomset regressiooni.
+
+Tänapäevases rakenduslikus RDD analüüsis on tavapärane kasutada **lokaalset madala järgu polünoomset regressiooni**, andmepõhiselt valitud ribalaiust ning robustset nihkeparandusega statistilist järeldamist.
+
+RDD meetodite jaoks on olemas ühine tarkvarapakettide kogum R-i, Stata ja Pythoni jaoks:
+
+<https://rdpackages.github.io/>
+
+### Lisalugemist
+
+Lee, D. S. & Lemieux, T. (2010). *Regression Discontinuity Designs in Economics*. Journal of Economic Literature, 48(2), 281--355.
+
+Cattaneo, M. D., Idrobo, N. & Titiunik, R. (2020). *A Practical Introduction to Regression Discontinuity Designs: Foundations*. Cambridge University Press.
+
+Gelman, A. & Imbens, G. (2019). *Why High-Order Polynomials Should Not Be Used in Regression Discontinuity Designs*. Journal of Business & Economic Statistics, 37(3), 447--456.
+
+Calonico, S., Cattaneo, M. D. & Titiunik, R. (2014). *Robust Nonparametric Confidence Intervals for Regression-Discontinuity Designs*. Econometrica, 82(6), 2295--2326.
