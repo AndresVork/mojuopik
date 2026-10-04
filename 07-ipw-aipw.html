@@ -347,7 +347,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">04/10/2026</p>
+      <p class="date-modified">05/10/2026</p>
     </div>
   </div>
     
@@ -583,7 +583,7 @@ ATE
 =0.7(150-120)+0.3(150-140)
 =24.
 \]</span></p>
-<p>Näeme, et ATE, ATT ja ATU ei pea olema võrdsed. Need kasutavad erinevat <strong>sihtrühma</strong> ning annavad erineva keskmise juhul, kui ravi mõju erineb taustatunnuste lõikes.</p>
+<p>Näeme, et ATE, ATT ja ATU ei pea olema võrdsed. Need kasutavad erinevat <strong>sihtrühma</strong> ning annavad erineva keskmise juhul, kui meetme mõju erineb taustatunnuste lõikes.</p>
 </section>
 </section>
 <section id="üldine-raamistik" class="level2" data-number="7.2">
@@ -591,9 +591,9 @@ ATE
 <p>Olgu</p>
 <ul>
 <li><span class="math inline">\(D_i\in\{0,1\}\)</span> – osalemise indikaator;</li>
-<li><span class="math inline">\(Y_i(1)\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus osalemise korral;</li>
-<li><span class="math inline">\(Y_i(0)\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus mitteosalemise korral;</li>
-<li><span class="math inline">\(Y_i=D_iY_i(1)+(1-D_i)Y_i(0)\)</span> – vaadeldav tulemus;</li>
+<li><span class="math inline">\(Y^1_i\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus osalemise korral;</li>
+<li><span class="math inline">\(Y^0_i\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus mitteosalemise korral;</li>
+<li><span class="math inline">\(Y_i=D_iY^1_i+(1-D_i)Y^0_i\)</span> – vaadeldav tulemus;</li>
 <li><span class="math inline">\(X_i\)</span> – enne meetmes osalemist mõõdetud taustatunnused;</li>
 <li><span class="math inline">\(p(X_i)=P(D_i=1\mid X_i)\)</span> – tõenäosusskoor (<em>propensity score</em>).</li>
 </ul>
@@ -818,8 +818,14 @@ E[g(X)].
 \right].
 \]</span></p>
 <p>ATT korral</p>
-<p>$$ <em>{HT} =</em> ^n .</p>
-<p>$$</p>
+<p><span class="math display">\[\widehat{ATT}_{HT}
+= \frac{1}{n_1} \sum_{i=1}^n
+\left[
+D_iY_i
+-
+(1-D_i)\frac{\hat p_i}{1-\hat p_i}Y_i
+\right].
+\]</span></p>
 <p>ATU korral</p>
 <p><span class="math display">\[
 \widehat{ATU}_{HT}
@@ -978,7 +984,7 @@ m_0(X)=E[Y\mid D=0,X].
 <p>AIPW alustab samast prognoosist, kuid <strong>parandab prognoosi seal, kus tegelik tulemus on vaadeldav</strong>.</p>
 <p>Osalemise korral defineerime korrigeeritud potentsiaalse tulemuse</p>
 <p><span class="math display">\[
-\tilde Y_i(1)
+\tilde Y^1_i
 =
 \hat m_1(X_i)
 +
@@ -987,7 +993,7 @@ m_0(X)=E[Y\mid D=0,X].
 \]</span></p>
 <p>Mitteosalemise korral</p>
 <p><span class="math display">\[
-\tilde Y_i(0)
+\tilde Y^0_i
 =
 \hat m_0(X_i)
 +
@@ -1000,7 +1006,7 @@ m_0(X)=E[Y\mid D=0,X].
 =
 \frac{1}{n}\sum_{i=1}^n
 \left[
-\tilde Y_i(1)-\tilde Y_i(0)
+\tilde Y^1_i-\tilde Y^0_i
 \right].
 \]</span></p>
 <p>Kirjutades kõik ühe valemina,</p>
@@ -1130,7 +1136,7 @@ Y-m_1(X)
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(training, employed, male, est, age, age2, educ, emplbefore) <span class="sc">|&gt;</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ =</span> <span class="fu">factor</span>(educ))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Kõigepealt vaatame toorest erinevust osalejate ja mitteosalejate vahel.</p>
+<p>Kõigepealt vaatame lihtsat erinevust osalejate ja mitteosalejate vahel.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>atp <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(training) <span class="sc">|&gt;</span></span>
