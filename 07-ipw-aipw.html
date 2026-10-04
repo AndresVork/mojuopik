@@ -607,7 +607,7 @@ ATE
 <p>IPW tugineb samadele identifitseerimise eeldustele nagu tõenäosusskooril põhinev sobitamine.</p>
 <p><strong>1. Tinglik sõltumatus</strong> (<em>conditional independence</em>, <em>unconfoundedness</em>)</p>
 <p><span class="math display">\[
-\{Y(1),Y(0)\}\perp D\mid X.
+\{Y^1,Y^0\}\perp D\mid X.
 \]</span></p>
 <p>Pärast <span class="math inline">\(X\)</span> arvesse võtmist ei tohi olla järelejäänud mõõtmata segajaid, mis mõjutavad nii osalemist kui ka tulemust.</p>
 <p><strong>2. Kattuvus ehk positiivsus</strong> (<em>overlap</em>, <em>positivity</em>)</p>
@@ -642,17 +642,17 @@ Y_i=Y_i(d).
 <h3 class="anchored" data-anchor-id="ate">ATE</h3>
 <p>Keskmine põhjuslik mõju kogu üldkogumis on</p>
 <p><span class="math display">\[
-ATE=E[Y(1)-Y(0)].
+ATE=E[Y^1-Y^0].
 \]</span></p>
 <p>Tingliku sõltumatuse korral saame esimese potentsiaalse tulemuse keskmise kirjutada</p>
 <p><span class="math display">\[
-E[Y(1)]
+E[Y^1]
 =
 E\left[\frac{DY}{p(X)}\right],
 \]</span></p>
 <p>ja teise</p>
 <p><span class="math display">\[
-E[Y(0)]
+E[Y^0]
 =
 E\left[\frac{(1-D)Y}{1-p(X)}\right].
 \]</span></p>
@@ -671,20 +671,20 @@ E\left[
 \begin{aligned}
 E\left[\frac{DY}{p(X)}\mid X\right]
 &amp;=
-\frac{1}{p(X)}E[D Y(1)\mid X] \\
+\frac{1}{p(X)}E[D Y^1\mid X] \\
 &amp;=
-\frac{P(D=1\mid X)}{p(X)}E[Y(1)\mid X] \\
+\frac{P(D=1\mid X)}{p(X)}E[Y^1\mid X] \\
 &amp;=
-E[Y(1)\mid X].
+E[Y^1\mid X].
 \end{aligned}
 \]</span></p>
-<p>Viimases sammus kasutasime tinglikku sõltumatust. Keskmistades üle <span class="math inline">\(X\)</span> jaotuse saame <span class="math inline">\(E[Y(1)]\)</span>.</p>
+<p>Viimases sammus kasutasime tinglikku sõltumatust. Keskmistades üle <span class="math inline">\(X\)</span> jaotuse saame <span class="math inline">\(E[Y^1]\)</span>.</p>
 </section>
 <section id="att" class="level3">
 <h3 class="anchored" data-anchor-id="att">ATT</h3>
 <p>ATT on</p>
 <p><span class="math display">\[
-ATT=E[Y(1)-Y(0)\mid D=1].
+ATT=E[Y^1-Y^0\mid D=1].
 \]</span></p>
 <p>Olgu</p>
 <p><span class="math display">\[
@@ -707,7 +707,7 @@ DY
 <h3 class="anchored" data-anchor-id="atu">ATU</h3>
 <p>ATU on</p>
 <p><span class="math display">\[
-ATU=E[Y(1)-Y(0)\mid D=0].
+ATU=E[Y^1-Y^0\mid D=0].
 \]</span></p>
 <p>Olgu <span class="math inline">\(1-\pi=P(D=0)\)</span>. Siis</p>
 <p><span class="math display">\[
@@ -726,10 +726,10 @@ D\frac{1-p(X)}{p(X)}Y
 <h3 class="anchored" data-anchor-id="kolm-hinnangut-ühe-tabelina">Kolm hinnangut ühe tabelina</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 24%">
 <col style="width: 25%">
 <col style="width: 25%">
-<col style="width: 24%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -818,7 +818,7 @@ E[g(X)].
 \right].
 \]</span></p>
 <p>ATT korral</p>
-<p>$$ <em>{HT} = </em>{i=1}^n .</p>
+<p>$$ <em>{HT} =</em> ^n .</p>
 <p>$$</p>
 <p>ATU korral</p>
 <p><span class="math display">\[
@@ -1075,7 +1075,7 @@ E\left[
 \mid X
 \right]
 =
-E[Y(1)\mid X]
+E[Y^1\mid X]
 \]</span></p>
 <p>ka siis, kui <span class="math inline">\(\hat m_1(X)\)</span> ise pole õige regressioonifunktsioon.</p>
 <p>Kui aga <span class="math inline">\(m_1(X)\)</span> on korrektne, siis jäägi</p>
