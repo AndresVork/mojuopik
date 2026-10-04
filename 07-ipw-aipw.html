@@ -347,7 +347,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">29/09/2026</p>
+      <p class="date-modified">04/10/2026</p>
     </div>
   </div>
     
@@ -510,9 +510,7 @@ p_s=P(D=1\mid X=s)
 \]</span></p>
 <p>Seega ATT jaoks leitud võrdlusrühma kaal</p>
 <p><span class="math display">\[
-\boxed{
 w_0(X)=\frac{p(X)}{1-p(X)}
-}
 \]</span></p>
 <p>on lihtsalt täpse sobitamise kaal <span class="math inline">\(N_1/N_0\)</span>, kirjutatud osalemise tõenäosuse abil.</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -540,11 +538,9 @@ w_0(X)=\frac{p(X)}{1-p(X)}
 \]</span></p>
 <p>Seega</p>
 <p><span class="math display">\[
-\boxed{
 w_1(X)=\frac{1-p(X)}{p(X)},
 \qquad
 w_0(X)=1.
-}
 \]</span></p>
 <p>Meie näites</p>
 <p><span class="math display">\[
@@ -577,11 +573,9 @@ N_s=N_{1s}+N_{0s}
 \]</span></p>
 <p>Seega ATE-kaalud on</p>
 <p><span class="math display">\[
-\boxed{
 w_1(X)=\frac{1}{p(X)},
 \qquad
 w_0(X)=\frac{1}{1-p(X)}.
-}
 \]</span></p>
 <p>Meie näites on kogu valimist 70% Põhja- ja 30% Lõuna-Eestist. Seega</p>
 <p><span class="math display">\[
@@ -601,12 +595,13 @@ ATE
 <li><span class="math inline">\(Y_i(0)\)</span> – isiku <span class="math inline">\(i\)</span> potentsiaalne tulemus mitteosalemise korral;</li>
 <li><span class="math inline">\(Y_i=D_iY_i(1)+(1-D_i)Y_i(0)\)</span> – vaadeldav tulemus;</li>
 <li><span class="math inline">\(X_i\)</span> – enne meetmes osalemist mõõdetud taustatunnused;</li>
-<li><span class="math inline">\(e(X_i)=P(D_i=1\mid X_i)\)</span> – tõenäosusskoor (<em>propensity score</em>).</li>
+<li><span class="math inline">\(p(X_i)=P(D_i=1\mid X_i)\)</span> – tõenäosusskoor (<em>propensity score</em>).</li>
 </ul>
-<p>Kasutame tähist <span class="math inline">\(e(X)\)</span>, kuid empiirilises osas on meil tavaliselt selle hinnang</p>
+<p>Kasutame tähist <span class="math inline">\(p(X)\)</span>, kuid empiirilises osas on meil tavaliselt selle hinnang</p>
 <p><span class="math display">\[
-\hat e_i=\widehat P(D_i=1\mid X_i).
+\hat p_i=\widehat P(D_i=1\mid X_i).
 \]</span></p>
+<p>Pane tähele, et kirjanduses, eriti masinõppe valdkonnas, tähistatakse propensity score’i sageli ka <span class="math inline">\(e(X)\)</span>-ga.</p>
 <section id="eeldused" class="level3">
 <h3 class="anchored" data-anchor-id="eeldused">Eeldused</h3>
 <p>IPW tugineb samadele identifitseerimise eeldustele nagu tõenäosusskooril põhinev sobitamine.</p>
@@ -618,7 +613,7 @@ ATE
 <p><strong>2. Kattuvus ehk positiivsus</strong> (<em>overlap</em>, <em>positivity</em>)</p>
 <p>ATE jaoks nõuame</p>
 <p><span class="math display">\[
-0&lt;e(X)&lt;1.
+0&lt;p(X)&lt;1.
 \]</span></p>
 <p>Iga analüüsitava <span class="math inline">\(X\)</span> väärtuse juures peab leiduma nii osalejaid kui ka mitteosalejaid.</p>
 <p><strong>3. Järjepidevus</strong> (<em>consistency</em>)</p>
@@ -653,34 +648,32 @@ ATE=E[Y(1)-Y(0)].
 <p><span class="math display">\[
 E[Y(1)]
 =
-E\left[\frac{DY}{e(X)}\right],
+E\left[\frac{DY}{p(X)}\right],
 \]</span></p>
 <p>ja teise</p>
 <p><span class="math display">\[
 E[Y(0)]
 =
-E\left[\frac{(1-D)Y}{1-e(X)}\right].
+E\left[\frac{(1-D)Y}{1-p(X)}\right].
 \]</span></p>
 <p>Seetõttu</p>
 <p><span class="math display">\[
-\boxed{
 ATE
 =
 E\left[
-\frac{DY}{e(X)}
+\frac{DY}{p(X)}
 -
-\frac{(1-D)Y}{1-e(X)}
+\frac{(1-D)Y}{1-p(X)}
 \right].
-}
 \]</span></p>
 <p>Miks esimene võrdus töötab? Tingides <span class="math inline">\(X\)</span> järgi,</p>
 <p><span class="math display">\[
 \begin{aligned}
-E\left[\frac{DY}{e(X)}\mid X\right]
+E\left[\frac{DY}{p(X)}\mid X\right]
 &amp;=
-\frac{1}{e(X)}E[D Y(1)\mid X] \\
+\frac{1}{p(X)}E[D Y(1)\mid X] \\
 &amp;=
-\frac{P(D=1\mid X)}{e(X)}E[Y(1)\mid X] \\
+\frac{P(D=1\mid X)}{p(X)}E[Y(1)\mid X] \\
 &amp;=
 E[Y(1)\mid X].
 \end{aligned}
@@ -699,16 +692,14 @@ ATT=E[Y(1)-Y(0)\mid D=1].
 \]</span></p>
 <p>Siis</p>
 <p><span class="math display">\[
-\boxed{
 ATT
 =
 \frac{1}{\pi}
 E\left[
 DY
 -
-(1-D)\frac{e(X)}{1-e(X)}Y
+(1-D)\frac{p(X)}{1-p(X)}Y
 \right].
-}
 \]</span></p>
 <p>ATT puhul ei ole osalejaid vaja ümber kaaluda: nemad <strong>ongi sihtrühm</strong>. Ümber kaalutakse võrdlusrühm, et selle <span class="math inline">\(X\)</span> jaotus sarnaneks osalejate jaotusega.</p>
 </section>
@@ -720,16 +711,14 @@ ATU=E[Y(1)-Y(0)\mid D=0].
 \]</span></p>
 <p>Olgu <span class="math inline">\(1-\pi=P(D=0)\)</span>. Siis</p>
 <p><span class="math display">\[
-\boxed{
 ATU
 =
 \frac{1}{1-\pi}
 E\left[
-D\frac{1-e(X)}{e(X)}Y
+D\frac{1-p(X)}{p(X)}Y
 -
 (1-D)Y
 \right].
-}
 \]</span></p>
 <p>ATU puhul on mitteosalejad ise sihtrühm ning ümber kaalutakse osalejad.</p>
 </section>
@@ -737,10 +726,10 @@ D\frac{1-e(X)}{e(X)}Y
 <h3 class="anchored" data-anchor-id="kolm-hinnangut-ühe-tabelina">Kolm hinnangut ühe tabelina</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 23%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 23%">
+<col style="width: 24%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 24%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -753,19 +742,19 @@ D\frac{1-e(X)}{e(X)}Y
 <tbody>
 <tr class="odd">
 <td>ATE</td>
-<td style="text-align: right;"><span class="math inline">\(1/e(X)\)</span></td>
-<td style="text-align: right;"><span class="math inline">\(1/[1-e(X)]\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/p(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/[1-p(X)]\)</span></td>
 <td>kogu üldkogum</td>
 </tr>
 <tr class="even">
 <td>ATT</td>
 <td style="text-align: right;"><span class="math inline">\(1\)</span></td>
-<td style="text-align: right;"><span class="math inline">\(e(X)/[1-e(X)]\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(p(X)/[1-p(X)]\)</span></td>
 <td>osalejad</td>
 </tr>
 <tr class="odd">
 <td>ATU</td>
-<td style="text-align: right;"><span class="math inline">\([1-e(X)]/e(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\([1-p(X)]/p(X)\)</span></td>
 <td style="text-align: right;"><span class="math inline">\(1\)</span></td>
 <td>mitteosalejad</td>
 </tr>
@@ -773,38 +762,38 @@ D\frac{1-e(X)}{e(X)}Y
 </table>
 <p>Neid kolme kaalupaari saab kirjutada ka ühe üldise valemina. Olgu <span class="math inline">\(h(X)\)</span> funktsioon, mis kirjeldab sihtrühma. Siis</p>
 <p><span class="math display">\[
-w_1(X)=\frac{h(X)}{e(X)},
+w_1(X)=\frac{h(X)}{p(X)},
 \qquad
-w_0(X)=\frac{h(X)}{1-e(X)}.
+w_0(X)=\frac{h(X)}{1-p(X)}.
 \]</span></p>
 <p>Valides</p>
 <p><span class="math display">\[
 h(X)=1
 \]</span></p>
-<p>saame ATE; valides <span class="math inline">\(h(X)=e(X)\)</span> saame ATT ning valides <span class="math inline">\(h(X)=1-e(X)\)</span> saame ATU.</p>
+<p>saame ATE; valides <span class="math inline">\(h(X)=p(X)\)</span> saame ATT ning valides <span class="math inline">\(h(X)=1-p(X)\)</span> saame ATU.</p>
 </section>
 </section>
 <section id="mida-kaalumine-teeb" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="mida-kaalumine-teeb"><span class="header-section-number">7.4</span> Mida kaalumine teeb?</h2>
 <p>ATE-kaalude korral on osaleja kaal</p>
 <p><span class="math display">\[
-\frac{1}{e(X)}.
+\frac{1}{p(X)}.
 \]</span></p>
-<p>Kui <span class="math inline">\(e(X)\)</span> on väike, siis on sellise <span class="math inline">\(X\)</span> väärtusega osaleja haruldane ning ta saab suure kaalu. Ta esindab paljusid sarnaseid inimesi, kes tegelikult osalejate hulka ei sattunud.</p>
+<p>Kui <span class="math inline">\(p(X)\)</span> on väike, siis on sellise <span class="math inline">\(X\)</span> väärtusega osaleja haruldane ning ta saab suure kaalu. Ta esindab paljusid sarnaseid inimesi, kes tegelikult osalejate hulka ei sattunud.</p>
 <p>Mitteosaleja kaal on</p>
 <p><span class="math display">\[
-\frac{1}{1-e(X)}.
+\frac{1}{1-p(X)}.
 \]</span></p>
-<p>Kui <span class="math inline">\(e(X)\)</span> on suur, on sellise <span class="math inline">\(X\)</span> väärtusega mitteosaleja haruldane ning saab suure kaalu.</p>
+<p>Kui <span class="math inline">\(p(X)\)</span> on suur, on sellise <span class="math inline">\(X\)</span> väärtusega mitteosaleja haruldane ning saab suure kaalu.</p>
 <p>Intuitiivselt loob IPW <strong>pseudo-üldkogumi</strong>, kus osalemine ei sõltu enam <span class="math inline">\(X\)</span> jaotusest. Korrektselt määratud ATE-kaalude korral kehtib näiteks iga sobiva funktsiooni <span class="math inline">\(g(X)\)</span> jaoks</p>
 <p><span class="math display">\[
-E\left[\frac{D}{e(X)}g(X)\right]
+E\left[\frac{D}{p(X)}g(X)\right]
 =
 E[g(X)]
 \]</span></p>
 <p>ja</p>
 <p><span class="math display">\[
-E\left[\frac{1-D}{1-e(X)}g(X)\right]
+E\left[\frac{1-D}{1-p(X)}g(X)\right]
 =
 E[g(X)].
 \]</span></p>
@@ -812,51 +801,36 @@ E[g(X)].
 </section>
 <section id="ipw-valimis" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="ipw-valimis"><span class="header-section-number">7.5</span> IPW valimis</h2>
-<p>Praktikas me <span class="math inline">\(e(X)\)</span> ei tea. Hindame selle näiteks logit- või probit-mudeliga ning saame iga isiku jaoks <span class="math inline">\(\hat e_i\)</span>.</p>
+<p>Praktikas me <span class="math inline">\(p(X)\)</span> ei tea. Hindame selle näiteks logit- või probit-mudeliga ning saame iga isiku jaoks <span class="math inline">\(\hat p_i\)</span>.</p>
 <p>Tähistame valimi suuruse <span class="math inline">\(n\)</span>, osalejate arvu <span class="math inline">\(n_1\)</span> ja mitteosalejate arvu <span class="math inline">\(n_0\)</span>.</p>
 <section id="horvitzthompsoni-hinnang" class="level3">
 <h3 class="anchored" data-anchor-id="horvitzthompsoni-hinnang">Horvitz–Thompsoni hinnang</h3>
 <p>ATE otsene valimianaloog on</p>
 <p><span class="math display">\[
-\boxed{
 \widehat{ATE}_{HT}
 =
 \frac{1}{n}
 \sum_{i=1}^n
 \left[
-\frac{D_iY_i}{\hat e_i}
+\frac{D_iY_i}{\hat p_i}
 -
-\frac{(1-D_i)Y_i}{1-\hat e_i}
+\frac{(1-D_i)Y_i}{1-\hat p_i}
 \right].
-}
 \]</span></p>
 <p>ATT korral</p>
-<p><span class="math display">\[
-\boxed{
-\widehat{ATT}_{HT}
-=
-\frac{1}{n_1}
-\sum_{i=1}^n
-\left[
-D_iY_i
--
-(1-D_i)\frac{\hat e_i}{1-\hat e_i}Y_i
-\right].
-}
-\]</span></p>
+<p>$$ <em>{HT} = </em>{i=1}^n .</p>
+<p>$$</p>
 <p>ATU korral</p>
 <p><span class="math display">\[
-\boxed{
 \widehat{ATU}_{HT}
 =
 \frac{1}{n_0}
 \sum_{i=1}^n
 \left[
-D_i\frac{1-\hat e_i}{\hat e_i}Y_i
+D_i\frac{1-\hat p_i}{\hat p_i}Y_i
 -
 (1-D_i)Y_i
 \right].
-}
 \]</span></p>
 <p>Horvitz–Thompsoni hinnang on kõige otsesem üldkogumi valemite valimianaloog. Selle nõrk külg on see, et üksikud väga suured kaalud võivad hinnangut tugevasti mõjutada.</p>
 </section>
@@ -867,42 +841,36 @@ D_i\frac{1-\hat e_i}{\hat e_i}Y_i
 <section id="ate-1" class="level3">
 <h3 class="anchored" data-anchor-id="ate-1">ATE</h3>
 <p><span class="math display">\[
-\boxed{
 \widehat{ATE}_{H}
 =
-\frac{\sum_i D_iY_i/\hat e_i}
-     {\sum_i D_i/\hat e_i}
+\frac{\sum_i D_iY_i/\hat p_i}
+     {\sum_i D_i/\hat p_i}
 -
-\frac{\sum_i (1-D_i)Y_i/(1-\hat e_i)}
-     {\sum_i (1-D_i)/(1-\hat e_i)}.
-}
+\frac{\sum_i (1-D_i)Y_i/(1-\hat p_i)}
+     {\sum_i (1-D_i)/(1-\hat p_i)}.
 \]</span></p>
 <p>See on lihtsalt kahe kaalutud keskmise erinevus.</p>
 </section>
 <section id="att-1" class="level3">
 <h3 class="anchored" data-anchor-id="att-1">ATT</h3>
 <p><span class="math display">\[
-\boxed{
 \widehat{ATT}_{H}
 =
 \frac{\sum_i D_iY_i}{\sum_i D_i}
 -
-\frac{\sum_i (1-D_i)\dfrac{\hat e_i}{1-\hat e_i}Y_i}
-     {\sum_i (1-D_i)\dfrac{\hat e_i}{1-\hat e_i}}.
-}
+\frac{\sum_i (1-D_i)\dfrac{\hat p_i}{1-\hat p_i}Y_i}
+     {\sum_i (1-D_i)\dfrac{\hat p_i}{1-\hat p_i}}.
 \]</span></p>
 </section>
 <section id="atu-1" class="level3">
 <h3 class="anchored" data-anchor-id="atu-1">ATU</h3>
 <p><span class="math display">\[
-\boxed{
 \widehat{ATU}_{H}
 =
-\frac{\sum_i D_i\dfrac{1-\hat e_i}{\hat e_i}Y_i}
-     {\sum_i D_i\dfrac{1-\hat e_i}{\hat e_i}}
+\frac{\sum_i D_i\dfrac{1-\hat p_i}{\hat p_i}Y_i}
+     {\sum_i D_i\dfrac{1-\hat p_i}{\hat p_i}}
 -
 \frac{\sum_i (1-D_i)Y_i}{\sum_i(1-D_i)}.
-}
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -915,7 +883,7 @@ D_i\frac{1-\hat e_i}{\hat e_i}Y_i
 </div>
 <div class="callout-body-container callout-body">
 <p>Horvitz–Thompsoni kuju on teooriaga kõige otsesemalt seotud. Hájeki hinnang normaliseerib kaalud rühmade sees ning on lõplikus valimis sageli stabiilsem. Suures valimis lähenevad mõlemad samale sihtparameetrile, kui tõenäosusskoori mudel on korrektselt määratud.</p>
-<p>Mõnikord nimetatakse normaliseerimist ka kaalude stabiliseerimiseks. Kitsamas terminoloogias tähendavad <em>stabilized weights</em> siiski kaale, mille lugejas kasutatakse marginaalset osalemistõenäosust, näiteks ATE korral <span class="math inline">\(P(D=1)/e(X)\)</span> osalejatele. Seetõttu kasutame siin selguse huvides terminit <strong>normaliseeritud Hájeki hinnang</strong>.</p>
+<p>Mõnikord nimetatakse normaliseerimist ka kaalude stabiliseerimiseks. Kitsamas terminoloogias tähendavad <em>stabilized weights</em> siiski kaale, mille lugejas kasutatakse marginaalset osalemistõenäosust, näiteks ATE korral <span class="math inline">\(P(D=1)/p(X)\)</span> osalejatele. Seetõttu kasutame siin selguse huvides terminit <strong>normaliseeritud Hájeki hinnang</strong>.</p>
 </div>
 </div>
 </section>
@@ -936,11 +904,11 @@ Y_i=\alpha+\tau D_i+u_i
 <p><span class="math display">\[
 w_i=
 \begin{cases}
-1/\hat e_i, &amp; D_i=1,\\
-1/(1-\hat e_i), &amp; D_i=0.
+1/\hat p_i, &amp; D_i=1,\\
+1/(1-\hat p_i), &amp; D_i=0.
 \end{cases}
 \]</span></p>
-<p>Kui osalejal on <span class="math inline">\(\hat e_i\approx 0\)</span>, võib tema kaal muutuda väga suureks. Kui mitteosalejal on <span class="math inline">\(\hat e_i\approx 1\)</span>, juhtub sama.</p>
+<p>Kui osalejal on <span class="math inline">\(\hat p_i\approx 0\)</span>, võib tema kaal muutuda väga suureks. Kui mitteosalejal on <span class="math inline">\(\hat p_i\approx 1\)</span>, juhtub sama.</p>
 <p>See ei ole ainult tehniline probleem. Suur kaal ütleb sisuliselt, et selle inimese sarnaseid vaatlusi teises rühmas on väga vähe. Me püüame siis hinnata põhjuslikku mõju piirkonnas, kus andmed annavad vähe infot.</p>
 <p>Praktikas kontrollime vähemalt:</p>
 <ol type="1">
@@ -951,12 +919,10 @@ w_i=
 </ol>
 <p>Kaalutud valimi efektiivne suurus on</p>
 <p><span class="math display">\[
-\boxed{
 ESS
 =
 \frac{\left(\sum_i w_i\right)^2}
      {\sum_i w_i^2}.
-}
 \]</span></p>
 <p>Kui üksikud vaatlused saavad väga suure kaalu, võib <span class="math inline">\(ESS\)</span> olla palju väiksem kui tegelik vaatluste arv.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -977,7 +943,7 @@ ESS
 <h2 data-number="7.8" class="anchored" data-anchor-id="aipw-kaalumine-koos-regressiooniga"><span class="header-section-number">7.8</span> AIPW: kaalumine koos regressiooniga</h2>
 <p>IPW kasutab osalemismudelit</p>
 <p><span class="math display">\[
-e(X)=P(D=1\mid X).
+p(X)=P(D=1\mid X).
 \]</span></p>
 <p>Regressiooniga korrigeerimine (<em>regression adjustment</em>, RA) kasutab omakorda tulemuse mudeleid</p>
 <p><span class="math display">\[
@@ -1012,61 +978,51 @@ m_0(X)=E[Y\mid D=0,X].
 <p>AIPW alustab samast prognoosist, kuid <strong>parandab prognoosi seal, kus tegelik tulemus on vaadeldav</strong>.</p>
 <p>Osalemise korral defineerime korrigeeritud potentsiaalse tulemuse</p>
 <p><span class="math display">\[
-\boxed{
 \tilde Y_i(1)
 =
 \hat m_1(X_i)
 +
-\frac{D_i}{\hat e_i}
+\frac{D_i}{\hat p_i}
 \left[Y_i-\hat m_1(X_i)\right].
-}
 \]</span></p>
 <p>Mitteosalemise korral</p>
 <p><span class="math display">\[
-\boxed{
 \tilde Y_i(0)
 =
 \hat m_0(X_i)
 +
-\frac{1-D_i}{1-\hat e_i}
+\frac{1-D_i}{1-\hat p_i}
 \left[Y_i-\hat m_0(X_i)\right].
-}
 \]</span></p>
 <p>Seega</p>
 <p><span class="math display">\[
-\boxed{
 \widehat{ATE}_{AIPW}
 =
 \frac{1}{n}\sum_{i=1}^n
 \left[
 \tilde Y_i(1)-\tilde Y_i(0)
 \right].
-}
 \]</span></p>
 <p>Kirjutades kõik ühe valemina,</p>
 <p><span class="math display">\[
-\boxed{
 \widehat{ATE}_{AIPW}
 =
 \frac{1}{n}\sum_{i=1}^n
 \left\{
 \hat m_1(X_i)-\hat m_0(X_i)
 +
-\frac{D_i}{\hat e_i}[Y_i-\hat m_1(X_i)]
+\frac{D_i}{\hat p_i}[Y_i-\hat m_1(X_i)]
 -
-\frac{1-D_i}{1-\hat e_i}[Y_i-\hat m_0(X_i)]
+\frac{1-D_i}{1-\hat p_i}[Y_i-\hat m_0(X_i)]
 \right\}.
-}
 \]</span></p>
 <p>Seda kuju on kasulik meelde jätta kui</p>
 <p><span class="math display">\[
-\boxed{
 \text{AIPW}
 =
 \text{regressiooniga prognoositud mõju}
 +
 \text{IPW-ga kaalutud prognoosivead}.
-}
 \]</span></p>
 <p>Regressioon annab iga inimese puuduva potentsiaalse tulemuse kohta prognoosi. IPW osa kontrollib seda prognoosi nende inimeste juures, kelle vastav tulemus on tegelikult vaadeldav.</p>
 </section>
@@ -1080,44 +1036,42 @@ m_0(X)=E[Y\mid D=0,X].
 \frac{1}{n}\sum_{i=1}^n
 \Bigg\{
 &amp;\underbrace{
-\frac{D_iY_i}{\hat e_i}
+\frac{D_iY_i}{\hat p_i}
 -
-\frac{(1-D_i)Y_i}{1-\hat e_i}
+\frac{(1-D_i)Y_i}{1-\hat p_i}
 }_{\text{IPW}} \\
 &amp;+
 \underbrace{
-\left(1-\frac{D_i}{\hat e_i}\right)\hat m_1(X_i)
+\left(1-\frac{D_i}{\hat p_i}\right)\hat m_1(X_i)
 -
-\left(1-\frac{1-D_i}{1-\hat e_i}\right)\hat m_0(X_i)
+\left(1-\frac{1-D_i}{1-\hat p_i}\right)\hat m_0(X_i)
 }_{\text{regressiooniga parandustermin}}
 \Bigg\}.
 \end{aligned}
 \]</span></p>
 <p>Seega võime AIPW-d vaadata ka kui</p>
 <p><span class="math display">\[
-\boxed{
 \text{AIPW}
 =
 \text{IPW}
 +
 \text{regressiooniga parandustermin}.
-}
 \]</span></p>
 <p>Need kaks esitust on algebrailiselt täpselt samad. Esimene kuju on tavaliselt intuitiivsem, kui oleme juba õppinud regressiooniga korrigeerimist. Teine kuju näitab paremini, miks meetodi nimes on sõna <strong>augmented</strong>: tavalisele IPW-le lisatakse tulemusemudelist tulev parandustermin.</p>
 <section id="miks-aipw-on-topeltrobustne" class="level3">
 <h3 class="anchored" data-anchor-id="miks-aipw-on-topeltrobustne">Miks AIPW on topeltrobustne?</h3>
 <p>AIPW oluline omadus on <strong>topeltrobustsus</strong> (<em>double robustness</em>). Lihtsustatult:</p>
 <ul>
-<li>kui osalemismudel <span class="math inline">\(e(X)\)</span> on õigesti määratud, võib tulemusemudel olla valesti määratud;</li>
+<li>kui osalemismudel <span class="math inline">\(p(X)\)</span> on õigesti määratud, võib tulemusemudel olla valesti määratud;</li>
 <li>kui tulemusemudelid <span class="math inline">\(m_1(X)\)</span> ja <span class="math inline">\(m_0(X)\)</span> on õigesti määratud, võib osalemismudel olla valesti määratud;</li>
 <li>hinnang on endiselt kooskõlaline, kui vähemalt üks neist kahest mudeliosast on korrektne.</li>
 </ul>
-<p>Näiteks kui <span class="math inline">\(e(X)\)</span> on korrektne, siis</p>
+<p>Näiteks kui <span class="math inline">\(p(X)\)</span> on korrektne, siis</p>
 <p><span class="math display">\[
 E\left[
 \hat m_1(X)
 +
-\frac{D}{e(X)}(Y-\hat m_1(X))
+\frac{D}{p(X)}(Y-\hat m_1(X))
 \mid X
 \right]
 =
@@ -1139,7 +1093,7 @@ Y-m_1(X)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>AIPW ei ole korrektne, kui nii osalemismudel kui ka tulemusemudel on valesti määratud. Samuti jääb vajalikuks kattuvuse eeldus: väga väikesed või väga suured <span class="math inline">\(\hat e_i\)</span> võivad AIPW jäägiparanduse muuta väga ebastabiilseks.</p>
+<p>AIPW ei ole korrektne, kui nii osalemismudel kui ka tulemusemudel on valesti määratud. Samuti jääb vajalikuks kattuvuse eeldus: väga väikesed või väga suured <span class="math inline">\(\hat p_i\)</span> võivad AIPW jäägiparanduse muuta väga ebastabiilseks.</p>
 </div>
 </div>
 </section>
@@ -1149,7 +1103,7 @@ Y-m_1(X)
 <p>Tüüpiline analüüs koosneb järgmistest sammudest:</p>
 <ol type="1">
 <li>vali enne osalemist mõõdetud segajad <span class="math inline">\(X\)</span>;</li>
-<li>hinda osalemise tõenäosus <span class="math inline">\(\hat e(X)\)</span>;</li>
+<li>hinda osalemise tõenäosus <span class="math inline">\(\hat p(X)\)</span>;</li>
 <li>kontrolli kattuvust;</li>
 <li>moodusta soovitud sihtrühma jaoks ATE-, ATT- või ATU-kaalud;</li>
 <li>kontrolli kaalude jaotust ja taustatunnuste tasakaalu;</li>
@@ -1396,7 +1350,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Lihtne <code>vcovHC()</code> käsitleb kasutatud kaale arvutuses etteantutena. Tegelikult on <span class="math inline">\(\hat e_i\)</span> hinnatud samast valimist. Kui soovime standardvigu, mis arvestavad kogu protseduuri ebakindlust, tuleb kasutada sobivat analüütilist variatsioonivalemit või bootstrap’ida <strong>kogu protseduur</strong>: võtta uus valim, hinnata uuesti tõenäosusskoor, arvutada uuesti kaalud ja seejärel mõju.</p>
+<p>Lihtne <code>vcovHC()</code> käsitleb kasutatud kaale arvutuses etteantutena. Tegelikult on <span class="math inline">\(\hat p_i\)</span> hinnatud samast valimist. Kui soovime standardvigu, mis arvestavad kogu protseduuri ebakindlust, tuleb kasutada sobivat analüütilist variatsioonivalemit või bootstrap’ida <strong>kogu protseduur</strong>: võtta uus valim, hinnata uuesti tõenäosusskoor, arvutada uuesti kaalud ja seejärel mõju.</p>
 </div>
 </div>
 </section>
@@ -1512,11 +1466,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 +
 \text{kaalutud parandustermin}.
 \]</span></p>
-<p>See annab AIPW-le topeltrobustsuse ning teeb sellest ühe keskse meetodi tänapäevases põhjuslikus analüüsis. Sama põhimõte ilmub hiljem ka masinõppel põhinevates meetodites, kus <span class="math inline">\(e(X)\)</span> ja <span class="math inline">\(m_d(X)\)</span> võib hinnata paindlike algoritmidega ning kasutada ristvalideerimisega seotud <em>cross-fitting</em>’ut.</p>
+<p>See annab AIPW-le topeltrobustsuse ning teeb sellest ühe keskse meetodi tänapäevases põhjuslikus analüüsis. Sama põhimõte ilmub hiljem ka masinõppel põhinevates meetodites, kus <span class="math inline">\(p(X)\)</span> ja <span class="math inline">\(m_d(X)\)</span> võib hinnata paindlike algoritmidega ning kasutada ristvalideerimisega seotud <em>cross-fitting</em>’ut.</p>
 </section>
 <section id="kokkuvõte" class="level2" data-number="7.15">
 <h2 data-number="7.15" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">7.15</span> Kokkuvõte</h2>
-<p>IPW-d võib mõista kui sobitamise loomulikku jätku. Täpse sobitamise korral rühmitame inimesed samade <span class="math inline">\(X\)</span> väärtuste järgi ja anname rühmades vajadusel erinevad kordajad. IPW asendab diskreetsed rühmad osalemise tõenäosusega <span class="math inline">\(e(X)\)</span>.</p>
+<p>IPW-d võib mõista kui sobitamise loomulikku jätku. Täpse sobitamise korral rühmitame inimesed samade <span class="math inline">\(X\)</span> väärtuste järgi ja anname rühmades vajadusel erinevad kordajad. IPW asendab diskreetsed rühmad osalemise tõenäosusega <span class="math inline">\(p(X)\)</span>.</p>
 <p>Oluline on meeles pidada, <strong>millist sihtrühma tahame esindada</strong>:</p>
 <table class="caption-top table">
 <thead>
@@ -1529,17 +1483,17 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <tbody>
 <tr class="odd">
 <td>ATE</td>
-<td style="text-align: right;"><span class="math inline">\(1/e(X)\)</span></td>
-<td style="text-align: right;"><span class="math inline">\(1/[1-e(X)]\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/p(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/[1-p(X)]\)</span></td>
 </tr>
 <tr class="even">
 <td>ATT</td>
 <td style="text-align: right;"><span class="math inline">\(1\)</span></td>
-<td style="text-align: right;"><span class="math inline">\(e(X)/[1-e(X)]\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(p(X)/[1-p(X)]\)</span></td>
 </tr>
 <tr class="odd">
 <td>ATU</td>
-<td style="text-align: right;"><span class="math inline">\([1-e(X)]/e(X)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\([1-p(X)]/p(X)\)</span></td>
 <td style="text-align: right;"><span class="math inline">\(1\)</span></td>
 </tr>
 </tbody>
@@ -1547,23 +1501,19 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Horvitz–Thompsoni hinnang kasutab kaalutud summasid otsese valimianaloogina. Hájeki hinnang normaliseerib kaalud rühmade sees ja arvutab kaalutud keskmiste erinevuse.</p>
 <p>AIPW lisab IPW-le tulemusemudeli. Seda saab vaadata kahel samaväärsel moel:</p>
 <p><span class="math display">\[
-\boxed{
 \text{AIPW}
 =
 \text{RA}
 +
 \text{IPW-ga kaalutud jäägid}
-}
 \]</span></p>
 <p>või</p>
 <p><span class="math display">\[
-\boxed{
 \text{AIPW}
 =
 \text{IPW}
 +
 \text{regressiooniga parandustermin}.
-}
 \]</span></p>
 <p>Kõigi nende meetodite puhul jäävad keskseks samad küsimused: kas oleme mõõtnud olulised segajad, kas rühmadel on piisav kattuvus ning kas kaalumine tõepoolest tasakaalustab taustatunnused.</p>
 </section>
@@ -1571,8 +1521,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2 data-number="7.16" class="anchored" data-anchor-id="kontrollküsimused"><span class="header-section-number">7.16</span> Kontrollküsimused</h2>
 <ol type="1">
 <li>Miks on ATT korral osalejate kaal 1?</li>
-<li>Miks saab ATT võrdlusrühma kaalu <span class="math inline">\(e(X)/(1-e(X))\)</span> tõlgendada kui täpse sobitamise rühmasuuruste suhet?</li>
-<li>Miks võivad ATE-kaalud olla väga suured, kui <span class="math inline">\(e(X)\)</span> on 0 või 1 lähedal?</li>
+<li>Miks saab ATT võrdlusrühma kaalu <span class="math inline">\(p(X)/(1-p(X))\)</span> tõlgendada kui täpse sobitamise rühmasuuruste suhet?</li>
+<li>Miks võivad ATE-kaalud olla väga suured, kui <span class="math inline">\(p(X)\)</span> on 0 või 1 lähedal?</li>
 <li>Mis on Horvitz–Thompsoni ja Hájeki hinnangu peamine arvutuslik erinevus?</li>
 <li>Miks ei taga hea osalemise prognoositäpsus tingimata head IPW-hinnangut?</li>
 <li>Millised kaks mudelit AIPW ühendab?</li>
@@ -1589,7 +1539,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <th>Isik</th>
 <th style="text-align: right;"><span class="math inline">\(D\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(Y\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\hat e(X)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\hat p(X)\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -1643,8 +1593,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p><span class="math display">\[
 w_i=
 \begin{cases}
-1/\hat e_i, &amp; D_i=1,\\
-1/(1-\hat e_i), &amp; D_i=0.
+1/\hat p_i, &amp; D_i=1,\\
+1/(1-\hat p_i), &amp; D_i=0.
 \end{cases}
 \]</span></p>
 <p>Seega</p>

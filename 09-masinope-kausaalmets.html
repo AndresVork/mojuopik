@@ -382,7 +382,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">29/09/2026</p>
+      <p class="date-modified">04/10/2026</p>
     </div>
   </div>
     
@@ -393,7 +393,7 @@ window.Quarto = {
 </header>
 
 
-<p><em>TODO: Tähistused ühtlustamata varasemate peatükkidega</em></p>
+<p><em>TODO: Tähistused ühtlustamata varasemate peatükkidega</em> <em>Kontrollimata</em></p>
 <p>Selles peatükis vaatame, kuidas saab masinõppemeetodeid kasutada põhjusliku mõju hindamisel. Keskendume kolmele omavahel seotud meetodile:</p>
 <ul>
 <li><strong>otsustuspuu</strong> (<em>decision tree</em>),</li>
@@ -1435,7 +1435,7 @@ m(x)=E[Y\mid X=x]
 \]</span></p>
 <p>ning</p>
 <p><span class="math display">\[
-e(x)=E[D\mid X=x]=P(D=1\mid X=x).
+p(x)=E[D\mid X=x]=P(D=1\mid X=x).
 \]</span></p>
 <p><code>grf::causal_forest()</code> hindab vajaduse korral need kaks abifunktsiooni eraldi regressioonimetsade abil.</p>
 <p>Moodustame intuitiivselt jäägid</p>
@@ -1476,7 +1476,7 @@ D_i-\hat e(X_i).
 <h1 data-number="16"><span class="header-section-number">16</span> Seos AIPW-ga</h1>
 <p>Varasemas peatükis õppisime AIPW-hinnangut. Olgu</p>
 <p><span class="math display">\[
-e(x)=P(D=1\mid X=x),
+p(x)=P(D=1\mid X=x),
 \]</span></p>
 <p><span class="math display">\[
 \mu_1(x)=E[Y\mid D=1,X=x],
@@ -1546,7 +1546,7 @@ Y_i-\hat\mu(X_i,D_i)
 <div class="callout-body-container callout-body">
 <p>Masinõppemudelid annavad meile paindlikud prognoosid</p>
 <p><span class="math display">\[
-\hat e(x),\quad \hat\mu(x),\quad \hat\tau(x),
+\hat p(x),\quad \hat\mu(x),\quad \hat\tau(x),
 \]</span></p>
 <p>aga põhjusliku parameetri, näiteks ATE, hindamiseks kasutame endiselt ökonomeetriast tuttavat ortogonaalset / topeltrobustset skoori.</p>
 <p>See võimaldab kasutada väga paindlikke abimudeleid nii, et nende prognoosivead mõjutaksid lõplikku põhjusliku mõju hinnangut vähem.</p>
@@ -2164,7 +2164,7 @@ E[Y\mid X].
 <li>Mis vahe on tavalisel juhumetsal ja causal forest’il?</li>
 <li>Defineeri CATE.</li>
 <li>Miks ei saa <span class="math inline">\(\hat\tau(X_i)\)</span> tõlgendada otseselt inimese vaadeldud individuaalse põhjusliku mõjuna?</li>
-<li>Mis roll on causal forest’is funktsioonidel <span class="math inline">\(m(x)=E[Y\mid X=x]\)</span> ja <span class="math inline">\(e(x)=P(D=1\mid X=x)\)</span>?</li>
+<li>Mis roll on causal forest’is funktsioonidel <span class="math inline">\(m(x)=E[Y\mid X=x]\)</span> ja <span class="math inline">\(p(x)=P(D=1\mid X=x)\)</span>?</li>
 <li>Kuidas on <code>average_treatment_effect()</code> seotud AIPW-ga?</li>
 <li>Miks ei ole soovitatav heterogeensuse analüüsiks lihtsalt hinnata <code>lm(tau_hat ~ X)</code>?</li>
 </ol>
