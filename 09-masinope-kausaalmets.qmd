@@ -1,6 +1,7 @@
 # Masinõppemeetodid mõju hindamisel: puust kausaalmetsani
 
 *TODO: Tähistused ühtlustamata varasemate peatükkidega*
+*Kontrollimata*
 
 Selles peatükis vaatame, kuidas saab masinõppemeetodeid kasutada põhjusliku mõju hindamisel. Keskendume kolmele omavahel seotud meetodile:
 
@@ -904,7 +905,7 @@ $$
 ning
 
 $$
-e(x)=E[D\mid X=x]=P(D=1\mid X=x).
+p(x)=E[D\mid X=x]=P(D=1\mid X=x).
 $$
 
 `grf::causal_forest()` hindab vajaduse korral need kaks abifunktsiooni eraldi regressioonimetsade abil.
@@ -948,7 +949,7 @@ Kui me lihtsalt õpetaksime väga paindlikule mudelile $Y$ sõltuvust $D$-st ja 
 Varasemas peatükis õppisime AIPW-hinnangut. Olgu
 
 $$
-e(x)=P(D=1\mid X=x),
+p(x)=P(D=1\mid X=x),
 $$
 
 $$
@@ -1024,7 +1025,7 @@ See on AIPW sama põhiidee teises esituses:
 Masinõppemudelid annavad meile paindlikud prognoosid
 
 $$
-\hat e(x),\quad \hat\mu(x),\quad \hat\tau(x),
+\hat p(x),\quad \hat\mu(x),\quad \hat\tau(x),
 $$
 
 aga põhjusliku parameetri, näiteks ATE, hindamiseks kasutame endiselt ökonomeetriast tuttavat ortogonaalset / topeltrobustset skoori.
@@ -1492,7 +1493,7 @@ Seos eelmise peatüki AIPW-ga on põhimõtteline. Masinõpe aitab paindlikult õ
 5.  Mis vahe on tavalisel juhumetsal ja causal forest'il?
 6.  Defineeri CATE.
 7.  Miks ei saa $\hat\tau(X_i)$ tõlgendada otseselt inimese vaadeldud individuaalse põhjusliku mõjuna?
-8.  Mis roll on causal forest'is funktsioonidel $m(x)=E[Y\mid X=x]$ ja $e(x)=P(D=1\mid X=x)$?
+8.  Mis roll on causal forest'is funktsioonidel $m(x)=E[Y\mid X=x]$ ja $p(x)=P(D=1\mid X=x)$?
 9.  Kuidas on `average_treatment_effect()` seotud AIPW-ga?
 10. Miks ei ole soovitatav heterogeensuse analüüsiks lihtsalt hinnata `lm(tau_hat ~ X)`?
 
