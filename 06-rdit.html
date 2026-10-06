@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="et" xml:lang="et"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Regressiooni katkemine ajas – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-ipw-aipw.html" rel="next">
+<link href="./05-rdd.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-rdit.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/andresvork/mojuopik" title="Lähtekood" class="quarto-navigation-tool px-1" aria-label="Lähtekood"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sissejuhatus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pomate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (DIF-DIF)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-rdit.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ipw-aipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-masinope-kausaalmets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#rdit-tähistused" id="toc-rdit-tähistused" class="nav-link active" data-scroll-target="#rdit-tähistused"><span class="header-section-number">7.1</span> RDiT tähistused</a>
+  <ul class="collapse">
+  <li><a href="#rdit-mõju" id="toc-rdit-mõju" class="nav-link" data-scroll-target="#rdit-mõju">RDiT mõju</a></li>
+  <li><a href="#regressioonimudel" id="toc-regressioonimudel" class="nav-link" data-scroll-target="#regressioonimudel">Regressioonimudel</a></li>
+  <li><a href="#mille-poolest-sarnaneb-rdit-tavalise-rdd-ga" id="toc-mille-poolest-sarnaneb-rdit-tavalise-rdd-ga" class="nav-link" data-scroll-target="#mille-poolest-sarnaneb-rdit-tavalise-rdd-ga">Mille poolest sarnaneb RDiT tavalise RDD-ga?</a></li>
+  <li><a href="#mille-poolest-rdit-erineb-tavalisest-rdd-st" id="toc-mille-poolest-rdit-erineb-tavalisest-rdd-st" class="nav-link" data-scroll-target="#mille-poolest-rdit-erineb-tavalisest-rdd-st">Mille poolest RDiT erineb tavalisest RDD-st?</a></li>
+  <li><a href="#rdit-ja-interrupted-time-series" id="toc-rdit-ja-interrupted-time-series" class="nav-link" data-scroll-target="#rdit-ja-interrupted-time-series">RDiT ja interrupted time series</a></li>
+  </ul></li>
+  <li><a href="#simuleeritud-näide-r-is" id="toc-simuleeritud-näide-r-is" class="nav-link" data-scroll-target="#simuleeritud-näide-r-is"><span class="header-section-number">7.2</span> Simuleeritud näide R-is</a>
+  <ul class="collapse">
+  <li><a href="#vaatame-andmeid-joonisel" id="toc-vaatame-andmeid-joonisel" class="nav-link" data-scroll-target="#vaatame-andmeid-joonisel">Vaatame andmeid joonisel</a></li>
+  <li><a href="#lihtne-regressioon-kogu-perioodil" id="toc-lihtne-regressioon-kogu-perioodil" class="nav-link" data-scroll-target="#lihtne-regressioon-kogu-perioodil">Lihtne regressioon kogu perioodil</a></li>
+  <li><a href="#lokaalne-rdit" id="toc-lokaalne-rdit" class="nav-link" data-scroll-target="#lokaalne-rdit">Lokaalne RDiT</a></li>
+  <li><a href="#arvestame-nädalapäeva" id="toc-arvestame-nädalapäeva" class="nav-link" data-scroll-target="#arvestame-nädalapäeva">Arvestame nädalapäeva</a></li>
+  <li><a href="#autokorrelatsiooniga-arvestavad-standardvead" id="toc-autokorrelatsiooniga-arvestavad-standardvead" class="nav-link" data-scroll-target="#autokorrelatsiooniga-arvestavad-standardvead">Autokorrelatsiooniga arvestavad standardvead</a></li>
+  <li><a href="#rdit-hinnang-rdrobust-abil" id="toc-rdit-hinnang-rdrobust-abil" class="nav-link" data-scroll-target="#rdit-hinnang-rdrobust-abil">RDiT hinnang <code>rdrobust</code> abil</a></li>
+  <li><a href="#millal-võib-rdit-anda-eksitava-tulemuse" id="toc-millal-võib-rdit-anda-eksitava-tulemuse" class="nav-link" data-scroll-target="#millal-võib-rdit-anda-eksitava-tulemuse">Millal võib RDiT anda eksitava tulemuse?</a></li>
+  <li><a href="#rdit-põhiidee-kokkuvõttes" id="toc-rdit-põhiidee-kokkuvõttes" class="nav-link" data-scroll-target="#rdit-põhiidee-kokkuvõttes">RDiT põhiidee kokkuvõttes</a></li>
+  <li><a href="#lisalugemist-rdit-kohta" id="toc-lisalugemist-rdit-kohta" class="nav-link" data-scroll-target="#lisalugemist-rdit-kohta">Lisalugemist RDiT kohta</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/06-rdit.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Muudetud</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">06/10/2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>RDD erijuht on <strong>regressiooni katkemine ajas</strong> (<em>Regression Discontinuity in Time</em>, RDiT). Tavapärases RDD-s määrab meetmes osalemise mingi pidev tunnus <span class="math inline">\(X_i\)</span>, näiteks vanus, sissetulek või testi tulemus. RDiT korral on jooksva tunnuse rollis <strong>aeg</strong> ning meede hakkab kehtima kindlast ajahetkest.</p>
+<p>Näiteks:</p>
+<ul>
+<li>uus maks jõustub 1. jaanuaril;</li>
+<li>uus ravimite hüvitamise kord hakkab kehtima 1. juulil;</li>
+<li>kiiruspiirang kehtestatakse kindlal kuupäeval;</li>
+<li>haigla võtab kindlal kuupäeval kasutusele uue ravijuhendi;</li>
+<li>elektrihinna reform jõustub kindlal kuupäeval.</li>
+</ul>
+<p>RDiT põhiidee on võrrelda tulemust vahetult <strong>enne ja pärast reformi jõustumise hetke</strong>.</p>
+<section id="rdit-tähistused" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="rdit-tähistused"><span class="header-section-number">7.1</span> RDiT tähistused</h2>
+<p>Olgu</p>
+<ul>
+<li><span class="math inline">\(Y_t\)</span> – tulemus ajahetkel <span class="math inline">\(t\)</span>;</li>
+<li><span class="math inline">\(T_t\)</span> – aeg ehk jooksev tunnus;</li>
+<li><span class="math inline">\(c\)</span> – reformi jõustumise ajahetk;</li>
+<li><span class="math inline">\(D_t\)</span> – näitaja, kas vaatlus pärineb reformijärgsest perioodist.</li>
+</ul>
+<p>Järsu RDiT korral:</p>
+<p><span class="math display">\[
+D_t =
+\begin{cases}
+0, &amp; T_t&lt;c,\\
+1, &amp; T_t\geq c.
+\end{cases}
+\]</span></p>
+<p>Näiteks kui reform jõustub 1. juulil, siis kõik enne 1. juulit toimunud vaatlused kuuluvad reformieelsesse perioodi ja kõik alates 1. juulist reformijärgsesse perioodi.</p>
+<p>Nagu tavapärase RDD puhul, tsentreerime jooksva tunnuse lõikepunkti suhtes:</p>
+<p><span class="math display">\[
+\widetilde T_t=T_t-c.
+\]</span></p>
+<p>Lõikepunktis on seega</p>
+<p><span class="math display">\[
+\widetilde T_t=0.
+\]</span></p>
+<section id="rdit-mõju" class="level3">
+<h3 class="anchored" data-anchor-id="rdit-mõju">RDiT mõju</h3>
+<p>RDiT hinnang saadakse tulemuse tingliku keskväärtuse hüppest reformi jõustumise hetkel:</p>
+<p><span class="math display">\[
+\tau^{RDiT}
+=
+\lim_{t\downarrow c}E(Y_t\mid T_t=t)
+-
+\lim_{t\uparrow c}E(Y_t\mid T_t=t).
+\]</span></p>
+<p>Esimene liige kirjeldab tulemust vahetult <strong>pärast</strong> reformi ja teine vahetult <strong>enne</strong> reformi.</p>
+<p>Kui ilma reformita oleks tulemus aja jooksul lõikepunkti ümbruses sujuvalt muutunud, võib seda hüpet tõlgendada reformi lokaalse põhjusliku mõjuna.</p>
+<p>Potentsiaalsete tulemuste keeles vajame eeldust</p>
+<p><span class="math display">\[
+\lim_{t\downarrow c}E(Y_t^0\mid T_t=t)
+=
+\lim_{t\uparrow c}E(Y_t^0\mid T_t=t).
+\]</span></p>
+<p>See tähendab, et <strong>reformi puudumisel ei oleks tulemus täpselt hetkel</strong> <span class="math inline">\(c\)</span> hüppeliselt muutunud.</p>
+<p>Sellisel juhul:</p>
+<p><span class="math display">\[
+\tau^{RDiT}
+=
+E(Y_c^1-Y_c^0).
+\]</span></p>
+<p>Tegemist on lokaalse mõjuga reformi jõustumise ajahetkel.</p>
+</section>
+<section id="regressioonimudel" class="level3">
+<h3 class="anchored" data-anchor-id="regressioonimudel">Regressioonimudel</h3>
+<p>Lihtsa lokaalse lineaarse mudeli võime kirjutada kujul</p>
+<p><span class="math display">\[
+Y_t
+=
+\alpha
++
+\delta D_t
++
+\beta_0\widetilde T_t
++
+\beta_1D_t\widetilde T_t
++
+\varepsilon_t.
+\]</span></p>
+<p>Enne reformi, <span class="math inline">\(D_t=0\)</span>:</p>
+<p><span class="math display">\[
+E(Y_t\mid T_t)
+=
+\alpha+\beta_0\widetilde T_t.
+\]</span></p>
+<p>Pärast reformi, <span class="math inline">\(D_t=1\)</span>:</p>
+<p><span class="math display">\[
+E(Y_t\mid T_t)
+=
+\alpha+\delta+
+(\beta_0+\beta_1)\widetilde T_t.
+\]</span></p>
+<p>Kuna lõikepunktis <span class="math inline">\(\widetilde T_t=0\)</span>, on kahe regressioonijoone erinevus</p>
+<p><span class="math display">\[
+\delta.
+\]</span></p>
+<p>Seega on <span class="math inline">\(\delta\)</span> RDiT hinnang reformi vahetule mõjule.</p>
+<p>Nagu tavalise RDD puhul, on mõistlik hinnata mudelit eelkõige lõikepunkti lähedal:</p>
+<p><span class="math display">\[
+|\widetilde T_t|\leq h,
+\]</span></p>
+<p>kus <span class="math inline">\(h\)</span> on valitud ajavahemik ehk <strong>ribalaius</strong> (<em>bandwidth</em>).</p>
+<p>Näiteks võime kasutada ainult 30 päeva enne ja 30 päeva pärast reformi.</p>
+</section>
+<section id="mille-poolest-sarnaneb-rdit-tavalise-rdd-ga" class="level3">
+<h3 class="anchored" data-anchor-id="mille-poolest-sarnaneb-rdit-tavalise-rdd-ga">Mille poolest sarnaneb RDiT tavalise RDD-ga?</h3>
+<p>Matemaatiliselt on kaks disaini väga sarnased.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tavaline RDD</th>
+<th>RDiT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Jooksev tunnus <span class="math inline">\(X_i\)</span></td>
+<td>Aeg <span class="math inline">\(T_t\)</span></td>
+</tr>
+<tr class="even">
+<td>Lõikepunkt <span class="math inline">\(c\)</span></td>
+<td>Reformi jõustumise aeg <span class="math inline">\(c\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(D_i=1(X_i\geq c)\)</span></td>
+<td><span class="math inline">\(D_t=1(T_t\geq c)\)</span></td>
+</tr>
+<tr class="even">
+<td>Võrdleme vaatlusi lõikepunkti lähedal</td>
+<td>Võrdleme vaatlusi reformi aja lähedal</td>
+</tr>
+<tr class="odd">
+<td>Lubame trendil olla kahel pool erinev</td>
+<td>Lubame ajatrendil olla enne ja pärast erinev</td>
+</tr>
+<tr class="even">
+<td>Mõju on hüpe lõikepunktis</td>
+<td>Mõju on hüpe reformi hetkel</td>
+</tr>
+<tr class="odd">
+<td>Oluline on ribalaiuse valik</td>
+<td>Oluline on ajavahemiku valik</td>
+</tr>
+</tbody>
+</table>
+<p>Mõlemal juhul püüame eristada kahte asja:</p>
+<ol type="1">
+<li>tulemuse <strong>sujuvat muutumist</strong> jooksva tunnuse suhtes;</li>
+<li><strong>diskreetset hüpet</strong> lõikepunktis.</li>
+</ol>
+</section>
+<section id="mille-poolest-rdit-erineb-tavalisest-rdd-st" class="level3">
+<h3 class="anchored" data-anchor-id="mille-poolest-rdit-erineb-tavalisest-rdd-st">Mille poolest RDiT erineb tavalisest RDD-st?</h3>
+<p>Vaatamata matemaatilisele sarnasusele on RDiT identifitseerimise seisukohalt tavalisest RDD-st problemaatilisem.</p>
+<section id="aeg-ise-määrab-täielikult-kumb-vaatlus-on-enne-ja-kumb-pärast" class="level4">
+<h4 class="anchored" data-anchor-id="aeg-ise-määrab-täielikult-kumb-vaatlus-on-enne-ja-kumb-pärast">1. Aeg ise määrab täielikult, kumb vaatlus on enne ja kumb pärast</h4>
+<p>Tavalises RDD-s võime võrrelda näiteks inimesi sissetulekuga 999 ja 1001 eurot. Nad võivad paljude muude omaduste poolest olla väga sarnased.</p>
+<p>RDiT korral võrdleme aga <strong>erinevaid ajahetki</strong>. Näiteks 30. juunit ja 1. juulit ei saa käsitleda päris samamoodi nagu kahte peaaegu identse sissetulekuga inimest.</p>
+<p>Aeg liigub ainult ühes suunas ning pärast reformi toimunud vaatlus ei oleks saanud toimuda enne reformi.</p>
+</section>
+<section id="samal-ajal-võivad-muutuda-teised-tegurid" class="level4">
+<h4 class="anchored" data-anchor-id="samal-ajal-võivad-muutuda-teised-tegurid">2. Samal ajal võivad muutuda teised tegurid</h4>
+<p>See on RDiT üks olulisemaid probleeme.</p>
+<p>Kui reform toimub ajahetkel <span class="math inline">\(c\)</span>, siis peab põhjuslikuks tõlgenduseks kehtima, et <strong>ükski teine tulemust mõjutav tegur ei muutu samal hetkel hüppeliselt</strong>.</p>
+<p>Näiteks oletame, et 1. juulil:</p>
+<ul>
+<li>vähendatakse ravimite omaosalust;</li>
+<li>algab samal ajal puhkuste periood;</li>
+<li>haigla muudab töökorraldust;</li>
+<li>jõustub teine tervishoiureform.</li>
+</ul>
+<p>Kui ravimite kasutamine muutub 1. juulil, ei saa me ilma täiendava informatsioonita olla kindlad, milline neist muutustest hüppe põhjustas.</p>
+<p>Seetõttu on RDiT puhul eriti oluline uurida <strong>teisi samal ajal toimunud sündmusi ja poliitikamuutusi</strong>.</p>
+</section>
+<section id="hooajalisus" class="level4">
+<h4 class="anchored" data-anchor-id="hooajalisus">3. Hooajalisus</h4>
+<p>Paljud majandus- ja tervisenäitajad sõltuvad kalendrist.</p>
+<p>Näiteks:</p>
+<ul>
+<li>töötus võib olla hooajaline;</li>
+<li>elektritarbimine sõltub aastaajast;</li>
+<li>haiglaravi sõltub nädalapäevast ja aastaajast;</li>
+<li>jaemüük muutub jõulude ajal;</li>
+<li>liiklusõnnetuste arv sõltub nädalapäevast ja aastaajast.</li>
+</ul>
+<p>Kui reform toimub näiteks 1. jaanuaril, võivad enne ja pärast reformi erinevused kajastada osaliselt ka aastavahetuse või hooaja mõju.</p>
+<p>Vajadusel võib mudelisse lisada näiteks nädalapäeva, kuu või muid kalendritunnuseid.</p>
+</section>
+<section id="vaatlused-võivad-olla-ajaliselt-sõltuvad" class="level4">
+<h4 class="anchored" data-anchor-id="vaatlused-võivad-olla-ajaliselt-sõltuvad">4. Vaatlused võivad olla ajaliselt sõltuvad</h4>
+<p>Tavalises ristandmetel põhinevas RDD-s on erinevate isikute vealiikmete sõltumatus sageli mõistlik lähtekoht.</p>
+<p>Aegridades võib aga</p>
+<p><span class="math display">\[
+\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-1})\neq0.
+\]</span></p>
+<p>Näiteks tänane elektritarbimine, töötus või haiglaravi võib olla tugevalt seotud eilse väärtusega.</p>
+<p>Seda nimetatakse <strong>autokorrelatsiooniks</strong>.</p>
+<p>Seetõttu ei pruugi tavalised OLS standardvead RDiT korral olla korrektsed. Aegridade korral tuleks arvestada vealiikmete ajalise sõltuvusega, kasutades näiteks HAC ehk Newey–West standardvigu.</p>
+</section>
+<section id="manipulatsioonitest-ei-ole-sageli-oluline" class="level4">
+<h4 class="anchored" data-anchor-id="manipulatsioonitest-ei-ole-sageli-oluline">5. Manipulatsioonitest ei ole sageli oluline</h4>
+<p>Tavalises RDD-s küsime, kas inimesed saavad jooksva tunnuse väärtusega manipuleerida, et sattuda soovitud poolele lõikepunkti. Selleks kasutatakse näiteks McCrary tihedustesti.</p>
+<p>Kalendriaega ennast ei saa tavaliselt manipuleerida. Seetõttu ei ole küsimus “Kas vaatlused kuhjuvad lõikepunkti ühele poole?” RDiT puhul sageli sisuline.</p>
+<p>Samas võivad majandusagendid <strong>oma käitumise ajastust muuta</strong>, kui reform on ette teada. Näiteks võivad majapidamised teha autoostu enne automaksu tõusu või ettevõtjad võtta välja dividendid enne tulumaksu tõus. Sellisel juhul võib tekkida reformi ennetav käitumine (<em>anticipation</em>). Või</p>
+</section>
+</section>
+<section id="rdit-ja-interrupted-time-series" class="level3">
+<h3 class="anchored" data-anchor-id="rdit-ja-interrupted-time-series">RDiT ja interrupted time series</h3>
+<p>RDiT on tihedalt seotud <strong>katkestatud aegrea analüüsiga</strong> (<em>interrupted time series</em>, ITS).</p>
+<p>Näiteks mudel</p>
+<p><span class="math display">\[
+Y_t
+=
+\alpha
++
+\delta D_t
++
+\beta_0\widetilde T_t
++
+\beta_1D_t\widetilde T_t
++
+\varepsilon_t
+\]</span></p>
+<p>on ka klassikaline <em>interrupted time series</em> mudel.</p>
+<p>Interpretatsioon:</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> – tulemuse tase vahetult enne reformi;</li>
+<li><span class="math inline">\(\beta_0\)</span> – reformieelne trend;</li>
+<li><span class="math inline">\(\delta\)</span> – vahetu taseme muutus reformi hetkel;</li>
+<li><span class="math inline">\(\beta_1\)</span> – trendi muutus pärast reformi.</li>
+</ul>
+<p>RDiT rõhutab tavaliselt rohkem <strong>lokaalset võrdlust lõikepunkti ümbruses</strong>, samas kui interrupted time series kasutab sageli pikemat reformieelset ja reformijärgset aegrida ning modelleerib eksplitsiitselt selle dünaamikat.</p>
+</section>
+</section>
+<section id="simuleeritud-näide-r-is" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="simuleeritud-näide-r-is"><span class="header-section-number">7.2</span> Simuleeritud näide R-is</h2>
+<p>Oletame, et meil on igapäevased andmed mingi tervishoiuteenuse kasutamise kohta.</p>
+<ol type="1">
+<li>juulil jõustub reform, mis vähendab patsiendi omaosalust. Eeldame, et selle tulemusena suureneb teenuse kasutamine kohe umbes <strong>8 ühiku võrra päevas</strong>.</li>
+</ol>
+<p>Lisaks on teenuse kasutamisel:</p>
+<ul>
+<li>väike kasvav ajatrend;</li>
+<li>nädalapäeva efekt;</li>
+<li>juhuslik varieeruvus.</li>
+</ul>
+<p>Simuleerime ühe aasta päevased andmed.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Päevad</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">365</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Reform toimub päeval 182</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>c0 <span class="ot">&lt;-</span> <span class="dv">182</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Aeg lõikepunkti suhtes</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>tc <span class="ot">&lt;-</span> t <span class="sc">-</span> c0</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Reformijärgne periood</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(t <span class="sc">&gt;=</span> c0)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Nädalapäev</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>weekday <span class="ot">&lt;-</span> <span class="fu">factor</span>((t <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%%</span> <span class="dv">7</span> <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Tegelik reformi mõju</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Väljund</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.03</span> <span class="sc">*</span> tc <span class="sc">+</span>                <span class="co"># sujuv ajatrend</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  tau <span class="sc">*</span> D <span class="sc">+</span>                  <span class="co"># reformi mõju</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(<span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">*</span> t <span class="sc">/</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="co"># nädalane hooajalisus</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>df_time <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> t,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">tc =</span> tc,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">D =</span> D,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">weekday =</span> weekday,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> Y</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="vaatame-andmeid-joonisel" class="level3">
+<h3 class="anchored" data-anchor-id="vaatame-andmeid-joonisel">Vaatame andmeid joonisel</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_time, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xintercept =</span> c0,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Päev"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Teenuse kasutamine"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Regression discontinuity in time"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Reform jõustub päeval 182"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-rdit_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Jooniselt peaks olema näha üldine ajatrend ja hüpe reformi jõustumise ajal.</p>
+<p>Lisame eraldi regressioonijooned enne ja pärast reformi.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_time, <span class="fu">aes</span>(<span class="at">x =</span> tc, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xintercept =</span> <span class="dv">0</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(df_time, tc <span class="sc">&lt;</span> <span class="dv">0</span>),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(df_time, tc <span class="sc">&gt;=</span> <span class="dv">0</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Päevad reformi suhtes"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Teenuse kasutamine"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"RDiT: tulemus enne ja pärast reformi"</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-rdit_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="lihtne-regressioon-kogu-perioodil" class="level3">
+<h3 class="anchored" data-anchor-id="lihtne-regressioon-kogu-perioodil">Lihtne regressioon kogu perioodil</h3>
+<p>Kõigepealt hindame</p>
+<p><span class="math display">\[
+Y_t
+=
+\alpha+
+\delta D_t+
+\beta_0\widetilde T_t+
+\beta_1D_t\widetilde T_t+
+\varepsilon_t.
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>m_time_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  Y <span class="sc">~</span> D <span class="sc">*</span> tc,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_time</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_time_all)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y ~ D * tc, data = df_time)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-15.9378  -2.9369  -0.1161   3.0521  12.7743 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 50.748590   0.678174  74.831  &lt; 2e-16 ***
+D            8.260462   0.951295   8.683  &lt; 2e-16 ***
+tc           0.041533   0.006463   6.426 4.13e-10 ***
+D:tc        -0.017884   0.009029  -1.981   0.0484 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.543 on 361 degrees of freedom
+Multiple R-squared:  0.7241,    Adjusted R-squared:  0.7218 
+F-statistic: 315.8 on 3 and 361 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Kordaja <code>D</code> näitab hinnatud hüpet täpselt reformi jõustumise hetkel.</p>
+<p>Kuna tegelik simuleeritud mõju oli</p>
+<p><span class="math display">\[
+\tau=8,
+\]</span></p>
+<p>peaks hinnang olema ligikaudu 8.</p>
+</section>
+<section id="lokaalne-rdit" class="level3">
+<h3 class="anchored" data-anchor-id="lokaalne-rdit">Lokaalne RDiT</h3>
+<p>RDD loogika järgi ei pea me kasutama tervet aastat. Võime võrrelda näiteks ainult 30 päeva enne ja pärast reformi.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_time_local <span class="ot">&lt;-</span> df_time <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(tc) <span class="sc">&lt;=</span> <span class="dv">30</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Hindame sama mudeli selles lokaalses aknas:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m_time_local <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  Y <span class="sc">~</span> D <span class="sc">*</span> tc,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_time_local</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_time_local)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y ~ D * tc, data = df_time_local)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12.8454  -2.6596   0.2448   3.3751  13.8136 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 49.5403773  1.8888695  26.228  &lt; 2e-16 ***
+D           10.0197200  2.5878313   3.872 0.000281 ***
+tc          -0.0006939  0.1063976  -0.007 0.994819    
+D:tc        -0.0009435  0.1469000  -0.006 0.994898    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.044 on 57 degrees of freedom
+Multiple R-squared:  0.5117,    Adjusted R-squared:  0.486 
+F-statistic: 19.91 on 3 and 57 DF,  p-value: 5.943e-09</code></pre>
+</div>
+</div>
+<p>Kordaja <code>D</code> on jälle hinnang reformi vahetule mõjule:</p>
+<p><span class="math display">\[
+\widehat{\tau}^{RDiT}=\widehat{\delta}.
+\]</span></p>
+</section>
+<section id="arvestame-nädalapäeva" class="level3">
+<h3 class="anchored" data-anchor-id="arvestame-nädalapäeva">Arvestame nädalapäeva</h3>
+<p>Kuna simuleeritud andmetes esineb nädalapäeva efekt, võime selle regressioonimudelisse lisada:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m_time_weekday <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  Y <span class="sc">~</span> D <span class="sc">*</span> tc <span class="sc">+</span> weekday,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_time_local</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_time_weekday)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y ~ D * tc + weekday, data = df_time_local)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-13.593  -2.459   0.222   2.103  11.237 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 52.009148   2.389359  21.767  &lt; 2e-16 ***
+D            9.598304   2.486047   3.861  0.00032 ***
+tc           0.002288   0.102072   0.022  0.98221    
+weekday2     0.115568   2.271889   0.051  0.95963    
+weekday3     0.119943   2.344813   0.051  0.95940    
+weekday4    -3.816656   2.346471  -1.627  0.11000    
+weekday5    -4.496367   2.275139  -1.976  0.05354 .  
+weekday6    -4.770313   2.277105  -2.095  0.04117 *  
+weekday7    -3.004689   2.271889  -1.323  0.19189    
+D:tc         0.002164   0.140810   0.015  0.98780    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.817 on 51 degrees of freedom
+Multiple R-squared:  0.6016,    Adjusted R-squared:  0.5312 
+F-statistic: 8.555 on 9 and 51 DF,  p-value: 1.149e-07</code></pre>
+</div>
+</div>
+<p>Nädalapäeva lisamine aitab eemaldada regulaarselt korduvaid kalendrierinevusi, mis ei ole reformi põhjustatud.</p>
+</section>
+<section id="autokorrelatsiooniga-arvestavad-standardvead" class="level3">
+<h3 class="anchored" data-anchor-id="autokorrelatsiooniga-arvestavad-standardvead">Autokorrelatsiooniga arvestavad standardvead</h3>
+<p>Aegridade puhul võivad järjestikuste päevade vealiikmed omavahel seotud olla. Üks võimalus on kasutada Newey–West standardvigu.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  m_time_weekday,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">NeweyWest</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    m_time_weekday,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag =</span> <span class="dv">7</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">prewhite =</span> <span class="cn">FALSE</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+              Estimate Std. Error t value  Pr(&gt;|t|)    
+(Intercept) 52.0091480  1.2011763 43.2985 &lt; 2.2e-16 ***
+D            9.5983040  2.1872589  4.3883 5.754e-05 ***
+tc           0.0022876  0.0710605  0.0322   0.97444    
+weekday2     0.1155683  1.3603405  0.0850   0.93263    
+weekday3     0.1199426  2.5691740  0.0467   0.96295    
+weekday4    -3.8166561  1.9287385 -1.9788   0.05325 .  
+weekday5    -4.4963673  0.7486519 -6.0060 2.008e-07 ***
+weekday6    -4.7703135  1.9468195 -2.4503   0.01774 *  
+weekday7    -3.0046893  1.4710274 -2.0426   0.04628 *  
+D:tc         0.0021636  0.0830518  0.0261   0.97932    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Punktihinnangud jäävad samaks, kuid standardvead arvestavad nüüd võimalikku ajalist sõltuvust.</p>
+</section>
+<section id="rdit-hinnang-rdrobust-abil" class="level3">
+<h3 class="anchored" data-anchor-id="rdit-hinnang-rdrobust-abil">RDiT hinnang <code>rdrobust</code> abil</h3>
+<p>Kuna matemaatiliselt on tegemist RDD-ga, võime lokaalse regressiooni hinnata ka <code>rdrobust</code> abil:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rdrobust)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>rd_time <span class="ot">&lt;-</span> <span class="fu">rdrobust</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> df_time<span class="sc">$</span>Y,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> df_time<span class="sc">$</span>t,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> c0,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">p =</span> <span class="dv">1</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rd_time)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sharp RD estimates using local polynomial regression.
+
+Number of Obs.                  365
+BW type                       mserd
+Kernel                   Triangular
+VCE method                       NN
+
+Number of Obs.                  181          184
+Eff. Number of Obs.              72           73
+Order est. (p)                    1            1
+Order bias  (q)                   2            2
+BW est. (h)                  72.840       72.840
+BW bias (b)                 112.373      112.373
+rho (h/b)                     0.648        0.648
+Unique Obs.                     181          184
+
+=====================================================================
+                   Point    Robust Inference
+                Estimate         z     P&gt;|z|      [ 95% C.I. ]       
+---------------------------------------------------------------------
+     RD Effect     9.648     3.857     0.000     [4.917 , 15.077]    
+=====================================================================</code></pre>
+</div>
+</div>
+<p>Siin on:</p>
+<ul>
+<li><code>Y</code> – väljund;</li>
+<li><code>t</code> – jooksev tunnus ehk aeg;</li>
+<li><code>c0</code> – reformi jõustumise aeg.</li>
+</ul>
+<p><code>rdrobust</code> käsitleb aega formaalselt samamoodi nagu ükskõik millist muud RDD jooksvat tunnust ning valib lõikepunkti ümber lokaalse ribalaiuse.</p>
+<p><strong>Ettevaatust:</strong> <code>rdrobust</code> kasutamine ei lahenda iseenesest RDiT spetsiifilisi identifitseerimisprobleeme. Eelkõige tuleb eraldi mõelda hooajalisusele, autokorrelatsioonile, teistele samal ajal toimunud muutustele ning reformi võimalikule ennetamisele.</p>
+</section>
+<section id="millal-võib-rdit-anda-eksitava-tulemuse" class="level3">
+<h3 class="anchored" data-anchor-id="millal-võib-rdit-anda-eksitava-tulemuse">Millal võib RDiT anda eksitava tulemuse?</h3>
+<p>Kõige olulisem probleem tekib siis, kui reformiga samal ajal toimub veel midagi.</p>
+<p>Oletame näiteks, et meie reform jõustub täpselt hetkel, mil algab suvepuhkuste periood, ning puhkused suurendavad samuti uuritavat tulemust.</p>
+<p>Siis võime vaadelda hüpet</p>
+<p><span class="math display">\[
+\Delta Y
+=
+\tau_{\text{reform}}
++
+\tau_{\text{muu muutus}}.
+\]</span></p>
+<p>RDiT näeb ainult koguhüpet <span class="math inline">\(\Delta Y\)</span> ega suuda ühe aegrea põhjal neid kahte mõju üksteisest eristada.</p>
+<p>Seetõttu on RDiT põhjuslik eeldus sisuliselt:</p>
+<blockquote class="blockquote">
+<p>Kui reformi poleks toimunud, oleks tulemuse areng jätkunud reformi jõustumise hetkel sujuvalt.</p>
+</blockquote>
+<p>See eeldus ei ole otseselt testitav.</p>
+<p>Usaldusväärsuse suurendamiseks võiks RDiT analüüsis:</p>
+<ol type="1">
+<li>joonistada pikk reformieelne ja reformijärgne aegrida;</li>
+<li>proovida erinevaid ribalaiuseid;</li>
+<li>kontrollida hooajalisust ja kalendrimõjusid;</li>
+<li>uurida, kas samal ajal toimus muid poliitika- või majandusmuutusi;</li>
+<li>kasutada platseebo-lõikepunkte;</li>
+<li>kontrollida, kas tulemus hakkab muutuma juba <strong>enne</strong> reformi;</li>
+<li>arvestada standardvigades aegrea autokorrelatsiooniga.</li>
+</ol>
+</section>
+<section id="rdit-põhiidee-kokkuvõttes" class="level3">
+<h3 class="anchored" data-anchor-id="rdit-põhiidee-kokkuvõttes">RDiT põhiidee kokkuvõttes</h3>
+<p>Tavalise RDD korral küsime:</p>
+<blockquote class="blockquote">
+<p>Kas tulemus hüppab siis, kui jooksev tunnus <span class="math inline">\(X\)</span> ületab lävendi <span class="math inline">\(c\)</span>?</p>
+</blockquote>
+<p>RDiT korral küsime:</p>
+<blockquote class="blockquote">
+<p>Kas tulemus hüppab hetkel, mil jõustub poliitikamuutus?</p>
+</blockquote>
+<p>Mõlema meetodi matemaatiline loogika on sarnane:</p>
+<p><span class="math display">\[
+\text{mõju}
+=
+\text{tulemus vahetult pärast lõikepunkti}
+-
+\text{tulemus vahetult enne lõikepunkti}.
+\]</span></p>
+<p>RDiT puhul on aga põhjusliku tõlgenduse jaoks eriti oluline veenduda, et <strong>samal ajahetkel ei toimunud muid tulemust mõjutavaid diskreetseid muutusi</strong> ning et aegrea dünaamikat, hooajalisust ja autokorrelatsiooni on analüüsis piisavalt arvestatud.</p>
+</section>
+<section id="lisalugemist-rdit-kohta" class="level3">
+<h3 class="anchored" data-anchor-id="lisalugemist-rdit-kohta">Lisalugemist RDiT kohta</h3>
+<p>Hausman, C. &amp; Rapson, D. S. (2018). <em>Regression Discontinuity in Time: Considerations for Empirical Applications</em>. Annual Review of Resource Economics, 10, 533–552.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/andresvork\.github\.io\/mojuopik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-rdd.html" class="pagination-link" aria-label="Regressiooni katkemise meetod">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-ipw-aipw.html" class="pagination-link" aria-label="Pöördtõenäosusega kaalumine (IPW) ja AIPW">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/06-rdit.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></div></div></footer></body></html>

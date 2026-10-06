@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./07-ipw-aipw.html" rel="next">
+<link href="./06-rdit.html" rel="next">
 <link href="./06-sobitamine.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -220,38 +220,38 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./06-rdit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./07-ipw-aipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-masinope-kausaalmets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11-tehajaideed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teha</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -339,7 +339,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">04/10/2026</p>
+      <p class="date-modified">06/10/2026</p>
     </div>
   </div>
     
@@ -363,6 +363,7 @@ window.Quarto = {
 <p>Antud disaini puhul me ei saa leida täpselt samasugust osalus- ja võrdlusrühma, sest meetmesse on sisse kirjutatud, et puudub ühine tugi (<em>common support</em>), kuid saame võrrelda <strong>väga lähedal lõikepunktile</strong> olevaid isikuid.</p>
 <p>Näiteks võrdleme täispensioni saamise mõju hindamiseks töötundidele inimesi vanuses 64 ja 66 aastat; võrdleme tasuta hambaravi mõju hindamiseks hambaarsti külastustele noori vanuses 18 ja 20; võrdleme stipendiumi mõju hindamiseks hilisemale töötasule üliõpilasi keskmise hindega 4,4 a 4,6.</p>
 <p>Me eeldame vaikimisi, et kui inimesed on sarnased jälgitava tunnuse osas (nt vanus, keskmine hinne), siis nad on sarnased ka mittejälgitavate tunnuste osas.</p>
+<p>Regressiooni katkemise disain annab lokaalsed hinnangud. Sellel meetodil on tugev sisemine valiidsus (<em>internal validity</em>), see tähendab, me usume tulemusi vaadeldava sihtrühma puhul. Nt hambaravi mitterahalise hüvitise mõju vanuses 18-20 ongi selline nagu andmed näitavad. Aga sellel meetodil on nõrk väline valiidsus (<em>exernal validity</em>), me ei ole kindel, et see järeldus kehtib kaugemal lõikepunktist ehk erineva sihtrühma korral Näiteks, mis võiks olla hambaravi hüvitise mõju vanuses 30?</p>
 <section id="tähistused" class="level3">
 <h3 class="anchored" data-anchor-id="tähistused">Tähistused</h3>
 <p>Olgu:</p>
@@ -2989,8 +2990,8 @@ the running variable.</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./07-ipw-aipw.html" class="pagination-link" aria-label="Pöördtõenäosusega kaalumine (IPW) ja AIPW">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./06-rdit.html" class="pagination-link" aria-label="Regressiooni katkemine ajas">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
