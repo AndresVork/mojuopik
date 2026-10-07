@@ -226,38 +226,44 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./05-ruumiline-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ruumis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./07-ipw-aipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-masinope-kausaalmets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
   </div>
 </li>
     </ul>
@@ -339,7 +345,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">06/10/2026</p>
+      <p class="date-modified">07/10/2026</p>
     </div>
   </div>
     
@@ -1117,6 +1123,13 @@ p(x) = \Pr(D_i = 1 \mid X_i = x)
 \tau^{FRD} = \frac{\Delta Y}{\Delta D}.
 \]</span></p>
 <p>See on analoogne IV-Waldi hinnanguga: kui lõikepunkti juures oleks tõenäosus muutunud 0-lt 1-le, siis <span class="math inline">\(\Delta Y\)</span> olekski mõju; kuna muutus on väiksem, skaleerime selle üles jagades <span class="math inline">\(\Delta D\)</span>-ga.</p>
+<!-- Ajutine -->
+<!-- $$ -->
+<!-- \tau^{FRD} = \frac{\lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x] -->
+<!--          - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x]} -->
+<!--          { \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x] -->
+<!--          - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x]}. -->
+<!-- $$ -->
 <section id="näide.-ettevõtlustoetuse-mõju-arvutamine" class="level3">
 <h3 class="anchored" data-anchor-id="näide.-ettevõtlustoetuse-mõju-arvutamine">Näide. Ettevõtlustoetuse mõju arvutamine</h3>
 <p>Ettevõtted on teadus- ja arendustegevuse (T&amp;A) toetuse saamiseks abikõlblikud, kui nad on piisavalt suured, st neil on rohkem kui 100 töötajat. “Väike ettevõte” tähendab ettevõtet, kus töötajate arv jääb vahemikku 90 kuni 100. “Suur ettevõte” tähendab ettevõtet, kus töötajate arv jääb vahemikku 101 kuni 110. Kokku on 40 suurt ja 40 väikest ettevõtet. Meetme korraldaja vea tõttu said vaid 30 suurt ettevõtet toetust ja lisaks said 10 väikest ettevõtet toetust. Üks aasta pärast toetuste väljamaksmist on kõigi suurte ettevõtete keskmine kasum 10 miljonit eurot, samas kui kõigi väikeste ettevõtete keskmine kasum on 8 miljonit eurot. Meid huvitab T&amp;A toetuse saamise mõju kasumile. Mis on meetme mõju ettevõtete keskmisele kasumile (LATE hinnang) miljonites eurodes?</p>

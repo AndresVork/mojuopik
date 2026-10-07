@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="et" xml:lang="et"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Regressiooni katkemine ruumis – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-ipw-aipw.html" rel="next">
+<link href="./06-rdit.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-ruumiline-rdd.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ruumis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/andresvork/mojuopik" title="Lähtekood" class="quarto-navigation-tool px-1" aria-label="Lähtekood"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sissejuhatus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pomate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (DIF-DIF)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-rdit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-ruumiline-rdd.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ruumis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ipw-aipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-masinope-kausaalmets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#asukoht-piir-ja-meetmes-osalemine" id="toc-asukoht-piir-ja-meetmes-osalemine" class="nav-link active" data-scroll-target="#asukoht-piir-ja-meetmes-osalemine"><span class="header-section-number">8.1</span> Asukoht, piir ja meetmes osalemine</a></li>
+  <li><a href="#millistel-eeldustel-saame-hinnata-põhjuslikku-mõju" id="toc-millistel-eeldustel-saame-hinnata-põhjuslikku-mõju" class="nav-link" data-scroll-target="#millistel-eeldustel-saame-hinnata-põhjuslikku-mõju"><span class="header-section-number">8.2</span> Millistel eeldustel saame hinnata põhjuslikku mõju?</a>
+  <ul class="collapse">
+  <li><a href="#potentsiaalsete-tulemuste-pidevus" id="toc-potentsiaalsete-tulemuste-pidevus" class="nav-link" data-scroll-target="#potentsiaalsete-tulemuste-pidevus">Potentsiaalsete tulemuste pidevus</a></li>
+  <li><a href="#elukoha-või-ettevõtte-asukoha-valik" id="toc-elukoha-või-ettevõtte-asukoha-valik" class="nav-link" data-scroll-target="#elukoha-või-ettevõtte-asukoha-valik">Elukoha või ettevõtte asukoha valik</a></li>
+  <li><a href="#muud-piiril-muutuvad-tegurid" id="toc-muud-piiril-muutuvad-tegurid" class="nav-link" data-scroll-target="#muud-piiril-muutuvad-tegurid">Muud piiril muutuvad tegurid</a></li>
+  <li><a href="#üle-piiri-kanduvad-mõjud" id="toc-üle-piiri-kanduvad-mõjud" class="nav-link" data-scroll-target="#üle-piiri-kanduvad-mõjud">Üle piiri kanduvad mõjud</a></li>
+  </ul></li>
+  <li><a href="#millist-mõju-hinnatakse" id="toc-millist-mõju-hinnatakse" class="nav-link" data-scroll-target="#millist-mõju-hinnatakse"><span class="header-section-number">8.3</span> Millist mõju hinnatakse?</a></li>
+  <li><a href="#kuidas-mõju-hinnata" id="toc-kuidas-mõju-hinnata" class="nav-link" data-scroll-target="#kuidas-mõju-hinnata"><span class="header-section-number">8.4</span> Kuidas mõju hinnata?</a>
+  <ul class="collapse">
+  <li><a href="#märgiga-kaugus-piirist" id="toc-märgiga-kaugus-piirist" class="nav-link" data-scroll-target="#märgiga-kaugus-piirist">Märgiga kaugus piirist</a></li>
+  <li><a href="#võrdlemine-sama-piirilõigu-juures" id="toc-võrdlemine-sama-piirilõigu-juures" class="nav-link" data-scroll-target="#võrdlemine-sama-piirilõigu-juures">Võrdlemine sama piirilõigu juures</a></li>
+  <li><a href="#standardvead-ja-ruumiline-sõltuvus" id="toc-standardvead-ja-ruumiline-sõltuvus" class="nav-link" data-scroll-target="#standardvead-ja-ruumiline-sõltuvus">Standardvead ja ruumiline sõltuvus</a></li>
+  </ul></li>
+  <li><a href="#uurimisdisaini-kontrollimine" id="toc-uurimisdisaini-kontrollimine" class="nav-link" data-scroll-target="#uurimisdisaini-kontrollimine"><span class="header-section-number">8.5</span> Uurimisdisaini kontrollimine</a></li>
+  <li><a href="#lihtne-simuleeritud-näide-r-is" id="toc-lihtne-simuleeritud-näide-r-is" class="nav-link" data-scroll-target="#lihtne-simuleeritud-näide-r-is"><span class="header-section-number">8.6</span> Lihtne simuleeritud näide R-is</a>
+  <ul class="collapse">
+  <li><a href="#olukord-ja-andmete-genereerimine" id="toc-olukord-ja-andmete-genereerimine" class="nav-link" data-scroll-target="#olukord-ja-andmete-genereerimine">Olukord ja andmete genereerimine</a></li>
+  <li><a href="#asukohad-kaardil" id="toc-asukohad-kaardil" class="nav-link" data-scroll-target="#asukohad-kaardil">Asukohad kaardil</a></li>
+  <li><a href="#mõju-hindamine" id="toc-mõju-hindamine" class="nav-link" data-scroll-target="#mõju-hindamine">Mõju hindamine</a></li>
+  <li><a href="#hinnatud-hüppe-joonis" id="toc-hinnatud-hüppe-joonis" class="nav-link" data-scroll-target="#hinnatud-hüppe-joonis">Hinnatud hüppe joonis</a></li>
+  <li><a href="#tundlikkus-valimiakna-suhtes" id="toc-tundlikkus-valimiakna-suhtes" class="nav-link" data-scroll-target="#tundlikkus-valimiakna-suhtes">Tundlikkus valimiakna suhtes</a></li>
+  <li><a href="#kontrollküsimused" id="toc-kontrollküsimused" class="nav-link" data-scroll-target="#kontrollküsimused">Kontrollküsimused</a></li>
+  </ul></li>
+  <li><a href="#kirjandus" id="toc-kirjandus" class="nav-link" data-scroll-target="#kirjandus"><span class="header-section-number">8.7</span> Kirjandus</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/05-ruumiline-rdd.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ruumis</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Muudetud</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">07/10/2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Ruumiline regressiooni katkemise meetod</strong> (<em>spatial regression discontinuity design</em> ehk <em>geographic regression discontinuity design</em>, GRD) kasutab põhjusliku mõju hindamiseks geograafilist piiri. Ühel pool piiri rakendub meede ning teisel pool mitte. Võrreldakse vaatlusi, mis asuvad piiri lähedal selle vastaskülgedel.</p>
+<p>Näiteks võib omavalitsus pakkuda elanikele tasuta ühistransporti, samal ajal kui naaberomavalitsus seda ei paku. Kui piiri vahetus läheduses elavad inimesed on muus osas võrreldavad, võiks nende transpordikasutuse erinevus anda teavet meetme mõju kohta. Tegemist on hüpoteetilise näitega: tegelikus uuringus tuleb kontrollida nii elukoha valikut kui ka teisi omavalitsuste erinevusi.</p>
+<p>Meetodi alusidee on sama mis tavapärases RDD-s: <strong>meetmes osalemine muutub lävendil järsult, kuid potentsiaalsed tulemused peaksid muutuma sujuvalt</strong>. Erinevus seisneb selles, et lävend on punktist koosneva arvulise väärtuse asemel joon või kõver kaardil.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Omadus</th>
+<th style="text-align: left;">Tavapärane RDD</th>
+<th style="text-align: left;">Ruumiline RDD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Meetme määramine</td>
+<td style="text-align: left;">Näiteks testiskoori alusel</td>
+<td style="text-align: left;">Asukoha alusel</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Määrav tunnus</td>
+<td style="text-align: left;">Üks arvuline tunnus <span class="math inline">\(X_i\)</span></td>
+<td style="text-align: left;">Asukoht <span class="math inline">\(S_i=(x_i,z_i)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lävend</td>
+<td style="text-align: left;">Punkt <span class="math inline">\(c\)</span> arvteljel</td>
+<td style="text-align: left;">Geograafiline piir <span class="math inline">\(\mathcal{B}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Võrreldavad vaatlused</td>
+<td style="text-align: left;">Lävendist veidi all- ja ülalpool</td>
+<td style="text-align: left;">Piiri vastaskülgedel samas piirkonnas</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Eriline raskus</td>
+<td style="text-align: left;">Võimalik skoori manipuleerimine</td>
+<td style="text-align: left;">Elukoha valik, ruumilised erinevused ja ülekanduvad mõjud</td>
+</tr>
+</tbody>
+</table>
+<p>Ruumilise RDD metoodilist käsitlust pakuvad <a href="https://doi.org/10.1093/pan/mpu014">Keele ja Titiunik (2015)</a>. Tuntud majandusteaduslik rakendus on <a href="https://doi.org/10.3982/ECTA8121">Dell (2010)</a>, kes uurib ajaloolise sunnitöösüsteemi pikaajalisi mõjusid selle rakendusala piiri abil.</p>
+<section id="asukoht-piir-ja-meetmes-osalemine" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="asukoht-piir-ja-meetmes-osalemine"><span class="header-section-number">8.1</span> Asukoht, piir ja meetmes osalemine</h2>
+<p>Olgu vaatlusüksuse <span class="math inline">\(i\)</span> asukoht</p>
+<p><span class="math display">\[
+S_i=(x_i,z_i),
+\]</span></p>
+<p>kus <span class="math inline">\(x_i\)</span> ja <span class="math inline">\(z_i\)</span> on tasapinnalised koordinaadid. Näiteks võivad need tähistada ida-lääne ja põhja-lõuna suunalist asukohta kilomeetrites. Tegelikes kaardiandmetes tuleb kauguste leidmiseks kasutada sobivat koordinaatsüsteemi või geodeetilisi kaugusi: pikkus- ja laiuskraadi erinevused ei ole otse kilomeetrid.</p>
+<p>Geograafiline piir <span class="math inline">\(\mathcal{B}\)</span> eraldab meetme ala <span class="math inline">\(\mathcal{A}_1\)</span> võrdlusalast <span class="math inline">\(\mathcal{A}_0\)</span>. Järsku (<em>sharp</em>) ruumilise RDD korral on meetmes osalemine</p>
+<p><span class="math display">\[
+D_i=\mathbb{1}\{S_i\in\mathcal{A}_1\}.
+\]</span></p>
+<p>Vaadeldav tulemus on</p>
+<p><span class="math display">\[
+Y_i=D_iY_i^1+(1-D_i)Y_i^0,
+\]</span></p>
+<p>kus <span class="math inline">\(Y_i^1\)</span> ja <span class="math inline">\(Y_i^0\)</span> on potentsiaalsed tulemused vastavalt meetmega ja meetmeta.</p>
+<p>Piir koosneb paljudest punktidest. Seetõttu võib meetme mõju piiri eri osades olla erinev. Näiteks võib sama ühistranspordimeede avaldada linnalähedases piirilõigus suuremat mõju kui hõredalt asustatud piirkonnas.</p>
+</section>
+<section id="millistel-eeldustel-saame-hinnata-põhjuslikku-mõju" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="millistel-eeldustel-saame-hinnata-põhjuslikku-mõju"><span class="header-section-number">8.2</span> Millistel eeldustel saame hinnata põhjuslikku mõju?</h2>
+<section id="potentsiaalsete-tulemuste-pidevus" class="level3">
+<h3 class="anchored" data-anchor-id="potentsiaalsete-tulemuste-pidevus">Potentsiaalsete tulemuste pidevus</h3>
+<p>Olgu</p>
+<p><span class="math display">\[
+m_d(s)=\mathbb{E}[Y_i(d)\mid S_i=s],\qquad d\in\{0,1\}.
+\]</span></p>
+<p>Peamine eeldus on, et mõlemad funktsioonid <span class="math inline">\(m_0(s)\)</span> ja <span class="math inline">\(m_1(s)\)</span> on uuritavas piiripunktis <span class="math inline">\(b\in\mathcal{B}\)</span> pidevad:</p>
+<p><span class="math display">\[
+\lim_{\substack{s\to b\\s\in\mathcal{A}_1}}m_d(s)
+=
+\lim_{\substack{s\to b\\s\in\mathcal{A}_0}}m_d(s)
+=m_d(b),\qquad d\in\{0,1\}.
+\]</span></p>
+<p>See tähendab, et sama piiripunkti poole liikudes ei tohiks <strong>meetmeta tulemus ega meetmega tulemus ise hüpata</strong>. Vaadeldav tulemus võib hüpata, sest piiril muutub meetmes osalemine.</p>
+<p>Näiteks peaksid meetmeta oodatav transpordikasutus, sissetulek ja ligipääs töökohtadele muutuma üle piiri sujuvalt. Kui piir kulgeb mööda jõge, mille ületamiseks puudub sild, võib transpordikasutus erineda ka ilma meetmeta. Selline piir ei pruugi anda usutavat võrdlust.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tähtis</span>Lähedus ei taga võrreldavust
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kaks piiri vastaskülgedel asuvat majapidamist võivad paikneda lähestikku, kuid erineda jõukuse, eelistuste või keskkonna poolest. Põhjuslik tõlgendus vajab põhjendatud pidevuse eeldust. Pidevuse eeldus ei tähenda automaatselt, et lõpliku laiusega piirkonnas on meetmes osalemine juhuslik.</p>
+</div>
+</div>
+</section>
+<section id="elukoha-või-ettevõtte-asukoha-valik" class="level3">
+<h3 class="anchored" data-anchor-id="elukoha-või-ettevõtte-asukoha-valik">Elukoha või ettevõtte asukoha valik</h3>
+<p>Kui inimesed kolivad teadlikult meetme poolele, võivad piiri vastaskülgede elanikud erineda juba enne tulemuse mõõtmist. Näiteks võivad parema kooli piirkonda kolida jõukamad pered. Siis ei saa laste tulemuste hüpet omistada üksnes koolile.</p>
+<p>Oluline on teada, millal piir ja meede tekkisid, millal asukoht määrati ning kas inimesed või ettevõtted said sellele reageerida. Võimaluse korral saab kasutada meetme-eelset asukohta ja meetme-eelseid tunnuseid. Ka ajalooline piir ei taga iseenesest võrreldavust: ränne ja muud ajaloolised protsessid võivad rühmade koosseisu muuta.</p>
+</section>
+<section id="muud-piiril-muutuvad-tegurid" class="level3">
+<h3 class="anchored" data-anchor-id="muud-piiril-muutuvad-tegurid">Muud piiril muutuvad tegurid</h3>
+<p>Omavalitsuse või riigi piiril võivad korraga muutuda maksud, avalikud teenused, regulatsioonid ja infrastruktuur. Kui need mõjutavad tulemust, ei näita hinnatud hüpe tingimata ühe konkreetse meetme mõju. See võib väljendada <strong>mitme poliitika ja institutsiooni koosmõju</strong>.</p>
+<p>Ühe meetme mõju eristamiseks on vaja institutsionaalset põhjendust või täiendavat uurimisdisaini. Näiteks võib võrrelda piiril esinevat hüpet enne ja pärast uue meetme rakendamist:</p>
+<p><span class="math display">\[
+\tau_{\mathrm{muutus}}(b)
+=\Delta_{\mathrm{pärast}}(b)-\Delta_{\mathrm{enne}}(b),
+\]</span></p>
+<p>kus <span class="math inline">\(\Delta_t(b)\)</span> on tulemuse hüpe piiripunktis <span class="math inline">\(b\)</span> ajal <span class="math inline">\(t\)</span>. Põhjuslik tõlgendus vajab eeldust, et uue meetmeta oleks piiri vastaskülgede erinevus püsinud samana; samaaegne muu muutus võib seda eeldust rikkuda.</p>
+</section>
+<section id="üle-piiri-kanduvad-mõjud" class="level3">
+<h3 class="anchored" data-anchor-id="üle-piiri-kanduvad-mõjud">Üle piiri kanduvad mõjud</h3>
+<p>Meede võib mõjutada ka võrdlusala. Näiteks võivad naaberomavalitsuse elanikud kasutada meetme tõttu paranenud transpordiühendusi või võivad ettevõtted teenindada mõlema poole kliente.</p>
+<p>Kui tulemus sõltub ka teiste üksuste meetmes osalemisest, ei piisa lihtsast tähistusest <span class="math inline">\(Y_i(d)\)</span>. Piiri hüpe ei pruugi siis väljendada meetme täielikku mõju võrreldes olukorraga, kus meedet poleks kusagil. Uuringus tuleb täpsustada, kelle mõju ja millise võrdlusolukorra suhtes hinnatakse.</p>
+</section>
+</section>
+<section id="millist-mõju-hinnatakse" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="millist-mõju-hinnatakse"><span class="header-section-number">8.3</span> Millist mõju hinnatakse?</h2>
+<p>Pidevuse ja teiste vajalike eelduste korral on mõju piiripunktis <span class="math inline">\(b\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\tau(b)
+&amp;=\mathbb{E}[Y_i^1-Y_i^0\mid S_i=b]\\
+&amp;=\lim_{\substack{s\to b\\s\in\mathcal{A}_1}}
+\mathbb{E}[Y_i\mid S_i=s]
+-\lim_{\substack{s\to b\\s\in\mathcal{A}_0}}
+\mathbb{E}[Y_i\mid S_i=s].
+\end{aligned}
+\]</span></p>
+<p>Pideva asukoha korral tõlgendame piiripunkti tingimuslikku keskmist piirväärtuse kaudu. Me ei vaja vaatlusi, mis asuvad täpselt joonel.</p>
+<p>Kogu piiri jaoks võib defineerida kaalutud keskmise mõju:</p>
+<p><span class="math display">\[
+\tau_{\mathcal{B}}
+=\int_{\mathcal{B}}\tau(b)w(b)\,d\ell(b),
+\qquad
+w(b)\geq 0,
+\qquad
+\int_{\mathcal{B}}w(b)\,d\ell(b)=1,
+\]</span></p>
+<p>kus <span class="math inline">\(d\ell(b)\)</span> tähistab integreerimist mööda piiri pikkust. Kaalud võivad väljendada näiteks sihtpopulatsiooni paiknemist piiri lähedal. Erinevad kaalud võivad anda erineva keskmise mõju, kui mõju varieerub piki piiri.</p>
+<p><strong>Tulemus on lokaalne:</strong> piiri lähedal hinnatud mõju ei pruugi kehtida piirkonna sisemuses. Seega on tegemist lokaalse hinnanguga piiri lähedal (LATE) .</p>
+<p>Kui asukoht muudab üksnes meetmes osalemise tõenäosust, on tegemist hägusa (<em>fuzzy</em>) RDD-ga; nõuetekohase instrumentmuutuja olemasolemasolu korral saab tulemuse hüppe ja osalemise tõenäosuse hüppe suhtest hinnata mõju piiripunktis. (Analoogselt tavapärase häguse disaini puhul mõju hindamisega).</p>
+</section>
+<section id="kuidas-mõju-hinnata" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="kuidas-mõju-hinnata"><span class="header-section-number">8.4</span> Kuidas mõju hinnata?</h2>
+<section id="märgiga-kaugus-piirist" class="level3">
+<h3 class="anchored" data-anchor-id="märgiga-kaugus-piirist">Märgiga kaugus piirist</h3>
+<p>Defineerime märgiga kauguse:</p>
+<p><span class="math display">\[
+r_i=
+\begin{cases}
+\operatorname{dist}(S_i,\mathcal{B}), &amp; S_i\in\mathcal{A}_1,\\
+-\operatorname{dist}(S_i,\mathcal{B}), &amp; S_i\in\mathcal{A}_0.
+\end{cases}
+\]</span></p>
+<p>Meetme poolel on kaugus positiivne, võrdlusalas negatiivne ja piiril null. Siis saab kasutada tavapärase RDD-ga sarnast lokaalset lineaarset mudelit:</p>
+<p><span class="math display">\[
+Y_i=\alpha+\tau D_i+\beta_0r_i+\beta_1D_ir_i+\varepsilon_i,
+\qquad |r_i|\leq h.
+\]</span></p>
+<p>Siin <span class="math inline">\(h\)</span> on kauguse valimiaken (<em>bandwidth</em>). Kordaja <span class="math inline">\(\tau\)</span> mõõdab hinnatud hüpet kaugusel null; kauguse mõju on võrdlusalas <span class="math inline">\(\beta_0\)</span> ja meetme alas <span class="math inline">\(\beta_0+\beta_1\)</span>.</p>
+<p><strong>Üksnes kauguse kasutamine võib kaotada olulise ruumilise info.</strong> Kaks vaatlust võivad mõlemad asuda piirist 100 meetri kaugusel, kuid üks paikneb piiri põhja- ja teine lõunaosas. Kui piiri vastaskülgedel paiknevad vaatlused piki piiri erinevalt, võib taoline kaugusmudel sassi ajada meetme mõju piirkondlike erinevustega.</p>
+</section>
+<section id="võrdlemine-sama-piirilõigu-juures" class="level3">
+<h3 class="anchored" data-anchor-id="võrdlemine-sama-piirilõigu-juures">Võrdlemine sama piirilõigu juures</h3>
+<p>Üks praktiline võimalus on jagada piir lõikudeks ja võrrelda vaatlusi sama lõigu läheduses:</p>
+<p><span class="math display">\[
+Y_i=\gamma_{k(i)}+\tau D_i+\beta_0r_i+\beta_1D_ir_i
++X_i'\delta+\varepsilon_i,
+\qquad |r_i|\leq h,
+\]</span></p>
+<p>kus <span class="math inline">\(k(i)\)</span> tähistab vaatlusüksusele lähimat piirilõiku ja <span class="math inline">\(\gamma_{k(i)}\)</span> selle lõigu fikseeritud efekti. <span class="math inline">\(X_i\)</span> sisaldab meetme-eelseid tunnuseid. Meetme tagajärjel muutunud tunnuste kontrollimine võib eemaldada osa uuritavast mõjust.</p>
+<p>Piirilõigu fikseeritud efekt eemaldab lõikude keskmiste tasemete erinevused. See ei kõrvalda automaatselt lõigu sees esinevaid erinevusi. Lõigud peavad olema sisuliselt põhjendatud ja sisaldama piisavalt vaatlusi mõlemal pool piiri. Vajaduse korral võib lubada ka tõusudel ja mõjul lõikude vahel erineda.</p>
+<p>Teine võimalus on hinnata piiripunktide ümbruses lokaalseid regressioone mõlema koordinaadi alusel. Nii arvestatakse nii kaugust üle piiri kui ka kaugust piki piiri.</p>
+</section>
+<section id="standardvead-ja-ruumiline-sõltuvus" class="level3">
+<h3 class="anchored" data-anchor-id="standardvead-ja-ruumiline-sõltuvus">Standardvead ja ruumiline sõltuvus</h3>
+<p>Lähestikku paiknevaid üksusi võivad mõjutada ühised šokid. Siis võib</p>
+<p><span class="math display">\[
+\operatorname{Cov}(\varepsilon_i,\varepsilon_j)\ne 0
+\]</span></p>
+<p>ka eri vaatlusüksuste korral. Tavalised või üksnes heteroskedastiivsuse suhtes robustsed standardvead ei arvesta sellist sõltuvust.</p>
+<p>Sõltuvalt andmetest saab kasutada ruumilist korrelatsiooni arvestavaid standardvigu, näiteks Conley standardvigu, või klasterdada sisuliselt põhjendatud geograafiliste üksuste järgi. Klasterdamine ei lahenda probleemi, kui sõltuvus ulatub üle klastripiiride. Väikese klastrite arvu korral vajab statistiline järeldamine täiendavat tähelepanu.</p>
+<!-- Ka RDD lähendamisnihe ja ruumiline sõltuvus on eri probleemid: ühe arvestamine ei lahenda automaatselt teist. -->
+</section>
+</section>
+<section id="uurimisdisaini-kontrollimine" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="uurimisdisaini-kontrollimine"><span class="header-section-number">8.5</span> Uurimisdisaini kontrollimine</h2>
+<p>Enne põhjusliku järelduse tegemist tuleks:</p>
+<ol type="1">
+<li><strong>Vaadata kaarti:</strong> kus asuvad piir, vaatlused ja hindamisel kasutatav piirkond? Kas mõlema poole vaatlused paiknevad samade piirilõikude läheduses?</li>
+<li><strong>Kontrollida meetme-eelseid tunnuseid ja tulemusi:</strong> kas näiteks haridus, eelnev sissetulek või maastik muutub piiril järsult?</li>
+<li><strong>Uurida asukohavalikut:</strong> kas meede soodustas kolimist või ettevõtete ümberpaiknemist? Kas andmete katvus erineb piiri vastaskülgedel?</li>
+<li><strong>Muuta valimiakent ja ruumilist spetsifikatsiooni:</strong> kas järeldus sõltub ühest kindlast aknast või piirilõikude jaotusest?</li>
+<li><strong>Uurida muid piiril muutuvaid poliitikaid ja ülekanduvaid mõjusid.</strong></li>
+<li><strong>Põhjendada standardvigade valikut</strong> ning võimaluse korral kasutada sobivaid platseeboteste.</li>
+</ol>
+<p>Märgiga kauguse tiheduse hüpe võib viidata inimeste või ettevõtete sorteerumisele, see tähendab, et nad muudavad oma asukohta tingituna meetme olemasolust. Kuid sama hüppe võivad tekitada ka piiri geomeetria, asustuseks sobiva maa pindala või andmete katvus. Seetõttu ei ole tavaline ühemõõtmeline tiheduse test ruumilises uuringus iseseisev tõend disaini kehtivuse või kehtetuse kohta.</p>
+<p>Samuti ei kõrvalda vahetult piiri kõrval paiknevate vaatluste eemaldamine (<em>donut RD</em>) automaatselt sorteerumist. See eemaldab kõige lähemad võrdlused ning muudab piiril oleva mõju hindamise rohkem ekstrapoleerimisest sõltuvaks. Kunstlike piiride abil saadud platseebohinnangud on kasulik diagnostika, kuid ei anna ilma täiendavate vahetatavuse eeldusteta automaatselt kehtivat randomiseerimistesti.</p>
+</section>
+<section id="lihtne-simuleeritud-näide-r-is" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="lihtne-simuleeritud-näide-r-is"><span class="header-section-number">8.6</span> Lihtne simuleeritud näide R-is</h2>
+<section id="olukord-ja-andmete-genereerimine" class="level3">
+<h3 class="anchored" data-anchor-id="olukord-ja-andmete-genereerimine">Olukord ja andmete genereerimine</h3>
+<p>Oletame, et kaks omavalitsust asuvad sirge piiri eri pooltel. Piir on <span class="math inline">\(x=0\)</span>. Parempoolne omavalitsus rakendab tasuta transpordi, vasakpoolne mitte. Tulemus <span class="math inline">\(Y_i\)</span> on transpordikasutuse indeks.</p>
+<p>Koordinaat <span class="math inline">\(x_i\)</span> mõõdab asukohta üle piiri ning <span class="math inline">\(z_i\)</span> asukohta piki piiri. Mõlemad on kilomeetrites. Kuna piir on sirge, võrdub märgiga kaugus <span class="math inline">\(r_i=x_i\)</span>.</p>
+<p>Genereerime tulemuse mudelist</p>
+<p><span class="math display">\[
+Y_i^0=50+2x_i+3z_i+\varepsilon_i,
+\qquad
+Y_i^1=Y_i^0+5,
+\qquad
+\varepsilon_i\sim N(0,3^2).
+\]</span></p>
+<p>Seega on meetme tegelik mõju kõigile üksustele <span class="math inline">\(5\)</span>. Ilma meetmeta muutub tulemus ruumis sujuvalt. Asukohad genereeritakse sõltumatult ja vead on samuti sõltumatud: selles näites puuduvad sorteerumine, muud piiril hüppavad tegurid ja ruumiline veakorrelatsioon.</p>
+<p>Näide kasutab ainult R-i põhifunktsioone ega vaja lisapakette.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4000</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">z =</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>D <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">0</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>r <span class="ot">&lt;-</span> df<span class="sc">$</span>x</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>tau_true <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Y0 <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> df<span class="sc">$</span>x <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> df<span class="sc">$</span>z <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Y <span class="ot">&lt;-</span> df<span class="sc">$</span>Y0 <span class="sc">+</span> tau_true <span class="sc">*</span> df<span class="sc">$</span>D</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="asukohad-kaardil" class="level3">
+<h3 class="anchored" data-anchor-id="asukohad-kaardil">Asukohad kaardil</h3>
+<p>Valime valimiaknaks <span class="math inline">\(h=1\)</span> kilomeetri. Hindamisel kasutatakse vaatlusi, mis asuvad piirist kuni ühe kilomeetri kaugusel.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>varvid <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#0072B2"</span>, <span class="st">"#D55E00"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df<span class="sc">$</span>x, df<span class="sc">$</span>z,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(varvid[df<span class="sc">$</span>D <span class="sc">+</span> <span class="dv">1</span>], <span class="at">alpha.f =</span> <span class="fl">0.35</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Asukoht üle piiri x (km)"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Asukoht piki piiri z (km)"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(<span class="sc">-</span>h, h), <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Võrdlusala"</span>, <span class="st">"Meetme ala"</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> varvid, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">bg =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ruumiline-rdd-kaart" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ruumiline-rdd-kaart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-ruumiline-rdd_files/figure-html/fig-ruumiline-rdd-kaart-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ruumiline-rdd-kaart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Joonis&nbsp;8.1: Simuleeritud asukohad. Must joon on halduspiir ja katkendjooned piiritlevad hindamisel kasutatava piirkonna.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mõju-hindamine" class="level3">
+<h3 class="anchored" data-anchor-id="mõju-hindamine">Mõju hindamine</h3>
+<p>Hindame valimiaknas lineaarse mudeli, lubades kauguse tõusul piiri eri pooltel erineda. Lisame koordinaadi <span class="math inline">\(z\)</span>, sest tulemus muutub ka piki piiri.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>local_df <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, <span class="fu">abs</span>(r) <span class="sc">&lt;=</span> h)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m_space <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> D <span class="sc">*</span> r <span class="sc">+</span> z, <span class="at">data =</span> local_df)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_space)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y ~ D * r + z, data = local_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.7253 -1.8874  0.0152  1.8969  8.3949 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 50.09901    0.30481 164.361  &lt; 2e-16 ***
+D            5.28666    0.40966  12.905  &lt; 2e-16 ***
+r            2.32478    0.53206   4.369  1.4e-05 ***
+z            2.97285    0.03489  85.196  &lt; 2e-16 ***
+D:r         -0.95963    0.70975  -1.352    0.177    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.934 on 827 degrees of freedom
+Multiple R-squared:  0.9139,    Adjusted R-squared:  0.9135 
+F-statistic:  2195 on 4 and 827 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># D kordaja mõõdab hüpet piiril.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> <span class="fu">confint</span>(m_space, <span class="st">"D"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tegelik_moju =</span> tau_true,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">hinnatud_moju =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(m_space)[<span class="st">"D"</span>]),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">usaldusvahemik_alumine =</span> ci[<span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">usaldusvahemik_ulemine =</span> ci[<span class="dv">1</span>, <span class="dv">2</span>],</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">vaatlusi =</span> <span class="fu">nrow</span>(local_df)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  tegelik_moju hinnatud_moju usaldusvahemik_alumine usaldusvahemik_ulemine
+1            5      5.286665               4.482565               6.090764
+  vaatlusi
+1      832</code></pre>
+</div>
+</div>
+<p>Kordaja <code>D</code> on lähedal tegelikule mõjule <span class="math inline">\(5\)</span>, kuid ei pea juhusliku vea tõttu sellega täpselt võrduma. Kuna <code>D * r</code> laiendatakse liikmeteks <code>D + r + D:r</code>, lubab mudel kauguse tõusul eri pooltel erineda. Mõju on meie mudelis piki piiri konstantne.</p>
+<p>Näites on lineaarne mudel õigesti spetsifitseeritud ning vead sõltumatud ja sama dispersiooniga. Seetõttu sobib siin <code>lm()</code>-i tavapärane usaldusvahemik. Tegelikes ruumilistes andmetes ei saa neid tingimusi automaatselt eeldada.</p>
+</section>
+<section id="hinnatud-hüppe-joonis" class="level3">
+<h3 class="anchored" data-anchor-id="hinnatud-hüppe-joonis">Hinnatud hüppe joonis</h3>
+<p>Et näidata hüpet samas piiripunktis, ennustame tulemuse mõlemal pool piiri asukohas <span class="math inline">\(z=0\)</span>. Hajuvusdiagrammil kuvame ainult vaatlusi, millel <span class="math inline">\(|z_i|\leq 0.5\)</span>, et piki piiri esinev tulemuse muutumine pilti vähem hajutaks.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>show_df <span class="ot">&lt;-</span> <span class="fu">subset</span>(local_df, <span class="fu">abs</span>(z) <span class="sc">&lt;=</span> <span class="fl">0.5</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(show_df<span class="sc">$</span>r, show_df<span class="sc">$</span>Y,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(varvid[show_df<span class="sc">$</span>D <span class="sc">+</span> <span class="dv">1</span>], <span class="at">alpha.f =</span> <span class="fl">0.5</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.7</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Märgiga kaugus piirist (km)"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Transpordikasutuse indeks"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>left <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">r =</span> <span class="fu">seq</span>(<span class="sc">-</span>h, <span class="dv">0</span>, <span class="at">length.out =</span> <span class="dv">100</span>), <span class="at">D =</span> <span class="dv">0</span>, <span class="at">z =</span> <span class="dv">0</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>right <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">r =</span> <span class="fu">seq</span>(<span class="dv">0</span>, h, <span class="at">length.out =</span> <span class="dv">100</span>), <span class="at">D =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(left<span class="sc">$</span>r, <span class="fu">predict</span>(m_space, <span class="at">newdata =</span> left),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> varvid[<span class="dv">1</span>], <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(right<span class="sc">$</span>r, <span class="fu">predict</span>(m_space, <span class="at">newdata =</span> right),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> varvid[<span class="dv">2</span>], <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ruumiline-rdd-hupe" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ruumiline-rdd-hupe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-ruumiline-rdd_files/figure-html/fig-ruumiline-rdd-hupe-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ruumiline-rdd-hupe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Joonis&nbsp;8.2: Tulemus piiri ümbruses. Jooned on mudeli ennustused koordinaadil z = 0 ning nende vahe piiril on hinnatud meetme mõju.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Joonte vahe kaugusel null näitab hinnatud hüpet. Sama koordinaadi <span class="math inline">\(z=0\)</span> kasutamine tagab, et võrdleme mudeli ennustusi sama piiripunkti juures.</p>
+</section>
+<section id="tundlikkus-valimiakna-suhtes" class="level3">
+<h3 class="anchored" data-anchor-id="tundlikkus-valimiakna-suhtes">Tundlikkus valimiakna suhtes</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aknad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>tundlikkus <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(aknad, <span class="cf">function</span>(h_i) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  d_i <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, <span class="fu">abs</span>(r) <span class="sc">&lt;=</span> h_i)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  m_i <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> D <span class="sc">*</span> r <span class="sc">+</span> z, <span class="at">data =</span> d_i)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  ci_i <span class="ot">&lt;-</span> <span class="fu">confint</span>(m_i, <span class="st">"D"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">aken_km =</span> h_i,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">vaatlusi =</span> <span class="fu">nrow</span>(d_i),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">moju =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(m_i)[<span class="st">"D"</span>]),</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alumine =</span> ci_i[<span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ulemine =</span> ci_i[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tundlikkus, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">aken_km</th>
+<th style="text-align: right;">vaatlusi</th>
+<th style="text-align: right;">moju</th>
+<th style="text-align: right;">alumine</th>
+<th style="text-align: right;">ulemine</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">415</td>
+<td style="text-align: right;">5.114</td>
+<td style="text-align: right;">3.980</td>
+<td style="text-align: right;">6.249</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">832</td>
+<td style="text-align: right;">5.287</td>
+<td style="text-align: right;">4.483</td>
+<td style="text-align: right;">6.091</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">1231</td>
+<td style="text-align: right;">5.309</td>
+<td style="text-align: right;">4.648</td>
+<td style="text-align: right;">5.969</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">1633</td>
+<td style="text-align: right;">5.208</td>
+<td style="text-align: right;">4.628</td>
+<td style="text-align: right;">5.787</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Kõik hinnangud on tegeliku mõju ümbruses. Siin on mudel lineaarne kogu piirkonnas, mistõttu suurem aken ei too kaasa nihet, mis tekiks kõvera seose lineaarse sirgega lähendamisel. Tegelikes andmetes võib suurem aken suurendada nihet, kuigi kasutatavate vaatluste arv kasvab.</p>
+</section>
+<section id="kontrollküsimused" class="level3">
+<h3 class="anchored" data-anchor-id="kontrollküsimused">Kontrollküsimused</h3>
+<ol type="1">
+<li>Miks ei piisa kogu parempoolse ja vasakpoolse ala keskmise tulemuse võrdlemisest?</li>
+<li>Mida arvestab regressioonis tunnus <code>z</code>?</li>
+<li>Milline eeldus oleks ohus, kui suurema transpordinõudlusega inimesed koliksid meetme poolele?</li>
+<li>Kas piiril hinnatud mõju saab alati üldistada kogu omavalitsusele?</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Märkus</span>Vastused
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Ka meetmeta tulemus sõltub koordinaadist <span class="math inline">\(x\)</span>. Kogu alade keskmiste erinevus sisaldab lisaks meetme mõjule ida-lääne suunalist trendi. Piiril hindame mõlema poole tulemuse piirväärtusi.</li>
+<li><code>z</code> arvestab tulemuse muutumist piki piiri. Üksnes kaugus piirist ei kirjelda täielikku asukohta.</li>
+<li>Ohus oleks potentsiaalsete tulemuste pidevus, sest elanike koosseis võiks piiril järsult muutuda.</li>
+<li>Ei. Piiri lähedal elavad inimesed ja meetme toime võivad erineda piirkonna sisemusest. Simulatsioonis on mõju kõikjal sama üksnes seetõttu, et määrasime selle nii andmeid genereerides.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="kirjandus" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="kirjandus"><span class="header-section-number">8.7</span> Kirjandus</h2>
+<ul>
+<li>Keele, L. ja Titiunik, R. (2015). <em>Geographic Boundaries as Regression Discontinuities</em>. Political Analysis, 23(1), 127–155. <a href="https://doi.org/10.1093/pan/mpu014" class="uri">https://doi.org/10.1093/pan/mpu014</a>.</li>
+<li>Dell, M. (2010). <em>The Persistent Effects of Peru’s Mining Mita</em>. Econometrica, 78(6), 1863–1903. <a href="https://doi.org/10.3982/ECTA8121" class="uri">https://doi.org/10.3982/ECTA8121</a>.</li>
+<li>Cattaneo, M. D., Idrobo, N. ja Titiunik, R. <em>A Practical Introduction to Regression Discontinuity Designs: Extensions</em>. Mitmemõõtmelise RDD ja teiste laienduste käsitlus. <a href="https://arxiv.org/abs/2301.08958" class="uri">https://arxiv.org/abs/2301.08958</a>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/andresvork\.github\.io\/mojuopik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-rdit.html" class="pagination-link" aria-label="Regressiooni katkemine ajas">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-ipw-aipw.html" class="pagination-link" aria-label="Pöördtõenäosusega kaalumine (IPW) ja AIPW">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/05-ruumiline-rdd.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></div></div></footer></body></html>
