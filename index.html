@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -239,7 +268,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">29/09/2026</p>
+      <p class="date-modified">08/10/2026</p>
     </div>
   </div>
     
@@ -252,9 +281,21 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="sissejuhatus" class="level1 unnumbered">
 <h1 class="unnumbered">Sissejuhatus</h1>
-<p>Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (<em>causal inference</em>) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine “Põhuse ja tagajärje seosed” õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R. Konspektis kasutatud näiteandmestikud on anonümiseeritud.</p>
-<p>Konspekti kirjutamisel on kasutatud erinevate keelemudelite abi. Konspekt on jooksvalt täienev.</p>
-<p>Kõik soovitused ja tähelepanekud palun saata meilile andres.vork@ut.ee</p>
+<p>Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (<em>causal inference</em>) Tartu Ülikooli majandustudengitele. Konspekt on mõeldud aine “Põhuse ja tagajärje seosed” õppematerjaliks. Konspektis kasutatakse näiteid tarkvaraga R. Konspektis kasutatud näiteandmestikud on anonümiseeritud või avaandmed.</p>
+<p>Õpik annab alguses ülevaate graafilistest ja matemaatilistest abivahenditest (DAG, POM) ning seejärel keskendub mõju hindamise meetoditele majanduses. Esmalt vaadatakse, kuidas arvestada jälgitavate taustatunnuste <span class="math inline">\(X\)</span> erinevust (alloleval joonisel sinine osa), seejärel vaadatakse kuidas elimineerida mittejälgitavate tunnuste <span class="math inline">\(u\)</span> mõju (joonisel punane ja roheline.)</p>
+<div id="fig-sem" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Meetoditevalik.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Joonis&nbsp;1: Õpikus kirjeldatud meetodid
+</figcaption>
+</figure>
+</div>
+<p>Õpiku lõpuosas on ka näited masinõppemeetodite kasutamisest.</p>
+<p>Konspekt on jooksvalt täienev õppetöö käigus. Konspekti kirjutamisel on kasutatud ka erinevate keelemudelite abi, kõik asjad ei ole veel korrektselt viidatud algallikatele.</p>
+<p>Märkused saata meilile andres.vork@ut.ee</p>
 
 
 </section>
