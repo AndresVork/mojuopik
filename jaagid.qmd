@@ -1,5 +1,5 @@
 |  |  |
-|-----------------------|-------------------------------------------------|
+|------------------------|------------------------------------------------|
 | **Väline kehtivus** (External Validity) | Masinõppe mudeli võime üldistada tulemusi väljaspool uuritud valimit. Masinõppe mudelid võivad olla *üle-sobitatud*, mis vähendab nende välise kehtivust. |
 
 ## Recall from the last lecture
@@ -59,26 +59,15 @@ $$
 \quad \blacksquare
 $$
 
-
 DIFDIF konspektist
 
+dfl \<- dfl %\>%\
+mutate(aegkoolitusest = ifelse(koolituses ==1, aasta - koolitusaasta, 0))
 
-dfl <- dfl %>%  
-  mutate(aegkoolitusest = ifelse(koolituses ==1, 
-                                 aasta - koolitusaasta,
-                                 0))
+#Joonise jaoks teeme selle faktoriks, et võrdlusrühm oleks -1 dfl \<- dfl %\>% mutate(aegkoolitusest = factor(aegkoolitusest, levels = c(-1, -3:-2, 0:3)))
 
-#Joonise jaoks teeme selle faktoriks, et võrdlusrühm oleks -1
-dfl <- dfl %>% 
-  mutate(aegkoolitusest = factor(aegkoolitusest, levels = c(-1, -3:-2, 0:3)))
-  
-  
-  
-  mudel <- lm(data = dfl, formula = palk ~ aegkoolitusest + mees + 
-              eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund))
-              
-              
-              
+mudel \<- lm(data = dfl, formula = palk \~ aegkoolitusest + mees + eestlane + factor(haridus) + vanusgr + factor(aasta) + factor(seisund))
+
 ```{r}
 models <- lapply(split(dfl, dfl$seisundtext), function(df) {
   
@@ -96,8 +85,6 @@ multiplot(models) + theme_light() + labs(color = "Rühm")
 
 ```
 
-
-
 ```{r}
 library(broom)
 
@@ -112,11 +99,6 @@ results
 
 ```
 
-
-
-
-
-
 ```{r}
 mudel <- lm(
   palk ~ aeg_m3 + aeg_m2 + aeg_0 + aeg_1 + aeg_2 + aeg_3 +
@@ -129,8 +111,6 @@ summary(mudel)
 coefplot(mudel, intercept = FALSE)
 
 ```
-
-
 
 Näeme jooniselt tegelikult, et kordajad ka enne meedet on juba erinevad, seega on meil erinevus meetme eelses trendis ja me ei saa oma tulemusi seega usaldada.
 
@@ -163,3 +143,34 @@ multiplot(models) + theme_light() + labs(color = "Rühm")
 ```
 
 Näeme endiselt, et ikkagi trend palgas enne meedet oli erinev osalus- ja võrdlusrühmas. Seega kahjuks me ei saa lõpuni usaldada meie tulemusi. Tuleme selle näite juurde tagasi sobitamise teema juures, kus vaatame, kuidas sobitamine koos DiD analüüsiga aitab saada loodetavasti õigemaid tulemusi.
+
+Informaalne graafik:
+
+- $Z_i$ → mõjutab $D_i$,
+- $D_i$ → mõjutab $Y_i$,
+- taustamuutuja $A_i$ (nt võimekus) mõjutab nii $D_i$ kui $Y_i$,
+- tahame sulgeda “tagaukse” $D_i \leftarrow A_i \rightarrow Y_i$.
+
+
+
+
+
+Näiteks, kui meil on järgmine struktuurne mudel: palk $y_i$ sõltub inimese haridusest $x_1$ ja tööturukoolituses $D_i$ osalemisest.
+
+$$y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 D_i + u_i$$
+
+Kardame, et samad mittejälgitavad tegurid $u_i$, mis mõjutavad inimese tööturukoolituses osalemist (nt inimese IT-oskused), mõjutavad ka inimese palka, seega $\operatorname{Cov}(D_i, u_i) \neq 0$.
+
+Olgu meil kaks instrumenti, nt inimese elukoha kaugus koolituskeskusest $z_{1i}$ ja töötukassa eelarve antud piirkonnas ühe töötu kohta $z_{2i}$, mis mõlemad mõjutavad tööturukoolituses osalemist, aga ei ole seotud inimese mittejälgitavate teguritega.
+
+
+
+
+- Instrument ei tohi korreleeruda vealiikmega $u_i$:
+  - $\operatorname{Cov}(Z_i, u_i) = 0$.
+- Instrument ei tohi mõjutada $Y_i$ otse, vaid üksnes läbi $D_i$:
+  - puudub otsene tee $Z_i \to Y_i$; mõju peab käima ainult $Z_i \to D_i \to Y_i$ kaudu.
+  
+  
+  
+ja väljajätmise eeldus (*exclusion restriction*)

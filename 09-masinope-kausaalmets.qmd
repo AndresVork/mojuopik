@@ -33,7 +33,7 @@ Peatüki lõpuks peaksid oskama:
 Traditsioonilise ökonomeetria ja masinõppe rõhuasetused on sageli erinevad.
 
 |   | Traditsiooniline ökonomeetria | Masinõpe |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Põhiküsimus | Milline on $X$ või meetme $D$ mõju $Y$-le? | Kui hästi suudame uut $Y$ väärtust prognoosida? |
 | Mudeli kuju | Sageli määratakse ette | Väga paindlik |
 | Tunnuste valik | Majandusteooria ja varasemad uuringud | Sageli andmepõhine |
@@ -1434,7 +1434,7 @@ Meetod:
 # Puu, juhumetsa ja causal forest'i võrdlus
 
 | Omadus | Puu | Juhumets | Causal forest |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | Põhieesmärk | prognoosida $Y$ | prognoosida $Y$ | hinnata $\tau(x)$ |
 | Mudelite arv | 1 puu | palju puid | palju põhjuslikke puid |
 | Mittelineaarsus | jah | jah | jah |

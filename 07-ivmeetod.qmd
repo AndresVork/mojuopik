@@ -2,24 +2,24 @@
 
 ## Seade
 
-Instrumentmuutuja meetod (instrumental variable method, IV) on üks olulisemaid tööriistu olukordades, kus regressioonimudeli selgitav tunnus on endogeenne – st korreleerub vealiikmega. Sellisel juhul on tavalise OLS-regressiooni hinnangud nihkega ja ei ole mõjusad isegi väga suurtes valimites. IV-meetod püüab eraldada selle osa varieeruvusest, mis on “puhas” ja ei ole saastunud jälgimata teguritest.:contentReference[oaicite:0]{index="0"}
+Instrumentmuutuja meetod (*instrumental variable method*, IV) on üks olulisemaid tööriistu olukordades, kus regressioonimudeli mõni selgitav tunnus on endogeenne – st korreleerub vealiikmega. Sellisel juhul on tavalise OLS-regressiooniga saadud hinnangud nihkega ja ei ole mõjusad isegi väga suurtes valimites. IV-meetod püüab eraldada selle osa varieeruvusest, mis on “puhas” ja ei ole mõjutatud jälgimata teguritest.
 
-### Motivatsioon: endogeensus ja väljajäetud muutuja nihe
+### Motivatsioon: endogeensus ja nihe väljajäetud muutuja tõttu
 
 Olgu lihtne lineaarne mudel
 
 $$
-Y_i = \alpha + \beta D_i + \gamma^\top X_i + u_i,
+Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + u_i,
 $$
 
 kus
 
--   $Y_i$ – tulemus (nt palk),
--   $D_i$ – meede või huvipakkuv selgitaja (nt haridus, tööturukoolitus),
--   $X_i$ – kontrollmuutujad (nt vanus, sugu, haridus jne),
--   $u_i$ – vealiige, mis sisaldab kõiki muid, mudelisse mitte kaasatud tegureid.
+- $Y_i$ – tulemus (nt palk),
+- $D_i$ – meede või huvipakkuv selgitaja (nt haridus, tööturukoolitus),
+- $X_i$ – kontrollmuutujad (nt vanus, sugu, haridus jne),
+- $u_i$ – vealiige, mis sisaldab kõiki muid, mudelisse mitte kaasatud tegureid.
 
-OLS-meetodi põhieelduseks on, et selgitavad tunnused on eksogeensed:
+OLS-meetodi põhieelduseks on see, et selgitavad tunnused on eksogeensed:
 
 $$
 \mathbb{E}[u_i \mid D_i, X_i] = 0
@@ -27,109 +27,123 @@ $$
 \operatorname{Cov}(D_i, u_i) = 0.
 $$
 
-Paljudes rakendustes see ei kehti:
+Paljudel juhtudel majanduses see ei kehti:
 
--   hariduse ja palga puhul on $D_i$ (haridus) sageli korreleeritud võimekuse, motivatsiooni, perekondliku tausta jms-ga, mis on vealiikmes $u_i$;
--   tööturukoolituse ja palga puhul osalevad koolitusel suurema tõenäosusega need, kes on motiveeritumad või kellel on paremad kontaktid;
--   lojaalsusprogrammi mõju ostusummale: programmiga liituvad pigem need kliendid, kes nagunii poes käivad.
+- hariduse ja palga puhul on $D_i$ (haridus) sageli korreleeritud võimekuse, motivatsiooni, perekondliku tausta jms-ga, mis on ka vealiikmes $u_i$;
+- tööturukoolituse $D_i$ ja palga puhul osalevad koolitusel suurema tõenäosusega need, kes on motiveeritumad või kellel on paremad kontaktid;
+- lojaalsusprogrammi $D_i$ mõju ostusummale: programmiga liituvad pigem need kliendid, kes nagunii antud poeketis käivad.
 
-Kui $\operatorname{Cov}(D_i, u_i) \neq 0$, tekib väljajäetud muutuja nihe (omitted variable bias) ning OLS-i hinnang $\hat\beta^{OLS}$ ei ole põhjuslik mõju.
+Kui $\operatorname{Cov}(D_i, u_i) \neq 0$, tekib nihe väljajäetud muutuja pärast (*omitted variable bias*) ning OLS-i hinnang $\hat\beta^{OLS}$ ei ole põhjuslik mõju.
 
 ## Mis on instrumentmuutuja?
 
-IV-meetodi idee on kasutada lisaks instrumenti $Z_i$, mis mõjutab probleemset selgitajat $D_i$, kuid ei mõjuta tulemust $Y_i$ muul viisil kui $D_i$ kaudu.
+IV-meetodi idee on kasutada uut muutujat (instrumenti) $Z_i$, mis mõjutab probleemset selgitajat tunnust $D_i$, kuid ei mõjuta tulemust $Y_i$ muul viisil kui $D_i$ kaudu ja ta ei ole korreleeritud mittejälgitavate tunnustega $u_i$.
 
-Informaalne graafik:
+Näiteks tahame uurida Töötukassa tööturukoolituse $D$ mõju töötu inimese tulevasele palgale $Y$ ja kasutame instrumendina $Z$ Töötukassa konsultantide arvu ühe töötu kohta antud maakonnas.
 
--   $Z_i$ → mõjutab $D_i$,
--   $D_i$ → mõjutab $Y_i$,
--   taustamuutuja $A_i$ (nt võimekus) mõjutab nii $D_i$ kui $Y_i$,
--   tahame sulgeda “tagaukse” $D_i \leftarrow A_i \rightarrow Y_i$.
+Instrumentmuutuja $Z_i$ on sobiv, kui ta täidab kolme põhieeldust:
 
-Instrumentmuutuja $Z_i$ on sobiv, kui ta täidab kolme põhi-eeldust:
+1.  **Relevantsus**: $Z_i$ on (piisavalt) tugevasti seotud $D_i$-ga ehk nende vahel esineb korrelatsioon $$\operatorname{Cov}(Z_i, D_i) \neq 0$$
 
-1.  Relevantsus: $Z_i$ on piisavalt tugevasti seotud $D_i$-ga\
-    $$
-    \operatorname{Cov}(Z_i, D_i) \neq 0.
-    $$
+Meie näite puhul eeldame, et mida enam konsultante on maakonnas ühe töötu kohta, seda lihtsam on töötul saada tööturukoolitusele.
 
-2.  Eksogeensus: $Z_i$ ei korreleeru vealiikmega\
-    $$
-    \operatorname{Cov}(Z_i, u_i) = 0.
-    $$
+2.  **Eksogeensus**: $Z_i$ ei korreleeru vealiikmega
 
-3.  Väljajätmise eeldus (exclusion restriction): $Z_i$ ei mõjuta $Y_i$ otseselt, vaid ainult läbi $D_i$; st puudub otsene tee $Z_i \to Y_i$.
+$$\operatorname{Cov}(Z_i, u_i) = 0$$
 
-Relevantsust saab andmetest testida (nõrgad instrumendid), eksogeensust ja väljajätmise eeldust tuleb enamasti põhjendada teoreetiliselt ja institutsionaalse konteksti abil.
+Seega eeldame, et Töötukassa konsultantide arv töötu kohta ei ole seotud töötu enda võimekusega.
 
-## Lihtne näide ja Waldi valem
+3.  **Väljajätmise eeldus** (*exclusion restriction*): $Z_i$ ei mõjuta $Y_i$ otseselt, vaid ainult läbi $D_i$; st puudub otsene tee $Z_i \to Y_i$.
 
-Vaatame kõige lihtsamat juhtu, kus:
+See tähendab, et Töötukassa konsultantide arv töötu kohta ei mõjuta otseselt inimese palka, mida ta saama hakkab, üksnes läbi tööturukoolituse.
 
--   $D_i$ on binaarne (osales/ei osalenud),
--   $Z_i$ on binaarne instrument (nt poliitikamuutus, juhuslik loosimine),
--   kontrollmuutujaid ei ole.
+Relevantsust saab andmetest testida, eksogeensust ja väljajätmise eeldust tuleb põhjendada teoreetiliselt ja institutsionaalse konteksti abil.
 
-Mudel:
+## Instrumentmuutuja hinnang kui suhe
 
-$$
-Y_i = \alpha + \beta D_i + u_i.
-$$
+Kui instrumentmuutuja $Z$ avaldab uuritavale tunnusele $Y$ mõju läbi endogeense muutuja $D$, siis võime selle esitada järgmiselt.
 
-IV loogika:
+$$ \boxed{\text{Z  mõju  Y-le}}  = \boxed{\text{Z mõju  D-le}}  \text{ x } \boxed{\text{S mõju Y-le} }  $$
 
--   võrdleme keskmist tulemust nende vahel, kellel $Z_i=1$ ja $Z_i=0$;
--   võrdleme, kui palju erineb keskmine osalemine $D_i$ nende kahe grupi vahel.
+Seega meid huvitav põhjuslik mõju avaldub seega järgmiselt:
 
-Wald-hinnang on:
+$$ \boxed{\text{S mõju Y-le} } = \frac{\boxed{\text{Z  mõju  Y-le}}} {\boxed{\text{Z mõju  D-le}}} $$
+
+::: {.callout-tip collapse="true"}
+## IV hinnang kui kovariatsioonide suhe
+
+Sama suhte võime esitada ka kovariatsioonide abil. Puudugu meil muud selgitavad tunnused.
+
+$$ Y_i = \beta_0 + \beta_1 D_i + u_i $$
+
+Uurime kovariatsioni uuritava tunnuse ja instrumendi vahel.
 
 $$
-\hat\beta^{IV} =
-\frac{\mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0]}
-     {\mathbb{E}[D_i \mid Z_i = 1] - \mathbb{E}[D_i \mid Z_i = 0]}.
+\operatorname{Cov}(Z_i, Y_i) = \operatorname{Cov}(Z_i, \beta_0 + \beta_1 D_i + u_i)
+$$ Avame sulud:
+
+$$
+\operatorname{Cov}(Z_i, Y_i) = \operatorname{Cov}(Z_i, \beta_0) + \operatorname{Cov}(Z_i, \beta_1 D_i) + \operatorname{Cov}(Z_i, u_i)
 $$
 
-Tähendused:
+Et kovariatsioon konstandiga on null $\operatorname{Cov}(Z_i, \beta_0) = 0$ ja eelduse kohaselt instrument ei korreleeru vealiikmega $\operatorname{Cov}(Z_i, u_i) =0$, siis saame avaldada meid huvitava parameetri $\beta_1$ leida kui suhte.
 
--   nimetaja kirjeldab instrumendi mõju osalus-tõenäosusele;
--   lugeja kirjeldab instrumendi mõju tulemusele;
--   suhe ütleb, kui palju $Y_i$ muutub instrumendi poolt esile kutsutud ühikulise muutuse kohta $D_i$-s.
-
-Kui instrument on binaarne ja kontrollmuutujaid ei ole, langeb see kokku klassikalise Waldi hinnanguga.
+$$
+\beta_1  = \frac{\operatorname{Cov}(Z_i, Y_i)}{\operatorname{Cov}(Z_i, D_i)}
+$$
+:::
 
 ## Kahesammuline vähimruutude meetod (2SLS)
 
-Üldisemal juhul on:
+Instrumentmuutuja meetodil leiame hinnangud kahesammulise vähimruutude meetodiga (*two-state least squares*, 2SLS)
+
+Näiteks, olgu meil järgmine **struktuurne** võrrand (st päriselt majandust iseloomustav seos): palk $y_i$ sõltub inimese haridusest $x_1$ ja tööturukoolituses $D_i$ osalemisest.
+
+$$Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 D_i + u_i$$
+
+Kardame, et samad mittejälgitavad tegurid $u_i$, mis mõjutavad inimese tööturukoolituses osalemist (nt inimese IT-oskused), mõjutavad ka inimese palka, seega $\operatorname{Cov}(D_i, u_i) \neq 0$.
+
+Olgu meil kaks instrumenti, nt inimese elukoha kaugus koolituskeskusest $z_{1i}$ ja töötukassa eelarve antud piirkonnas ühe töötu kohta $z_{2i}$, mis mõlemad mõjutavad tööturukoolituses osalemist, aga ei ole seotud inimese mittejälgitavate teguritega.
+
+Kahesammuline vähimruutude meetod (*Two-Stage Least Squares,* 2SLS) toimib järgmiselt.
+
+**1. Esimene samm**, hindame probleemse endogeense muutuja ($D_i$) sõltuvuse instrumendist või instrumentidest (antud juhul kahest instrumendist) ja teistest eksogeensetest selgitavatest tunnustest vähimruutude meetodi abil. See on **taandatud võrrand** (*reduced equation*), see ei väljenda põhjuslikke seoseid (nt $x_i$ ei pea päriselt mõjutama $D_i$-d), vaid lihtsalt kasutame seda seost abivahendina.
 
 $$
-Y_i = \alpha + \beta D_i + \gamma^\top X_i + u_i,
-$$ $$
-D_i = \pi_0 + \pi_1 Z_i + \pi_2^\top X_i + v_i,
+D_i = \alpha_0 + \alpha_1 x_{1i} + \alpha_2 z_{1i} + \alpha_3 z_{2i} + v_i
 $$
 
-kus $Z_i$ võib olla skalaarkomponent või vektor (mitu instrumenti).
-
-Kahesammuline vähimruutude meetod (Two-Stage Least Squares, 2SLS) toimib järgmiselt.
-
-Esimene samm (esimene etapp):
+Saadud seosest leiame hinnatud väärtuse $\hat D_i$ ja soovi korral ka $\hat v_i$
 
 $$
-D_i = \hat\pi_0 + \hat\pi_1 Z_i + \hat\pi_2^\top X_i + \hat v_i.
+\hat D_i = \hat\alpha_0 + \hat\alpha_1 x_{1i} + \hat\alpha_2 z_{1i} + \hat\alpha_3 z_{2i}
 $$
 
--   Hinnatakse regressioon $D_i$-le instrumendi ja kontrollmuutujate peale.
--   Saadakse prognoosid $\hat D_i = \hat\pi_0 + \hat\pi_1 Z_i + \hat\pi_2^\top X_i$.
--   Sisuliselt eraldame $D_i$ selles osas, mida selgitavad $Z_i$ ja $X_i$, ning eemaldame osa, mis on korreleeritud vealiikmega.
+Sisuliselt eraldame $D_i$ selle osa, mida selgitavad instrumendid $Z_i$ ja $X_i$. Ning eraldame ülejäänud osa $\hat v_i$, mis võib olla korreleeritud uuritava tunnuse $Y$ vealiikmega.
 
-Teine samm (teine etapp):
+**2. Teine samm**
+
+*Variant A*
+
+Asendame algses mudelis $D_i$ tema prognoosiga $\hat D_i$ ning kasutame uuesti OLS-i.
 
 $$
-Y_i = \alpha + \beta \hat D_i + \gamma^\top X_i + \varepsilon_i.
+Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 \hat D_i + u_i
 $$
 
--   Asendame algses mudelis $D_i$ tema prognoosiga $\hat D_i$ ning kasutame OLS-i.
--   Saadud $\hat\beta^{2SLS}$ on IV-hinnang, mis kasutab ainult seda osa \$D_i varieeruvusest, mida instrument $Z_i$ ja $X_i$ suudavad selgitada.
+Saadud $\hat\beta^{2SLS}$ on IV-hinnang, mis kasutab ainult seda osa $D_i$ varieeruvusest, mida instrument $Z_i$ ja $X_i$ suudavad selgitada.
 
+*Variant B*
+
+Alternatiivne võimalus on lisada esimeses sammus leitud jääkliige lisaks algsesse võrrandisse.
+
+$$
+Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 D_i + \rho \hat v_i + u_i
+$$
+
+Seda lähenemist nimetatakse *control function approach*. Sisuliselt püüame lisada algsesse mudelisse väljajäetud muutuja, mis meile algses mudelis nihke põhjustas. Taolist lähenemist saab kasutada ka mittelineaarsete mudelite puhul.
+
+::: {.callout-tip collapse="true"}
 R-is saab seda mugavalt teha näiteks paketiga AER:
 
 ```{r}
@@ -149,112 +163,200 @@ summary(iv_mod)
 ```
 
 Parempoolsel poolel: vasak pool enne `|` on struktuurne mudel (`Y ~` endogeensed + eksogeensed tunnused), parem pool pärast `|` on instrumendid ja eksogeensed tunnused.
+:::
 
-## Sobivate instrumentide kriteeriumid
-
-Instrumentide jaoks kehtivad järgmised põhinõuded.
-
-### Relevantsus
+## Instrumentide tugevuse testimine
 
 Instrument peab olema piisavalt tugevalt seotud selgitava tunnusega $D_i$:
 
--   $\operatorname{Cov}(Z_i, D_i) \neq 0$\
--   Esimeses etapis saab seda hinnata F-statistikuga. Lihtne rusikareegel:
-    -   kui $F < 10$, võib instrument olla **nõrk**;
-    -   nõrkade instrumentide korral on IV-hinnangud väga ebatäpsed (suured standardvead) ja võivad olla tugevalt nihkega.
+- $\operatorname{Cov}(Z_i, D_i) \neq 0$
 
-### Eksogeensus ja väljajätmise eeldus (exclusion restriction)
+Seda saab hinnata esimeses etapi regressioonimudeli F-statistikuga, mis testib, kas kõigi instrumentide kordajad on korraga nullid.
 
--   Instrument ei tohi korreleeruda vealiikmega $u_i$:
-    -   $\operatorname{Cov}(Z_i, u_i) = 0$.
--   Instrument ei tohi mõjutada $Y_i$ otse, vaid üksnes läbi $D_i$:
-    -   puudub otsene tee $Z_i \to Y_i$; mõju peab käima ainult $Z_i \to D_i \to Y_i$ kaudu.
+Hindasime eelnevalt esimese sammu.
 
-Kui instrumente on rohkem kui endogeenseid muutujaid (üleidentifitseeritud mudel), saab eksogeensust osaliselt testida **üleidentifitseerimiskatsetega** (Sargani või Hansen–J test), kontrollides, kas kõik instrumendid korraga sobituvad mudelisse ilma oluliste vastuoludeta.
+$$
+\hat D_i = \hat\alpha_0 + \hat\alpha_1 x_{1i} + \hat\alpha_2 z_{1i} + \hat\alpha_3 z_{2i}
+$$
+
+Nüüd testime F-testiga hüpoteesi, kas ülal toodud võrrandis võivad olla instrumentide kordajad tegelikult korraga nullid.
+
+$$
+\begin{aligned}
+& H_0: \alpha_2 = 0 \quad \&  \quad \alpha_3 = 0 \\
+& H_1: \alpha_2 \neq 0 \quad | \quad \alpha_3 \neq 0
+\end{aligned}
+$$
+
+Mida suurem on F-statistik, seda tugevamalt mõjutavad instrumendid meid huvitavat tunnust. Lihtne rusikareegel on see, et kui $F < 10$, siis on instrumendid nõrgad (*weak instrument*). Nõrkade instrumentide korral on IV-hinnangud väga ebatäpsed (tulevad suured standardvead) ja võivad olla lõplikes valimites suure nihkega.
+
+## Instrumendi eksogeensuse testimine
+
+Kui meil on instrumente täpselt nii palju, kui on probleemseid endogeenseid muutujaid, siis ei ole võimalik testida, kas instrument korreleerub vealiikmega. Sellisel juhul on mudel täpselt idenfitseeritud (*exactly identified*). Me kasutame ära kogu informatsiooni parameetrite hinnangute saamiseks.
+
+Kui instrumente on aga rohkem kui endogeenseid muutujaid, st meil on üleidentifitseeritud mudel (*overidentified model*), saab eksogeensust testida Sargani testi või Hanseni–J testiga (*overidentification test*), kontrollides, kas kõik instrumendid korraga sobituvad mudelisse.
+
+Testi statistikut saab arvutada regressioonimudelist, kus lõpliku mudeli jääkliige sõltub kõigist eksogeensetest selgitavatest tunnustest ja instrumentidest. Meie näite puhul
+
+$$\hat u = \alpha_0+\alpha_1x_1 + \alpha_2z_1 +  \alpha_3z_2 + v$$
+
+Kui kõik instrumendid on sobivad, st nad ei korreleeru vealiikmetega, siis nad ei tohiks olla seotud ka hinnatud jääkliikmega ja seega kõik kordajad selles mudelis peaksid olema nullid. Või teisiti, selle mudeli kirjeldusvõime $R^2$ peaks olema praktiliselt null.
+
+Me kasutame selleks järgmist test-statistikut, kus $q$ on instrumentide arv ja $d$ on probleemsete endogeesete muutujate arv:
+
+$$
+Sargan = n\times R^2 \sim \chi^2_{q-d}
+$$
+
+Kui test-statistik on oluline, siis saame nullhüpoteesi instrumentide sobivuse kohta ümber lükata. Ris arvutab selle teststatistiku automaatselt käsk ivreg paketist AER.
 
 ## Nõrgad ja valed instrumendid
 
--   Kui $Z_i$ ei korreleeru $D_i$-ga, on tegemist **ebaoluliste instrumentidega**; IV-meetod ei anna lisainfot ja hinnangud käituvad halvasti.
--   Kui seos on olemas, kuid väga nõrk, on tegemist **nõrkade instrumentidega**. Siis on IV-hinnangud asümptootiliselt küll mõjusad, kuid väikeses valimis väga ebatäpsed.
--   Kui instrument korreleerub vealiikmega (nt mõjutab tegelikult otseselt $Y_i$) või on seotud jälgimata teguritega $A_i$, siis on instrument **vigane**. Sellisel juhul annab IV-meetod valesuunalise hinnangu.
+- Kui $Z_i$ ei korreleeru $D_i$-ga, on tegemist **ebaolulise instrumendiga**; IV-meetod ei anna lisainfot ja hinnangud on ebatäpsed.
+- Kui seos on olemas, kuid väga nõrk, on tegemist **nõrkade instrumentidega**. Siis on IV-hinnangud asümptootiliselt küll mõjusad (*consistent*), kuid väikeses valimis väga ebatäpsed.
+- Kui instrument korreleerub vealiikmega (nt mõjutab tegelikult otseselt $Y_i$) või on seotud jälgimata teguritega $u_i$, siis on instrument lihtsalt **vigane**. Sellisel juhul annab IV-meetod nihkega hinnangu ja nihe võib olla isegi suurem kui vähimruutude meetodil leitud esialgne hinnang.
 
 Praktikas on tihti valik:
 
--   kas kasutada nihkega, kuid väiksema variatsiooniga OLS-hinnangut;
--   või kasutada IV-meetodit, mis põhineb tugevatele eeldustele ja millel võivad olla suured standardvead.
+- kas kasutada nihkega, kuid väiksema dispersiooniga OLS-hinnangut;
+- või kasutada IV-meetodit, mis põhineb tugevatele eeldustele ja millel võivad olla suured standardvead, kuid mis annab mõjusad hinnangud kui eeldused on täidetud.
+
+## Kas IV-meetodit üldse vaja on?
+
+### Hausmani test
+
+Kui kahtleme, kas endogeensus on tõsine probleem, on mitmeid võimalusi seda hinnata. Üks levinud lähenemine on Hausmani tüüpi spetsifikatsioonitest:
+
+Vaatleme hüpoteeside paari:
+
+$$
+\begin{aligned}
+H_0: cov(u, x) = 0 \\
+H_1: cov(u, x) \neq 0
+\end{aligned}
+$$
+
+- Kui $H_0$ on õige, siis mudelis ei ole endogeensust; OLS on mõjus ja efektiivne (täpseim); OLS ja 2SLS meetod annavad sarnased punkthinnangud.
+- Kui peame vastu võtma $H_1$: mudelis esineb endogeensus; OLS on nihkega; 2SLS meetod on mõjus, kui instrumendid on sobivad.
+
+Seega peame võrdlema omavahel OLS ja 2SLS hinnanguid. Seega kui hinnangud on sarnased, siis järelikud kehtib $H_0$ ja meil ei ole vaja kasutada instrumentmuutujate meetodit. Kui hinnangud on erinevad, siis järelikult on üks neist vale. Teame, et 2SLS hinnang on alati mõjus, seega ütleme, et OLS on vale ja peame võtma vastu $H_1$ hüpoteesi.
+
+Me arvutame hinnatud parameetrite kaalutud keskmise erinevuse. Test-statistik on asümptootiliselt hii-ruut jaotusega, vabadusastmete arv on võrdne hinnatud parameetrite arvuga.
+
+
+$$
+H = [\beta^{IV} - \beta^{OLS}]' [Var(\beta^{IV})-Var(\beta^{OLS})]^{-1}[\beta^{IV} - \beta^{OLS}]  \sim \chi^2_{(k)}
+$$
+Kus $Var(\beta^{IV})$ ja $Var(\beta^{OLS})$ on parameetrite hinnangute kovariatsioonimaatriksid.
+
+Kui saadud teststatistik H on suurem kui kriitiline väärtus (ehk p <0.05 majandusanalüüsides), siis lükkame ümber $H_0$ ja järeldame, et parameetrite hinnangud on erinevad ja peaksime kasutama instrument-muutuja meetodit.
+
+Märkus: mõned autorid soovitavad kasutada vabadusastmete arvuna mitte hinnatud parameetrite arvu (3 meie näites) vaid endogeensete muutujate arvu (1 meie näites). Asümptootiliselt ei ole sellel vahet, aga väikestes valimites võib mõjutada järeldust. 
+
+
+### Wu-Hausmani test
+
+Teine lähenemine on **kontrollfunktsiooni meetod**. Teises etapis hindasime seose 
+
+
+$$
+Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 D_i + \rho \hat v_i + u_i
+$$
+
+
+Kui $\hat v_i$ kordaja $\rho$ on statistiliselt oluline, siis on endogeensus probleem ja peaksime kasutama IV meetodit. Kui ei ole statistiliselt oluline, siis võib OLS olla piisav.
+
+Sageli annab siiski majandusprobleem ise põhjuse uskuda, et esineb endogeensuse probleem ja esitame ikkagi IV meetodil hinnangud ehkki Hausmani või Wu-Hausmani test seda ei nõua.
+
 
 ## Heterogeensed mõjud ja LATE
 
-Kui mõju $\beta$ ei ole kõigi jaoks sama (heterogeensed mõjud), ei pruugi IV-hinnang kirjeldada keskmist mõju kõigile. Binaarse instrumendi ja binaarse meetme korral, täiendavate eelduste (näiteks monotoolsuse) all, identifitseerib Waldi/IV-hinnang nn **kohaliku keskmise mõju** (Local Average Treatment Effect, LATE):
-
--   LATE on keskmine mõju nende isikute seas, kelle meedme staatus muutub instrumendi väärtuse muutumise tõttu (*compliers* ehk “allujad”).
+Kui mõju $\beta^{IV}$ ei ole kõigi inimeste jaoks sama (esinevad heterogeensed mõjud), ei iseloomusta IV-hinnang keskmist mõju kõigile. Binaarse instrumendi ja binaarse meetme korral ja eelduse korral, et instrument alati mõjutab meetmes osalemist kõigil inimestel samas suunas, siis identifitseerib Waldi/IV-hinnang nn lokaalse keskmise mõju (*Local Average Treatment Effect, LATE*). LATE on keskmine mõju nende isikute seas, kelle meetme staatus muutub instrumendi väärtuse muutumise tõttu õiges suunas (*compliers* ehk “allujad”).
 
 Ülejäänud rühmad:
 
--   *never-takers* – ei osale kunagi;
--   *always-takers* – alati osalevad;
--   *defiers* – käituvad instrumendile vastupidiselt.
+- *never-takers* – ei osale kunagi meetmes sõltumata instrumendi väärtusest;
+- *always-takers* – alati osalevad meetmes sõltumata instrumendi väärtusest;
+- *defiers* – käituvad vastupidiselt (neid ei tohiks olla).
 
-Nende kohta IV otseselt infot ei anna.
+Ülejäänud rühmade kohta IV meetod otseselt infot ei anna. Ainult juhul, kui eeldame ühesugust mõju kõigile, siis on $\beta^{IV}$ võrdne keskmise mõjuga ATE.
 
-### Seos regressiooni katkemise disainiga (RDD)
+## Repliik: seos regressiooni katkemise disainiga (RDD)
 
--   RDD-s on instrument $Z_i$ tavaliselt “olla üle lõikepunkti” (näiteks $Z_i = 1$, kui $X_i \ge c$).
--   RDD **sharp design** vastab olukorrale, kus instrument määrab $D_i$ deterministlikult (kõik üle lõikepunkti osalevad, kõik allpool mitte).
--   RDD **fuzzy design** vastab klassikalisele LATE-olukorrale, kus instrument mõjutab ainult osalemise tõenäosust, mitte ei määra seda täpselt.
+Vaatame lihtsat juhtu, kus:
 
-## Kas IV-meetodit üldse vaja on? Hausmani test
+- $D_i$ on binaarne (osales/ei osalenud meetmes),
+- $Z_i$ on binaarne instrument (nt poliitikamuutus),
+- teisi kontrollmuutujaid ei ole.
 
-Kui kahtleme, kas endogeensus on tõsine probleem, on mitmeid võimalusi seda hinnata.
+Mudel:
 
-Üks levinud lähenemine on **Hausmani tüüpi spetsifikatsioonitest**:
+$$
+Y_i = \alpha + \beta D_i + u_i.
+$$
 
--   $H_0$: mudelis ei ole endogeensust; OLS on mõjus ja efektiivne; OLS ja IV annavad sarnased hinnangud.
--   $H_1$: esineb endogeensus; OLS on nihkega; IV on mõjus, kui instrumendid on sobivad.
+IV loogika on antud juhul lihtne:
 
-Praktiline mõte:
+- võrdleme keskmist tulemust nende vahel, kellel $Z_i=1$ ja $Z_i=0$;
+- võrdleme, kui palju erineb keskmine osalemine $D_i$ nende kahe grupi vahel.
 
-1.  hinnata OLS-mudel;
-2.  hinnata IV/2SLS-mudel;
-3.  võrrelda hinnanguid ja statistikat (nt spetsiaalsete testifunktsioonidega).
+Waldi hinnang on:
 
-Teine lähenemine on **kontrollfunktsiooni meetod**, kus:
+$$
+\hat\beta^{IV} =
+\frac{\mathbb{E}[Y_i \mid Z_i = 1] - \mathbb{E}[Y_i \mid Z_i = 0]}
+     {\mathbb{E}[D_i \mid Z_i = 1] - \mathbb{E}[D_i \mid Z_i = 0]}.
+$$
 
-1.  Esimeses etapis hinnatakse $D_i$ sõltuvust instrumentidest ja eksogeensetest tunnustest ning saadakse jääk $\hat v_i$.
-2.  Teises etapis lisatakse $\hat v_i$ struktuursesse mudelisse lisatunnusena.
-    -   Kui $\hat v_i$ kordaja on statistiliselt oluline, on endogeensus probleem.\
-    -   Kui mitte, siis võib OLS olla piisav.
+Tähendused:
+
+- nimetaja kirjeldab instrumendi mõju osalus-tõenäosusele;
+- lugeja kirjeldab instrumendi mõju tulemusele;
+- suhe ütleb, kui palju $Y_i$ muutub instrumendi poolt esile kutsutud ühikulise muutuse kohta $D_i$-s.
+
+Pangem tähele seost RDDga.
+
+- RDD-s on instrument $Z_i$ “olla üle lõikepunkti” (näiteks $Z_i = 1$, kui $X_i \ge c$).
+- Järsku disainiga RDD puhul vastab see olukorrale, kus instrument määrab $D_i$ deterministlikult (kõik üle lõikepunkti osalevad, kõik allpool mitte).
+- Hägusa disainiga RDD puhul vastab see klassikalisele LATE-olukorrale, kus instrument mõjutab ainult osalemise tõenäosust, mitte ei määra seda täpselt.
+
+Waldi hinnangu üleval on täpselt sama valem, mida kasutasime hägusa regressiooni katkemise meetodi korral (*fuzzy RDD*). Seal vaatasime $Z$-i asemel seda, kui inimesed olid ülalpool ja allpool lõikepunkti.
+
 
 ## Instrumentide leidmine
 
-Praktiliselt on suurim probleem leida **hea instrument**. Mõned tüüpilised allikad:
+Praktikas on suurim probleem leida **hea instrument**. Mõned tüüpilised allikad:
 
--   regionaalne varieeruvus teenuste kättesaadavuses, mis ei sõltu individuaalsetest omadustest\
-    (näiteks kaugus ülikoolist, haiglast, koolitusasutusest);
--   poliitikamuutused ja institutsionaalsed reeglid\
-    (näiteks muutus toetuse tingimustes, mis sõltub ainult sünniaastast, piirkonnast või mõnest teisest välistunnusest);
--   ajaline varieeruvus: meetmed, mis rakenduvad erineval ajal erinevates piirkondades;
--   minevikuväärtused paneelandmetes (lagged variables), kui need on usutavalt eksogeensed;
--   randomiseeritud eksperimendid: ideaalne, “täiuslik” instrument.
+- regionaalne varieeruvus teenuste kättesaadavuses, mis ei sõltu individuaalsetest omadustest\
+  (näiteks kaugus ülikoolist, haiglast, koolitusasutusest);
+- poliitikamuutused ja institutsionaalsed reeglid\
+  (näiteks muutus toetuse tingimustes, mis sõltub ainult sünniaastast, piirkonnast või mõnest teisest välistunnusest);
+- ajaline varieeruvus: meetmed, mis rakenduvad erineval ajal erinevates piirkondades;
+- minevikuväärtused paneelandmetes (*lagged variables*), kui need on usutavalt eksogeensed;
+- randomiseeritud eksperimendid: ideaalne, “täiuslik” instrument.
 
 Iga kord tuleb läbi mõelda:
 
--   kas instrument mõjutab selgitavat tunnust piisavalt tugevasti;
--   kas on usutav, et instrument ei mõjuta otseselt tulemust;
--   kas pole muid kanaleid (väljajätmise eeldus), mille kaudu instrument ja tulemus sõltuda võiksid.
+- kas instrument mõjutab selgitavat tunnust piisavalt tugevasti;
+- kas on usutav, et instrument ei mõjuta otseselt tulemust;
+- kas pole muid kanaleid (väljajätmise eeldus), mille kaudu instrument ja tulemus sõltuda võiksid.
+
 
 ## Kokkuvõte
 
 Instrumentmuutuja meetod:
 
--   on mõeldud olukordadeks, kus selgitav tunnus on endogeenne ja tavaline regressioon annab nihkega hinnanguid;
--   kasutab ainult seda osa varieeruvusest, mis on “tekitatud” instrumendi poolt ja on seetõttu vealiikmest sõltumatu;
--   tugineb tugevatele eeldustele instrumendi eksogeensuse ja väljajätmise kohta, mida alati ei saa otseselt testida;
--   annab heterogeensete mõjude korral lokaalse keskmise mõjuhinnangu (LATE) just nendele, keda instrument tegelikult “liigutab”.
+- on mõeldud olukordadeks, kus selgitav tunnus on endogeenne ja tavaline regressioon annab nihkega hinnanguid;
+- kasutab ainult seda osa varieeruvusest endogeenses tunnuses, mis on “tekitatud” instrumendi poolt ja on seetõttu vealiikmest sõltumatu;
+- tugineb tugevatele eeldustele instrumendi eksogeensuse ja väljajätmise kohta, mida alati ei saa otseselt testida;
+- annab heterogeensete mõjude korral lokaalse keskmise mõjuhinnangu (LATE) just nendele, keda instrument tegelikult “liigutab”.
 
-Analüütiku ülesanne on leida veenev instrument, põhjendada selle sobivust ning kontrollida esimeses etapis instrumentide tugevust ja teises etapis mudeli kooskõlalisust. Nõrk või vigane instrument on sageli hullem kui lihtne, ausalt nihkega OLS.
+Analüütiku ülesanne on leida veenev instrument, põhjendada selle sobivust ning kontrollida esimeses etapis instrumentide tugevust. Nõrk või vigane instrument on sageli hullem kui lihtne, ausalt nihkega OLS.
+
 
 ## Näide
+
+TODO:! Lisada pikemalt selgitusi tulemuste kohta.
 
 See näide püüab korrata lähenemist, mis kasutati Leenheer jt. artiklis.
 
@@ -539,6 +641,7 @@ summary(iv_model, diagnostics = TRUE)
 ```
 
 ### Kas instrumendid on tugevad?
+
 F-test
 
 ```{r}

@@ -6,13 +6,17 @@ Poolik - arenev
 
 ## Taust
 
-Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (synthetic control method), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.
+Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (*synthetic control method*), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.
 
-Motivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, sest subjektiivne valik võib kallutada tulemusi. Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.
+Eesti keeles oleme kasutanud ka nime sünteentilise kontrolli meetod. Alljärgnevalt on kasutatud hetkel mõisteid vaheldumisi.
+
+Motivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, (nt võrdleme Eestit Lätiga) sest subjektiivne valik võib kallutada tulemusi (miks mitte võrrelda Eestit Leeduga?). 
+
+Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.
 
 ## Taust ja rakenduste näited
 
-Empiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Abadie, Diamond ja Hainmueller (2010) meetodit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.
+Empiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Samuti peetakse oluliseks Abadie, Diamond ja Hainmueller (2010) artiklit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.
 
 Eestis on meetodit kasutatud näiteks Centari analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Samuti kasutab Meriküll (2025) sünteetilise dif-dif lähenemist, et hinnata, kuidas kogumispensioni varasem vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud.
 
@@ -32,13 +36,13 @@ kus $Y_{1t}^{I}$ on tulemus sekkumisega (täheldatav) ning $Y_{1t}^{N}$ oleks tu
 
 Sünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida $Y_{1t}^{N}$ konstrueeritakse kontrollobjektide kaalutud keskmisena:
 
-$$ Y\_{1t}\^{N} \approx \sum*{j=2}\^{J+1} w_j Y*{jt}, \quad t = 1, \dots, T, $$
+$$ Y_{1t}^{N} \approx \sum_{j=2}^{J+1} w_j Y*{jt}, \quad t = 1, \dots, T, $$
 
 kus kaalud $w_j \geq 0$ ja $\sum_{j=2}^{J+1} w_j = 1$. Need kaalud määravad „sünteetilise kontrolli”, ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada käsitletava objektiga võimalikult täpselt.
 
 Sellisel juhul on mõju hinnang ajapunktis $t > T_0$:
 
-$$ \hat{\alpha}*{1t} = Y*{1t} - \sum\_{j=2}\^{J+1} \hat{w}*j Y*{jt}. $$
+$$ \hat{\alpha}_{1t} = Y*{1t} - \sum_{j=2}^{J+1} \hat{w}*j Y*{jt}. $$
 
 Graafiliselt saame võrrelda käsitletava objekti tegelikku rada ning sünteetilise kontrolli rada, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.
 
@@ -46,7 +50,7 @@ Graafiliselt saame võrrelda käsitletava objekti tegelikku rada ning sünteetil
 
 Lisaks tulemusmuutujale kasutab meetod sobitamiseks selgitavaid tunnuseid ja sekkumiseelseid tulemusi. Olgu $X_1$ vektor käsitletava objekti tunnustest ja sekkumiseelsete tulemuste kokkuvõtlikest näitajatest (näiteks keskmised väärtused), ning $X_0$ maatriks samade tunnuste kohta kontrollobjektide jaoks:
 
-\$\$ X_1 = (x\_{11}, \dots, x\_{1K})', \quad X_0 =
+$$ X_1 = (x\_{11}, \dots, x\_{1K})', \quad X_0 =
 
 \begin{pmatrix}
 x_{21} & \dots & x_{J+1,1} \\
@@ -54,7 +58,7 @@ x_{21} & \dots & x_{J+1,1} \\
 x_{2K} & \dots & x_{J+1,K}
 \end{pmatrix}
 
-\$\$
+$$
 
 Lisaks kaaludele objektidele $w = (w_2, \dots, w_{J+1})'$ kasutatakse ka kaalusid tunnustele $V$, mis on diagonaalmaatriks suhtelise olulisusega tunnuste vahel. Intuitsioon on, et mõni tunnus – näiteks sekkumiseelsed tulemused – võib olla eriti informatiivne tulevase tulemuse kohta ning seetõttu saab suurema kaalu.
 

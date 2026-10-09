@@ -6,14 +6,14 @@ Selles peatükis käsitleme LASSO-regressioonimudelit ja kantregressiooni (ridge
 
 Lisaks prognoosimisele pakuvad LASSO ja ridge vahendeid põhjuslike mõjude hindamiseks keerukates olukordades, kus:
 
--   on palju potentsiaalseid kontrollmuutujaid,
--   eeldame tingimuslikku sõltumatust (CIA),
+- on palju potentsiaalseid kontrollmuutujaid,
+- eeldame tingimuslikku sõltumatust (CIA),
 
 Eraldi käsitleme kolme lähenemist:
 
--   jääkliikmete meetodit (partialling out),
--   topeltvaliku meetodit (double selection),
--   instrumentmuutuja meetodit koos LASSO-põhise tunnuste valikuga.
+- jääkliikmete meetodit (partialling out),
+- topeltvaliku meetodit (double selection),
+- instrumentmuutuja meetodit koos LASSO-põhise tunnuste valikuga.
 
 ## Regulaaritud regressioon: üldine raamistik
 
@@ -42,9 +42,9 @@ $$
 
 Kui $p$ on suur (või koguni $p > n$), muutub OLS ebastabiilseks:
 
--   parameetrite variatsioon on suur,
--   multikollineaarsus tekitab ebakindlust,
--   mudel kipub andmetesse üle-sobituma.
+- parameetrite variatsioon on suur,
+- multikollineaarsus tekitab ebakindlust,
+- mudel kipub andmetesse üle-sobituma.
 
 Regulaaritud regressiooni idee on lisada optimeerimiskriteeriumile karistustermin, mis surub parameetreid nulli suunas ja vähendab mudeli keerukust.
 
@@ -62,8 +62,8 @@ $$
 
 kus $P(\beta)$ on karistusfunktsioon ja $\lambda \ge 0$ regulaarimisparameeter, mis kontrollib karistuse tugevust.
 
--   Kui $\lambda = 0$, langeb mudel kokku OLS-iga.
--   Kui $\lambda$ kasvab, suureneb parameetrite kahanemine nulli suunas ja mudeli keerukus väheneb.
+- Kui $\lambda = 0$, langeb mudel kokku OLS-iga.
+- Kui $\lambda$ kasvab, suureneb parameetrite kahanemine nulli suunas ja mudeli keerukus väheneb.
 
 Eduka regulaarimise eelduseks on tavaliselt, et tunnused $X$ standardiseeritakse (nullkeskmine ja ühikvariatsioon), et karistus erinevate tunnuste vahel oleks võrreldav.
 
@@ -88,8 +88,8 @@ $$
 
 Siin surutakse kõiki koefitsiente nulli suunas, kuid ükski neist ei muutu täpselt nulliks (välja arvatud erijuhtudel). Seetõttu:
 
--   ridge ei tee otsest tunnuste valikut,
--   kuid vähendab multikollineaarsuse mõju ja stabiliseerib hinnanguid.
+- ridge ei tee otsest tunnuste valikut,
+- kuid vähendab multikollineaarsuse mõju ja stabiliseerib hinnanguid.
 
 Maatrikskujuline suletud lahend on
 
@@ -103,8 +103,8 @@ kus $I_p$ on $p \times p$ ühikmaatriks.
 
 Regulaarimisparameeter $\lambda$ kontrollib nihe–dispersioon kompromissi:
 
--   väikese $\lambda$ korral on nihe väike, kuid dispersioon suur,
--   suure $\lambda$ korral suureneb nihe, kuid dispersioon väheneb.
+- väikese $\lambda$ korral on nihe väike, kuid dispersioon suur,
+- suure $\lambda$ korral suureneb nihe, kuid dispersioon väheneb.
 
 Prognoosimisel valitakse $\lambda$ tavaliselt ristvalideerimisega (K-kordne CV):
 
@@ -117,10 +117,10 @@ Prognoosimisel valitakse $\lambda$ tavaliselt ristvalideerimisega (K-kordne CV):
 
 Kantregressiooni kasutatakse eelkõige siis, kui:
 
--   selgitavaid tunnuseid on palju (sh polünoomid, interaktsioonid),
--   esineb tugev multikollineaarsus,
--   eesmärk on hea prognoos, mitte üksikute koefitsientide selge interpreteerimine,
--   parameetrite arv on lähedane vaatluste arvule.
+- selgitavaid tunnuseid on palju (sh polünoomid, interaktsioonid),
+- esineb tugev multikollineaarsus,
+- eesmärk on hea prognoos, mitte üksikute koefitsientide selge interpreteerimine,
+- parameetrite arv on lähedane vaatluste arvule.
 
 Põhjusliku mõju hindamise juures kasutatakse ridge’i tavaliselt osana laiendatud meetoditest (nt Augmented Synthetic Control, double machine learning) – harvem iseseisva „mõju hinnanguna“.
 
@@ -145,18 +145,18 @@ $$
 
 Oluline omadus: L1-karistus võib seada osa koefitsiente täpselt nulli:
 
--   kui tunnus $X_j$ on väheoluline, siis $\hat{\beta}_j = 0$,
--   kui tunnus on oluline, võib $\hat{\beta}_j \neq 0$.
+- kui tunnus $X_j$ on väheoluline, siis $\hat{\beta}_j = 0$,
+- kui tunnus on oluline, võib $\hat{\beta}_j \neq 0$.
 
 Seega LASSO kombineerib:
 
--   regulaarimise (koefitsientide kahanemine),
--   tunnuste valiku (paljud koefitsiendid muutuvad nulliks).
+- regulaarimise (koefitsientide kahanemine),
+- tunnuste valiku (paljud koefitsiendid muutuvad nulliks).
 
 Intuitsioonilt:
 
--   kui $\lambda$ on väike, on tulemus sarnane OLS-iga, paljud koefitsiendid mitnullilised;
--   kui $\lambda$ on suur, jääb mudelisse vähe tunnuseid.
+- kui $\lambda$ on väike, on tulemus sarnane OLS-iga, paljud koefitsiendid mitnullilised;
+- kui $\lambda$ on suur, jääb mudelisse vähe tunnuseid.
 
 ## Elastic net
 
@@ -176,8 +176,8 @@ $$
 
 kus $0 \le \alpha \le 1$.
 
--   $\alpha = 1$ korral saame LASSO,
--   $\alpha = 0$ korral ridge’i.
+- $\alpha = 1$ korral saame LASSO,
+- $\alpha = 0$ korral ridge’i.
 
 Elastic net on kasulik, kui tunnused on tugevalt korreleeritud: puhas LASSO kaldub valima ühe tunnuse grupist ja teised välja jätma, elastic net võimaldab „grupivalikut“.
 
@@ -200,35 +200,35 @@ Nii saadud OLS-kordajaid nimetatakse Post-LASSO hinnanguteks. Need on endiselt m
 
 Tüüpiline LASSO rakendus prognoosimisel (nt pakett glmnet) kasutab ristvalideerimist:
 
--   $\lambda$ valitakse, et minimeerida prognoosiviga (MSE) ristvalideerimisel;
--   kõik tunnused koheldakse karistamisel ühtviisi;
--   eesmärk: võimalikult hea prognoos.
+- $\lambda$ valitakse, et minimeerida prognoosiviga (MSE) ristvalideerimisel;
+- kõik tunnused koheldakse karistamisel ühtviisi;
+- eesmärk: võimalikult hea prognoos.
 
 See on sobiv, kui:
 
--   huvi pakub eeskätt prognoositäpsus,
--   ei ole vaja täpseid usalduspiire mõjuhinnangutele,
--   modelleerime „must kast“ seoseid.
+- huvi pakub eeskätt prognoositäpsus,
+- ei ole vaja täpseid usalduspiire mõjuhinnangutele,
+- modelleerime „must kast“ seoseid.
 
 ## Teooriapõhine LASSO (rigorous LASSO, hdm::rlasso)
 
 Teooriapõhine LASSO (nt R-pakett hdm, funktsioon rlasso) valib $\lambda$ teoreetiliste piiride alusel, lähtudes:
 
--   vaatluste arvust $n$,
--   tunnuste arvust $p$,
--   vealiikme dispersiooni hinnangust,
--   võimalusest, et olemas on heteroskedastilisus.
+- vaatluste arvust $n$,
+- tunnuste arvust $p$,
+- vealiikme dispersiooni hinnangust,
+- võimalusest, et olemas on heteroskedastilisus.
 
 Eesmärk:
 
--   usaldusväärne järeldus põhjusliku seose kohta,
--   korrektsed usaldusvahemikud ja testid.
+- usaldusväärne järeldus põhjusliku seose kohta,
+- korrektsed usaldusvahemikud ja testid.
 
 Omadused:
 
--   $\lambda$ on tavaliselt suurem kui ristvalideerimisel, mudel konservatiivsem;
--   valib vähem tunnuseid (harvem üle-sobitamine);
--   standardvigade hinnangud on kohandatud heteroskedastilisuse suhtes.
+- $\lambda$ on tavaliselt suurem kui ristvalideerimisel, mudel konservatiivsem;
+- valib vähem tunnuseid (harvem üle-sobitamine);
+- standardvigade hinnangud on kohandatud heteroskedastilisuse suhtes.
 
 Teooriapõhine LASSO sobib kõige paremini mõju hindamise kontekstis, kus peamine on parameetri usaldusväärne järeldus, mitte pelgalt hea prognoos.
 
@@ -236,14 +236,14 @@ Teooriapõhine LASSO sobib kõige paremini mõju hindamise kontekstis, kus peami
 
 Prognoosimisel on mudeli kvaliteedi peamine kriteerium väike prognoosiviga (nt MSE testandmetel). Mõju hindamisel on oluline:
 
--   väike nihe huvipakkuva parameetri (nt ravi mõju) hinnangul,
--   korrektselt hinnatud standardvead ja usaldusvahemikud,
--   robustsus tunnuste valiku vigade ja üle-sobitamise suhtes.
+- väike nihe huvipakkuva parameetri (nt ravi mõju) hinnangul,
+- korrektselt hinnatud standardvead ja usaldusvahemikud,
+- robustsus tunnuste valiku vigade ja üle-sobitamise suhtes.
 
 Ristvalideeritud LASSO võib valida liiga väikese $\lambda$:
 
--   prognoos võib olla küll väga täpne,
--   kuid mõju hinnang võib olla nihkes ja usaldusvahemikud liiga kitsad.
+- prognoos võib olla küll väga täpne,
+- kuid mõju hinnang võib olla nihkes ja usaldusvahemikud liiga kitsad.
 
 Seetõttu kasutatakse mõju hindamisel teooriapõhist LASSOt ja spetsiaalseid konstruktsioone (jääkide meetod, topeltvalik, LASSOga IV), mis on teoreetiliselt õigustatud „sparse high-dimensional“ tingimustes.
 
@@ -291,9 +291,9 @@ Kui aga $X$-e on palju, ei sobi lihtne OLS kontrollimiseks. Jääkide meetod LAS
 
 Eeldame, et meil on:
 
--   $Y$ – tulemusmuutuja,
--   $D$ – ravi muutuja,
--   $X$ – suur hulk kandidaattunnuseid (võib olla $p > n$).
+- $Y$ – tulemusmuutuja,
+- $D$ – ravi muutuja,
+- $X$ – suur hulk kandidaattunnuseid (võib olla $p > n$).
 
 Jääkide meetod LASSOga toimib järgmiselt.
 
@@ -310,9 +310,9 @@ näiteks:
 
 Eeldame, et meil on:
 
--   \(Y\) – tulemusmuutuja,
--   \(D\) – ravi muutuja,
--   \(X\) – suur hulk kandidaattunnuseid (võib olla (p \> n)).
+- \(Y\) – tulemusmuutuja,
+- \(D\) – ravi muutuja,
+- \(X\) – suur hulk kandidaattunnuseid (võib olla (p \> n)).
 
 Jääkide meetodi LASSOga idee on kasutada LASSOt selleks, et „välja võtta” (X)-de mõju nii (Y)-lt kui (D)-lt ja seejärel hinnata ravi mõju nende jääkide vahelise regressiooniga. See põhineb Frisch–Waugh–Lovelli teoreemil, mille kohaselt saab huvipakkuva ravi koefitsiendi (\alpha) leida regressioonist jääkide peal.
 
@@ -378,8 +378,8 @@ summary(lasso_effect)
 
 Siin:
 
--   `method = "partialling out"` ütleb, et kasutatakse jääkide meetodit;
--   `post = TRUE` tähendab, et lõplik regressioon tehakse Post-LASSO-na (tunnuste valiku järel OLS).
+- `method = "partialling out"` ütleb, et kasutatakse jääkide meetodit;
+- `post = TRUE` tähendab, et lõplik regressioon tehakse Post-LASSO-na (tunnuste valiku järel OLS).
 
 Jääkide meetodi puhul on võtme-eeldus, et prognoosid (\hat{m}\_Y(X_i)) ja (\hat{m}\_D(X_i)) on piisavalt täpsed, ning et CIA (tingimuslik sõltumatus) kehtib: pärast (X)-de arvessevõttu ei ole ravi (D) korreleeritud potentsiaalsete tulemustega.
 
@@ -389,9 +389,9 @@ Jääkide meetodi puhul on võtme-eeldus, et prognoosid (\hat{m}\_Y(X_i)) ja (\h
 
 Jääkide meetod eeldab kaudselt, et samad kontrollmuutujad (X) on olulised nii (Y) kui (D) jaoks, ning et LASSO valib need piisavalt hästi välja prognoosimissammudes. Praktikas võib juhtuda, et:
 
--   mõni tunnus mõjutab tugevalt ravi (D), kuid mõjutab (Y)-d vaid nõrgalt;
--   LASSO võib selle tunnuse välja jätta, kui prognoosime (Y)-d;
--   see võib omakorda tekitada nihet ravi mõju hinnangus, sest oluline konfundeeriv tunnus puudub.
+- mõni tunnus mõjutab tugevalt ravi (D), kuid mõjutab (Y)-d vaid nõrgalt;
+- LASSO võib selle tunnuse välja jätta, kui prognoosime (Y)-d;
+- see võib omakorda tekitada nihet ravi mõju hinnangus, sest oluline konfundeeriv tunnus puudub.
 
 Topeltvaliku meetod vähendab seda ohtu, kasutades LASSOt nii (Y)- kui (D)-võrrandi jaoks ja kombineerides tulemused.
 
@@ -440,10 +440,10 @@ summary(doublesel_effect)
 
 Topeltvaliku meetodi omadused:
 
--   kaasab mudelisse nii tunnused, mis on olulised (Y) jaoks, kui need, mis on olulised (D) jaoks;
--   on robustsem ohu suhtes, et mõni oluline tunnus jääb ühe LASSO-sammu käigus välja;
--   tavaliselt toob mudelisse rohkem kontrollmuutujaid kui puhas partialling out;
--   standardvead võivad pisut suureneda (rohkem kontrolle), kuid nihe väheneb.
+- kaasab mudelisse nii tunnused, mis on olulised (Y) jaoks, kui need, mis on olulised (D) jaoks;
+- on robustsem ohu suhtes, et mõni oluline tunnus jääb ühe LASSO-sammu käigus välja;
+- tavaliselt toob mudelisse rohkem kontrollmuutujaid kui puhas partialling out;
+- standardvead võivad pisut suureneda (rohkem kontrolle), kuid nihe väheneb.
 
 Intuitsioon: kui mingi (X_j) on oluline ravi (D) jaoks (vältimaks omistatavat seost (D)-le, mis tegelikult tuleneb (X_j)-st), siis jõuab see mudelisse vähemalt ravi-võrrandi kaudu, isegi kui (Y)-võrrandi LASSO teda ei valinud.
 
@@ -453,8 +453,8 @@ Intuitsioon: kui mingi (X_j) on oluline ravi (D) jaoks (vältimaks omistatavat s
 
 Kui ravi (D) on endogeenne, st (\mathbb{E}$$u_i \mid D_i$$ \neq 0), siis ei ole lihtne kontrollmuutujate lisamine piisav. Kasutame instrumentmuutujat (Z), mis:
 
--   on korreleeritud ravi (D)-ga (relevantsus),
--   ei ole korreleeritud vealiikmega (u) (eksogeensus).
+- on korreleeritud ravi (D)-ga (relevantsus),
+- ei ole korreleeritud vealiikmega (u) (eksogeensus).
 
 Klassikaline IV-mudel:
 
@@ -462,8 +462,8 @@ $$ Y_i = \alpha D_i + X_i'\beta + u_i,$$ $$ D_i = Z_i'\pi + X_i'\gamma + v_i.$$
 
 Kui instrumente ja kontrolle on vähe, on standardne kaheastmeline väikseimate ruutude meetod (2SLS) piisav. Kui aga:
 
--   instrumente (Z) on palju (nt kõikvõimalikud interaktsioonid ja polünoomid),
--   kontrolle (X) on samuti palju,
+- instrumente (Z) on palju (nt kõikvõimalikud interaktsioonid ja polünoomid),
+- kontrolle (X) on samuti palju,
 
 siis muutub klassikaline 2SLS ebastabiilseks. Siin tuleb appi LASSO, mis aitab valida olulised komponendid nii instrumentide kui kontrollide hulgast.
 
@@ -489,8 +489,8 @@ LASSOga IV-metoodika põhineb samal residualiseerimise ideel, kuid nüüd rakend
 
 4.  Rakenda IV regressiooni jääkide vahel:
 
-    -   esimene samm: regressioon (rD) peal (rZ), mis loob prognoosi (r\hat{D});
-    -   teine samm: regressioon (rY) peal (r\hat{D}).
+    - esimene samm: regressioon (rD) peal (rZ), mis loob prognoosi (r\hat{D});
+    - teine samm: regressioon (rY) peal (r\hat{D}).
 
 R-s võib käsitsi teostus välja näha selline:
 
@@ -529,32 +529,32 @@ summary(AJR_IV)
 
 Siin:
 
--   kontrolltunnused (X) sisaldavad erinevaid piirkonna tunnuseid, laiuse ruutu jms ja nende teisendeid;
--   LASSO valib välja olulised kontrollid, mis mõjutavad nii (Y) kui (D);
--   instrument logMort (asustajate suremus) jääb mudelisse ilma LASSO-karistuseta, sest teda käsitletakse „põhiinstrumendina“;
--   tulemuseks on hinnang (\hat{\alpha}), mis kirjeldab omandiõiguse kaitse (Exprop) mõju SKP-le (GDP), võttes arvesse kõrgedimensioonilisi kontrolle.
+- kontrolltunnused (X) sisaldavad erinevaid piirkonna tunnuseid, laiuse ruutu jms ja nende teisendeid;
+- LASSO valib välja olulised kontrollid, mis mõjutavad nii (Y) kui (D);
+- instrument logMort (asustajate suremus) jääb mudelisse ilma LASSO-karistuseta, sest teda käsitletakse „põhiinstrumendina“;
+- tulemuseks on hinnang (\hat{\alpha}), mis kirjeldab omandiõiguse kaitse (Exprop) mõju SKP-le (GDP), võttes arvesse kõrgedimensioonilisi kontrolle.
 
 ### Millal kasutada LASSOga IV-lähenemist
 
 LASSOga IV-lähenemine sobib eriti siis, kui:
 
--   instrumente ja kontrolle on palju, sh paljud võimalikud interaktsioonid ja polünoomid;
--   eeldame, et tegelik „tõeline“ mudel on hõre (sparse), st vaid väike osa tunnustest omab olulist mõju;
--   soovime teha ranget põhjuslikku järeldust, mitte ainult leida mõnda prognoosimudelit.
+- instrumente ja kontrolle on palju, sh paljud võimalikud interaktsioonid ja polünoomid;
+- eeldame, et tegelik „tõeline“ mudel on hõre (sparse), st vaid väike osa tunnustest omab olulist mõju;
+- soovime teha ranget põhjuslikku järeldust, mitte ainult leida mõnda prognoosimudelit.
 
 Oluline on:
 
--   kasutada teooriapõhist (\lambda) valikut (nagu `rlasso` vaikeseaded),
--   kontrollida instrumentide tugevust (esimese sammu F-statistika jmt),
--   mitte tugineda ainult CV-põhisele glmnet-LASSOle, kui eesmärk on põhjuslik mõju.
+- kasutada teooriapõhist (\lambda) valikut (nagu `rlasso` vaikeseaded),
+- kontrollida instrumentide tugevust (esimese sammu F-statistika jmt),
+- mitte tugineda ainult CV-põhisele glmnet-LASSOle, kui eesmärk on põhjuslik mõju.
 
 ## Double machine learning ja laiendused
 
 Jääkide meetod ja topeltvalik on erijuhud üldisemast double machine learning (DML) raamistikust, kus:
 
--   (Y)- ja (D)-seosed (X)-dega modelleeritakse masinõppega (LASSO, juhumetsad, boosting, närvivõrgud),
--   ravi mõju hinnatakse seejärel regressiooniga jääkide vahel,
--   andmed jagatakse sageli osadeks, et vähendada üle-sobitamise nihet (cross-fitting).
+- (Y)- ja (D)-seosed (X)-dega modelleeritakse masinõppega (LASSO, juhumetsad, boosting, närvivõrgud),
+- ravi mõju hinnatakse seejärel regressiooniga jääkide vahel,
+- andmed jagatakse sageli osadeks, et vähendada üle-sobitamise nihet (cross-fitting).
 
 Üldine idee:
 
@@ -564,10 +564,10 @@ Jääkide meetod ja topeltvalik on erijuhud üldisemast double machine learning 
 
 Cross-fitting’u korral:
 
--   jagatakse andmed mitmeks osaks,
--   ühte osa kasutatakse prognoosimismudelite hindamiseks,
--   teist osa mõju hindamiseks,
--   seejärel keskmistatakse tulemused osade vahel.
+- jagatakse andmed mitmeks osaks,
+- ühte osa kasutatakse prognoosimismudelite hindamiseks,
+- teist osa mõju hindamiseks,
+- seejärel keskmistatakse tulemused osade vahel.
 
 See vähendab nihet, mis tekib, kui sama paindlik mudel kasutatakse korraga nii seose kui mõju hindamiseks.
 
@@ -577,47 +577,47 @@ LASSO sobitub DML-raamistikku kui üks võimalik „nuisance“-mudelite (st (\h
 
 Kokkuvõtlikud juhised:
 
--   Kui eesmärk on prognoos:
+- Kui eesmärk on prognoos:
 
-    -   kasuta ristvalideeritud LASSOt (näiteks `glmnet`),
-    -   vali (\lambda) CV alusel,
-    -   interpreteeri mudeleid pigem „must kast“ lähenemisena.
+  - kasuta ristvalideeritud LASSOt (näiteks `glmnet`),
+  - vali (\lambda) CV alusel,
+  - interpreteeri mudeleid pigem „must kast“ lähenemisena.
 
--   Kui eesmärk on põhjuslik mõju:
+- Kui eesmärk on põhjuslik mõju:
 
-    -   ära toetu ainult CV-LASSOle,
+  - ära toetu ainult CV-LASSOle,
 
-    -   kasuta teooriapõhist LASSOt (nt `hdm::rlasso`),
+  - kasuta teooriapõhist LASSOt (nt `hdm::rlasso`),
 
-    -   kasuta kas:
+  - kasuta kas:
 
-        -   jääkliikmete meetodit (partialling out),
-        -   topeltvalikut (double selection),
-        -   või nende IV-varianti (`rlassoIV`).
+    - jääkliikmete meetodit (partialling out),
+    - topeltvalikut (double selection),
+    - või nende IV-varianti (`rlassoIV`).
 
--   Jääkide meetod:
+- Jääkide meetod:
 
-    -   efektiivsem, kui prognoosimismudelid (\hat{m}\_Y) ja (\hat{m}\_D) on täpsed;
-    -   sobib hästi, kui tõesti usud, et LASSO leiab õiged seosed.
+  - efektiivsem, kui prognoosimismudelid (\hat{m}\_Y) ja (\hat{m}\_D) on täpsed;
+  - sobib hästi, kui tõesti usud, et LASSO leiab õiged seosed.
 
--   Topeltvalik:
+- Topeltvalik:
 
-    -   robustsem, kui seosed on nõrgad ja tunnuseid palju;
-    -   kaasab mudelisse kõik (X)-d, mis on olulised kas (Y) või (D) jaoks;
-    -   väldib olulise konfundeeriva tunnuse väljajätmist.
+  - robustsem, kui seosed on nõrgad ja tunnuseid palju;
+  - kaasab mudelisse kõik (X)-d, mis on olulised kas (Y) või (D) jaoks;
+  - väldib olulise konfundeeriva tunnuse väljajätmist.
 
--   IV-kontextis:
+- IV-kontextis:
 
-    -   kasuta LASSOt kontrollide ja instrumentide komponentide valikuks,
-    -   jäta peamised instrumendid karistamata (select.Z = FALSE),
-    -   kontrolli instrumentide tugevust ja tõlgenda tulemusi teoreetilise raamistikuga kooskõlas.
+  - kasuta LASSOt kontrollide ja instrumentide komponentide valikuks,
+  - jäta peamised instrumendid karistamata (select.Z = FALSE),
+  - kontrolli instrumentide tugevust ja tõlgenda tulemusi teoreetilise raamistikuga kooskõlas.
 
 ## Kokkuvõte
 
 Jääkliikmete meetod, topeltvalik ja LASSOga instrumentmuutuja meetod seovad masinõppe ja klassikalise ökonomeetria, et võimaldada usaldusväärset mõju hindamist kõrgedimensioonilistes seadetes. LASSO mängib seejuures kaht rolli:
 
--   prognoosijana, mis aitab modelleerida keerulisi seoseid (Y) ja (D) ning instrumentide ja kontrollide vahel;
--   tunnuste valijana, mis vähendab mudeli mõõtmeid ja aitab vältida üle-sobitamist.
+- prognoosijana, mis aitab modelleerida keerulisi seoseid (Y) ja (D) ning instrumentide ja kontrollide vahel;
+- tunnuste valijana, mis vähendab mudeli mõõtmeid ja aitab vältida üle-sobitamist.
 
 Korrektse regulaarimisparameetri valiku (teooriapõhine (\lambda)) ning sobiva järeldusmetoodika (partialling out, double selection, IV) korral saame LASSO abil hinnata poliitikate ja sekkumiste põhjuslikke mõjusid ka olukorras, kus traditsioonilised ökonomeetrilised meetodid jäävad suurte tunnustehulkade ja multikollineaarsuse tõttu hätta.
 

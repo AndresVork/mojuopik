@@ -1,7 +1,5 @@
 # Pöördtõenäosusega kaalumine (IPW) ja AIPW
 
-**NB! Tähistused ühtlustamata. Lisada viited**
-
 Selles peatükis vaatame, kuidas hinnata põhjuslikku mõju **kaalumise** abil. Põhiidee on väga sarnane sobitamisele: tahame muuta osalus- ja võrdlusrühma taustatunnuste jaotused omavahel võrreldavaks. Sobitamisel valisime igale osalejale ühe või mitu sarnast võrdlusisikut. Kaalumisel jätame põhimõtteliselt kõik vaatlused alles, kuid anname neile erineva kaalu.
 
 Peatüki lõpuks peaksid oskama:
@@ -69,7 +67,7 @@ $$
 Osalejate kaal on ATT puhul 1. Pärast kaalumist on võrdlusrühma efektiivne piirkondlik koosseis sama mis osalejatel:
 
 | Piirkond    | Osalejaid | Võrdlusrühmas | Võrdlusrühma kaal | Kaalutud võrdlusrühm |
-|---------------|--------------:|--------------:|--------------:|--------------:|
+|--------------|-------------:|-------------:|-------------:|---------------:|
 | Põhja-Eesti |        40 |            30 |           $40/30$ |                   40 |
 | Lõuna-Eesti |        20 |            10 |           $20/10$ |                   20 |
 | **Kokku**   |    **60** |        **40** |                   |               **60** |
@@ -355,7 +353,7 @@ ATU puhul on mitteosalejad ise sihtrühm ning ümber kaalutakse osalejad.
 ### Kolm hinnangut ühe tabelina
 
 | Hinnatav mõju | Osaleja $(D=1)$ kaal | Mitteosaleja $(D=0)$ kaal | Sihtrühm      |
-|------------------|-----------------:|-----------------:|------------------|
+|----------------|-----------------:|---------------------:|----------------|
 | ATE           |             $1/p(X)$ |              $1/[1-p(X)]$ | kogu üldkogum |
 | ATT           |                  $1$ |           $p(X)/[1-p(X)]$ | osalejad      |
 | ATU           |      $[1-p(X)]/p(X)$ |                       $1$ | mitteosalejad |
@@ -717,7 +715,7 @@ AIPW oluline omadus on **topeltrobustsus** (*double robustness*). Lihtsustatult:
 
 - kui osalemismudel $p(X)$ on õigesti määratud, võib tulemusemudel olla valesti määratud;
 - kui tulemusemudelid $m_1(X)$ ja $m_0(X)$ on õigesti määratud, võib osalemismudel olla valesti määratud;
-- hinnang on endiselt kooskõlaline, kui vähemalt üks neist kahest mudeliosast on korrektne.
+- hinnang on endiselt kooskõlaline (*consistent*), kui vähemalt üks neist kahest mudeliosast on korrektne.
 
 Näiteks kui $p(X)$ on korrektne, siis
 
@@ -732,7 +730,11 @@ E\left[
 E[Y^1\mid X]
 $$
 
-ka siis, kui $\hat m_1(X)$ ise pole õige regressioonifunktsioon.
+ka siis, kui $\hat m_1(X)$ ise pole õige regressioonifunktsioon. See on tuleneb sellest, et korrektselt spetsifitseeritud $p(X)$ korral prognoosib mudel täpselt meetmes osalejate iga $X$ korral ja nad taanduvad välja.
+
+$$
+E\left[{p(X)} \mid X \right] = E\left[D \mid X \right] 
+$$
 
 Kui aga $m_1(X)$ on korrektne, siis jäägi
 
@@ -1205,7 +1207,6 @@ $$
 Kõige suurema ATE-kaalu saavad B ja C. B on osaleja, kelle osalemistõenäosus on suhteliselt väike; C on mitteosaleja, kelle osalemistõenäosus on suhteliselt suur. Mõlemad on oma tegelikus rühmas seega suhteliselt haruldased vaatlused.
 :::
 
-
 ### Kirjandus
 
 TODO:! Kontrollida
@@ -1214,6 +1215,4 @@ Hájek, J. (1971). Comment on “an essay on the logical foundations of survey s
 
 Horvitz, D. G. and Thompson, D. J. (1952). A generalization of sampling without replacement from a finite universe. Journal of the American statistical Association, 47(260):663–685.
 
-Vt
-https://arxiv.org/html/2204.14121v3#bib.bib19
-
+Vt https://arxiv.org/html/2204.14121v3#bib.bib19
