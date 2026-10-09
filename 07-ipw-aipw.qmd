@@ -189,16 +189,16 @@ ATE
 =24.
 $$
 
-Näeme, et ATE, ATT ja ATU ei pea olema võrdsed. Need kasutavad erinevat **sihtrühma** ning annavad erineva keskmise juhul, kui ravi mõju erineb taustatunnuste lõikes.
+Näeme, et ATE, ATT ja ATU ei pea olema võrdsed. Need kasutavad erinevat **sihtrühma** ning annavad erineva keskmise juhul, kui meetme mõju erineb taustatunnuste lõikes.
 
 ## Üldine raamistik
 
 Olgu
 
 - $D_i\in\{0,1\}$ -- osalemise indikaator;
-- $Y_i(1)$ -- isiku $i$ potentsiaalne tulemus osalemise korral;
-- $Y_i(0)$ -- isiku $i$ potentsiaalne tulemus mitteosalemise korral;
-- $Y_i=D_iY_i(1)+(1-D_i)Y_i(0)$ -- vaadeldav tulemus;
+- $Y^1_i$ -- isiku $i$ potentsiaalne tulemus osalemise korral;
+- $Y^0_i$ -- isiku $i$ potentsiaalne tulemus mitteosalemise korral;
+- $Y_i=D_iY^1_i+(1-D_i)Y^0_i$ -- vaadeldav tulemus;
 - $X_i$ -- enne meetmes osalemist mõõdetud taustatunnused;
 - $p(X_i)=P(D_i=1\mid X_i)$ -- tõenäosusskoor (*propensity score*).
 
@@ -217,7 +217,7 @@ IPW tugineb samadele identifitseerimise eeldustele nagu tõenäosusskooril põhi
 **1. Tinglik sõltumatus** (*conditional independence*, *unconfoundedness*)
 
 $$
-\{Y(1),Y(0)\}\perp D\mid X.
+\{Y^1,Y^0\}\perp D\mid X.
 $$
 
 Pärast $X$ arvesse võtmist ei tohi olla järelejäänud mõõtmata segajaid, mis mõjutavad nii osalemist kui ka tulemust.
@@ -253,13 +253,13 @@ Kaalumine tasakaalustab ainult neid tunnuseid, mis on kaasatud $X$ hulka või mi
 Keskmine põhjuslik mõju kogu üldkogumis on
 
 $$
-ATE=E[Y(1)-Y(0)].
+ATE=E[Y^1-Y^0].
 $$
 
 Tingliku sõltumatuse korral saame esimese potentsiaalse tulemuse keskmise kirjutada
 
 $$
-E[Y(1)]
+E[Y^1]
 =
 E\left[\frac{DY}{p(X)}\right],
 $$
@@ -267,7 +267,7 @@ $$
 ja teise
 
 $$
-E[Y(0)]
+E[Y^0]
 =
 E\left[\frac{(1-D)Y}{1-p(X)}\right].
 $$
@@ -290,22 +290,22 @@ $$
 \begin{aligned}
 E\left[\frac{DY}{p(X)}\mid X\right]
 &=
-\frac{1}{p(X)}E[D Y(1)\mid X] \\
+\frac{1}{p(X)}E[D Y^1\mid X] \\
 &=
-\frac{P(D=1\mid X)}{p(X)}E[Y(1)\mid X] \\
+\frac{P(D=1\mid X)}{p(X)}E[Y^1\mid X] \\
 &=
-E[Y(1)\mid X].
+E[Y^1\mid X].
 \end{aligned}
 $$
 
-Viimases sammus kasutasime tinglikku sõltumatust. Keskmistades üle $X$ jaotuse saame $E[Y(1)]$.
+Viimases sammus kasutasime tinglikku sõltumatust. Keskmistades üle $X$ jaotuse saame $E[Y^1]$.
 
 ### ATT
 
 ATT on
 
 $$
-ATT=E[Y(1)-Y(0)\mid D=1].
+ATT=E[Y^1-Y^0\mid D=1].
 $$
 
 Olgu
@@ -334,7 +334,7 @@ ATT puhul ei ole osalejaid vaja ümber kaaluda: nemad **ongi sihtrühm**. Ümber
 ATU on
 
 $$
-ATU=E[Y(1)-Y(0)\mid D=0].
+ATU=E[Y^1-Y^0\mid D=0].
 $$
 
 Olgu $1-\pi=P(D=0)$. Siis
@@ -355,7 +355,7 @@ ATU puhul on mitteosalejad ise sihtrühm ning ümber kaalutakse osalejad.
 ### Kolm hinnangut ühe tabelina
 
 | Hinnatav mõju | Osaleja $(D=1)$ kaal | Mitteosaleja $(D=0)$ kaal | Sihtrühm      |
-|------------------|------------------:|------------------:|------------------|
+|------------------|-----------------:|-----------------:|------------------|
 | ATE           |             $1/p(X)$ |              $1/[1-p(X)]$ | kogu üldkogum |
 | ATT           |                  $1$ |           $p(X)/[1-p(X)]$ | osalejad      |
 | ATU           |      $[1-p(X)]/p(X)$ |                       $1$ | mitteosalejad |
@@ -436,17 +436,13 @@ $$
 
 ATT korral
 
-$$
-\widehat{ATT}_{HT}
-=
-\frac{1}{n_1}
-\sum_{i=1}^n
+$$\widehat{ATT}_{HT}
+= \frac{1}{n_1} \sum_{i=1}^n 
 \left[
 D_iY_i
 -
 (1-D_i)\frac{\hat p_i}{1-\hat p_i}Y_i
 \right].
-
 $$
 
 ATU korral
@@ -621,7 +617,7 @@ AIPW alustab samast prognoosist, kuid **parandab prognoosi seal, kus tegelik tul
 Osalemise korral defineerime korrigeeritud potentsiaalse tulemuse
 
 $$
-\tilde Y_i(1)
+\tilde Y^1_i
 =
 \hat m_1(X_i)
 +
@@ -632,7 +628,7 @@ $$
 Mitteosalemise korral
 
 $$
-\tilde Y_i(0)
+\tilde Y^0_i
 =
 \hat m_0(X_i)
 +
@@ -647,7 +643,7 @@ $$
 =
 \frac{1}{n}\sum_{i=1}^n
 \left[
-\tilde Y_i(1)-\tilde Y_i(0)
+\tilde Y^1_i-\tilde Y^0_i
 \right].
 $$
 
@@ -733,7 +729,7 @@ E\left[
 \mid X
 \right]
 =
-E[Y(1)\mid X]
+E[Y^1\mid X]
 $$
 
 ka siis, kui $\hat m_1(X)$ ise pole õige regressioonifunktsioon.
@@ -788,7 +784,7 @@ atp <- atp |>
   mutate(educ = factor(educ))
 ```
 
-Kõigepealt vaatame toorest erinevust osalejate ja mitteosalejate vahel.
+Kõigepealt vaatame lihtsat erinevust osalejate ja mitteosalejate vahel.
 
 ```{r}
 atp |>
@@ -1208,3 +1204,16 @@ $$
 
 Kõige suurema ATE-kaalu saavad B ja C. B on osaleja, kelle osalemistõenäosus on suhteliselt väike; C on mitteosaleja, kelle osalemistõenäosus on suhteliselt suur. Mõlemad on oma tegelikus rühmas seega suhteliselt haruldased vaatlused.
 :::
+
+
+### Kirjandus
+
+TODO:! Kontrollida
+
+Hájek, J. (1971). Comment on “an essay on the logical foundations of survey sampling”. In Godambe, V. P. and Sprott, D. A., editors, Foundations of Statistical Inference, pages 236–242. Holt, Rinehart and Winston.
+
+Horvitz, D. G. and Thompson, D. J. (1952). A generalization of sampling without replacement from a finite universe. Journal of the American statistical Association, 47(260):663–685.
+
+Vt
+https://arxiv.org/html/2204.14121v3#bib.bib19
+

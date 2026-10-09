@@ -17,6 +17,10 @@ Näiteks võrdleme täispensioni saamise mõju hindamiseks töötundidele inimes
 
 Me eeldame vaikimisi, et kui inimesed on sarnased jälgitava tunnuse osas (nt vanus, keskmine hinne), siis nad on sarnased ka mittejälgitavate tunnuste osas.
 
+Regressiooni katkemise disain annab lokaalsed hinnangud. Sellel meetodil on tugev sisemine valiidsus (*internal validity*), see tähendab, me usume tulemusi vaadeldava sihtrühma puhul. Nt hambaravi mitterahalise hüvitise mõju vanuses 18-20 ongi selline nagu andmed näitavad.
+Aga sellel meetodil on nõrk väline valiidsus (*exernal validity*), me  ei ole kindel, et see järeldus kehtib kaugemal lõikepunktist ehk erineva sihtrühma korral
+Näiteks, mis võiks olla hambaravi hüvitise mõju vanuses 30?
+
 ### Tähistused
 
 Olgu:
@@ -436,7 +440,7 @@ install.packages("rdrobust")
 
 ja laadida:
 
-``` r        
+``` r
 library(rdrobust)
 ```
 
@@ -518,7 +522,6 @@ ggplot(df, aes(x = X, y = Y)) +
   theme_minimal()
 ```
 
-
 Paketi `rdrobust` funktsioon `rdplot()` teeb selle automaatselt, võttes juba keskmised vaatlustest:
 
 ```{r}
@@ -581,7 +584,6 @@ summary(m3)
 
 See illustreerib lokaalse RDD ideed, kuid tegelikus analüüsis on tavaliselt mõistlik kasutada spetsiaalset RDD tarkvara, mis valib ise ribalaiuse ja teeb statistilise järeldamise .
 
-
 Lokaalse lineaarse RDD hinnangu saame käsuga `rdrobust`:
 
 ```{r}
@@ -623,7 +625,6 @@ summary(rd)
 
 Järsku RDD korral ei ole vaja `rdrobust()` funktsioonile eraldi tunnust $D$ ette anda, sest meetmes osalemise määrab juba see, kummal pool lõikepunkti $X$ asub ja lõikepunkti anname ette.
 
-
 ### Robustne statistiline järeldamine
 
 RDD hinnanguga koos tuleb hinnata ka selle statistilist ebakindlust.
@@ -641,7 +642,6 @@ Hindamisel võime liikuda lihtsamast keerukama meetodi poole:
 3.  lubada regressioonifunktsioonidel olla lõikepunkti eri pooltel erinevad;
 4.  kasutada lokaalset lineaarset või lokaalset polünoomset regressiooni.
 
-
 ### Iseseisev ülesanne
 
 Olgu simuleeritud andmestik järgmisel viisil (lubme olla erinev tõus all- ja ülalpool lõikepunkti.)
@@ -658,8 +658,7 @@ df <- df |>  mutate(
 
 ```
 
-Proovite ülal toodud valemeid kasutades leida mõju hinnang. 
-
+Proovite ülal toodud valemeid kasutades leida mõju hinnang.
 
 ## Hägus disain
 
@@ -714,6 +713,16 @@ $$
 
 See on analoogne IV-Waldi hinnanguga: kui lõikepunkti juures oleks tõenäosus muutunud 0-lt 1-le, siis $\Delta Y$ olekski mõju; kuna muutus on väiksem, skaleerime selle üles jagades $\Delta D$-ga.
 
+<!-- Ajutine -->
+
+<!-- $$ -->
+<!-- \tau^{FRD} = \frac{\lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x] -->
+<!--          - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x]} -->
+<!--          { \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x] -->
+<!--          - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x]}. -->
+<!-- $$ -->
+
+
 ### Näide. Ettevõtlustoetuse mõju arvutamine
 
 Ettevõtted on teadus- ja arendustegevuse (T&A) toetuse saamiseks abikõlblikud, kui nad on piisavalt suured, st neil on rohkem kui 100 töötajat. "Väike ettevõte" tähendab ettevõtet, kus töötajate arv jääb vahemikku 90 kuni 100. "Suur ettevõte" tähendab ettevõtet, kus töötajate arv jääb vahemikku 101 kuni 110. Kokku on 40 suurt ja 40 väikest ettevõtet. Meetme korraldaja vea tõttu said vaid 30 suurt ettevõtet toetust ja lisaks said 10 väikest ettevõtet toetust. Üks aasta pärast toetuste väljamaksmist on kõigi suurte ettevõtete keskmine kasum 10 miljonit eurot, samas kui kõigi väikeste ettevõtete keskmine kasum on 8 miljonit eurot. Meid huvitab T&A toetuse saamise mõju kasumile. Mis on meetme mõju ettevõtete keskmisele kasumile (LATE hinnang) miljonites eurodes?
@@ -735,8 +744,6 @@ Samm 3. Arvutame Waldi hinnangu:
 $$
 \tau^{FRD} = \frac{\Delta Y}{\Delta D} = \frac{2}{0.5} = 4 \text{ mln}.
 $$ Seega, andmetest näeme, et keskmine kasum kasvas 2 miljonit eurot ettevõtte kohta. Kuid teame, et meetmes osalemine kasvas samal ajal 50% võrra. Seega kui kõik ettevõtted oleksid saanud toetust, võiks arvata, et meetme mõju oleks olnud 2 korda suurem ehk 4 miljonit eurot.
-
-
 
 ### Näide Ris
 
@@ -789,8 +796,6 @@ df <- data.frame(
 head(df)
 ```
 
-
-
 ```{r}
 # Teeme X põhjal väiksed intervallid
 df_plot <- df |>
@@ -810,7 +815,6 @@ df_plot <- df |>
   )
 
 ```
-
 
 Joonis meetmes osalemise kohta
 
@@ -873,12 +877,10 @@ p2 <- ggplot(df_plot, aes(x = X, y = Y)) +
   theme_minimal()
 ```
 
-
 ```{r}
 p1 + p2
 
 ```
-
 
 Waldi hinnang käsitsi. Vaatame vaatlusi aknas 10 ühikut.
 
@@ -886,7 +888,6 @@ Waldi hinnang käsitsi. Vaatame vaatlusi aknas 10 ühikut.
 df_local <- df |>
   filter(abs(Xc) <= 10)
 ```
-
 
 Samm 1. Kui palju muutub lõikepunktis $Z$ osalemine?
 
@@ -916,13 +917,11 @@ summary(m_D)
 
 Näeme, et kordaja on tõepoolest ligi 0.5
 
-
 ```{r}
 delta_D <- coef(m_D)["Z"]
 delta_D
 
 ```
-
 
 Nüüd hindame sama regressiooni väljundtunnuse jaoks:
 
@@ -939,7 +938,6 @@ Y_i
 +
 \varepsilon_i
 $$
-
 
 ```{r}
 m_Y <- lm(
@@ -958,7 +956,6 @@ delta_Y <- coef(m_Y)["Z"]
 delta_Y
 ```
 
-
 Samm 3. Wald
 
 Nüüd arvutame fuzzy RDD hinnangu ise:
@@ -970,14 +967,12 @@ $$
 {\widehat{\Delta D}}
 $$
 
-
 ```{r}
 tau_wald <- delta_Y / delta_D
 
 tau_wald
 
 ```
-
 
 #### Sama fuzzy RDD rdrobust abil
 
@@ -995,12 +990,10 @@ rd_fuzzy <- rdrobust(
 summary(rd_fuzzy)
 ```
 
-
 `summary()` väljundis näed eraldi muu hulgas:
 
-  - First-stage estimates — hüpe meetmes osalemise tõenäosuses $\Delta D$;
-  - Treatment effect estimates — hägusa RDD hinnang ehk lokaalne Wald $\Delta Y/\Delta D$.
-
+- First-stage estimates — hüpe meetmes osalemise tõenäosuses $\Delta D$;
+- Treatment effect estimates — hägusa RDD hinnang ehk lokaalne Wald $\Delta Y/\Delta D$.
 
 Võiksime `rdrobust` abil vaadata ka mõlemat hüpet eraldi
 
@@ -1016,7 +1009,6 @@ rd_Y <- rdrobust(
 summary(rd_Y)
 ```
 
-
 Hüpe D-s. See on `first stage`:
 
 ```{r}
@@ -1030,9 +1022,9 @@ rd_D <- rdrobust(
 summary(rd_D)
 ```
 
-Kordate suhe annabki meile selle suhte, mida rdrobust hindab. 
+Kordate suhe annabki meile selle suhte, mida rdrobust hindab.
 
-Repliik:  Fuzzy RDD Waldi hinnang on Y hüppe ja D hüppe suhe, kuid mõlemad hüpped peavad olema hinnatud sama lokaalse ribalaiuse (akna) põhjal. Kui hinnata $Y$ ja $D$ eraldi rdrobust() käskudega, valib programm neile vaikimisi erinevad optimaalsed ribalaiused ning nende suhe ei pea seetõttu võrduma fuzzy rdrobust() hinnanguga.
+Repliik: Fuzzy RDD Waldi hinnang on Y hüppe ja D hüppe suhe, kuid mõlemad hüpped peavad olema hinnatud sama lokaalse ribalaiuse (akna) põhjal. Kui hinnata $Y$ ja $D$ eraldi rdrobust() käskudega, valib programm neile vaikimisi erinevad optimaalsed ribalaiused ning nende suhe ei pea seetõttu võrduma fuzzy rdrobust() hinnanguga.
 
 $$
 \underbrace{
@@ -1044,16 +1036,11 @@ $$
 \frac{\widehat{\Delta Y}(h_F)}
 {\widehat{\Delta D}(h_F)}
 }_{\text{fuzzy rdrobust}}
-$$
-üldjuhul, sest
-$$
+$$ üldjuhul, sest $$
 h_Y\neq h_D\neq h_F.
 $$
 
-
-
 Kes on õppinud instrumentmuutuja meetodit (või loeb edasi järgmist peatükki), siis lõikepunktist tulenev abikõlblikkus $Z$ on instrument (nt õigus saada täispensioni 65-selt), $D$ on endogeenne meetmes osalemine (treatment, nt kas inimene tegelikult sai pensioni) ja hägusa RDD hinnang on lokaalne IV/Wald hinnang lõikepunktis (nt 65-selt pensioni saamise mõju).
-
 
 ### Pidevuse eeldus
 
@@ -1095,7 +1082,6 @@ Idee:
 2.  testitakse, kas hinnatud tihedused erinevad statistiliselt olulisel määral.
 
 Kui testi tulemus ei lükka $H_0$ hüpoteesi ümber (puudub oluline hüpe tihedusfunktsiooni väärtuses), on pidevuse eeldus ja see, et inimesed ei manipuleerinud tulemustega usutavam.
-
 
 ### Platseebo test
 
@@ -1722,6 +1708,8 @@ ggplot(res, aes(x = cutoff, y = tau_us)) +
 Näeme, et mõjud kõiguvad väga palju. Mingeid erilist hüpet või muutust me ei näe pensioniea juures. Pigem on mingid anomaaliad vanuses 64.
 
 Kokkuvõtteks, me tõesti näeme hüpet pensioniea lähedases vanuses pensioni saajate seas. Kuid me ei saa ümber lükata nüll hüpoteesi, et töötundidele otsest pensionieani jõudmine avaldaks mõju. Töötundide vähenemine toimub sujuvalt.
+
+
 
 ### Lisa: RDD hindamine Statas
 

@@ -1,3 +1,4 @@
+ÄRA KASUTA
 # Juurdekasvude erinevus (DIF-DIF)
 
 ## Mudeli seade
@@ -145,112 +146,13 @@ $$
 
 Kasutatakse kas Wald testi või F testi. Kui me ei saa $H_0$ ümber lükata, siis see on kooskõlas paralleelse trendi eeldusega. See küll tõesta, et paralleelse trendi eeldus kehtib.
 
-### Paindlikumad mudelid
-
-Pangem tähele, et kui meede algab erinevatele inimestele erinevatel hetkedel (nn *staggered treatment*), siis võrdleme erinevad rühm eri ajahetkedel. Kui meetme mõju muutub ajas või erineb kohortide vahel, siis TWFE mudel ei võimalda seda arvesse võtta. 
-
-Näiteks, kui koolitus algab erinevatel aastatel, võivad nii koolituse mõju kui ka selle kestus erineda. Näiteks võib 2010. aastal koolitatud inimeste mõju esimesel koolitusjärgsel aastal olla 500 eurot ja 2011. aastal koolitatutel 200 eurot. **Heterogeensed mõjud** tähendavad, et ei ole üht kõigile kohortidele ja aastatele võrdset põhjuslikku mõju.
-
-Selle lubamiseks kasutatakse tänapäeval paindlikumaid mudeleid.
-
-Tavaline kahesuunaliste fikseeritud efektidega (TWFE) DiD mudel on
-
-$$
-Y_{it}=\alpha_i+\gamma_t+\delta D_{it}+\varepsilon_{it}.
-$$
-
-Üks kordaja $\delta$ püüab kokku võtta kõik kohordi- ja ajaspetsiifilised mõjud. TWFE kordaja on tegelikult kõigi erinevate 2×2 DiD võrdluste kaalutud keskmine.
-
-<!-- TOOD:! Lisada siia valem TWFE kui 2x2 keskmine -->
-
-Erineval ajal toimunud sekkumiste korral võib TWFE kasutada juba varem koolitust saanud inimesi hiljem koolitatute võrdlusrühmana. Kui varasema kohordi palk on koolituse mõjul juba muutunud ja see mõju kasvab või kahaneb ajas, siis ei ole see enam sobiv võrdlusrühm. Seetõttu ei pruugi TWFE kordaja olla soovitud keskmine ATT, isegi kui paralleelsete trendide eeldus peab paika.
-
-Tavaline **TWFE sündmusuuring** (*event-study*) lisab eraldi kordajad meetmest möödunud aastatele:
-
-$$
-Y_{it}=\alpha_i+\gamma_t+\sum_{k\neq -1}\beta_k\mathbf{1}(t-G_i=k)+\varepsilon_{it},
-$$
-
-kus $G_i$ on koolituse algusaasta, $k=t-G_i$ on sündmusaeg ja $k=-1$ on võrdlusperiood; mitte kunagi mitteosalejate sündmusaja indikaatorid on nullid. See lubab mõjul ajas muutuda, kuid **ei lahenda automaatselt eri kohortide heterogeensete mõjude probleemi**. 
-
-
-#### Sun–Abrahami meetodi põhimõte
-
-Sun–Abraham (2021) hindab *kohordi ja sündmusaja* mõjud eraldi ning liidab need alles seejärel dünaamiliseks keskmiseks. Defineerime
-
-$$
-\delta_{g,k} = CATT_{g,k}=E[Y_{i,g+k}^1-Y_{i,g+k}^0\mid G_i=g],\qquad k\geq 0.
-$$
-
-Siin $CATT_{2010,1}$ on näiteks 2010. aastal koolitatute keskmine mõju 2011. aastal. Lihtsustatud kohordispetsiifiliste indikaatoritega mudel on
-
-$$
-Y_{it}=\alpha_i+\gamma_t+
-\sum_g\sum_{k\neq -1}\delta_{g,k}
-\mathbf{1}(G_i=g)\mathbf{1}(t-g=k)+\varepsilon_{it}.
-$$
-
-See tähendab, et iga osalusgrupi kohordi jaoks teeme eraldi indikaatormuutujad enne ja pärast meedet ning paneme need mudelisse. Seega tuleb üsna palju tunnuseid mudelisse.
-
-Regressioonis tuleb kasutada sobivat, mõjust puutumata võrdlusrühma (näiteks mitte kunagi mitteosalejad); valemi kuju on illustratiivne ning mõjude identifitseerimine sõltub sellest, millised võrdlused ja perioodid on kättesaadavad (näiteks iga kohorti jälgimine erine arvu aastaid). Pärast kohordipõhiste mõjude hindamist arvutatakse näiteks mõju üks aasta pärast koolitust kui kohortide mõjude kaalutud keskmine.
-
-$$
-ATT^{SA}_{1}=\sum_{g\in\mathcal G_1}w_{g,1}CATT_{g,1},
-\qquad \sum_{g\in\mathcal G_1}w_{g,1}=1.
-$$
-
-Siin $ATT^{SA}_1$ näitab, et tegu on Sun-Abrahami hinnanguga, üks aasta peale meedet.
-
-Kui kahes võrdselt suures kohordis on esimesel koolitusjärgsel aastal mõju vastavalt 500 ja 200 eurot, siis keskmine mõju on $0.5\cdot500+0.5\cdot200=350$ eurot.
-
-#### Callaway–Sant'Anna meetodi põhimõte
-
-Callaway–Sant'Anna (2021) lähtub esmalt iga kohordi $g$ ja kalendriaasta $t$ keskmisest mõjust
-
-$$
-ATT(g,t)=E[Y_{it}^1-Y_{it}^0\mid G_i=g],\quad t\geq g.
-$$
-
-Ilma täiendavate taustatunnusteta ning kasutades mitte kunagi mitteosalejaid võrdlusrühmana ($G=\infty$), saab selle esitada järgmise DiD vahena:
-
-$$
-ATT(g,t)=E[Y_t-Y_{g-1}\mid G=g] -E[Y_t-Y_{g-1}\mid G=\infty].
-$$
-
-Näiteks, kui 2010. aasta koolituskohordi palk tõusis 2009. ja 2011. aasta vahel 900 eurot ning koolituses mitte kunagi osalenutel 500 eurot, siis $ATT(2010,2011)=400$ eurot. Oluline on kasutada **sama lähteperioodi** mõlema rühma jaoks.
-
-Pärast $ATT(g,t)$ hinnangute leidmist võib arvutada erinevaid kokkuvõtteid:
-
-$$
-\underbrace{ATT^{CS}_k=\sum_{g\in\mathcal G_k}w_{g,k}ATT(g,g+k)}_{\text{dünaamiline mõju}},
-$$
-
-$$
-\underbrace{ATT^{CS}_{t}=\sum_{g\leq t}w_{g,t}ATT(g,t)}_{\text{kalendriaasta keskmine mõju}},
-$$
-
-$$
-\underbrace{ATT^{CS}=\sum_g\sum_{t\geq g}w_{g,t}ATT(g,t)}_{\text{üldine keskmine mõju}}.
-$$
-
-Kaalude summa on igas agregeerimises üks ning need sõltuvad valitud keskmise mõju määratlusest. Võrdlusrühmaks võivad olla kunagi mitteosalejad või veel mitteosalejad, kui nad pole vastaval ajal meetmest mõjutatud. Callaway–Sant'Anna meetod võimaldab lisada taustatunnuseid $X$ ning teha regressioonimudelit, kaalumist ja nende kombinatsiooni (*doubly robust*).
-
-#### Nelja DiD meetodi võrdlus
-
-| Meetod | Hinnatav mõju | Peamised eeldused | Tugevused | Millal kasutada? |
-|:--------------|:--------------|:--------------|:--------------|:--------------|
-| **Tavaline DiD (TWFE)** | Üks kordaja $\delta$ | Paralleelsed trendid; 'staggered-disain'is ATT tõlgendamiseks täiendavad piirangud mõjudele | Lihtne arvutada ja selgitada | 2×2 disain või põhjendatult homogeenne mõju |
-| ***TWFE event-study*** | Sündmusaja kordajad $\beta_k$ | Paralleelsed trendid; eri kohortide korral piirangud mõjude heterogeensusele | Visualiseerib dünaamikat ja koolituseelseid erinevusi | Ühine meetme algusaeg või sobivalt homogeenne dünaamiline mõju |
-| **Sun–Abraham** | $CATT_{g,k}$ ja sündmusaja keskmised | Paralleelsed trendid sobiva võrdlusrühmaga, identifitseeritavad kohordid ja perioodid | Väldib TWFE dünaamiliste kordajate saastumist | Eri algusajad, põhihuvi mõju dünaamikal |
-| **Callaway–Sant'Anna** | $ATT(g,t)$ ja erinevad agregeeritud ATT-d | Paralleelsed (vajaduse korral tingimuslikud) trendid, võrreldavus/ühisosa | Paindlikud keskmised, taustatunnuste arvestamine, doubly robust hinnangud | Eri algusajad, huvi dünaamika, kohortide või üldise ATT vastu |
-
-**Praktiline soovitus.** Kui kõigil osalejatel algab meede korraga, võib klassikalisest DiD-st ja TWFE sündmusuuringust piisata. Kui alustatakse eri aegadel ning mõju võib kohortide või kestuse lõikes erineda, eelista Sun–Abrahami dünaamilist hinnangut või Callaway–Sant'Anna kohordi-aasta põhist lähenemist. Mõlemad vajavad endiselt usutavat paralleelsete trendide eeldust: statistiliselt ebaolulised koolituseelsed kordajad ei tõesta seda eeldust.
-
-**Kas meetodid annavad sama tulemuse?** Kui hinnatakse sama põhjuslikku parameetrit, kasutatakse võrreldavaid kontrollrühmi ja sarnaseid agregeerimiskaale, võivad Sun–Abrahami ja Callaway–Sant'Anna tulemused olla lähedased. Erinevad tulemused ei tõesta iseenesest TWFE nihet: esmalt tuleb kontrollida, et võrreldaks sama hinnatavat keskmist mõju.
-
+### Edasiarendused
 
 DiD meetodit võib kombineerida sobitamisega (vt järgmist peatükki). Sellisel juhul tehakse võrdlusrühm eelnevalt sarnaseks osalusrühmaga kasutades meetmele eelnevaid tunnuste väärtusi ja meetmest sõltumatuid tunnuseid. Näiteks inimese sugu, vanus ja palk enne meedet.
 
+DiD meetodil on tänapäeval palju edasiarendusi. Kui meetme mõjus ajas muutub (nt kasvab või kahaneb) ja meetmes osalevad ettevõtted või inimesed eri ajahetkedel (nn *staggered design*), siis on oht saada tavalise TWFE mudeliga nihkega hinnanguid.
+
+*(TODO! Lisada viited olulisematele allikatele)* Sun & Abraham (2021, Journal of Econometrics) Callaway & Sant’Anna (2021, Journal of Econometrics) Roth (2022, American Economic Review: Insights).
 
 ## Näide pensionipoliitika mõju kohta hõivemäärale
 
@@ -602,6 +504,102 @@ m_twfedyn2 <- feols( palk ~  aegkoolitusest | id + aasta,data = dfl, cluster = ~
 
 ```
 
+### Paindlikumad mudelid
+
+Pangem tähele, et kui koolitus algab erinevatele inimestele erinevatel hetkedel (nn *staggered treatment*) siis on TWFE sündmusuuring olulise piiranguga. Kui erinevad rühmad saavad meedet eri ajahetkedel, võivad mõnes võrdluses kontrollina toimida inimesed, kes on juba varem meedet saanud. Kui meetme mõju muutub ajas või erineb kohortide vahel, võib see dünaamilisi koefitsiente moonutada. Seetõttu kasutatakse tänapäeval paindlikumaid meetodeid.
+
+#### Miks vajame TWFE kõrval uusi DiD meetodeid?
+
+Kui koolitus algab erinevatel aastatel (*staggered treatment adoption*), võivad nii koolituse mõju kui ka selle kestus erineda. Näiteks võib 2010. aastal koolitatud inimeste mõju esimesel koolitusjärgsel aastal olla 500 eurot ja 2011. aastal koolitatutel 200 eurot. **Heterogeensed mõjud** tähendavad, et ei ole üht kõigile kohortidele ja aastatele ühist põhjuslikku mõju.
+
+Tavaline kahesuunaliste fikseeritud efektidega (TWFE) DiD mudel on
+
+$$
+Y_{it}=\alpha_i+\gamma_t+\delta D_{it}+\varepsilon_{it}.
+$$
+
+Üks kordaja $\delta$ püüab kokku võtta kõik kohordi- ja ajaspetsiifilised mõjud. Erineval ajal toimunud sekkumiste korral võib TWFE kasutada juba varem koolitust saanud inimesi hiljem koolitatute võrdlusrühmana. Kui varasema kohordi palk on koolituse mõjul juba muutunud, ei esinda see enam olukorda ilma koolituseta. Seetõttu ei pruugi TWFE kordaja olla soovitud keskmine ATT, isegi kui paralleelsete trendide eeldus peab paika. TWFE kordaja on erinevate 2×2 DiD võrdluste kaalutud keskmine, kusjuures kaalud ei pruugi vastata soovitud osalejapõhisele keskmisele mõjule.
+
+Tavaline **TWFE sündmusuuring** (*event-study*) lisab eraldi kordajad meetmest möödunud aastatele:
+
+$$
+Y_{it}=\alpha_i+\gamma_t+\sum_{k\neq -1}\beta_k\mathbf{1}(t-G_i=k)+\varepsilon_{it},
+$$
+
+kus $G_i$ on koolituse algusaasta, $k=t-G_i$ on sündmusaeg ja $k=-1$ on võrdlusperiood; kunagi mitteosalejate sündmusaja indikaatorid on nullid. See lubab mõju ajas muutuda, kuid **ei lahenda automaatselt eri kohortide heterogeensete mõjude probleemi**. Näiteks $\beta_1$ võib sisaldada teiste sündmusaegade mõjude panuseid ja koolituseelsed kordajad võivad olla moonutatud.
+
+#### Sun–Abrahami meetodi põhimõte
+
+Sun–Abraham (2021) hindab *kohordi ja sündmusaja* mõjud eraldi ning liidab need alles seejärel dünaamiliseks keskmiseks. Defineerime
+
+$$
+CATT_{g,k}=E[Y_{i,g+k}(1)-Y_{i,g+k}(0)\mid G_i=g],\qquad k\geq 0.
+$$
+
+Siin $CATT_{2010,1}$ on 2010. aastal koolitatute keskmine mõju 2011. aastal. Lihtsustatud kohordispetsiifiliste indikaatoritega mudel on
+
+$$
+Y_{it}=\alpha_i+\gamma_t+
+\sum_g\sum_{k\neq -1}\delta_{g,k}
+\mathbf{1}(G_i=g)\mathbf{1}(t-g=k)+\varepsilon_{it}.
+$$
+
+Regressioonis tuleb kasutada sobivat, mõjust puutumata võrdlusrühma (näiteks kunagi mitteosalejad); valemi kuju on illustratiivne ning identifitseerimine sõltub sellest, millised võrdlused ja perioodid on kättesaadavad. Pärast kohordipõhiste mõjude hindamist arvutatakse näiteks üks aasta pärast koolitust
+
+$$
+\boxed{ATT^{SA}_{1}=\sum_{g\in\mathcal G_1}w_{g,1}CATT_{g,1}},
+\qquad \sum_{g\in\mathcal G_1}w_{g,1}=1.
+$$
+
+Kui kahes võrdselt suures kohordis on esimesel koolitusjärgsel aastal mõju vastavalt 500 ja 200 eurot, siis keskmine mõju on $0.5\cdot500+0.5\cdot200=350$ eurot. Meetodi põhiline tugevus on TWFE sündmusuuringu problemaatiliste, teiste sündmusaegade mõjudest saastunud koefitsientide vältimine.
+
+#### Callaway–Sant'Anna meetodi põhimõte
+
+Callaway–Sant'Anna (2021) lähtub esmalt iga kohordi $g$ ja kalendriaasta $t$ keskmisest mõjust
+
+$$
+ATT(g,t)=E[Y_{it}(1)-Y_{it}(0)\mid G_i=g],\quad t\geq g.
+$$
+
+Ilma täiendavate taustatunnusteta ning kasutades kunagi mitteosalejaid võrdlusrühmana ($G=\infty$), saab selle esitada lihtsa DiD vahena:
+
+$$
+\boxed{\begin{aligned}
+ATT(g,t)={}&E[Y_t-Y_{g-1}\mid G=g]\\
+&-E[Y_t-Y_{g-1}\mid G=\infty].
+\end{aligned}}
+$$
+
+Näiteks, kui 2010. aasta koolituskohordi palk tõusis 2009. ja 2011. aasta vahel 900 eurot ning kunagi mitteosalenutel 500 eurot, siis $ATT(2010,2011)=400$ eurot. Oluline on kasutada **sama lähteperioodi** mõlema rühma jaoks.
+
+Pärast $ATT(g,t)$ hinnangute leidmist võib arvutada erinevaid kokkuvõtteid:
+
+$$
+\underbrace{ATT^{CS}_k=\sum_{g\in\mathcal G_k}w_{g,k}ATT(g,g+k)}_{\text{dünaamiline mõju}},
+$$
+
+$$
+\underbrace{ATT^{CS}_{t}=\sum_{g\leq t}w_{g,t}ATT(g,t)}_{\text{kalendriaasta keskmine mõju}},
+$$
+
+$$
+\underbrace{ATT^{CS}=\sum_g\sum_{t\geq g}w_{g,t}ATT(g,t)}_{\text{üldine keskmine mõju}}.
+$$
+
+Kaalude summa on igas agregeerimises üks ning need sõltuvad valitud keskmise mõju määratlusest. Võrdlusrühmaks võivad olla kunagi mitteosalejad või veel mitteosalejad, kui nad pole vastaval ajal meetmest mõjutatud. Callaway–Sant'Anna meetod võimaldab ka tingimuslikke paralleelseid trende taustatunnuste $X$ suhtes ning regressiooni, kaalumise ja *doubly robust* hindamist.
+
+#### Nelja DiD meetodi võrdlus
+
+| Meetod | Hinnatav mõju | Peamised eeldused | Tugevused | Millal kasutada? |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| **Tavaline DiD (TWFE)** | Üks kordaja $\delta$ | Paralleelsed trendid ja ennetava mõju puudumine; staggered-disainis ATT tõlgendamiseks täiendavad piirangud mõjudele | Lihtne arvutada ja selgitada | 2×2 disain või põhjendatult homogeenne mõju |
+| **TWFE event-study** | Sündmusaja kordajad $\beta_k$ | Paralleelsed trendid ja ennetava mõju puudumine; eri kohortide korral piirangud mõjude heterogeensusele | Visualiseerib dünaamikat ja koolituseelseid erinevusi | Ühine meetme algusaeg või sobivalt homogeenne dünaamiline mõju |
+| **Sun–Abraham** | $CATT_{g,k}$ ja sündmusaja keskmised | Paralleelsed trendid sobiva võrdlusrühmaga, ennetava mõju puudumine, identifitseeritavad kohordid ja perioodid | Väldib TWFE dünaamiliste kordajate saastumist | Eri algusajad, põhihuvi mõju dünaamikal |
+| **Callaway–Sant'Anna** | $ATT(g,t)$ ja erinevad agregeeritud ATT-d | Paralleelsed (vajaduse korral tingimuslikud) trendid, ennetava mõju puudumine, võrreldavus/ühisosa | Paindlikud keskmised, taustatunnuste arvestamine, doubly robust hinnangud | Eri algusajad, huvi dünaamika, kohortide või üldise ATT vastu |
+
+**Praktiline soovitus.** Kui kõigil osalejatel algab meede korraga, võib klassikalisest DiD-st ja TWFE sündmusuuringust piisata. Kui alustatakse eri aegadel ning mõju võib kohortide või kestuse lõikes erineda, eelista Sun–Abrahami dünaamilist hinnangut või Callaway–Sant'Anna kohordi-aasta põhist lähenemist. Mõlemad vajavad endiselt usutavat paralleelsete trendide eeldust: statistiliselt ebaolulised koolituseelsed kordajad ei tõesta seda eeldust.
+
+**Kas meetodid annavad sama tulemuse?** Kui hinnatakse sama põhjuslikku parameetrit, kasutatakse võrreldavaid kontrollrühmi ja sarnaseid agregeerimiskaale, võivad Sun–Abrahami ja Callaway–Sant'Anna tulemused olla lähedased. Erinevad tulemused ei tõesta iseenesest TWFE nihet: esmalt tuleb kontrollida, et võrreldaks sama hinnatavat keskmist mõju.
 
 #### Sun–Abrahami dünaamiline hinnang
 

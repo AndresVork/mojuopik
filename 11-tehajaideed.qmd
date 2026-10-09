@@ -1,19 +1,13 @@
-# Teha
+# Ideid
 
-Lisada peatükid:
+- Simuleeritud andmetele RDDs McCrary testi näide ja platseebo testi näide
 
--   Interrupted time series
+- Regression Discontinuity in Space
 
--   RDD peatükki alapunktid
+- Causal forest for panel data,
 
-    -   Regression Discontinuity in Time - seos interrupted time series meetodiga
+  - <https://onlinelibrary.wiley.com/doi/full/10.1002/jae.70001>
 
-    -   Regression Discontinuity in Space
+  - 
+- Lisada iga peatüki lõppu tabel Eesti huvitavatest uuringutest
 
--   Struktuursete võrranditega mudelid (SEM), seos DAGiga
-
--   Causal forest for panel data,
-
-    -   <https://onlinelibrary.wiley.com/doi/full/10.1002/jae.70001>
-
-    -   

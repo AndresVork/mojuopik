@@ -1,7 +1,6 @@
 # Masinõppemeetodid mõju hindamisel: puust kausaalmetsani
 
-*TODO: Tähistused ühtlustamata varasemate peatükkidega*
-*Kontrollimata*
+*TODO: Tähistused ühtlustamata varasemate peatükkidega* *Kontrollimata*
 
 Selles peatükis vaatame, kuidas saab masinõppemeetodeid kasutada põhjusliku mõju hindamisel. Keskendume kolmele omavahel seotud meetodile:
 
@@ -12,7 +11,7 @@ Selles peatükis vaatame, kuidas saab masinõppemeetodeid kasutada põhjusliku m
 Põhiidee on liikuda samm-sammult prognoosimisest mõju hindamiseni. Kõigepealt õpime, kuidas puu ja juhumets prognoosivad tulemust $Y$. Seejärel kasutame juhumetsa regressiooniga kohandamise ehk *g-computation* loogikas: prognoosime iga inimese tulemuse nii meetmes osalemise kui mitteosalemise korral. Viimaks jõuame kausaalmetsani, mille eesmärk ei ole enam prognoosida $Y$-d, vaid otse tingimuslikku põhjuslikku mõju
 
 $$
-\tau(x)=E[Y(1)-Y(0)\mid X=x].
+\tau(x)=E[Y^1-Y^0\mid X=x].
 $$
 
 Peatüki lõpus seome kausaalmetsa peatükis õpitud **AIPW**-hinnanguga.
@@ -34,7 +33,7 @@ Peatüki lõpuks peaksid oskama:
 Traditsioonilise ökonomeetria ja masinõppe rõhuasetused on sageli erinevad.
 
 |   | Traditsiooniline ökonomeetria | Masinõpe |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Põhiküsimus | Milline on $X$ või meetme $D$ mõju $Y$-le? | Kui hästi suudame uut $Y$ väärtust prognoosida? |
 | Mudeli kuju | Sageli määratakse ette | Väga paindlik |
 | Tunnuste valik | Majandusteooria ja varasemad uuringud | Sageli andmepõhine |
@@ -46,11 +45,15 @@ Traditsioonilise ökonomeetria ja masinõppe rõhuasetused on sageli erinevad.
 
 Masinõppe tugevus on eeskätt **paindlik prognoosimine**. See on kasulik ka põhjusliku mõju hindamisel, sest mitmed põhjusliku mõju meetodid sisaldavad prognoosimisülesandeid.
 
-Näiteks eelmistes peatükkides kasutasime regressiooniga kohandamist:
+Näiteks eelmistes peatükkides kasutasime regressioonimudeliga kohandamist.
+
+Milline on väljundi prognoositav väärtus meetmes osalemise korral etteantud $x$-de korral:
 
 $$
 \mu_1(x)=E[Y\mid D=1,X=x],
 $$
+
+ja milline on väljundi prognoositav väärtus meetmes mitte-osalemise korral etteantud $x$-de korral
 
 $$
 \mu_0(x)=E[Y\mid D=0,X=x].
@@ -75,15 +78,15 @@ $$
 \right].
 $$
 
-Lineaarne regressioon on ainult üks võimalus funktsioonide $\mu_1(x)$ ja $\mu_0(x)$ hindamiseks. Nende asemel võime kasutada ka juhumetsa.
+Lineaarne regressioon on ainult üks võimalus funktsioonide $\mu_1(x)$ ja $\mu_0(x)$ hindamiseks. Nende asemel võime kasutada ka masinõppemeetodeid, näiteks juhumetsa.
 
 ::: callout-important
 ## Masinõpe ei lahenda põhjusliku identifitseerimise probleemi
 
-Paindlikum prognoosimudel ei muuda korrelatsiooni automaatselt põhjuslikuks mõjuks. Vaatlusandmete korral vajame endiselt tingliku sõltumatuse eeldust
+Oluline on meeles pidada, et paindlikum prognoosimudel ei muuda korrelatsiooni automaatselt põhjuslikuks mõjuks. Vaatlusandmete korral vajame endiselt tingliku sõltumatuse eeldust (CIA)
 
 $$
-\{Y(1),Y(0)\}\perp D\mid X
+\{Y^1,Y^0\}\perp D\mid X
 $$
 
 ning ühist tuge
@@ -92,7 +95,7 @@ $$
 0<P(D=1\mid X)<1.
 $$
 
-Masinõpe aitab paindlikumalt modelleerida seoseid **pärast seda**, kui oleme määratlenud usutava põhjusliku identifitseerimise strateegia.
+Masinõpe aitab paindlikumalt modelleerida seoseid **pärast seda**, kui oleme määratlenud usutava põhjusliku identifitseerimise strateegia (nt et me omame väga head taustatunnuste hulka X).
 :::
 
 ## Otsustuspuu
@@ -663,11 +666,11 @@ $$
 siis saame prognoosida iga vaatluse kaks potentsiaalset tulemust:
 
 $$
-\hat Y_i(1)=\hat\mu_1(X_i),
+\hat Y^1_i=\hat\mu_1(X_i),
 $$
 
 $$
-\hat Y_i(0)=\hat\mu_0(X_i).
+\hat Y^0_i=\hat\mu_0(X_i).
 $$
 
 Seejärel
@@ -793,7 +796,7 @@ $$
 \boxed{
 \tau(x)
 =
-E[Y(1)-Y(0)\mid X=x]
+E[Y^1-Y^0\mid X=x]
 }
 $$
 
@@ -836,18 +839,18 @@ Kausaalse metsa eesmärk on otsida sellist heterogeensust andmetest paindlikumal
 
 Kolme mudeli erinevus on kasulik kokku võtta nii:
 
-| Meetod          | Mida mudel õpib?       | Tüüpiline väljund |
-|-----------------|------------------------|-------------------|
-| Regressioonipuu | $E[Y\mid X=x]$         | $\hat Y(x)$       |
-| Juhumets        | $E[Y\mid X=x]$         | $\hat Y(x)$       |
-| Kausaalmets     | $E[Y(1)-Y(0)\mid X=x]$ | $\hat\tau(x)$     |
+| Meetod          | Mida mudel õpib?     | Tüüpiline väljund |
+|-----------------|----------------------|-------------------|
+| Regressioonipuu | $E[Y\mid X=x]$       | $\hat Y(x)$       |
+| Juhumets        | $E[Y\mid X=x]$       | $\hat Y(x)$       |
+| Kausaalmets     | $E[Y^1-Y^0\mid X=x]$ | $\hat\tau(x)$     |
 
 Seega causal forest'i põhiobjekt ei ole tulemus ise, vaid **mõju funktsioon**.
 
 ::: callout-note
 ## Kas $\hat\tau(X_i)$ on inimese individuaalne põhjuslik mõju?
 
-Mitte päris. Ühe inimese mõlemat potentsiaalset tulemust $Y_i(1)$ ja $Y_i(0)$ ei saa korraga vaadelda. Causal forest hindab **tingimuslikku keskmist mõju** inimestele, kellel on tunnused $X=x$.
+Mitte päris. Ühe inimese mõlemat potentsiaalset tulemust $Y^1_i$ ja $Y^0_i$ ei saa korraga vaadelda. Causal forest hindab **tingimuslikku keskmist mõju** inimestele, kellel on tunnused $X=x$.
 
 Praktikas räägitakse sageli "individuaalsest" või "personaliseeritud" mõjuprognoosist, kuid statistiliselt on täpsem mõelda sellest kui $\widehat{CATE}(x)$-ist.
 :::
@@ -923,7 +926,7 @@ ja
 $$
 \tilde D_i
 =
-D_i-\hat e(X_i).
+D_i-\hat p(X_i).
 $$
 
 Esimene eemaldab $Y$-st selle osa, mida $X$ niigi prognoosib. Teine eemaldab osalemisest selle osa, mida $X$ prognoosib.
@@ -968,10 +971,10 @@ $$
 =
 \hat\mu_1(X_i)-\hat\mu_0(X_i)
 +
-\frac{D_i}{\hat e(X_i)}
+\frac{D_i}{\hat p(X_i)}
 \left[Y_i-\hat\mu_1(X_i)\right]
 -
-\frac{1-D_i}{1-\hat e(X_i)}
+\frac{1-D_i}{1-\hat p(X_i)}
 \left[Y_i-\hat\mu_0(X_i)\right]
 }
 $$
@@ -1007,8 +1010,8 @@ $$
 =
 \hat\tau(X_i)
 +
-\frac{D_i-\hat e(X_i)}
-{\hat e(X_i)[1-\hat e(X_i)]}
+\frac{D_i-\hat p(X_i)}
+{\hat p(X_i)[1-\hat p(X_i)]}
 \left[
 Y_i-\hat\mu(X_i,D_i)
 \right]
@@ -1172,7 +1175,7 @@ Erinevus viitab sellele, et mõju võib rühmade vahel erineda, kuigi pelgalt ne
 CATE on funktsioon
 
 $$
-\tau(x)=E[Y(1)-Y(0)\mid X=x],
+\tau(x)=E[Y^1-Y^0\mid X=x],
 $$
 
 mida prognoosib `predict(c.forest)`.
@@ -1417,7 +1420,7 @@ See on paindlik **regressiooniga kohandamine / g-computation**.
 Metsa eesmärk on algusest peale õppida
 
 $$
-\tau(x)=E[Y(1)-Y(0)\mid X=x].
+\tau(x)=E[Y^1-Y^0\mid X=x].
 $$
 
 Meetod:
@@ -1431,7 +1434,7 @@ Meetod:
 # Puu, juhumetsa ja causal forest'i võrdlus
 
 | Omadus | Puu | Juhumets | Causal forest |
-|------------------|------------------|------------------|------------------|
+|----|----|----|----|
 | Põhieesmärk | prognoosida $Y$ | prognoosida $Y$ | hinnata $\tau(x)$ |
 | Mudelite arv | 1 puu | palju puid | palju põhjuslikke puid |
 | Mittelineaarsus | jah | jah | jah |
@@ -1473,7 +1476,7 @@ Põhjuslikus analüüsis saame juhumetsa kõigepealt kasutada samamoodi nagu reg
 Causal forest läheb sammu edasi. Selle otsene eesmärk on õppida tingimuslikku keskmist põhjuslikku mõju
 
 $$
-\tau(x)=E[Y(1)-Y(0)\mid X=x].
+\tau(x)=E[Y^1-Y^0\mid X=x].
 $$
 
 See võimaldab uurida, **kelle jaoks** meede töötab rohkem ja kelle jaoks vähem.
@@ -1505,7 +1508,7 @@ Seos eelmise peatüki AIPW-ga on põhimõtteline. Masinõpe aitab paindlikult õ
 3.  See muudab puud omavahel vähem sarnaseks ja parandab keskmistatud prognoosi stabiilsust.
 4.  OOB prognoos kasutab ainult neid puid, mille ehitamisel konkreetset vaatlust ei kasutatud; see vähendab in-sample ülesobitamise probleemi.
 5.  Juhumets prognoosib tavaliselt tulemust $Y$, causal forest tingimuslikku mõju $\tau(x)$.
-6.  $\tau(x)=E[Y(1)-Y(0)\mid X=x]$.
+6.  $\tau(x)=E[Y^1-Y^0\mid X=x]$.
 7.  Me ei vaatle ühe inimese mõlemat potentsiaalset tulemust; hinnang on tingimuslik keskmine sarnaste tunnustega inimestele.
 8.  Need on abimudelid tulemuse ja meetmes osalemise prognoosimiseks ning neid kasutatakse ortogonaliseerimisel.
 9.  Funktsioon kasutab doubly robust AIPW-skoore, mitte ainult CATE prognooside lihtsat keskmist.
