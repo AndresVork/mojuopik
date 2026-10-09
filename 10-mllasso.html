@@ -361,7 +361,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23/09/2026</p>
+      <p class="date-modified">09/10/2026</p>
     </div>
   </div>
     
@@ -978,8 +978,8 @@ Call:  cv.glmnet(x = xw, y = y, nfolds = 5, alpha = 1)
 Measure: Mean-Squared Error 
 
       Lambda Index Measure        SE Nonzero
-min 0.002847    38  0.2375 0.0010141      13
-1se 0.009543    25  0.2384 0.0007517      12</code></pre>
+min 0.002594    39  0.2373 0.0010355      14
+1se 0.008695    26  0.2382 0.0007778      13</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#min - näitab minimaalse MSE väärtusega</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -988,7 +988,7 @@ min 0.002847    38  0.2375 0.0010141      13
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>best_lambda</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.002847265</code></pre>
+<pre><code>[1] 0.002594322</code></pre>
 </div>
 </div>
 <p>Teeme joonise lambda väärtuse ja testandmestiku MSE vahel</p>
@@ -1012,26 +1012,26 @@ min 0.002847    38  0.2375 0.0010141      13
 <div class="cell-output cell-output-stdout">
 <pre><code>20 x 1 sparse Matrix of class "dgCMatrix"
                        s0
-(Intercept)       0.37020
-d                 0.03781
-year2006          .      
+(Intercept)       0.36884
+d                 0.03826
+year2006          0.00013
 year2007          .      
 age3049           .      
-age5064          -0.08264
-gendermale       -0.01972
+age5064          -0.08357
+gendermale       -0.01997
 collarwhite       .      
-immigrant1       -0.07586
-rural            -0.02752
+immigrant1       -0.07663
+rural            -0.02802
 regionBludhaven   .      
-regionCentral    -0.00999
-regionGotham      0.04016
+regionCentral    -0.01046
+regionGotham      0.04021
 regionMetropolis  .      
-educSecondary     0.04547
-educTertiary      0.08206
-lastemp1_2        0.03148
-lastemp2_4        0.05005
-lastempover4      0.03173
-benefit           0.14757</code></pre>
+educSecondary     0.04703
+educTertiary      0.08336
+lastemp1_2        0.03269
+lastemp2_4        0.05120
+lastempover4      0.03276
+benefit           0.14765</code></pre>
 </div>
 </div>
 <p>Üllatuslikult jäid kõik alles - post-LASSO</p>
@@ -1052,30 +1052,31 @@ lm(formula = as.formula(formula_str), data = atp3)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--0.7473 -0.4592 -0.2412  0.4706  0.7966 
+-0.7502 -0.4570 -0.2389  0.4697  0.7996 
 
 Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    0.35548    0.01959  18.142  &lt; 2e-16 ***
-d              0.04287    0.01345   3.189 0.001436 ** 
-age5064       -0.09318    0.01508  -6.179 6.81e-10 ***
-gendermale    -0.02241    0.01187  -1.889 0.058966 .  
-immigrant1    -0.08436    0.01627  -5.185 2.22e-07 ***
-rural         -0.03302    0.01478  -2.234 0.025510 *  
-regionCentral -0.01541    0.01581  -0.975 0.329820    
-regionGotham   0.04054    0.01418   2.858 0.004277 ** 
-educSecondary  0.06323    0.01699   3.722 0.000200 ***
-educTertiary   0.09693    0.01751   5.535 3.23e-08 ***
-lastemp1_2     0.04511    0.01890   2.387 0.017024 *  
-lastemp2_4     0.06299    0.01691   3.725 0.000197 ***
-lastempover4   0.04336    0.01491   2.909 0.003640 ** 
-benefit        0.14851    0.01224  12.135  &lt; 2e-16 ***
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    0.352641   0.020482  17.217  &lt; 2e-16 ***
+d              0.042893   0.013447   3.190 0.001430 ** 
+year2006       0.005514   0.011576   0.476 0.633831    
+age5064       -0.093075   0.015083  -6.171 7.17e-10 ***
+gendermale    -0.022512   0.011868  -1.897 0.057890 .  
+immigrant1    -0.084846   0.016303  -5.204 2.00e-07 ***
+rural         -0.033108   0.014784  -2.239 0.025160 *  
+regionCentral -0.015077   0.015827  -0.953 0.340809    
+regionGotham   0.040877   0.014203   2.878 0.004012 ** 
+educSecondary  0.063272   0.016991   3.724 0.000198 ***
+educTertiary   0.097076   0.017517   5.542 3.10e-08 ***
+lastemp1_2     0.044846   0.018910   2.371 0.017743 *  
+lastemp2_4     0.062866   0.016912   3.717 0.000203 ***
+lastempover4   0.043182   0.014912   2.896 0.003794 ** 
+benefit        0.148384   0.012242  12.121  &lt; 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.4864 on 7126 degrees of freedom
-Multiple R-squared:  0.0554,    Adjusted R-squared:  0.05368 
-F-statistic: 32.15 on 13 and 7126 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.4864 on 7125 degrees of freedom
+Multiple R-squared:  0.05543,   Adjusted R-squared:  0.05357 
+F-statistic: 29.86 on 14 and 7125 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>LASSO kordajad peaksid olema nihkega nulli suunas</p>
@@ -1091,7 +1092,7 @@ F-statistic: 32.15 on 13 and 7126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min</span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>best_lambda</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0004035924</code></pre>
+<pre><code>[1] 0.0005855435</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model) </span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -1105,27 +1106,27 @@ F-statistic: 32.15 on 13 and 7126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(best_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>20 x 1 sparse Matrix of class "dgCMatrix"
-                            s0
-(Intercept)       3.440877e-01
-d                 4.228735e-02
-year2006          4.603104e-03
-year2007         -3.903406e-18
-age3049          -1.349878e-02
-age5064          -1.026766e-01
-gendermale       -2.166309e-02
-collarwhite      -6.283941e-03
-immigrant1       -7.876144e-02
-rural            -3.312358e-02
-regionBludhaven   2.170867e-02
-regionCentral     .           
-regionGotham      5.581362e-02
-regionMetropolis  1.822716e-02
-educSecondary     6.229590e-02
-educTertiary      9.974466e-02
-lastemp1_2        4.480895e-02
-lastemp2_4        6.370545e-02
-lastempover4      4.685513e-02
-benefit           1.512801e-01</code></pre>
+                           s0
+(Intercept)       0.345455807
+d                 0.041952292
+year2006          0.004294945
+year2007          .          
+age3049          -0.012218688
+age5064          -0.100864510
+gendermale       -0.021503636
+collarwhite      -0.005046119
+immigrant1       -0.078280175
+rural            -0.032704480
+regionBludhaven   0.020471647
+regionCentral     .          
+regionGotham      0.055016187
+regionMetropolis  0.017105021
+educSecondary     0.060843917
+educTertiary      0.098035054
+lastemp1_2        0.043696744
+lastemp2_4        0.062551046
+lastempover4      0.045519230
+benefit           0.150870690</code></pre>
 </div>
 </div>
 <p>Käsk <code>rlasso</code></p>

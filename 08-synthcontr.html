@@ -319,7 +319,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">29/09/2026</p>
+      <p class="date-modified">09/10/2026</p>
     </div>
   </div>
     
@@ -334,12 +334,14 @@ window.Quarto = {
 <p>Poolik - arenev</p>
 <section id="taust" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="taust"><span class="header-section-number">11.1</span> Taust</h2>
-<p>Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (synthetic control method), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.</p>
-<p>Motivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, sest subjektiivne valik võib kallutada tulemusi. Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.</p>
+<p>Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (<em>synthetic control method</em>), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.</p>
+<p>Eesti keeles oleme kasutanud ka nime sünteentilise kontrolli meetod. Alljärgnevalt on kasutatud hetkel mõisteid vaheldumisi.</p>
+<p>Motivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, (nt võrdleme Eestit Lätiga) sest subjektiivne valik võib kallutada tulemusi (miks mitte võrrelda Eestit Leeduga?).</p>
+<p>Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.</p>
 </section>
 <section id="taust-ja-rakenduste-näited" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="taust-ja-rakenduste-näited"><span class="header-section-number">11.2</span> Taust ja rakenduste näited</h2>
-<p>Empiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Abadie, Diamond ja Hainmueller (2010) meetodit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.</p>
+<p>Empiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Samuti peetakse oluliseks Abadie, Diamond ja Hainmueller (2010) artiklit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.</p>
 <p>Eestis on meetodit kasutatud näiteks Centari analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Samuti kasutab Meriküll (2025) sünteetilise dif-dif lähenemist, et hinnata, kuidas kogumispensioni varasem vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud.</p>
 <p>Need näited illustreerivad, et sünteetilise kontrolli meetod on kasulik just siis, kui mõjutatud üksusi on vähe ja me soovime vältida ad hoc ühe võrdlusriigi või -piirkonna valikut.</p>
 <section id="seade-ja-tähistused" class="level3">
@@ -351,10 +353,10 @@ window.Quarto = {
 \]</span></p>
 <p>kus <span class="math inline">\(Y_{1t}^{I}\)</span> on tulemus sekkumisega (täheldatav) ning <span class="math inline">\(Y_{1t}^{N}\)</span> oleks tulemus ilma sekkumiseta (võrdlusseisund), mida otseselt ei näe.</p>
 <p>Sünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida <span class="math inline">\(Y_{1t}^{N}\)</span> konstrueeritakse kontrollobjektide kaalutud keskmisena:</p>
-<p><span class="math display">\[ Y\_{1t}\^{N} \approx \sum*{j=2}\^{J+1} w_j Y*{jt}, \quad t = 1, \dots, T, \]</span></p>
+<p><span class="math display">\[ Y_{1t}^{N} \approx \sum_{j=2}^{J+1} w_j Y*{jt}, \quad t = 1, \dots, T, \]</span></p>
 <p>kus kaalud <span class="math inline">\(w_j \geq 0\)</span> ja <span class="math inline">\(\sum_{j=2}^{J+1} w_j = 1\)</span>. Need kaalud määravad „sünteetilise kontrolli”, ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada käsitletava objektiga võimalikult täpselt.</p>
 <p>Sellisel juhul on mõju hinnang ajapunktis <span class="math inline">\(t &gt; T_0\)</span>:</p>
-<p><span class="math display">\[ \hat{\alpha}*{1t} = Y*{1t} - \sum\_{j=2}\^{J+1} \hat{w}*j Y*{jt}. \]</span></p>
+<p><span class="math display">\[ \hat{\alpha}_{1t} = Y*{1t} - \sum_{j=2}^{J+1} \hat{w}*j Y*{jt}. \]</span></p>
 <p>Graafiliselt saame võrrelda käsitletava objekti tegelikku rada ning sünteetilise kontrolli rada, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.</p>
 </section>
 <section id="selgitavad-tunnused-ja-kaalud" class="level3">

@@ -356,7 +356,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">05/10/2026</p>
+      <p class="date-modified">10/10/2026</p>
     </div>
   </div>
     
@@ -367,7 +367,6 @@ window.Quarto = {
 </header>
 
 
-<p><strong>NB! Tähistused ühtlustamata. Lisada viited</strong></p>
 <p>Selles peatükis vaatame, kuidas hinnata põhjuslikku mõju <strong>kaalumise</strong> abil. Põhiidee on väga sarnane sobitamisele: tahame muuta osalus- ja võrdlusrühma taustatunnuste jaotused omavahel võrreldavaks. Sobitamisel valisime igale osalejale ühe või mitu sarnast võrdlusisikut. Kaalumisel jätame põhimõtteliselt kõik vaatlused alles, kuid anname neile erineva kaalu.</p>
 <p>Peatüki lõpuks peaksid oskama:</p>
 <ul>
@@ -456,11 +455,11 @@ w_{0,S}=\frac{20}{10}=2.
 <p>Osalejate kaal on ATT puhul 1. Pärast kaalumist on võrdlusrühma efektiivne piirkondlik koosseis sama mis osalejatel:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 22%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -735,10 +734,10 @@ D\frac{1-p(X)}{p(X)}Y
 <h3 class="anchored" data-anchor-id="kolm-hinnangut-ühe-tabelina">Kolm hinnangut ühe tabelina</h3>
 <table class="caption-top table">
 <colgroup>
+<col style="width: 22%">
 <col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 30%">
+<col style="width: 22%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1079,7 +1078,7 @@ m_0(X)=E[Y\mid D=0,X].
 <ul>
 <li>kui osalemismudel <span class="math inline">\(p(X)\)</span> on õigesti määratud, võib tulemusemudel olla valesti määratud;</li>
 <li>kui tulemusemudelid <span class="math inline">\(m_1(X)\)</span> ja <span class="math inline">\(m_0(X)\)</span> on õigesti määratud, võib osalemismudel olla valesti määratud;</li>
-<li>hinnang on endiselt kooskõlaline, kui vähemalt üks neist kahest mudeliosast on korrektne.</li>
+<li>hinnang on endiselt kooskõlaline (<em>consistent</em>), kui vähemalt üks neist kahest mudeliosast on korrektne.</li>
 </ul>
 <p>Näiteks kui <span class="math inline">\(p(X)\)</span> on korrektne, siis</p>
 <p><span class="math display">\[
@@ -1092,7 +1091,10 @@ E\left[
 =
 E[Y^1\mid X]
 \]</span></p>
-<p>ka siis, kui <span class="math inline">\(\hat m_1(X)\)</span> ise pole õige regressioonifunktsioon.</p>
+<p>ka siis, kui <span class="math inline">\(\hat m_1(X)\)</span> ise pole õige regressioonifunktsioon. See on tuleneb sellest, et korrektselt spetsifitseeritud <span class="math inline">\(p(X)\)</span> korral prognoosib mudel täpselt meetmes osalejate iga <span class="math inline">\(X\)</span> korral ja nad taanduvad välja.</p>
+<p><span class="math display">\[
+E\left[{p(X)} \mid X \right] = E\left[D \mid X \right]
+\]</span></p>
 <p>Kui aga <span class="math inline">\(m_1(X)\)</span> on korrektne, siis jäägi</p>
 <p><span class="math display">\[
 Y-m_1(X)
