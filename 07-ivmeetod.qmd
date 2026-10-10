@@ -165,6 +165,231 @@ summary(iv_mod)
 Parempoolsel poolel: vasak pool enne `|` on struktuurne mudel (`Y ~` endogeensed + eksogeensed tunnused), parem pool pärast `|` on instrumendid ja eksogeensed tunnused.
 :::
 
+## Instrumentmuutuja hinnang kui regressioonikordajate suhe
+
+Instrumentmuutuja hinnangut saab esitada ka kui regressioonikordajate suhet.
+
+**Juht 1. Ilma teiste selgitavate muutujateta.**
+
+Oletame, et meid huvitab muutuja $D_i$ põhjuslik mõju tulemusele $Y_i$:
+
+$$
+Y_i = \beta_0 + \beta_1 D_i + u_i,
+$$
+
+kus $D_i$ on endogeenne selgitav muutuja ning $Z_i$ on instrumentmuutuja. Eeldame, et instrument on asjakohane ja eksogeenne, st
+
+$$
+\operatorname{Cov}(Z_i,D_i) \neq 0
+\quad \text{ja} \quad
+\operatorname{Cov}(Z_i,u_i)=0.
+$$
+
+**1. Hindame taandatud kujul** (*reduced form*) regressioonimudeli, kus $Y$ sõltub instrumendist $Z$.
+
+$$
+Y_i = \gamma_0 + \gamma_1 Z_i + \varepsilon_i.
+$$
+
+Selle mudeli regressioonikordaja on (tuleta meelde see avaldis ökonomeetria sissejuhatavast kursusest).
+
+$$
+\gamma_1
+=
+\frac{\operatorname{Cov}(Z,Y)}
+{\operatorname{Var}(Z)}.
+$$
+
+Kordaja $\gamma_1$ näitab, kuidas muutub keskmiselt tulemus $Y$, kui instrument $Z$ suureneb ühe ühiku võrra.
+
+**2. Hindame muutuja** $D$ sõltuvust instrumendist $Z$. See on sisuliselt 2SLSi esimene samm :
+
+$$
+D_i = \pi_0 + \pi_1 Z_i + v_i.
+$$
+
+Selle mudeli regressioonikordaja on
+
+$$
+\pi_1
+=
+\frac{\operatorname{Cov}(Z,D)}
+{\operatorname{Var}(Z)}.
+$$
+
+Kordaja $\pi_1$ näitab, kuidas muutub keskmiselt endogeenne muutuja $D$, kui instrument $Z$ suureneb ühe ühiku võrra.
+
+**3. Arvutame IV hinnangu kahe regressioonikordaja suhtena.**
+
+Instrumentmuutuja hinnang ehk Waldi hinnang on leitav kui
+
+$$
+\boxed{
+\hat{\beta}_{1,IV}
+=
+\frac{\hat{\gamma}_1}{\hat{\pi}_1}
+=
+\frac{
+\widehat{\operatorname{Cov}}(Z,Y)/
+\widehat{\operatorname{Var}}(Z)
+}{
+\widehat{\operatorname{Cov}}(Z,D)/
+\widehat{\operatorname{Var}}(Z)
+}
+=
+\frac{
+\widehat{\operatorname{Cov}}(Z,Y)
+}{
+\widehat{\operatorname{Cov}}(Z,D)
+}
+}
+$$
+
+Saadud tulemus (kovariatsioonide suhe) ongi see, mida üleval näitasime.
+
+Seega saab IV hinnangut tõlgendada järgmiselt:
+
+$$
+\boxed{
+\text{IV hinnang}
+=
+\frac{\text{Instrumendi mõju tulemusele }Y}
+{\text{Instrumendi mõju muutujale }D}
+}
+$$
+
+IV hinnang näitab, kui palju muutub $Y$, kui $D$ muutub ühe ühiku võrra instrumendi $Z$ põhjustatud muutuse tulemusena.
+
+Kui instrument $Z$ on binaarne (0 või 1), saab sama hinnangu esitada rühmade keskmiste erinevuste suhtena:
+
+$$
+\hat{\beta}_{1,IV}
+=
+\frac{
+\overline{Y}_{Z=1}-\overline{Y}_{Z=0}
+}{
+\overline{D}_{Z=1}-\overline{D}_{Z=0}
+}.
+$$
+
+See on klassikaline Waldi hinnang binaarse instrumendi korral.
+
+**Juht 2. Mudelis on teised selgitavad tegurid**
+
+Oletame nüüd, et lisaks endogeensele muutujale $D_i$ mõjutab tulemust ka eksogeenne muutuja $X_i$:
+
+$$
+Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + u_i.
+$$
+
+Sellisel juhul tuleb hinnangu leidmisel arvestada ka muutuja $X_i$ mõjuga.
+
+Seda saab teha **jääkide eraldamise** (*partialling out* ehk *residualisation*) abil. Kõigepealt eemaldame muutujatest $Y$, $D$ ja $Z$ selle osa, mida selgitab $X$.
+
+**1. Eemaldame muutuja** $X$ mõju.
+
+Hindame kolm regressioonimudelit:
+
+$$
+\begin{aligned}
+Y_i &= \alpha_{Y,0}+\alpha_{Y,1}X_i+e_{Y,i},\\
+D_i &= \alpha_{D,0}+\alpha_{D,1}X_i+e_{D,i},\\
+Z_i &= \alpha_{Z,0}+\alpha_{Z,1}X_i+e_{Z,i}.
+\end{aligned}
+$$
+
+Arvutame kõigi kolme regressiooni jäägid:
+
+$$
+\begin{aligned}
+\widetilde{Y}_i &= Y_i-\widehat{Y}_i,\\
+\widetilde{D}_i &= D_i-\widehat{D}_i,\\
+\widetilde{Z}_i &= Z_i-\widehat{Z}_i.
+\end{aligned}
+$$
+
+Jäägid $\widetilde{Y}_i$, $\widetilde{D}_i$ ja $\widetilde{Z}_i$ kirjeldavad vastavate muutujate varieeruvust, mida $X_i$ lineaarselt ei selgita.
+
+**2. Hindame jääkide vahel samad seosed, mis eelnevalt.**
+
+Hindame kaks regressioonimudelit:
+
+$$
+\widetilde{Y}_i
+=
+\gamma_1\widetilde{Z}_i+\varepsilon_i
+$$
+
+ja
+
+$$
+\widetilde{D}_i
+=
+\pi_1\widetilde{Z}_i+v_i.
+$$
+
+Nende regressioonide kordajad on
+
+$$
+\hat{\gamma}_1
+=
+\frac{
+\widehat{\operatorname{Cov}}(\widetilde{Z},\widetilde{Y})
+}{
+\widehat{\operatorname{Var}}(\widetilde{Z})
+}
+$$
+
+ja
+
+$$
+\hat{\pi}_1
+=
+\frac{
+\widehat{\operatorname{Cov}}(\widetilde{Z},\widetilde{D})
+}{
+\widehat{\operatorname{Var}}(\widetilde{Z})
+}.
+$$
+
+**3. Leiame instrumentmuutuja hinnangu.**
+
+IV hinnang on taas kahe kordaja suhe:
+
+$$
+\boxed{
+\hat{\beta}_{1,IV}
+=
+\frac{\hat{\gamma}_1}{\hat{\pi}_1}
+=
+\frac{
+\widehat{\operatorname{Cov}}(\widetilde{Z},\widetilde{Y})
+}{
+\widehat{\operatorname{Cov}}(\widetilde{Z},\widetilde{D})
+}
+}
+$$
+
+See on sama hinnang, mille saaksime tavapärase kaheastmelise vähimruutude meetodiga (2SLS), kui kasutame instrumentidena $Z_i$ ja eksogeenset muutujat $X_i$.
+
+Seega võimaldab jääkide eraldamine eemaldada teiste selgitavate muutujate mõju ja taandada ülesande jälle kahe regressioonikordaja suhte leidmisele.
+
+### Seos masinõppega
+
+Kui eksogeenseid tunnuseid $X$ on palju või nende seosed muutujatega $Y$, $D$ ja $Z$ on keerukad, võib lineaarsete regressioonide asemel kasutada paindlikumaid meetodeid, näiteks LASSO-t, juhumetsa või närvivõrke.
+
+Sellisel juhul hinnatakse tinglikke keskväärtusi
+
+$$
+E[Y\mid X], \qquad
+E[D\mid X], \qquad
+E[Z\mid X]
+$$
+
+ning moodustatakse nende põhjal jäägid, mida kasutatakse seejärel IV-hinnangu leidmiseks.
+
+Selline lähenemine on aluseks ka **double machine learning** (DML) meetoditele. DML-is kasutatakse lisaks sobivaid ortogonaalseid momenttingimusi ja enamasti rist-sobitamist (*cross-fitting*), et vähendada masinõppe hinnanguvigadest tulenevat nihet. Meie vaatame seda masinõppemeetodite peatükkides.
+
 ## Instrumentide tugevuse testimine
 
 Instrument peab olema piisavalt tugevalt seotud selgitava tunnusega $D_i$:
@@ -243,31 +468,25 @@ Seega peame võrdlema omavahel OLS ja 2SLS hinnanguid. Seega kui hinnangud on sa
 
 Me arvutame hinnatud parameetrite kaalutud keskmise erinevuse. Test-statistik on asümptootiliselt hii-ruut jaotusega, vabadusastmete arv on võrdne hinnatud parameetrite arvuga.
 
-
 $$
 H = [\beta^{IV} - \beta^{OLS}]' [Var(\beta^{IV})-Var(\beta^{OLS})]^{-1}[\beta^{IV} - \beta^{OLS}]  \sim \chi^2_{(k)}
-$$
-Kus $Var(\beta^{IV})$ ja $Var(\beta^{OLS})$ on parameetrite hinnangute kovariatsioonimaatriksid.
+$$ Kus $Var(\beta^{IV})$ ja $Var(\beta^{OLS})$ on parameetrite hinnangute kovariatsioonimaatriksid.
 
-Kui saadud teststatistik H on suurem kui kriitiline väärtus (ehk p <0.05 majandusanalüüsides), siis lükkame ümber $H_0$ ja järeldame, et parameetrite hinnangud on erinevad ja peaksime kasutama instrument-muutuja meetodit.
+Kui saadud teststatistik H on suurem kui kriitiline väärtus (ehk p \<0.05 majandusanalüüsides), siis lükkame ümber $H_0$ ja järeldame, et parameetrite hinnangud on erinevad ja peaksime kasutama instrument-muutuja meetodit.
 
-Märkus: mõned autorid soovitavad kasutada vabadusastmete arvuna mitte hinnatud parameetrite arvu (3 meie näites) vaid endogeensete muutujate arvu (1 meie näites). Asümptootiliselt ei ole sellel vahet, aga väikestes valimites võib mõjutada järeldust. 
-
+Märkus: mõned autorid soovitavad kasutada vabadusastmete arvuna mitte hinnatud parameetrite arvu (3 meie näites) vaid endogeensete muutujate arvu (1 meie näites). Asümptootiliselt ei ole sellel vahet, aga väikestes valimites võib mõjutada järeldust.
 
 ### Wu-Hausmani test
 
-Teine lähenemine on **kontrollfunktsiooni meetod**. Teises etapis hindasime seose 
-
+Teine lähenemine on **kontrollfunktsiooni meetod**. Teises etapis hindasime seose
 
 $$
 Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 D_i + \rho \hat v_i + u_i
 $$
 
-
 Kui $\hat v_i$ kordaja $\rho$ on statistiliselt oluline, siis on endogeensus probleem ja peaksime kasutama IV meetodit. Kui ei ole statistiliselt oluline, siis võib OLS olla piisav.
 
 Sageli annab siiski majandusprobleem ise põhjuse uskuda, et esineb endogeensuse probleem ja esitame ikkagi IV meetodil hinnangud ehkki Hausmani või Wu-Hausmani test seda ei nõua.
-
 
 ## Heterogeensed mõjud ja LATE
 
@@ -322,7 +541,6 @@ Pangem tähele seost RDDga.
 
 Waldi hinnangu üleval on täpselt sama valem, mida kasutasime hägusa regressiooni katkemise meetodi korral (*fuzzy RDD*). Seal vaatasime $Z$-i asemel seda, kui inimesed olid ülalpool ja allpool lõikepunkti.
 
-
 ## Instrumentide leidmine
 
 Praktikas on suurim probleem leida **hea instrument**. Mõned tüüpilised allikad:
@@ -341,7 +559,6 @@ Iga kord tuleb läbi mõelda:
 - kas on usutav, et instrument ei mõjuta otseselt tulemust;
 - kas pole muid kanaleid (väljajätmise eeldus), mille kaudu instrument ja tulemus sõltuda võiksid.
 
-
 ## Kokkuvõte
 
 Instrumentmuutuja meetod:
@@ -352,7 +569,6 @@ Instrumentmuutuja meetod:
 - annab heterogeensete mõjude korral lokaalse keskmise mõjuhinnangu (LATE) just nendele, keda instrument tegelikult “liigutab”.
 
 Analüütiku ülesanne on leida veenev instrument, põhjendada selle sobivust ning kontrollida esimeses etapis instrumentide tugevust. Nõrk või vigane instrument on sageli hullem kui lihtne, ausalt nihkega OLS.
-
 
 ## Näide
 
@@ -665,3 +881,5 @@ Sargani test on võimalik, siis kui instrumente rohkem kui vaja. Meil on 3, vaja
 H0 - instrumendid ei korreleeru vealiikmega H1 - vähemalt üks instrument korreleerub vealiikmega
 
 Me ei saa ümber lükata H0. Seega selle koha pealt formaalselt korras
+
+

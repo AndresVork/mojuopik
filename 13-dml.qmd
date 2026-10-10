@@ -1,0 +1,188 @@
+# Masinõpe ja IV meetod
+
+Double Machine Learning (DML) ehk kahekordne masinõpe võimaldab ühendada põhjusliku mõju hindamise paindlike masinõppemeetoditega. Selle keskne idee on kasutada **ortogonaalseid momenttingimusi** (*Neyman orthogonal scores*), mis vähendavad masinõppega hinnatud abifunktsioonide vigade mõju meid huvitava põhjusliku parameetri hinnangule.
+
+DML tugineb kahele olulisele põhimõttele:
+
+1.  **Ortogonaalsus** – põhjusliku parameetri hinnang on esimest järku vähetundlik abifunktsioonide väikeste hindamisvigade suhtes.
+2.  **Rist-sobitamine (*cross-fitting*)** – masinõppemudeli treenimiseks ja selle mudeli põhjal põhjusliku mõju hindamiseks kasutatakse erinevaid valimiosi.
+
+Vaatame neid põhimõtteid instrumentmuutuja meetodi näitel.
+
+### 1. Instrumentmuutuja momenttingimus
+
+Oletame, et meid huvitab muutuja $D_i$ põhjuslik mõju tulemusele $Y_i$:
+
+$$
+Y_i = \beta_0 + \beta_1 D_i + u_i,
+$$
+
+kus $D_i$ on endogeenne ning meil on olemas instrumentmuutuja $Z_i$.
+
+Kui instrument on eksogeenne, siis
+
+$$
+E[Z_i u_i]=0,
+$$
+
+eeldusel, et $Z_i$ on erinevus tema keskväärtuse suhtes või vabaliikme on mõju juba eemaldatud.
+
+Asendades vealiikme $u_i$ mudeli jäägiga, saame momenttingimuse:
+
+$$
+E[Z_i(Y_i-\beta_0-\beta_1D_i)]=0.
+$$
+
+Koos instrumendi relevantsuse tingimusega võimaldab see leida IV hinnangu.
+
+### 2. Kui mudelis on palju selgitavaid tunnuseid
+
+Oletame nüüd, et tulemust mõjutavad lisaks endogeensele muutujale $D_i$ ka eksogeensed tunnused $X_i$:
+
+$$
+Y_i = \beta_1 D_i + g(X_i)+u_i,
+$$
+
+kus $g(X_i)$ kirjeldab kontrollmuutujate mõju tulemusele.
+
+Samuti võivad $D_i$ ja instrument $Z_i$ sõltuda tunnustest $X_i$.
+
+Traditsioonilises lineaarses IV mudelis eemaldatakse kontrollmuutujate mõju lineaarse regressiooniga. DML võimaldab kasutada selleks paindlikumaid mudeleid, näiteks LASSO-t, juhumetsa või närvivõrke.
+
+Defineerime kolm tinglikku keskväärtust:
+
+$$
+\begin{aligned}
+\ell(X_i) &= E[Y_i\mid X_i],\\
+m(X_i) &= E[D_i\mid X_i],\\
+r(X_i) &= E[Z_i\mid X_i].
+\end{aligned}
+$$
+
+Hindame need funktsioonid masinõppega ning moodustame jäägid:
+
+$$
+\begin{aligned}
+\widetilde Y_i &= Y_i-\hat\ell(X_i),\\
+\widetilde D_i &= D_i-\hat m(X_i),\\
+\widetilde Z_i &= Z_i-\hat r(X_i).
+\end{aligned}
+$$
+
+Need jäägid kirjeldavad muutujate varieeruvust, mida kontrollmuutujad $X_i$ ei selgita.
+
+### 3. Ortogonaalne IV momenttingimus
+
+DML-IV meetodis kasutatakse momenttingimust:
+
+$$
+\boxed{
+E\left[
+\widetilde Z_i
+(\widetilde Y_i-\beta_1\widetilde D_i)
+\right]=0.
+}
+$$
+
+See annab meile põhjusliku parameetri hinnangu:
+
+$$
+\boxed{
+\hat\beta_{1,DML-IV}
+=
+\frac{
+\sum_{i=1}^{n}\widetilde Z_i\widetilde Y_i
+}{
+\sum_{i=1}^{n}\widetilde Z_i\widetilde D_i
+}.
+}
+$$
+
+See sarnaneb tavalise IV hinnanguga, kuid siin on muutujatest $Y$, $D$ ja $Z$ eemaldatud kontrollmuutujate $X$ mõju masinõppe abil.
+
+**Miks nimetatakse momenttingimust ortogonaalseks?**
+
+Defineerime momentfunktsiooni vaatluse $i$ jaoks:
+
+$$
+\psi(W_i;\beta,\eta)
+=
+(Z_i-r(X_i))
+\left[
+Y_i-\ell(X_i)-\beta(D_i-m(X_i))
+\right],
+$$
+
+kus
+
+- $W_i=(Y_i,D_i,Z_i,X_i)$ tähistab vaatluse andmeid;
+- $\beta$ on meid huvitav põhjuslik parameeter;
+- $\eta=(\ell,m,r)$ on abifunktsioonide (*nuisance functions*) komplekt.
+
+Neymani ortogonaalsus tähendab, et momentfunktsiooni oodatava väärtuse tuletis abifunktsioonide väikese muutuse suhtes on tegelike parameetrite juures null:
+
+$$
+\boxed{
+\left.
+\frac{\partial}{\partial t}
+E[\psi(W_i;\beta_0,\eta_0+t h)]
+\right|_{t=0}
+=0.
+}
+$$
+
+Siin $\beta_0$ tähistab tegelikku põhjuslikku parameetrit, $\eta_0$ tegelikke abifunktsioone ning $h$ võimalikku väikest häiritust nende funktsioonide hindamisel.
+
+**Intuitsioon.** Kui masinõppemudel teeb väikese vea näiteks seoste $E[Y\mid X]$ või $E[D\mid X]$ hindamisel, siis ei muuda see momenttingimuse oodatavat väärtust.
+
+Vea mõju ilmneb alles kõrgemat järku liikmetes. Kui abifunktsioonide hindamisvead on suurusjärgus $\varepsilon$, võivad nende koosmõjust tekkivad vealiikmed olla suurusjärgus $\varepsilon^2$.
+
+See võimaldab kasutada põhjusliku parameetri hindamiseks masinõppemudeleid, mille abifunktsioonide hinnangud ei pruugi olla sama täpsed kui klassikalistes parameetrilistes mudelites.
+
+Ortogonaalsus ei tähenda siiski, et ükskõik kui ebatäpne masinõppemudel annaks korrektse põhjusliku mõju hinnangu. Vajalikud on sobivad eeldused abifunktsioonide hinnangute koonduvuse kohta.
+
+### 4. Rist-sobitamine (cross-fitting)
+
+Ortogonaalsusest üksi ei piisa. Masinõppemudelid võivad mudeleid üle sobitada (*overfitting*), eriti kui sama vaatlust kasutatakse nii mudeli treenimiseks kui ka põhjusliku parameetri hindamiseks.
+
+DML kasutab selle probleemi vähendamiseks rist-sobitamist (*cross-fitting*). Näiteks viieosalise rist-sobitamise korral:
+
+1.  Jagame valimi juhuslikult viieks osaks.
+2.  Hindame masinõppemudelid neljal osal.
+3.  Kasutame hinnatud mudeleid viienda osa vaatluste tinglike keskväärtuste ennustamiseks.
+4.  Arvutame viienda osa vaatlustele jäägid $\widetilde Y$, $\widetilde D$ ja $\widetilde Z$.
+5.  Kordame protsessi kõigi viie osa jaoks.
+6.  Kasutame kõigi vaatluste rist-sobitatud jääke IV hinnangu arvutamiseks.
+
+Seega saadakse iga vaatluse jäägid mudeliga, mille treenimisel seda vaatlust ei kasutatud.
+
+Rist-sobitamine aitab vähendada ülesobitamisest tingitud nihet ja nõrgendada masinõppemudelite keerukusele seatavaid tingimusi.
+
+### 5. Tavalise IV ja DML-IV võrdlus
+
+| Omadus | Tavaline lineaarne IV | DML-IV |
+|------------------------|------------------------|------------------------|
+| Kontrollmuutujate mõju eemaldamine | Lineaarne regressioon | Paindlik masinõpe |
+| Abifunktsioonide hindamine | OLS | LASSO, juhumets jm |
+| Momenttingimus | Ortogonaalne pärast korrektset jääkliikme leidmist | Ortogonaalne |
+| Mittelineaarsed seosed | Tuleb eraldi määratleda | Saab paindlikult hinnata |
+| Cross-fitting | Tavaliselt ei ole vajalik | Tavapärane osa meetodist |
+| Instrumendi eeldused | Relevantsus ja eksogeensus | Samad sisulised eeldused |
+
+DML ei muuda instrumentmuutuja meetodi põhjuslikke eeldusi. Endiselt on vajalik, et instrument oleks asjakohane ja eksogeenne.
+
+DML-i eelis seisneb selles, et kontrollmuutujate mõju saab hinnata paindlikult, säilitades sobivatel tingimustel põhjusliku parameetri statistiliseks järeldamiseks vajalikud asümptootilised omadused.
+
+::: {.callout-tip title="Peamine järeldus"}
+**Double Machine Learning ühendab masinõppe ja ökonomeetrilise põhjusliku analüüsi.**
+
+- Masinõpe hindab kontrollmuutujate (X) keerukad seosed uuritava tulemuse (Y) , poliitikameetme (D) ja instrumendi (Z) vahel.
+- Ortogonaalne momenttingimus vähendab nende hinnangute väikeste vigade mõju põhjusliku parameetri hinnangule.
+- Cross-fitting aitab vältida sama vaatluse kasutamisest treenimisel ja hindamisel tekkivat ülesobitamise mõju.
+
+Sobivate eelduste korral võimaldab see saada asümptootiliselt normaalseid põhjusliku mõju hinnanguid ka keerukate masinõppemudelite kasutamisel.
+:::
+
+### Viide
+
+Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W., & Robins, J. (2018). Double/debiased machine learning for treatment and structural parameters. *The Econometrics Journal*, 21(1), C1–C68. https://doi.org/10.1111/ectj.12097
