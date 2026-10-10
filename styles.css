@@ -18,3 +18,8 @@ h2 {
 h3 {
   font-size: 1.05rem;
 }
+
+/* Hide section numbers in right-hand TOC */
+#quarto-margin-sidebar #TOC .header-section-number {
+  display: none;
+}

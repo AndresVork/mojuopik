@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>13&nbsp; LASSO mõju hindamisel – Põhjuslike seoste hindamine majanduses</title>
+<title>13&nbsp; LASSO ja kantregressioon mõju hindamisel – Põhjuslike seoste hindamine majanduses</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-mllasso.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-mllasso.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO ja kantregressioon mõju hindamisel</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
@@ -257,7 +257,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO ja kantregressioon mõju hindamisel</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -276,71 +276,72 @@ window.Quarto = {
     <h2 id="toc-title">Sisukord</h2>
    
   <ul>
-  <li><a href="#seade" id="toc-seade" class="nav-link active" data-scroll-target="#seade"><span class="header-section-number">13.1</span> Seade</a></li>
-  <li><a href="#regulariseeritud-regressioon-üldine-raamistik" id="toc-regulariseeritud-regressioon-üldine-raamistik" class="nav-link" data-scroll-target="#regulariseeritud-regressioon-üldine-raamistik"><span class="header-section-number">13.2</span> Regulariseeritud regressioon: üldine raamistik</a>
-  <ul class="collapse">
-  <li><a href="#lineaarne-mudel-ja-ols" id="toc-lineaarne-mudel-ja-ols" class="nav-link" data-scroll-target="#lineaarne-mudel-ja-ols">Lineaarne mudel ja OLS</a></li>
-  </ul></li>
+  <li><a href="#regulariseeritud-regressioon-üldine-raamistik" id="toc-regulariseeritud-regressioon-üldine-raamistik" class="nav-link active" data-scroll-target="#regulariseeritud-regressioon-üldine-raamistik"><span class="header-section-number">13.1</span> Regulariseeritud regressioon: üldine raamistik</a></li>
+  <li><a href="#lineaarne-mudel-ja-ols" id="toc-lineaarne-mudel-ja-ols" class="nav-link" data-scroll-target="#lineaarne-mudel-ja-ols"><span class="header-section-number">13.2</span> Lineaarne mudel ja OLS</a></li>
   <li><a href="#regulariseeritud-regressiooni-üldkuju" id="toc-regulariseeritud-regressiooni-üldkuju" class="nav-link" data-scroll-target="#regulariseeritud-regressiooni-üldkuju"><span class="header-section-number">13.3</span> Regulariseeritud regressiooni üldkuju</a></li>
-  <li><a href="#kantregressioon" id="toc-kantregressioon" class="nav-link" data-scroll-target="#kantregressioon"><span class="header-section-number">14</span> Kantregressioon</a>
+  <li><a href="#kantregressioon" id="toc-kantregressioon" class="nav-link" data-scroll-target="#kantregressioon"><span class="header-section-number">13.4</span> Kantregressioon</a>
   <ul class="collapse">
-  <li><a href="#mudeli-definitsioon" id="toc-mudeli-definitsioon" class="nav-link" data-scroll-target="#mudeli-definitsioon"><span class="header-section-number">14.1</span> Mudeli definitsioon</a></li>
-  <li><a href="#regularisatsiooniparameetri-valik" id="toc-regularisatsiooniparameetri-valik" class="nav-link" data-scroll-target="#regularisatsiooniparameetri-valik"><span class="header-section-number">14.2</span> Regularisatsiooniparameetri valik</a></li>
-  <li><a href="#millal-kasutada-kantregressiooni" id="toc-millal-kasutada-kantregressiooni" class="nav-link" data-scroll-target="#millal-kasutada-kantregressiooni"><span class="header-section-number">14.3</span> Millal kasutada kantregressiooni</a></li>
+  <li><a href="#mudeli-definitsioon" id="toc-mudeli-definitsioon" class="nav-link" data-scroll-target="#mudeli-definitsioon">Mudeli definitsioon</a></li>
+  <li><a href="#regularisatsiooniparameetri-valik" id="toc-regularisatsiooniparameetri-valik" class="nav-link" data-scroll-target="#regularisatsiooniparameetri-valik">Regularisatsiooniparameetri valik</a></li>
+  <li><a href="#millal-kasutada-kantregressiooni" id="toc-millal-kasutada-kantregressiooni" class="nav-link" data-scroll-target="#millal-kasutada-kantregressiooni">Millal kasutada kantregressiooni</a></li>
   </ul></li>
-  <li><a href="#lasso-regressioon" id="toc-lasso-regressioon" class="nav-link" data-scroll-target="#lasso-regressioon"><span class="header-section-number">15</span> LASSO regressioon</a>
+  <li><a href="#lasso-regressioon" id="toc-lasso-regressioon" class="nav-link" data-scroll-target="#lasso-regressioon"><span class="header-section-number">13.5</span> LASSO regressioon</a>
   <ul class="collapse">
-  <li><a href="#mudeli-definitsioon-1" id="toc-mudeli-definitsioon-1" class="nav-link" data-scroll-target="#mudeli-definitsioon-1"><span class="header-section-number">15.1</span> Mudeli definitsioon</a></li>
-  <li><a href="#elastic-net" id="toc-elastic-net" class="nav-link" data-scroll-target="#elastic-net"><span class="header-section-number">15.2</span> Elastic net</a></li>
-  <li><a href="#post-lasso" id="toc-post-lasso" class="nav-link" data-scroll-target="#post-lasso"><span class="header-section-number">15.3</span> Post-LASSO</a></li>
+  <li><a href="#mudeli-definitsioon-1" id="toc-mudeli-definitsioon-1" class="nav-link" data-scroll-target="#mudeli-definitsioon-1">Mudeli definitsioon</a></li>
   </ul></li>
-  <li><a href="#tavaline-lasso-versus-teooriapõhine-lasso" id="toc-tavaline-lasso-versus-teooriapõhine-lasso" class="nav-link" data-scroll-target="#tavaline-lasso-versus-teooriapõhine-lasso"><span class="header-section-number">16</span> Tavaline LASSO versus teooriapõhine LASSO</a>
+  <li><a href="#elastic-net" id="toc-elastic-net" class="nav-link" data-scroll-target="#elastic-net"><span class="header-section-number">13.6</span> Elastic net</a></li>
+  <li><a href="#post-lasso" id="toc-post-lasso" class="nav-link" data-scroll-target="#post-lasso"><span class="header-section-number">13.7</span> Post-LASSO</a></li>
+  <li><a href="#tavaline-lasso-versus-teooriapõhine-lasso" id="toc-tavaline-lasso-versus-teooriapõhine-lasso" class="nav-link" data-scroll-target="#tavaline-lasso-versus-teooriapõhine-lasso"><span class="header-section-number">13.8</span> Tavaline LASSO versus teooriapõhine LASSO</a>
   <ul class="collapse">
-  <li><a href="#tavaline-lasso-glmnet-cv-põhine" id="toc-tavaline-lasso-glmnet-cv-põhine" class="nav-link" data-scroll-target="#tavaline-lasso-glmnet-cv-põhine"><span class="header-section-number">16.1</span> Tavaline LASSO (glmnet, CV-põhine)</a></li>
-  <li><a href="#teooriapõhine-lasso-rigorous-lasso" id="toc-teooriapõhine-lasso-rigorous-lasso" class="nav-link" data-scroll-target="#teooriapõhine-lasso-rigorous-lasso"><span class="header-section-number">16.2</span> Teooriapõhine LASSO (rigorous LASSO)</a></li>
+  <li><a href="#tavaline-lasso-glmnet-cv-põhine" id="toc-tavaline-lasso-glmnet-cv-põhine" class="nav-link" data-scroll-target="#tavaline-lasso-glmnet-cv-põhine">Tavaline LASSO (glmnet, CV-põhine)</a></li>
+  <li><a href="#teooriapõhine-lasso-rigorous-lasso" id="toc-teooriapõhine-lasso-rigorous-lasso" class="nav-link" data-scroll-target="#teooriapõhine-lasso-rigorous-lasso">Teooriapõhine LASSO (rigorous LASSO)</a></li>
+  <li><a href="#prognoosimine-versus-mõju-hindamine" id="toc-prognoosimine-versus-mõju-hindamine" class="nav-link" data-scroll-target="#prognoosimine-versus-mõju-hindamine">Prognoosimine versus mõju hindamine</a></li>
   </ul></li>
-  <li><a href="#prognoosimine-versus-mõju-hindamine" id="toc-prognoosimine-versus-mõju-hindamine" class="nav-link" data-scroll-target="#prognoosimine-versus-mõju-hindamine"><span class="header-section-number">17</span> Prognoosimine versus mõju hindamine</a></li>
-  <li><a href="#jääkide-meetod-partialling-out" id="toc-jääkide-meetod-partialling-out" class="nav-link" data-scroll-target="#jääkide-meetod-partialling-out"><span class="header-section-number">18</span> Jääkide meetod (<em>partialling out</em>)</a>
+  <li><a href="#jääkide-meetod-partialling-out" id="toc-jääkide-meetod-partialling-out" class="nav-link" data-scroll-target="#jääkide-meetod-partialling-out"><span class="header-section-number">13.9</span> Jääkide meetod (<em>partialling out</em>)</a>
   <ul class="collapse">
-  <li><a href="#fwl-teoreem-ja-residuaalne-regressioon" id="toc-fwl-teoreem-ja-residuaalne-regressioon" class="nav-link" data-scroll-target="#fwl-teoreem-ja-residuaalne-regressioon"><span class="header-section-number">18.1</span> FWL-teoreem ja residuaalne regressioon</a></li>
-  <li><a href="#tingimusliku-sõltumatuse-eeldus" id="toc-tingimusliku-sõltumatuse-eeldus" class="nav-link" data-scroll-target="#tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">18.2</span> Tingimusliku sõltumatuse eeldus</a></li>
-  <li><a href="#jääkide-meetod-lassoga" id="toc-jääkide-meetod-lassoga" class="nav-link" data-scroll-target="#jääkide-meetod-lassoga"><span class="header-section-number">18.3</span> Jääkide meetod LASSOga</a></li>
-  <li><a href="#topeltvaliku-meetod-double-selection" id="toc-topeltvaliku-meetod-double-selection" class="nav-link" data-scroll-target="#topeltvaliku-meetod-double-selection"><span class="header-section-number">18.4</span> Topeltvaliku meetod (double selection)</a>
+  <li><a href="#fwl-teoreem-ja-residuaalne-regressioon" id="toc-fwl-teoreem-ja-residuaalne-regressioon" class="nav-link" data-scroll-target="#fwl-teoreem-ja-residuaalne-regressioon">FWL-teoreem ja residuaalne regressioon</a></li>
+  </ul></li>
+  <li><a href="#jääkide-meetod-lassoga" id="toc-jääkide-meetod-lassoga" class="nav-link" data-scroll-target="#jääkide-meetod-lassoga"><span class="header-section-number">13.10</span> Jääkide meetod LASSOga</a>
   <ul class="collapse">
-  <li><a href="#motivatsioon" id="toc-motivatsioon" class="nav-link" data-scroll-target="#motivatsioon">Motivatsioon</a></li>
   <li><a href="#sammud" id="toc-sammud" class="nav-link" data-scroll-target="#sammud">Sammud</a></li>
   </ul></li>
-  <li><a href="#instrumentmuutuja-meetod-lassoga" id="toc-instrumentmuutuja-meetod-lassoga" class="nav-link" data-scroll-target="#instrumentmuutuja-meetod-lassoga"><span class="header-section-number">18.5</span> Instrumentmuutuja meetod LASSOga</a>
+  <li><a href="#topeltvaliku-meetod-double-selection" id="toc-topeltvaliku-meetod-double-selection" class="nav-link" data-scroll-target="#topeltvaliku-meetod-double-selection"><span class="header-section-number">13.11</span> Topeltvaliku meetod (double selection)</a>
+  <ul class="collapse">
+  <li><a href="#motivatsioon" id="toc-motivatsioon" class="nav-link" data-scroll-target="#motivatsioon">Motivatsioon</a></li>
+  <li><a href="#sammud-1" id="toc-sammud-1" class="nav-link" data-scroll-target="#sammud-1">Sammud</a></li>
+  </ul></li>
+  <li><a href="#instrumentmuutuja-meetod-lassoga" id="toc-instrumentmuutuja-meetod-lassoga" class="nav-link" data-scroll-target="#instrumentmuutuja-meetod-lassoga"><span class="header-section-number">13.12</span> Instrumentmuutuja meetod LASSOga</a>
   <ul class="collapse">
   <li><a href="#endogeensus-ja-iv-raamistik" id="toc-endogeensus-ja-iv-raamistik" class="nav-link" data-scroll-target="#endogeensus-ja-iv-raamistik">Endogeensus ja IV-raamistik</a></li>
   <li><a href="#jääkide-meetod-iv-kontekstis" id="toc-jääkide-meetod-iv-kontekstis" class="nav-link" data-scroll-target="#jääkide-meetod-iv-kontekstis">Jääkide meetod IV-kontekstis</a></li>
   <li><a href="#millal-kasutada-lassoga-iv-lähenemist" id="toc-millal-kasutada-lassoga-iv-lähenemist" class="nav-link" data-scroll-target="#millal-kasutada-lassoga-iv-lähenemist">Millal kasutada LASSOga IV-lähenemist</a></li>
   </ul></li>
-  <li><a href="#double-machine-learning-ja-laiendused" id="toc-double-machine-learning-ja-laiendused" class="nav-link" data-scroll-target="#double-machine-learning-ja-laiendused"><span class="header-section-number">18.6</span> Double machine learning ja laiendused</a></li>
-  <li><a href="#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" id="toc-praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" class="nav-link" data-scroll-target="#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel"><span class="header-section-number">18.7</span> Praktilised soovitused LASSO kasutamiseks mõju hindamisel</a></li>
-  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">18.8</span> Kokkuvõte</a></li>
-  <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide"><span class="header-section-number">18.9</span> Näide</a>
+  <li><a href="#double-machine-learning-ja-laiendused" id="toc-double-machine-learning-ja-laiendused" class="nav-link" data-scroll-target="#double-machine-learning-ja-laiendused"><span class="header-section-number">13.13</span> Double machine learning ja laiendused</a>
+  <ul class="collapse">
+  <li><a href="#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" id="toc-praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" class="nav-link" data-scroll-target="#praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel">Praktilised soovitused LASSO kasutamiseks mõju hindamisel</a></li>
+  </ul></li>
+  <li><a href="#kokkuvõte" id="toc-kokkuvõte" class="nav-link" data-scroll-target="#kokkuvõte"><span class="header-section-number">13.14</span> Kokkuvõte</a></li>
+  <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide"><span class="header-section-number">13.15</span> Näide</a>
   <ul class="collapse">
   <li><a href="#vajalikud-paketid" id="toc-vajalikud-paketid" class="nav-link" data-scroll-target="#vajalikud-paketid">Vajalikud paketid</a></li>
   <li><a href="#lihtne-näide-lassoga-prognoosimisel" id="toc-lihtne-näide-lassoga-prognoosimisel" class="nav-link" data-scroll-target="#lihtne-näide-lassoga-prognoosimisel">Lihtne näide LASSOga prognoosimisel</a></li>
   <li><a href="#näited-kasutades-paketti-hdm" id="toc-näited-kasutades-paketti-hdm" class="nav-link" data-scroll-target="#näited-kasutades-paketti-hdm">Näited kasutades paketti hdm</a></li>
   <li><a href="#meetme-mõju-hindamine-lassoga" id="toc-meetme-mõju-hindamine-lassoga" class="nav-link" data-scroll-target="#meetme-mõju-hindamine-lassoga">Meetme mõju hindamine LASSOga</a></li>
   </ul></li>
-  <li><a href="#partialling-out-method---jääkliikmete-meetod" id="toc-partialling-out-method---jääkliikmete-meetod" class="nav-link" data-scroll-target="#partialling-out-method---jääkliikmete-meetod"><span class="header-section-number">18.10</span> Partialling out method - jääkliikmete meetod</a>
+  <li><a href="#partialling-out-method---jääkliikmete-meetod" id="toc-partialling-out-method---jääkliikmete-meetod" class="nav-link" data-scroll-target="#partialling-out-method---jääkliikmete-meetod"><span class="header-section-number">13.16</span> Partialling out method - jääkliikmete meetod</a>
   <ul class="collapse">
   <li><a href="#ja-nüüd-esimesed-sammud-olsga." id="toc-ja-nüüd-esimesed-sammud-olsga." class="nav-link" data-scroll-target="#ja-nüüd-esimesed-sammud-olsga.">Ja nüüd esimesed sammud OLSga.</a></li>
   <li><a href="#aga-nüüd-teeme-selle-lassoga" id="toc-aga-nüüd-teeme-selle-lassoga" class="nav-link" data-scroll-target="#aga-nüüd-teeme-selle-lassoga">Aga nüüd teeme selle LASSOga</a></li>
   <li><a href="#funktsioon-rlassoeffect-teeb-selle-kõik-ise" id="toc-funktsioon-rlassoeffect-teeb-selle-kõik-ise" class="nav-link" data-scroll-target="#funktsioon-rlassoeffect-teeb-selle-kõik-ise">Funktsioon <code>rlassoEffect</code> teeb selle kõik ise!</a></li>
   <li><a href="#topelt-selektsiooni-meetod-double-selection-method" id="toc-topelt-selektsiooni-meetod-double-selection-method" class="nav-link" data-scroll-target="#topelt-selektsiooni-meetod-double-selection-method">Topelt selektsiooni meetod (double selection method)</a></li>
   </ul></li>
-  <li><a href="#lisa-ortogonaalne-momenttingimus" id="toc-lisa-ortogonaalne-momenttingimus" class="nav-link" data-scroll-target="#lisa-ortogonaalne-momenttingimus"><span class="header-section-number">18.11</span> Lisa Ortogonaalne momenttingimus</a>
+  <li><a href="#lisa-ortogonaalne-momenttingimus" id="toc-lisa-ortogonaalne-momenttingimus" class="nav-link" data-scroll-target="#lisa-ortogonaalne-momenttingimus"><span class="header-section-number">13.17</span> Lisa Ortogonaalne momenttingimus</a>
   <ul class="collapse">
-  <li><a href="#instrumentmuutuja-momenttingimus" id="toc-instrumentmuutuja-momenttingimus" class="nav-link" data-scroll-target="#instrumentmuutuja-momenttingimus">1. Instrumentmuutuja momenttingimus</a></li>
-  <li><a href="#kui-mudelis-on-palju-selgitavaid-tunnuseid" id="toc-kui-mudelis-on-palju-selgitavaid-tunnuseid" class="nav-link" data-scroll-target="#kui-mudelis-on-palju-selgitavaid-tunnuseid">2. Kui mudelis on palju selgitavaid tunnuseid</a></li>
-  <li><a href="#ortogonaalne-iv-momenttingimus" id="toc-ortogonaalne-iv-momenttingimus" class="nav-link" data-scroll-target="#ortogonaalne-iv-momenttingimus">3. Ortogonaalne IV momenttingimus</a></li>
-  <li><a href="#rist-sobitamine-cross-fitting" id="toc-rist-sobitamine-cross-fitting" class="nav-link" data-scroll-target="#rist-sobitamine-cross-fitting">4. Rist-sobitamine (cross-fitting)</a></li>
-  <li><a href="#tavalise-iv-ja-dml-iv-võrdlus" id="toc-tavalise-iv-ja-dml-iv-võrdlus" class="nav-link" data-scroll-target="#tavalise-iv-ja-dml-iv-võrdlus">5. Tavalise IV ja DML-IV võrdlus</a></li>
-  </ul></li>
+  <li><a href="#instrumentmuutuja-momenttingimus" id="toc-instrumentmuutuja-momenttingimus" class="nav-link" data-scroll-target="#instrumentmuutuja-momenttingimus">Instrumentmuutuja momenttingimus</a></li>
+  <li><a href="#kui-mudelis-on-palju-selgitavaid-tunnuseid" id="toc-kui-mudelis-on-palju-selgitavaid-tunnuseid" class="nav-link" data-scroll-target="#kui-mudelis-on-palju-selgitavaid-tunnuseid">Kui mudelis on palju selgitavaid tunnuseid</a></li>
+  <li><a href="#ortogonaalne-iv-momenttingimus" id="toc-ortogonaalne-iv-momenttingimus" class="nav-link" data-scroll-target="#ortogonaalne-iv-momenttingimus">Ortogonaalne IV momenttingimus</a></li>
+  <li><a href="#rist-sobitamine-cross-fitting" id="toc-rist-sobitamine-cross-fitting" class="nav-link" data-scroll-target="#rist-sobitamine-cross-fitting">Rist-sobitamine (cross-fitting)</a></li>
+  <li><a href="#tavalise-iv-ja-dml-iv-võrdlus" id="toc-tavalise-iv-ja-dml-iv-võrdlus" class="nav-link" data-scroll-target="#tavalise-iv-ja-dml-iv-võrdlus">Tavalise IV ja DML-IV võrdlus</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/10-mllasso.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></nav>
@@ -350,7 +351,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO mõju hindamisel</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO ja kantregressioon mõju hindamisel</span></h1>
 </div>
 
 
@@ -373,8 +374,8 @@ window.Quarto = {
 </header>
 
 
-<section id="seade" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="seade"><span class="header-section-number">13.1</span> Seade</h2>
+<section id="regulariseeritud-regressioon-üldine-raamistik" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="regulariseeritud-regressioon-üldine-raamistik"><span class="header-section-number">13.1</span> Regulariseeritud regressioon: üldine raamistik</h2>
 <p>Selles peatükis käsitleme LASSO-regressioonimudelit ja kantregressiooni (ridge), mis kuuluvad regulariseeritud regressioonimeetodite hulka. Need meetodid on kasulikud olukordades, kus meil on palju selgitavaid tunnuseid, sh nende polünoomid ja interaktsioonid, selgitavate tunnuste vahel on tugev multikollineaarsus ning me soovime automatiseerida mudelisse kaasatavate tunnuste valikut. Sellistes tingimustes ei tööta klassikaline vähimruutude meetod (OLS) hästi, eriti kui parameetrite arv on lähedane vaatluste arvule või koguni suurem.</p>
 <p>Lisaks prognoosimisele pakuvad LASSO ja kantregressioon vahendeid põhjuslike mõjude hindamiseks keerukates olukordades, kus:</p>
 <ul>
@@ -388,10 +389,8 @@ window.Quarto = {
 <li>instrumentmuutuja meetodit koos LASSO-põhise tunnuste valikuga.</li>
 </ul>
 </section>
-<section id="regulariseeritud-regressioon-üldine-raamistik" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="regulariseeritud-regressioon-üldine-raamistik"><span class="header-section-number">13.2</span> Regulariseeritud regressioon: üldine raamistik</h2>
-<section id="lineaarne-mudel-ja-ols" class="level3">
-<h3 class="anchored" data-anchor-id="lineaarne-mudel-ja-ols">Lineaarne mudel ja OLS</h3>
+<section id="lineaarne-mudel-ja-ols" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="lineaarne-mudel-ja-ols"><span class="header-section-number">13.2</span> Lineaarne mudel ja OLS</h2>
 <p>Lähtume klassikalisest lineaarsest mudelist:</p>
 <p><span class="math display">\[
 Y_i = X_i'\beta + \varepsilon_i,\quad i = 1,\dots,n,
@@ -414,7 +413,6 @@ Y = X\beta + \varepsilon,
 </ul>
 <p>Regulaaritud regressiooni idee on lisada optimeerimiskriteeriumile karistustermin, mis surub parameetreid nulli suunas ja vähendab mudeli keerukust.</p>
 </section>
-</section>
 <section id="regulariseeritud-regressiooni-üldkuju" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="regulariseeritud-regressiooni-üldkuju"><span class="header-section-number">13.3</span> Regulariseeritud regressiooni üldkuju</h2>
 <p>Regulariseeritud regressiooni üldine eesmärk on leida:</p>
@@ -432,10 +430,10 @@ Y = X\beta + \varepsilon,
 </ul>
 <p>Regulariseerimise eelduseks on tavaliselt, et tunnused <span class="math inline">\(X\)</span> standardiseeritakse (nullkeskmine ja ühikdispersioon), et karistus erinevate tunnuste vahel oleks võrreldav.</p>
 </section>
-<section id="kantregressioon" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Kantregressioon</h1>
-<section id="mudeli-definitsioon" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="mudeli-definitsioon"><span class="header-section-number">14.1</span> Mudeli definitsioon</h2>
+<section id="kantregressioon" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="kantregressioon"><span class="header-section-number">13.4</span> Kantregressioon</h2>
+<section id="mudeli-definitsioon" class="level3">
+<h3 class="anchored" data-anchor-id="mudeli-definitsioon">Mudeli definitsioon</h3>
 <p>Kantregressioon (<em>ridge regression</em>) kasutab L2-karistust, st et parameetrid on karistusliikmes ruudus:</p>
 <p><span class="math display">\[
 \hat{\beta}^{\text{ridge}}
@@ -460,8 +458,8 @@ Y = X\beta + \varepsilon,
 \]</span></p>
 <p>kus <span class="math inline">\(I_p\)</span> on <span class="math inline">\(p \times p\)</span> ühikmaatriks.</p>
 </section>
-<section id="regularisatsiooniparameetri-valik" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="regularisatsiooniparameetri-valik"><span class="header-section-number">14.2</span> Regularisatsiooniparameetri valik</h2>
+<section id="regularisatsiooniparameetri-valik" class="level3">
+<h3 class="anchored" data-anchor-id="regularisatsiooniparameetri-valik">Regularisatsiooniparameetri valik</h3>
 <p>Regularisatsiooniparameeter <span class="math inline">\(\lambda\)</span> kontrollib nihe–dispersiooni kompromissi:</p>
 <ul>
 <li>väikese <span class="math inline">\(\lambda\)</span> korral on nihe väike (palju parameetreid), kuid dispersioon suur (me ei suuda eristada nende mõju),</li>
@@ -475,8 +473,8 @@ Y = X\beta + \varepsilon,
 <li>vali <span class="math inline">\(\lambda\)</span>, mis minimeerib prognoosivea.</li>
 </ol>
 </section>
-<section id="millal-kasutada-kantregressiooni" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="millal-kasutada-kantregressiooni"><span class="header-section-number">14.3</span> Millal kasutada kantregressiooni</h2>
+<section id="millal-kasutada-kantregressiooni" class="level3">
+<h3 class="anchored" data-anchor-id="millal-kasutada-kantregressiooni">Millal kasutada kantregressiooni</h3>
 <p>Kantregressiooni kasutatakse eelkõige siis, kui:</p>
 <ul>
 <li>selgitavaid tunnuseid on palju (sh polünoomid, interaktsioonid),</li>
@@ -487,10 +485,10 @@ Y = X\beta + \varepsilon,
 <p>Põhjusliku mõju hindamise juures kasutatakse ridge’i tavaliselt osana laiendatud meetoditest (nt <em>Augmented Synthetic Control</em>, <em>double machine learning</em>) – harvem iseseisva „mõju hinnanguna“.</p>
 </section>
 </section>
-<section id="lasso-regressioon" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> LASSO regressioon</h1>
-<section id="mudeli-definitsioon-1" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="mudeli-definitsioon-1"><span class="header-section-number">15.1</span> Mudeli definitsioon</h2>
+<section id="lasso-regressioon" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="lasso-regressioon"><span class="header-section-number">13.5</span> LASSO regressioon</h2>
+<section id="mudeli-definitsioon-1" class="level3">
+<h3 class="anchored" data-anchor-id="mudeli-definitsioon-1">Mudeli definitsioon</h3>
 <p>LASSO (Least Absolute Shrinkage and Selection Operator) kasutab L1-karistust (parameetrite absoluutväärtust):</p>
 <p><span class="math display">\[
 \hat{\beta}^{\text{LASSO}}
@@ -520,8 +518,9 @@ Y = X\beta + \varepsilon,
 <li>kui <span class="math inline">\(\lambda\)</span> on suur, jääb mudelisse vähe tunnuseid.</li>
 </ul>
 </section>
-<section id="elastic-net" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="elastic-net"><span class="header-section-number">15.2</span> Elastic net</h2>
+</section>
+<section id="elastic-net" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="elastic-net"><span class="header-section-number">13.6</span> Elastic net</h2>
 <p>Elastic net mudel ühendab ridge’i ja LASSO karistused:</p>
 <p><span class="math display">\[
 \hat{\beta}^{\text{EN}}
@@ -541,8 +540,8 @@ Y = X\beta + \varepsilon,
 </ul>
 <p><em>Elastic net</em> on kasulik, kui tunnused on tugevalt korreleeritud: puhas LASSO kaldub valima ühe tunnuse grupist ja teised välja jätma, elastic net võimaldab „grupivalikut“.</p>
 </section>
-<section id="post-lasso" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="post-lasso"><span class="header-section-number">15.3</span> Post-LASSO</h2>
+<section id="post-lasso" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="post-lasso"><span class="header-section-number">13.7</span> Post-LASSO</h2>
 <p>LASSO koefitsiendid on nihkega nulli suunas, kui <span class="math inline">\(\lambda &gt; 0\)</span>. See on prognoosimisel aktsepteeritav, kuid mõju interpreteerimisel võib nihe häirida. Post-LASSO lähenemine koosneb järgmistest sammudest:</p>
 <ol type="1">
 <li>hinda LASSO mudel ja vali allesjäänud tunnuste hulk <span class="math display">\[
@@ -554,11 +553,10 @@ Y_i = X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
 </ol>
 <p>Nii saadud OLS-kordajaid nimetatakse Post-LASSO hinnanguteks. Need on endiselt mõjutatud tunnuste valikust (mis on juhuslik), kuid nad on vähem nihkes kui algsed LASSO koefitsiendid ise.</p>
 </section>
-</section>
-<section id="tavaline-lasso-versus-teooriapõhine-lasso" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> Tavaline LASSO versus teooriapõhine LASSO</h1>
-<section id="tavaline-lasso-glmnet-cv-põhine" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="tavaline-lasso-glmnet-cv-põhine"><span class="header-section-number">16.1</span> Tavaline LASSO (glmnet, CV-põhine)</h2>
+<section id="tavaline-lasso-versus-teooriapõhine-lasso" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="tavaline-lasso-versus-teooriapõhine-lasso"><span class="header-section-number">13.8</span> Tavaline LASSO versus teooriapõhine LASSO</h2>
+<section id="tavaline-lasso-glmnet-cv-põhine" class="level3">
+<h3 class="anchored" data-anchor-id="tavaline-lasso-glmnet-cv-põhine">Tavaline LASSO (glmnet, CV-põhine)</h3>
 <p>Tüüpiline LASSO rakendus prognoosimisel (nt pakett glmnet) kasutab ristvalideerimist:</p>
 <ul>
 <li><span class="math inline">\(\lambda\)</span> valitakse, et minimeerida prognoosiviga (MSE) ristvalideerimisel;</li>
@@ -572,8 +570,8 @@ Y_i = X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
 <li>modelleerime „must kast“ seoseid.</li>
 </ul>
 </section>
-<section id="teooriapõhine-lasso-rigorous-lasso" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="teooriapõhine-lasso-rigorous-lasso"><span class="header-section-number">16.2</span> Teooriapõhine LASSO (rigorous LASSO)</h2>
+<section id="teooriapõhine-lasso-rigorous-lasso" class="level3">
+<h3 class="anchored" data-anchor-id="teooriapõhine-lasso-rigorous-lasso">Teooriapõhine LASSO (rigorous LASSO)</h3>
 <p>Teooriapõhine LASSO (nt R-pakett hdm, funktsioon rlasso) valib <span class="math inline">\(\lambda\)</span> teoreetiliste piiride alusel, lähtudes:</p>
 <ul>
 <li>vaatluste arvust <span class="math inline">\(n\)</span>,</li>
@@ -594,9 +592,8 @@ Y_i = X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
 </ul>
 <p>Teooriapõhine LASSO sobib kõige paremini mõju hindamise kontekstis, kus peamine on parameetri usaldusväärne järeldus, mitte pelgalt hea prognoos.</p>
 </section>
-</section>
-<section id="prognoosimine-versus-mõju-hindamine" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> Prognoosimine versus mõju hindamine</h1>
+<section id="prognoosimine-versus-mõju-hindamine" class="level3">
+<h3 class="anchored" data-anchor-id="prognoosimine-versus-mõju-hindamine">Prognoosimine versus mõju hindamine</h3>
 <p>Prognoosimisel on mudeli kvaliteedi peamine kriteerium väike prognoosiviga (nt MSE testandmetel). Mõju hindamisel on oluline:</p>
 <ul>
 <li>väike nihe huvipakkuva parameetri (nt poliitikameetme mõju) hinnangus,</li>
@@ -610,10 +607,11 @@ Y_i = X_{i,\hat{S}}'\beta_{\hat{S}} + u_i.
 </ul>
 <p>Seetõttu kasutatakse mõju hindamisel teooriapõhist LASSOt ja spetsiaalseid meetodeid (jääkide meetod, topeltvalik, LASSOga IV), mis on teoreetiliselt õigustatud, kui meil on palju potentsiaalseid selgitavaid tunnuseid aga vähesed on olulised (<em>sparse high-dimensional</em>).</p>
 </section>
-<section id="jääkide-meetod-partialling-out" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> Jääkide meetod (<em>partialling out</em>)</h1>
-<section id="fwl-teoreem-ja-residuaalne-regressioon" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="fwl-teoreem-ja-residuaalne-regressioon"><span class="header-section-number">18.1</span> FWL-teoreem ja residuaalne regressioon</h2>
+</section>
+<section id="jääkide-meetod-partialling-out" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="jääkide-meetod-partialling-out"><span class="header-section-number">13.9</span> Jääkide meetod (<em>partialling out</em>)</h2>
+<section id="fwl-teoreem-ja-residuaalne-regressioon" class="level3">
+<h3 class="anchored" data-anchor-id="fwl-teoreem-ja-residuaalne-regressioon">FWL-teoreem ja residuaalne regressioon</h3>
 <p>(Vaatasime seda juba instrumentmuutuja meetodi juures.)</p>
 <p>Võtame mudeli, kus huvi pakub meetme mõju:</p>
 <p><span class="math display">\[
@@ -632,9 +630,6 @@ Y_i = \alpha D_i + X_i'\beta + u_i,
 \]</span></li>
 </ol>
 <p>See tähendab, et oleme eemaldanud (<em>partial out</em>) <span class="math inline">\(X\)</span>-de mõju nii tulemuselt kui meetmelt ja hindame seejärel seost nende jääkide vahel.</p>
-</section>
-<section id="tingimusliku-sõltumatuse-eeldus" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="tingimusliku-sõltumatuse-eeldus"><span class="header-section-number">18.2</span> Tingimusliku sõltumatuse eeldus</h2>
 <p>Mõju hindamisel eeldame sageli:</p>
 <p><span class="math display">\[
 (Y^0_i, Y^1_i) \perp D_i \mid X_i
@@ -645,8 +640,9 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 \]</span></p>
 <p>Kui aga <span class="math inline">\(X\)</span>-e on väga palju, ei sobi lihtne OLS selle seoses hindamiseks. Jääkide meetod LASSOga asendab OLS-põhise regressiooni <span class="math inline">\(Y\)</span> ja <span class="math inline">\(D\)</span> vahel prognoosimismudelitega, mis on hinnatud LASSO abil.</p>
 </section>
-<section id="jääkide-meetod-lassoga" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="jääkide-meetod-lassoga"><span class="header-section-number">18.3</span> Jääkide meetod LASSOga</h2>
+</section>
+<section id="jääkide-meetod-lassoga" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="jääkide-meetod-lassoga"><span class="header-section-number">13.10</span> Jääkide meetod LASSOga</h2>
 <p>Eeldame, et meil on:</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> – tulemusmuutuja,</li>
@@ -654,6 +650,8 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 <li><span class="math inline">\(X\)</span> – suur hulk kandidaattunnuseid (nende arv võib olla suurem kui vaatluste arv <span class="math inline">\(p &gt; n\)</span>).</li>
 </ul>
 <p>Jääkide meetodi LASSOga idee on kasutada LASSOt selleks, et „välja võtta” <span class="math inline">\(X\)</span>-de mõju nii <span class="math inline">\(Y\)</span>-st kui <span class="math inline">\(D\)</span>-st ja seejärel hinnata meetme mõju nende jääkide vahelise regressiooniga. See põhineb samal Frisch–Waugh–Lovelli teoreemil, mille kohaselt saab huvipakkuva meetme koefitsiendi ( <span class="math inline">\(\alpha\)</span>) leida regressioonist jääkide vahel.</p>
+<section id="sammud" class="level3">
+<h3 class="anchored" data-anchor-id="sammud">Sammud</h3>
 <p><strong>1. samm – (Y) prognoosimine (X)-dega</strong></p>
 <p>Kõigepealt prognoosime tulemusmuutujat (Y) kontrolltunnuste (X) abil LASSOga:</p>
 <p><span class="math display">\[
@@ -685,8 +683,9 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 </ul>
 <p>Jääkide meetodi puhul on võtme-eeldus, et prognoosid <span class="math inline">\(\hat{m}_Y(X_i)\)</span> ja <span class="math inline">\(\hat{m}_D(X_i)\)</span> on piisavalt täpsed, ning et CIA (tingimuslik sõltumatus) kehtib: pärast <span class="math inline">\(X\)</span>-de arvessevõttu ei ole meede <span class="math inline">\(D\)</span> korreleeritud potentsiaalsete tulemustega.</p>
 </section>
-<section id="topeltvaliku-meetod-double-selection" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="topeltvaliku-meetod-double-selection"><span class="header-section-number">18.4</span> Topeltvaliku meetod (double selection)</h2>
+</section>
+<section id="topeltvaliku-meetod-double-selection" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="topeltvaliku-meetod-double-selection"><span class="header-section-number">13.11</span> Topeltvaliku meetod (double selection)</h2>
 <section id="motivatsioon" class="level3">
 <h3 class="anchored" data-anchor-id="motivatsioon">Motivatsioon</h3>
 <p>Jääkide meetod eeldab kaudselt, et samad kontrollmuutujad (X) on olulised nii (Y) kui (D) jaoks, ning et LASSO valib need piisavalt hästi välja prognoosimise sammudes. Praktikas võib juhtuda, et:</p>
@@ -697,8 +696,8 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 </ul>
 <p>Topeltvaliku meetod vähendab seda ohtu, kasutades LASSOt nii (Y)- kui (D)-võrrandi jaoks ja kombineerides tulemused.</p>
 </section>
-<section id="sammud" class="level3">
-<h3 class="anchored" data-anchor-id="sammud">Sammud</h3>
+<section id="sammud-1" class="level3">
+<h3 class="anchored" data-anchor-id="sammud-1">Sammud</h3>
 <p>Algne mudel:</p>
 <p><span class="math display">\[Y_i = \alpha D_i + X_i'\beta + u_i\]</span></p>
 <p>Topeltvaliku meetodi sammud:</p>
@@ -728,8 +727,8 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 <p>Intuitsioon: kui mingi <span class="math inline">\(X_j\)</span> on oluline meetme <span class="math inline">\(D\)</span> jaoks, siis jõuab see mudelisse vähemalt meetme-võrrandi kaudu, isegi kui <span class="math inline">\(Y\)</span>-võrrandi LASSO teda ei valinud.</p>
 </section>
 </section>
-<section id="instrumentmuutuja-meetod-lassoga" class="level2" data-number="18.5">
-<h2 data-number="18.5" class="anchored" data-anchor-id="instrumentmuutuja-meetod-lassoga"><span class="header-section-number">18.5</span> Instrumentmuutuja meetod LASSOga</h2>
+<section id="instrumentmuutuja-meetod-lassoga" class="level2" data-number="13.12">
+<h2 data-number="13.12" class="anchored" data-anchor-id="instrumentmuutuja-meetod-lassoga"><span class="header-section-number">13.12</span> Instrumentmuutuja meetod LASSOga</h2>
 <section id="endogeensus-ja-iv-raamistik" class="level3">
 <h3 class="anchored" data-anchor-id="endogeensus-ja-iv-raamistik">Endogeensus ja IV-raamistik</h3>
 <p>Kui meede (D) on endogeenne, st <span class="math inline">\(\mathbb{E}(u_i \mid D_i) \neq 0\)</span>, siis ei ole lihtne kontrollmuutujate lisamine piisav. Kasutame instrumentmuutujat (Z), mis:</p>
@@ -790,8 +789,8 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 </ul>
 </section>
 </section>
-<section id="double-machine-learning-ja-laiendused" class="level2" data-number="18.6">
-<h2 data-number="18.6" class="anchored" data-anchor-id="double-machine-learning-ja-laiendused"><span class="header-section-number">18.6</span> Double machine learning ja laiendused</h2>
+<section id="double-machine-learning-ja-laiendused" class="level2" data-number="13.13">
+<h2 data-number="13.13" class="anchored" data-anchor-id="double-machine-learning-ja-laiendused"><span class="header-section-number">13.13</span> Double machine learning ja laiendused</h2>
 <p>Jääkide meetod ja topeltvalik on erijuhud üldisemast <strong>double machine learning</strong> (DML) raamistikust, kus:</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> ja <span class="math inline">\(D\)</span> seosed <span class="math inline">\(X\)</span>-dega modelleeritakse masinõppega (LASSO, juhumetsad, boosting, närvivõrgud),</li>
@@ -813,9 +812,8 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 </ul>
 <p>See vähendab nihet, mis tekib, kui sama paindlik mudel kasutatakse korraga nii seose kui mõju hindamiseks.</p>
 <p>LASSO sobitub DML-raamistikku kui üks võimalik „nuisance“-mudelite (st <span class="math inline">\(\hat{m}_Y\)</span>, <span class="math inline">\(\hat{m}_D\)</span>) hindamise meetod, mis on kiirem ja paremini mõistetav kui keerukamad musta kasti masinõppemudelid, kuid samas võimaldab hinnata mudeleid, kus on palju selgitavaid potentsiaalseid tunnuseid.</p>
-</section>
-<section id="praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" class="level2" data-number="18.7">
-<h2 data-number="18.7" class="anchored" data-anchor-id="praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel"><span class="header-section-number">18.7</span> Praktilised soovitused LASSO kasutamiseks mõju hindamisel</h2>
+<section id="praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel" class="level3">
+<h3 class="anchored" data-anchor-id="praktilised-soovitused-lasso-kasutamiseks-mõju-hindamisel">Praktilised soovitused LASSO kasutamiseks mõju hindamisel</h3>
 <p>Kokkuvõtlikud juhised:</p>
 <ul>
 <li><p>Kui eesmärk on prognoos:</p>
@@ -854,8 +852,9 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 </ul></li>
 </ul>
 </section>
-<section id="kokkuvõte" class="level2" data-number="18.8">
-<h2 data-number="18.8" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">18.8</span> Kokkuvõte</h2>
+</section>
+<section id="kokkuvõte" class="level2" data-number="13.14">
+<h2 data-number="13.14" class="anchored" data-anchor-id="kokkuvõte"><span class="header-section-number">13.14</span> Kokkuvõte</h2>
 <p>Jääkliikmete meetod, topeltvalik ja LASSOga instrumentmuutuja meetod seovad masinõppe ja klassikalise ökonomeetria, et võimaldada usaldusväärset mõju hindamist kõrgedimensioonilistes seadetes. LASSO mängib seejuures kaht rolli:</p>
 <ul>
 <li>prognoosijana, mis aitab modelleerida keerulisi seoseid (Y) ja (D) ning instrumentide ja kontrollide vahel;</li>
@@ -863,8 +862,8 @@ Y_i = \alpha D_i + X_i'\beta + u_i.
 </ul>
 <p>Korrektse regulariseerimisparameetri valiku (teooriapõhine ()) ning sobiva järeldusmetoodika (partialling out, double selection, IV) korral saame LASSO abil hinnata poliitikate ja sekkumiste põhjuslikke mõjusid ka olukorras, kus traditsioonilised ökonomeetrilised meetodid jäävad suurte tunnuste hulga ja multikollineaarsuse tõttu hätta.</p>
 </section>
-<section id="näide" class="level2" data-number="18.9">
-<h2 data-number="18.9" class="anchored" data-anchor-id="näide"><span class="header-section-number">18.9</span> Näide</h2>
+<section id="näide" class="level2" data-number="13.15">
+<h2 data-number="13.15" class="anchored" data-anchor-id="näide"><span class="header-section-number">13.15</span> Näide</h2>
 <section id="vajalikud-paketid" class="level3">
 <h3 class="anchored" data-anchor-id="vajalikud-paketid">Vajalikud paketid</h3>
 <div class="cell">
@@ -948,8 +947,8 @@ Call:  cv.glmnet(x = xw, y = y, nfolds = 5, alpha = 1)
 Measure: Mean-Squared Error 
 
       Lambda Index Measure        SE Nonzero
-min 0.003125    37  0.2375 0.0010024      13
-1se 0.008695    26  0.2385 0.0007928      13</code></pre>
+min 0.000774    52  0.2377 0.0012529      18
+1se 0.010473    24  0.2389 0.0006273      11</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#min - näitab minimaalse MSE väärtusega</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -958,7 +957,7 @@ min 0.003125    37  0.2375 0.0010024      13
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>best_lambda</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.00312487</code></pre>
+<pre><code>[1] 0.000774054</code></pre>
 </div>
 </div>
 <p>Teeme joonise lambda väärtuse ja testandmestiku MSE vahel</p>
@@ -982,26 +981,26 @@ min 0.003125    37  0.2375 0.0010024      13
 <div class="cell-output cell-output-stdout">
 <pre><code>20 x 1 sparse Matrix of class "dgCMatrix"
                        s0
-(Intercept)       0.37162
-d                 0.03731
-year2006          .      
+(Intercept)       0.34765
+d                 0.04160
+year2006          0.00393
 year2007          .      
-age3049           .      
-age5064          -0.08162
-gendermale       -0.01945
-collarwhite       .      
-immigrant1       -0.07503
-rural            -0.02699
-regionBludhaven   .      
-regionCentral    -0.00946
-regionGotham      0.04012
-regionMetropolis  .      
-educSecondary     0.04376
-educTertiary      0.08062
-lastemp1_2        0.03015
-lastemp2_4        0.04879
-lastempover4      0.03060
-benefit           0.14747</code></pre>
+age3049          -0.01094
+age5064          -0.09903
+gendermale       -0.02134
+collarwhite      -0.00385
+immigrant1       -0.07806
+rural            -0.03221
+regionBludhaven   0.01825
+regionCentral    -0.00087
+regionGotham      0.05342
+regionMetropolis  0.01514
+educSecondary     0.05945
+educTertiary      0.09636
+lastemp1_2        0.04258
+lastemp2_4        0.06140
+lastempover4      0.04416
+benefit           0.15045</code></pre>
 </div>
 </div>
 <p>Üllatuslikult jäid kõik alles - post-LASSO. Et ei peaks käsitsi trükkima, võtame nimed automaatselt ja paneme võrrandisse.</p>
@@ -1013,7 +1012,7 @@ benefit           0.14747</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>formula_str</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "y ~ d + age5064 + gendermale + immigrant1 + rural + regionCentral + regionGotham + educSecondary + educTertiary + lastemp1_2 + lastemp2_4 + lastempover4 + benefit"</code></pre>
+<pre><code>[1] "y ~ d + year2006 + age3049 + age5064 + gendermale + collarwhite + immigrant1 + rural + regionBludhaven + regionCentral + regionGotham + regionMetropolis + educSecondary + educTertiary + lastemp1_2 + lastemp2_4 + lastempover4 + benefit"</code></pre>
 </div>
 </div>
 <p>LASSO kordajad on teoreetiliselt nihkega nulli suunas. Teeme Post-LASSO.</p>
@@ -1032,30 +1031,35 @@ lm(formula = as.formula(formula_str), data = atp3)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--0.7473 -0.4592 -0.2412  0.4706  0.7966 
+-0.7597 -0.4573 -0.2346  0.4716  0.7989 
 
 Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    0.35548    0.01959  18.142  &lt; 2e-16 ***
-d              0.04287    0.01345   3.189 0.001436 ** 
-age5064       -0.09318    0.01508  -6.179 6.81e-10 ***
-gendermale    -0.02241    0.01187  -1.889 0.058966 .  
-immigrant1    -0.08436    0.01627  -5.185 2.22e-07 ***
-rural         -0.03302    0.01478  -2.234 0.025510 *  
-regionCentral -0.01541    0.01581  -0.975 0.329820    
-regionGotham   0.04054    0.01418   2.858 0.004277 ** 
-educSecondary  0.06323    0.01699   3.722 0.000200 ***
-educTertiary   0.09693    0.01751   5.535 3.23e-08 ***
-lastemp1_2     0.04511    0.01890   2.387 0.017024 *  
-lastemp2_4     0.06299    0.01691   3.725 0.000197 ***
-lastempover4   0.04336    0.01491   2.909 0.003640 ** 
-benefit        0.14851    0.01224  12.135  &lt; 2e-16 ***
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       0.334523   0.031092  10.759  &lt; 2e-16 ***
+d                 0.042997   0.013459   3.195 0.001406 ** 
+year2006          0.005558   0.011618   0.478 0.632365    
+age3049          -0.016288   0.014262  -1.142 0.253475    
+age5064          -0.106782   0.018210  -5.864 4.72e-09 ***
+gendermale       -0.021911   0.011889  -1.843 0.065383 .  
+collarwhite      -0.008810   0.013776  -0.639 0.522521    
+immigrant1       -0.077865   0.018121  -4.297 1.75e-05 ***
+rural            -0.034460   0.014907  -2.312 0.020826 *  
+regionBludhaven   0.030854   0.031133   0.991 0.321695    
+regionCentral     0.007689   0.027158   0.283 0.777104    
+regionGotham      0.063473   0.024808   2.559 0.010531 *  
+regionMetropolis  0.027074   0.029516   0.917 0.359037    
+educSecondary     0.065434   0.017116   3.823 0.000133 ***
+educTertiary      0.103454   0.018363   5.634 1.83e-08 ***
+lastemp1_2        0.047213   0.019009   2.484 0.013026 *  
+lastemp2_4        0.066187   0.017134   3.863 0.000113 ***
+lastempover4      0.049855   0.015697   3.176 0.001499 ** 
+benefit           0.152305   0.012566  12.120  &lt; 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.4864 on 7126 degrees of freedom
-Multiple R-squared:  0.0554,    Adjusted R-squared:  0.05368 
-F-statistic: 32.15 on 13 and 7126 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.4865 on 7121 degrees of freedom
+Multiple R-squared:  0.0558,    Adjusted R-squared:  0.05341 
+F-statistic: 23.38 on 18 and 7121 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </section>
@@ -1070,7 +1074,7 @@ F-statistic: 32.15 on 13 and 7126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>best_lambda</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0004861285</code></pre>
+<pre><code>[1] 0.002594322</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model) </span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -1084,27 +1088,27 @@ F-statistic: 32.15 on 13 and 7126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(best_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>20 x 1 sparse Matrix of class "dgCMatrix"
-                           s0
-(Intercept)       0.344699097
-d                 0.042128993
-year2006          0.004459528
-year2007          .          
-age3049          -0.012936475
-age5064          -0.101884446
-gendermale       -0.021584370
-collarwhite      -0.005753881
-immigrant1       -0.078547303
-rural            -0.032935249
-regionBludhaven   0.021113776
-regionCentral     .          
-regionGotham      0.055425473
-regionMetropolis  0.017704494
-educSecondary     0.061692726
-educTertiary      0.099017957
-lastemp1_2        0.044320275
-lastemp2_4        0.063197320
-lastempover4      0.046263605
-benefit           0.151101177</code></pre>
+                            s0
+(Intercept)       0.3688413689
+d                 0.0382611387
+year2006          0.0001277985
+year2007          .           
+age3049           .           
+age5064          -0.0835740989
+gendermale       -0.0199659525
+collarwhite       .           
+immigrant1       -0.0766258043
+rural            -0.0280168554
+regionBludhaven   .           
+regionCentral    -0.0104589940
+regionGotham      0.0402078994
+regionMetropolis  .           
+educSecondary     0.0470273779
+educTertiary      0.0833635353
+lastemp1_2        0.0326902651
+lastemp2_4        0.0512017927
+lastempover4      0.0327616666
+benefit           0.1476478022</code></pre>
 </div>
 </div>
 <p>Käsk <code>rlasso</code></p>
@@ -1212,8 +1216,8 @@ F-statistic: 23.38 on 18 and 7121 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Koolituse mõju on 4.3 protsendipunkti hõivele 12 kuud peale koolitust.</p>
 </section>
 </section>
-<section id="partialling-out-method---jääkliikmete-meetod" class="level2" data-number="18.10">
-<h2 data-number="18.10" class="anchored" data-anchor-id="partialling-out-method---jääkliikmete-meetod"><span class="header-section-number">18.10</span> Partialling out method - jääkliikmete meetod</h2>
+<section id="partialling-out-method---jääkliikmete-meetod" class="level2" data-number="13.16">
+<h2 data-number="13.16" class="anchored" data-anchor-id="partialling-out-method---jääkliikmete-meetod"><span class="header-section-number">13.16</span> Partialling out method - jääkliikmete meetod</h2>
 <p>Tehniline eeltöö. Leiame selgitavate muutujate nimed ilma training muutujata</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> year <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> collar <span class="sc">+</span> immigrant <span class="sc">+</span> rural <span class="sc">+</span> region <span class="sc">+</span> educ <span class="sc">+</span> lastemp <span class="sc">+</span> benefit <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> atp2)</span>
@@ -1362,8 +1366,8 @@ F-statistic: 24.12 on 17 and 7122 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Sarnane efekti suurus. Tööturukoolitus tõstab töötamise tõenäosust ca 4.6 protsendipunkti.</p>
 </section>
 </section>
-<section id="lisa-ortogonaalne-momenttingimus" class="level2" data-number="18.11">
-<h2 data-number="18.11" class="anchored" data-anchor-id="lisa-ortogonaalne-momenttingimus"><span class="header-section-number">18.11</span> Lisa Ortogonaalne momenttingimus</h2>
+<section id="lisa-ortogonaalne-momenttingimus" class="level2" data-number="13.17">
+<h2 data-number="13.17" class="anchored" data-anchor-id="lisa-ortogonaalne-momenttingimus"><span class="header-section-number">13.17</span> Lisa Ortogonaalne momenttingimus</h2>
 <p>Double Machine Learning (DML) ehk kahekordne masinõpe võimaldab ühendada põhjusliku mõju hindamise paindlike masinõppemeetoditega. Selle keskne idee on kasutada <strong>ortogonaalseid momenttingimusi</strong> (<em>Neyman orthogonal scores</em>), mis vähendavad masinõppega hinnatud abifunktsioonide vigade mõju meid huvitava põhjusliku parameetri hinnangule.</p>
 <p>DML tugineb kahele olulisele põhimõttele:</p>
 <ol type="1">
@@ -1372,7 +1376,7 @@ F-statistic: 24.12 on 17 and 7122 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ol>
 <p>Vaatame neid põhimõtteid instrumentmuutuja meetodi näitel.</p>
 <section id="instrumentmuutuja-momenttingimus" class="level3">
-<h3 class="anchored" data-anchor-id="instrumentmuutuja-momenttingimus">1. Instrumentmuutuja momenttingimus</h3>
+<h3 class="anchored" data-anchor-id="instrumentmuutuja-momenttingimus">Instrumentmuutuja momenttingimus</h3>
 <p>Oletame, et meid huvitab muutuja <span class="math inline">\(D_i\)</span> põhjuslik mõju tulemusele <span class="math inline">\(Y_i\)</span>:</p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 D_i + u_i,
@@ -1390,7 +1394,7 @@ E[Z_i(Y_i-\beta_0-\beta_1D_i)]=0.
 <p>Koos instrumendi relevantsuse tingimusega võimaldab see leida IV hinnangu.</p>
 </section>
 <section id="kui-mudelis-on-palju-selgitavaid-tunnuseid" class="level3">
-<h3 class="anchored" data-anchor-id="kui-mudelis-on-palju-selgitavaid-tunnuseid">2. Kui mudelis on palju selgitavaid tunnuseid</h3>
+<h3 class="anchored" data-anchor-id="kui-mudelis-on-palju-selgitavaid-tunnuseid">Kui mudelis on palju selgitavaid tunnuseid</h3>
 <p>Oletame nüüd, et tulemust mõjutavad lisaks endogeensele muutujale <span class="math inline">\(D_i\)</span> ka eksogeensed tunnused <span class="math inline">\(X_i\)</span>:</p>
 <p><span class="math display">\[
 Y_i = \beta_1 D_i + g(X_i)+u_i,
@@ -1417,7 +1421,7 @@ r(X_i) &amp;= E[Z_i\mid X_i].
 <p>Need jäägid kirjeldavad muutujate varieeruvust, mida kontrollmuutujad <span class="math inline">\(X_i\)</span> ei selgita.</p>
 </section>
 <section id="ortogonaalne-iv-momenttingimus" class="level3">
-<h3 class="anchored" data-anchor-id="ortogonaalne-iv-momenttingimus">3. Ortogonaalne IV momenttingimus</h3>
+<h3 class="anchored" data-anchor-id="ortogonaalne-iv-momenttingimus">Ortogonaalne IV momenttingimus</h3>
 <p>DML-IV meetodis kasutatakse momenttingimust:</p>
 <p><span class="math display">\[
 \boxed{
@@ -1473,7 +1477,7 @@ E[\psi(W_i;\beta_0,\eta_0+t h)]
 <!-- TODO!: Ortogonaalsus ei tähenda siiski, et ükskõik kui ebatäpne masinõppemudel annaks korrektse põhjusliku mõju hinnangu. Vajalikud on sobivad eeldused abifunktsioonide hinnangute koonduvuse kohta. -->
 </section>
 <section id="rist-sobitamine-cross-fitting" class="level3">
-<h3 class="anchored" data-anchor-id="rist-sobitamine-cross-fitting">4. Rist-sobitamine (cross-fitting)</h3>
+<h3 class="anchored" data-anchor-id="rist-sobitamine-cross-fitting">Rist-sobitamine (cross-fitting)</h3>
 <p>Ortogonaalsusest üksi ei piisa. Masinõppemudelid võivad mudeleid üle sobitada (<em>overfitting</em>), eriti kui sama vaatlust kasutatakse nii mudeli treenimiseks kui ka põhjusliku parameetri hindamiseks.</p>
 <p>DML kasutab selle probleemi vähendamiseks rist-sobitamist (<em>cross-fitting</em>). Näiteks viieosalise rist-sobitamise korral:</p>
 <ol type="1">
@@ -1488,7 +1492,7 @@ E[\psi(W_i;\beta_0,\eta_0+t h)]
 <p>Rist-sobitamine aitab vähendada ülesobitamisest tingitud nihet ja nõrgendada masinõppemudelite keerukusele seatavaid tingimusi.</p>
 </section>
 <section id="tavalise-iv-ja-dml-iv-võrdlus" class="level3">
-<h3 class="anchored" data-anchor-id="tavalise-iv-ja-dml-iv-võrdlus">5. Tavalise IV ja DML-IV võrdlus</h3>
+<h3 class="anchored" data-anchor-id="tavalise-iv-ja-dml-iv-võrdlus">Tavalise IV ja DML-IV võrdlus</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1559,7 +1563,6 @@ E[\psi(W_i;\beta_0,\eta_0+t h)]
 <p>Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W., &amp; Robins, J. (2018). Double/debiased machine learning for treatment and structural parameters. <em>The Econometrics Journal</em>, 21(1), C1–C68. https://doi.org/10.1111/ectj.12097</p>
 
 
-</section>
 </section>
 </section>
 
