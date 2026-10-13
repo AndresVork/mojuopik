@@ -1,13 +1,15 @@
 # Ideid
 
+- generalized propensity score, GPS matching
+
 - Simuleeritud andmetele RDDs McCrary testi näide ja platseebo testi näide
 
-- Regression Discontinuity in Space
+- Regression Discontinuity in Space - midagi tehtud, otsida reaalseid näiteid
 
 - Causal forest for panel data,
 
   - <https://onlinelibrary.wiley.com/doi/full/10.1002/jae.70001>
 
   - 
-- Lisada iga peatüki lõppu tabel Eesti huvitavatest uuringutest
 
+- Lisada iga peatüki lõppu tabel Eesti huvitavatest uuringutest

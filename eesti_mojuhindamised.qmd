@@ -1,0 +1,47 @@
+# Eestis tehtud põhjusliku mõju hindamise uuringud"
+
+Selles lisas koondatakse Eestis tehtud empiirilised uuringud, mis hindavad poliitikameetmete **põhjuslikku mõju**. Tabelitesse lisatakse üksnes uuringud, mille identifitseerimisstrateegia püüab käsitleda tulemust põhjusliku mõjuna, mitte pelgalt korrelatsioonina.
+
+Lisa täieneb jooksvalt, kõik soovitused on teretulnud.
+
+## Tööturupoliitika {.unnumbered}
+
+| Artikkel või uuring | Kasutatud meetod | Peamine tulemus |
+|:-----------------------|:-----------------------|:-----------------------|
+| [*Unt, Võrk (2026). Eesti Töötukassa töötust ennetavate teenuste võrdlusrühmapõhine mõju hindamine*](https://www.tootukassa.ee/web/sites/default/files/2026-06/Eesti%20T%C3%B6%C3%B6tukassa%20t%C3%B6%C3%B6tust%20ennetavate%20teenuste%20v%C3%B5rdlusr%C3%BChmap%C3%B5hine%20m%C3%B5ju%20hindamine_2026.pdf) | Sobitamine | Hindasid mõju palgale ja töötamise tõenäosusele |
+| [*Leetmaa, Võrk, Kupts, Kirss (2015). Programmi "Täiskasvanute tööalane koolitus ja arendustegevused” võrdlusrühmapõhine mõju hindamine*](https://www.praxis.ee/uploads/2015/02/Praxis_CIE_Estonia_31Oct2015_EE.pdf) | Sobitamine / dif-dif | Hindasid mõju palgale ja töötamise tõenäosusele |
+
+: Eestis tehtud tööturupoliitika mõjuhindamised
+
+## Ettevõtlus- ja innovatsioonipoliitika {.unnumbered}
+
+| Artikkel või uuring | Kasutatud meetod | Peamine tulemus |
+|:-----------------------|:-----------------------|:-----------------------|
+| [*Ferraro, Männasoo, Tasane (2023). How the EU Cohesion Policy targeted at R&D and innovation impacts the productivity, employment and exports of SMEs*](https://doi.org/10.1016/j.evalprogplan.2022.102221) | IPW | \[Mõju hõivele, tootlikkusele.\] |
+| [*Autor(id), aasta. kohatäide*](LISA-LINK) | IV / DiD / RDD | \[Mõju .\] |
+
+: Eestis tehtud ettevõtluspoliitika mõjuhindamised
+
+## Tervise- ja tervishoiupoliitika {.unnumbered}
+
+| Artikkel või uuring | Kasutatud meetod | Peamine tulemus |
+|:-----------------------|:-----------------------|:-----------------------|
+| [*Autor(id), aasta. Tervisepoliitika meetme mõju*](LISA-LINK) | IV / DiD / RDD | \[Mõju tervisetulemitele, ravikasutusele või kuludele.\] |
+
+: Eestis tehtud tervisepoliitika mõjuhindamised
+
+## Hariduspoliitika {.unnumbered}
+
+| Artikkel või uuring | Kasutatud meetod | Peamine tulemus |
+|:-----------------------|:-----------------------|:-----------------------|
+| [*Autor(id), aasta. Haridusreformi mõju*](LISA-LINK) | DiD / RDD | \[Mõju õpitulemustele, haridusteele või tööturuväljunditele.\] |
+
+: Eestis tehtud hariduspoliitika mõjuhindamised
+
+## Maksu- ja sotsiaalpoliitika {.unnumbered}
+
+| Artikkel või uuring | Kasutatud meetod | Peamine tulemus |
+|:-----------------------|:-----------------------|:-----------------------|
+| [*Autor(id), aasta. Maksu- või toetusemuudatuse mõju*](LISA-LINK) | DiD / IV / RDD | \[Mõju töötamisele, tarbimisele või sissetulekutele.\] |
+
+: Eestis tehtud maksu- ja sotsiaalpoliitika mõjuhindamised

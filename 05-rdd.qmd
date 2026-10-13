@@ -17,9 +17,7 @@ Näiteks võrdleme täispensioni saamise mõju hindamiseks töötundidele inimes
 
 Me eeldame vaikimisi, et kui inimesed on sarnased jälgitava tunnuse osas (nt vanus, keskmine hinne), siis nad on sarnased ka mittejälgitavate tunnuste osas.
 
-Regressiooni katkemise disain annab lokaalsed hinnangud. Sellel meetodil on tugev sisemine valiidsus (*internal validity*), see tähendab, me usume tulemusi vaadeldava sihtrühma puhul. Nt hambaravi mitterahalise hüvitise mõju vanuses 18-20 ongi selline nagu andmed näitavad.
-Aga sellel meetodil on nõrk väline valiidsus (*exernal validity*), me  ei ole kindel, et see järeldus kehtib kaugemal lõikepunktist ehk erineva sihtrühma korral
-Näiteks, mis võiks olla hambaravi hüvitise mõju vanuses 30?
+Regressiooni katkemise disain annab lokaalsed hinnangud. Sellel meetodil on tugev sisemine valiidsus (*internal validity*), see tähendab, me usume tulemusi vaadeldava sihtrühma puhul. Nt hambaravi mitterahalise hüvitise mõju vanuses 18-20 ongi selline nagu andmed näitavad. Aga sellel meetodil on nõrk väline valiidsus (*exernal validity*), me ei ole kindel, et see järeldus kehtib kaugemal lõikepunktist ehk erineva sihtrühma korral Näiteks, mis võiks olla hambaravi hüvitise mõju vanuses 30?
 
 ### Tähistused
 
@@ -461,6 +459,7 @@ Simuleerime näiteandmed:
 library(rdrobust)
 library(ggplot2)
 library(dplyr)
+library(purrr)
 
 set.seed(123)
 
@@ -716,12 +715,16 @@ See on analoogne IV-Waldi hinnanguga: kui lõikepunkti juures oleks tõenäosus 
 <!-- Ajutine -->
 
 <!-- $$ -->
-<!-- \tau^{FRD} = \frac{\lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x] -->
-<!--          - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x]} -->
-<!--          { \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x] -->
-<!--          - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x]}. -->
-<!-- $$ -->
 
+<!-- \tau^{FRD} = \frac{\lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x] -->
+
+<!--          - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x]} -->
+
+<!--          { \lim_{x \downarrow c} \mathbb{E}[D_i \mid X_i = x] -->
+
+<!--          - \lim_{x \uparrow c} \mathbb{E}[D_i \mid X_i = x]}. -->
+
+<!-- $$ -->
 
 ### Näide. Ettevõtlustoetuse mõju arvutamine
 
@@ -745,7 +748,7 @@ $$
 \tau^{FRD} = \frac{\Delta Y}{\Delta D} = \frac{2}{0.5} = 4 \text{ mln}.
 $$ Seega, andmetest näeme, et keskmine kasum kasvas 2 miljonit eurot ettevõtte kohta. Kuid teame, et meetmes osalemine kasvas samal ajal 50% võrra. Seega kui kõik ettevõtted oleksid saanud toetust, võiks arvata, et meetme mõju oleks olnud 2 korda suurem ehk 4 miljonit eurot.
 
-### Näide Ris
+### Näide simuleeritud andmetega Ris
 
 Teeme simuleeritud andmed Ris
 
@@ -974,7 +977,7 @@ tau_wald
 
 ```
 
-#### Sama fuzzy RDD rdrobust abil
+### Sama rdrobust abil
 
 Nüüd laseme spetsiaalsel RDD paketil teha sisuliselt sama asja lokaalse polünoomse regressiooniga.
 
@@ -1083,6 +1086,25 @@ Idee:
 
 Kui testi tulemus ei lükka $H_0$ hüpoteesi ümber (puudub oluline hüpe tihedusfunktsiooni väärtuses), on pidevuse eeldus ja see, et inimesed ei manipuleerinud tulemustega usutavam.
 
+Näide
+
+```{r}
+library(rddensity)
+densresult <- rddensity(df$X, c = 100)
+summary(densresult)
+```
+
+Näeme, et meie puhul on jaotused ülal- ja allpool lõikepunkti sarnased (p-väärtus > 0.10)
+
+Ka joonisele:
+
+```{r}
+rdplotdensity(densresult, X = df$X)
+
+```
+
+
+
 ### Platseebo test
 
 Platseebo test (või “fake cutoff test”) kontrollib, kas meie hinnatud mõju sõltub spetsiifiliselt just tegelikust lõikepunktist.
@@ -1103,6 +1125,70 @@ Kui leiame tugevaid “mõjusid” ka mujal, võib see viidata:
 
 Kui ainult tõelise lõikepunkti juures on selge ja stabiilne mõju, suurendab see usaldust RDD tulemuste suhtes.
 
+
+Näide meie simuleeritud arvude puhul hägusa disaini korral.
+
+```{r}
+#Meie väljund 
+y <- as.numeric(df$Y)
+#meede
+z <- as.numeric(df$D)
+#jooksev muutuja
+x <- as.numeric(df$X)
+#Funktsioon võtmaks välja meie hinnangud 
+
+extract_rd <- function(cu) {
+  #See rida muutub
+  out <- rdrobust(y = y, x = x, c = cu, fuzzy = z)
+  est <- out$Estimate
+  # Meie hinnangud
+  tau_us <- est[1, "tau.us"]
+  se_us  <- est[1, "se.us"]
+  tau_rb <- est[1, "tau.bc"]
+  se_rb  <- est[1, "se.rb"]
+  #Teeme tabeli
+  data.frame(cutoff = cu, tau_us = tau_us, se_us = se_us, tau_rb = tau_rb, se_rb = se_rb)
+}
+
+```
+
+Ja rakendame
+
+```{r}
+# Võimalikud lõikepunktid
+cuts <- seq(90, 110, by = 2)
+
+
+res <- map_dfr(cuts, extract_rd) %>%
+  mutate(
+    #Ligilähedased 95% usalduspiirid robustsete hinnangutega 
+    lwr_rb = tau_rb - 1.96 * se_rb,
+    upr_rb = tau_rb + 1.96 * se_rb,
+    #Ja tavapärased
+    lwr_us = tau_us - 1.96 * se_us,
+    upr_us = tau_us + 1.96 * se_us
+  )
+```
+
+Ning tulemused
+
+```{r}
+# 
+ggplot(res, aes(x = cutoff, y = tau_us)) +
+  geom_ribbon(aes(ymin = lwr_us, ymax = upr_us), alpha = 0.2) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 100, linetype = "dotted") +
+  labs(
+    title = "Platseebo hinnangud - pensioniea mõju töötundidele",
+    x = "Lõikepunkt",
+    y = "Hinnang (nihkega korrigeerimata)"
+  ) +
+  theme_minimal()
+```
+
+
 ### Lisalugemist
 
 TODO: Lisada lingid
@@ -1114,6 +1200,7 @@ Cattaneo, M. D., Idrobo, N. & Titiunik, R. (2020). *A Practical Introduction to 
 Gelman, A. & Imbens, G. (2019). *Why High-Order Polynomials Should Not Be Used in Regression Discontinuity Designs*. Journal of Business & Economic Statistics, 37(3), 447--456.
 
 Calonico, S., Cattaneo, M. D. & Titiunik, R. (2014). *Robust Nonparametric Confidence Intervals for Regression-Discontinuity Designs*. Econometrica, 82(6), 2295--2326.
+
 
 ## Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.
 
@@ -1511,50 +1598,7 @@ rdrobust(y = df$hours, x = df$age, c = 63.5, p = 1) %>%
 
 ```
 
-#### Edasijõudnutele: instrumentmuutuja kasutamine
-
-Esimene samm on hinnata pensioni saamise tõenäosus. Kasutage lineaarset tõenäosusmudelit koos overpenage ja lineaarse ja ruudukujul vanusega. Seejärel prognoosige pensioni saamise tõenäosus. Pange nimeks "pensionhat". Hinnake tundide võrrand, kus pensioni saamise asemel on selgitavaks teguriks prognoositav pensioni saamine "pensionhat".
-
-```{r}
-pensmodel <- lm(pension ~ overpenage + agec +  agec2, data = df)
-summary(pensmodel)
-```
-
-Meeldetuletus: kui palju pensioniikka jõudmine suurendas tõenäosust pensioni saada? Vaata "overpenage" kordajat.
-
-Prognoosime pensioni saamise, nimetame muutuja 'pensionhat'.
-
-```{r}
-df$pensionhat <- predict(pensmodel)
-summary(df$pensionhat)
-
-```
-
-Hindame töötundide võrrandi, kus sees on prognoositud tõenäosus pension saada.
-
-```{r}
-modelf <- lm(hours ~ pensionhat + agec +  agec2, data = df)
-summary(modelf)
-
-```
-
-Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi. See on sarnane käsitsi hinnatud LATEga (vt üles).
-
-Käsk `ivreg` teeb selle kahesammulise hindamise automaatselt.
-
-```{r}
-fuzzyreg <- ivreg(
-  hours ~ pension + agec +  agec2 | overpenage + agec +  agec2,
-  data = df
-)
-
-summary(fuzzyreg)
-
-```
-
-vaadake kordajat `pension` Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi.
-
-#### Paindlikum mudel
+### Hägus disain
 
 Võime kasutada veelgi paindlikumat mudelit, lokaalset lineaarset regressioonimudelit, taas paketist rdrobust.
 
@@ -1709,26 +1753,45 @@ Näeme, et mõjud kõiguvad väga palju. Mingeid erilist hüpet või muutust me 
 
 Kokkuvõtteks, me tõesti näeme hüpet pensioniea lähedases vanuses pensioni saajate seas. Kuid me ei saa ümber lükata nüll hüpoteesi, et töötundidele otsest pensionieani jõudmine avaldaks mõju. Töötundide vähenemine toimub sujuvalt.
 
+### Instrumentmuutuja kasutamine
 
+Esimene samm on hinnata pensioni saamise tõenäosus. Kasutage lineaarset tõenäosusmudelit koos overpenage ja lineaarse ja ruudukujul vanusega. Seejärel prognoosige pensioni saamise tõenäosus. Pange nimeks "pensionhat". Hinnake tundide võrrand, kus pensioni saamise asemel on selgitavaks teguriks prognoositav pensioni saamine "pensionhat".
 
-### Lisa: RDD hindamine Statas
-
-Stata jaoks saab kasutada sama `rdrobust` paketti.
-
-Näiteks:
-
-``` stata
-rdrobust Y X, c(50) p(1)
+```{r}
+pensmodel <- lm(pension ~ overpenage + agec +  agec2, data = df)
+summary(pensmodel)
 ```
 
-Lokaalse ruutregressiooni korral:
+Meeldetuletus: kui palju pensioniikka jõudmine suurendas tõenäosust pensioni saada? Vaata "overpenage" kordajat.
 
-``` stata
-rdrobust Y X, c(50) p(2)
+Prognoosime pensioni saamise, nimetame muutuja 'pensionhat'.
+
+```{r}
+df$pensionhat <- predict(pensmodel)
+summary(df$pensionhat)
+
 ```
 
-RDD graafiku saab teha käsuga:
+Hindame töötundide võrrandi, kus sees on prognoositud tõenäosus pension saada.
 
-``` stata
-rdplot Y X, c(50)
+```{r}
+modelf <- lm(hours ~ pensionhat + agec +  agec2, data = df)
+summary(modelf)
+
 ```
+
+Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi. See on sarnane käsitsi hinnatud LATEga (vt üles).
+
+Käsk `ivreg` teeb selle kahesammulise hindamise automaatselt.
+
+```{r}
+fuzzyreg <- ivreg(
+  hours ~ pension + agec +  agec2 | overpenage + agec +  agec2,
+  data = df
+)
+
+summary(fuzzyreg)
+
+```
+
+vaadake kordajat `pension` Pensioniikka jõudmise mõju töötundide vähendamisele on ligi 11 tundi.

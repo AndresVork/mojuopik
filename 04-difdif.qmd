@@ -147,7 +147,7 @@ Kasutatakse kas Wald testi või F testi. Kui me ei saa $H_0$ ümber lükata, sii
 
 ### Paindlikumad mudelid
 
-Pangem tähele, et kui meede algab erinevatele inimestele erinevatel hetkedel (nn *staggered treatment*), siis võrdleme erinevad rühm eri ajahetkedel. Kui meetme mõju muutub ajas või erineb kohortide vahel, siis TWFE mudel ei võimalda seda arvesse võtta. 
+Pangem tähele, et kui meede algab erinevatele inimestele erinevatel hetkedel (nn *staggered treatment*), siis võrdleme erinevad rühm eri ajahetkedel. Kui meetme mõju muutub ajas või erineb kohortide vahel, siis TWFE mudel ei võimalda seda arvesse võtta.
 
 Näiteks, kui koolitus algab erinevatel aastatel, võivad nii koolituse mõju kui ka selle kestus erineda. Näiteks võib 2010. aastal koolitatud inimeste mõju esimesel koolitusjärgsel aastal olla 500 eurot ja 2011. aastal koolitatutel 200 eurot. **Heterogeensed mõjud** tähendavad, et ei ole üht kõigile kohortidele ja aastatele võrdset põhjuslikku mõju.
 
@@ -171,8 +171,7 @@ $$
 Y_{it}=\alpha_i+\gamma_t+\sum_{k\neq -1}\beta_k\mathbf{1}(t-G_i=k)+\varepsilon_{it},
 $$
 
-kus $G_i$ on koolituse algusaasta, $k=t-G_i$ on sündmusaeg ja $k=-1$ on võrdlusperiood; mitte kunagi mitteosalejate sündmusaja indikaatorid on nullid. See lubab mõjul ajas muutuda, kuid **ei lahenda automaatselt eri kohortide heterogeensete mõjude probleemi**. 
-
+kus $G_i$ on koolituse algusaasta, $k=t-G_i$ on sündmusaeg ja $k=-1$ on võrdlusperiood; mitte kunagi mitteosalejate sündmusaja indikaatorid on nullid. See lubab mõjul ajas muutuda, kuid **ei lahenda automaatselt eri kohortide heterogeensete mõjude probleemi**.
 
 #### Sun–Abrahami meetodi põhimõte
 
@@ -248,9 +247,7 @@ Kaalude summa on igas agregeerimises üks ning need sõltuvad valitud keskmise m
 
 **Kas meetodid annavad sama tulemuse?** Kui hinnatakse sama põhjuslikku parameetrit, kasutatakse võrreldavaid kontrollrühmi ja sarnaseid agregeerimiskaale, võivad Sun–Abrahami ja Callaway–Sant'Anna tulemused olla lähedased. Erinevad tulemused ei tõesta iseenesest TWFE nihet: esmalt tuleb kontrollida, et võrreldaks sama hinnatavat keskmist mõju.
 
-
 DiD meetodit võib kombineerida sobitamisega (vt järgmist peatükki). Sellisel juhul tehakse võrdlusrühm eelnevalt sarnaseks osalusrühmaga kasutades meetmele eelnevaid tunnuste väärtusi ja meetmest sõltumatuid tunnuseid. Näiteks inimese sugu, vanus ja palk enne meedet.
-
 
 ## Näide pensionipoliitika mõju kohta hõivemäärale
 
@@ -601,7 +598,6 @@ dfl <- dfl %>% mutate(aegkoolitusest = factor(aegkoolitusest, levels = c(-1, -3:
 m_twfedyn2 <- feols( palk ~  aegkoolitusest | id + aasta,data = dfl, cluster = ~ id)
 
 ```
-
 
 #### Sun–Abrahami dünaamiline hinnang
 
