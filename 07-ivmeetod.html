@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Instrumentmuutuja – Põhjuslike seoste hindamine majanduses</title>
+<title>10&nbsp; Instrumentmuutuja meetod – Põhjuslike seoste hindamine majanduses</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-ivmeetod.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-ivmeetod.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja meetod</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
@@ -239,7 +239,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja meetod</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -260,12 +260,29 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LASSO ja kantregressioon mõju hindamisel</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lisad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Lülita sektsiooni">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  <a href="./eesti_mojuhindamised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Eestis tehtud põhjusliku mõju hindamise uuringud”</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -276,10 +293,7 @@ window.Quarto = {
     <h2 id="toc-title">Sisukord</h2>
    
   <ul>
-  <li><a href="#seade" id="toc-seade" class="nav-link active" data-scroll-target="#seade"><span class="header-section-number">10.1</span> Seade</a>
-  <ul class="collapse">
-  <li><a href="#motivatsioon-endogeensus-ja-nihe-väljajäetud-muutuja-tõttu" id="toc-motivatsioon-endogeensus-ja-nihe-väljajäetud-muutuja-tõttu" class="nav-link" data-scroll-target="#motivatsioon-endogeensus-ja-nihe-väljajäetud-muutuja-tõttu">Motivatsioon: endogeensus ja nihe väljajäetud muutuja tõttu</a></li>
-  </ul></li>
+  <li><a href="#motivatsioon" id="toc-motivatsioon" class="nav-link active" data-scroll-target="#motivatsioon"><span class="header-section-number">10.1</span> Motivatsioon</a></li>
   <li><a href="#mis-on-instrumentmuutuja" id="toc-mis-on-instrumentmuutuja" class="nav-link" data-scroll-target="#mis-on-instrumentmuutuja"><span class="header-section-number">10.2</span> Mis on instrumentmuutuja?</a></li>
   <li><a href="#instrumentmuutuja-hinnang-kui-suhe" id="toc-instrumentmuutuja-hinnang-kui-suhe" class="nav-link" data-scroll-target="#instrumentmuutuja-hinnang-kui-suhe"><span class="header-section-number">10.3</span> Instrumentmuutuja hinnang kui suhe</a></li>
   <li><a href="#kahesammuline-vähimruutude-meetod-2sls" id="toc-kahesammuline-vähimruutude-meetod-2sls" class="nav-link" data-scroll-target="#kahesammuline-vähimruutude-meetod-2sls"><span class="header-section-number">10.4</span> Kahesammuline vähimruutude meetod (2SLS)</a></li>
@@ -302,20 +316,10 @@ window.Quarto = {
   <li><a href="#näide" id="toc-näide" class="nav-link" data-scroll-target="#näide"><span class="header-section-number">10.14</span> Näide</a>
   <ul class="collapse">
   <li><a href="#andmed" id="toc-andmed" class="nav-link" data-scroll-target="#andmed">Andmed</a></li>
-  <li><a href="#avame-andmed" id="toc-avame-andmed" class="nav-link" data-scroll-target="#avame-andmed">Avame andmed</a></li>
   <li><a href="#ols" id="toc-ols" class="nav-link" data-scroll-target="#ols">OLS</a></li>
-  </ul></li>
-  <li><a href="#kahesammulise-vähimruutude-meetodi-2sls-hinnang" id="toc-kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="nav-link" data-scroll-target="#kahesammulise-vähimruutude-meetodi-2sls-hinnang"><span class="header-section-number">10.15</span> Kahesammulise vähimruutude meetodi (2SLS) hinnang</a>
-  <ul class="collapse">
-  <li><a href="#esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine" id="toc-esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine" class="nav-link" data-scroll-target="#esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine">Esimene samm: Lojaalsusprogrammi liikmesuse prognoosimine</a></li>
-  <li><a href="#teine-samm" id="toc-teine-samm" class="nav-link" data-scroll-target="#teine-samm">Teine samm</a></li>
-  <li><a href="#kontrollfunktsiooniga-control-function" id="toc-kontrollfunktsiooniga-control-function" class="nav-link" data-scroll-target="#kontrollfunktsiooniga-control-function">Kontrollfunktsiooniga (control function)</a></li>
-  </ul></li>
-  <li><a href="#testid" id="toc-testid" class="nav-link" data-scroll-target="#testid"><span class="header-section-number">10.16</span> Testid</a>
-  <ul class="collapse">
-  <li><a href="#kas-instrumenti-on-vaja" id="toc-kas-instrumenti-on-vaja" class="nav-link" data-scroll-target="#kas-instrumenti-on-vaja">Kas instrumenti on vaja?</a></li>
-  <li><a href="#kas-instrumendid-on-tugevad" id="toc-kas-instrumendid-on-tugevad" class="nav-link" data-scroll-target="#kas-instrumendid-on-tugevad">Kas instrumendid on tugevad?</a></li>
-  <li><a href="#kas-instrumendid-on-sobivad" id="toc-kas-instrumendid-on-sobivad" class="nav-link" data-scroll-target="#kas-instrumendid-on-sobivad">Kas instrumendid on sobivad?</a></li>
+  <li><a href="#kahesammulise-vähimruutude-meetodi-2sls-hinnang" id="toc-kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="nav-link" data-scroll-target="#kahesammulise-vähimruutude-meetodi-2sls-hinnang">Kahesammulise vähimruutude meetodi (2SLS) hinnang</a></li>
+  <li><a href="#testid" id="toc-testid" class="nav-link" data-scroll-target="#testid">Testid</a></li>
+  <li><a href="#iv-kui-mudeli-kordajate-suhe" id="toc-iv-kui-mudeli-kordajate-suhe" class="nav-link" data-scroll-target="#iv-kui-mudeli-kordajate-suhe">IV kui mudeli kordajate suhe</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/07-ivmeetod.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></nav>
@@ -325,7 +329,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Instrumentmuutuja meetod</span></h1>
 </div>
 
 
@@ -337,7 +341,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">10/10/2026</p>
+      <p class="date-modified">14/10/2026</p>
     </div>
   </div>
     
@@ -348,11 +352,10 @@ window.Quarto = {
 </header>
 
 
-<section id="seade" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="seade"><span class="header-section-number">10.1</span> Seade</h2>
+<section id="motivatsioon" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="motivatsioon"><span class="header-section-number">10.1</span> Motivatsioon</h2>
 <p>Instrumentmuutuja meetod (<em>instrumental variable method</em>, IV) on üks olulisemaid tööriistu olukordades, kus regressioonimudeli mõni selgitav tunnus on endogeenne – st korreleerub vealiikmega. Sellisel juhul on tavalise OLS-regressiooniga saadud hinnangud nihkega ja ei ole mõjusad isegi väga suurtes valimites. IV-meetod püüab eraldada selle osa varieeruvusest, mis on “puhas” ja ei ole mõjutatud jälgimata teguritest.</p>
-<section id="motivatsioon-endogeensus-ja-nihe-väljajäetud-muutuja-tõttu" class="level3">
-<h3 class="anchored" data-anchor-id="motivatsioon-endogeensus-ja-nihe-väljajäetud-muutuja-tõttu">Motivatsioon: endogeensus ja nihe väljajäetud muutuja tõttu</h3>
+<p><em>Motivatsioon: endogeensus ja nihe väljajäetud muutuja tõttu</em></p>
 <p>Olgu lihtne lineaarne mudel</p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + u_i,
@@ -377,7 +380,6 @@ Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + u_i,
 <li>lojaalsusprogrammi <span class="math inline">\(D_i\)</span> mõju ostusummale: programmiga liituvad pigem need kliendid, kes nagunii antud poeketis käivad.</li>
 </ul>
 <p>Kui <span class="math inline">\(\operatorname{Cov}(D_i, u_i) \neq 0\)</span>, tekib nihe väljajäetud muutuja pärast (<em>omitted variable bias</em>) ning OLS-i hinnang <span class="math inline">\(\hat\beta^{OLS}\)</span> ei ole põhjuslik mõju.</p>
-</section>
 </section>
 <section id="mis-on-instrumentmuutuja" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="mis-on-instrumentmuutuja"><span class="header-section-number">10.2</span> Mis on instrumentmuutuja?</h2>
@@ -827,8 +829,8 @@ Y_i = \alpha + \beta D_i + u_i.
 <h2 data-number="10.14" class="anchored" data-anchor-id="näide"><span class="header-section-number">10.14</span> Näide</h2>
 <p>TODO:! Lisada pikemalt selgitusi tulemuste kohta.</p>
 <p>See näide püüab korrata lähenemist, mis kasutati Leenheer jt. artiklis.</p>
-<p>Vt Jorna Leenheer, Harald J. van Heerde, Tammo H.A. Bijmolt, Ale Smidts, “Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members, International Journal of Research in Marketing,”, Volume 24, Issue 1, 2007, Pages 31-47, ISSN 0167-8116, https://doi.org/10.1016/j.ijresmar.2006.10.005. https://www.sciencedirect.com/science/article/abs/pii/S016781160600084X</p>
-<p>Artikkel uurib ettevõtete lojaalsusprogrammide mõju kliendilojaalsusele, arvestades valikunihet (selection bias). Lojaalsusprogrammi valivad need kliendid, kes juba nagunii kasutavad teenuseid enam. Seega ülehindaksime lojaalsusprogrammide mõju klientide lojaalsusele.</p>
+<p>Vt Jorna Leenheer, Harald J. van Heerde, Tammo H.A. Bijmolt, Ale Smidts, “Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members, International Journal of Research in Marketing,”, Volume 24, Issue 1, 2007, Pages 31-47, ISSN 0167-8116, <a href="https://doi.org/10.1016/j.ijresmar.2006.10.005." class="uri">https://doi.org/10.1016/j.ijresmar.2006.10.005.</a></p>
+<p>Artikkel uurib ettevõtete lojaalsusprogrammide mõju kliendilojaalsusele, arvestades valikunihet (<em>selection bias</em>). Lojaalsusprogrammi valivad need kliendid, kes juba nagunii kasutavad teenuseid enam. Seega ülehindaksime lojaalsusprogrammide mõju klientide lojaalsusele.</p>
 <p>Meetod hõlmab kahesammulist vähimruutude meetodit (2SLS) koos instrumentmuutujatega, et hinnata lojaalsusprogrammi liikmesuse mõju kulutuste osakaalule (share-of-wallet, SOW).</p>
 <section id="andmed" class="level3">
 <h3 class="anchored" data-anchor-id="andmed">Andmed</h3>
@@ -841,7 +843,7 @@ Y_i = \alpha + \beta D_i + u_i.
 <li><code>privacy_concern</code>: Privaatsusega seotud mured lojaalsusprogrammide osas (instrumentmuutuja). - üleüldine</li>
 <li><code>discount_rate</code>: Lojaalsusprogrammi allahindluse määr.</li>
 <li><code>saving_rate</code>: Lojaalsusprogrammi säästumäär.</li>
-<li><code>hh_income</code>: leibkonna sissetulek</li>
+<li><code>hh_income</code>: leibkonna sissetulek, tuhandetes eurodes</li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># 2SLS mudeli jaoks</span></span>
@@ -855,19 +857,13 @@ Y_i = \alpha + \beta D_i + u_i.
 <!-- share_of_wallet simuleerimine loyalty_tendency abil: Kaasates loyalty_tendency share_of_wallet mudelisse, tagame, et share_of_wallet on mõjutatud sellest varjatud tegurist. See tähendab, et iga OLS hinnang loyalty_program_member mõju kohta share_of_wallet-ile on tõenäoliselt kallutatud, kuna see hõlmab osaliselt ka loyalty_tendency mõju. -->
 <!-- Tekkiv valikunihe -->
 <!-- Kui hindame loyalty_program_member mõju share_of_wallet-ile tavalise OLS-i abil, saame kallutatud hinnangu. Selle põhjuseks on asjaolu, et OLS omistab ekslikult osa loyalty_tendency (varjatud lojaalsuseelistuse) mõjust lojaalsusprogrammile endale. Kahesammuline väikseimate ruutude meetod (2SLS) koos kehtivate instrumentidega (nt economic_benefit, non_economic_benefit, privacy_concern) aitaks seda kallutatust vähendada, eraldades loyalty_program_member eksogeense varieeruvuse. -->
-</section>
-<section id="avame-andmed" class="level3">
-<h3 class="anchored" data-anchor-id="avame-andmed">Avame andmed</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load(file = "kliendiprogramm.RData")</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/kliendiprogramm.RData"</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Uurige andmed.</p>
+<p><strong>Uurige andmed.</strong></p>
 <ol type="1">
 <li>Kui palju kliente on lojaalsusprogrammis?</li>
-<li>Kui suur on keskmine uuritavate toodete osakaal kogu kulutustes?</li>
-<li>Kas see on suurem lojaalsusprogrammis osalejatel?</li>
-<li>Uurige seoseid muutujate vahel korrelatsioonikordaja abil</li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1. </span></span>
@@ -877,6 +873,12 @@ Y_i = \alpha + \beta D_i + u_i.
   0   1 
 415 585 </code></pre>
 </div>
+</div>
+<p>585 inimeste olid liikmed, 415 ei olnud liikmed.</p>
+<ol start="2" type="1">
+<li>Kui suur on keskmine uuritavate toodete osakaal leibkondade kogukulutustes?</li>
+</ol>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2. </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>share_of_wallet)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -887,10 +889,16 @@ Y_i = \alpha + \beta D_i + u_i.
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="07-ivmeetod_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="07-ivmeetod_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
+</div>
+<p>Keskmiselt 42.68% leibkonna kulutustest olid tehtud valitud kaubandusketis.</p>
+<ol start="3" type="1">
+<li>Kas see on suurem lojaalsusprogrammis osalejatel?</li>
+</ol>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#3. </span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(loyalty_program_member) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_sow =</span> <span class="fu">mean</span>(share_of_wallet))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -900,6 +908,12 @@ Y_i = \alpha + \beta D_i + u_i.
 1                      0    0.374
 2                      1    0.464</code></pre>
 </div>
+</div>
+<p>Jah. Need, kes on lojaalsusprogrammi liikmed, kulutavad ka rohkem.</p>
+<ol start="4" type="1">
+<li>Uurige seoseid muutujate vahel korrelatsioonikordaja abil</li>
+</ol>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#4. </span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pairwise_correlations <span class="ot">&lt;-</span> <span class="fu">cor</span>(data, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pairwise_correlations, <span class="dv">3</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -969,6 +983,11 @@ Residual standard error: 0.06452 on 995 degrees of freedom
 Multiple R-squared:  0.342, Adjusted R-squared:  0.3394 
 F-statistic: 129.3 on 4 and 995 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
+</div>
+<p>Programmi kuulujad, kulutavad keskmiselt 9 protsendipunkti rohkem oma leibkonna kulutustest meie kaubandusketis.</p>
+<p>Kõrgema sissetulekuga leibkonnad kulutavad ka rohkem meie kaubandusketis. 1000 eurot suurem leibkonna sissetulek, suurendab kulutuste osakaalu meie kaubandusketis 2.4 protsendipunkti.</p>
+<p>Lubame ka heteroskedastiivsust.</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#robustsed standardvead</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(olsmudel, <span class="at">vcov. =</span> sandwich)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -984,21 +1003,19 @@ saving_rate            -0.0516023  0.1091160 -0.4729    0.6364
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meil ei ole heteroskedastiivsust</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Standardhälbed ei muutu praktiliselt.</p>
 </section>
-</section>
-<section id="kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="level2" data-number="10.15">
-<h2 data-number="10.15" class="anchored" data-anchor-id="kahesammulise-vähimruutude-meetodi-2sls-hinnang"><span class="header-section-number">10.15</span> Kahesammulise vähimruutude meetodi (2SLS) hinnang</h2>
-<section id="esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine" class="level3">
-<h3 class="anchored" data-anchor-id="esimene-samm-lojaalsusprogrammi-liikmesuse-prognoosimine">Esimene samm: Lojaalsusprogrammi liikmesuse prognoosimine</h3>
-<p>Esimeses etapis prognoosime loyalty_program_member instrumentaalmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (discount_rate ja saving_rate) abil.</p>
-<p>Esimene samm: lojaalsusprogrammi liikmesuse prognoosimine</p>
+<section id="kahesammulise-vähimruutude-meetodi-2sls-hinnang" class="level3">
+<h3 class="anchored" data-anchor-id="kahesammulise-vähimruutude-meetodi-2sls-hinnang">Kahesammulise vähimruutude meetodi (2SLS) hinnang</h3>
+<section id="esimene-samm-lojaalsusprogrammi-liikmesuse-hindamine" class="level4">
+<h4 class="anchored" data-anchor-id="esimene-samm-lojaalsusprogrammi-liikmesuse-hindamine">Esimene samm: Lojaalsusprogrammi liikmesuse hindamine</h4>
+<p>Esimeses etapis prognoosime loyalty_program_member instrumentmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (discount_rate ja saving_rate) abil.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stage1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>             privacy_concern <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>stage1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>             privacy_concern <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1026,20 +1043,20 @@ F-statistic: 23.35 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Mis mõjutab lojaalsusprogrammi astumist?</p>
+<p>Kui inimese hindab üldiselt rohkem kliendikaaridest saadavad kasu, siis on tal ka meie poe kliendikaart (positiivne kordaja “economic_benefit” tunnusel). Sama kehtib ka tajutud mitte-majanduslikul kasul. Kliendikaartidega seotud muret privaatsuse pärast, vähendab ka tõenäosust meie kaardi vastu. Diskontomäär ja säästumäär statistiliselt olulisut mõju ei oma.</p>
 <p>Lojaalsusprogrammi liikmesuse prognoositud väärtused</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>predicted_loyalty <span class="ot">&lt;-</span> <span class="fu">predict</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Teine samm: Prognoositud lojaalsuse kasutamine kulutuste osakaalu mudelis Teises etapis kasutame esimeses etapis saadud prognoositud väärtusi mudelis share_of_wallet jaoks.</p>
-<p>Teine samm: 2SLS hinnang, kasutades lojaalsusprogrammi liikmesuse prognoositud väärtusi</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>stage2iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> predicted_loyalty <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>predicted_loyalty <span class="ot">&lt;-</span> <span class="fu">predict</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="teine-samm" class="level3">
-<h3 class="anchored" data-anchor-id="teine-samm">Teine samm</h3>
+<section id="teine-samm-variant-1---prognoositud-lojaalsuse-kasutamine-kulutuste-osakaalu-mudelis" class="level4">
+<h4 class="anchored" data-anchor-id="teine-samm-variant-1---prognoositud-lojaalsuse-kasutamine-kulutuste-osakaalu-mudelis">Teine samm: Variant 1 - prognoositud lojaalsuse kasutamine kulutuste osakaalu mudelis</h4>
+<p>Teises etapis kasutame esimeses etapis saadud prognoositud väärtusi mudelis share_of_wallet jaoks.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2iv)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>stage2iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> predicted_loyalty <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2iv)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1065,55 +1082,17 @@ Multiple R-squared:  0.0331,    Adjusted R-squared:  0.02921
 F-statistic: 8.515 on 4 and 995 DF,  p-value: 9.326e-07</code></pre>
 </div>
 </div>
-<p>Võrdleme</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-==============================================================================================
-                                                 Dependent variable:                          
-                       -----------------------------------------------------------------------
-                                       share_of_wallet                 loyalty_program_member 
-                                 (1)                     (2)                     (3)          
-----------------------------------------------------------------------------------------------
-loyalty_program_member         0.091***                                                       
-                               (0.004)                                                        
-predicted_loyalty                                      0.042***                               
-                                                       (0.016)                                
-hh_income                      0.024***                0.021***                               
-                               (0.004)                 (0.004)                                
-economic_benefit                                                              0.113***        
-                                                                               (0.030)        
-non_economic_benefit                                                          0.205***        
-                                                                               (0.030)        
-privacy_concern                                                               -0.215***       
-                                                                               (0.030)        
-discount_rate                   0.098                   0.141                   1.021         
-                               (0.102)                 (0.125)                 (0.742)        
-saving_rate                     -0.052                  -0.063                 -0.280         
-                               (0.104)                 (0.126)                 (0.754)        
-Constant                       0.324***                0.355***               0.408***        
-                               (0.021)                 (0.026)                 (0.137)        
-----------------------------------------------------------------------------------------------
-Observations                    1,000                   1,000                   1,000         
-R2                              0.342                   0.033                   0.105         
-Adjusted R2                     0.339                   0.029                   0.101         
-Residual Std. Error        0.065 (df = 995)        0.078 (df = 995)       0.468 (df = 994)    
-F Statistic            129.313*** (df = 4; 995) 8.515*** (df = 4; 995) 23.349*** (df = 5; 994)
-==============================================================================================
-Note:                                                              *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-</div>
-</div>
+<p>Näeme, et kliendikaardi omandamine mõjutab nüüd palju vähem: vaid 4.2 protsendipunkti suurem osakaal.</p>
 </section>
-<section id="kontrollfunktsiooniga-control-function" class="level3">
-<h3 class="anchored" data-anchor-id="kontrollfunktsiooniga-control-function">Kontrollfunktsiooniga (control function)</h3>
+<section id="teine-samm-variant-2---prognoositud-jääkliige-kulutuste-osakaalu-mudelis---kontrollfunktsiooniga-control-function" class="level4">
+<h4 class="anchored" data-anchor-id="teine-samm-variant-2---prognoositud-jääkliige-kulutuste-osakaalu-mudelis---kontrollfunktsiooniga-control-function">Teine samm: Variant 2 - prognoositud jääkliige kulutuste osakaalu mudelis - Kontrollfunktsiooniga (control function)</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>vhat <span class="ot">&lt;-</span> <span class="fu">residuals</span>(stage1)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>stage2ivcf <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate <span class="sc">+</span> vhat, <span class="at">data =</span> data)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>vhat <span class="ot">&lt;-</span> <span class="fu">residuals</span>(stage1)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>stage2ivcf <span class="ot">&lt;-</span> <span class="fu">lm</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span>  discount_rate <span class="sc">+</span> saving_rate <span class="sc">+</span> vhat, <span class="at">data =</span> data)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1139,7 +1118,7 @@ Residual standard error: 0.06403 on 994 degrees of freedom
 Multiple R-squared:  0.3526,    Adjusted R-squared:  0.3494 
 F-statistic: 108.3 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 =======================================================================================================================
@@ -1178,90 +1157,61 @@ F Statistic            129.313*** (df = 4; 995) 8.515*** (df = 4; 995) 108.282**
 Note:                                                                                       *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
-<p>Kontrollige, et tulemus on sama</p>
-<p>Alternatiiv: 2SLS-i kasutamine ivreg funktsiooniga 2SLS-i saab teostada ka ivreg funktsiooni abil paketist AER, mis viib läbi mõlemad sammud korraga.</p>
-<p>Kahesammuline väikseimate ruutude meetod (2SLS) ivreg funktsiooniga</p>
+<p>Mõlemad lähenemised annavad sama vastuse.</p>
+</section>
+<section id="ivreg-kästk" class="level4">
+<h4 class="anchored" data-anchor-id="ivreg-kästk">ivreg kästk</h4>
+<p>Tegelikkuses ei pea me käsitsi seda tegema. 2SLS-i kasutamine toimub ivreg funktsiooniga paketist AER, mis viib läbi mõlemad sammud korraga.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>iv_model <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate <span class="sc">|</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                    economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span> privacy_concern <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>iv_model <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate <span class="sc">|</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                    economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span> privacy_concern <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2SLS mudeli kokkuvõte</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-ivreg(formula = share_of_wallet ~ loyalty_program_member + hh_income + 
-    discount_rate + saving_rate | economic_benefit + non_economic_benefit + 
-    privacy_concern + hh_income + discount_rate + saving_rate, 
-    data = data)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.21244 -0.04444  0.01049  0.05093  0.14322 
-
-Coefficients:
-                        Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)             0.352557   0.023195  15.200  &lt; 2e-16 ***
-loyalty_program_member  0.041907   0.013740   3.050  0.00235 ** 
-hh_income               0.022527   0.003818   5.901 4.96e-09 ***
-discount_rate           0.140825   0.109726   1.283  0.19964    
-saving_rate            -0.061432   0.111165  -0.553  0.58065    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.06885 on 995 degrees of freedom
-Multiple R-Squared: 0.2507, Adjusted R-squared: 0.2477 
-Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
-</div>
-</div>
+<p><strong>Selgitus käsu kuju kohta</strong></p>
+<p>Esimene osa (share_of_wallet ~ loyalty_program_member + hh_income + discount_rate + saving_rate) määrab tulemuse ja endogeense muutuja, samas kui teine osa (|economic_benefit + non_economic_benefit + privacy_concern + hh_income + discount_rate + saving_rate) määrab instrumendid ja eksogeensed muutujad.</p>
 <p>Võrdlus</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, iv_model, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, iv_model, stage2iv, stage2ivcf, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-========================================================================================================================================
-                                                                      Dependent variable:                                               
-                       -----------------------------------------------------------------------------------------------------------------
-                                                            share_of_wallet                                      loyalty_program_member
-                                 OLS              instrumental                         OLS                                 OLS          
-                                                    variable                                                                            
-                                 (1)                  (2)                 (3)                     (4)                      (5)          
-----------------------------------------------------------------------------------------------------------------------------------------
-loyalty_program_member         0.091***             0.042***                                    0.042***                                
-                               (0.004)              (0.014)                                     (0.013)                                 
-predicted_loyalty                                                       0.042***                                                        
-                                                                        (0.016)                                                         
-hh_income                      0.024***             0.023***            0.021***                0.024***                                
-                               (0.004)              (0.004)             (0.004)                 (0.004)                                 
-economic_benefit                                                                                                        0.113***        
-                                                                                                                         (0.030)        
-non_economic_benefit                                                                                                    0.205***        
-                                                                                                                         (0.030)        
-privacy_concern                                                                                                         -0.215***       
-                                                                                                                         (0.030)        
-discount_rate                   0.098                0.141               0.141                   0.141                    1.021         
-                               (0.102)              (0.110)             (0.125)                 (0.102)                  (0.742)        
-saving_rate                     -0.052               -0.061              -0.063                  -0.059                  -0.280         
-                               (0.104)              (0.111)             (0.126)                 (0.103)                  (0.754)        
-vhat                                                                                            0.054***                                
-                                                                                                (0.013)                                 
-Constant                       0.324***             0.353***            0.355***                0.349***                0.408***        
-                               (0.021)              (0.023)             (0.026)                 (0.021)                  (0.137)        
-----------------------------------------------------------------------------------------------------------------------------------------
-Observations                    1,000                1,000               1,000                   1,000                    1,000         
-R2                              0.342                0.251               0.033                   0.353                    0.105         
-Adjusted R2                     0.339                0.248               0.029                   0.349                    0.101         
-Residual Std. Error        0.065 (df = 995)     0.069 (df = 995)    0.078 (df = 995)        0.064 (df = 994)        0.468 (df = 994)    
-F Statistic            129.313*** (df = 4; 995)                  8.515*** (df = 4; 995) 108.282*** (df = 5; 994) 23.349*** (df = 5; 994)
-========================================================================================================================================
-Note:                                                                                                        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+================================================================================================================
+                                                          Dependent variable:                                   
+                       -----------------------------------------------------------------------------------------
+                                                            share_of_wallet                                     
+                                 OLS              instrumental                         OLS                      
+                                                    variable                                                    
+                                 (1)                  (2)                 (3)                     (4)           
+----------------------------------------------------------------------------------------------------------------
+loyalty_program_member         0.091***             0.042***                                    0.042***        
+                               (0.004)              (0.014)                                     (0.013)         
+predicted_loyalty                                                       0.042***                                
+                                                                        (0.016)                                 
+hh_income                      0.024***             0.023***            0.021***                0.024***        
+                               (0.004)              (0.004)             (0.004)                 (0.004)         
+discount_rate                   0.098                0.141               0.141                   0.141          
+                               (0.102)              (0.110)             (0.125)                 (0.102)         
+saving_rate                     -0.052               -0.061              -0.063                  -0.059         
+                               (0.104)              (0.111)             (0.126)                 (0.103)         
+vhat                                                                                            0.054***        
+                                                                                                (0.013)         
+Constant                       0.324***             0.353***            0.355***                0.349***        
+                               (0.021)              (0.023)             (0.026)                 (0.021)         
+----------------------------------------------------------------------------------------------------------------
+Observations                    1,000                1,000               1,000                   1,000          
+R2                              0.342                0.251               0.033                   0.353          
+Adjusted R2                     0.339                0.248               0.029                   0.349          
+Residual Std. Error        0.065 (df = 995)     0.069 (df = 995)    0.078 (df = 995)        0.064 (df = 994)    
+F Statistic            129.313*** (df = 4; 995)                  8.515*** (df = 4; 995) 108.282*** (df = 5; 994)
+================================================================================================================
+Note:                                                                                *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
-<p>Selgitus</p>
-<p>ivreg funktsioon: See funktsioon hindab 2SLS mudelit. Esimene osa (share_of_wallet ~ loyalty_program_member + hh_income + discount_rate + saving_rate) määrab tulemuse ja endogeense muutuja, samas kui teine osa (|economic_benefit + non_economic_benefit + privacy_concern + hh_income + discount_rate + saving_rate) määrab instrumendid ja eksogeensed muutujad.</p>
+</section>
+</section>
+<section id="testid" class="level3">
+<h3 class="anchored" data-anchor-id="testid">Testid</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2SLS mudeli kokkuvõte</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1281,12 +1231,6 @@ loyalty_program_member  0.041907   0.013740   3.050  0.00235 **
 hh_income               0.022527   0.003818   5.901 4.96e-09 ***
 discount_rate           0.140825   0.109726   1.283  0.19964    
 saving_rate            -0.061432   0.111165  -0.553  0.58065    
-
-Diagnostic tests:
-                 df1 df2 statistic  p-value    
-Weak instruments   3 993    38.299  &lt; 2e-16 ***
-Wu-Hausman         1 994    16.222 6.06e-05 ***
-Sargan             2  NA     2.108    0.349    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1295,24 +1239,27 @@ Multiple R-Squared: 0.2507, Adjusted R-squared: 0.2477
 Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 </div>
 </div>
-<p>summary(iv_model): Kuvab 2SLS hinnangu tulemused, näidates lojaalsusprogrammi liikmesuse mõju kulutuste osakaalule, arvestades endogeensuse probleemiga.</p>
-</section>
-</section>
-<section id="testid" class="level2" data-number="10.16">
-<h2 data-number="10.16" class="anchored" data-anchor-id="testid"><span class="header-section-number">10.16</span> Testid</h2>
-<section id="kas-instrumenti-on-vaja" class="level3">
-<h3 class="anchored" data-anchor-id="kas-instrumenti-on-vaja">Kas instrumenti on vaja?</h3>
-<p>Wu-Hausmani test</p>
+<p>ivreg objekti <code>summary</code> käsk annab kohe ka kolm olulist test:</p>
+<ul>
+<li>kas instrumendid on tugevad või mitte (F-test, “Weak instruments”)</li>
+<li>kas instrumentmuutuja meetodit on vaja (Wu-Hausmani test)</li>
+<li>kas intrumentide eeldused on täidetud ja nad ei korreleeru vealiikmetega (Sargani test).</li>
+</ul>
+<p>Alljärgnevalt teeme need ära ka käsitsi.</p>
+<section id="kas-instrumenti-on-vaja-wu-hausmani-test" class="level4">
+<h4 class="anchored" data-anchor-id="kas-instrumenti-on-vaja-wu-hausmani-test">Kas instrumenti on vaja? Wu-Hausmani test</h4>
+<p>Ülevalt tabelist näeme, et “Wu-Hausmani” teststatistik on statistiliselt oluline ja saame nullhüpoteesi ümber lükata, et meil ei ole vaja IV meetodil hinnangut.</p>
+<p>Saame seda testi leida ka käsitsi, testides jääkliikme statistilist olulisust teises sammus. Võime kasutada kas t-testi, F-testi või Waldi testi.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kas meil on instrumenti vaja?</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)<span class="sc">$</span>coefficients[<span class="st">"vhat"</span>,]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kas meil on instrumenti vaja?</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)<span class="sc">$</span>coefficients[<span class="st">"vhat"</span>,]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Estimate   Std. Error      t value     Pr(&gt;|t|) 
 5.430503e-02 1.347645e-02 4.029623e+00 6.012936e-05 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(olsmudel, stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(olsmudel, stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1326,8 +1273,8 @@ Model 2: share_of_wallet ~ loyalty_program_member + hh_income + discount_rate +
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Waldi test</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">waldtest</span>(olsmudel, stage2ivcf, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Waldi test</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">waldtest</span>(olsmudel, stage2ivcf, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Wald test
 
@@ -1341,10 +1288,10 @@ Model 2: share_of_wallet ~ loyalty_program_member + hh_income + discount_rate +
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#See test on esitatud ivreg tulemustest</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#See test on esitatud ivreg tulemustest</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1379,40 +1326,17 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 </div>
 </div>
 </section>
-<section id="kas-instrumendid-on-tugevad" class="level3">
-<h3 class="anchored" data-anchor-id="kas-instrumendid-on-tugevad">Kas instrumendid on tugevad?</h3>
-<p>F-test</p>
+<section id="kas-instrumendid-on-tugevad" class="level4">
+<h4 class="anchored" data-anchor-id="kas-instrumendid-on-tugevad">Kas instrumendid on tugevad?</h4>
+<p>Näeme, et instrumendid ei ole nõrgad, sest F-testi statistiku väärtus oli 38.3 ja see oli statistiliselt ka oluline.</p>
+<p>Käsitsi F-test</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = loyalty_program_member ~ economic_benefit + non_economic_benefit + 
-    privacy_concern + discount_rate + saving_rate, data = data)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--1.0748 -0.4791  0.2107  0.4044  0.8670 
-
-Coefficients:
-                     Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           0.40758    0.13749   2.964 0.003106 ** 
-economic_benefit      0.11333    0.02963   3.825 0.000139 ***
-non_economic_benefit  0.20501    0.03013   6.803 1.76e-11 ***
-privacy_concern      -0.21476    0.02959  -7.257 7.98e-13 ***
-discount_rate         1.02089    0.74229   1.375 0.169341    
-saving_rate          -0.27984    0.75413  -0.371 0.710663    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.4675 on 994 degrees of freedom
-Multiple R-squared:  0.1051,    Adjusted R-squared:  0.1006 
-F-statistic: 23.35 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test - võrdleme meie mudelit ja ilma instrumentideta mudelit</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>stage1abi <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(stage1abi, stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(stage1)</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test - võrdleme meie mudelit ja ilma instrumentideta mudelit</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>stage1abi <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(stage1abi, stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1425,10 +1349,10 @@ Model 2: loyalty_program_member ~ economic_benefit + non_economic_benefit +
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test on oluline ja suurem ka kui 10</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Sama oli siin</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test on oluline ja suurem ka kui 10</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Sama oli siin</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1463,11 +1387,189 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 </div>
 </div>
 </section>
-<section id="kas-instrumendid-on-sobivad" class="level3">
-<h3 class="anchored" data-anchor-id="kas-instrumendid-on-sobivad">Kas instrumendid on sobivad?</h3>
+<section id="kas-instrumendid-on-sobivad" class="level4">
+<h4 class="anchored" data-anchor-id="kas-instrumendid-on-sobivad">Kas instrumendid on sobivad?</h4>
 <p>Sargani test on võimalik, siis kui instrumente rohkem kui vaja. Meil on 3, vaja on 1.</p>
 <p>H0 - instrumendid ei korreleeru vealiikmega H1 - vähemalt üks instrument korreleerub vealiikmega</p>
 <p>Me ei saa ümber lükata H0. Seega selle koha pealt formaalselt korras</p>
+<p>Käsitsi testistatistiku arvutamine. Võta teise sammu jääkliikmed ja hinda seos kõigi eksogeensete muutujatega.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sargan_regmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(iv_model<span class="sc">$</span>residuals <span class="sc">~</span> economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span> privacy_concern <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate,<span class="at">data=</span>data))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = iv_model$residuals ~ economic_benefit + non_economic_benefit + 
+    privacy_concern + hh_income + discount_rate + saving_rate, 
+    data = data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.20955 -0.04511  0.01031  0.05005  0.14416 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)           4.094e-03  2.206e-02   0.186    0.853
+economic_benefit     -5.899e-03  4.364e-03  -1.352    0.177
+non_economic_benefit  1.716e-03  4.441e-03   0.386    0.699
+privacy_concern      -2.029e-03  4.360e-03  -0.465    0.642
+hh_income            -7.274e-05  3.799e-03  -0.019    0.985
+discount_rate         7.425e-03  1.093e-01   0.068    0.946
+saving_rate          -5.133e-03  1.112e-01  -0.046    0.963
+
+Residual standard error: 0.06885 on 993 degrees of freedom
+Multiple R-squared:  0.002108,  Adjusted R-squared:  -0.003922 
+F-statistic: 0.3496 on 6 and 993 DF,  p-value: 0.9103</code></pre>
+</div>
+</div>
+<p>Võtan sellest mudelist <span class="math inline">\(R^2\)</span> ja korrutan vaatluste arvuga. Seejärel leian ka p-väärtuse vabadusastmel 2. (Instrumentide arv 3 - probleemsete tunnuste arv 1)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Leia R2 * vaatluste arv</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>(Sargan_test <span class="ot">&lt;-</span> <span class="fu">summary</span>(sargan_regmodel)<span class="sc">$</span>r.squared<span class="sc">*</span><span class="fu">nrow</span>(sargan_regmodel<span class="sc">$</span>model))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.107719</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.107719</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">#p-väärtus</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(Sargan_test,<span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="co">#p-value</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3485897</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3485897</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Saame leida diagnostikud ka robustsete standardvigadega.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Robustsete standardvigadega kordajad</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(iv_model, <span class="at">type =</span> <span class="st">"HC1"</span>), <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ivreg(formula = share_of_wallet ~ loyalty_program_member + hh_income + 
+    discount_rate + saving_rate | economic_benefit + non_economic_benefit + 
+    privacy_concern + hh_income + discount_rate + saving_rate, 
+    data = data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.21244 -0.04444  0.01049  0.05093  0.14322 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)             0.352557   0.024015  14.681  &lt; 2e-16 ***
+loyalty_program_member  0.041907   0.013754   3.047  0.00237 ** 
+hh_income               0.022527   0.003858   5.838 7.13e-09 ***
+discount_rate           0.140825   0.110922   1.270  0.20453    
+saving_rate            -0.061432   0.116600  -0.527  0.59841    
+
+Diagnostic tests:
+                 df1 df2 statistic  p-value    
+Weak instruments   3 993    38.299  &lt; 2e-16 ***
+Wu-Hausman         1 994    16.222 6.06e-05 ***
+Sargan             2  NA     2.108    0.349    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.06885 on 995 degrees of freedom
+Multiple R-Squared: 0.2507, Adjusted R-squared: 0.2477 
+Wald test: 11.18 on 4 and 995 DF,  p-value: 7.084e-09 </code></pre>
+</div>
+</div>
+<p>Tulemused ei muutu.</p>
+</section>
+</section>
+<section id="iv-kui-mudeli-kordajate-suhe" class="level3">
+<h3 class="anchored" data-anchor-id="iv-kui-mudeli-kordajate-suhe">IV kui mudeli kordajate suhe</h3>
+<p>Vaatame õppimise eesmärgil täpselt identifitseeritud juhtu (üks instrument - privacy_concern) ja seda, et saame esitada IV hinnangu ka kui kordajate suhte.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>iv_modeltapne <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate <span class="sc">|</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>                         privacy_concern <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_modeltapne)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ivreg(formula = share_of_wallet ~ loyalty_program_member + hh_income + 
+    discount_rate + saving_rate | privacy_concern + hh_income + 
+    discount_rate + saving_rate, data = data)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.207326 -0.041305  0.009519  0.049756  0.145579 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)             0.347457   0.024383  14.250  &lt; 2e-16 ***
+loyalty_program_member  0.050570   0.020145   2.510   0.0122 *  
+hh_income               0.022790   0.003769   6.047 2.09e-09 ***
+discount_rate           0.133234   0.108336   1.230   0.2191    
+saving_rate            -0.059684   0.108990  -0.548   0.5841    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.06748 on 995 degrees of freedom
+Multiple R-Squared: 0.2803, Adjusted R-squared: 0.2774 
+Wald test:  10.6 on 4 and 995 DF,  p-value: 2.065e-08 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Y - instrumentide suhtes (ja teised x-d)</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>mudelbyonz <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> data, share_of_wallet <span class="sc">~</span> privacy_concern  <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudelbyonz)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = share_of_wallet ~ privacy_concern + hh_income + 
+    discount_rate + saving_rate, data = data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.23793 -0.04968  0.01563  0.05953  0.16305 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      0.379556   0.024750  15.336  &lt; 2e-16 ***
+privacy_concern -0.010718   0.004955  -2.163   0.0308 *  
+hh_income        0.021015   0.004318   4.867 1.31e-06 ***
+discount_rate    0.193129   0.124259   1.554   0.1204    
+saving_rate     -0.071154   0.126402  -0.563   0.5736    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.07831 on 995 degrees of freedom
+Multiple R-squared:  0.03066,   Adjusted R-squared:  0.02676 
+F-statistic: 7.868 on 4 and 995 DF,  p-value: 3.04e-06</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># D - instrumentide suhtes (ja teised x-d)</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>mudeldyonz <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> data, loyalty_program_member <span class="sc">~</span> privacy_concern  <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mudeldyonz)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = loyalty_program_member ~ privacy_concern + hh_income + 
+    discount_rate + saving_rate, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9099 -0.5292  0.2769  0.4119  0.7327 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      0.63473    0.15225   4.169 3.33e-05 ***
+privacy_concern -0.21193    0.03048  -6.953 6.46e-12 ***
+hh_income       -0.03510    0.02656  -1.321    0.187    
+discount_rate    1.18440    0.76440   1.549    0.122    
+saving_rate     -0.22681    0.77758  -0.292    0.771    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4818 on 995 degrees of freedom
+Multiple R-squared:  0.0488,    Adjusted R-squared:  0.04497 
+F-statistic: 12.76 on 4 and 995 DF,  p-value: 3.92e-10</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kordajate suhe</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mudelbyonz)[<span class="st">"privacy_concern"</span>] <span class="sc">/</span> <span class="fu">coef</span>(mudeldyonz)[<span class="st">"privacy_concern"</span>] </span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>privacy_concern 
+     0.05057012 </code></pre>
+</div>
+</div>
+<p>Kui meil on rohkem kui üks instrument, siis saaksime kasutada jääkide meetodit (partialling-out) meetod.</p>
 
 
 </section>
