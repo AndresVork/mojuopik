@@ -272,7 +272,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./eesti_mojuhindamised.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Eestis tehtud põhjusliku mõju hindamise uuringud”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Eestis tehtud põhjusliku mõju hindamise uuringud</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -352,6 +352,7 @@ window.Quarto = {
 </header>
 
 
+<!-- TODO: Kontrollida, miks natuke erienvad ivreg, control function ja käsitsi 2SLS -->
 <section id="motivatsioon" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="motivatsioon"><span class="header-section-number">10.1</span> Motivatsioon</h2>
 <p>Instrumentmuutuja meetod (<em>instrumental variable method</em>, IV) on üks olulisemaid tööriistu olukordades, kus regressioonimudeli mõni selgitav tunnus on endogeenne – st korreleerub vealiikmega. Sellisel juhul on tavalise OLS-regressiooniga saadud hinnangud nihkega ja ei ole mõjusad isegi väga suurtes valimites. IV-meetod püüab eraldada selle osa varieeruvusest, mis on “puhas” ja ei ole mõjutatud jälgimata teguritest.</p>
@@ -1159,8 +1160,8 @@ Note:                                                                           
 </div>
 <p>Mõlemad lähenemised annavad sama vastuse.</p>
 </section>
-<section id="ivreg-kästk" class="level4">
-<h4 class="anchored" data-anchor-id="ivreg-kästk">ivreg kästk</h4>
+<section id="ivreg-käsk" class="level4">
+<h4 class="anchored" data-anchor-id="ivreg-käsk">ivreg käsk</h4>
 <p>Tegelikkuses ei pea me käsitsi seda tegema. 2SLS-i kasutamine toimub ivreg funktsiooniga paketist AER, mis viib läbi mõlemad sammud korraga.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>iv_model <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(share_of_wallet <span class="sc">~</span> loyalty_program_member <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate <span class="sc">|</span></span>
@@ -1210,8 +1211,8 @@ Note:                                                                           
 <section id="testid" class="level3">
 <h3 class="anchored" data-anchor-id="testid">Testid</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2SLS mudeli kokkuvõte</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2SLS mudeli kokkuvõte koos testidega</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iv_model, <span class="at">diagnostics =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1231,6 +1232,12 @@ loyalty_program_member  0.041907   0.013740   3.050  0.00235 **
 hh_income               0.022527   0.003818   5.901 4.96e-09 ***
 discount_rate           0.140825   0.109726   1.283  0.19964    
 saving_rate            -0.061432   0.111165  -0.553  0.58065    
+
+Diagnostic tests:
+                 df1 df2 statistic  p-value    
+Weak instruments   3 993    38.299  &lt; 2e-16 ***
+Wu-Hausman         1 994    16.222 6.06e-05 ***
+Sargan             2  NA     2.108    0.349    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
