@@ -352,7 +352,20 @@ window.Quarto = {
 </header>
 
 
-<!-- TODO: Kontrollida, miks natuke erienvad ivreg, control function ja käsitsi 2SLS -->
+<!-- TODO: Kontrollida, miks natuke erinvad ivreg, control function ja käsitsi 2SLS -->
+<p>Selles peatükis käsitleme instrumentmuutuja meetodit, ühte peamist tööriista, mida majandusinimesed kasutavad põhjusliku mõju hindamiseks.</p>
+<div id="fig-ivmethods" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ivmethods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/IVylevaade.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ivmethods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Joonis&nbsp;10.1: Peatükis kirjeldatud meetodid
+</figcaption>
+</figure>
+</div>
+<p>Alguses toome mõned näited, millal tekivad juhud kui meetmes osalemine D ja u on omavahel seotud (1) ja mis juhtub vähimruutude meetodil leitud hinnanguga (2). Seejärel vaatame erinevaid tehnilisi lähenemisi, kuidas instrumentmuutuja abil leida hinnangud (3). Me toome sisse F-testi, kontrollimaks kui tugevalt on instrumendid seotud endogeense muutujaga (4). Kui instrumente on mitu, siis vaatame Sargani testi abil, kas nad on seotud meie vealiikmega (5). Viimaks küsime, kas oleks piisanud ka vähimruutude meetodist. (6)</p>
+<p>Alguses on esitatud peamised põhimõisted ja valemid, teises on tehtud näitearvutused Ris.</p>
 <section id="motivatsioon" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="motivatsioon"><span class="header-section-number">10.1</span> Motivatsioon</h2>
 <p>Instrumentmuutuja meetod (<em>instrumental variable method</em>, IV) on üks olulisemaid tööriistu olukordades, kus regressioonimudeli mõni selgitav tunnus on endogeenne – st korreleerub vealiikmega. Sellisel juhul on tavalise OLS-regressiooniga saadud hinnangud nihkega ja ei ole mõjusad isegi väga suurtes valimites. IV-meetod püüab eraldada selle osa varieeruvusest, mis on “puhas” ja ei ole mõjutatud jälgimata teguritest.</p>
