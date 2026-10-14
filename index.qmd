@@ -4,7 +4,7 @@ Käesolev lühikonspekt on mõeldud tutvustamaks mõju hindamise meetodeid (*cau
 
 Õpik annab alguses ülevaate graafilistest ja matemaatilistest abivahenditest (DAG, POM) ning seejärel keskendub mõju hindamise meetoditele majanduses. Esmalt vaadatakse, kuidas arvestada jälgitavate taustatunnuste $X$ erinevust (alloleval joonisel sinine osa). Õpik vaatab arvutamist alamrühmades, sobitamist (*matching*), regressioonimudeleid, kaalumismeetodeid ja sünteetilise kontrolli meetodit. Seejärel tutvustatakse meetodeid, kuidas elimineerida mittejälgitavate tunnuste $u$ mõju (joonisel punane ja roheline.) Esmalt vaatame paneelandmete mudeleid (DIF-DIF olemus ja nende kaasaegsed lähenemised), seejärel regressioon katkemise meetodit (RDD). Samuti anname ülevaate instrumentmuutuja meetodist.
 
-![Õpikus kirjeldatud meetodid](images/Meetoditevalik.png){#fig-sem width="80%"}
+![Õpikus kirjeldatud meetodid](images/Meetoditevalik.png){#fig-methods width="80%"}
 
 Õpiku lõpuosas on ka näited masinõppemeetodite kasutamisest, nii selgitavate tunnuste arvesse võtmisel (*causal forests*) kui ka instrumentide valimisel (LASSO). Õpikus ei käsitleta eraldi eksperimentide läbiviimise teemat.
 

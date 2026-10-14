@@ -1094,7 +1094,7 @@ densresult <- rddensity(df$X, c = 100)
 summary(densresult)
 ```
 
-Näeme, et meie puhul on jaotused ülal- ja allpool lõikepunkti sarnased (p-väärtus > 0.10)
+Näeme, et meie puhul on jaotused ülal- ja allpool lõikepunkti sarnased (p-väärtus \> 0.10)
 
 Ka joonisele:
 
@@ -1102,8 +1102,6 @@ Ka joonisele:
 rdplotdensity(densresult, X = df$X)
 
 ```
-
-
 
 ### Platseebo test
 
@@ -1124,7 +1122,6 @@ Kui leiame tugevaid “mõjusid” ka mujal, võib see viidata:
 - valesti määratud bandwidth’ile (akna suurusele) või kernelile (silumisfunktsioonile).
 
 Kui ainult tõelise lõikepunkti juures on selge ja stabiilne mõju, suurendab see usaldust RDD tulemuste suhtes.
-
 
 Näide meie simuleeritud arvude puhul hägusa disaini korral.
 
@@ -1188,7 +1185,6 @@ ggplot(res, aes(x = cutoff, y = tau_us)) +
   theme_minimal()
 ```
 
-
 ### Lisalugemist
 
 TODO: Lisada lingid
@@ -1200,7 +1196,6 @@ Cattaneo, M. D., Idrobo, N. & Titiunik, R. (2020). *A Practical Introduction to 
 Gelman, A. & Imbens, G. (2019). *Why High-Order Polynomials Should Not Be Used in Regression Discontinuity Designs*. Journal of Business & Economic Statistics, 37(3), 447--456.
 
 Calonico, S., Cattaneo, M. D. & Titiunik, R. (2014). *Robust Nonparametric Confidence Intervals for Regression-Discontinuity Designs*. Econometrica, 82(6), 2295--2326.
-
 
 ## Näide: Vanaduspensioniiga, pensionide saamine ja tööaeg Eestis 2010.
 

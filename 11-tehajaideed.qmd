@@ -12,4 +12,4 @@
 
   - 
 
-- Lisada iga peatüki lõppu tabel Eesti huvitavatest uuringutest
+- Lisada lisasse tabel Eesti huvitavatest uuringutest

@@ -1,5 +1,15 @@
 # Instrumentmuutuja meetod
 
+<!-- TODO: Kontrollida, miks natuke erinvad ivreg, control function ja käsitsi 2SLS -->
+
+Selles peatükis käsitleme instrumentmuutuja meetodit, ühte peamist tööriista, mida majandusinimesed kasutavad põhjusliku mõju hindamiseks.
+
+![Peatükis kirjeldatud meetodid](images/IVylevaade.png){#fig-ivmethods width="80%"}
+
+Alguses toome mõned näited, millal tekivad juhud kui meetmes osalemine D ja u on omavahel seotud (1) ja mis juhtub vähimruutude meetodil leitud hinnanguga (2). Seejärel vaatame erinevaid tehnilisi lähenemisi, kuidas instrumentmuutuja abil leida hinnangud (3). Me toome sisse F-testi, kontrollimaks kui tugevalt on instrumendid seotud endogeense muutujaga (4). Kui instrumente on mitu, siis vaatame Sargani testi abil, kas nad on seotud meie vealiikmega (5). Viimaks küsime, kas oleks piisanud ka vähimruutude meetodist. (6)
+
+Alguses on esitatud peamised põhimõisted ja valemid, teises on tehtud näitearvutused Ris.
+
 ## Motivatsioon
 
 Instrumentmuutuja meetod (*instrumental variable method*, IV) on üks olulisemaid tööriistu olukordades, kus regressioonimudeli mõni selgitav tunnus on endogeenne – st korreleerub vealiikmega. Sellisel juhul on tavalise OLS-regressiooniga saadud hinnangud nihkega ja ei ole mõjusad isegi väga suurtes valimites. IV-meetod püüab eraldada selle osa varieeruvusest, mis on “puhas” ja ei ole mõjutatud jälgimata teguritest.
@@ -572,11 +582,9 @@ Analüütiku ülesanne on leida veenev instrument, põhjendada selle sobivust ni
 
 ## Näide
 
-TODO:! Lisada pikemalt selgitusi tulemuste kohta.
-
 See näide püüab korrata lähenemist, mis kasutati Leenheer jt. artiklis.
 
-Vt Jorna Leenheer, Harald J. van Heerde, Tammo H.A. Bijmolt, Ale Smidts, "Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members, International Journal of Research in Marketing,", Volume 24, Issue 1, 2007, Pages 31-47, ISSN 0167-8116, <https://doi.org/10.1016/j.ijresmar.2006.10.005.> 
+Vt Jorna Leenheer, Harald J. van Heerde, Tammo H.A. Bijmolt, Ale Smidts, "Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members, International Journal of Research in Marketing,", Volume 24, Issue 1, 2007, Pages 31-47, ISSN 0167-8116, <https://doi.org/10.1016/j.ijresmar.2006.10.005.>
 
 Artikkel uurib ettevõtete lojaalsusprogrammide mõju kliendilojaalsusele, arvestades valikunihet (*selection bias*). Lojaalsusprogrammi valivad need kliendid, kes juba nagunii kasutavad teenuseid enam. Seega ülehindaksime lojaalsusprogrammide mõju klientide lojaalsusele.
 
@@ -687,7 +695,6 @@ save(data, file = "kliendiprogramm.RData")
 
 ```
 
-
 ```{r}
 #load(file = "kliendiprogramm.RData")
 load(url("http://kodu.ut.ee/~avork/files/oppetoo/pohjustagajarg/kliendiprogramm.RData"))
@@ -705,7 +712,6 @@ table(data$loyalty_program_member)
 
 585 inimeste olid liikmed, 415 ei olnud liikmed.
 
-
 2)  Kui suur on keskmine uuritavate toodete osakaal leibkondade kogukulutustes?
 
 ```{r}
@@ -713,7 +719,8 @@ table(data$loyalty_program_member)
 summary(data$share_of_wallet)
 hist(data$share_of_wallet)
 ```
-Keskmiselt 42.68% leibkonna kulutustest olid tehtud valitud kaubandusketis. 
+
+Keskmiselt 42.68% leibkonna kulutustest olid tehtud valitud kaubandusketis.
 
 3)  Kas see on suurem lojaalsusprogrammis osalejatel?
 
@@ -721,8 +728,8 @@ Keskmiselt 42.68% leibkonna kulutustest olid tehtud valitud kaubandusketis.
 #3. 
 data %>% group_by(loyalty_program_member) %>% summarise(mean_sow = mean(share_of_wallet))
 ```
-Jah. Need, kes on lojaalsusprogrammi liikmed, kulutavad ka rohkem.
 
+Jah. Need, kes on lojaalsusprogrammi liikmed, kulutavad ka rohkem.
 
 4)  Uurige seoseid muutujate vahel korrelatsioonikordaja abil
 
@@ -746,9 +753,9 @@ summary(olsmudel)
 
 Programmi kuulujad, kulutavad keskmiselt 9 protsendipunkti rohkem oma leibkonna kulutustest meie kaubandusketis.
 
-Kõrgema sissetulekuga leibkonnad kulutavad ka rohkem meie kaubandusketis.  1000 eurot suurem leibkonna sissetulek, suurendab kulutuste osakaalu meie kaubandusketis 2.4 protsendipunkti.
+Kõrgema sissetulekuga leibkonnad kulutavad ka rohkem meie kaubandusketis. 1000 eurot suurem leibkonna sissetulek, suurendab kulutuste osakaalu meie kaubandusketis 2.4 protsendipunkti.
 
-Lubame ka heteroskedastiivsust. 
+Lubame ka heteroskedastiivsust.
 
 ```{r}
 #robustsed standardvead
@@ -794,10 +801,10 @@ stage2iv <- lm(share_of_wallet ~ predicted_loyalty + hh_income +  discount_rate 
 ```{r}
 summary(stage2iv)
 ```
+
 Näeme, et kliendikaardi omandamine mõjutab nüüd palju vähem: vaid 4.2 protsendipunkti suurem osakaal.
 
-
-#### Teine samm: Variant 2 - prognoositud jääkliige kulutuste osakaalu mudelis  - Kontrollfunktsiooniga (control function)
+#### Teine samm: Variant 2 - prognoositud jääkliige kulutuste osakaalu mudelis - Kontrollfunktsiooniga (control function)
 
 ```{r}
 #Käsitsi
@@ -810,13 +817,12 @@ summary(stage2ivcf)
 stargazer(olsmudel, stage2iv, stage2ivcf, stage1, type = "text", no.space = TRUE)
 
 ```
+
 Mõlemad lähenemised annavad sama vastuse.
 
-#### ivreg kästk 
+#### ivreg käsk
 
 Tegelikkuses ei pea me käsitsi seda tegema. 2SLS-i kasutamine toimub ivreg funktsiooniga paketist AER, mis viib läbi mõlemad sammud korraga.
-
-
 
 ```{r}
 iv_model <- ivreg(share_of_wallet ~ loyalty_program_member + hh_income + discount_rate + saving_rate |
@@ -836,17 +842,17 @@ stargazer(olsmudel, iv_model, stage2iv, stage2ivcf, type = "text", no.space = TR
 
 ### Testid
 
-
 ```{r}
-# 2SLS mudeli kokkuvõte
-summary(iv_model)
+# 2SLS mudeli kokkuvõte koos testidega
+summary(iv_model, diagnostics = TRUE)
+
 ```
+
 ivreg objekti `summary` käsk annab kohe ka kolm olulist test:
 
-  - kas instrumendid on tugevad või mitte (F-test, "Weak instruments")
-  - kas instrumentmuutuja meetodit on vaja (Wu-Hausmani test)
-  - kas intrumentide eeldused on täidetud ja nad ei korreleeru vealiikmetega (Sargani test). 
-
+- kas instrumendid on tugevad või mitte (F-test, "Weak instruments")
+- kas instrumentmuutuja meetodit on vaja (Wu-Hausmani test)
+- kas intrumentide eeldused on täidetud ja nad ei korreleeru vealiikmetega (Sargani test).
 
 Alljärgnevalt teeme need ära ka käsitsi.
 
@@ -854,8 +860,7 @@ Alljärgnevalt teeme need ära ka käsitsi.
 
 Ülevalt tabelist näeme, et "Wu-Hausmani" teststatistik on statistiliselt oluline ja saame nullhüpoteesi ümber lükata, et meil ei ole vaja IV meetodil hinnangut.
 
-Saame seda testi leida ka käsitsi, testides jääkliikme statistilist olulisust teises sammus.
-Võime kasutada kas t-testi, F-testi või Waldi testi.
+Saame seda testi leida ka käsitsi, testides jääkliikme statistilist olulisust teises sammus. Võime kasutada kas t-testi, F-testi või Waldi testi.
 
 ```{r}
 #Kas meil on instrumenti vaja?
@@ -876,6 +881,57 @@ waldtest(olsmudel, stage2ivcf, test = "Chisq")
 summary(iv_model, diagnostics = TRUE)
 ```
 
+#### Kas instrumenti on vaja? Hausmani test
+
+Hausmani testi saab teha käsitsi ja see koosneb järgmistest sammudest.
+
+Leiame OLS kordajad
+
+```{r}
+beta_ols <- coef(olsmudel)
+
+```
+
+Leiame IV kordajad
+
+```{r}
+beta_iv <- coef(iv_model)
+
+```
+
+Ja leiame nende erinevuse
+
+```{r}
+(delta_beta <- beta_iv-beta_ols)
+
+```
+
+Leiame OLS ja IV hinnangute kovariatsiooni maatriksid ja nende erinevuse.
+
+```{r}
+var_ols <- vcov(olsmudel)
+var_iv <- vcov(iv_model)
+delta_var <- var_iv - var_ols
+```
+
+Arvutame teststatistiku
+
+```{r}
+(H = t(delta_beta) %*% solve(delta_var) %*% delta_beta |> as.numeric())
+
+```
+
+Leiame selle p-väärtuse. Vabadusastmete arv on endogeensete muutjate arv meie struktuurses võrrandis ehk 1.
+
+```{r}
+
+(pvalue  <- pchisq(H, 1, lower.tail = FALSE)) #p-value
+
+```
+
+Testistatistik on statistiliselt oluline, st erinev nullist, kuna p < 0.05 ja seega lükkame null-hüpoteesi, et vähimruutude meetodil leitud kordajad on sobivad, ümber. Peame kasutama IV-hinnanguid.
+
+Erinevus kordajate vahel on liiga suur.
 
 #### Kas instrumendid on tugevad?
 
@@ -901,8 +957,7 @@ summary(iv_model, diagnostics = TRUE)
 
 Sargani test on võimalik, siis kui instrumente rohkem kui vaja. Meil on 3, vaja on 1.
 
-H0 - instrumendid ei korreleeru vealiikmega 
-H1 - vähemalt üks instrument korreleerub vealiikmega
+H0 - instrumendid ei korreleeru vealiikmega H1 - vähemalt üks instrument korreleerub vealiikmega
 
 Me ei saa ümber lükata H0. Seega selle koha pealt formaalselt korras
 
@@ -912,6 +967,7 @@ Käsitsi testistatistiku arvutamine. Võta teise sammu jääkliikmed ja hinda se
 summary(sargan_regmodel <- lm(iv_model$residuals ~ economic_benefit + non_economic_benefit + privacy_concern + hh_income + discount_rate + saving_rate,data=data))
 
 ```
+
 Võtan sellest mudelist $R^2$ ja korrutan vaatluste arvuga. Seejärel leian ka p-väärtuse vabadusastmel 2. (Instrumentide arv 3 - probleemsete tunnuste arv 1)
 
 ```{r}
@@ -929,13 +985,12 @@ Saame leida diagnostikud ka robustsete standardvigadega.
 #Robustsete standardvigadega kordajad
 summary(iv_model, vcov = vcovHC(iv_model, type = "HC1"), diagnostics = TRUE)
 ```
-Tulemused ei muutu.
 
+Tulemused ei muutu.
 
 ### IV kui mudeli kordajate suhe
 
 Vaatame õppimise eesmärgil täpselt identifitseeritud juhtu (üks instrument - privacy_concern) ja seda, et saame esitada IV hinnangu ka kui kordajate suhte.
-
 
 ```{r}
 
@@ -957,5 +1012,5 @@ coef(mudelbyonz)["privacy_concern"] / coef(mudeldyonz)["privacy_concern"]
 
 
 ```
-Kui meil on rohkem kui üks instrument, siis saaksime kasutada jääkide meetodit (partialling-out) meetod.
 
+Kui meil on rohkem kui üks instrument, siis saaksime kasutada jääkide meetodit (partialling-out) meetod.

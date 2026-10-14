@@ -1,4 +1,4 @@
-# Eestis tehtud põhjusliku mõju hindamise uuringud"
+# Eestis tehtud põhjusliku mõju hindamise uuringud
 
 Selles lisas koondatakse Eestis tehtud empiirilised uuringud, mis hindavad poliitikameetmete **põhjuslikku mõju**. Tabelitesse lisatakse üksnes uuringud, mille identifitseerimisstrateegia püüab käsitleda tulemust põhjusliku mõjuna, mitte pelgalt korrelatsioonina.
 
