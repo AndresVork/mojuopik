@@ -990,6 +990,16 @@
     ]
   },
   {
+    "objectID": "07-ivmeetod.html#lisa---iv-meetod-graafiliselt",
+    "href": "07-ivmeetod.html#lisa---iv-meetod-graafiliselt",
+    "title": "10  Instrumentmuutuja meetod",
+    "section": "10.15 Lisa - IV meetod graafiliselt",
+    "text": "10.15 Lisa - IV meetod graafiliselt\nAlljärgnevalt on esitatud ka IV meetodi olemus graafiliselt.\nTeeme mõned näiteandmed, kus Y on sõltuv tunnus, X on endogeenne selgitav tunnus, mis mõjutab tegelikult Y-t kordajaga 2 ja Z on binaarne instrument, mis mõjutab Xi.\nNähtav seos Y ja Xi vahel ülehindab tegelikku mõju.\n\n# 2. OLS: NÄHTAV SEOS ---------------------------------------------------------\nmudel_ols &lt;- lm(Y ~ X, data = andmed)\ncoef(mudel_ols)                     # vabaliige 1, tõus 3\n\n(Intercept)           X \n          1           3 \n\n\nVabaliige on 1 ja tõus 3.\n\nlibrary(ggplot2)\n\nggplot(andmed, aes(x = X, y = Y)) +\n  geom_point(aes(color = as.factor(Z))) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  theme_light() +\n  labs(color = \"Z\")\n\n\n\n\n\n\n\n\nInstrumentmuutuja meetodil on esimene samm hinnata, kuidas Z mõjutab Xi ja prognoosida sellest Xi väärtused.\n\nesimene_etapp &lt;- lm(X ~ Z, data = andmed)\nsummary(esimene_etapp)\n\n\nCall:\nlm(formula = X ~ Z, data = andmed)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-3.2512 -0.6838 -0.0542  0.6805  2.5747 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -1.00000    0.06337  -15.78   &lt;2e-16 ***\nZ            2.00000    0.08962   22.32   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.002 on 498 degrees of freedom\nMultiple R-squared:    0.5, Adjusted R-squared:  0.499 \nF-statistic:   498 on 1 and 498 DF,  p-value: &lt; 2.2e-16\n\nandmed$X_hat &lt;- fitted(esimene_etapp)\n\nSaame Xile täpselt kaks prognoositud väärtust: -1 ja 1.\n\nunique(round(andmed$X_hat, 10))    # täpselt kaks väärtust: -1 ja 1\n\n[1] -1  1\n\n\nEsitame prognoositud väärtused, koos esialgsetega samal joonisel.\n\nggplot(andmed, aes(x = X_hat, y = Y)) +\n  geom_point(aes(color = as.factor(Z))) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  scale_x_continuous(limits = c(-3, 3), breaks = c(-3,-2,-1, 0, 1, 2, -3)) + \n  \n  geom_point(aes(x = X, y = Y, color =  as.factor(Z)), size = 1, alpha = 0.5) + \n  geom_smooth(aes(x = X, y = Y, ), method = \"lm\", linetype = \"dashed\", se = FALSE) + \n  theme_light() +\n  labs(color = \"Z\", x = \"X ja X_hat\")\n\n\n\n\n\n\n\n\nNäeme, et nüüd on hinnatud joone tõus väiksem. Kasutades prognoositud X-väärtus, siis on tõusuks 2.\n\nteine_etapp &lt;- lm(Y ~ X_hat, data = andmed)\ncoef(teine_etapp)                  # vabaliige 1, tõus 2\n\n(Intercept)       X_hat \n          1           2",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Instrumentmuutuja meetod</span>"
+    ]
+  },
+  {
     "objectID": "08-synthcontr.html",
     "href": "08-synthcontr.html",
     "title": "11  Sünteetilise võrdlusobjekti meetod",

@@ -321,6 +321,7 @@ window.Quarto = {
   <li><a href="#testid" id="toc-testid" class="nav-link" data-scroll-target="#testid">Testid</a></li>
   <li><a href="#iv-kui-mudeli-kordajate-suhe" id="toc-iv-kui-mudeli-kordajate-suhe" class="nav-link" data-scroll-target="#iv-kui-mudeli-kordajate-suhe">IV kui mudeli kordajate suhe</a></li>
   </ul></li>
+  <li><a href="#lisa---iv-meetod-graafiliselt" id="toc-lisa---iv-meetod-graafiliselt" class="nav-link" data-scroll-target="#lisa---iv-meetod-graafiliselt"><span class="header-section-number">10.15</span> Lisa - IV meetod graafiliselt</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/andresvork/mojuopik/blob/main/07-ivmeetod.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/andresvork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></nav>
     </div>
@@ -341,7 +342,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">14/10/2026</p>
+      <p class="date-modified">19/10/2026</p>
     </div>
   </div>
     
@@ -1633,9 +1634,102 @@ F-statistic: 12.76 on 4 and 995 DF,  p-value: 3.92e-10</code></pre>
 </div>
 </div>
 <p>Kui meil on rohkem kui üks instrument, siis saaksime kasutada jääkide meetodit (partialling-out) meetod.</p>
-
-
 </section>
+</section>
+<section id="lisa---iv-meetod-graafiliselt" class="level2" data-number="10.15">
+<h2 data-number="10.15" class="anchored" data-anchor-id="lisa---iv-meetod-graafiliselt"><span class="header-section-number">10.15</span> Lisa - IV meetod graafiliselt</h2>
+<p>Alljärgnevalt on esitatud ka IV meetodi olemus graafiliselt.</p>
+<p>Teeme mõned näiteandmed, kus Y on sõltuv tunnus, X on endogeenne selgitav tunnus, mis mõjutab tegelikult Y-t kordajaga 2 ja Z on binaarne instrument, mis mõjutab Xi.</p>
+<p>Nähtav seos Y ja Xi vahel ülehindab tegelikku mõju.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. OLS: NÄHTAV SEOS ---------------------------------------------------------</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>mudel_ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X, <span class="at">data =</span> andmed)</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mudel_ols)                     <span class="co"># vabaliige 1, tõus 3</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)           X 
+          1           3 </code></pre>
+</div>
+</div>
+<p>Vabaliige on 1 ja tõus 3.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(andmed, <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Z))) <span class="sc">+</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Z"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-ivmeetod_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Instrumentmuutuja meetodil on esimene samm hinnata, kuidas Z mõjutab Xi ja prognoosida sellest Xi väärtused.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>esimene_etapp <span class="ot">&lt;-</span> <span class="fu">lm</span>(X <span class="sc">~</span> Z, <span class="at">data =</span> andmed)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(esimene_etapp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = X ~ Z, data = andmed)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2512 -0.6838 -0.0542  0.6805  2.5747 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -1.00000    0.06337  -15.78   &lt;2e-16 ***
+Z            2.00000    0.08962   22.32   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.002 on 498 degrees of freedom
+Multiple R-squared:    0.5, Adjusted R-squared:  0.499 
+F-statistic:   498 on 1 and 498 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>andmed<span class="sc">$</span>X_hat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(esimene_etapp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Saame Xile täpselt kaks prognoositud väärtust: -1 ja 1.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(<span class="fu">round</span>(andmed<span class="sc">$</span>X_hat, <span class="dv">10</span>))    <span class="co"># täpselt kaks väärtust: -1 ja 1</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1  1</code></pre>
+</div>
+</div>
+<p>Esitame prognoositud väärtused, koos esialgsetega samal joonisel.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(andmed, <span class="fu">aes</span>(<span class="at">x =</span> X_hat, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Z))) <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">3</span>)) <span class="sc">+</span> </span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y, <span class="at">color =</span>  <span class="fu">as.factor</span>(Z)), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y, ), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Z"</span>, <span class="at">x =</span> <span class="st">"X ja X_hat"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-ivmeetod_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Näeme, et nüüd on hinnatud joone tõus väiksem. Kasutades prognoositud X-väärtus, siis on tõusuks 2.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>teine_etapp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X_hat, <span class="at">data =</span> andmed)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(teine_etapp)                  <span class="co"># vabaliige 1, tõus 2</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)       X_hat 
+          1           2 </code></pre>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
