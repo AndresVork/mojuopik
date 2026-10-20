@@ -342,7 +342,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">19/10/2026</p>
+      <p class="date-modified">20/10/2026</p>
     </div>
   </div>
     
@@ -1024,36 +1024,38 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 class="anchored" data-anchor-id="kahesammulise-vähimruutude-meetodi-2sls-hinnang">Kahesammulise vähimruutude meetodi (2SLS) hinnang</h3>
 <section id="esimene-samm-lojaalsusprogrammi-liikmesuse-hindamine" class="level4">
 <h4 class="anchored" data-anchor-id="esimene-samm-lojaalsusprogrammi-liikmesuse-hindamine">Esimene samm: Lojaalsusprogrammi liikmesuse hindamine</h4>
-<p>Esimeses etapis prognoosime loyalty_program_member instrumentmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (discount_rate ja saving_rate) abil.</p>
+<p>Esimeses etapis prognoosime loyalty_program_member instrumentmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (hh_income, discount_rate ja saving_rate) abil.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>stage1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> economic_benefit <span class="sc">+</span> non_economic_benefit <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>             privacy_concern <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>             privacy_concern <span class="sc">+</span> hh_income <span class="sc">+</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 lm(formula = loyalty_program_member ~ economic_benefit + non_economic_benefit + 
-    privacy_concern + discount_rate + saving_rate, data = data)
+    privacy_concern + hh_income + discount_rate + saving_rate, 
+    data = data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--1.0748 -0.4791  0.2107  0.4044  0.8670 
+-1.0685 -0.4752  0.2077  0.4076  0.8611 
 
 Coefficients:
                      Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           0.40758    0.13749   2.964 0.003106 ** 
-economic_benefit      0.11333    0.02963   3.825 0.000139 ***
-non_economic_benefit  0.20501    0.03013   6.803 1.76e-11 ***
-privacy_concern      -0.21476    0.02959  -7.257 7.98e-13 ***
-discount_rate         1.02089    0.74229   1.375 0.169341    
-saving_rate          -0.27984    0.75413  -0.371 0.710663    
+(Intercept)           0.46749    0.14979   3.121 0.001854 ** 
+economic_benefit      0.11286    0.02963   3.809 0.000148 ***
+non_economic_benefit  0.20377    0.03016   6.757 2.40e-11 ***
+privacy_concern      -0.21550    0.02960  -7.279 6.81e-13 ***
+hh_income            -0.02601    0.02580  -1.008 0.313627    
+discount_rate         1.01358    0.74232   1.365 0.172434    
+saving_rate          -0.32074    0.75521  -0.425 0.671146    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.4675 on 994 degrees of freedom
-Multiple R-squared:  0.1051,    Adjusted R-squared:  0.1006 
-F-statistic: 23.35 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.4675 on 993 degrees of freedom
+Multiple R-squared:  0.106, Adjusted R-squared:  0.1006 
+F-statistic: 19.63 on 6 and 993 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Mis mõjutab lojaalsusprogrammi astumist?</p>
@@ -1079,21 +1081,21 @@ lm(formula = share_of_wallet ~ predicted_loyalty + hh_income +
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.24421 -0.04897  0.01600  0.05955  0.16871 
+-0.24420 -0.04898  0.01597  0.05953  0.16867 
 
 Coefficients:
                    Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)        0.355071   0.026039  13.636  &lt; 2e-16 ***
-predicted_loyalty  0.041819   0.015585   2.683  0.00741 ** 
-hh_income          0.021439   0.004311   4.973 7.77e-07 ***
-discount_rate      0.140515   0.124660   1.127  0.25994    
-saving_rate       -0.063186   0.126267  -0.500  0.61689    
+(Intercept)        0.352557   0.026349  13.380  &lt; 2e-16 ***
+predicted_loyalty  0.041907   0.015608   2.685  0.00737 ** 
+hh_income          0.022527   0.004337   5.194 2.49e-07 ***
+discount_rate      0.140825   0.124646   1.130  0.25883    
+saving_rate       -0.061432   0.126281  -0.486  0.62674    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.07821 on 995 degrees of freedom
-Multiple R-squared:  0.0331,    Adjusted R-squared:  0.02921 
-F-statistic: 8.515 on 4 and 995 DF,  p-value: 9.326e-07</code></pre>
+Multiple R-squared:  0.03311,   Adjusted R-squared:  0.02922 
+F-statistic: 8.518 on 4 and 995 DF,  p-value: 9.288e-07</code></pre>
 </div>
 </div>
 <p>Näeme, et kliendikaardi omandamine mõjutab nüüd palju vähem: vaid 4.2 protsendipunkti suurem osakaal.</p>
@@ -1115,21 +1117,21 @@ lm(formula = share_of_wallet ~ loyalty_program_member + hh_income +
 
 Residuals:
       Min        1Q    Median        3Q       Max 
--0.228574 -0.037329  0.007011  0.043737  0.166588 
+-0.228513 -0.037340  0.007005  0.043665  0.166604 
 
 Coefficients:
-                        Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)             0.349325   0.021319  16.386  &lt; 2e-16 ***
-loyalty_program_member  0.041965   0.012759   3.289  0.00104 ** 
-hh_income               0.023937   0.003531   6.779 2.08e-11 ***
-discount_rate           0.141278   0.102055   1.384  0.16657    
-saving_rate            -0.059166   0.103371  -0.572  0.56720    
-vhat                    0.054305   0.013476   4.030 6.01e-05 ***
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)             0.35256    0.02157  16.344  &lt; 2e-16 ***
+loyalty_program_member  0.04191    0.01278   3.280  0.00108 ** 
+hh_income               0.02253    0.00355   6.345 3.38e-10 ***
+discount_rate           0.14083    0.10204   1.380  0.16789    
+saving_rate            -0.06143    0.10338  -0.594  0.55250    
+vhat                    0.05436    0.01350   4.028 6.06e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.06403 on 994 degrees of freedom
-Multiple R-squared:  0.3526,    Adjusted R-squared:  0.3494 
+Multiple R-squared:  0.3526,    Adjusted R-squared:  0.3493 
 F-statistic: 108.3 on 5 and 994 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(olsmudel, stage2iv, stage2ivcf, stage1, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">no.space =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1145,28 +1147,28 @@ loyalty_program_member         0.091***                                        0
                                (0.004)                                         (0.013)                                 
 predicted_loyalty                                      0.042***                                                        
                                                        (0.016)                                                         
-hh_income                      0.024***                0.021***                0.024***                                
-                               (0.004)                 (0.004)                 (0.004)                                 
 economic_benefit                                                                                       0.113***        
                                                                                                         (0.030)        
-non_economic_benefit                                                                                   0.205***        
+non_economic_benefit                                                                                   0.204***        
                                                                                                         (0.030)        
 privacy_concern                                                                                        -0.215***       
                                                                                                         (0.030)        
-discount_rate                   0.098                   0.141                   0.141                    1.021         
+hh_income                      0.024***                0.023***                0.023***                 -0.026         
+                               (0.004)                 (0.004)                 (0.004)                  (0.026)        
+discount_rate                   0.098                   0.141                   0.141                    1.014         
                                (0.102)                 (0.125)                 (0.102)                  (0.742)        
-saving_rate                     -0.052                  -0.063                  -0.059                  -0.280         
-                               (0.104)                 (0.126)                 (0.103)                  (0.754)        
+saving_rate                     -0.052                  -0.061                  -0.061                  -0.321         
+                               (0.104)                 (0.126)                 (0.103)                  (0.755)        
 vhat                                                                           0.054***                                
                                                                                (0.013)                                 
-Constant                       0.324***                0.355***                0.349***                0.408***        
-                               (0.021)                 (0.026)                 (0.021)                  (0.137)        
+Constant                       0.324***                0.353***                0.353***                0.467***        
+                               (0.021)                 (0.026)                 (0.022)                  (0.150)        
 -----------------------------------------------------------------------------------------------------------------------
 Observations                    1,000                   1,000                   1,000                    1,000         
-R2                              0.342                   0.033                   0.353                    0.105         
+R2                              0.342                   0.033                   0.353                    0.106         
 Adjusted R2                     0.339                   0.029                   0.349                    0.101         
-Residual Std. Error        0.065 (df = 995)        0.078 (df = 995)        0.064 (df = 994)        0.468 (df = 994)    
-F Statistic            129.313*** (df = 4; 995) 8.515*** (df = 4; 995) 108.282*** (df = 5; 994) 23.349*** (df = 5; 994)
+Residual Std. Error        0.065 (df = 995)        0.078 (df = 995)        0.064 (df = 994)        0.468 (df = 993)    
+F Statistic            129.313*** (df = 4; 995) 8.518*** (df = 4; 995) 108.277*** (df = 5; 994) 19.627*** (df = 6; 993)
 =======================================================================================================================
 Note:                                                                                       *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
@@ -1199,22 +1201,22 @@ loyalty_program_member         0.091***             0.042***                    
                                (0.004)              (0.014)                                     (0.013)         
 predicted_loyalty                                                       0.042***                                
                                                                         (0.016)                                 
-hh_income                      0.024***             0.023***            0.021***                0.024***        
+hh_income                      0.024***             0.023***            0.023***                0.023***        
                                (0.004)              (0.004)             (0.004)                 (0.004)         
 discount_rate                   0.098                0.141               0.141                   0.141          
                                (0.102)              (0.110)             (0.125)                 (0.102)         
-saving_rate                     -0.052               -0.061              -0.063                  -0.059         
+saving_rate                     -0.052               -0.061              -0.061                  -0.061         
                                (0.104)              (0.111)             (0.126)                 (0.103)         
 vhat                                                                                            0.054***        
                                                                                                 (0.013)         
-Constant                       0.324***             0.353***            0.355***                0.349***        
-                               (0.021)              (0.023)             (0.026)                 (0.021)         
+Constant                       0.324***             0.353***            0.353***                0.353***        
+                               (0.021)              (0.023)             (0.026)                 (0.022)         
 ----------------------------------------------------------------------------------------------------------------
 Observations                    1,000                1,000               1,000                   1,000          
 R2                              0.342                0.251               0.033                   0.353          
 Adjusted R2                     0.339                0.248               0.029                   0.349          
 Residual Std. Error        0.065 (df = 995)     0.069 (df = 995)    0.078 (df = 995)        0.064 (df = 994)    
-F Statistic            129.313*** (df = 4; 995)                  8.515*** (df = 4; 995) 108.282*** (df = 5; 994)
+F Statistic            129.313*** (df = 4; 995)                  8.518*** (df = 4; 995) 108.277*** (df = 5; 994)
 ================================================================================================================
 Note:                                                                                *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
@@ -1276,7 +1278,7 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stage2ivcf)<span class="sc">$</span>coefficients[<span class="st">"vhat"</span>,]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Estimate   Std. Error      t value     Pr(&gt;|t|) 
-5.430503e-02 1.347645e-02 4.029623e+00 6.012936e-05 </code></pre>
+5.435982e-02 1.349684e-02 4.027596e+00 6.064156e-05 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(olsmudel, stage2ivcf)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1289,7 +1291,7 @@ Model 2: share_of_wallet ~ loyalty_program_member + hh_income + discount_rate +
     saving_rate + vhat
   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
 1    995 4.1421                                  
-2    994 4.0755  1  0.066577 16.238 6.013e-05 ***
+2    994 4.0756  1  0.066511 16.221 6.064e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1304,7 +1306,7 @@ Model 2: share_of_wallet ~ loyalty_program_member + hh_income + discount_rate +
     saving_rate + vhat
   Res.Df Df  Chisq Pr(&gt;Chisq)    
 1    995                         
-2    994  1 16.238  5.587e-05 ***
+2    994  1 16.221  5.635e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1398,18 +1400,18 @@ Wald test: 10.99 on 4 and 995 DF,  p-value: 1.003e-08 </code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(stage1)</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#F-test - võrdleme meie mudelit ja ilma instrumentideta mudelit</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>stage1abi <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> discount_rate <span class="sc">+</span> saving_rate, <span class="at">data =</span> data)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>stage1abi <span class="ot">&lt;-</span> <span class="fu">lm</span>(loyalty_program_member <span class="sc">~</span> discount_rate <span class="sc">+</span> saving_rate <span class="sc">+</span> hh_income, <span class="at">data =</span> data)</span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(stage1abi, stage1)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: loyalty_program_member ~ discount_rate + saving_rate
+Model 1: loyalty_program_member ~ discount_rate + saving_rate + hh_income
 Model 2: loyalty_program_member ~ economic_benefit + non_economic_benefit + 
-    privacy_concern + discount_rate + saving_rate
+    privacy_concern + hh_income + discount_rate + saving_rate
   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-1    997 242.45                                  
-2    994 217.26  3    25.195 38.423 &lt; 2.2e-16 ***
+1    996 242.15                                  
+2    993 217.04  3    25.112 38.299 &lt; 2.2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1642,15 +1644,16 @@ F-statistic: 12.76 on 4 and 995 DF,  p-value: 3.92e-10</code></pre>
 <p>Teeme mõned näiteandmed, kus Y on sõltuv tunnus, X on endogeenne selgitav tunnus, mis mõjutab tegelikult Y-t kordajaga 2 ja Z on binaarne instrument, mis mõjutab Xi.</p>
 <p>Nähtav seos Y ja Xi vahel ülehindab tegelikku mõju.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. OLS: NÄHTAV SEOS ---------------------------------------------------------</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>mudel_ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X, <span class="at">data =</span> andmed)</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mudel_ols)                     <span class="co"># vabaliige 1, tõus 3</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  OLS: Andmetest nähtav seos </span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>mudel_ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X, <span class="at">data =</span> andmed)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mudel_ols)                     <span class="co"># vabaliige 1, tõus 3</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)           X 
           1           3 </code></pre>
 </div>
 </div>
-<p>Vabaliige on 1 ja tõus 3.</p>
+<p>Mudeli vabaliige on 1 ja tõus on 3. Vaatame ka joonisel seda seost.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1667,7 +1670,8 @@ F-statistic: 12.76 on 4 and 995 DF,  p-value: 3.92e-10</code></pre>
 </div>
 </div>
 </div>
-<p>Instrumentmuutuja meetodil on esimene samm hinnata, kuidas Z mõjutab Xi ja prognoosida sellest Xi väärtused.</p>
+<p>Joonisel on toodud punktid kahte värvi, vastavalt sellele, mis on instrumendi väärtus.</p>
+<p>Instrumentmuutuja meetodil on esimene samm hinnata, kuidas Z selgitab Xi ja prognoosida sellest Xi väärtused. Meil teisi selgitavaid tunnuseid praegu ei ole.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>esimene_etapp <span class="ot">&lt;-</span> <span class="fu">lm</span>(X <span class="sc">~</span> Z, <span class="at">data =</span> andmed)</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(esimene_etapp)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1700,7 +1704,7 @@ F-statistic:   498 on 1 and 498 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code>[1] -1  1</code></pre>
 </div>
 </div>
-<p>Esitame prognoositud väärtused, koos esialgsetega samal joonisel.</p>
+<p>Esitame prognoositud väärtused koos esialgsete väärtustega nüüd samal joonisel.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(andmed, <span class="fu">aes</span>(<span class="at">x =</span> X_hat, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Z))) <span class="sc">+</span></span>
@@ -1719,7 +1723,7 @@ F-statistic:   498 on 1 and 498 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p>Näeme, et nüüd on hinnatud joone tõus väiksem. Kasutades prognoositud X-väärtus, siis on tõusuks 2.</p>
+<p>Näeme, et nüüd on hinnatud joone tõus väiksem. Kasutades prognoositud X-väärtusi, siis on tõusuks 2.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>teine_etapp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X_hat, <span class="at">data =</span> andmed)</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(teine_etapp)                  <span class="co"># vabaliige 1, tõus 2</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
