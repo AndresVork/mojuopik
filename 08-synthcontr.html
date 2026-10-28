@@ -298,7 +298,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#seade-ja-tähistused" id="toc-seade-ja-tähistused" class="nav-link" data-scroll-target="#seade-ja-tähistused">Seade ja tähistused</a></li>
   <li><a href="#selgitavad-tunnused-ja-kaalud" id="toc-selgitavad-tunnused-ja-kaalud" class="nav-link" data-scroll-target="#selgitavad-tunnused-ja-kaalud">Selgitavad tunnused ja kaalud</a></li>
-  <li><a href="#california-tubakakontrolli-programmi-näide" id="toc-california-tubakakontrolli-programmi-näide" class="nav-link" data-scroll-target="#california-tubakakontrolli-programmi-näide">California tubakakontrolli programmi näide</a></li>
   </ul></li>
   <li><a href="#eeldused" id="toc-eeldused" class="nav-link" data-scroll-target="#eeldused"><span class="header-section-number">11.3</span> Eeldused</a>
   <ul class="collapse">
@@ -336,7 +335,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">09/10/2026</p>
+      <p class="date-modified">28/10/2026</p>
     </div>
   </div>
     
@@ -347,58 +346,59 @@ window.Quarto = {
 </header>
 
 
-<p>Synthetic control method (SCM)</p>
-<p>Poolik - arenev</p>
 <section id="taust" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="taust"><span class="header-section-number">11.1</span> Taust</h2>
-<p>Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (<em>synthetic control method</em>), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.</p>
-<p>Eesti keeles oleme kasutanud ka nime sünteentilise kontrolli meetod. Alljärgnevalt on kasutatud hetkel mõisteid vaheldumisi.</p>
-<p>Motivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, (nt võrdleme Eestit Lätiga) sest subjektiivne valik võib kallutada tulemusi (miks mitte võrrelda Eestit Leeduga?).</p>
-<p>Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.</p>
+<p>Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (<em>synthetic control method</em>), tõlgitud eesti keelde otse ka kui sünteetilise kontrolli meetod.</p>
+<p>See on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse objekti – näiteks riigi, osariigi või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (<em>dif-dif</em>) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise võrdlusobjekti meetodi fookuses olukord, kus on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.</p>
+<p>Meetodi vajadus tuleb tavaliselt makrotasemel mõju hindamise vajadusest. Näiteks, mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule; milline oli California osariigi ulatusliku tubakakontrolliprogrammi mõju suitsetamisele; kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist.</p>
+<p>Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, nt võrdleme Eestit Lätiga, sest subjektiivne valik võib kallutada tulemusi, nt miks mitte võrrelda Eestit Leeduga.</p>
+<p>Sünteetilise võrdlusobjekti meetod pakub süsteemse viisi sellise võrdlusobjekti konstrueerimiseks.</p>
 </section>
 <section id="taust-ja-rakenduste-näited" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="taust-ja-rakenduste-näited"><span class="header-section-number">11.2</span> Taust ja rakenduste näited</h2>
-<p>Empiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Samuti peetakse oluliseks Abadie, Diamond ja Hainmueller (2010) artiklit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.</p>
-<p>Eestis on meetodit kasutatud näiteks Centari analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Samuti kasutab Meriküll (2025) sünteetilise dif-dif lähenemist, et hinnata, kuidas kogumispensioni varasem vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud.</p>
-<p>Need näited illustreerivad, et sünteetilise kontrolli meetod on kasulik just siis, kui mõjutatud üksusi on vähe ja me soovime vältida ad hoc ühe võrdlusriigi või -piirkonna valikut.</p>
+<p>Empiirilises kirjanduses seostatakse sünteetilise võrdlusobjekti meetodit eelkõige Alberto Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Hispaania provintsi Baskimaa sõjalise konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud piirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Samuti peetakse oluliseks Abadie, Diamond ja Hainmueller (2010) artiklit California tubakakontrolliprogrammi mõjude hindamiseks, kus võrreldakse California osariiki sünteentilise võrdlusobjektiga, mis koosneb teiste osariikide kaalutud keskmisest. Viimaks võib välja tuua Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, kus konstrueeriti Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.</p>
+<p>Eestis on meetodit kasutatud näiteks Centari 2023. aasta analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Vt lisa 5 ja 6: “Sünteetilise kontrollgrupi meetodi tulemused: lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele”, https://www.agri.ee/sites/default/files/documents/2023-09/uuring-2023-linnapiirkonnad-areng_1.pdf.</p>
+<p>Samuti kasutab Meriküll (2025) sünteetilist <em>dif-dif</em> lähenemist, et hinnata, kuidas kohustusliku kogumispensioni (II samba) vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud. (“The impact of early pension withdrawals on household finances and inflation“ https://www.eestipank.ee/en/publications/working-papers/2025/42025-jaanika-merikull-impact-early-pension-withdrawals-household-finances-and-inflation).</p>
+<p>Ülaltoodud näited illustreerivad, et sünteetilise kontrolli meetod on kasulik just siis, kui mõjutatud üksusi on vähe ja me soovime vältida ad hoc ühe võrdlusriigi või -piirkonna valikut.</p>
 <section id="seade-ja-tähistused" class="level3">
 <h3 class="anchored" data-anchor-id="seade-ja-tähistused">Seade ja tähistused</h3>
-<p>Olgu meil <span class="math inline">\(J + 1\)</span> agregeeritud objekti: üks käsitletav objekt (näiteks California või Baskimaa) ning <span class="math inline">\(J\)</span> potentsiaalset kontrollobjekti (doonorgrupp). Ajalist dimensiooni tähistame perioodidega <span class="math inline">\(t = 1, \dots, T\)</span>, kus sekkumine toimub alates ajast <span class="math inline">\(T_0 + 1\)</span>. Perioodid <span class="math inline">\(t \leq T_0\)</span> on sekkumiseelsed, perioodid <span class="math inline">\(t &gt; T_0\)</span> sekkumisjärgsed.</p>
-<p>Olgu <span class="math inline">\(Y_{it}\)</span> objekt <span class="math inline">\(i\)</span> tegelik tulemusmuutuja (näiteks sigarettide müük elaniku kohta) perioodil <span class="math inline">\(t\)</span>. Huvipakkuv on sekkumise mõju käsitletavale üksusele <span class="math inline">\(i = 1\)</span>, mida defineerime kui vahe tegeliku tulemuse ja kontrafaktuaalse tulemuse vahel:</p>
+<p>Olgu meil <span class="math inline">\(J + 1\)</span> objekti: üks käsitletav objekt <span class="math inline">\(j = 1\)</span>, näiteks Lääne-Saksamaa või Eesti) ning <span class="math inline">\(J\)</span> potentsiaalset võrdlusobjekti (nn doonorgrupp), nt teised Euroopa riigid. Ajalist dimensiooni tähistame <span class="math inline">\(t = 1, \dots, T\)</span>, kus sekkumine toimub alates ajast <span class="math inline">\(T_0 + 1\)</span>. Perioodid <span class="math inline">\(t \leq T_0\)</span> on seega sekkumiseelsed, perioodid <span class="math inline">\(t &gt; T_0\)</span> sekkumisjärgsed.</p>
+<p>Olgu <span class="math inline">\(Y_{it}\)</span> objekt <span class="math inline">\(i\)</span> tegelik tulemusmuutuja (näiteks SKP inimese kohta) perioodil <span class="math inline">\(t\)</span>. Meid huvitab sekkumise mõju käsitletavale üksusele <span class="math inline">\(j = 1\)</span>, mida defineerime kui vahe tegeliku tulemuse ja võrdlusseisundi tulemuse vahel peale sekkumist:</p>
 <p><span class="math display">\[
 \alpha_{1t} = Y_{1t}^{I} - Y_{1t}^{N}, \quad t &gt; T_0,
 \]</span></p>
-<p>kus <span class="math inline">\(Y_{1t}^{I}\)</span> on tulemus sekkumisega (täheldatav) ning <span class="math inline">\(Y_{1t}^{N}\)</span> oleks tulemus ilma sekkumiseta (võrdlusseisund), mida otseselt ei näe.</p>
-<p>Sünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida <span class="math inline">\(Y_{1t}^{N}\)</span> konstrueeritakse kontrollobjektide kaalutud keskmisena:</p>
-<p><span class="math display">\[ Y_{1t}^{N} \approx \sum_{j=2}^{J+1} w_j Y*{jt}, \quad t = 1, \dots, T, \]</span></p>
-<p>kus kaalud <span class="math inline">\(w_j \geq 0\)</span> ja <span class="math inline">\(\sum_{j=2}^{J+1} w_j = 1\)</span>. Need kaalud määravad „sünteetilise kontrolli”, ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada käsitletava objektiga võimalikult täpselt.</p>
-<p>Sellisel juhul on mõju hinnang ajapunktis <span class="math inline">\(t &gt; T_0\)</span>:</p>
-<p><span class="math display">\[ \hat{\alpha}_{1t} = Y*{1t} - \sum_{j=2}^{J+1} \hat{w}*j Y*{jt}. \]</span></p>
-<p>Graafiliselt saame võrrelda käsitletava objekti tegelikku rada ning sünteetilise kontrolli rada, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.</p>
+<p>kus <span class="math inline">\(Y_{1t}^{I}\)</span> on tulemus sekkumisega (vaadeldav) ning <span class="math inline">\(Y_{1t}^{N}\)</span> oleks tulemus ilma sekkumiseta (võrdlusseisund), mida me ei näe.</p>
+<p>Sünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida <span class="math inline">\(Y_{1t}^{N}\)</span> konstrueeritakse võrdlusobjektide kaalutud keskmisena:</p>
+<p><span class="math display">\[ Y_{1t}^{N} \approx \sum_{j=2}^{J+1} w_j Y_{jt}, \quad t = 1, \dots, T, \]</span></p>
+<p>kus kaalud <span class="math inline">\(w_j \geq 0\)</span> ja <span class="math inline">\(\sum_{j=2}^{J+1} w_j = 1\)</span>.</p>
+<p>Need kaalud määravad „sünteetilise võrdlusobjekti” ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada käsitletava objektiga võimalikult täpselt. Sellisel juhul on mõju hinnang peale meedet ehk ajapunktis <span class="math inline">\(t &gt; T_0\)</span>:</p>
+<p><span class="math display">\[ \hat{\alpha}_{1t} = Y_{1t} - \sum_{j=2}^{J+1} \hat{w}_j Y_{jt}. \]</span></p>
+<p>Graafiliselt saame võrrelda uuritava objekti tegelikku aegrida ning sünteetilise kontrolli aegrida, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.</p>
+<p>Näiteks, leiame, et Eesti jaoks on saame leibkondade säästmismäära enne kogumispensioni vabaks laskmist jäljendada, kui võtame Läti kaaluga 0.8 ja Leedu kaaluga 0.2. Seejärel kasutame samade kaaludega säästmimäärasid hindamaks, mis oleks juhtunud Eestiga, kui Eesti ei oleks kogumispensioni vabatahtlikuks teinud.</p>
 </section>
 <section id="selgitavad-tunnused-ja-kaalud" class="level3">
 <h3 class="anchored" data-anchor-id="selgitavad-tunnused-ja-kaalud">Selgitavad tunnused ja kaalud</h3>
-<p>Lisaks tulemusmuutujale kasutab meetod sobitamiseks selgitavaid tunnuseid ja sekkumiseelseid tulemusi. Olgu <span class="math inline">\(X_1\)</span> vektor käsitletava objekti tunnustest ja sekkumiseelsete tulemuste kokkuvõtlikest näitajatest (näiteks keskmised väärtused), ning <span class="math inline">\(X_0\)</span> maatriks samade tunnuste kohta kontrollobjektide jaoks:</p>
-<p>$$ X_1 = (x_{11}, , x_{1K})’, X_0 =</p>
-<span class="math display">\[\begin{pmatrix}
+<p>Lisaks uuritavale muutujale <span class="math inline">\(Y\)</span> kasutab meetod sobitamiseks ka teisi selgitavaid tunnuseid ja nende sekkumiseelseid tulemusi. Olgu <span class="math inline">\(X_1\)</span> vektor uuritava objekti tunnustest (nt rahvastiku vanusstruktuur, rahvastiku haridus) ja sekkumiseelsete tulemuste kokkuvõtlikest näitajatest (näiteks SKP inimese kohta keskmised väärtused enne Saksamaa ühinemist), ning <span class="math inline">\(X_0\)</span> maatriks samade tunnuste kohta kontrollobjektide jaoks:</p>
+<p><span class="math display">\[
+X_1 = (x_{11}, \dots, x_{1K})', \quad X_0 =
+\begin{pmatrix}
 x_{21} &amp; \dots &amp; x_{J+1,1} \\
 \vdots &amp; \ddots &amp; \vdots \\
 x_{2K} &amp; \dots &amp; x_{J+1,K}
-\end{pmatrix}\]</span>
-<p>$$</p>
-<p>Lisaks kaaludele objektidele <span class="math inline">\(w = (w_2, \dots, w_{J+1})'\)</span> kasutatakse ka kaalusid tunnustele <span class="math inline">\(V\)</span>, mis on diagonaalmaatriks suhtelise olulisusega tunnuste vahel. Intuitsioon on, et mõni tunnus – näiteks sekkumiseelsed tulemused – võib olla eriti informatiivne tulevase tulemuse kohta ning seetõttu saab suurema kaalu.</p>
+\end{pmatrix}
+\]</span></p>
+<p>Lisaks kaaludele objektidele <span class="math inline">\(w = (w_2, \dots, w_{J+1})'\)</span> kasutatakse ka kaalusid tunnustele <span class="math inline">\(V\)</span>, mis on diagonaalmaatriks suhtelise olulisusega tunnuste vahel.</p>
+<p>Intuitsioon on, et mõni tunnus – näiteks sekkumiseelsed tulemused – võib olla eriti informatiivne tulevase tulemuse kohta ning seetõttu saab suurema kaalu.</p>
 <p>Kaalud valitakse nii, et sobitada käsitletava objekti tunnused võimalikult hästi sünteetilisele kontrollile, minimeerides sobituskao:</p>
-<p><span class="math display">\[ \min\_{w} (X_1 - X_0 w)' V (X_1 - X_0 w) \]</span></p>
+<p><span class="math display">\[ \min_{w} (X_1 - X_0 w)' V (X_1 - X_0 w) \]</span></p>
 <p>võttes arvesse tingimusi <span class="math inline">\(w_j \geq 0\)</span> ja <span class="math inline">\(\sum_j w_j = 1\)</span>. See miinimumväärtus ongi nn W-kaotus (W-loss), mis näitab, kui hästi suudame valitud <span class="math inline">\(V\)</span> korral sobitada selgitavad tunnused.</p>
 <p>Seejärel valitakse <span class="math inline">\(V\)</span> nii, et minimeerida sekkumiseelsel perioodil sünteetilise kontrolli prognoosivea ruutkeskmine, ehk sekkumiseelne ruutkeskmine prognoosiviga (MSPE, Root Mean Square Prediction Error). See on seotud nn V-kaotusega (V-loss), ehk sellega, kui hästi sekkumiseelse väljundi rada on käsitletava objekti ja sünteetilise kontrolli vahel ühtiv.</p>
-</section>
-<section id="california-tubakakontrolli-programmi-näide" class="level3">
-<h3 class="anchored" data-anchor-id="california-tubakakontrolli-programmi-näide">California tubakakontrolli programmi näide</h3>
-<p>Üks klassikaline sünteetilise kontrolli näide on California tubakakontrolli programmi – Proposition 99 – mõju analüüs. Tegemist oli 1988. aastal vastuvõetud seadusandliku paketiga, mis tõstis sigarettide aktsiisi 25 sendi võrra paki kohta ja suurendas makse ka teistele tubakatoodetele. Osa maksutulust suunati ulatusliku tubakakontrolli programmi rahastamiseks, mille eesmärk oli vähendada suitsetamist ning parandada rahvatervist.</p>
-<p>Paneelandmestik sisaldab 39 USA osariigi andmeid perioodil 1970–2000. California puhul võeti 1988. aastat kui sekkumishetke, seega sekkumiseelne periood hõlmab aastaid 1970–1988. Sünteetiline kontroll konstrueeriti kaalutud kombinatsioonina teistest osariikidest, kus sarnane tubakakontrolli programm puudus. Sobitamisel kasutati mitmeid selgitavaid tunnuseid, näiteks elaniku kohta arvutatavat sissetulekut, sigarettide hinda, vanuselist struktuuri ning varasemate erimaksudega seotud näitajaid.</p>
-<p>Kaalud selgitavad, kui suure panuse annab iga doonor-osariik sünteetilise California moodustamisse. Samuti määratakse tunnuste kaalud <span class="math inline">\(V\)</span>, mis peegeldavad, millised tunnused on prognoosivõime seisukohast kõige olulisemad.</p>
+<!-- ### California tubakakontrolli programmi näide -->
+<!-- Üks klassikaline sünteetilise kontrolli näide on California tubakakontrolli programmi – Proposition 99 – mõju analüüs. Tegemist oli 1988. aastal vastuvõetud seadusandliku paketiga, mis tõstis sigarettide aktsiisi 25 sendi võrra paki kohta ja suurendas makse ka teistele tubakatoodetele. Osa maksutulust suunati ulatusliku tubakakontrolli programmi rahastamiseks, mille eesmärk oli vähendada suitsetamist ning parandada rahvatervist. -->
+<!-- Paneelandmestik sisaldab 39 USA osariigi andmeid perioodil 1970–2000. California puhul võeti 1988. aastat kui sekkumishetke, seega sekkumiseelne periood hõlmab aastaid 1970–1988. Sünteetiline kontroll konstrueeriti kaalutud kombinatsioonina teistest osariikidest, kus sarnane tubakakontrolli programm puudus. Sobitamisel kasutati mitmeid selgitavaid tunnuseid, näiteks elaniku kohta arvutatavat sissetulekut, sigarettide hinda, vanuselist struktuuri ning varasemate erimaksudega seotud näitajaid. -->
+<!-- Kaalud selgitavad, kui suure panuse annab iga doonor-osariik sünteetilise California moodustamisse. Samuti määratakse tunnuste kaalud $V$, mis peegeldavad, millised tunnused on prognoosivõime seisukohast kõige olulisemad. -->
 <!-- ![Sigarettide müük elaniku kohta Californias ja sünteetilises kontrollis](figures/california-synthetic-cig-sales.png) -->
-<p>Joonis kujutab California sigarettide müüki elaniku kohta koos sünteetilise kontrolli müügiga. Sekkumiseelsel perioodil peaksid need kaks aegrida olema üksteisele väga lähedal, mis kinnitab sobituse headust. Pärast sekkumist ilmneb järkjärguline lahknemine, mis näitab tubakakontrolliprogrammi mõju.</p>
+<!-- Joonis kujutab California sigarettide müüki elaniku kohta koos sünteetilise kontrolli müügiga. Sekkumiseelsel perioodil peaksid need kaks aegrida olema üksteisele väga lähedal, mis kinnitab sobituse headust. Pärast sekkumist ilmneb järkjärguline lahknemine, mis näitab tubakakontrolliprogrammi mõju. -->
 </section>
 </section>
 <section id="eeldused" class="level2" data-number="11.3">
@@ -470,7 +470,9 @@ x_{2K} &amp; \dots &amp; x_{J+1,K}
 </div>
 <p>Me kasutame pakette <code>Synth</code> ja <code>SCtools</code> . Vt <a href="https://cran.r-project.org/web/packages/Synth/index.html" class="uri">https://cran.r-project.org/web/packages/Synth/index.html</a> ja <a href="https://cran.r-project.org/web/packages/SCtools/index.html" class="uri">https://cran.r-project.org/web/packages/SCtools/index.html</a></p>
 <p>Põhiviide: Abadie A, Diamond A, Hainmueller J (2011). “Synth: An R Package for Synthetic Control Methods in Comparative Case Studies.” Journal of Statistical Software, 42(13), 1–17. <a href="https://www.jstatsoft.org/v42/i13/" class="uri">https://www.jstatsoft.org/v42/i13/</a></p>
-<p>Muud paketid: - kui mitu objekti <code>gsynth</code>, <a href="https://cran.r-project.org/web/packages/gsynth/index.htm" class="uri">https://cran.r-project.org/web/packages/gsynth/index.htm</a> - kui tahad kombineerida dif-dif analüüsiga</p>
+<p>Muud paketid:</p>
+<p>- kui mitu objekti <code>gsynth</code>, <a href="https://cran.r-project.org/web/packages/gsynth/index.htm" class="uri">https://cran.r-project.org/web/packages/gsynth/index.htm</a></p>
+<p>- kui tahad kombineerida dif-dif analüüsiga</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Synth)</span>
@@ -494,7 +496,18 @@ x_{2K} &amp; \dots &amp; x_{J+1,K}
 <p>Vaatame pisut andmetele sisse.</p>
 <p>Kasutame OECD riikide paneelandmeid perioodi 1960–2003 kohta. Saksamaa taasühinemine toimus 1990. aastal, mis annab 30-aastase sekkumiseelse perioodi. Valim lõpeb 2003. aastal, sest ligikaudu kümneaastast perioodi pärast taasühinemist võib pidada mõistlikuks piiriks usutavale prognoosiperioodile. Sünteetiline Lääne-Saksamaa konstrueeritakse doonorriikide hulgast valitud potentsiaalsete võrdlusriikide kaalutud keskmisena. Meie doonorriikide hulgas on valim 16 OECD liikmesriigist.</p>
 <p>Tulemusmuutuja on riigi SKP inimese kohta (PPP) järgi korrigeeritud ja mõõdetud 2002. aasta USA dollarites. Taasühinemiseelseid tunnused: SKP elaniku kohta, inflatsioonimäär, tööstuse osakaal loodud lisandväärtusest, investeeringute määr, haridustase ja kaubanduse avatuse mõõdik.</p>
-<p>Peamised tunnused: - index : riigi number - country : riigi nimi - year : aasta - gdp : SKP inimese kohta - infrate : inflatsioon - trade : kaubanduse avatus - schooling : haridustase - industry : tööstuse osakaal - invest60, 70, 80 - kodumaiste investeeringute suhe SKPsse, 5-aastased keskmised. Üks väärtus 1980 aasta kohal.</p>
+<p>Peamised tunnused:</p>
+<ul>
+<li>index : riigi number</li>
+<li>country : riigi nimi</li>
+<li>year : aasta</li>
+<li>gdp : SKP inimese kohta</li>
+<li>infrate : inflatsioon</li>
+<li>trade : kaubanduse avatus</li>
+<li>schooling : haridustase</li>
+<li>industry : tööstuse osakaal</li>
+<li>invest60, 70, 80 - kodumaiste investeeringute suhe SKPsse, 5-aastased keskmised; üks väärtus 1980 aasta kohta.</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -518,11 +531,17 @@ x_{2K} &amp; \dots &amp; x_{J+1,K}
 <p>SKP inimese kohta</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> gdp, <span class="at">color =</span> country)) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>(index<span class="sc">!=</span><span class="dv">7</span>))) <span class="sc">+</span> <span class="co">#joone tüüp on erinev index = 7 (West Germany jaoks)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linetype =</span> <span class="st">"none"</span>) <span class="sc">+</span> <span class="co">#ei taha legendi joone tüübi kohta</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"GDP per capita"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> gdp, <span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> (index <span class="sc">!=</span> <span class="dv">7</span>))) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d <span class="sc">|&gt;</span> <span class="fu">filter</span>(index <span class="sc">==</span> <span class="dv">7</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.3</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"solid"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linetype =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"GDP per capita"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -854,7 +873,6 @@ $tab.loss
 </div>
 <p>Platseebode genereerimiseks kasutame paketti SCtools. See kohtleb iga piirkonda kordamööda kui osalejat ja arvutab mõjud. See võtab mõnevõrra aega.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>placebos <span class="ot">&lt;-</span> <span class="fu">generate.placebos</span>(dataprep.out, synth.out, <span class="at">Sigf.ipop =</span> <span class="dv">3</span>, <span class="at">strategy =</span> <span class="st">"multicore"</span>) <span class="co">#multicore - quicker, parallel computing</span></span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 X1, X0, Z1, Z0 all come directly from dataprep object.
@@ -1198,7 +1216,7 @@ solution.w:
 </div>
 <p>Pärast seda saame joonistada platseebomõjud.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_placebos</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_placebos</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1209,7 +1227,7 @@ solution.w:
 </div>
 <p>Näeme, et mõned teisedki riigid kogesid langust alates 1990ndatest. Samuti saame arvutada sekkumisjärgse MSPE ja sekkumiseelse MSPE suhte. Mida suurem on see erinevus, seda keerulisem on tulevikku prognoosida võrreldes minevikuga. Kui paljud riigid saavad suure suhte, võib meie hinnatud mõju olla lihtsalt juhuslik variatsioon.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mspe.plot</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mspe.plot</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1221,8 +1239,8 @@ solution.w:
 <p>Mitte ühelgi riigil ei ole suuremat kasvu MSPEs.</p>
 <p>P-väärtus käsuga</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#or with the command</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mspe.test</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#or with the command</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mspe.test</span>(placebos)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$p.val
 [1] 0.05882353
@@ -1250,26 +1268,26 @@ $test
 </div>
 <p>Kontrolliks käsitsi kaotus sõltuvas tulemuses</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Y1plot <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y1plot</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>Y0plot <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y0plot</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>tag<span class="sc">$</span>time.plot</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>treat.time <span class="ot">&lt;-</span> <span class="dv">1991</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ajad kaalutud kaotuse joaks</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>pre_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(time<span class="sc">&gt;</span> <span class="dv">1980</span> <span class="sc">&amp;</span> time<span class="sc">&lt;</span> treat.time)</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks, mis aastad</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>time[pre_idx]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>Y1plot <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y1plot</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>Y0plot <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y0plot</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>tag<span class="sc">$</span>time.plot</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>treat.time <span class="ot">&lt;-</span> <span class="dv">1991</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ajad kaalutud kaotuse joaks</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>pre_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(time<span class="sc">&gt;</span> <span class="dv">1980</span> <span class="sc">&amp;</span> time<span class="sc">&lt;</span> treat.time)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks, mis aastad</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>time[pre_idx]</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kaalud</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> synth.tables<span class="sc">$</span>tab.w<span class="sc">$</span>w.weights </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Sünteetiline keskmine</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>Y_synth_pre <span class="ot">&lt;-</span> Y0plot[pre_idx, ] <span class="sc">%*%</span> w</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pre_idx, Y_synth_pre, <span class="at">type =</span> <span class="st">"l"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kaalud</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> synth.tables<span class="sc">$</span>tab.w<span class="sc">$</span>w.weights </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Sünteetiline keskmine</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>Y_synth_pre <span class="ot">&lt;-</span> Y0plot[pre_idx, ] <span class="sc">%*%</span> w</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pre_idx, Y_synth_pre, <span class="at">type =</span> <span class="st">"l"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1277,11 +1295,11 @@ $test
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#erinevus</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>gaps_pre <span class="ot">&lt;-</span> Y1plot[pre_idx] <span class="sc">-</span> Y_synth_pre</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pre_idx, gaps_pre, <span class="at">type =</span> <span class="st">"l"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#erinevus</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>gaps_pre <span class="ot">&lt;-</span> Y1plot[pre_idx] <span class="sc">-</span> Y_synth_pre</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Kontrolliks</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pre_idx, gaps_pre, <span class="at">type =</span> <span class="st">"l"</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1289,14 +1307,14 @@ $test
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi kaotus Y-s</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>lossV_manual <span class="ot">&lt;-</span> <span class="fu">mean</span>(gaps_pre<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(lossV_manual)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Käsitsi kaotus Y-s</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>lossV_manual <span class="ot">&lt;-</span> <span class="fu">mean</span>(gaps_pre<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(lossV_manual)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3702.133</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meil</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>synth.tables<span class="sc">$</span>tab.loss</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Meil</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>synth.tables<span class="sc">$</span>tab.loss</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Loss W   Loss V
 [1,] 0.0007521133 2780.803</code></pre>
