@@ -1,86 +1,89 @@
 # Sünteetilise võrdlusobjekti meetod
 
-Synthetic control method (SCM)
-
-Poolik - arenev
-
 ## Taust
 
-Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (*synthetic control method*), mis on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse agregeeritud objekti – näiteks riigi, regiooni või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (dif-dif) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise kontrolli meetodi fookuses sageli olukord, kus reaalselt on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.
+Selles peatükis käsitleme sünteetilise võrdlusobjekti meetodit (*synthetic control method*), tõlgitud eesti keelde otse ka kui sünteetilise kontrolli meetod.
 
-Eesti keeles oleme kasutanud ka nime sünteentilise kontrolli meetod. Alljärgnevalt on kasutatud hetkel mõisteid vaheldumisi.
+See on välja töötatud olukordadeks, kus meid huvitab ühe konkreetse objekti – näiteks riigi, osariigi või linna – kokkupuude mingi poliitika või sündmusega ning soovime hinnata selle mõju. Erinevalt klassikalisest erinevuste-vahe (*dif-dif*) lähenemisest, kus on palju meetmes osalejaid ja kontrollüksusi, on sünteetilise võrdlusobjekti meetodi fookuses olukord, kus on vaid üks meetmes osalev objekt ja piiratud arv sobivaid võrdlusobjekte.
 
-Motivatsioon tuleneb tüüpilistest poliitikaküsimustest: mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule, milline oli California ulatusliku tubakakontrolliprogrammi mõju suitsetamisele või kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist. Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, (nt võrdleme Eestit Lätiga) sest subjektiivne valik võib kallutada tulemusi (miks mitte võrrelda Eestit Leeduga?). 
+Meetodi vajadus tuleb tavaliselt makrotasemel mõju hindamise vajadusest. Näiteks, mis oli Saksamaa taasühinemise mõju Lääne-Saksamaa majanduskasvule; milline oli California osariigi ulatusliku tubakakontrolliprogrammi mõju suitsetamisele; kuidas mõjutas Eesti kogumispensioni vabatahtlikuks muutmine majapidamiste tarbimist ja säästmist.
 
-Sünteetilise kontrolli meetod pakub süsteemse viisi sellise „võrdlusobjekti” konstrueerimiseks.
+Nendele küsimustele vastamiseks ei piisa sageli üksiku võrdlusriigi või -regiooni valimisest, nt võrdleme Eestit Lätiga, sest subjektiivne valik võib kallutada tulemusi, nt miks mitte võrrelda Eestit Leeduga.
+
+Sünteetilise võrdlusobjekti meetod pakub süsteemse viisi sellise võrdlusobjekti konstrueerimiseks.
 
 ## Taust ja rakenduste näited
 
-Empiirilises kirjanduses seostatakse sünteetilise kontrolli meetodit eelkõige Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Baskimaa konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud kontrollpiirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Samuti peetakse oluliseks Abadie, Diamond ja Hainmueller (2010) artiklit California tubakakontrolliprogrammi mõjude hindamiseks ja Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, konstrueerides Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.
+Empiirilises kirjanduses seostatakse sünteetilise võrdlusobjekti meetodit eelkõige Alberto Abadie ja kaastööliste töödega. Esimene tuntud rakendus on Abadie ja Gardeazabal (2003), kus hinnatakse Hispaania provintsi Baskimaa sõjalise konflikti majanduslikku hinda võrreldes sünteetiliselt konstrueeritud piirkonnaga, mis on kaalutud kombinatsioon Hispaania teistest provintsidest. Samuti peetakse oluliseks Abadie, Diamond ja Hainmueller (2010) artiklit California tubakakontrolliprogrammi mõjude hindamiseks, kus võrreldakse California osariiki sünteetilise võrdlusobjektiga, mis koosneb teiste osariikide kaalutud keskmisest. Viimaks võib välja tuua Abadie, Diamond ja Hainmueller (2014) Saksamaa taasühinemise mõjude analüüsimiseks, kus konstrueeriti Lääne-Saksamaale võrdluseks sünteetilise OECD riikide kombinatsiooni.
 
-Eestis on meetodit kasutatud näiteks Centari analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Samuti kasutab Meriküll (2025) sünteetilise dif-dif lähenemist, et hinnata, kuidas kogumispensioni varasem vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud.
+Eestis on meetodit kasutatud näiteks Centari 2023. aasta analüüsis, kus hinnati lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele, moodustades sekkumispiirkondadele sobivad sünteetilised kontrollpiirkonnad. Vt lisa 5 ja 6: "Sünteetilise kontrollgrupi meetodi tulemused: lapsehoiu ja alushariduse projektide mõju koolieelsetes lasteasutustes käivate laste osakaalule ja naiste tööhõivele", https://www.agri.ee/sites/default/files/documents/2023-09/uuring-2023-linnapiirkonnad-areng_1.pdf.
 
-Need näited illustreerivad, et sünteetilise kontrolli meetod on kasulik just siis, kui mõjutatud üksusi on vähe ja me soovime vältida ad hoc ühe võrdlusriigi või -piirkonna valikut.
+Samuti kasutab Meriküll (2025) sünteetilist *dif-dif* lähenemist, et hinnata, kuidas kohustusliku kogumispensioni (II samba) vabatahtlikuks muutmine mõjutas Eesti majapidamiste finantskäitumist ja inflatsiooni, võrreldes Eestit riikidega, kus sellist reformi ei olnud. ("The impact of early pension withdrawals on household finances and inflation“ https://www.eestipank.ee/en/publications/working-papers/2025/42025-jaanika-merikull-impact-early-pension-withdrawals-household-finances-and-inflation).
+
+Ülaltoodud näited illustreerivad, et sünteetilise kontrolli meetod on kasulik just siis, kui mõjutatud üksusi on vähe ja me soovime vältida ad hoc ühe võrdlusriigi või -piirkonna valikut.
 
 ### Seade ja tähistused
 
-Olgu meil $J + 1$ agregeeritud objekti: üks käsitletav objekt (näiteks California või Baskimaa) ning $J$ potentsiaalset kontrollobjekti (doonorgrupp). Ajalist dimensiooni tähistame perioodidega $t = 1, \dots, T$, kus sekkumine toimub alates ajast $T_0 + 1$. Perioodid $t \leq T_0$ on sekkumiseelsed, perioodid $t > T_0$ sekkumisjärgsed.
+Olgu meil $J + 1$ objekti: üks uuritav objekt $j = 1$, näiteks Lääne-Saksamaa või Eesti) ning $J$ potentsiaalset võrdlusobjekti (nn doonorgrupp), nt teised Euroopa riigid. Ajalist dimensiooni tähistame $t = 1, \dots, T$, kus sekkumine toimub alates ajast $T_0 + 1$. Perioodid $t \leq T_0$ on seega sekkumiseelsed, perioodid $t > T_0$ sekkumisjärgsed.
 
-Olgu $Y_{it}$ objekt $i$ tegelik tulemusmuutuja (näiteks sigarettide müük elaniku kohta) perioodil $t$. Huvipakkuv on sekkumise mõju käsitletavale üksusele $i = 1$, mida defineerime kui vahe tegeliku tulemuse ja kontrafaktuaalse tulemuse vahel:
+Olgu $Y_{it}$ objekt $i$ tegelik tulemusmuutuja (näiteks SKP inimese kohta) perioodil $t$. Meid huvitab sekkumise mõju uuritavale üksusele $j = 1$, mida defineerime kui vahe tegeliku tulemuse ja võrdlusseisundi tulemuse vahel peale sekkumist:
 
 $$
 \alpha_{1t} = Y_{1t}^{I} - Y_{1t}^{N}, \quad t > T_0,
 $$
 
-kus $Y_{1t}^{I}$ on tulemus sekkumisega (täheldatav) ning $Y_{1t}^{N}$ oleks tulemus ilma sekkumiseta (võrdlusseisund), mida otseselt ei näe.
+kus $Y_{1t}^{I}$ on tulemus sekkumisega (vaadeldav) ning $Y_{1t}^{N}$ oleks tulemus ilma sekkumiseta (võrdlusseisund), mida me ei näe.
 
-Sünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida $Y_{1t}^{N}$ konstrueeritakse kontrollobjektide kaalutud keskmisena:
+Sünteetilise kontrolli idee seisneb selles, et võrdlusseisundi aegrida $Y_{1t}^{N}$ konstrueeritakse võrdlusobjektide kaalutud keskmisena:
 
-$$ Y_{1t}^{N} \approx \sum_{j=2}^{J+1} w_j Y*{jt}, \quad t = 1, \dots, T, $$
+$$ Y_{1t}^{N} \approx \sum_{j=2}^{J+1} w_j Y_{jt}, \quad t = 1, \dots, T, $$
 
-kus kaalud $w_j \geq 0$ ja $\sum_{j=2}^{J+1} w_j = 1$. Need kaalud määravad „sünteetilise kontrolli”, ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada käsitletava objektiga võimalikult täpselt.
+kus kaalud $w_j \geq 0$ ja $\sum_{j=2}^{J+1} w_j = 1$.
 
-Sellisel juhul on mõju hinnang ajapunktis $t > T_0$:
+Need kaalud määravad „sünteetilise võrdlusobjekti" ehk hüpoteetilise objekti, mis on kombinatsioon olemasolevatest võrdlusüksustest ja mille sekkumiseelse dünaamika soovime sobitada uuritava objektiga võimalikult täpselt. Sellisel juhul on mõju hinnang peale meedet ehk ajapunktis $t > T_0$:
 
-$$ \hat{\alpha}_{1t} = Y*{1t} - \sum_{j=2}^{J+1} \hat{w}*j Y*{jt}. $$
+$$ \hat{\alpha}_{1t} = Y_{1t} - \sum_{j=2}^{J+1} \hat{w}_j Y_{jt}. $$
 
-Graafiliselt saame võrrelda käsitletava objekti tegelikku rada ning sünteetilise kontrolli rada, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.
+Graafiliselt saame võrrelda uuritava objekti tegelikku aegrida ning sünteetilise kontrolli aegrida, ning sekkumisejärgne erinevus nende vahel annab visuaalse ja kvantitatiivse hinnangu sekkumise mõjust.
+
+Näiteks, leiame, et Eesti jaoks on saame leibkondade säästmismäära enne kogumispensioni vabaks laskmist jäljendada, kui võtame Läti kaaluga 0.8 ja Leedu kaaluga 0.2. Seejärel kasutame samade kaaludega säästmimäärasid hindamaks, mis oleks juhtunud Eestiga, kui Eesti ei oleks kogumispensioni vabatahtlikuks teinud.
 
 ### Selgitavad tunnused ja kaalud
 
-Lisaks tulemusmuutujale kasutab meetod sobitamiseks selgitavaid tunnuseid ja sekkumiseelseid tulemusi. Olgu $X_1$ vektor käsitletava objekti tunnustest ja sekkumiseelsete tulemuste kokkuvõtlikest näitajatest (näiteks keskmised väärtused), ning $X_0$ maatriks samade tunnuste kohta kontrollobjektide jaoks:
+Lisaks uuritavale muutujale $Y$ kasutab meetod sobitamiseks ka teisi selgitavaid tunnuseid ja nende sekkumiseelseid tulemusi. Olgu $X_1$ vektor uuritava objekti tunnustest (nt rahvastiku vanusstruktuur, rahvastiku haridus) ja sekkumiseelsete tulemuste kokkuvõtlikest näitajatest (näiteks SKP inimese kohta keskmised väärtused enne Saksamaa ühinemist), ning $X_0$ maatriks samade tunnuste kohta kontrollobjektide jaoks:
 
-$$ X_1 = (x\_{11}, \dots, x\_{1K})', \quad X_0 =
-
+$$ 
+X_1 = (x_{11}, \dots, x_{1K})', \quad X_0 =
 \begin{pmatrix}
 x_{21} & \dots & x_{J+1,1} \\
 \vdots & \ddots & \vdots \\
 x_{2K} & \dots & x_{J+1,K}
 \end{pmatrix}
-
 $$
 
-Lisaks kaaludele objektidele $w = (w_2, \dots, w_{J+1})'$ kasutatakse ka kaalusid tunnustele $V$, mis on diagonaalmaatriks suhtelise olulisusega tunnuste vahel. Intuitsioon on, et mõni tunnus – näiteks sekkumiseelsed tulemused – võib olla eriti informatiivne tulevase tulemuse kohta ning seetõttu saab suurema kaalu.
+Lisaks kaaludele objektidele $w = (w_2, \dots, w_{J+1})'$ kasutatakse ka kaalusid tunnustele $V$, mis on diagonaalmaatriks suhtelise olulisusega tunnuste vahel.
 
-Kaalud valitakse nii, et sobitada käsitletava objekti tunnused võimalikult hästi sünteetilisele kontrollile, minimeerides sobituskao:
+Intuitsioon on, et mõni tunnus – näiteks sekkumiseelsed tulemused – võib olla eriti informatiivne tulevase tulemuse kohta ning seetõttu saab suurema kaalu.
 
-$$ \min\_{w} (X_1 - X_0 w)' V (X_1 - X_0 w) $$
+Kaalud valitakse nii, et sobitada uuritava objekti tunnused võimalikult hästi sünteetilisele kontrollile, minimeerides sobituskao:
+
+$$ \min_{w} (X_1 - X_0 w)' V (X_1 - X_0 w) $$
 
 võttes arvesse tingimusi $w_j \geq 0$ ja $\sum_j w_j = 1$. See miinimumväärtus ongi nn W-kaotus (W-loss), mis näitab, kui hästi suudame valitud $V$ korral sobitada selgitavad tunnused.
 
-Seejärel valitakse $V$ nii, et minimeerida sekkumiseelsel perioodil sünteetilise kontrolli prognoosivea ruutkeskmine, ehk sekkumiseelne ruutkeskmine prognoosiviga (MSPE, Root Mean Square Prediction Error). See on seotud nn V-kaotusega (V-loss), ehk sellega, kui hästi sekkumiseelse väljundi rada on käsitletava objekti ja sünteetilise kontrolli vahel ühtiv.
+Seejärel valitakse $V$ nii, et minimeerida sekkumiseelsel perioodil sünteetilise kontrolli prognoosivea ruutkeskmine, ehk sekkumiseelne ruutkeskmine prognoosiviga (MSPE, Root Mean Square Prediction Error). See on seotud nn V-kaotusega (V-loss), ehk sellega, kui hästi sekkumiseelse väljundi rada on uuritava objekti ja sünteetilise kontrolli vahel ühtiv.
 
-### California tubakakontrolli programmi näide
+<!-- ### California tubakakontrolli programmi näide -->
 
-Üks klassikaline sünteetilise kontrolli näide on California tubakakontrolli programmi – Proposition 99 – mõju analüüs. Tegemist oli 1988. aastal vastuvõetud seadusandliku paketiga, mis tõstis sigarettide aktsiisi 25 sendi võrra paki kohta ja suurendas makse ka teistele tubakatoodetele. Osa maksutulust suunati ulatusliku tubakakontrolli programmi rahastamiseks, mille eesmärk oli vähendada suitsetamist ning parandada rahvatervist.
+<!-- Üks klassikaline sünteetilise kontrolli näide on California tubakakontrolli programmi – Proposition 99 – mõju analüüs. Tegemist oli 1988. aastal vastuvõetud seadusandliku paketiga, mis tõstis sigarettide aktsiisi 25 sendi võrra paki kohta ja suurendas makse ka teistele tubakatoodetele. Osa maksutulust suunati ulatusliku tubakakontrolli programmi rahastamiseks, mille eesmärk oli vähendada suitsetamist ning parandada rahvatervist. -->
 
-Paneelandmestik sisaldab 39 USA osariigi andmeid perioodil 1970–2000. California puhul võeti 1988. aastat kui sekkumishetke, seega sekkumiseelne periood hõlmab aastaid 1970–1988. Sünteetiline kontroll konstrueeriti kaalutud kombinatsioonina teistest osariikidest, kus sarnane tubakakontrolli programm puudus. Sobitamisel kasutati mitmeid selgitavaid tunnuseid, näiteks elaniku kohta arvutatavat sissetulekut, sigarettide hinda, vanuselist struktuuri ning varasemate erimaksudega seotud näitajaid.
+<!-- Paneelandmestik sisaldab 39 USA osariigi andmeid perioodil 1970–2000. California puhul võeti 1988. aastat kui sekkumishetke, seega sekkumiseelne periood hõlmab aastaid 1970–1988. Sünteetiline kontroll konstrueeriti kaalutud kombinatsioonina teistest osariikidest, kus sarnane tubakakontrolli programm puudus. Sobitamisel kasutati mitmeid selgitavaid tunnuseid, näiteks elaniku kohta arvutatavat sissetulekut, sigarettide hinda, vanuselist struktuuri ning varasemate erimaksudega seotud näitajaid. -->
 
-Kaalud selgitavad, kui suure panuse annab iga doonor-osariik sünteetilise California moodustamisse. Samuti määratakse tunnuste kaalud $V$, mis peegeldavad, millised tunnused on prognoosivõime seisukohast kõige olulisemad.
+<!-- Kaalud selgitavad, kui suure panuse annab iga doonor-osariik sünteetilise California moodustamisse. Samuti määratakse tunnuste kaalud $V$, mis peegeldavad, millised tunnused on prognoosivõime seisukohast kõige olulisemad. -->
 
 <!-- ![Sigarettide müük elaniku kohta Californias ja sünteetilises kontrollis](figures/california-synthetic-cig-sales.png) -->
 
-Joonis kujutab California sigarettide müüki elaniku kohta koos sünteetilise kontrolli müügiga. Sekkumiseelsel perioodil peaksid need kaks aegrida olema üksteisele väga lähedal, mis kinnitab sobituse headust. Pärast sekkumist ilmneb järkjärguline lahknemine, mis näitab tubakakontrolliprogrammi mõju.
+<!-- Joonis kujutab California sigarettide müüki elaniku kohta koos sünteetilise kontrolli müügiga. Sekkumiseelsel perioodil peaksid need kaks aegrida olema üksteisele väga lähedal, mis kinnitab sobituse headust. Pärast sekkumist ilmneb järkjärguline lahknemine, mis näitab tubakakontrolliprogrammi mõju. -->
 
 ## Eeldused
 
@@ -88,13 +91,13 @@ Sünteetilise kontrolli meetodi korrektne tõlgendamine põhineb mitmel olulisel
 
 ### Ei ole vastastikmõjusid (SUTVA-laadne eeldus)
 
-Esimene eeldus puudutab vastastikmõjusid ehk üldise tasakaalumõju puudumist. Eeldame, et sekkumine käsitletaval objektil ei mõjuta otseselt kontrollobjektide tulemusi. Näiteks Baskimaa konflikti analüüsis eeldatakse, et konflikt ei mõjuta teiste Hispaania regioonide majanduskasvu. Teine näide oleks Eesti ettevõtte tulumaksumäära langetus, mille puhul eeldaksime, et see ei mõjuta naaberriikide ettevõtete majandusnäitajaid. See on sarnane SUTVA eeldusest tuntud nõudega, et ühe üksuse osalemine meetmes ei mõjuta teise üksuse tulemust.
+Esimene eeldus puudutab vastastikmõjusid ehk üldise tasakaalumõju puudumist. Eeldame, et sekkumine uuritaval objektil ei mõjuta otseselt kontrollobjektide tulemusi. Näiteks Baskimaa konflikti analüüsis eeldatakse, et konflikt ei mõjuta teiste Hispaania regioonide majanduskasvu. Teine näide oleks Eesti ettevõtte tulumaksumäära langetus, mille puhul eeldaksime, et see ei mõjuta naaberriikide ettevõtete majandusnäitajaid. See on sarnane SUTVA eeldusest tuntud nõudega, et ühe üksuse osalemine meetmes ei mõjuta teise üksuse tulemust.
 
 Kui see eeldus ei kehti ja sekkumine „lekib” kontrollüksustesse, siis sünteetiline kontroll ei esinda enam korralikult võrdlusseisundit ilma sekkumiseta.
 
 ### Paralleelsete trendide analoog ja sekkumiseelsed perioodid
 
-Teine oluliste eelduste rühm puudutab dünaamikat sekkumiseelsel perioodil. Nõuame, et kontrollgrupi tulemusi mõjutab sama struktuurne protsess, mis käsitletavat üksust, ning nii uuritav objekt kui ka kontrollüksused alluvad sarnastele šokkidele. See on analoog paralleelsete trendide eeldusele erinevuste vahe (dif-dif) meetodi puhul, kuid sünteetilise kontrolli korral kontrollime seda sobitamise abil.
+Teine oluliste eelduste rühm puudutab dünaamikat sekkumiseelsel perioodil. Nõuame, et kontrollgrupi tulemusi mõjutab sama struktuurne protsess, mis uuritavat üksust, ning nii uuritav objekt kui ka kontrollüksused alluvad sarnastele šokkidele. See on analoog paralleelsete trendide eeldusele erinevuste vahe (dif-dif) meetodi puhul, kuid sünteetilise kontrolli korral kontrollime seda sobitamise abil.
 
 Mida rohkem on sekkumiseelseid perioode, seda paremini on võimalik kontrollida nii vaadeldavate kui ka mittevaadeldavate tegurite mõju. Kui suudame sekkumiseelsel perioodil väga täpselt sobitada nii selgitavad tunnused kui ka tulemuste dünaamika, siis on usutav, et sama suhe püsib ka sekkumisjärgsel perioodil.
 
@@ -104,15 +107,15 @@ Selleks, et veenda lugejat, et leitud tulemused ei ole juhuslikud, kasutatakse s
 
 ### Platseebod kontrollüksustele
 
-Platseeboanalüüsi põhiidee seisneb selles, et rakendame sünteetilise kontrolli meetodit mitte ainult käsitletavale üksusele, vaid ka igale doonorgrupi üksusele. Iga kontrollüksuse jaoks konstrueerime sünteetilise versiooni, kasutades ülejäänud üksusi doonorina, ning „teeskleme”, et sekkumine toimus samal ajal ka selles kontrollüksuses.
+Platseeboanalüüsi põhiidee seisneb selles, et rakendame sünteetilise kontrolli meetodit mitte ainult uuritavale üksusele, vaid ka igale doonorgrupi üksusele. Iga kontrollüksuse jaoks konstrueerime sünteetilise versiooni, kasutades ülejäänud üksusi doonorina, ning „teeskleme”, et sekkumine toimus samal ajal ka selles kontrollüksuses.
 
-Iga kontrollüksuse puhul võrdleme sekkumisjärgsel perioodil tegelikku tulemust selle sünteetilise kontrolliga. Kui tegelikult mingit mõju ei olnud, peaks nende kahe aegrea vahe jääma väikeseks ning olema sekkumiseelse perioodiga võrreldav. See loob nulljaotuse, millega saame võrrelda käsitletava üksuse kõrvalekallet.
+Iga kontrollüksuse puhul võrdleme sekkumisjärgsel perioodil tegelikku tulemust selle sünteetilise kontrolliga. Kui tegelikult mingit mõju ei olnud, peaks nende kahe aegrea vahe jääma väikeseks ning olema sekkumiseelse perioodiga võrreldav. See loob nulljaotuse, millega saame võrrelda uuritava üksuse kõrvalekallet.
 
-Visuaalselt võime joonistada kõikide üksuste (käsitletava ja platseebode) trajektoorid ning nende erinevuse sünteetilisest kontrollist. Kui käsitletava üksuse kõrvalekalle on selgelt suurem kui enamikul platseebodel, viitab see tõsiseltvõetavale sekkumise efektile.
+Visuaalselt võime joonistada kõikide üksuste (uuritava ja platseebode) trajektoorid ning nende erinevuse sünteetilisest kontrollist. Kui käsitletava üksuse kõrvalekalle on selgelt suurem kui enamikul platseebodel, viitab see tõsiseltvõetavale sekkumise efektile.
 
 ### RMSPE suhted ja p-väärtus
 
-Platseeboanalüüsi saab kvantifitseerida ruutkeskmise prognoosivea suhete kaudu. Olgu käsitletava või platseebos üksuse korral:
+Platseeboanalüüsi saab kvantifitseerida ruutkeskmise prognoosivea suhete kaudu. Olgu uuritava või platseebo üksuse korral:
 
 $$ \text{RMSPE}\_{\text{pre}} = \sqrt{\frac{1}{T_0} \sum_{t=1}^{T_0} (Y_{it} - Y_{it}^{\text{SC}})^2}, $$
 
@@ -122,11 +125,11 @@ kus $Y_{it}^{\text{SC}}$ on sünteetilise kontrolli tulemus. Seejärel defineeri
 
 $$ R_i = \frac{\text{RMSPE}_{\text{post}}}{\text{RMSPE}_{\text{pre}}}$$
 
-Suhe $R_i$ suurem kui 1 viitab sellele, et sekkumisjärgne sobivus on halvem võrreldes sekkumiseelsega, ning suurem suhtarv tähendab suuremat eeldatavat sekkumise mõju. Arvutame selle suhte nii käsitletava üksuse kui ka kõikide platseebode jaoks ning järjestame need kahanevas järjekorras. Käsitletava üksuse positsioon selles jaotuses annabki täpse p-väärtuse:
+Suhe $R_i$ suurem kui 1 viitab sellele, et sekkumisjärgne sobivus on halvem võrreldes sekkumiseelsega, ning suurem suhtarv tähendab suuremat eeldatavat sekkumise mõju. Arvutame selle suhte nii uuritava üksuse kui ka kõikide platseebode jaoks ning järjestame need kahanevas järjekorras. Uuritava üksuse positsioon selles jaotuses annabki täpse p-väärtuse:
 
 $$ p = \frac{\#\{i : R_i \geq R_{\text{treated}}\}}{\text{kõigi üksuste arv}}. $$
 
-California näites oli käsitletava üksuse (California) suhe kõige suurem kõigi osariikide seas, mis andis p-väärtuseks ligikaudu $1/38 \approx 0{,}026$. See tähendab, et vaid ühel juhul 38-st võiksime oodata vähemalt sama suurt kõrvalekallet, kui mõju tegelikult ei oleks.
+Saksamaa ühinemise oli vaadeldud üksuse (Saksamaa) suhe kõige suurem kõigi riikide seas, mis andis p-väärtuseks ligikaudu $1/17 \approx 0{,}058$. See tähendab, et vaid ühel juhul 17-st võiksime oodata vähemalt sama suurt kõrvalekallet, kui mõju tegelikult ei oleks.
 
 <!-- ![RMSPE suhete jaotus käsitletava ja platseeboüksuste vahel](figures/rmspe-ratios-placebos.png) -->
 
@@ -134,9 +137,9 @@ California näites oli käsitletava üksuse (California) suhe kõige suurem kõi
 
 ## Tasakaalu kontroll
 
-Kui kaalud $w$ ja $V$ on õigesti valitud, saavutatakse tasakaal nii selgitavate tunnuste kui ka sekkumiseelse dünaamika osas. See tähendab, et sünteetiline kontroll on iga üksiku selgitava tunnuse osas käsitletavale üksusele võimalikult sarnane ning et ka tulemismuutuja sekkumiseelne aegrida on käsitletava üksuse ja sünteetilise kontrolli vahel võimalikult ühtiv.
+Kui kaalud $w$ ja $V$ on õigesti valitud, saavutatakse tasakaal nii selgitavate tunnuste kui ka sekkumiseelse dünaamika osas. See tähendab, et sünteetiline kontroll on iga üksiku selgitava tunnuse osas uuritavale üksusele võimalikult sarnane ning et ka tulemusmuutuja sekkumiseelne aegrida on uuritava üksuse ja sünteetilise kontrolli vahel võimalikult ühtiv.
 
-Praktilises rakenduses kontrollitakse tasakaalu tavaliselt nii tabelite kui ka graafikute abil. Tunnuste puhul võrreldakse käsitletava üksuse ja sünteetilise kontrolli keskmisi väärtusi; tulemismuutuja puhul vaadeldakse sekkumiseelse perioodi trajektoore. Hea tasakaal on eelduseks usutavatele mõjuhinnangutele.
+Praktilises rakenduses kontrollitakse tasakaalu tavaliselt nii tabelite kui ka graafikute abil. Tunnuste puhul võrreldakse uuritava üksuse ja sünteetilise kontrolli keskmisi väärtusi; tulemusmuutuja puhul vaadeldakse sekkumiseelse perioodi trajektoore. Hea tasakaal on eelduseks usutavatele mõjuhinnangutele.
 
 <!-- ![Tunnuste tasakaal käsitletava ja sünteetilise kontrolli vahel](figures/balance-table-plot.png) -->
 
@@ -154,7 +157,7 @@ Praktilises rakenduses kontrollitakse tasakaalu tavaliselt nii tabelite kui ka g
 
 ## Näide
 
-R-keskkonnas on sünteetilise kontrolli rakendamiseks levinud paketid Synth ja SCtools, samuti uuemad paketid, mis realiseerivad üldistatud või augmenteeritud lähenemisi (nt synthdid, augsynth). Alljärgnev näide annab ülevaate klassikalise sünteetilise kontrolli rakendamisest ühe käsitletava ja mitme kontrollüksusega.
+R-keskkonnas on sünteetilise kontrolli rakendamiseks levinud paketid Synth ja SCtools, samuti uuemad paketid, mis realiseerivad üldistatud või augmenteeritud lähenemisi (nt synthdid, augsynth). Alljärgnev näide annab ülevaate klassikalise sünteetilise kontrolli rakendamisest ühe uuritava ja mitme kontrollüksusega.
 
 Kõigepealt on vajalik, et meil on paneelandmestik, kus igal real on üksus, aasta ja tulemusmuutuja ning tunnused:
 
@@ -168,7 +171,11 @@ Me kasutame pakette `Synth` ja `SCtools` . Vt <https://cran.r-project.org/web/pa
 
 Põhiviide: Abadie A, Diamond A, Hainmueller J (2011). “Synth: An R Package for Synthetic Control Methods in Comparative Case Studies.” Journal of Statistical Software, 42(13), 1–17. <https://www.jstatsoft.org/v42/i13/>
 
-Muud paketid: - kui mitu objekti `gsynth`, <https://cran.r-project.org/web/packages/gsynth/index.htm> - kui tahad kombineerida dif-dif analüüsiga
+Muud paketid:
+
+\- kui mitu objekti `gsynth`, <https://cran.r-project.org/web/packages/gsynth/index.htm>
+
+\- saab kombineerida dif-dif analüüsiga
 
 ```{r}
 #| message: false
@@ -207,7 +214,17 @@ Kasutame OECD riikide paneelandmeid perioodi 1960–2003 kohta. Saksamaa taasüh
 
 Tulemusmuutuja on riigi SKP inimese kohta (PPP) järgi korrigeeritud ja mõõdetud 2002. aasta USA dollarites. Taasühinemiseelseid tunnused: SKP elaniku kohta, inflatsioonimäär, tööstuse osakaal loodud lisandväärtusest, investeeringute määr, haridustase ja kaubanduse avatuse mõõdik.
 
-Peamised tunnused: - index : riigi number - country : riigi nimi - year : aasta - gdp : SKP inimese kohta - infrate : inflatsioon - trade : kaubanduse avatus - schooling : haridustase - industry : tööstuse osakaal - invest60, 70, 80 - kodumaiste investeeringute suhe SKPsse, 5-aastased keskmised. Üks väärtus 1980 aasta kohal.
+Peamised tunnused:
+
+- index : riigi number
+- country : riigi nimi
+- year : aasta
+- gdp : SKP inimese kohta
+- infrate : inflatsioon
+- trade : kaubanduse avatus
+- schooling : haridustase
+- industry : tööstuse osakaal
+- invest60, 70, 80 - kodumaiste investeeringute suhe SKPsse, 5-aastased keskmised; üks väärtus 1980 aasta kohta.
 
 ```{r}
 head(d)
@@ -220,18 +237,24 @@ SKP inimese kohta
 
 ```{r}
 #
-d %>% 
-  ggplot(aes(x = year, y = gdp, color = country)) +
-  geom_line(aes(linetype=(index!=7))) + #joone tüüp on erinev index = 7 (West Germany jaoks)
-  guides(linetype = "none") + #ei taha legendi joone tüübi kohta
-  theme_light() + labs(x = "", y = "GDP per capita")
+ggplot(d, aes(x = year, y = gdp, color = country)) +
+  geom_line(aes(linetype = (index != 7))) +
+  geom_line(
+    data = d |> filter(index == 7),
+    color = "black",
+    linewidth = 1.3,
+    linetype = "solid"
+  ) +
+  guides(linetype = "none") +
+  theme_light() +
+  labs(x = "", y = "GDP per capita")
 
 ```
 
 Vaadake ka teisi muutujaid. Asendage `gdp` teiste näitajatega. Vajadusel lisage geom_point() kui vaatlused on vaid mõne aasta kohta.
 
 ```{r}
-d %>% 
+d |>  
   ggplot(aes(x = year, y = schooling, group = country, color = country)) +
   geom_line(aes(linetype=(index!=7))) + 
   geom_point() +
@@ -335,9 +358,9 @@ Pane tähele, et tab.loss sisaldab kahte väärtust:
 
 W–kaotus, mis on seotud ennustajate (X) erinevustega. Mida rohkem X-e lisame, seda suurem see tavaliselt on, sest samad piirkonnakaalud ei pruugi sobida kõigi X-de jaoks. Mida väiksem väärtus, seda paremini on käsitletava X-id sobitatud sünteetilise kontrolli X-idega. See tuleneb w-kaalude optimeerimisest.
 
-V–kaotus, mis on seotud tulemismuutuja sobivusega. Mida väiksem see väärtus, seda paremini kirjeldame tulemismuutuja varasemaid väärtusi. See on käsitletud üksuse sünteetilise kontrolli sekkumiseelne keskmine ruutprognoosiviga (MSPE). See MSPE tuleneb nii v- kui w-kaalude optimeerimisest.
+V–kaotus, mis on seotud tulemusmuutuja sobivusega. Mida väiksem see väärtus, seda paremini kirjeldame tulemusmuutuja varasemaid väärtusi. See on käsitletud üksuse sünteetilise kontrolli sekkumiseelne keskmine ruutprognoosiviga (MSPE). See MSPE tuleneb nii v- kui w-kaalude optimeerimisest.
 
-Tulemismuutuja trajektooride kokkuvõttegraafikute loomiseks (käsitletud ja sünteetiline üksus) kasutame käske path.plot() ja gaps.plot()
+tulemusmuutuja trajektooride kokkuvõttegraafikute loomiseks (käsitletud ja sünteetiline üksus) kasutame käske path.plot() ja gaps.plot()
 
 Tase:
 
@@ -357,7 +380,13 @@ gaps.plot(dataprep.res = dataprep.out,synth.res = synth.out)
 Platseebode genereerimiseks kasutame paketti SCtools. See kohtleb iga piirkonda kordamööda kui osalejat ja arvutab mõjud. See võtab mõnevõrra aega.
 
 ```{r}
-placebos <- generate.placebos(dataprep.out, synth.out, Sigf.ipop = 3, strategy = "multicore") #multicore - quicker, parallel computing
+#| echo: true
+#| results: hide
+#| message: false
+#| warning: false
+
+placebos <- generate.placebos(dataprep.out, synth.out, 
+                              Sigf.ipop = 3, strategy = "multicore") #multicore - quicker, parallel computing
 
 ```
 
@@ -383,56 +412,69 @@ mspe.test(placebos)
 
 ```
 
-Kontrolliks käsitsi kaotus sõltuvas tulemuses
+## Lisa - endale kontroll käsitsi
+
+Püüame leida kaotuse sõltuvas tulemuses käsitsi
 
 ```{r}
-Y1plot <- dataprep.out$Y1plot
-Y0plot <- dataprep.out$Y0plot
+#Vaatame perioodi 1980-1990
 time <- dataprep.out$tag$time.plot
-treat.time <- 1991
-#ajad kaalutud kaotuse joaks
-pre_idx <- which(time> 1980 & time< treat.time)
-
-#Kontrolliks, mis aastad
+pre_idx <- which(time> 1980 & time< 1991)
+#Kontrolliks, et õiged aastad
 time[pre_idx]
 
-#Kaalud
-w <- synth.tables$tab.w$w.weights 
+#Andmed enne meedet osalejal
+Y1plot <- dataprep.out$Y1plot[pre_idx, ]
+#Andmed enne meedet doonorrühmal
+Y0plot <- dataprep.out$Y0plot[pre_idx, ]
 
-#Sünteetiline keskmine
-Y_synth_pre <- Y0plot[pre_idx, ] %*% w
+#Kaalud, millega doonorrühma objektid kokku kaalume
+w <-  synth.out$solution.w
 
-#Kontrolliks
+#Sünteetiline keskmine enne meedet
+Y_synth_pre <- Y0plot %*% w
+
+#Kontrolliks joonisele
 plot(pre_idx, Y_synth_pre, type = "l")
 
 #erinevus
-gaps_pre <- Y1plot[pre_idx] - Y_synth_pre
+gaps_pre <- Y1plot - Y_synth_pre
 
-#Kontrolliks
+#Kontrolliks erinevus enne meedet
 plot(pre_idx, gaps_pre, type = "l")
+```
 
+```{r}
 #Käsitsi kaotus Y-s
+#erinevuste ruutude keskmine
 lossV_manual <- mean(gaps_pre^2)
 as.numeric(lossV_manual)
 
-#Meil
+#Tuli sama, mis meil eelenvalt
 synth.tables$tab.loss
 
 ```
 
-```{r eval=FALSE, include=FALSE}
+## Lisa - California näide
+
+```{r}
+#| echo: true
 #Lisa - California näide
 
 smoking <- read.csv("https://kodu.ut.ee/~avork/files/oppetoo/micro/smoking.csv")
 smoking$statetreated = ifelse(smoking$state ==3, 'California' , 'Rest')
 
-smoking %>%  ggplot(aes(x = year, y = cigsale, group = state, color = statetreated)) +
+smoking |>   ggplot(aes(x = year, y = cigsale, group = state, color = statetreated)) +
   geom_line() +
   scale_color_discrete(type = c("red", "grey")) + 
   labs(x = "", y = "Cigarette sales per capita", color = "") +
   theme_light() +
   geom_vline(xintercept = 1988)
-                      
+```
+
+### Võrdlusobjekti loomine
+
+```{r}
 #Kontrollmuuutjad   - beer 1984-1988; lnincome , retprice, age15to24 in 1980-1988;  cigsale(1988) cigsale(1980) cigsale(1975)
 
 dataprep.outsmoking <- dataprep(
@@ -457,19 +499,215 @@ dataprep.outsmoking <- dataprep(
 synth.outsmoking <- synth(dataprep.outsmoking)
 synth.tablessmoking <- synth.tab(dataprep.res = dataprep.outsmoking,
                                 synth.res = synth.outsmoking)
+```
 
+Tabelid
+
+```{r}
 #Võrdle tulemusi õpikuga
 synth.tablessmoking
+```
 
+Lõpptulemus joonisel
+
+```{r}
 path.plot(dataprep.res = dataprep.outsmoking,synth.res = synth.outsmoking)
 gaps.plot(dataprep.res = dataprep.outsmoking,synth.res = synth.outsmoking)
+```
 
-#Platseebod - aeglane!
+Mida järeldate?
+
+### Platseebotest
+
+(Aeglane)
+
+```{r}
+#| echo: true
+#| results: hide
+#| message: false
+#| warning: false
+#| 
 placebos2 <- generate.placebos(dataprep.outsmoking, synth.outsmoking, Sigf.ipop = 3)
+```
+
+```{r}
 plot_placebos(placebos2)
 mspe.plot(placebos2)
 mspe.test(placebos2)
 
-#Mis on järeldus?
-
 ```
+
+Mis on järeldus?
+
+
+## Lisa - Sünteetiline erinevuste-vahe meetod (SDID)
+
+Sünteetiline erinevuste-vahe meetod (*synthetic difference-in-differences*, SDID) ühendab sünteetilise kontrolli ja erinevuste-vahe meetodi ideid. Meetodi töötasid välja Arkhangelsky jt (2021; varasem tööversioon 2018–2019). Sarnaselt sünteetilisele kontrollile leitakse võrdlusüksustele kaalud, mis aitavad kirjeldada käsitletava üksuse sekkumiseelset arengut. Sarnaselt erinevuste-vahe meetodile võrreldakse sekkumisjärgset erinevust sekkumiseelse erinevusega. Lisaks kaalutakse sekkumiseelseid ajaperioode.
+
+### Meetodi idee
+
+Oletame lihtsuse huvides, et meil on üks käsitletav üksus, $N_0$ kontrollüksust ning $T_0$ sekkumiseelset ja $T_1$ sekkumisjärgset perioodi. Tähistame käsitletava üksuse tulemit $Y_{1t}$ ja kontrollüksuste kaalutud keskmist
+
+$$
+Y_{0t}^{\mathrm{syn}}=\sum_{i=1}^{N_0}\hat\omega_i Y_{it},
+$$
+
+kus kontrollüksuste kaalud $\hat\omega_i$ on mittenegatiivsed ja nende summa on üks. Lihtsustatud kujul saab SDID hinnangu esitada järgmiselt:
+
+$$
+\widehat\tau_{\mathrm{SDID}}=
+\frac{1}{T_1}\sum_{t>T_0}\left(Y_{1t}-Y_{0t}^{\mathrm{syn}}\right)
+-\sum_{t\leq T_0}\hat\lambda_t\left(Y_{1t}-Y_{0t}^{\mathrm{syn}}\right).
+$$
+
+Siin on $\hat\lambda_t$ sekkumiseelsete perioodide kaalud: need on mittenegatiivsed ja nende summa on üks. Valem väljendab seega sekkumisjärgset keskmist erinevust, millest lahutatakse sekkumiseelne kaalutud erinevus. Mitme samaaegselt käsitletava üksuse korral võrreldakse vastavalt käsitletavate üksuste keskmist ja kaalutud kontrollüksusi.
+
+Üksuste kaalude leidmisel püütakse sobitada kontrollüksuste sekkumiseelne areng käsitletava üksuse omaga; lubatud on ka püsiv tasemete erinevus. Ajakaalude leidmisel püütakse kontrollüksuste sekkumiseelseid perioode kaaludes kirjeldada nende sekkumisjärgset keskmist. Täpne hinnang leitakse kaalutud kahe fikseeritud efektiga regressioonina; kaalude optimeerimine ja regulariseerimine on kirjeldatud algartiklis. Ülaltoodud valem selgitab tulemust, kuid ei kirjelda kõiki kaalude leidmise üksikasju.
+
+Näiteks kui sekkumisjärgne vahe on −10 ja kaalutud sekkumiseelne vahe −3, on SDID hinnang $-10-(-3)=-7$. Püsiv algne tasemeerinevus ei pea seega olema täpselt null, kuid kaalutud kontrollide areng peab andma usutava lähenduse sellele, kuidas käsitletav üksus oleks arenenud sekkumiseta. Hea sekkumiseelne sobivus üksi seda ei tõesta. Samuti eeldatakse, et kontrollüksusi sekkumine ei mõjuta ja puuduvad olulised samaaegsed üksnes käsitletavat üksust mõjutanud sündmused.
+
+| Meetod | Kontrollüksused | Aja võrdlus |
+|:-----------------------|:-----------------------|:-----------------------|
+| Tavaline DiD | Sageli võrdsed või valimi määratud kaalud | Enne ja pärast; sageli võrdsed ajakaalud |
+| Sünteetiline kontroll | Sobivuse alusel valitud kontrollüksuste kaalud | Võrreldakse tasemeid; enne sekkumist püütakse saavutada hea sobivus |
+| SDID | Andmete põhjal valitud kontrollüksuste kaalud | Sekkumisjärgsest vahest lahutatakse kaalutud sekkumiseelne vahe |
+
+SDID ei taga automaatselt, et kõik võimalikud kallutatused kaovad. Tulemust tasub kontrollida eri kontrollüksuste ja sekkumiseelsete perioodide valikute korral ning uurida, millised üksused ja aastad saavad suure kaalu. Artikli teoreetilised tulemused sõltuvad täpsematest andmeid ja vealiikmeid puudutavatest eeldustest.
+
+### SDID näide R-is: California tubakapoliitika
+
+Kasutame paketi `synthdid` andmeid California tubakatoodete müügi kohta. Proposition 99 võeti vastu 1988. aastal; andmestikus on esimene sekkumisjärgne aasta 1989. Tulemusnäitaja on sigaretipakkide müük elaniku kohta aastas. Näide töötab iseseisvalt ega sõltu eespool loodud objektist `smoking`.
+
+```{r}
+# Paigalda paketid üks kord vajaduse korral:
+# install.packages("remotes")
+# remotes::install_github("synth-inference/synthdid")
+
+library(synthdid)
+data("california_prop99", package = "synthdid")
+
+# Andmed: osariik, aasta, sigaretipakid elaniku kohta ja sekkumise tunnus
+head(california_prop99)
+table(california_prop99$treated, california_prop99$Year >= 1989)
+```
+
+Pakett vajab tasakaalustatud paneeli ning selles teostuses peavad kõik käsitletavad üksused alustama sekkumist samal ajal. Sekkumine peab pärast algust kestma. `panel.matrices()` paigutab kontrollüksused enne käsitletavaid ja aastad ajalisse järjekorda.
+
+```{r}
+sdid_andmed <- panel.matrices(
+  california_prop99,
+  unit = "State", time = "Year",
+  outcome = "PacksPerCapita", treatment = "treated"
+)
+
+dim(sdid_andmed$Y)   # üksused ja aastad
+sdid_andmed$N0       # kontrollosariikide arv
+sdid_andmed$T0       # sekkumiseelsete aastate arv
+
+sdid_hinnang <- synthdid_estimate(
+  sdid_andmed$Y, sdid_andmed$N0, sdid_andmed$T0
+)
+
+# Keskmine mõju käsitletud vaatluste ja sekkumisjärgsete aastate lõikes
+as.numeric(sdid_hinnang)
+plot(sdid_hinnang)
+```
+
+Negatiivne hinnang tähendab, et sigarettide müük inimese kohta oli Californias hinnanguliselt väiksem kui sekkumiseta olukorras. Tegemist on sekkumisjärgsete aastate keskmise mõjuga, mitte ühe konkreetse aasta mõjuga. Paketi näite hinnang on ligikaudu −15,6 pakki elaniku kohta aastas; täpne tulemus võib sõltuda paketi versioonist.
+
+Ühe käsitletava üksuse korral kasutame siinses näites paketi dokumentatsioonis näidatud platseebopõhist standardviga. Tavaline üksuste bootstrap ei sobi selles olukorras, sest käsitletavaid üksusi on ainult üks. Platseebomeetodi usaldusväärsus sõltub muu hulgas kontrollüksuste sobivusest ja sellest, kas nende varieeruvus kirjeldab käsitletava üksuse määramatust.
+
+```{r}
+set.seed(123)
+sdid_se <- sqrt(vcov(sdid_hinnang, method = "placebo"))
+sdid_ci <- as.numeric(sdid_hinnang) + c(-1, 1) * 1.96 * as.numeric(sdid_se)
+
+c(hinnang = as.numeric(sdid_hinnang),
+  standardviga = as.numeric(sdid_se),
+  alumine_95 = sdid_ci[1], ulemine_95 = sdid_ci[2])
+```
+
+See on ligikaudne normaaljaotusel põhinev 95% usaldusvahemik. See ei kõrvalda uurimisdisaini võimalikke puudusi. Lähemalt vt [artiklit](https://arxiv.org/abs/1812.09970) ja [paketi dokumentatsiooni](https://synth-inference.github.io/synthdid/).
+
+## Lisa - Augmenteeritud sünteetilise kontrolli meetod (ASCM)
+
+Augmenteeritud sünteetilise kontrolli meetod (*augmented synthetic control method*, ASCM) täiendab sünteetilist kontrolli tulemusmudeliga. Meetod on eriti kasulik olukorras, kus tavalise sünteetilise kontrolli kaaludega ei õnnestu käsitletava üksuse sekkumiseelset arengut piisavalt hästi lähendada. Meetodi põhiidee on kasutada regressioonimudelit allesjäänud sobitamisvea hinnanguliseks korrigeerimiseks (Ben-Michael, Feller ja Rothstein, 2021).
+
+### Meetodi idee
+
+Ühe käsitletava üksuse korral kirjutame sekkumiseta tulemuse prognoosi lihtsustatud kujul
+
+$$
+\widehat Y_{1t}^{\mathrm{ASCM}}(0)
+=\sum_{i=1}^{N_0}\hat w_iY_{it}
++\left(\widehat m_t(X_1)-\sum_{i=1}^{N_0}\hat w_i\widehat m_t(X_i)\right).
+$$
+
+Esimene liige on tavalise sünteetilise kontrolli tulemus. Sulgudes olev liige korrigeerib käsitletava üksuse ja kaalutud kontrollüksuste prognoositud tulemuste erinevust. $X_i$ tähistab sekkumiseelseid tulemusi ja võimalikke muid tunnuseid ning $\widehat m_t(X_i)$ regressioonimudeli prognoosi. Mõjuhinnang perioodil $t$ on
+
+$$
+\widehat\tau_t=Y_{1t}-\widehat Y_{1t}^{\mathrm{ASCM}}(0).
+$$
+
+Üks võimalus on kasutada kantregressiooni (*ridge regression*), kus regulariseerimine piirab mudeli ülemäärast kohandumist. Selle valiku korral saab korrigeeritud hinnangut käsitleda ka muudetud kaaludega sünteetilise kontrollina. Erinevalt klassikalisest sünteetilisest kontrollist võivad need efektiivsed kaalud olla negatiivsed: meetod võib ekstrapoleerida kontrollüksuste vahemikust väljapoole. See võib parandada sobivust, kuid muudab tulemuse sõltuvamaks mudelist ja suur ekstrapolatsioon võib olla riskantne.
+
+ASCM ja SDID lahendavad probleemi erinevalt. ASCM korrigeerib sünteetilise kontrolli sekkumiseelse sobituse jääkvea tulemusmudeliga; SDID kasutab üksuste ja ajaperioodide kaale ning lahutab sekkumiseelsed erinevused. Kumbki meetod ei muuda ebausaldusväärset kontrollrühma automaatselt sobivaks. Võrdle tulemusi alternatiivsete doonorite ja sekkumiseelsete perioodidega ning arvesta, et mõjuhinnangu põhjuslik tõlgendus sõltub uurimisdisainist ja tulemusmudeli sobivusest.
+
+### ASCM näide R-is: California tubakapoliitika
+
+Kasutame samu andmeid ja sama sekkumise algusaastat nagu SDID näites. Võrdluseks hindame esmalt sünteetilise kontrolli ilma regressiooniparanduseta ning seejärel kantregressioonil põhineva ASCM-i. Mõlemad kasutavad samu üksusi ja sekkumiseelseid tulemusi; need ei pruugi anda sama tulemust kui eespool `Synth`-paketiga hinnatud mudel, kus kasutati teisi selgitavaid tunnuseid ja sobitamisperioode.
+
+```{r}
+# Paigalda üks kord vajaduse korral:
+# install.packages("remotes")
+# remotes::install_github("synth-inference/synthdid")
+# remotes::install_github("ebenmichael/augsynth")
+
+library(synthdid)
+library(augsynth)
+data("california_prop99", package = "synthdid")
+
+# Selged nimed ja eraldi objekt: 1989 on esimene sekkumisjärgne aasta
+cal_as <- data.frame(
+  osariik = california_prop99$State,
+  aasta = california_prop99$Year,
+  pakke = california_prop99$PacksPerCapita,
+  kasitlus = california_prop99$treated
+)
+
+# Võrdlus: sünteetiline kontroll ilma tulemusmudelita
+scm_as <- augsynth(
+  pakke ~ kasitlus, osariik, aasta,
+  data = cal_as, t_int = 1989,
+  progfunc = "None", scm = TRUE
+)
+
+# Augmenteeritud sünteetiline kontroll koos kantregressiooniga
+ascm <- augsynth(
+  pakke ~ kasitlus, osariik, aasta,
+  data = cal_as, t_int = 1989,
+  progfunc = "Ridge", scm = TRUE
+)
+```
+
+Kui `lambda` väärtust ei määrata, valib pakett kantregressiooni regulariseerimise taseme ristvalideerimise abil. Tulemuste kokkuvõtete ja jooniste koostamine võib võtta aega.
+
+```{r}
+# Mõjuhinnangud ja sobivuse näitajad
+set.seed(123)
+scm_kokkuvote <- summary(scm_as)
+ascm_kokkuvote <- summary(ascm)
+scm_kokkuvote
+ascm_kokkuvote
+
+# Erinevus käsitletava ja sünteetilise kontrolli vahel ajas
+plot(scm_kokkuvote)
+plot(ascm_kokkuvote)
+
+# Ristvalideerimise tulemused regulariseerimise valikul
+plot(ascm, plot_type = "cv")
+```
+
+Võrdle sekkumiseelset sobivust ja keskmisi sekkumisjärgseid mõjuhinnanguid. `summary()` esitab nii keskmise mõjuhinnangu kui ka aastapõhised hinnangud; vaikimisi põhinevad aastapõhised usaldusvahemikud konformaalsel järeldamisel. Need on perioodipõhised, mitte korraga kõiki aastaid katvad vahemikud, ning nende kehtivus sõltub vastava meetodi eeldustest. Uuri, kas tulemus sõltub regressiooniparanduse kasutamisest, ja tõlgenda seda ühikutes „sigaretipakki elaniku kohta aastas”.
+
+Viited: Ben-Michael, E., Feller, A. ja Rothstein, J. (2021). *The Augmented Synthetic Control Method*. Journal of the American Statistical Association. <https://arxiv.org/abs/1811.04170>. Paketi näited ja dokumentatsioon: <https://github.com/ebenmichael/augsynth>.

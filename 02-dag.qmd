@@ -12,9 +12,9 @@ DAG-i kasutatakse eelkõige selleks, et vastata küsimusele:
 
 Selles peatükis kasutame lihtsaid näiteid. Meie põhimuutujad on tavaliselt:
 
--   $D$ – sekkumine või poliitikameede;
--   $Y$ – tulemus;
--   $X$ – muu tunnus, mis võib mõjutada $D$-d, $Y$-d või mõlemat.
+- $D$ – sekkumine või poliitikameede;
+- $Y$ – tulemus;
+- $X$ – muu tunnus, mis võib mõjutada $D$-d, $Y$-d või mõlemat.
 
 ## Mis on DAG?
 
@@ -31,8 +31,8 @@ siis tähendab see, et $D$ avaldab põhjuslikku mõju $Y$-le.
 
 Näiteks:
 
--   $D$ – osalemine tööturukoolitusel;
--   $Y$ – hilisem palk.
+- $D$ – osalemine tööturukoolitusel;
+- $Y$ – hilisem palk.
 
 Nool
 
@@ -84,8 +84,8 @@ Põhjusliku mõju idee eeldab kahe võimaliku olukorra võrdlemist.
 
 Näiteks:
 
--   D=1: inimene osales tööturukoolitusel;
--   D=0: sama inimene ei osalenud tööturukoolitusel.
+- D=1: inimene osales tööturukoolitusel;
+- D=0: sama inimene ei osalenud tööturukoolitusel.
 
 Soovime teada, kuidas erineks tema palk nendes kahes olukorras.
 
@@ -101,9 +101,9 @@ Segaja on muutuja, mis mõjutab nii sekkumist $D$ kui ka tulemust $Y$.
 
 Oletame, et:
 
--   $D$ – tööturukoolitus;
--   $Y$ – palk;
--   $X$ – eelnev haridus.
+- $D$ – tööturukoolitus;
+- $Y$ – palk;
+- $X$ – eelnev haridus.
 
 Kõrgema haridusega inimesed võivad suurema tõenäosusega koolitusel osaleda ning neil võib olla ka kõrgem palk.
 
@@ -137,10 +137,10 @@ Kui $X$ on mõõdetav segaja, saame tagaukse sulgeda, võrreldes inimesi sama $X
 
 Praktikas võib seda teha näiteks:
 
--   gruppides analüüsimisega;
--   regressioonimudeliga;
--   sobitamisega (*matching*);
--   kaalumismeetoditega (*inverse probability weighting*).
+- gruppides analüüsimisega;
+- regressioonimudeliga;
+- sobitamisega (*matching*);
+- kaalumismeetoditega (*inverse probability weighting*).
 
 Näiteks regressioonimudelis:
 
@@ -240,9 +240,9 @@ Keerulisem olukord tekib siis, kui segaja mõjutab nii sekkumist kui ka tulemust
 
 Näiteks:
 
--   $D$ – tööturukoolitus;
--   $Y$ – palk;
--   $U$ – inimese võimekus.
+- $D$ – tööturukoolitus;
+- $Y$ – palk;
+- $U$ – inimese võimekus.
 
 ```{mermaid}
 flowchart LR
@@ -317,8 +317,8 @@ $$ D \rightarrow X \leftarrow Y. $$
 
 Oluline erinevus segajast on järgmine:
 
--   segaja puhul nooled **lähevad segajast välja**;
--   kollaideri puhul nooled **tulevad kollaiderisse sisse**.
+- segaja puhul nooled **lähevad segajast välja**;
+- kollaideri puhul nooled **tulevad kollaiderisse sisse**.
 
 ## Miks ei tohi kollaiderit arvesse võtta?
 
@@ -336,9 +336,9 @@ Muutuja lisamine võib vähendada nihet, kuid mõnel juhul võib see hoopis nihe
 
 Kasutame lihtsat näidet:
 
--   $D$ – haridus;
--   $Y$ – palk;
--   $X$ – abikaasa "skoor".
+- $D$ – haridus;
+- $Y$ – palk;
+- $X$ – abikaasa "skoor".
 
 Oletame, et inimese abikaasa valikut mõjutavad nii tema haridus kui ka palk.
 
@@ -456,11 +456,11 @@ See on tugev sisuline eeldus. Andmed ise ei tõesta tavaliselt, et kõik olulise
 
 Seetõttu peab põhjuslik analüüs ühendama:
 
--   teooria;
--   institutsioonide tundmise;
--   varasemad empiirilised uuringud;
--   sobiva uuringudisaini;
--   statistilise meetodi.
+- teooria;
+- institutsioonide tundmise;
+- varasemad empiirilised uuringud;
+- sobiva uuringudisaini;
+- statistilise meetodi.
 
 DAG aitab need eeldused nähtavaks teha.
 
@@ -529,15 +529,15 @@ Suunatud atsükliline graaf ehk DAG on vahend põhjuslike eelduste kirjeldamisek
 
 Meeldes pidada:
 
--   nool $D \rightarrow Y$ tähistab põhjuslikku mõju;
--   DAG-is liigub põhjuslikkus ühes suunas ja tsükleid ei ole;
--   **segaja** (*confounder*) mõjutab nii sekkumist kui ka tulemust;
--   segaja võib avada tagaukse $D \leftarrow X \rightarrow Y$;
--   mõõdetava segaja arvesse võtmine sulgeb tagaukse;
--   mittevaadeldav segaja, mida ei saa arvestada, võib põhjustada nihkega hinnangu;
--   **kollaider ehk põrguti** (*collider*) on kahe muutuja ühine tagajärg;
--   põrguti lisamine mudelisse võib avada varem suletud raja ja hoopis tekitada nihke (*collider bias*);
--   regressioonimudelis, millega soovitakse hinnata põhjuslikke seoseid, ei ole eesmärk lisada võimalikult palju kontrollmuutujaid, vaid valida muutujad vastavalt põhjuslikule mudelile.
+- nool $D \rightarrow Y$ tähistab põhjuslikku mõju;
+- DAG-is liigub põhjuslikkus ühes suunas ja tsükleid ei ole;
+- **segaja** (*confounder*) mõjutab nii sekkumist kui ka tulemust;
+- segaja võib avada tagaukse $D \leftarrow X \rightarrow Y$;
+- mõõdetava segaja arvesse võtmine sulgeb tagaukse;
+- mittevaadeldav segaja, mida ei saa arvestada, võib põhjustada nihkega hinnangu;
+- **kollaider ehk põrguti** (*collider*) on kahe muutuja ühine tagajärg;
+- põrguti lisamine mudelisse võib avada varem suletud raja ja hoopis tekitada nihke (*collider bias*);
+- regressioonimudelis, millega soovitakse hinnata põhjuslikke seoseid, ei ole eesmärk lisada võimalikult palju kontrollmuutujaid, vaid valida muutujad vastavalt põhjuslikule mudelile.
 
 Kõige olulisem küsimus enne regressioonimudeli hindamist ei ole seega ainult
 
@@ -548,7 +548,6 @@ vaid
 > "Milline põhjuslik roll on igal muutujal minu uurimisküsimuses?"
 
 Põhjuslikus analüüsis ei ole hea reegel panna regressioonimudelisse võimalikult palju kontrollmuutujaid. Kõigepealt tuleb mõelda, milline põhjuslik roll igal muutujal on.
-
 
 ## Lisa: Seos DAG-i, struktuursete võrrandite mudeli ja kinnitava faktoranalüüsi vahel
 
@@ -583,9 +582,9 @@ Seega võib DAG-i vaadelda kui struktuursete võrrandite süsteemi **graafilist 
 
 Oluline on siiski terminoloogiline erinevus. Mitte iga tavapärane SEM ei ole automaatselt põhjuslik mudel. SEM-i diagrammis võib nool tähistada regressiooniseost, mille põhjuslik tõlgendus sõltub samamoodi sisulistest eeldustest nagu tavalise regressiooni puhul. Lisaks kasutatakse SEM-is sageli kahesuunalisi nooli kovariatsioonide ja omavahel korreleeritud vigade tähistamiseks; puhtas DAG-is kasutatakse ainult suunatud nooli ja tsükleid ei ole.
 
-Näide Anneli Kaasa (2003) doktoritööst "Sissetulekute ebavõrdsuse mõjurite analüüs struktuurse modelleerimise meetodil" 
+Näide Anneli Kaasa (2003) doktoritööst "Sissetulekute ebavõrdsuse mõjurite analüüs struktuurse modelleerimise meetodil"
 
-![Struktuursete võrrandite mudeli näide](images/AnneliKaasa_SEM.png){#fig-sem width=90%}
+![Struktuursete võrrandite mudeli näide](images/AnneliKaasa_SEM.png){#fig-sem width="90%"}
 
 **Kinnitav faktoranalüüs (CFA)** on SEM-i mõõtemudeli erijuht. CFA-d kasutatakse siis, kui mingi mõiste ei ole otseselt mõõdetav. Sellist tunnust nimetatakse **latentseks muutujaks**. (Nähtus on olemas, aga me ei saa otse mõõta vaid kaudselt teiste näitajate abil.)
 
@@ -620,7 +619,4 @@ CFA puhul tähistab nool eelkõige seda, **kuidas latentset konstrukti mõõdeta
 
 Seega on DAG ja SEM lähedased sugulased, kuid nende eesmärk on erinev. DAG keskendub küsimusele, milline põhjuslik struktuur peab kehtima, et mõju oleks identifitseeritav. SEM lisab graafile hinnatavad võrrandid ning võimaldab töötada latentsete muutujatega. CFA on omakorda SEM-i osa, mis keskendub küsimusele, kuidas latentseid mõisteid vaadeldavate tunnuste abil mõõta.
 
-
 <!-- ## Kasutatud kirjandus -->
-
-

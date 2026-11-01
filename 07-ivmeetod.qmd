@@ -769,11 +769,11 @@ Standardhälbed ei muutu praktiliselt.
 
 #### Esimene samm: Lojaalsusprogrammi liikmesuse hindamine
 
-Esimeses etapis prognoosime loyalty_program_member instrumentmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (discount_rate ja saving_rate) abil.
+Esimeses etapis prognoosime loyalty_program_member instrumentmuutujate (economic_benefit, non_economic_benefit ja privacy_concern) ja teiste seotud muutujate (hh_income, discount_rate ja saving_rate) abil.
 
 ```{r}
 stage1 <- lm(loyalty_program_member ~ economic_benefit + non_economic_benefit +
-             privacy_concern + discount_rate + saving_rate, data = data)
+             privacy_concern + hh_income + discount_rate + saving_rate, data = data)
 
 summary(stage1)
 
@@ -929,7 +929,7 @@ Leiame selle p-väärtuse. Vabadusastmete arv on endogeensete muutjate arv meie 
 
 ```
 
-Testistatistik on statistiliselt oluline, st erinev nullist, kuna p < 0.05 ja seega lükkame null-hüpoteesi, et vähimruutude meetodil leitud kordajad on sobivad, ümber. Peame kasutama IV-hinnanguid.
+Testistatistik on statistiliselt oluline, st erinev nullist, kuna p \< 0.05 ja seega lükkame null-hüpoteesi, et vähimruutude meetodil leitud kordajad on sobivad, ümber. Peame kasutama IV-hinnanguid.
 
 Erinevus kordajate vahel on liiga suur.
 
@@ -943,7 +943,7 @@ Käsitsi F-test
 #summary(stage1)
 
 #F-test - võrdleme meie mudelit ja ilma instrumentideta mudelit
-stage1abi <- lm(loyalty_program_member ~ discount_rate + saving_rate, data = data)
+stage1abi <- lm(loyalty_program_member ~ discount_rate + saving_rate + hh_income, data = data)
 
 anova(stage1abi, stage1)
 
@@ -1014,3 +1014,126 @@ coef(mudelbyonz)["privacy_concern"] / coef(mudeldyonz)["privacy_concern"]
 ```
 
 Kui meil on rohkem kui üks instrument, siis saaksime kasutada jääkide meetodit (partialling-out) meetod.
+
+## Lisa - IV meetod graafiliselt
+
+Alljärgnevalt on esitatud ka IV meetodi olemus graafiliselt.
+
+Teeme mõned näiteandmed, kus Y on sõltuv tunnus, X on endogeenne selgitav tunnus, mis mõjutab tegelikult Y-t kordajaga 2 ja Z on binaarne instrument, mis mõjutab Xi.
+
+```{r}
+set.seed(2026)
+n <- 500
+kalibreeri <- TRUE
+
+# 1. ANDMETE TEKKIMINE ---------------------------------------------------------
+# Z on binaarne ja mõjutab X-i, kuid ei esine Y struktuurivõrrandis.
+# v on mõõtmata ühine põhjus: see mõjutab nii X-i kui ka Y-d.
+# Mõtteline populatsioonimudel: Z, v ja epsilon on sõltumatud;
+# P(Z = 1) = 0.5, Var(v) = 1 ning E(v) = E(epsilon) = 0.
+#
+# X = 2 * (Z - 0.5) + v
+# u = 2 * v + epsilon
+# Y = 1 + 2 * X + u
+#
+# Seega on X pidev, kuid endogeenne: Cov(X, u) > 0.
+# Z on asjakohane instrument: E(X | Z=1) - E(X | Z=0) = 2 > 0.
+# Instrumendi valiidsus tuleneb siin andmetekke eeldustest:
+# Z ei mõjuta Y-d otse ning on sõltumatu v-st ja epsilonist.
+# Üksnes Cov(Z, u) = 0 ei tõestaks üldiselt instrumendi valiidsust.
+#
+# Populatsioonis Var(X) = 1 + 1 = 2 ja Cov(X, u) = 2.
+# OLS-i tõus = 2 + Cov(X, u) / Var(X) = 2 + 2/2 = 3.
+# X on tsentreeritud, mistõttu OLS-i ja struktuurimudeli vabaliige on 1.
+
+Z <- sample(rep(0:1, each = n / 2))
+v <- rnorm(n)
+epsilon <- rnorm(n)
+
+# Õppenäite kalibreerimine: eemaldame juhuslikud valimist tulenevad kovariatsioonid.
+# Nii on tulemused just 3 ja 2, mitte üksnes ligikaudu 3 ja 2.
+# Need lm-käsud valmistavad ette simulatsiooni; need ei ole IV hindamise sammud.
+# Kalibreeritud vaatlused ei ole tavaline sõltumatute vaatluste juhuvalim.
+# Seepärast kasutame näidet punktihinnangute, mitte statistilise järeldamise õpetamiseks.
+# Tavapärase juhuvalimi saamiseks määra eespool kalibreeri <- FALSE.
+
+if (kalibreeri) {
+  v <- residuals(lm(v ~ Z))
+  v <- v / sqrt(mean(v^2))
+  epsilon <- residuals(lm(epsilon ~ Z + v))
+  epsilon <- epsilon / sqrt(mean(epsilon^2))
+}
+
+X <- 2 * (Z - 0.5) + v
+u <- 2 * v + epsilon
+Y <- 1 + 2 * X + u
+andmed <- data.frame(Y, X, Z, v, epsilon, u)
+```
+
+Nähtav seos Y ja Xi vahel ülehindab tegelikku mõju.
+
+```{r}
+#  OLS: Andmetest nähtav seos 
+
+mudel_ols <- lm(Y ~ X, data = andmed)
+coef(mudel_ols)                     # vabaliige 1, tõus 3
+```
+
+Mudeli vabaliige on 1 ja tõus on 3. Vaatame ka joonisel seda seost.
+
+```{r }
+#| message: false
+#| warning: false
+
+library(ggplot2)
+
+ggplot(andmed, aes(x = X, y = Y)) +
+  geom_point(aes(color = as.factor(Z))) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_light() +
+  labs(color = "Z")
+
+```
+
+Joonisel on toodud punktid kahte värvi, vastavalt sellele, mis on instrumendi väärtus.
+
+Instrumentmuutuja meetodil on esimene samm hinnata, kuidas Z selgitab Xi ja prognoosida sellest Xi väärtused. Meil teisi selgitavaid tunnuseid praegu ei ole.
+
+```{r}
+esimene_etapp <- lm(X ~ Z, data = andmed)
+summary(esimene_etapp)
+andmed$X_hat <- fitted(esimene_etapp)
+
+```
+
+Saame Xile täpselt kaks prognoositud väärtust: -1 ja 1.
+
+```{r}
+unique(round(andmed$X_hat, 10))    # täpselt kaks väärtust: -1 ja 1
+```
+
+Esitame prognoositud väärtused koos esialgsete väärtustega nüüd samal joonisel.
+
+```{r}
+#| message: false
+#| warning: false
+#| 
+ggplot(andmed, aes(x = X_hat, y = Y)) +
+  geom_point(aes(color = as.factor(Z))) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_x_continuous(limits = c(-3, 3), breaks = c(-3,-2,-1, 0, 1, 2, -3)) + 
+  
+  geom_point(aes(x = X, y = Y, color =  as.factor(Z)), size = 1, alpha = 0.5) + 
+  geom_smooth(aes(x = X, y = Y, ), method = "lm", linetype = "dashed", se = FALSE) + 
+  theme_light() +
+  labs(color = "Z", x = "X ja X_hat")
+
+```
+
+Näeme, et nüüd on hinnatud joone tõus väiksem. Kasutades prognoositud X-väärtusi, siis on tõusuks 2.
+
+```{r}
+teine_etapp <- lm(Y ~ X_hat, data = andmed)
+coef(teine_etapp)                  # vabaliige 1, tõus 2
+
+```

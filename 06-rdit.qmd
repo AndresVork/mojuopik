@@ -253,6 +253,12 @@ Interpretatsioon:
 
 RDiT rõhutab tavaliselt rohkem **lokaalset võrdlust lõikepunkti ümbruses**, samas kui interrupted time series kasutab sageli pikemat reformieelset ja reformijärgset aegrida ning modelleerib eksplitsiitselt selle dünaamikat.
 
+Alljärgnev näide karastusjookide suhkrumaksu mõju kohta Suurbritannias illustreerib hästi katkestatud aegrea analüüsi. Enne suhkrumaksu kehtestamist oli tegemist sujuva alaneva trendiga suhkru koguses, mida täiskasvanud ja lapsed said karastusjookidest. Juba pärast suhkrumaksu väljakuulutamist 1. märts 2016 toimus muutus trendis. Tegelikult hakkas see kehtima 1. märtsist 2018.
+
+![Aegrea katkemise näide](images/sugarlevy_ita.jpg){#fig-methods width="80%"}
+
+Allikas: Rogers NT, Cummins S, Jones CP, et alEstimated changes in free sugar consumption one year after the UK soft drinks industry levy came into force: controlled interrupted time series analysis of the National Diet and Nutrition Survey (2011–2019)J Epidemiol Community Health 2024;78:578-584. <https://jech.bmj.com/content/78/9/578>
+
 ## Simuleeritud näide R-is
 
 Oletame, et meil on igapäevased andmed mingi tervishoiuteenuse kasutamise kohta.
