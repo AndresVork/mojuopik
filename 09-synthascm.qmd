@@ -1,0 +1,113 @@
+# Kohandatud sünteetilise kontrolli meetod (ASCM)
+
+Kohandatud sünteetilise kontrolli meetod (*augmented synthetic control method*, ASCM) täiendab sünteetilist kontrolli tulemusmudeliga. Meetod on eriti kasulik olukorras, kus tavalise sünteetilise kontrolli kaaludega ei õnnestu käsitletava üksuse sekkumiseelset arengut piisavalt hästi lähendada. Meetodi põhiidee on kasutada regressioonimudelit allesjäänud sobitamisvea hinnanguliseks korrigeerimiseks (Ben-Michael, Feller ja Rothstein, 2021).
+
+### Meetodi idee
+
+Ühe käsitletava üksuse korral kirjutame sekkumiseta tulemuse prognoosi lihtsustatud kujul
+
+$$
+\widehat Y_{1t}^{\mathrm{ASCM}}(0)
+=\sum_{i=1}^{N_0}\hat w_iY_{it}
++\left(\widehat m_t(X_1)-\sum_{i=1}^{N_0}\hat w_i\widehat m_t(X_i)\right).
+$$
+
+Esimene liige on tavalise sünteetilise kontrolli tulemus. Sulgudes olev liige korrigeerib käsitletava üksuse ja kaalutud kontrollüksuste prognoositud tulemuste erinevust. $X_i$ tähistab sekkumiseelseid tulemusi ja võimalikke muid tunnuseid ning $\widehat m_t(X_i)$ regressioonimudeli prognoosi. Mõjuhinnang perioodil $t$ on
+
+$$
+\widehat\tau_t=Y_{1t}-\widehat Y_{1t}^{\mathrm{ASCM}}(0).
+$$
+
+Üks võimalus on kasutada kantregressiooni (*ridge regression*), kus regulariseerimine piirab mudeli ülemäärast kohandumist. Selle valiku korral saab korrigeeritud hinnangut käsitleda ka muudetud kaaludega sünteetilise kontrollina. Erinevalt klassikalisest sünteetilisest kontrollist võivad need efektiivsed kaalud olla negatiivsed: meetod võib ekstrapoleerida kontrollüksuste vahemikust väljapoole. See võib parandada sobivust, kuid muudab tulemuse sõltuvamaks mudelist ja suur ekstrapolatsioon võib olla riskantne.
+
+ASCM ja eelnevas peatükis esitatud SDID lahendavad probleemi erinevalt. ASCM korrigeerib sünteetilise kontrolli sekkumiseelse sobituse jääkvea tulemusmudeliga; SDID kasutab üksuste ja ajaperioodide kaale ning lahutab sekkumiseelsed erinevused. Kumbki meetod ei muuda ebausaldusväärset kontrollrühma automaatselt sobivaks. Võrdle tulemusi alternatiivsete doonorite ja sekkumiseelsete perioodidega ning arvesta, et mõjuhinnangu põhjuslik tõlgendus sõltub uurimisdisainist ja tulemusmudeli sobivusest.
+
+### Näide: California tubakapoliitika
+
+Kasutame samu andmeid ja sama sekkumise algusaastat nagu SDID näites. Võrdluseks hindame esmalt sünteetilise kontrolli ilma regressiooniparanduseta ning seejärel kantregressioonil põhineva ASCM-i. Mõlemad kasutavad samu üksusi ja sekkumiseelseid tulemusi; need ei pruugi anda sama tulemust kui eespool `Synth`-paketiga hinnatud mudel, kus kasutati teisi selgitavaid tunnuseid ja sobitamisperioode.
+
+```{r}
+# Paigalda üks kord vajaduse korral:
+# install.packages("remotes")
+# remotes::install_github("synth-inference/synthdid")
+# remotes::install_github("ebenmichael/augsynth")
+
+library(synthdid)
+library(augsynth)
+data("california_prop99", package = "synthdid")
+
+# Selged nimed ja eraldi objekt: 1989 on esimene sekkumisjärgne aasta
+cal_as <- data.frame(
+  osariik = california_prop99$State,
+  aasta = california_prop99$Year,
+  pakke = california_prop99$PacksPerCapita,
+  kasitlus = california_prop99$treated
+)
+
+# Võrdlus: sünteetiline kontroll ilma tulemusmudelita
+scm_as <- augsynth(
+  pakke ~ kasitlus, osariik, aasta,
+  data = cal_as, t_int = 1989,
+  progfunc = "None", scm = TRUE
+)
+
+# Augmenteeritud sünteetiline kontroll koos kantregressiooniga
+ascm <- augsynth(
+  pakke ~ kasitlus, osariik, aasta,
+  data = cal_as, t_int = 1989,
+  progfunc = "Ridge", scm = TRUE
+)
+```
+
+Kui `lambda` väärtust ei määrata, valib pakett kantregressiooni regulariseerimise taseme ristvalideerimise abil. Tulemuste kokkuvõtete ja jooniste koostamine võib võtta aega.
+
+```{r}
+# Mõjuhinnangud ja sobivuse näitajad
+set.seed(123)
+scm_kokkuvote <- summary(scm_as)
+ascm_kokkuvote <- summary(ascm)
+```
+
+Tavaline SCM
+
+```{r}
+scm_kokkuvote
+```
+Keskmine mõju on -19.5.
+
+Kohandatud mõjuhinnang
+
+```{r}
+ascm_kokkuvote
+```
+
+Hinnang on pisut väiksem: -16.
+
+Tulemused joonisel.
+
+Tavaline SCM hinnang:
+
+
+```{r}
+# Erinevus käsitletava ja sünteetilise kontrolli vahel ajas
+plot(scm_kokkuvote)
+```
+
+Kohandatud mõjuhinnang on pisut väiksemm.
+
+```{r}
+plot(ascm_kokkuvote)
+```
+
+Ristvalideerimise tulemused regulariseerimise valikul
+
+
+```{r}
+plot(ascm, plot_type = "cv")
+
+```
+
+
+Võrdle sekkumiseelset sobivust ja keskmisi sekkumisjärgseid mõjuhinnanguid. `summary()` esitab nii keskmise mõjuhinnangu kui ka aastapõhised hinnangud; vaikimisi põhinevad aastapõhised usaldusvahemikud konformaalsel järeldamisel. Need on perioodipõhised, mitte korraga kõiki aastaid katvad vahemikud, ning nende kehtivus sõltub vastava meetodi eeldustest.
+
+Viited: Ben-Michael, E., Feller, A. ja Rothstein, J. (2021). *The Augmented Synthetic Control Method*. Journal of the American Statistical Association. <https://arxiv.org/abs/1811.04170>. Paketi näited ja dokumentatsioon: <https://github.com/ebenmichael/augsynth>.

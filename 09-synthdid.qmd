@@ -1,0 +1,193 @@
+# Sünteetiline erinevuste-vahe meetod (SDID)
+
+Sünteetiline erinevuste-vahe meetod (*synthetic difference-in-differences*, SDID) ühendab sünteetilise kontrolli ja erinevuste-vahe meetodi ideid. Meetodi töötasid välja Arkhangelsky jt (2021; varasem tööversioon 2018–2019). Sarnaselt sünteetilise kontrolli meetodile leitakse ka siin võrdlusüksustele kaalud, mis aitavad kirjeldada käsitletava üksuse sekkumiseelset arengut. Sarnaselt erinevuste-vahe meetodile võrreldakse sekkumisjärgset erinevust sekkumiseelse erinevusega. Lisaks aga kaalutakse sekkumiseelseid ajaperioode.
+
+## Meetodi idee
+
+Oletame lihtsuse huvides, et meil on üks käsitletav üksus, $N_0$ kontrollüksust ning $T_0$ sekkumiseelset ja $T_1$ sekkumisjärgset perioodi. Tähistame käsitletava üksuse tulemit $Y_{1t}$ ja kontrollüksuste kaalutud keskmist hetkel $t$
+
+$$
+Y_{0t}^{\mathrm{syn}}=\sum_{i=1}^{N_0}\hat\omega_i Y_{it},
+$$
+
+kus kontrollüksuste kaalud $\hat\omega_i$ on mittenegatiivsed ja nende summa on üks. Lihtsustatud kujul saab SDID hinnangu esitada järgmiselt:
+
+$$
+\widehat\tau_{\mathrm{SDID}}=
+\frac{1}{T_1}\sum_{t>T_0}\left(Y_{1t}-Y_{0t}^{\mathrm{syn}}\right)
+-\sum_{t\leq T_0}\hat\lambda_t\left(Y_{1t}-Y_{0t}^{\mathrm{syn}}\right).
+$$
+
+Siin on $\hat\lambda_t$ sekkumiseelsete perioodide kaalud: need on mittenegatiivsed ja nende summa on üks. Valem väljendab seega sekkumisjärgset ($t>T_0$) keskmist erinevust, millest lahutatakse sekkumiseelne ($t\leq T_0$) **kaalutud** erinevus. Mitme samaaegselt meetmes osaleva üksuse korral võrreldakse vastavalt osalevate üksuste keskmist ja kaalutud kontrollüksusi.
+
+Üksuste kaalude leidmisel püütakse sobitada uuritava üksuse sekkumiseelne areng kontrollüksuste omaga; lubatud on ka püsiv tasemete erinevus. Ajakaalude $\lambda_t$ leidmisel püütakse kontrollüksuste sekkumiseelseid perioode kaaludes kirjeldada nende sekkumisjärgset keskmist. Täpne hinnang leitakse kaalutud kahe fikseeritud efektiga regressioonimudelina; kaalude optimeerimine ja regulariseerimine on kirjeldatud algartiklis. Ülaltoodud valem selgitab tulemuse arvutust, kuid ei kirjelda kõiki kaalude leidmise üksikasju.
+
+Näiteks kui sekkumisjärgne vahe on −10 ja kaalutud sekkumiseelne vahe −3, on SDID hinnang $-10-(-3)=-7$. Püsiv algne tasemeerinevus ei pea seega olema täpselt null, kuid kaalutud kontrollüksuste areng peab andma usutava lähenduse sellele, kuidas käsitletav üksus oleks arenenud sekkumiseta. Hea sekkumiseelne sobivus üksi seda ei tõesta. Samuti eeldatakse, et kontrollüksusi sekkumine ei mõjuta ja puuduvad olulised samaaegsed üksnes käsitletavat üksust mõjutanud sündmused.
+
+## Kaalutud regressioon
+
+SDID-d saab esitada ka kahepoolsete fikseeritud efektidega regressioonina, kus vaatlusi kaalutakse nii üksuse kui ka ajaperioodi kaaluga. Mudeli lähtekoht on tavaline paneelandmete erinevuste-vahe ehk DiD-mudeliga:
+
+$$
+Y_{it} = \alpha_i + \gamma_t + \tau D_{it} + \varepsilon_{it},
+$$
+
+kus
+
+- $Y_{it}$ on üksuse $i$ tulemus perioodil $t$;
+- $\alpha_i$ on üksuse fikseeritud efekt;
+- $\gamma_t$ on ajaperioodi fikseeritud efekt;
+- $D_{it}=1$, kui üksus $i$ on perioodil $t$ sekkumisega hõlmatud, ja muidu $0$;
+- $\tau$ on hinnatav keskmine sekkumise mõju.
+
+Erinevus tavalisest DiD-regressioonist on selles, kuidas regressiooni hinnatakse: SDID kasutab kaalutud vähimruutude meetodit.
+
+SDID hinnang $\widehat{\tau}_{SDID}$ leitakse järgmisest minimeerimisülesandest:
+
+$$
+\left(\widehat{\tau}_{SDID},
+\widehat{\alpha}_i,
+\widehat{\gamma}_t\right)
+=
+\underset{\tau,\,\{\alpha_i\},\,\{\gamma_t\}}{\operatorname{argmin}}
+\sum_{i=1}^{N}\sum_{t=1}^{T}
+\widehat{\omega}_i\widehat{\lambda}_t
+\left(Y_{it}-\alpha_i-\gamma_t-\tau D_{it}\right)^2.
+$$
+
+Siin on iga vaatluse kaal kahe kaalu korrutis:
+
+$$
+\text{vaatluse }(i,t)\text{ kaal}
+=
+\widehat{\omega}_i\widehat{\lambda}_t.
+$$
+
+- $\widehat{\omega}_i$ on üksuse kaal. Kontrollüksuste kaalud valitakse nii, et nende kaalutud sekkumiseelne areng sarnaneks käsitletavate üksuste omaga.
+- $\widehat{\lambda}_t$ on ajakaal. Sekkumiseelsete perioodide kaalud valitakse kontrollüksuste andmete põhjal, et need aitaksid kirjeldada sekkumisjärgset perioodi.
+
+Olgu $N_0$ kontrollüksuste ja $N_1$ käsitletavate üksuste arv ning $T_0$ sekkumiseelsete ja $T_1$ sekkumisjärgsete perioodide arv. Kaalud määratakse järgmiselt:
+
+$$
+\widehat{\omega}_i=
+\begin{cases}
+\text{hinnatud kaal}, & i \text{ on kontrollüksus},\\[2mm]
+1/N_1, & i \text{ on käsitletav üksus},
+\end{cases}
+\qquad
+\widehat{\lambda}_t=
+\begin{cases}
+\text{hinnatud kaal}, & t \text{ on sekkumiseelne periood},\\[2mm]
+1/T_1, & t \text{ on sekkumisjärgne periood}.
+\end{cases}
+$$
+
+Kontrollüksuste kaalude summa on üks ja sekkumiseelsete perioodide kaalude summa on üks. Sekkumisjärgsetele perioodidele antakse võrdsed kaalud.
+
+## Seos DiD-valemiga
+
+Ühe käsitletava üksuse korral tähistame käsitletava ja sünteetilise kontrolli vahet perioodil $t$:
+
+$$
+G_t = Y_{1t} - \sum_{i=1}^{N_0}\widehat{\omega}_iY_{it}.
+$$
+
+Siin tähistab $Y_{1t}$ käsitletava üksuse tulemust ja summa kontrollüksuste kaalutud tulemust. Et tähistus oleks üheselt mõistetav, tähistab indeks $i$ selles summas ainult kontrollüksusi.
+
+Siis on ülaltoodud kaalutud regressiooni sekkumise kordaja võrdne järgmise SDID-valemiga:
+
+$$
+\widehat{\tau}_{SDID}
+=
+\underbrace{\frac{1}{T_1}\sum_{t>T_0}G_t}_{\text{keskmine vahe pärast sekkumist}}
+-
+\underbrace{\sum_{t\leq T_0}\widehat{\lambda}_tG_t}_{\text{kaalutud vahe enne sekkumist}}.
+$$
+
+Seega saab sama hinnangut tõlgendada kahel viisil: kaalutud fikseeritud efektidega regressiooni sekkumise kordajana või kahe kaalutud erinevuse vahena.
+
+Kui tasakaalustatud paneelis saavad kõik kontrollüksused ja kõik sekkumiseelsed aastad võrdsed kaalud, taandub eespool esitatud SDID-valem tavalisele DiD-valemile. SDID puhul valitakse üksuste ja sekkumiseelsete perioodide kaalud andmete põhjal.
+
+Fikseeritud efektid aitavad mõista, miks sekkumiseelne tasemete vahe ei pea olema null: üksuse fikseeritud efekt arvestab ajas püsivat tasemete erinevust. Põhjuslik tõlgendus sõltub siiski sellest, kas kaalutud kontrollüksused kirjeldavad usutavalt käsitletava üksuse sekkumiseta arengut.
+
+| Meetod | Kontrollüksused | Aja võrdlus |
+|:-----------------------|:-----------------------|:-----------------------|
+| Tavaline DiD | Sageli võrdse kaaluga või andmerea pikkusega määratud kaalud | Enne ja pärast; sageli võrdsed ajakaalud |
+| Sünteetiline kontroll | Sobivuse alusel valitud kontrollüksuste kaalud | Võrreldakse tasemeid; enne sekkumist püütakse saavutada hea sobivus tasemetele |
+| SDID | Andmete põhjal valitud kontrollüksuste kaalud | Sekkumisjärgsest vahest lahutatakse kaalutud sekkumiseelne vahe |
+
+SDID ei taga automaatselt, et kõik võimalikud nihked kaovad. Tulemust tasub kontrollida eri kontrollüksuste ja sekkumiseelsete perioodide valikute korral ning uurida, millised üksused ja aastad saavad suure kaalu.
+
+## Näide: California tubakapoliitika
+
+Kasutame paketi `synthdid` andmeid California tubakatoodete müügi kohta. Proposition 99 võeti vastu 1988. aastal; andmestikus on esimene sekkumisjärgne aasta 1989. Tulemusnäitaja on sigaretipakkide müük elaniku kohta aastas.
+
+```{r}
+# Paigalda paketid üks kord vajaduse korral:
+# install.packages("remotes")
+# remotes::install_github("synth-inference/synthdid")
+
+library(synthdid)
+data("california_prop99", package = "synthdid")
+
+# Andmed: osariik, aasta, sigaretipakid elaniku kohta ja sekkumise tunnus
+head(california_prop99)
+table(california_prop99$treated, california_prop99$Year >= 1989)
+```
+
+Pakett vajab tasakaalustatud paneelandmeid ning selles kõik käsitletavad üksused peavad alustama sekkumist samal ajal. Sekkumine peab pärast algust jääma kestma. `panel.matrices()` paigutab kontrollüksused enne käsitletavaid ja aastad ajalisse järjekorda.
+
+```{r}
+sdid_andmed <- panel.matrices(
+  california_prop99,
+  unit = "State", time = "Year",
+  outcome = "PacksPerCapita", treatment = "treated"
+)
+
+
+dim(sdid_andmed$Y)   # üksused ja aastad
+sdid_andmed$N0       # kontrollosariikide arv
+sdid_andmed$T0       # sekkumiseelsete aastate arv
+
+```
+Hinnangu leiame käsuga `synthdid_estimate`.
+
+```{r}
+sdid_hinnang <- synthdid_estimate(
+  sdid_andmed$Y, sdid_andmed$N0, sdid_andmed$T0
+)
+```
+
+Tulemus joonisel
+
+```{r}
+plot(sdid_hinnang)
+```
+
+Keskmine mõju käsitletud vaatluste ja sekkumisjärgsete aastate lõikes
+
+```{r}
+as.numeric(sdid_hinnang)
+```
+
+Negatiivne hinnang tähendab, et sigarettide müük inimese kohta oli Californias hinnanguliselt väiksem kui sekkumiseta olukorras. Tegemist on sekkumisjärgsete aastate keskmise mõjuga, mitte ühe konkreetse aasta mõjuga. Meie lihtsa näite korral on hinnang ligikaudu −15,6 pakki elaniku kohta aastas.
+
+Ühe käsitletava üksuse korral kasutame taas platseebopõhist standardviga. Platseebomeetodi usaldusväärsus sõltub muu hulgas kontrollüksuste sobivusest ja sellest, kas nende varieeruvus kirjeldab käsitletava üksuse määramatust.
+
+```{r}
+#See on aeglane
+set.seed(123)
+sdid_se <- sqrt(vcov(sdid_hinnang, method = "placebo"))
+sdid_ci <- as.numeric(sdid_hinnang) + c(-1, 1) * 1.96 * as.numeric(sdid_se)
+
+c(hinnang = as.numeric(sdid_hinnang),
+  standardviga = as.numeric(sdid_se),
+  alumine_95 = sdid_ci[1], ulemine_95 = sdid_ci[2])
+```
+
+See on ligikaudne normaaljaotusel põhinev 95% usaldusvahemik. Näeme, et usalduspiirid sisaldavad ka nulli.
+
+
+Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W. ja Wager, S. (2021). *Synthetic Difference-in-Differences*. American Economic Review, 111(12), 4088–4118. <https://doi.org/10.1257/aer.20190159>.
+
+[Paketi dokumentatsioon](https://synth-inference.github.io/synthdid/).
