@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="et" xml:lang="et"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Põhjusliku mõju identifitseerimise võimalikkusest – Põhjuslike seoste hindamine majanduses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-dag.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tulemusi pole",
+    "search-matching-documents-text": "sobivat dokumenti",
+    "search-copy-link-title": "Kopeeri link otsingule",
+    "search-hide-matches-text": "Peida lisavastavused",
+    "search-more-match-text": "veel üks vastavus selles dokumendis",
+    "search-more-matches-text": "rohkem vastavusi selles dokumendis",
+    "search-clear-button-title": "Puhasta",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Tühista",
+    "search-submit-button-title": "Esita",
+    "search-label": "Otsi"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-identifitseerimine.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Põhjusliku mõju identifitseerimise võimalikkusest</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Lülita külgriba navigeerimist" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Otsi" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Põhjuslike seoste hindamine majanduses</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/AndresVork/mojuopik" title="Lähtekood" class="quarto-navigation-tool px-1" aria-label="Lähtekood"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Otsi"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sissejuhatus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-identifitseerimine.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Põhjusliku mõju identifitseerimise võimalikkusest</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pomate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Potentsiaalse tulemuse mudel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-regressioon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regressioonimudeli kasutamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-difdif.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Juurdekasvude erinevus (DIF-DIF)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-sobitamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sobitamine</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regressiooni katkemise meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-rdit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ajas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-ruumiline-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regressiooni katkemine ruumis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ipw-aipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Pöördtõenäosusega kaalumine (IPW) ja AIPW</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ivmeetod.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumentmuutuja meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-synthcontr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Sünteetilise võrdlusobjekti meetod</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-synthdid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sünteetiline erinevuste-vahe meetod (SDID)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-synthascm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Kohandatud sünteetilise kontrolli meetod (ASCM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-masinope-kausaalmets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Masinõppemeetodid mõju hindamisel: puust kausaalmetsani</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-mllasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">LASSO ja kantregressioon mõju hindamisel</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lisad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Lülita sektsiooni">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eesti_mojuhindamised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Eestis tehtud põhjusliku mõju hindamise uuringud</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lisa_eis_ettevotlusmeetmete_mojuhindamine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Ettevõtlusmeetmete mõju hindamise näiteid</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sisukord</h2>
+   
+  <ul>
+  <li><a href="#näide-tööturukoolituse-mõju-palgale" id="toc-näide-tööturukoolituse-mõju-palgale" class="nav-link active" data-scroll-target="#näide-tööturukoolituse-mõju-palgale"><span class="header-section-number">1.1</span> Näide: tööturukoolituse mõju palgale</a></li>
+  <li><a href="#näide-nõudlus-pakkumine-ja-turu-tasakaal" id="toc-näide-nõudlus-pakkumine-ja-turu-tasakaal" class="nav-link" data-scroll-target="#näide-nõudlus-pakkumine-ja-turu-tasakaal"><span class="header-section-number">1.2</span> Näide: nõudlus, pakkumine ja turu tasakaal</a></li>
+  <li><a href="#kas-rohkem-andmeid-lahendab-probleemi" id="toc-kas-rohkem-andmeid-lahendab-probleemi" class="nav-link" data-scroll-target="#kas-rohkem-andmeid-lahendab-probleemi"><span class="header-section-number">1.3</span> Kas rohkem andmeid lahendab probleemi?</a></li>
+  <li><a href="#kuidas-aitavad-õpiku-meetodid-mõju-identifitseerida" id="toc-kuidas-aitavad-õpiku-meetodid-mõju-identifitseerida" class="nav-link" data-scroll-target="#kuidas-aitavad-õpiku-meetodid-mõju-identifitseerida"><span class="header-section-number">1.4</span> Kuidas aitavad õpiku meetodid mõju identifitseerida?</a></li>
+  <li><a href="#kelle-kohta-mõju-kehtib" id="toc-kelle-kohta-mõju-kehtib" class="nav-link" data-scroll-target="#kelle-kohta-mõju-kehtib"><span class="header-section-number">1.5</span> Kelle kohta mõju kehtib?</a></li>
+  <li><a href="#kasutatud-allikas" id="toc-kasutatud-allikas" class="nav-link" data-scroll-target="#kasutatud-allikas">Kasutatud allikas</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/AndresVork/mojuopik/blob/main/01-identifitseerimine.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/AndresVork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-identifitseerimine" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Põhjusliku mõju identifitseerimise võimalikkusest</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Muudetud</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">07/11/2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Kui tahame teada, kas mõni meede toimib, ei piisa alati sellest, et osalejate tulemused erinevad mitteosalejate omadest. Sama andmetes nähtav erinevus võib ühel juhul olla meetme mõju, teisel juhul aga tuleneda sellest, et rühmad olid juba algusest peale erinevad. Kuidas saame neil selgitustel vahet teha?</p>
+<p>Sellele küsimusele vastamise võimalikkust nimetatakse <em>põhjusliku mõju identifitseerimiseks</em> (<em>identification</em>). Mõju on identifitseeritud, kui olemasolevad andmed koos selgelt sõnastatud eeldustega võimaldavad huvipakkuva mõju üheselt kindlaks määrata. Kui samade andmetega sobib kokku mitu erinevat mõju suurust, ei ole mõju nende andmete ja eelduste põhjal üheselt identifitseeritud. See, et mõju on teatud eelduste korral leitav, ei tähenda veel, et need eeldused tegelikkuses kehtivad.</p>
+<section id="näide-tööturukoolituse-mõju-palgale" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="näide-tööturukoolituse-mõju-palgale"><span class="header-section-number">1.1</span> Näide: tööturukoolituse mõju palgale</h2>
+<p>Oletame, et soovime hinnata, kas tööturukoolitus suurendab osalejate palka. Kaks aastat pärast koolituse algust on keskmine kuupalk järgmine:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rühm</th>
+<th style="text-align: right;">Keskmine kuupalk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Koolitusel osalenud</td>
+<td style="text-align: right;">2160 eurot</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Koolitusel mitteosalenud</td>
+<td style="text-align: right;">2000 eurot</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Erinevus</td>
+<td style="text-align: right;">160 eurot</td>
+</tr>
+</tbody>
+</table>
+<p>Osalejate keskmine palk on 160 eurot ehk 8% suurem kui mitteosalejatel. Kuid kas see 160 eurot on koolituse mõju?</p>
+<p>Mõju leidmiseks peaksime teadma, milline oleks olnud koolitusel osalenute keskmine palk siis, kui need samad inimesed ei oleks koolitusel osalenud. Seda nimetame <em>vastupidiseks olukorraks</em> ehk <em>kontrafaktuaalseks tulemuseks</em>. Me ei näe seda olukorda samade inimeste jaoks: tegelikult nad ju osalesid koolitusel.</p>
+<p>Oletame lihtsuse huvides, et nähtavad andmed on samad ka siis, kui võrdleme inimesi, kelle mõõdetud taustatunnused on ühesugused. Järgmised kaks hüpoteetilist seletust sobivad samade nähtavate palgaandmetega:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Seletus 1: koolitus mõjus</th>
+<th style="text-align: left;">Seletus 2: koolitus ei mõjunud</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Osalenute nähtav keskmine palk</td>
+<td style="text-align: left;">2160 eurot</td>
+<td style="text-align: left;">2160 eurot</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mitteosalenute nähtav keskmine palk</td>
+<td style="text-align: left;">2000 eurot</td>
+<td style="text-align: left;">2000 eurot</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Osalenute keskmine palk siis, kui nad ei oleks koolitusel osalenud</td>
+<td style="text-align: left;">2000 eurot</td>
+<td style="text-align: left;">2160 eurot</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Koolituse keskmine mõju osalenutele</td>
+<td style="text-align: left;">160 eurot</td>
+<td style="text-align: left;">0 eurot</td>
+</tr>
+</tbody>
+</table>
+<p>Esimese seletuse järgi oleksid osalejad ilma koolituseta teeninud keskmiselt 2000 eurot. Seega tõstis koolitus nende palka 160 euro võrra. Teise seletuse järgi oleksid nad ka ilma koolituseta teeninud 2160 eurot: näiteks otsustasid aktiivsemalt tööd otsivad inimesed nii koolitusel osaleda kui ka paremini tasustatud tööd leida. Sel juhul ei põhjustanud koolitus palgaerinevust.</p>
+<p>Mõlemad seletused sobivad tabelis nähtavate andmetega, kuid annavad koolituse kohta erineva vastuse. Nähtav palgaerinevus on mõlemas 160 eurot. Ilma lisateabe või eeldusteta ei tea me, kumb selgitus on õige; võimalikud on ka vahepealsed lahendused.</p>
+<p>Mitteosalejate palk võiks kirjeldada osalejate palka ilma koolituseta, kui rühmad oleksid selle küsimuse jaoks piisavalt võrreldavad. Just sellise võrdluse leidmine on mõjuhindamise keskne ülesanne.</p>
+</section>
+<section id="näide-nõudlus-pakkumine-ja-turu-tasakaal" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="näide-nõudlus-pakkumine-ja-turu-tasakaal"><span class="header-section-number">1.2</span> Näide: nõudlus, pakkumine ja turu tasakaal</h2>
+<p>Sarnane probleem tekib majanduses ka siis, kui vaatleme turuhindu ja müüdud koguseid. Oletame, et kolmel perioodil näeme järgmisi hinna ja koguse kombinatsioone:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Periood</th>
+<th style="text-align: right;">Hind</th>
+<th style="text-align: right;">Müüdud kogus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">30</td>
+</tr>
+</tbody>
+</table>
+<p>Andmetes on madalama hinnaga perioodidel kogus suurem. Kas nende punktide põhjal saame teada, kui palju inimesed ostaksid rohkem, kui hind langeks ja muud nõudlust mõjutavad tingimused ei muutuks?</p>
+<p>Jällegi on samade vaatlustega kooskõlas mitu selgitust:</p>
+<ol type="1">
+<li><em>Pakkumine muutus, kuid nõudlus püsis samana.</em> Näiteks vähenesid tootmiskulud ja pakkumiskõver liikus paremale. Hind langes ning tarbijad ostsid samal nõudluskõveral liikudes rohkem. Sel lihtsustatud juhul paiknevad vaadeldud tasakaalupunktid samal nõudluskõveral.</li>
+<li><em>Nii pakkumine kui ka nõudlus muutusid.</em> Näiteks muutusid samal ajal tootmiskulud ja tarbijate sissetulekud või eelistused. Iga vaadeldud punkt on erinevate nõudlus- ja pakkumiskõverate lõikepunkt. Punkte ühendav joon ei pruugi siis näidata nõudluskõverat ega seda, kuidas ostjad reageeriksid üksnes hinnamuutusele.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-turu-identifitseerimine" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Kaks kõrvutist turu joonist ühesuguste tasakaalupunktidega. Vasakul asuvad kolm punkti ühel püsival nõudluskõveral ja pakkumiskõverad nihkuvad. Paremal nihkuvad nii nõudlus- kui ka pakkumiskõverad ning punktid asuvad eri nõudluskõveratel.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-turu-identifitseerimine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-identifitseerimine_files/figure-html/fig-turu-identifitseerimine-1.png" class="img-fluid figure-img" style="width:100.0%" alt="Kaks kõrvutist turu joonist ühesuguste tasakaalupunktidega. Vasakul asuvad kolm punkti ühel püsival nõudluskõveral ja pakkumiskõverad nihkuvad. Paremal nihkuvad nii nõudlus- kui ka pakkumiskõverad ning punktid asuvad eri nõudluskõveratel.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-turu-identifitseerimine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Joonis&nbsp;1.1: Samad hinna ja koguse vaatlused võivad tekkida erineva nõudluse korral. Punktid 1–3 tähistavad samu turu tasakaale mõlemal joonisel.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Vasakul joonisel liigub pakkumine ning kõik kolm punkti asuvad samal nõudluskõveral. Paremal joonisel liiguvad nii nõudlus kui ka pakkumine, kuid vaadeldud punktid on täpselt samad. Nõudluskõverad on kahes olukorras erineva kaldega: üksnes hindade ja koguste vaatlemine ei ütle, kumb olukord tegelikult kehtib.</p>
+<p>Ka vastupidine olukord on võimalik: kui nõudlus liigub, kuid pakkumine püsib samana, paiknevad tasakaalupunktid püsival pakkumiskõveral. Seega sõltub nähtavate punktide tõlgendus sellest, mis turul muutus ja mis jäi samaks.</p>
+</section>
+<section id="kas-rohkem-andmeid-lahendab-probleemi" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="kas-rohkem-andmeid-lahendab-probleemi"><span class="header-section-number">1.3</span> Kas rohkem andmeid lahendab probleemi?</h2>
+<p>Rohkem vaatlusi aitab tavaliselt hinnata nähtavat seost täpsemalt. Näiteks võime suurema valimiga saada täpsema hinnangu 160-eurosele palgaerinevusele ja väiksema standardvea. See ei tõesta aga veel, et erinevus on koolituse mõju.</p>
+<p>Kui kaks põhjuslikku selgitust annavad täpselt samasuguse vaadeldavate andmete jaotuse, ei erista neid ka sama liiki vaatluste lõputu lisamine. Väike standardviga näitab hinnangu statistilist täpsust; see ei kõrvalda valikust või muudest teguritest tulenevat nihet ega kinnita põhjuslikku tõlgendust.</p>
+<p>Lisateave võib siiski aidata. Näiteks võivad varasemad tööturukäitumise andmed, teadmised koolitusele valimise reeglite kohta või juhuslikult jagatud koolituskohad muuta võrdluse usutavamaks. Kas need on piisavad, sõltub sellest, milline probleem algset võrdlust takistas.</p>
+</section>
+<section id="kuidas-aitavad-õpiku-meetodid-mõju-identifitseerida" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="kuidas-aitavad-õpiku-meetodid-mõju-identifitseerida"><span class="header-section-number">1.4</span> Kuidas aitavad õpiku meetodid mõju identifitseerida?</h2>
+<p>Selle õpiku meetodid otsivad eri viisidel vastust samale küsimusele: milline oleks olnud tulemus siis, kui vaadeldud sekkumist ei oleks toimunud? Meetodite erinevus seisneb selles, millist teavet ja milliseid eeldusi nad selle vastuse leidmiseks kasutavad.</p>
+<ul>
+<li><em>Potentsiaalsete tulemuste mudel</em> aitab sõnastada, kelle mõju soovime hinnata ja milline võrdlus oleks selleks vajalik. <em>DAG</em> ehk suunatud atsükliline graaf aitab esitada oletusi muutujate põhjuslike seoste kohta ja mõelda läbi, milliseid tunnuseid tuleks võrdluses arvesse võtta.</li>
+<li><em>Regressioon, sobitamine ning IPW ja AIPW</em> võimaldavad võrrelda inimesi mõõdetud taustatunnuste alusel. Mõju tõlgendamiseks tuleb muu hulgas eeldada, et pärast asjakohaste tunnuste arvestamist ei erine rühmad enam selliste tegurite poolest, mis mõjutavad nii osalemist kui ka tulemust, ning et võrreldavaid inimesi leidub mõlemas rühmas.</li>
+<li><em>Juurdekasvude erinevuse meetod</em> ehk <em>DIF-DIF</em> kasutab andmeid enne ja pärast sekkumist. Keskne eeldus on, et sekkumiseta oleksid rühmade keskmised tulemused aja jooksul muutunud paralleelselt. Rühmad ei pea alguses olema ühesuguse palgatasemega.</li>
+<li><em>Regressiooni katkemise meetod</em> ehk <em>RDD</em> kasutab olukorda, kus osalemise võimalus või tõenäosus muutub lävendi juures. Vahetult lävendi eri pooltel olevad üksused peavad olema võrreldavad ning muud tulemust mõjutavad tegurid ei tohi samas kohas hüppeliselt muutuda. Ajas või ruumis asuva lävendi puhul tuleb muu hulgas arvestada samal ajal toimuvate sündmuste või piirkondade erinevustega.</li>
+<li><em>Instrumentmuutuja meetod</em> kasutab osalemist muutvat välist tegurit ehk instrumenti. Sobiv instrument peab olema osalemisega seotud, sõltumatu tulemust mõjutavatest segavatest teguritest ega tohi tulemust mõjutada muu kanali kaudu. Hinnatud mõju võib seejuures kehtida eelkõige nende inimeste kohta, kelle osalemist instrument muudab.</li>
+<li><em>Sünteetilise kontrolli meetod</em> koostab võrdlusüksustest kaalutud võrdluse, mis jäljendab sekkumiseelseid tulemusi. <em>Sünteetiline DIF-DIF</em> ehk <em>SDID</em> ühendab kaalumise ja juurdekasvude võrdlemise ning <em>ASCM</em> täiendab sünteetilist võrdlust ennustusmudeliga. Need meetodid vajavad põhjendust, miks koostatud võrdlus kirjeldaks sekkumiseta arengut; hea sobivus enne sekkumist üksi seda ei taga.</li>
+<li><em>Masinõpe</em>, sealhulgas kausaalmets, LASSO ja kantregressioon, aitab näiteks arvestada paljusid tunnuseid või uurida mõju erinevust inimrühmade vahel. Ka keerukas ja hästi prognoosiv mudel ei kõrvalda automaatselt mõõtmata segavate tegurite probleemi: põhjuslik tõlgendus vajab endiselt sobivat uurimisplaani ja eeldusi.</li>
+</ul>
+<p>Ükski meetod ei muuda seost automaatselt mõjuks. Enne tulemuse tõlgendamist tuleb küsida, kas meetodi eeldused on just selles olukorras usutavad. Mõne eelduse järeldusi saab andmetega kontrollida, kuid kõiki ei saa üksnes samade andmete põhjal tõestada. Seetõttu on olulised ka teadmised meetmest, selle rakendamisest ja uuritavast kontekstist.</p>
+</section>
+<section id="kelle-kohta-mõju-kehtib" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="kelle-kohta-mõju-kehtib"><span class="header-section-number">1.5</span> Kelle kohta mõju kehtib?</h2>
+<p>Isegi kui mõju on ühes uuringus usutavalt identifitseeritud, ei pruugi see olla sama kõigi inimeste või kõigi poliitikamuudatuste puhul. Näiteks võib vabatahtlikult koolitusele kandideerinute mõju erineda nende inimeste mõjust, kelleni koolituse laiendamine alles jõuaks. Seetõttu tuleb küsida nii seda, kas mõju on uuritud rühma jaoks identifitseeritud, kui ka seda, kas tulemus on ülekantav meid huvitavale rühmale ja uude olukorda.</p>
+<p>Kui mõju üheseks määramiseks vajalikud eeldused ei ole usutavad, võib mõnikord olla võimalik leida mõju võimalike väärtuste vahemik või uurida, kuidas järeldus muutub eelduste nõrgendamisel. Ka teadmine, et olemasolevad andmed ei võimalda küsimusele kindlat vastust, on otsustajale oluline.</p>
+<p>Järgmises peatükis tutvume DAGidega, mis aitavad oma põhjuslikud oletused nähtavale tuua ja mõelda, millised tegurid võivad vaadeldava seose tõlgendamist mõjutada.</p>
+</section>
+<section id="kasutatud-allikas" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="kasutatud-allikas">Kasutatud allikas</h2>
+<p>Peatüki algne idee ja kaks näidet on inspireeritud Carlos Chavezi blogikandest „Why Identification Matters: What more data cannot settle“ (6. november 2026). <a href="https://carloschavezp29.substack.com/">Carlos Chavezi Substack</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopeeritud!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopeeritud!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/andresvork\.github\.io\/mojuopik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Sissejuhatus">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Sissejuhatus</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-dag.html" class="pagination-link" aria-label="Suunatud atsüklilised graafid (DAG)">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Suunatud atsüklilised graafid (DAG)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/AndresVork/mojuopik/blob/main/01-identifitseerimine.qmd" class="toc-action"><i class="bi bi-github"></i>Vaata allikat</a></li><li><a href="https://github.com/AndresVork/mojuopik/issues/new" class="toc-action"><i class="bi empty"></i>Teata probleemist</a></li></ul></div></div></div></footer></body></html>
