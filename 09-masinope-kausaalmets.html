@@ -299,20 +299,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./12-dml.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Kahekordne masinõpe (DML)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./eesti_mojuhindamised.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Eestis tehtud põhjusliku mõju hindamise uuringud</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Eestis tehtud põhjusliku mõju hindamise uuringud</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pohimoistedkordamiseks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Põhimõisted eksamiks kordamiseks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lisa_eis_ettevotlusmeetmete_mojuhindamine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Ettevõtlusmeetmete mõju hindamise näiteid</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Ettevõtlusmeetmete mõju hindamise näiteid</span></span></a>
   </div>
 </li>
       </ul>
@@ -389,7 +395,10 @@ window.Quarto = {
   </ul></li>
   <li><a href="#vaatame-aipw-skoore-otse" id="toc-vaatame-aipw-skoore-otse" class="nav-link" data-scroll-target="#vaatame-aipw-skoore-otse"><span class="header-section-number">22.4</span> Vaatame AIPW-skoore otse</a></li>
   </ul></li>
-  <li><a href="#kas-causal-forest-leidis-mõju-heterogeensust" id="toc-kas-causal-forest-leidis-mõju-heterogeensust" class="nav-link" data-scroll-target="#kas-causal-forest-leidis-mõju-heterogeensust"><span class="header-section-number">23</span> Kas causal forest leidis mõju heterogeensust?</a></li>
+  <li><a href="#kas-causal-forest-leidis-mõju-heterogeensust" id="toc-kas-causal-forest-leidis-mõju-heterogeensust" class="nav-link" data-scroll-target="#kas-causal-forest-leidis-mõju-heterogeensust"><span class="header-section-number">23</span> Kas causal forest leidis mõju heterogeensust?</a>
+  <ul class="collapse">
+  <li><a href="#käsitsi-ülaltoodud-regressioonimudel-õppimise-eesmärgil" id="toc-käsitsi-ülaltoodud-regressioonimudel-õppimise-eesmärgil" class="nav-link" data-scroll-target="#käsitsi-ülaltoodud-regressioonimudel-õppimise-eesmärgil">Käsitsi ülaltoodud regressioonimudel õppimise eesmärgil</a></li>
+  </ul></li>
   <li><a href="#millised-tunnused-kirjeldavad-mõju-heterogeensust" id="toc-millised-tunnused-kirjeldavad-mõju-heterogeensust" class="nav-link" data-scroll-target="#millised-tunnused-kirjeldavad-mõju-heterogeensust"><span class="header-section-number">24</span> Millised tunnused kirjeldavad mõju heterogeensust?</a>
   <ul class="collapse">
   <li><a href="#causal-foresti-tunnuste-olulisus" id="toc-causal-foresti-tunnuste-olulisus" class="nav-link" data-scroll-target="#causal-foresti-tunnuste-olulisus"><span class="header-section-number">24.1</span> Causal forest’i tunnuste olulisus</a></li>
@@ -429,7 +438,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Muudetud</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">09/10/2026</p>
+      <p class="date-modified">17/11/2026</p>
     </div>
   </div>
     
@@ -440,7 +449,6 @@ window.Quarto = {
 </header>
 
 
-<p><em>TODO: Tähistused ühtlustamata varasemate peatükkidega</em> <em>Kontrollimata</em></p>
 <p>Selles peatükis vaatame, kuidas saab masinõppemeetodeid kasutada põhjusliku mõju hindamisel. Keskendume kolmele omavahel seotud meetodile:</p>
 <ul>
 <li><strong>otsustuspuu</strong> (<em>decision tree</em>),</li>
@@ -732,7 +740,7 @@ Y_i
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>paketid <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"rpart"</span>, <span class="st">"rpart.plot"</span>, <span class="st">"grf"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"tidyr"</span>, <span class="st">"plotROC"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"tidyr"</span>, <span class="st">"plotROC"</span>, <span class="st">"DiagrammeR"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>puudu <span class="ot">&lt;-</span> paketid[<span class="sc">!</span>paketid <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())]</span>
@@ -744,7 +752,8 @@ Y_i
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotROC)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotROC)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="andmed" class="level3">
@@ -759,7 +768,7 @@ Y_i
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>atp2 <span class="ot">&lt;-</span> atp <span class="sc">|&gt;</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"wage"</span>), <span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"employed"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(y, training, <span class="fu">everything</span>())</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(y, training, <span class="fu">everything</span>(), <span class="sc">-</span>workload)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Andmestikus on näiteks järgmised tunnused.</p>
 <table class="caption-top table">
@@ -818,8 +827,13 @@ Y_i
 <td><code>collar</code></td>
 <td>valge- või sinikrae</td>
 </tr>
+<tr class="odd">
+<td><code>workload</code></td>
+<td>Töötukassa konsultandi töökoormus</td>
+</tr>
 </tbody>
 </table>
+<p>Pangem tähele, et tunnus <code>workload</code> on sobiv instrument ja see ei peaks mõjutama otseselt inimese hilisemat töötamise tõenäosust, küll mõjutab tööturukoolituses osalemist. Seetõttu jätame selle praegu analüüsist välja.</p>
 </section>
 <section id="treening--ja-testvalim" class="level3">
 <h3 class="anchored" data-anchor-id="treening--ja-testvalim">Treening- ja testvalim</h3>
@@ -877,10 +891,10 @@ Y_i
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shallow_tree<span class="sc">$</span>variable.importance</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   benefit       educ        age    lastemp     collar   workload     region 
-94.4423876 45.6895089 39.0867667 33.0442593 23.9810341 13.7467872 12.3033462 
-  training  immigrant     gender      rural 
- 8.6599195  8.6420656  2.8471243  0.4425334 </code></pre>
+<pre><code>    benefit        educ         age     lastemp      collar      region 
+94.44238757 45.68950890 39.08676669 33.04425934 23.98103405 13.66955955 
+   training   immigrant      gender       rural 
+ 8.65991950  8.64206562  2.84712430  0.03125017 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -951,7 +965,7 @@ Y_i
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(yhat_tree)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        1         2         3         4         5         6 
-0.7043364 0.2432432 0.4317618 0.7043364 0.6522048 0.7043364 </code></pre>
+0.7043364 0.5476190 0.4397906 0.7043364 0.6522048 0.7043364 </code></pre>
 </div>
 </div>
 <p>Näiteks klassifitseerime sündmuseks kõik prognoosid, mis on üle 0.5.</p>
@@ -967,15 +981,15 @@ Y_i
 <div class="cell-output cell-output-stdout">
 <pre><code>        tegelik
 prognoos   0   1
-       0 297 219
-       1 371 541</code></pre>
+       0 324 224
+       1 344 536</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(classtable_tree, <span class="dv">2</span>), <span class="dv">2</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        tegelik
 prognoos    0    1
-       0 0.44 0.29
-       1 0.56 0.71</code></pre>
+       0 0.49 0.29
+       1 0.51 0.71</code></pre>
 </div>
 </div>
 <p>Binaarse tulemuse prognoosivõimet saame hinnata näiteks sensitiivsuse, spetsiifilisuse ja ROC-kõvera abil.</p>
@@ -1016,7 +1030,7 @@ prognoos    0    1
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calc_auc</span>(roc_tree)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  PANEL COORD group       AUC
-1     1     1    -1 0.5937195</code></pre>
+1     1     1    -1 0.6203484</code></pre>
 </div>
 </div>
 </div>
@@ -1217,8 +1231,8 @@ Variable importance:
 <div class="cell-output cell-output-stdout">
 <pre><code>  PANEL COORD group    mudel       AUC
 1     1     1     1 juhumets 0.6430803
-2     1     1     2    logit 0.6310245
-3     1     1     3      puu 0.5937195</code></pre>
+2     1     1     2    logit 0.6352742
+3     1     1     3      puu 0.6203484</code></pre>
 </div>
 </div>
 <p>Siin on küsimus endiselt <strong>prognoosimises</strong>: kui hästi oskame ennustada, kas inimene hiljem töötab?</p>
@@ -1262,7 +1276,7 @@ Variable importance:
 }
 \]</span></p>
 <p>See on sama põhimõte, mida kasutasime regressioonimudeli korral. Ainult nüüd asendame lineaarse regressiooni paindlikuma juhumetsaga.</p>
-<p>Seda lähenemist nimetatakse masinõppes sageli <strong>T-learner</strong> lähenemiseks: üks mudel hinnatakse osalejatele ja teine mitteosalejatele.</p>
+<p>Seda lähenemist nimetatakse masinõppes sageli <strong>T-learner</strong> lähenemiseks: üks mudel hinnatakse osalejatele ja teine mitteosalejatele. Mudelid prognoosivad inimese tunnustele vastavaid potentsiaalsete tulemuste tinglikke keskmisi. Nende vahe on CATE hinnang; see ei anna teada konkreetse inimese mõlemat tegelikku potentsiaalset tulemust.</p>
 <section id="r-i-näide-kaks-juhumetsa" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="r-i-näide-kaks-juhumetsa"><span class="header-section-number">17.1</span> R-i näide: kaks juhumetsa</h2>
 <p>Ehitame <span class="math inline">\(X\)</span> maatriksi ilma meetme tunnuseta <code>training</code>.</p>
@@ -1631,22 +1645,19 @@ Y_i-\hat\mu(X_i,D_i)
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> X,</span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> Y,</span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">W =</span> W,</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">500</span>,</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample.fraction =</span> <span class="fl">0.5</span>,</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">mtry =</span> <span class="dv">3</span>,</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">honesty =</span> <span class="cn">TRUE</span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>c.forest</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">500</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>c.forest</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRF forest object of type causal_forest 
 Number of trees: 500 
 Number of training samples: 7140 
 Variable importance: 
     1     2     3     4     5     6     7     8     9    10    11    12    13 
-0.069 0.083 0.051 0.103 0.067 0.044 0.041 0.052 0.043 0.045 0.060 0.038 0.052 
+0.097 0.087 0.027 0.285 0.076 0.021 0.028 0.044 0.033 0.027 0.021 0.035 0.031 
    14    15    16    17    18 
-0.048 0.040 0.055 0.051 0.058 </code></pre>
+0.025 0.027 0.033 0.049 0.054 </code></pre>
 </div>
 </div>
 <p>Võime vaadata üksikuid puid, kuid kogu causal forest’i prognoos ei põhine ühel konkreetsel puul.</p>
@@ -1654,12 +1665,12 @@ Variable importance:
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">get_tree</span>(c.forest, <span class="dv">1</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="grViz html-widget html-fill-item" id="htmlwidget-b1ff45a46a45ee4e142e" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-b1ff45a46a45ee4e142e">{"x":{"diagram":"digraph nodes { \n node [shape=box] ;\n0 [label=\" lastemp2_4 <= 0 \"] ;\n0 -> 1 [labeldistance=2.5, labelangle=45, headlabel=\"True\", arrowhead=normal];\n0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel=\"False\", arrowhead=normal];\n1 [label=\" regionBludhaven <= 0 \"] ;\n1 -> 3 [ arrowhead=normal];\n1 -> 4 [ arrowhead=normal];\n3 [label=\" age5064 <= 0 \"] ;\n3 -> 7 [ arrowhead=normal];\n3 -> 8 [ arrowhead=normal];\n7 [label=\" regionMetropolis <= 0 \"] ;\n7 -> 15 [ arrowhead=normal];\n7 -> 16 [ arrowhead=normal];\n15 [label=\" lastemp1_2 <= 0 \"] ;\n15 -> 23 [ arrowhead=normal];\n15 -> 24 [ arrowhead=normal];\n23 [label=\" educTertiary <= 0 \"] ;\n23 -> 29 [ arrowhead=normal];\n23 -> 30 [ arrowhead=normal];\n29 [label=\" immigrant1 <= 0 \"] ;\n29 -> 39 [ arrowhead=normal];\n29 -> 40 [ arrowhead=normal];\n39 [label=\" benefit <= 0 \"] ;\n39 -> 49 [ arrowhead=normal];\n39 -> 50 [ arrowhead=normal];\n49 [label=\" year2006 <= 0 \"] ;\n49 -> 57 [ arrowhead=normal];\n49 -> 58 [ arrowhead=normal];\n57  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  108 \n avg_Y = 0.43\navg_W = 0.1 \"];\n58 [label=\" regionCentral <= 0 \"] ;\n58 -> 69 [ arrowhead=normal];\n58 -> 70 [ arrowhead=normal];\n69  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  64 \n avg_Y = 0.45\navg_W = 0.2 \"];\n70  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  60 \n avg_Y = 0.45\navg_W = 0.23 \"];\n50 [label=\" regionGotham <= 0 \"] ;\n50 -> 59 [ arrowhead=normal];\n50 -> 60 [ arrowhead=normal];\n59 [label=\" lastempover4 <= 0 \"] ;\n59 -> 71 [ arrowhead=normal];\n59 -> 72 [ arrowhead=normal];\n71  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  28 \n avg_Y = 0.57\navg_W = 0.25 \"];\n72 [label=\" gendermale <= 0 \"] ;\n72 -> 75 [ arrowhead=normal];\n72 -> 76 [ arrowhead=normal];\n75  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  7 \n avg_Y = 0.57\navg_W = 0.57 \"];\n76  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  12 \n avg_Y = 0.5\navg_W = 0.33 \"];\n60 [label=\" collarwhite <= 0 \"] ;\n60 -> 73 [ arrowhead=normal];\n60 -> 74 [ arrowhead=normal];\n73  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  29 \n avg_Y = 0.69\navg_W = 0.28 \"];\n74  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  40 \n avg_Y = 0.68\navg_W = 0.22 \"];\n40 [label=\" lastempover4 <= 0 \"] ;\n40 -> 51 [ arrowhead=normal];\n40 -> 52 [ arrowhead=normal];\n51  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  75 \n avg_Y = 0.37\navg_W = 0.27 \"];\n52  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  27 \n avg_Y = 0.7\navg_W = 0.44 \"];\n30 [label=\" regionGotham <= 0 \"] ;\n30 -> 41 [ arrowhead=normal];\n30 -> 42 [ arrowhead=normal];\n41 [label=\" collarwhite <= 0 \"] ;\n41 -> 53 [ arrowhead=normal];\n41 -> 54 [ arrowhead=normal];\n53 [label=\" year2006 <= 0 \"] ;\n53 -> 61 [ arrowhead=normal];\n53 -> 62 [ arrowhead=normal];\n61  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  28 \n avg_Y = 0.5\navg_W = 0.14 \"];\n62  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.43\navg_W = 0.22 \"];\n54 [label=\" rural <= 0 \"] ;\n54 -> 63 [ arrowhead=normal];\n54 -> 64 [ arrowhead=normal];\n63  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  42 \n avg_Y = 0.67\navg_W = 0.29 \"];\n64  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  12 \n avg_Y = 0.83\navg_W = 0.33 \"];\n42 [label=\" benefit <= 0 \"] ;\n42 -> 55 [ arrowhead=normal];\n42 -> 56 [ arrowhead=normal];\n55 [label=\" year2007 <= 0 \"] ;\n55 -> 65 [ arrowhead=normal];\n55 -> 66 [ arrowhead=normal];\n65  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  44 \n avg_Y = 0.61\navg_W = 0.2 \"];\n66  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  40 \n avg_Y = 0.55\navg_W = 0.22 \"];\n56 [label=\" gendermale <= 0 \"] ;\n56 -> 67 [ arrowhead=normal];\n56 -> 68 [ arrowhead=normal];\n67  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  105 \n avg_Y = 0.71\navg_W = 0.27 \"];\n68  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  49 \n avg_Y = 0.71\navg_W = 0.27 \"];\n24 [label=\" year2007 <= 0 \"] ;\n24 -> 31 [ arrowhead=normal];\n24 -> 32 [ arrowhead=normal];\n31  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  68 \n avg_Y = 0.71\navg_W = 0.22 \"];\n32 [label=\" educSecondary <= 0 \"] ;\n32 -> 43 [ arrowhead=normal];\n32 -> 44 [ arrowhead=normal];\n43  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  36 \n avg_Y = 0.53\navg_W = 0.25 \"];\n44  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  30 \n avg_Y = 0.53\navg_W = 0.23 \"];\n16 [label=\" lastempover4 <= 0 \"] ;\n16 -> 25 [ arrowhead=normal];\n16 -> 26 [ arrowhead=normal];\n25 [label=\" rural <= 0 \"] ;\n25 -> 33 [ arrowhead=normal];\n25 -> 34 [ arrowhead=normal];\n33 [label=\" gendermale <= 0 \"] ;\n33 -> 45 [ arrowhead=normal];\n33 -> 46 [ arrowhead=normal];\n45  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  32 \n avg_Y = 0.62\navg_W = 0.34 \"];\n46  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  51 \n avg_Y = 0.47\navg_W = 0.31 \"];\n34  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  45 \n avg_Y = 0.49\navg_W = 0.27 \"];\n26 [label=\" educTertiary <= 0 \"] ;\n26 -> 35 [ arrowhead=normal];\n26 -> 36 [ arrowhead=normal];\n35  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  17 \n avg_Y = 0.59\navg_W = 0.29 \"];\n36  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  18 \n avg_Y = 0.44\navg_W = 0.44 \"];\n8 [label=\" regionMetropolis <= 0 \"] ;\n8 -> 17 [ arrowhead=normal];\n8 -> 18 [ arrowhead=normal];\n17 [label=\" regionGotham <= 0 \"] ;\n17 -> 27 [ arrowhead=normal];\n17 -> 28 [ arrowhead=normal];\n27  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  88 \n avg_Y = 0.47\navg_W = 0.2 \"];\n28 [label=\" immigrant1 <= 0 \"] ;\n28 -> 37 [ arrowhead=normal];\n28 -> 38 [ arrowhead=normal];\n37 [label=\" lastempover4 <= 0 \"] ;\n37 -> 47 [ arrowhead=normal];\n37 -> 48 [ arrowhead=normal];\n47  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  40 \n avg_Y = 0.45\navg_W = 0.2 \"];\n48  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  34 \n avg_Y = 0.38\navg_W = 0.12 \"];\n38  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  60 \n avg_Y = 0.47\navg_W = 0.23 \"];\n18  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  41 \n avg_Y = 0.54\navg_W = 0.37 \"];\n4 [label=\" educSecondary <= 0 \"] ;\n4 -> 9 [ arrowhead=normal];\n4 -> 10 [ arrowhead=normal];\n9 [label=\" gendermale <= 0 \"] ;\n9 -> 19 [ arrowhead=normal];\n9 -> 20 [ arrowhead=normal];\n19  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  44 \n avg_Y = 0.59\navg_W = 0.27 \"];\n20  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  37 \n avg_Y = 0.38\navg_W = 0.35 \"];\n10 [label=\" benefit <= 0 \"] ;\n10 -> 21 [ arrowhead=normal];\n10 -> 22 [ arrowhead=normal];\n21  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  29 \n avg_Y = 0.48\navg_W = 0.14 \"];\n22  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  26 \n avg_Y = 0.42\navg_W = 0.31 \"];\n2 [label=\" rural <= 0 \"] ;\n2 -> 5 [ arrowhead=normal];\n2 -> 6 [ arrowhead=normal];\n5 [label=\" regionCentral <= 0 \"] ;\n5 -> 11 [ arrowhead=normal];\n5 -> 12 [ arrowhead=normal];\n11  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  207 \n avg_Y = 0.63\navg_W = 0.24 \"];\n12  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  40 \n avg_Y = 0.62\navg_W = 0.22 \"];\n6 [label=\" gendermale <= 0 \"] ;\n6 -> 13 [ arrowhead=normal];\n6 -> 14 [ arrowhead=normal];\n13  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  24 \n avg_Y = 0.62\navg_W = 0.21 \"];\n14  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  25 \n avg_Y = 0.48\navg_W = 0.2 \"];\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-b1ff45a46a45ee4e142e">{"x":{"diagram":"digraph nodes { \n node [shape=box] ;\n0 [label=\" age5064 <= 0 \"] ;\n0 -> 1 [labeldistance=2.5, labelangle=45, headlabel=\"True\", arrowhead=normal];\n0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel=\"False\", arrowhead=normal];\n1 [label=\" gendermale <= 0 \"] ;\n1 -> 3 [ arrowhead=normal];\n1 -> 4 [ arrowhead=normal];\n3 [label=\" benefit <= 0 \"] ;\n3 -> 7 [ arrowhead=normal];\n3 -> 8 [ arrowhead=normal];\n7 [label=\" regionBludhaven <= 0 \"] ;\n7 -> 15 [ arrowhead=normal];\n7 -> 16 [ arrowhead=normal];\n15 [label=\" regionCentral <= 0 \"] ;\n15 -> 29 [ arrowhead=normal];\n15 -> 30 [ arrowhead=normal];\n29 [label=\" rural <= 0 \"] ;\n29 -> 47 [ arrowhead=normal];\n29 -> 48 [ arrowhead=normal];\n47 [label=\" collarwhite <= 0 \"] ;\n47 -> 69 [ arrowhead=normal];\n47 -> 70 [ arrowhead=normal];\n69 [label=\" age3049 <= 0 \"] ;\n69 -> 91 [ arrowhead=normal];\n69 -> 92 [ arrowhead=normal];\n91  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  78 \n avg_Y = 0.53\navg_W = 0.19 \"];\n92  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  61 \n avg_Y = 0.57\navg_W = 0.13 \"];\n70 [label=\" year2006 <= 0 \"] ;\n70 -> 93 [ arrowhead=normal];\n70 -> 94 [ arrowhead=normal];\n93  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  40 \n avg_Y = 0.62\navg_W = 0.17 \"];\n94  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  50 \n avg_Y = 0.54\navg_W = 0.2 \"];\n48 [label=\" year2007 <= 0 \"] ;\n48 -> 71 [ arrowhead=normal];\n48 -> 72 [ arrowhead=normal];\n71  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  16 \n avg_Y = 0.38\navg_W = 0.25 \"];\n72  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  17 \n avg_Y = 0.71\navg_W = 0.29 \"];\n30 [label=\" year2007 <= 0 \"] ;\n30 -> 49 [ arrowhead=normal];\n30 -> 50 [ arrowhead=normal];\n49 [label=\" educSecondary <= 0 \"] ;\n49 -> 73 [ arrowhead=normal];\n49 -> 74 [ arrowhead=normal];\n73  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  26 \n avg_Y = 0.58\navg_W = 0.23 \"];\n74  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  24 \n avg_Y = 0.42\navg_W = 0.38 \"];\n50 [label=\" educTertiary <= 0 \"] ;\n50 -> 75 [ arrowhead=normal];\n50 -> 76 [ arrowhead=normal];\n75  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  34 \n avg_Y = 0.26\navg_W = 0.12 \"];\n76  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  26 \n avg_Y = 0.65\navg_W = 0.27 \"];\n16 [label=\" educSecondary <= 0 \"] ;\n16 -> 31 [ arrowhead=normal];\n16 -> 32 [ arrowhead=normal];\n31  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  20 \n avg_Y = 0.45\navg_W = 0.2 \"];\n32  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  11 \n avg_Y = 0.64\navg_W = 0.18 \"];\n8 [label=\" rural <= 0 \"] ;\n8 -> 17 [ arrowhead=normal];\n8 -> 18 [ arrowhead=normal];\n17 [label=\" regionCentral <= 0 \"] ;\n17 -> 33 [ arrowhead=normal];\n17 -> 34 [ arrowhead=normal];\n33 [label=\" regionGotham <= 0 \"] ;\n33 -> 51 [ arrowhead=normal];\n33 -> 52 [ arrowhead=normal];\n51 [label=\" educSecondary <= 0 \"] ;\n51 -> 77 [ arrowhead=normal];\n51 -> 78 [ arrowhead=normal];\n77 [label=\" collarwhite <= 0 \"] ;\n77 -> 95 [ arrowhead=normal];\n77 -> 96 [ arrowhead=normal];\n95  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  13 \n avg_Y = 0.85\navg_W = 0.31 \"];\n96  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  22 \n avg_Y = 0.59\navg_W = 0.45 \"];\n78  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.43\navg_W = 0.35 \"];\n52 [label=\" educTertiary <= 0 \"] ;\n52 -> 79 [ arrowhead=normal];\n52 -> 80 [ arrowhead=normal];\n79  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  54 \n avg_Y = 0.76\navg_W = 0.15 \"];\n80 [label=\" age3049 <= 0 \"] ;\n80 -> 97 [ arrowhead=normal];\n80 -> 98 [ arrowhead=normal];\n97  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  30 \n avg_Y = 0.57\navg_W = 0.23 \"];\n98 [label=\" lastemp2_4 <= 0 \"] ;\n98 -> 105 [ arrowhead=normal];\n98 -> 106 [ arrowhead=normal];\n105 [label=\" year2007 <= 0 \"] ;\n105 -> 117 [ arrowhead=normal];\n105 -> 118 [ arrowhead=normal];\n117  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  38 \n avg_Y = 0.79\navg_W = 0.26 \"];\n118  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  43 \n avg_Y = 0.72\navg_W = 0.26 \"];\n106  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.6\navg_W = 0.4 \"];\n34 [label=\" collarwhite <= 0 \"] ;\n34 -> 53 [ arrowhead=normal];\n34 -> 54 [ arrowhead=normal];\n53 [label=\" age3049 <= 0 \"] ;\n53 -> 81 [ arrowhead=normal];\n53 -> 82 [ arrowhead=normal];\n81  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  4 \n avg_Y = 0.25\navg_W = 0.25 \"];\n82  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  22 \n avg_Y = 0.41\navg_W = 0.32 \"];\n54  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  16 \n avg_Y = 0.81\navg_W = 0.38 \"];\n18 [label=\" educSecondary <= 0 \"] ;\n18 -> 35 [ arrowhead=normal];\n18 -> 36 [ arrowhead=normal];\n35 [label=\" year2007 <= 0 \"] ;\n35 -> 55 [ arrowhead=normal];\n35 -> 56 [ arrowhead=normal];\n55  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.7\navg_W = 0.3 \"];\n56  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  29 \n avg_Y = 0.69\navg_W = 0.14 \"];\n36  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.67\navg_W = 0.53 \"];\n4 [label=\" rural <= 0 \"] ;\n4 -> 9 [ arrowhead=normal];\n4 -> 10 [ arrowhead=normal];\n9 [label=\" lastemp2_4 <= 0 \"] ;\n9 -> 19 [ arrowhead=normal];\n9 -> 20 [ arrowhead=normal];\n19 [label=\" regionMetropolis <= 0 \"] ;\n19 -> 37 [ arrowhead=normal];\n19 -> 38 [ arrowhead=normal];\n37 [label=\" collarwhite <= 0 \"] ;\n37 -> 57 [ arrowhead=normal];\n37 -> 58 [ arrowhead=normal];\n57 [label=\" educSecondary <= 0 \"] ;\n57 -> 83 [ arrowhead=normal];\n57 -> 84 [ arrowhead=normal];\n83 [label=\" year2007 <= 0 \"] ;\n83 -> 99 [ arrowhead=normal];\n83 -> 100 [ arrowhead=normal];\n99 [label=\" regionGotham <= 0 \"] ;\n99 -> 107 [ arrowhead=normal];\n99 -> 108 [ arrowhead=normal];\n107 [label=\" age3049 <= 0 \"] ;\n107 -> 119 [ arrowhead=normal];\n107 -> 120 [ arrowhead=normal];\n119  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  27 \n avg_Y = 0.41\navg_W = 0.15 \"];\n120  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  13 \n avg_Y = 0.54\navg_W = 0.15 \"];\n108  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  36 \n avg_Y = 0.53\navg_W = 0.25 \"];\n100 [label=\" regionCentral <= 0 \"] ;\n100 -> 109 [ arrowhead=normal];\n100 -> 110 [ arrowhead=normal];\n109  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  40 \n avg_Y = 0.45\navg_W = 0.2 \"];\n110  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  19 \n avg_Y = 0.53\navg_W = 0.11 \"];\n84 [label=\" lastempover4 <= 0 \"] ;\n84 -> 101 [ arrowhead=normal];\n84 -> 102 [ arrowhead=normal];\n101 [label=\" regionGotham <= 0 \"] ;\n101 -> 111 [ arrowhead=normal];\n101 -> 112 [ arrowhead=normal];\n111  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  61 \n avg_Y = 0.49\navg_W = 0.26 \"];\n112 [label=\" immigrant1 <= 0 \"] ;\n112 -> 121 [ arrowhead=normal];\n112 -> 122 [ arrowhead=normal];\n121  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  34 \n avg_Y = 0.56\navg_W = 0.29 \"];\n122  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  11 \n avg_Y = 0.55\navg_W = 0.55 \"];\n102 [label=\" regionGotham <= 0 \"] ;\n102 -> 113 [ arrowhead=normal];\n102 -> 114 [ arrowhead=normal];\n113  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.73\navg_W = 0.67 \"];\n114  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  6 \n avg_Y = 0.83\navg_W = 0.33 \"];\n58 [label=\" regionGotham <= 0 \"] ;\n58 -> 85 [ arrowhead=normal];\n58 -> 86 [ arrowhead=normal];\n85  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  41 \n avg_Y = 0.59\navg_W = 0.24 \"];\n86 [label=\" educSecondary <= 0 \"] ;\n86 -> 103 [ arrowhead=normal];\n86 -> 104 [ arrowhead=normal];\n103 [label=\" year2006 <= 0 \"] ;\n103 -> 115 [ arrowhead=normal];\n103 -> 116 [ arrowhead=normal];\n115 [label=\" lastempover4 <= 0 \"] ;\n115 -> 123 [ arrowhead=normal];\n115 -> 124 [ arrowhead=normal];\n123  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  17 \n avg_Y = 0.59\navg_W = 0.35 \"];\n124  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.73\navg_W = 0.2 \"];\n116  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  27 \n avg_Y = 0.63\navg_W = 0.26 \"];\n104  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  35 \n avg_Y = 0.63\navg_W = 0.29 \"];\n38 [label=\" lastemp1_2 <= 0 \"] ;\n38 -> 59 [ arrowhead=normal];\n38 -> 60 [ arrowhead=normal];\n59 [label=\" age3049 <= 0 \"] ;\n59 -> 87 [ arrowhead=normal];\n59 -> 88 [ arrowhead=normal];\n87  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  27 \n avg_Y = 0.41\navg_W = 0.3 \"];\n88  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  17 \n avg_Y = 0.71\navg_W = 0.41 \"];\n60  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  12 \n avg_Y = 0.25\navg_W = 0.17 \"];\n20 [label=\" collarwhite <= 0 \"] ;\n20 -> 39 [ arrowhead=normal];\n20 -> 40 [ arrowhead=normal];\n39 [label=\" educSecondary <= 0 \"] ;\n39 -> 61 [ arrowhead=normal];\n39 -> 62 [ arrowhead=normal];\n61  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  26 \n avg_Y = 0.58\navg_W = 0.23 \"];\n62  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  18 \n avg_Y = 0.44\navg_W = 0.17 \"];\n40  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  39 \n avg_Y = 0.62\navg_W = 0.23 \"];\n10 [label=\" regionBludhaven <= 0 \"] ;\n10 -> 21 [ arrowhead=normal];\n10 -> 22 [ arrowhead=normal];\n21 [label=\" educSecondary <= 0 \"] ;\n21 -> 41 [ arrowhead=normal];\n21 -> 42 [ arrowhead=normal];\n41 [label=\" benefit <= 0 \"] ;\n41 -> 63 [ arrowhead=normal];\n41 -> 64 [ arrowhead=normal];\n63  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  42 \n avg_Y = 0.43\navg_W = 0.21 \"];\n64  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  28 \n avg_Y = 0.61\navg_W = 0.36 \"];\n42 [label=\" year2007 <= 0 \"] ;\n42 -> 65 [ arrowhead=normal];\n42 -> 66 [ arrowhead=normal];\n65  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  25 \n avg_Y = 0.44\navg_W = 0.16 \"];\n66  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  17 \n avg_Y = 0.41\navg_W = 0.24 \"];\n22  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  24 \n avg_Y = 0.29\navg_W = 0.25 \"];\n2 [label=\" educTertiary <= 0 \"] ;\n2 -> 5 [ arrowhead=normal];\n2 -> 6 [ arrowhead=normal];\n5 [label=\" lastempover4 <= 0 \"] ;\n5 -> 11 [ arrowhead=normal];\n5 -> 12 [ arrowhead=normal];\n11  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  89 \n avg_Y = 0.43\navg_W = 0.16 \"];\n12 [label=\" regionCentral <= 0 \"] ;\n12 -> 23 [ arrowhead=normal];\n12 -> 24 [ arrowhead=normal];\n23  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  55 \n avg_Y = 0.29\navg_W = 0.2 \"];\n24  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  12 \n avg_Y = 0.42\navg_W = 0.08 \"];\n6 [label=\" benefit <= 0 \"] ;\n6 -> 13 [ arrowhead=normal];\n6 -> 14 [ arrowhead=normal];\n13 [label=\" regionGotham <= 0 \"] ;\n13 -> 25 [ arrowhead=normal];\n13 -> 26 [ arrowhead=normal];\n25  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  30 \n avg_Y = 0.5\navg_W = 0.33 \"];\n26 [label=\" collarwhite <= 0 \"] ;\n26 -> 43 [ arrowhead=normal];\n26 -> 44 [ arrowhead=normal];\n43  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.52\navg_W = 0.17 \"];\n44  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  13 \n avg_Y = 0.54\navg_W = 0.31 \"];\n14 [label=\" immigrant1 <= 0 \"] ;\n14 -> 27 [ arrowhead=normal];\n14 -> 28 [ arrowhead=normal];\n27 [label=\" lastemp2_4 <= 0 \"] ;\n27 -> 45 [ arrowhead=normal];\n27 -> 46 [ arrowhead=normal];\n45 [label=\" gendermale <= 0 \"] ;\n45 -> 67 [ arrowhead=normal];\n45 -> 68 [ arrowhead=normal];\n67 [label=\" year2007 <= 0 \"] ;\n67 -> 89 [ arrowhead=normal];\n67 -> 90 [ arrowhead=normal];\n89  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.73\navg_W = 0.33 \"];\n90  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  31 \n avg_Y = 0.58\navg_W = 0.32 \"];\n68  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  40 \n avg_Y = 0.58\navg_W = 0.32 \"];\n46  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  20 \n avg_Y = 0.8\navg_W = 0.3 \"];\n28  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  35 \n avg_Y = 0.6\navg_W = 0.14 \"];\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">get_tree</span>(c.forest, <span class="dv">2</span>))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="grViz html-widget html-fill-item" id="htmlwidget-ddc9431fbb35fac13561" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-ddc9431fbb35fac13561">{"x":{"diagram":"digraph nodes { \n node [shape=box] ;\n0 [label=\" age5064 <= 0 \"] ;\n0 -> 1 [labeldistance=2.5, labelangle=45, headlabel=\"True\", arrowhead=normal];\n0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel=\"False\", arrowhead=normal];\n1 [label=\" regionGotham <= 0 \"] ;\n1 -> 3 [ arrowhead=normal];\n1 -> 4 [ arrowhead=normal];\n3 [label=\" rural <= 0 \"] ;\n3 -> 7 [ arrowhead=normal];\n3 -> 8 [ arrowhead=normal];\n7 [label=\" gendermale <= 0 \"] ;\n7 -> 15 [ arrowhead=normal];\n7 -> 16 [ arrowhead=normal];\n15 [label=\" age3049 <= 0 \"] ;\n15 -> 23 [ arrowhead=normal];\n15 -> 24 [ arrowhead=normal];\n23 [label=\" educTertiary <= 0 \"] ;\n23 -> 37 [ arrowhead=normal];\n23 -> 38 [ arrowhead=normal];\n37 [label=\" regionMetropolis <= 0 \"] ;\n37 -> 55 [ arrowhead=normal];\n37 -> 56 [ arrowhead=normal];\n55 [label=\" regionBludhaven <= 0 \"] ;\n55 -> 69 [ arrowhead=normal];\n55 -> 70 [ arrowhead=normal];\n69  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  46 \n avg_Y = 0.3\navg_W = 0.17 \"];\n70  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.4\navg_W = 0.33 \"];\n56  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.47\navg_W = 0.2 \"];\n38  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  41 \n avg_Y = 0.63\navg_W = 0.24 \"];\n24 [label=\" regionMetropolis <= 0 \"] ;\n24 -> 39 [ arrowhead=normal];\n24 -> 40 [ arrowhead=normal];\n39 [label=\" regionCentral <= 0 \"] ;\n39 -> 57 [ arrowhead=normal];\n39 -> 58 [ arrowhead=normal];\n57  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  55 \n avg_Y = 0.49\navg_W = 0.2 \"];\n58 [label=\" year2006 <= 0 \"] ;\n58 -> 71 [ arrowhead=normal];\n58 -> 72 [ arrowhead=normal];\n71  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  39 \n avg_Y = 0.51\navg_W = 0.31 \"];\n72 [label=\" educTertiary <= 0 \"] ;\n72 -> 75 [ arrowhead=normal];\n72 -> 76 [ arrowhead=normal];\n75  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  8 \n avg_Y = 0.62\navg_W = 0.12 \"];\n76  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  14 \n avg_Y = 0.79\navg_W = 0.43 \"];\n40 [label=\" year2007 <= 0 \"] ;\n40 -> 59 [ arrowhead=normal];\n40 -> 60 [ arrowhead=normal];\n59  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  19 \n avg_Y = 0.63\navg_W = 0.32 \"];\n60  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  7 \n avg_Y = 0.71\navg_W = 0.43 \"];\n16 [label=\" educSecondary <= 0 \"] ;\n16 -> 25 [ arrowhead=normal];\n16 -> 26 [ arrowhead=normal];\n25 [label=\" lastemp1_2 <= 0 \"] ;\n25 -> 41 [ arrowhead=normal];\n25 -> 42 [ arrowhead=normal];\n41 [label=\" educTertiary <= 0 \"] ;\n41 -> 61 [ arrowhead=normal];\n41 -> 62 [ arrowhead=normal];\n61  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  67 \n avg_Y = 0.4\navg_W = 0.18 \"];\n62 [label=\" lastempover4 <= 0 \"] ;\n62 -> 73 [ arrowhead=normal];\n62 -> 74 [ arrowhead=normal];\n73 [label=\" age3049 <= 0 \"] ;\n73 -> 77 [ arrowhead=normal];\n73 -> 78 [ arrowhead=normal];\n77  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  12 \n avg_Y = 0.67\navg_W = 0.25 \"];\n78  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.57\navg_W = 0.26 \"];\n74  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  14 \n avg_Y = 0.71\navg_W = 0.21 \"];\n42  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  18 \n avg_Y = 0.44\navg_W = 0.28 \"];\n26 [label=\" immigrant1 <= 0 \"] ;\n26 -> 43 [ arrowhead=normal];\n26 -> 44 [ arrowhead=normal];\n43 [label=\" regionMetropolis <= 0 \"] ;\n43 -> 63 [ arrowhead=normal];\n43 -> 64 [ arrowhead=normal];\n63  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  63 \n avg_Y = 0.56\navg_W = 0.24 \"];\n64  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  27 \n avg_Y = 0.48\navg_W = 0.33 \"];\n44 [label=\" lastempover4 <= 0 \"] ;\n44 -> 65 [ arrowhead=normal];\n44 -> 66 [ arrowhead=normal];\n65  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  24 \n avg_Y = 0.46\navg_W = 0.21 \"];\n66  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  3 \n avg_Y = 0.67\navg_W = 1 \"];\n8 [label=\" benefit <= 0 \"] ;\n8 -> 17 [ arrowhead=normal];\n8 -> 18 [ arrowhead=normal];\n17 [label=\" year2006 <= 0 \"] ;\n17 -> 27 [ arrowhead=normal];\n17 -> 28 [ arrowhead=normal];\n27 [label=\" lastempover4 <= 0 \"] ;\n27 -> 45 [ arrowhead=normal];\n27 -> 46 [ arrowhead=normal];\n45  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  59 \n avg_Y = 0.42\navg_W = 0.2 \"];\n46  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  11 \n avg_Y = 0.64\navg_W = 0.45 \"];\n28 [label=\" gendermale <= 0 \"] ;\n28 -> 47 [ arrowhead=normal];\n28 -> 48 [ arrowhead=normal];\n47  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  37 \n avg_Y = 0.51\navg_W = 0.32 \"];\n48  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  43 \n avg_Y = 0.42\navg_W = 0.3 \"];\n18  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  90 \n avg_Y = 0.61\navg_W = 0.38 \"];\n4 [label=\" benefit <= 0 \"] ;\n4 -> 9 [ arrowhead=normal];\n4 -> 10 [ arrowhead=normal];\n9  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  319 \n avg_Y = 0.5\navg_W = 0.2 \"];\n10 [label=\" collarwhite <= 0 \"] ;\n10 -> 19 [ arrowhead=normal];\n10 -> 20 [ arrowhead=normal];\n19 [label=\" lastempover4 <= 0 \"] ;\n19 -> 29 [ arrowhead=normal];\n19 -> 30 [ arrowhead=normal];\n29  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  77 \n avg_Y = 0.66\navg_W = 0.19 \"];\n30  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  26 \n avg_Y = 0.81\navg_W = 0.31 \"];\n20 [label=\" gendermale <= 0 \"] ;\n20 -> 31 [ arrowhead=normal];\n20 -> 32 [ arrowhead=normal];\n31 [label=\" lastempover4 <= 0 \"] ;\n31 -> 49 [ arrowhead=normal];\n31 -> 50 [ arrowhead=normal];\n49 [label=\" year2007 <= 0 \"] ;\n49 -> 67 [ arrowhead=normal];\n49 -> 68 [ arrowhead=normal];\n67  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  43 \n avg_Y = 0.72\navg_W = 0.23 \"];\n68  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  56 \n avg_Y = 0.7\navg_W = 0.16 \"];\n50  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  53 \n avg_Y = 0.66\navg_W = 0.25 \"];\n32 [label=\" educSecondary <= 0 \"] ;\n32 -> 51 [ arrowhead=normal];\n32 -> 52 [ arrowhead=normal];\n51  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  64 \n avg_Y = 0.77\navg_W = 0.27 \"];\n52  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  33 \n avg_Y = 0.61\navg_W = 0.18 \"];\n2 [label=\" regionMetropolis <= 0 \"] ;\n2 -> 5 [ arrowhead=normal];\n2 -> 6 [ arrowhead=normal];\n5 [label=\" regionBludhaven <= 0 \"] ;\n5 -> 11 [ arrowhead=normal];\n5 -> 12 [ arrowhead=normal];\n11 [label=\" gendermale <= 0 \"] ;\n11 -> 21 [ arrowhead=normal];\n11 -> 22 [ arrowhead=normal];\n21 [label=\" lastempover4 <= 0 \"] ;\n21 -> 33 [ arrowhead=normal];\n21 -> 34 [ arrowhead=normal];\n33  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  55 \n avg_Y = 0.6\navg_W = 0.22 \"];\n34  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  63 \n avg_Y = 0.46\navg_W = 0.14 \"];\n22 [label=\" regionCentral <= 0 \"] ;\n22 -> 35 [ arrowhead=normal];\n22 -> 36 [ arrowhead=normal];\n35 [label=\" educSecondary <= 0 \"] ;\n35 -> 53 [ arrowhead=normal];\n35 -> 54 [ arrowhead=normal];\n53  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  73 \n avg_Y = 0.49\navg_W = 0.21 \"];\n54  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  48 \n avg_Y = 0.38\navg_W = 0.15 \"];\n36  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  42 \n avg_Y = 0.45\navg_W = 0.31 \"];\n12  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  39 \n avg_Y = 0.64\navg_W = 0.21 \"];\n6 [label=\" year2007 <= 0 \"] ;\n6 -> 13 [ arrowhead=normal];\n6 -> 14 [ arrowhead=normal];\n13  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  20 \n avg_Y = 0.55\navg_W = 0.35 \"];\n14  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  24 \n avg_Y = 0.54\navg_W = 0.25 \"];\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-ddc9431fbb35fac13561">{"x":{"diagram":"digraph nodes { \n node [shape=box] ;\n0 [label=\" lastempover4 <= 0 \"] ;\n0 -> 1 [labeldistance=2.5, labelangle=45, headlabel=\"True\", arrowhead=normal];\n0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel=\"False\", arrowhead=normal];\n1 [label=\" age3049 <= 0 \"] ;\n1 -> 3 [ arrowhead=normal];\n1 -> 4 [ arrowhead=normal];\n3 [label=\" age5064 <= 0 \"] ;\n3 -> 7 [ arrowhead=normal];\n3 -> 8 [ arrowhead=normal];\n7 [label=\" regionCentral <= 0 \"] ;\n7 -> 15 [ arrowhead=normal];\n7 -> 16 [ arrowhead=normal];\n15 [label=\" gendermale <= 0 \"] ;\n15 -> 29 [ arrowhead=normal];\n15 -> 30 [ arrowhead=normal];\n29 [label=\" rural <= 0 \"] ;\n29 -> 53 [ arrowhead=normal];\n29 -> 54 [ arrowhead=normal];\n53 [label=\" regionGotham <= 0 \"] ;\n53 -> 81 [ arrowhead=normal];\n53 -> 82 [ arrowhead=normal];\n81 [label=\" lastemp2_4 <= 0 \"] ;\n81 -> 109 [ arrowhead=normal];\n81 -> 110 [ arrowhead=normal];\n109  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  39 \n avg_Y = 0.46\navg_W = 0.26 \"];\n110  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  8 \n avg_Y = 0.5\navg_W = 0.38 \"];\n82 [label=\" benefit <= 0 \"] ;\n82 -> 111 [ arrowhead=normal];\n82 -> 112 [ arrowhead=normal];\n111  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  62 \n avg_Y = 0.5\navg_W = 0.15 \"];\n112  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  39 \n avg_Y = 0.54\navg_W = 0.26 \"];\n54  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  34 \n avg_Y = 0.53\navg_W = 0.26 \"];\n30 [label=\" collarwhite <= 0 \"] ;\n30 -> 55 [ arrowhead=normal];\n30 -> 56 [ arrowhead=normal];\n55 [label=\" year2007 <= 0 \"] ;\n55 -> 83 [ arrowhead=normal];\n55 -> 84 [ arrowhead=normal];\n83 [label=\" educTertiary <= 0 \"] ;\n83 -> 113 [ arrowhead=normal];\n83 -> 114 [ arrowhead=normal];\n113 [label=\" benefit <= 0 \"] ;\n113 -> 121 [ arrowhead=normal];\n113 -> 122 [ arrowhead=normal];\n121 [label=\" regionGotham <= 0 \"] ;\n121 -> 123 [ arrowhead=normal];\n121 -> 124 [ arrowhead=normal];\n123  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  39 \n avg_Y = 0.41\navg_W = 0.33 \"];\n124  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.39\navg_W = 0.26 \"];\n122  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  16 \n avg_Y = 0.56\navg_W = 0.25 \"];\n114  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  11 \n avg_Y = 0.82\navg_W = 0.27 \"];\n84 [label=\" educSecondary <= 0 \"] ;\n84 -> 115 [ arrowhead=normal];\n84 -> 116 [ arrowhead=normal];\n115  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  34 \n avg_Y = 0.44\navg_W = 0.15 \"];\n116  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  28 \n avg_Y = 0.46\navg_W = 0.25 \"];\n56  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  59 \n avg_Y = 0.66\navg_W = 0.14 \"];\n16 [label=\" benefit <= 0 \"] ;\n16 -> 31 [ arrowhead=normal];\n16 -> 32 [ arrowhead=normal];\n31 [label=\" educSecondary <= 0 \"] ;\n31 -> 57 [ arrowhead=normal];\n31 -> 58 [ arrowhead=normal];\n57 [label=\" year2007 <= 0 \"] ;\n57 -> 85 [ arrowhead=normal];\n57 -> 86 [ arrowhead=normal];\n85  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  32 \n avg_Y = 0.56\navg_W = 0.16 \"];\n86  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  32 \n avg_Y = 0.56\navg_W = 0.12 \"];\n58 [label=\" rural <= 0 \"] ;\n58 -> 87 [ arrowhead=normal];\n58 -> 88 [ arrowhead=normal];\n87  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  35 \n avg_Y = 0.43\navg_W = 0.23 \"];\n88  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  15 \n avg_Y = 0.6\navg_W = 0.4 \"];\n32 [label=\" year2006 <= 0 \"] ;\n32 -> 59 [ arrowhead=normal];\n32 -> 60 [ arrowhead=normal];\n59  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  16 \n avg_Y = 0.62\navg_W = 0.38 \"];\n60  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  8 \n avg_Y = 0.75\navg_W = 0.25 \"];\n8 [label=\" regionCentral <= 0 \"] ;\n8 -> 17 [ arrowhead=normal];\n8 -> 18 [ arrowhead=normal];\n17 [label=\" regionMetropolis <= 0 \"] ;\n17 -> 33 [ arrowhead=normal];\n17 -> 34 [ arrowhead=normal];\n33 [label=\" educSecondary <= 0 \"] ;\n33 -> 61 [ arrowhead=normal];\n33 -> 62 [ arrowhead=normal];\n61 [label=\" year2006 <= 0 \"] ;\n61 -> 89 [ arrowhead=normal];\n61 -> 90 [ arrowhead=normal];\n89  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  44 \n avg_Y = 0.64\navg_W = 0.34 \"];\n90  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  37 \n avg_Y = 0.43\navg_W = 0.16 \"];\n62  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  47 \n avg_Y = 0.51\navg_W = 0.09 \"];\n34  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  26 \n avg_Y = 0.42\navg_W = 0.27 \"];\n18 [label=\" educTertiary <= 0 \"] ;\n18 -> 35 [ arrowhead=normal];\n18 -> 36 [ arrowhead=normal];\n35  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  24 \n avg_Y = 0.25\navg_W = 0.21 \"];\n36  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  27 \n avg_Y = 0.41\navg_W = 0.22 \"];\n4 [label=\" gendermale <= 0 \"] ;\n4 -> 9 [ arrowhead=normal];\n4 -> 10 [ arrowhead=normal];\n9 [label=\" collarwhite <= 0 \"] ;\n9 -> 19 [ arrowhead=normal];\n9 -> 20 [ arrowhead=normal];\n19 [label=\" regionCentral <= 0 \"] ;\n19 -> 37 [ arrowhead=normal];\n19 -> 38 [ arrowhead=normal];\n37 [label=\" year2006 <= 0 \"] ;\n37 -> 63 [ arrowhead=normal];\n37 -> 64 [ arrowhead=normal];\n63 [label=\" benefit <= 0 \"] ;\n63 -> 91 [ arrowhead=normal];\n63 -> 92 [ arrowhead=normal];\n91  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  27 \n avg_Y = 0.41\navg_W = 0.26 \"];\n92  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  22 \n avg_Y = 0.64\navg_W = 0.23 \"];\n64 [label=\" regionGotham <= 0 \"] ;\n64 -> 93 [ arrowhead=normal];\n64 -> 94 [ arrowhead=normal];\n93  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  32 \n avg_Y = 0.44\navg_W = 0.16 \"];\n94  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.48\navg_W = 0.09 \"];\n38  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  33 \n avg_Y = 0.48\navg_W = 0.21 \"];\n20 [label=\" lastemp2_4 <= 0 \"] ;\n20 -> 39 [ arrowhead=normal];\n20 -> 40 [ arrowhead=normal];\n39 [label=\" educTertiary <= 0 \"] ;\n39 -> 65 [ arrowhead=normal];\n39 -> 66 [ arrowhead=normal];\n65  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  19 \n avg_Y = 0.47\navg_W = 0.32 \"];\n66 [label=\" year2006 <= 0 \"] ;\n66 -> 95 [ arrowhead=normal];\n66 -> 96 [ arrowhead=normal];\n95  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  39 \n avg_Y = 0.82\navg_W = 0.31 \"];\n96 [label=\" lastemp1_2 <= 0 \"] ;\n96 -> 117 [ arrowhead=normal];\n96 -> 118 [ arrowhead=normal];\n117  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  18 \n avg_Y = 0.72\navg_W = 0.39 \"];\n118  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  11 \n avg_Y = 0.45\navg_W = 0.27 \"];\n40 [label=\" benefit <= 0 \"] ;\n40 -> 67 [ arrowhead=normal];\n40 -> 68 [ arrowhead=normal];\n67  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  17 \n avg_Y = 0.65\navg_W = 0.29 \"];\n68  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  34 \n avg_Y = 0.79\navg_W = 0.41 \"];\n10 [label=\" regionGotham <= 0 \"] ;\n10 -> 21 [ arrowhead=normal];\n10 -> 22 [ arrowhead=normal];\n21 [label=\" lastemp1_2 <= 0 \"] ;\n21 -> 41 [ arrowhead=normal];\n21 -> 42 [ arrowhead=normal];\n41 [label=\" benefit <= 0 \"] ;\n41 -> 69 [ arrowhead=normal];\n41 -> 70 [ arrowhead=normal];\n69 [label=\" educTertiary <= 0 \"] ;\n69 -> 97 [ arrowhead=normal];\n69 -> 98 [ arrowhead=normal];\n97  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  44 \n avg_Y = 0.3\navg_W = 0.16 \"];\n98  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  8 \n avg_Y = 0.25\navg_W = 0.38 \"];\n70 [label=\" regionCentral <= 0 \"] ;\n70 -> 99 [ arrowhead=normal];\n70 -> 100 [ arrowhead=normal];\n99  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  30 \n avg_Y = 0.73\navg_W = 0.37 \"];\n100  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  20 \n avg_Y = 0.65\navg_W = 0.15 \"];\n42  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  26 \n avg_Y = 0.38\navg_W = 0.27 \"];\n22 [label=\" immigrant1 <= 0 \"] ;\n22 -> 43 [ arrowhead=normal];\n22 -> 44 [ arrowhead=normal];\n43 [label=\" lastemp2_4 <= 0 \"] ;\n43 -> 71 [ arrowhead=normal];\n43 -> 72 [ arrowhead=normal];\n71 [label=\" educSecondary <= 0 \"] ;\n71 -> 101 [ arrowhead=normal];\n71 -> 102 [ arrowhead=normal];\n101  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  49 \n avg_Y = 0.55\navg_W = 0.31 \"];\n102  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  23 \n avg_Y = 0.61\navg_W = 0.22 \"];\n72  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  25 \n avg_Y = 0.56\navg_W = 0.28 \"];\n44  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  43 \n avg_Y = 0.44\navg_W = 0.3 \"];\n2 [label=\" immigrant1 <= 0 \"] ;\n2 -> 5 [ arrowhead=normal];\n2 -> 6 [ arrowhead=normal];\n5 [label=\" age3049 <= 0 \"] ;\n5 -> 11 [ arrowhead=normal];\n5 -> 12 [ arrowhead=normal];\n11 [label=\" age5064 <= 0 \"] ;\n11 -> 23 [ arrowhead=normal];\n11 -> 24 [ arrowhead=normal];\n23 [label=\" educTertiary <= 0 \"] ;\n23 -> 45 [ arrowhead=normal];\n23 -> 46 [ arrowhead=normal];\n45  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  18 \n avg_Y = 0.56\navg_W = 0.28 \"];\n46  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  14 \n avg_Y = 0.5\navg_W = 0.07 \"];\n24 [label=\" collarwhite <= 0 \"] ;\n24 -> 47 [ arrowhead=normal];\n24 -> 48 [ arrowhead=normal];\n47  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  69 \n avg_Y = 0.51\navg_W = 0.23 \"];\n48 [label=\" regionCentral <= 0 \"] ;\n48 -> 73 [ arrowhead=normal];\n48 -> 74 [ arrowhead=normal];\n73 [label=\" year2007 <= 0 \"] ;\n73 -> 103 [ arrowhead=normal];\n73 -> 104 [ arrowhead=normal];\n103  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  22 \n avg_Y = 0.59\navg_W = 0.23 \"];\n104  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  30 \n avg_Y = 0.6\navg_W = 0.23 \"];\n74  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  16 \n avg_Y = 0.5\navg_W = 0.44 \"];\n12 [label=\" collarwhite <= 0 \"] ;\n12 -> 25 [ arrowhead=normal];\n12 -> 26 [ arrowhead=normal];\n25 [label=\" rural <= 0 \"] ;\n25 -> 49 [ arrowhead=normal];\n25 -> 50 [ arrowhead=normal];\n49 [label=\" benefit <= 0 \"] ;\n49 -> 75 [ arrowhead=normal];\n49 -> 76 [ arrowhead=normal];\n75  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  22 \n avg_Y = 0.59\navg_W = 0.09 \"];\n76 [label=\" regionCentral <= 0 \"] ;\n76 -> 105 [ arrowhead=normal];\n76 -> 106 [ arrowhead=normal];\n105  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  14 \n avg_Y = 0.5\navg_W = 0.29 \"];\n106  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  13 \n avg_Y = 0.54\navg_W = 0.46 \"];\n50 [label=\" benefit <= 0 \"] ;\n50 -> 77 [ arrowhead=normal];\n50 -> 78 [ arrowhead=normal];\n77  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  13 \n avg_Y = 0.54\navg_W = 0.31 \"];\n78  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  21 \n avg_Y = 0.81\navg_W = 0.38 \"];\n26 [label=\" benefit <= 0 \"] ;\n26 -> 51 [ arrowhead=normal];\n26 -> 52 [ arrowhead=normal];\n51  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  46 \n avg_Y = 0.52\navg_W = 0.24 \"];\n52 [label=\" educTertiary <= 0 \"] ;\n52 -> 79 [ arrowhead=normal];\n52 -> 80 [ arrowhead=normal];\n79  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  31 \n avg_Y = 0.61\navg_W = 0.16 \"];\n80 [label=\" rural <= 0 \"] ;\n80 -> 107 [ arrowhead=normal];\n80 -> 108 [ arrowhead=normal];\n107 [label=\" regionGotham <= 0 \"] ;\n107 -> 119 [ arrowhead=normal];\n107 -> 120 [ arrowhead=normal];\n119  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  16 \n avg_Y = 0.81\navg_W = 0.5 \"];\n120  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  51 \n avg_Y = 0.71\navg_W = 0.35 \"];\n108  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  10 \n avg_Y = 0.4\navg_W = 0.4 \"];\n6 [label=\" year2007 <= 0 \"] ;\n6 -> 13 [ arrowhead=normal];\n6 -> 14 [ arrowhead=normal];\n13 [label=\" age3049 <= 0 \"] ;\n13 -> 27 [ arrowhead=normal];\n13 -> 28 [ arrowhead=normal];\n27  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  38 \n avg_Y = 0.45\navg_W = 0.13 \"];\n28  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  35 \n avg_Y = 0.66\navg_W = 0.34 \"];\n14  [shape=box,style=filled,color=\".7 .3 1.0\" , label=\"size =  28 \n avg_Y = 0.43\navg_W = 0.29 \"];\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -1671,12 +1682,13 @@ Variable importance:
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tau_hat)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  0.02608919  0.02495293 -0.02582730  0.06666892  0.04317588  0.05050049</code></pre>
+<pre><code>[1]  0.003960774  0.003870103 -0.076528919  0.113466153  0.022803862
+[6] -0.000236011</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tau_hat)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
--0.09173  0.02281  0.04978  0.05246  0.07862  0.21379 </code></pre>
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-0.225352  0.004905  0.046235  0.047406  0.091762  0.261910 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(tau_hat)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -1696,12 +1708,10 @@ Variable importance:
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(tau_hat)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.05245646</code></pre>
+<pre><code>[1] 0.04740639</code></pre>
 </div>
 </div>
-<ol start="2025" type="1">
-<li>aasta praktikumi näites oli see ligikaudu 5 protsendipunkti.</li>
-</ol>
+<p>See on ligikaudu 5 protsendipunkti.</p>
 </section>
 <section id="ate-aipw-abil" class="level2" data-number="22.3">
 <h2 data-number="22.3" class="anchored" data-anchor-id="ate-aipw-abil"><span class="header-section-number">22.3</span> ATE AIPW abil</h2>
@@ -1715,45 +1725,38 @@ Variable importance:
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>ate_cf</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> estimate   std.err 
-0.0569899 0.0132383 </code></pre>
+<pre><code>  estimate    std.err 
+0.05836523 0.01448196 </code></pre>
 </div>
 </div>
-<ol start="2025" type="1">
-<li>aasta praktikumifailis saadi</li>
-</ol>
-<pre class="text"><code>estimate    std.err
-0.05644     0.01315</code></pre>
-<p>Seega oli AIPW-ga korrigeeritud ATE ligikaudu <strong>5,6 protsendipunkti</strong>.</p>
+<p>Seega oli AIPW-ga korrigeeritud ATE ligikaudu <strong>5,8 protsendipunkti</strong>.</p>
 <section id="att-ja-atu" class="level3">
 <h3 class="anchored" data-anchor-id="att-ja-atu">ATT ja ATU</h3>
 <p>Osalejate keskmine mõju:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">average_treatment_effect</span>(</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  c.forest,</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">target.sample =</span> <span class="st">"treated"</span>,</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"AIPW"</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">average_treatment_effect</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  c.forest,</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">target.sample =</span> <span class="st">"treated"</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"AIPW"</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  estimate    std.err 
-0.05151484 0.01326170 </code></pre>
+0.04136772 0.01366251 </code></pre>
 </div>
 </div>
 <p>Mitteosalejate keskmine mõju:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">average_treatment_effect</span>(</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  c.forest,</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">target.sample =</span> <span class="st">"control"</span>,</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"AIPW"</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">average_treatment_effect</span>(</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  c.forest,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">target.sample =</span> <span class="st">"control"</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"AIPW"</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  estimate    std.err 
-0.05887879 0.01351105 </code></pre>
+0.06323484 0.01448055 </code></pre>
 </div>
 </div>
-<ol start="2025" type="1">
-<li>aasta praktikumi väljundis olid hinnangud ligikaudu:</li>
-</ol>
+<p>Seega</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1764,15 +1767,15 @@ Variable importance:
 <tbody>
 <tr class="odd">
 <td>ATE: kõik</td>
-<td style="text-align: right;">0.0564</td>
+<td style="text-align: right;">0.058</td>
 </tr>
 <tr class="even">
 <td>ATT: osalejad</td>
-<td style="text-align: right;">0.0514</td>
+<td style="text-align: right;">0.041</td>
 </tr>
 <tr class="odd">
 <td>ATU: mitteosalejad</td>
-<td style="text-align: right;">0.0582</td>
+<td style="text-align: right;">0.063</td>
 </tr>
 </tbody>
 </table>
@@ -1802,15 +1805,15 @@ Variable importance:
 <h2 data-number="22.4" class="anchored" data-anchor-id="vaatame-aipw-skoore-otse"><span class="header-section-number">22.4</span> Vaatame AIPW-skoore otse</h2>
 <p><code>grf</code> võimaldab ka doubly robust ehk AIPW-skoorid otse välja võtta.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>dr_scores <span class="ot">&lt;-</span> <span class="fu">get_scores</span>(c.forest)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dr_scores)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>dr_scores <span class="ot">&lt;-</span> <span class="fu">get_scores</span>(c.forest)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dr_scores)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  1.1072670 -0.4343757  0.4791820 -0.4716534 -2.3823916  0.7377783</code></pre>
+<pre><code>[1]  0.9181910 -0.2975488  0.3171140 -0.5142343 -1.9625683  0.6096051</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dr_scores)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dr_scores)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0569899</code></pre>
+<pre><code>[1] 0.05836523</code></pre>
 </div>
 </div>
 <p>Regulaarsustingimustel on nende skooride keskmine efektiivne ATE hinnang.</p>
@@ -1829,7 +1832,7 @@ Variable importance:
 <p>Ainuüksi see, et <code>tau_hat</code> väärtused on erinevad, ei tõesta, et tegelik põhjuslik mõju on heterogeenne. Paindlik mudel leiab alati mingit varieeruvust.</p>
 <p><code>grf</code> pakub diagnostikaks näiteks funktsiooni</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_calibration</span>(c.forest)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_calibration</span>(c.forest)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Best linear fit using forest predictions (on held-out data)
@@ -1837,8 +1840,8 @@ as well as the mean forest prediction as regressors, along
 with one-sided heteroskedasticity-robust (HC3) SEs:
 
                                Estimate Std. Error t value    Pr(&gt;t)    
-mean.forest.prediction          1.02814    0.25292  4.0651 2.426e-05 ***
-differential.forest.prediction  1.13952    0.30022  3.7957 7.423e-05 ***
+mean.forest.prediction          1.02492    0.27952  3.6667 0.0001238 ***
+differential.forest.prediction  0.80600    0.18783  4.2911 9.006e-06 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1849,12 +1852,57 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><code>differential.forest.prediction</code>: väärtus 1 ümbruses viitab hästi kalibreeritud mõju heterogeensusele.</li>
 </ul>
 <p><code>differential.forest.prediction</code> statistiliselt positiivne väärtus annab ka üldise testi selle kohta, kas mets leidis prognoositavat heterogeensust.</p>
-<ol start="2025" type="1">
-<li>aasta praktikumi näites olid hinnangud ligikaudu</li>
-</ol>
-<pre class="text"><code>mean.forest.prediction          1.009
-differential.forest.prediction  1.160</code></pre>
-<p>mis olid mõlemad ühe lähedal.</p>
+<section id="käsitsi-ülaltoodud-regressioonimudel-õppimise-eesmärgil" class="level3">
+<h3 class="anchored" data-anchor-id="käsitsi-ülaltoodud-regressioonimudel-õppimise-eesmärgil">Käsitsi ülaltoodud regressioonimudel õppimise eesmärgil</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. OOB-mõjuprognoosid ja nende keskmine</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>tau_hat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(c.forest)<span class="sc">$</span>predictions)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>tau_keskmine <span class="ot">&lt;-</span> <span class="fu">mean</span>(tau_hat)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tegelikud väärtused</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(c.forest<span class="sc">$</span>Y.orig)</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(c.forest<span class="sc">$</span>W.orig)</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="co">#ja metsa kasutatud prognoosid</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>Y_hat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(c.forest<span class="sc">$</span>Y.hat)</span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>W_hat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(c.forest<span class="sc">$</span>W.hat)</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Jäägid tegelike väärtuste ja metsa prognooside vahel</span></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>Y_jaak <span class="ot">&lt;-</span> Y <span class="sc">-</span> Y_hat</span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>W_jaak <span class="ot">&lt;-</span> W <span class="sc">-</span> W_hat</span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Abiregressiooni kaks selgitavat tunnust</span></span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>x_keskmine <span class="ot">&lt;-</span> W_jaak <span class="sc">*</span> tau_keskmine</span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>x_erinevus <span class="ot">&lt;-</span> W_jaak <span class="sc">*</span> (tau_hat <span class="sc">-</span> tau_keskmine)</span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Abiregressioon ilma vabaliikmeta</span></span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>kal_mudel <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a>  Y_jaak <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> x_keskmine <span class="sc">+</span> x_erinevus</span>
+<span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-25"><a href="#cb62-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-26"><a href="#cb62-26" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(kal_mudel)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y_jaak ~ 0 + x_keskmine + x_erinevus)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8984 -0.4801  0.2364  0.4227  0.8565 
+
+Coefficients:
+           Estimate Std. Error t value Pr(&gt;|t|)    
+x_keskmine   1.0249     0.2798   3.663 0.000252 ***
+x_erinevus   0.8060     0.1898   4.247 2.19e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4815 on 7138 degrees of freedom
+Multiple R-squared:  0.004237,  Adjusted R-squared:  0.003958 
+F-statistic: 15.19 on 2 and 7138 DF,  p-value: 2.624e-07</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="millised-tunnused-kirjeldavad-mõju-heterogeensust" class="level1" data-number="24">
 <h1 data-number="24"><span class="header-section-number">24</span> Millised tunnused kirjeldavad mõju heterogeensust?</h1>
@@ -1871,17 +1919,17 @@ differential.forest.prediction  1.160</code></pre>
 <span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cf_imp_table, <span class="dv">10</span>)</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          tunnus   olulisus
-1        age5064 0.10324835
-2       year2007 0.08293711
-3       year2006 0.06918095
-4     gendermale 0.06656367
-5   regionGotham 0.06023927
-6        benefit 0.05803090
-7     lastemp2_4 0.05496815
-8  educSecondary 0.05176734
-9          rural 0.05173782
-10       age3049 0.05124494</code></pre>
+<pre><code>             tunnus   olulisus
+1           age5064 0.28517135
+2          year2006 0.09715455
+3          year2007 0.08669511
+4        gendermale 0.07601750
+5           benefit 0.05441717
+6      lastempover4 0.04900838
+7             rural 0.04415322
+8  regionMetropolis 0.03534541
+9        lastemp2_4 0.03313122
+10  regionBludhaven 0.03253297</code></pre>
 </div>
 </div>
 <p>Causal forest’i puhul tähendab suur <code>variable_importance</code>, et tunnust kasutati sageli selliste jagamiste tegemiseks, mis olid kasulikud metsa sihtparameetri õppimisel.</p>
@@ -1911,7 +1959,7 @@ differential.forest.prediction  1.160</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09-masinope-kausaalmets_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="09-masinope-kausaalmets_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1928,7 +1976,7 @@ differential.forest.prediction  1.160</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09-masinope-kausaalmets_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="09-masinope-kausaalmets_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1963,9 +2011,9 @@ Best linear projection of the conditional average treatment effect.
 Confidence intervals are cluster- and heteroskedasticity-robust (HC3):
 
              Estimate Std. Error t value  Pr(&gt;|t|)    
-(Intercept) 0.0084974  0.0235232  0.3612    0.7179    
-age3049     0.0365517  0.0304300  1.2012    0.2297    
-age5064     0.1552887  0.0368625  4.2126 2.555e-05 ***
+(Intercept) 0.0078814  0.0261131  0.3018 0.7628008    
+age3049     0.0434778  0.0333847  1.3023 0.1928465    
+age5064     0.1495881  0.0407554  3.6704 0.0002439 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -2015,14 +2063,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a>profile_data[top10_ix, ] <span class="sc">|&gt;</span></span>
 <span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Kopeeri lõikelauale" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  year2006 year2007    age3049   age5064 gendermale collarwhite immigrant1
-1 0.254902 0.745098 0.07422969 0.8669468  0.6610644   0.3347339  0.1526611
+<pre><code>  year2006 year2007   age3049   age5064 gendermale collarwhite immigrant1
+1 0.197479 0.802521 0.1778711 0.7843137  0.6638655   0.4257703 0.08123249
       rural regionBludhaven regionCentral regionGotham regionMetropolis
-1 0.3417367       0.1442577     0.3179272    0.2170868         0.232493
+1 0.2969188       0.1372549     0.3109244    0.2927171        0.2226891
   educSecondary educTertiary lastemp1_2 lastemp2_4 lastempover4   benefit
-1     0.5168067    0.3697479 0.07002801  0.2394958    0.4145658 0.6246499
-    tau_hat     se_tau
-1 0.1380098 0.05138542</code></pre>
+1     0.4341737    0.4607843  0.1064426   0.232493    0.3837535 0.6190476
+   tau_hat     se_tau
+1 0.167772 0.06635426</code></pre>
 </div>
 </div>
 <p>Selline kirjeldus võib olla kasulik, kuid rühma moodustamisel ja mõju hindamisel sama andmestiku korduv kasutamine võib põhjustada liiga optimistlikku pilti.</p>
